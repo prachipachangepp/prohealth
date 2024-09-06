@@ -17,6 +17,474 @@ import 'company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'manage_hr/hr_screen.dart';
 import 'manage_hr/manage_pay_rates/finance_screen.dart';
+
+
+///06
+class EMDesktopScreen extends StatefulWidget {
+  final String? dropdownValue;
+  final ValueChanged<String?>? onChanged;
+  final VoidCallback? onItem2Selected;
+
+  EMDesktopScreen({
+    this.dropdownValue,
+    this.onChanged,
+    this.onItem2Selected,
+  });
+
+  @override
+  State<EMDesktopScreen> createState() => _EMDesktopScreenState();
+}
+
+class _EMDesktopScreenState extends State<EMDesktopScreen> {
+  final PageController _pageController = PageController();
+
+  final EMController smController = Get.put(EMController());
+
+  final HRController hrController = Get.put(HRController());
+
+  String selectedOption = 'Select';
+
+
+  bool showSelectOption = true;
+
+  final ButtonSelectionController myController =
+  Get.put(ButtonSelectionController());
+
+  void navigateToPage2() {
+    if (_pageController.page != 2) {
+      _pageController.animateToPage(
+        2,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+    }
+  }
+
+  String? selectedMainCategory;
+
+  String? selectedSubItem;
+
+  OverlayEntry? overlayEntry;
+
+  Map<String, List<Map<String, dynamic>>> menuOptions = {
+    'User Management': [
+      {'title': 'Users', 'pageIndex': 2},
+      {'title': 'Role Manager', 'pageIndex': 3},
+    ],
+    'Clinical': [
+      {'title': 'Visits', 'pageIndex': 4},
+    ],
+    'HR': [
+      {'title': 'Designation Settings', 'pageIndex': 5},
+      {'title': 'Work Schedule', 'pageIndex': 6},
+      {'title': 'Employee Documents', 'pageIndex': 7},
+    ],
+    'Finance': [
+      {'title': 'Pay Rates', 'pageIndex': 8},
+    ],
+  };
+
+  List<String> mainCategories = ['User Management', 'Clinical', 'HR', 'Finance'];
+
+  final GlobalKey mainDropdownKey = GlobalKey();
+  String? isSelected;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(children: [
+        Column(
+          children: [
+            const ApplicationAppBar(headingText: "Establishment Manager"),
+            ///2nd  buttons
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Obx(
+                            () => CustomTitleButton(
+                          height: 30,
+                          width: 100,
+                          onPressed: () {
+                            //companyAll(context);
+                            myController.selectButton(0);
+                            _pageController.animateToPage(0,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Dashboard',
+                          isSelected: myController.selectedIndex.value == 0,
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Obx(
+                            () => CustomTitleButton(
+                          height: 30,
+                          width: 140,
+                          onPressed: () {
+                            // uploadCompanyLogoApi(context, 5, "employ");
+                            companyByIdApi(context,);
+                            // companyDetailsApi(context,5);
+                            myController.selectButton(1);
+                            _pageController.animateToPage(1,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Company Identity',
+                          isSelected: myController.selectedIndex.value == 1,
+                        ),
+                      ),
+                      SizedBox(width: 15,),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        height: 30,
+                        decoration: selectedMainCategory == null || selectedMainCategory == 'Select a module'
+                            ? const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white, // White color for initial state
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12, // Shadow color
+                              blurRadius: 8,        // Softness of the shadow
+                              offset: Offset(2, 2), // Position of the shadow (horizontal and vertical)
+                            ),
+                          ],
+                        )
+                            : BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xff51B5E6),
+                              Color(0xff008ABD),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26, // Darker shadow for gradient state
+                              blurRadius: 10,
+                              offset: Offset(2, 4),
+                            ),
+                          ],
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            key: mainDropdownKey,
+                            hint: Text(
+                              'Select a module',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w700,
+                                color: selectedMainCategory == null || selectedMainCategory == 'Select a module'
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                            value: selectedMainCategory == 'Select a module' ? null : selectedMainCategory,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: selectedMainCategory == null || selectedMainCategory == 'Select a module'
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
+                            items: mainCategories.map((String category) {
+                              return DropdownMenuItem<String>(
+                                value: category,
+                                child: Text(
+                                  category,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: selectedMainCategory == category
+                                        ? Colors.white
+                                        : ColorManager.textPrimaryColor,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() {
+                                  selectedMainCategory = value;
+                                });
+
+                                showSubmenuDropdown(context, value);
+                              }
+                            },
+                          ),
+                        ),
+                      )
+
+
+
+
+                      ///
+
+
+                      // Container(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //   height: 40,
+                      //   decoration: selectedMainCategory != 'Select a module'
+                      //       ? BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(12),
+                      //     gradient: const LinearGradient(
+                      //       colors: [
+                      //         Color(0xff51B5E6),
+                      //         Color(0xff008ABD),
+                      //       ],
+                      //       begin: Alignment.topCenter,
+                      //       end: Alignment.bottomCenter,
+                      //     ),
+                      //   )
+                      //       : const BoxDecoration(
+                      //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                      //     color: Colors.white,
+                      //   ),
+                      //   child: DropdownButtonHideUnderline(
+                      //     child: DropdownButton<String>(
+                      //       key: mainDropdownKey,
+                      //       hint: Text('Select a module',
+                      //       style: GoogleFonts.firaSans(
+                      //                 fontSize: FontSize.s12,
+                      //                 fontWeight: FontWeight.w700,
+                      //                 // color: ColorManager.textPrimaryColor
+                      //               color: isSelected ? Colors.white : Colors.black,
+                      //             ),),
+                      //       value: selectedMainCategory,
+                      //       items: mainCategories.map((String category) {
+                      //         return DropdownMenuItem<String>(
+                      //           value: category,
+                      //           child: Text(category,
+                      //             style: GoogleFonts.firaSans(
+                      //             fontSize: FontSize.s12,
+                      //             fontWeight: FontWeight.w700,
+                      //             color: ColorManager.textPrimaryColor
+                      //           ),),
+                      //         );
+                      //       }).toList(),
+                      //       onChanged: (value) {
+                      //         if (value != null) {
+                      //           setState(() {
+                      //             selectedMainCategory = value;
+                      //           });
+                      //           // Show the overlay dropdown for sub-items
+                      //           showSubmenuDropdown(context, value);
+                      //         }
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
+
+                    ],
+                  ),
+                      SizedBox(width: 15,),
+                    ],
+                  ),
+
+              ),
+
+            Expanded(
+              flex: 8,
+              child: PageView(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
+                  CompanyIdentityScreen(),
+                  SeeAllScreen(),
+                  CiRoleManager(),
+                  CiVisitScreen(),
+                  HrScreen(),
+                  ManageWorkSchedule(),
+                  ManageEmployDocument(),
+                  FinanceScreen(),
+
+                ],
+              ),
+            ),
+            BottomBarRow()
+          ],
+        ),
+      ]),
+    );
+  }
+
+  // Show an overlay dropdown with submenu items for the selected main category
+  void showSubmenuDropdown(BuildContext context, String mainCategory) {
+    // Remove the previous overlay if it exists
+    if (overlayEntry != null && overlayEntry!.mounted) {
+      overlayEntry!.remove();
+    }
+
+    // Get the position and size of the main dropdown
+    final RenderBox renderBox = mainDropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    final offset = renderBox.localToGlobal(Offset.zero);
+
+    // Create a new overlay entry for submenu
+    overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: offset.dx, // Position it below the dropdown
+          top: offset.dy + size.height, // Just below the main dropdown
+          width: size.width, // Use the same width as the main dropdown
+          child: Material(
+            elevation: 4.0,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 200), // Limit dropdown height if needed
+              child: ListView(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                children: menuOptions[mainCategory]!.map((subItem) {
+                  return ListTile(
+                    title: Text(subItem['title'],style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: subItem.values == 'Select a module'
+                          ? ColorManager.textPrimaryColor
+                          : (selectedSubItem == subItem.values
+                          ? Colors.white
+                          : ColorManager.textPrimaryColor),
+                    ),),
+                    onTap: () {
+                      setState(() {
+                        selectedSubItem = subItem['title'];
+                        if (overlayEntry != null) {
+                          overlayEntry!.remove(); // Close the submenu when an item is selected
+                        }
+                      });
+                      _navigateToPage(subItem['pageIndex']);
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    // Insert the overlay entry into the overlay stack
+    Overlay.of(context)?.insert(overlayEntry!);
+  }
+
+  void _navigateToPage(int pageIndex) {
+    // Navigate to the corresponding page
+    _pageController.animateToPage(
+      pageIndex,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+class EMController extends GetxController {
+  var selectedItem = 'Admin'.obs;
+  void changeSelectedItem(String newItem) {
+    selectedItem.value = newItem;
+  }
+}
+
+class ButtonSelectionController extends GetxController {
+  RxInt selectedIndex = 0.obs;
+
+  void selectButton(int index) {
+    selectedIndex.value = index;
+  }
+}
+
+
+
+
+
+
+
+class CustomDropdownButton extends StatelessWidget {
+  final double height;
+  final double width;
+  final List<DropdownMenuItem<String>> items;
+  final String selectedItem;
+  final void Function(String?)? onChanged;
+
+  const CustomDropdownButton({
+    required this.height,
+    required this.width,
+    required this.items,
+    required this.selectedItem,
+    this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      height: height + 5,
+      decoration: selectedItem != 'Select a module'
+          ? BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xff51B5E6),
+              Color(0xff008ABD),
+            ],
+          ))
+          : const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.white),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: selectedItem == 'Select a module'
+                ? ColorManager.textPrimaryColor
+                : Colors.white,
+          ),
+          value: selectedItem,
+          onChanged: onChanged,
+          items: items,
+          selectedItemBuilder: (BuildContext context) {
+            return items.map<Widget>((DropdownMenuItem<String> item) {
+              return Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  item.value ?? '',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.firaSans(
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeight.w700,
+                    color: item.value == 'Select a module'
+                        ? ColorManager.textPrimaryColor
+                        : (selectedItem == item.value
+                        ? Colors.white
+                        : ColorManager.textPrimaryColor),
+                  ),
+                ),
+              );
+            }).toList();
+          },
+
+          dropdownColor: Colors.white,
+        ),
+      ),
+    );
+  }
+}
 ///final 05 saloni
 // class EMDesktopScreen extends StatelessWidget {
 //   final PageController _pageController = PageController();
@@ -448,384 +916,20 @@ import 'manage_hr/manage_pay_rates/finance_screen.dart';
 //     );
 //   }
 // }
-
-///06
-class EMDesktopScreen extends StatefulWidget {
-  final String? dropdownValue;
-  final ValueChanged<String?>? onChanged;
-  final VoidCallback? onItem2Selected;
-
-  EMDesktopScreen({
-    this.dropdownValue,
-    this.onChanged,
-    this.onItem2Selected,
-  });
-
-  @override
-  State<EMDesktopScreen> createState() => _EMDesktopScreenState();
-}
-
-class _EMDesktopScreenState extends State<EMDesktopScreen> {
-  final PageController _pageController = PageController();
-
-  final EMController smController = Get.put(EMController());
-
-  final HRController hrController = Get.put(HRController());
-
-  String selectedOption = 'Select';
-
-  bool showSelectOption = true;
-
-  final ButtonSelectionController myController =
-  Get.put(ButtonSelectionController());
-
-  void navigateToPage2() {
-    if (_pageController.page != 2) {
-      _pageController.animateToPage(
-        2,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
-    }
-  }
-
-  String? selectedMainCategory;
-
-  String? selectedSubItem;
-
-  OverlayEntry? overlayEntry;
-
-  Map<String, List<Map<String, dynamic>>> menuOptions = {
-    'User Management': [
-      {'title': 'Users', 'pageIndex': 2},
-      {'title': 'Role Manager', 'pageIndex': 3},
-    ],
-    'Clinical': [
-      {'title': 'Visits', 'pageIndex': 4},
-    ],
-    'HR': [
-      {'title': 'Designation Settings', 'pageIndex': 5},
-      {'title': 'Work Schedule', 'pageIndex': 6},
-      {'title': 'Employee Documents', 'pageIndex': 7},
-    ],
-    'Finance': [
-      {'title': 'Pay Rates', 'pageIndex': 8},
-    ],
-  };
-
-  List<String> mainCategories = ['User Management', 'Clinical', 'HR', 'Finance'];
-
-  final GlobalKey mainDropdownKey = GlobalKey();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(children: [
-        Column(
-          children: [
-            const ApplicationAppBar(headingText: "Establishment Manager"),
-            ///2nd  buttons
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Obx(
-                            () => CustomTitleButton(
-                          height: 30,
-                          width: 100,
-                          onPressed: () {
-                            //companyAll(context);
-                            myController.selectButton(0);
-                            _pageController.animateToPage(0,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Dashboard',
-                          isSelected: myController.selectedIndex.value == 0,
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      Obx(
-                            () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
-                          onPressed: () {
-                            // uploadCompanyLogoApi(context, 5, "employ");
-                            companyByIdApi(context,);
-                            // companyDetailsApi(context,5);
-                            myController.selectButton(1);
-                            _pageController.animateToPage(1,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Company Identity',
-                          isSelected: myController.selectedIndex.value == 1,
-                        ),
-                      ),
-                      SizedBox(width: 15,),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        height: 50,
-                        decoration: selectedMainCategory != 'Select a module'
-                            ? BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xff51B5E6),
-                              Color(0xff008ABD),
-                            ],
-                          ),
-                        )
-                            : const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            key: mainDropdownKey,
-                            hint: Text('Select a module',),
-                            value: selectedMainCategory,
-                            items: mainCategories.map((String category) {
-                              return DropdownMenuItem<String>(
-                                value: category,
-                                child: Text(category),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              if (value != null) {
-                                setState(() {
-                                  selectedMainCategory = value;
-                                });
-                                // Show the overlay dropdown for sub-items
-                                showSubmenuDropdown(context, value);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      // Expanded(
-                      //   child: PageView(
-                      //     controller: _pageController,
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     children: [
-                      //       Center(child: Text('Dashboard')),           // Page 0
-                      //       Center(child: Text('Users Page')),           // Page 1
-                      //       Center(child: Text('Role Manager Page')),    // Page 2
-                      //       Center(child: Text('Visits Page')),          // Page 3
-                      //       Center(child: Text('Designation Settings')), // Page 4
-                      //       Center(child: Text('Work Schedule')),        // Page 5
-                      //       Center(child: Text('Employee Documents')),   // Page 6
-                      //       Center(child: Text('Pay Rates')),            // Page 7
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                      SizedBox(width: 15,),
-                    ],
-                  ),
-
-              ),
-
-            Expanded(
-              flex: 8,
-              child: PageView(
-                controller: _pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
-                  CompanyIdentityScreen(),
-                  SeeAllScreen(),
-                  CiRoleManager(),
-                  CiVisitScreen(),
-                  HrScreen(),
-                  ManageWorkSchedule(),
-                  ManageEmployDocument(),
-                  FinanceScreen(),
-
-                ],
-              ),
-            ),
-            BottomBarRow()
-          ],
-        ),
-      ]),
-    );
-  }
-
-  // Show an overlay dropdown with submenu items for the selected main category
-  void showSubmenuDropdown(BuildContext context, String mainCategory) {
-    // Remove the previous overlay if it exists
-    if (overlayEntry != null && overlayEntry!.mounted) {
-      overlayEntry!.remove();
-    }
-
-    // Get the position and size of the main dropdown
-    final RenderBox renderBox = mainDropdownKey.currentContext!.findRenderObject() as RenderBox;
-    final size = renderBox.size;
-    final offset = renderBox.localToGlobal(Offset.zero);
-
-    // Create a new overlay entry for submenu
-    overlayEntry = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: offset.dx, // Position it below the dropdown
-          top: offset.dy + size.height, // Just below the main dropdown
-          width: size.width, // Use the same width as the main dropdown
-          child: Material(
-            elevation: 4.0,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 200), // Limit dropdown height if needed
-              child: ListView(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                children: menuOptions[mainCategory]!.map((subItem) {
-                  return ListTile(
-                    title: Text(subItem['title'],style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: subItem.values == 'Select a module'
-                          ? ColorManager.textPrimaryColor
-                          : (selectedSubItem == subItem.values
-                          ? Colors.white
-                          : ColorManager.textPrimaryColor),
-                    ),),
-                    onTap: () {
-                      setState(() {
-                        selectedSubItem = subItem['title'];
-                        if (overlayEntry != null) {
-                          overlayEntry!.remove(); // Close the submenu when an item is selected
-                        }
-                      });
-                      _navigateToPage(subItem['pageIndex']);
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-
-    // Insert the overlay entry into the overlay stack
-    Overlay.of(context)?.insert(overlayEntry!);
-  }
-
-  void _navigateToPage(int pageIndex) {
-    // Navigate to the corresponding page
-    _pageController.animateToPage(
-      pageIndex,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-class EMController extends GetxController {
-  var selectedItem = 'Admin'.obs;
-  void changeSelectedItem(String newItem) {
-    selectedItem.value = newItem;
-  }
-}
-
-class ButtonSelectionController extends GetxController {
-  RxInt selectedIndex = 0.obs;
-
-  void selectButton(int index) {
-    selectedIndex.value = index;
-  }
-}
-
-
-
-
-
-
-
-class CustomDropdownButton extends StatelessWidget {
-  final double height;
-  final double width;
-  final List<DropdownMenuItem<String>> items;
-  final String selectedItem;
-  final void Function(String?)? onChanged;
-
-  const CustomDropdownButton({
-    required this.height,
-    required this.width,
-    required this.items,
-    required this.selectedItem,
-    this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      height: height + 5,
-      decoration: selectedItem != 'Select a module'
-          ? BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          gradient: const LinearGradient(
-            colors: [
-              Color(0xff51B5E6),
-              Color(0xff008ABD),
-            ],
-          ))
-          : const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.white),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          icon: Icon(
-            Icons.arrow_drop_down,
-            color: selectedItem == 'Select a module'
-                ? ColorManager.textPrimaryColor
-                : Colors.white,
-          ),
-          value: selectedItem,
-          onChanged: onChanged,
-          items: items,
-          selectedItemBuilder: (BuildContext context) {
-            return items.map<Widget>((DropdownMenuItem<String> item) {
-              return Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  item.value ?? '',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: item.value == 'Select a module'
-                        ? ColorManager.textPrimaryColor
-                        : (selectedItem == item.value
-                        ? Colors.white
-                        : ColorManager.textPrimaryColor),
-                  ),
-                ),
-              );
-            }).toList();
-          },
-
-          dropdownColor: Colors.white,
-        ),
-      ),
-    );
-  }
-}
+///
+// Expanded(
+//   child: PageView(
+//     controller: _pageController,
+//     physics: NeverScrollableScrollPhysics(),
+//     children: [
+//       Center(child: Text('Dashboard')),           // Page 0
+//       Center(child: Text('Users Page')),           // Page 1
+//       Center(child: Text('Role Manager Page')),    // Page 2
+//       Center(child: Text('Visits Page')),          // Page 3
+//       Center(child: Text('Designation Settings')), // Page 4
+//       Center(child: Text('Work Schedule')),        // Page 5
+//       Center(child: Text('Employee Documents')),   // Page 6
+//       Center(child: Text('Pay Rates')),            // Page 7
+//     ],
+//   ),
+// ),
