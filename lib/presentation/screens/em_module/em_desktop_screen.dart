@@ -13,9 +13,11 @@ import '../../widgets/widgets/const_appbar/controller.dart';
 import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'company_identity/company_identity_screen.dart';
+import 'company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
+import 'company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'manage_hr/hr_screen.dart';
 import 'manage_hr/manage_pay_rates/finance_screen.dart';
-
+///final 05 saloni
 class EMDesktopScreen extends StatelessWidget {
   final PageController _pageController = PageController();
   final EMController smController = Get.put(EMController());
@@ -76,9 +78,7 @@ class EMDesktopScreen extends StatelessWidget {
                           isSelected: myController.selectedIndex.value == 0,
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10,),
                       Obx(
                             () => CustomTitleButton(
                           height: 30,
@@ -96,10 +96,7 @@ class EMDesktopScreen extends StatelessWidget {
                           isSelected: myController.selectedIndex.value == 1,
                         ),
                       ),
-
-                      SizedBox(
-                        width: 15,
-                      ),
+                      SizedBox(width: 15,),
                       Obx(
                             () => Material(
                           elevation: 4,
@@ -120,6 +117,29 @@ class EMDesktopScreen extends StatelessWidget {
                                     // color: isSelected ? Colors.white : Colors.black,
                                   ),
                                 ),
+                              ),
+                              DropdownMenuItem<String>(
+                                value: 'User Management',
+                                child: Text(
+                                  'User Management',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w700,
+                                      color: ColorManager.textPrimaryColor
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
+                                ),
+                                onTap: () {
+                                  // if (myController.selectedIndex.value != 5) {
+                                  //   myController.selectButton(5);
+                                  //   _pageController.animateToPage(
+                                  //     5,
+                                  //     duration: Duration(milliseconds: 500),
+                                  //     curve: Curves.ease,
+                                  //   );
+                                  // }
+                                },
                               ),
                               DropdownMenuItem<String>(
                                 value: 'Users',
@@ -147,6 +167,83 @@ class EMDesktopScreen extends StatelessWidget {
                                   }
                                 },
                               ),
+                              DropdownMenuItem<String>(
+                                value: 'Role Manager',
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Text(
+                                    'Role Manager',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.textPrimaryColor
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  if (myController.selectedIndex.value != 7) {
+                                    myController.selectButton(7);
+                                    _pageController.animateToPage(
+                                      7,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                  }
+                                },
+                              ),
+                              ///clinical
+                              DropdownMenuItem<String>(
+                                value: 'Clinical',
+                                child: Text(
+                                  'Clinical',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w700,
+                                      color: ColorManager.textPrimaryColor
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
+                                ),
+                                onTap: () {
+                                  // if (myController.selectedIndex.value != 5) {
+                                  //   myController.selectButton(5);
+                                  //   _pageController.animateToPage(
+                                  //     5,
+                                  //     duration: Duration(milliseconds: 500),
+                                  //     curve: Curves.ease,
+                                  //   );
+                                  // }
+                                },
+                              ),
+                              DropdownMenuItem<String>(
+                                value: 'Visits',
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Text(
+                                    'Visits',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.textPrimaryColor
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  if (myController.selectedIndex.value != 8) {
+                                    myController.selectButton(8);
+                                    _pageController.animateToPage(
+                                      8,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                  }
+                                },
+                              ),
+                              ///hr
                               DropdownMenuItem<String>(
                                 value: 'HR',
                                 child: Text(
@@ -248,6 +345,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   }
                                 },
                               ),
+                              ///finance
                               DropdownMenuItem<String>(
                                 value: 'Finance',
                                 child: Text(
@@ -298,7 +396,11 @@ class EMDesktopScreen extends StatelessWidget {
                                 },
                               ),
                             ],
-                            selectedItem: myController.selectedIndex.value == 6
+                            selectedItem:  myController.selectedIndex.value == 8
+                                ? 'Visits'
+                                :myController.selectedIndex.value == 7
+                                ? 'Role Manager'
+                                : myController.selectedIndex.value == 6
                                 ? 'Users'
                                 : myController.selectedIndex.value == 2
                                 ? 'Designation Settings'
@@ -315,35 +417,9 @@ class EMDesktopScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-
-                      SizedBox(
-                        width: 15,
-                      ),
+                      SizedBox(width: 15,),
                     ],
                   ),
-                  //
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.end,
-                  //   crossAxisAlignment: CrossAxisAlignment.end,
-                  //   children: [
-                  //
-                  //     Obx(
-                  //       () => CustomTitleButton(
-                  //         height: 30,
-                  //         width: 100,
-                  //         onPressed: () {
-                  //           //companyAll(context);
-                  //           myController.selectButton(6);
-                  //           _pageController.animateToPage(6,
-                  //               duration: Duration(milliseconds: 500),
-                  //               curve: Curves.ease);
-                  //         },
-                  //         text: 'See All',
-                  //         isSelected: myController.selectedIndex.value == 6,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // )
                 ],
               ),
             ),
@@ -358,11 +434,10 @@ class EMDesktopScreen extends StatelessWidget {
                   HrScreen(),
                   ManageWorkSchedule(),
                   ManageEmployDocument(),
-
                   FinanceScreen(),
                   SeeAllScreen(),
-
-                  // WhitelabellingScreen()
+                  CiRoleManager(),
+                  CiVisitScreen(),
                 ],
               ),
             ),
@@ -388,6 +463,12 @@ class ButtonSelectionController extends GetxController {
     selectedIndex.value = index;
   }
 }
+
+
+
+
+
+
 
 class CustomDropdownButton extends StatelessWidget {
   final double height;
