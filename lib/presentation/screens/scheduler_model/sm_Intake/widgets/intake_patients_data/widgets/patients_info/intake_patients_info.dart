@@ -145,17 +145,48 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   labelText: 'Medical Record',
                                   initialValue: '#632654')),
                           SizedBox(width: AppSize.s35),
-                          Flexible(
-                              child: SchedularDropdown(
-                            labelText: AppString.status,
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedStatus = newValue;
-                                print(selectedStatus);
-                              });
+                          // Flexible(
+                          //     child: SchedularDropdown(
+                          //   labelText: AppString.status,
+                          //   items: ['Option 1', 'Option 2', 'Option 3'],
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       selectedStatus = newValue;
+                          //       print(selectedStatus);
+                          //     });
+                          //   },
+                          // )),
+                          FutureBuilder<List<PatientStatusData>>(
+                            future: StatusChange(context),  // Call your API method here
+                            builder: (BuildContext context, AsyncSnapshot<List<PatientStatusData>> snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const CircularProgressIndicator();  // Show loading indicator while waiting
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');  // Show error if there's an issue
+                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                return const Text('No Data Available');  // Show message if no data
+                              } else {
+                                // Data is available, map it to dropdown items
+                                List<String> statusOptions = snapshot.data!.map((statusData) {
+                                  return statusData.patientStatus;  // Use patientStatus for the dropdown item label
+                                }).toList();
+
+                                return Flexible(
+                                  child: SchedularDropdown(
+                                    labelText: AppString.status,  // Your dropdown label
+                                    items: statusOptions,  // Populate dropdown with API data
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedStatus = newValue;
+                                        print(selectedStatus);
+                                      });
+                                    },
+                                  ),
+                                );
+                              }
                             },
-                          )),
+                          )
+,
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
