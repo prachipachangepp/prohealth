@@ -72,7 +72,13 @@ class CompanyIdentityModel {
   final bool sucess;
   final String message;
   final String officeId;
-  CompanyIdentityModel({
+  final String stateName;
+  final String countryName;
+  final String lat;
+  final String long;
+  final String cityName;
+  final bool isHeadOffice;
+  CompanyIdentityModel({required this.stateName, required this.countryName, required this.lat, required this.long, required this.cityName, required this.isHeadOffice,
     required this.officeId,
     required this.companyOfficeId,
     this.name,

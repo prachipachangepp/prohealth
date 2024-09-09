@@ -398,8 +398,8 @@ Future<CountyPrefillGet> countyPrefillGet(
 
       itemsList = CountyPrefillGet(
           countyName: response.data['countyName'],
-          state: response.data['state'],
-          country: response.data['Country'],
+          state: response.data['state'] ?? "",
+          country: response.data['Country'] ?? "",
           sucess: true,
           message: response.statusMessage,
           // zoneName: response.data['zoneName'],
