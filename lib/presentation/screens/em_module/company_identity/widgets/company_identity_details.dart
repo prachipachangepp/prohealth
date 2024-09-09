@@ -24,7 +24,9 @@ class CIDetailsScreen extends StatefulWidget {
       required this.docTD,
       required this.companyId,
       required int companyID,
-      required this.companyOfficeid});
+      required this.companyOfficeid, required this.stateName, required this.countryName});
+  final String stateName;
+  final String countryName;
   final int companyId;
   final int docTD;
   final int companyOfficeid;
@@ -46,6 +48,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   TextEditingController hcoNumController = TextEditingController();
   TextEditingController medicareController = TextEditingController();
   TextEditingController npiNumController = TextEditingController();
+  TextEditingController stateNameController = TextEditingController();
+  TextEditingController countryNameController = TextEditingController();
   late final Future<ManageDetails> _companyDetailsFuture;
   //  final StreamController<List<ManageDetails>> _companyDetailsFuture =
   //  StreamController<List<ManageDetails>>();
@@ -130,21 +134,20 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    addressController.addListener(_onAddressChanged);
-   //  _focusNode.addListener(() {
-   //    if (_focusNode.hasFocus) {
-   //      // Populate _suggestionsNotifier with suggestions when the field is focused
-   //      addressController.addListener(_onAddressChanged);
-   //    } else {
-   //      // Clear suggestions when the field loses focus
-   //      _suggestionsNotifier.value = [];
-   //    }
-   //  });
+    // addressController.addListener(_onAddressChanged);
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        // Populate _suggestionsNotifier with suggestions when the field is focused
+        addressController.addListener(_onAddressChanged);
+      } else {
+        // Clear suggestions when the field loses focus
+        _suggestionsNotifier.value = [];
+      }
+    });
   }
 
   @override
   void dispose() {
-    _focusNode.removeListener(() {});
     _focusNode.dispose();
     addressController.removeListener(_onAddressChanged);
     addressController.dispose();
@@ -253,6 +256,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
             emailController.text = snapshot.data!.email;
             primeFaxController.text = snapshot.data!.primaryFax;
             secFaxController.text = snapshot.data!.secondaryFax;
+            stateNameController.text = snapshot.data!.stateName;
+            countryNameController.text = snapshot.data!.countryName;
 
             List<Widget> serviceRows = [];
 
@@ -420,6 +425,12 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                   keyboardType: TextInputType.text,
                                   text: AppStringEM.address,
                                 ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  controller: stateNameController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.stateName,
+                                ),
                               ],
                             ),
                             Column(
@@ -441,6 +452,12 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                   controller: emailController,
                                   keyboardType: TextInputType.text,
                                   text: AppStringEM.primarymail,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  controller: countryNameController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.countryName,
                                 ),
                               ],
                             ),
@@ -475,7 +492,13 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                   itemCount: suggestions.length,
                                   itemBuilder: (context, index) {
                                     return ListTile(
-                                      title: Text(suggestions[index]),
+                                      title: Text(suggestions[index],
+                                        style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),),
                                       onTap: () {
                                         // Update TextField with selected suggestion
                                         addressController.text = suggestions[index];

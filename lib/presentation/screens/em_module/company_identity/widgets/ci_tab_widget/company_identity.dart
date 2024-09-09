@@ -3,10 +3,13 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -19,6 +22,8 @@ import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
+import '../company_identity_zone/widgets/zone_widgets_constants.dart';
+
 
 class CompanyIdentity extends StatefulWidget {
   const CompanyIdentity({Key? key}) : super(key: key);
@@ -34,6 +39,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
+  TextEditingController stateNameController = TextEditingController();
+  TextEditingController countryNameController = TextEditingController();
   late StreamController<List<CompanyIdentityModel>> _companyIdentityController;
   final PageController _pageController = PageController();
   final _formKey = GlobalKey<FormState>();
@@ -53,13 +60,17 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 
   String selectedOfficeID = '';
   String selectedOfficeName = '';
+  String selectedStateName = '';
+  String selectedCountryName = '';
   int selectedCompId = 0;
   int selectedCompOfficeId = 0;
   // bool _isSubmitting = false;
 
   void showManageScreenFunction(
-      {required String officeId, officeName, required int compId, required int companyOfficeId}) {
+      {required String officeId, officeName, required int compId, required int companyOfficeId,required String stateName, required String countryName}) {
     setState(() {
+      selectedStateName = stateName;
+      selectedCountryName = countryName;
       selectedOfficeID = officeId;
       selectedOfficeName = officeName;
       selectedCompId = compId;
@@ -88,8 +99,52 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
       currentPage = page;
     });
   }
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  double? _latitude;
+  double? _longitude;
+  bool isHeadOffice = false;
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            // Print debug information to ensure this is being called
+            print('Picked location inside MapScreen: $_selectedLocation');
+            setState(() {
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+            });
+          },
+        ),
+      ),
+    );
 
+    if (pickedLocation != null) {
+      // Print debug information to ensure this is being reached
+      print('Picked location from Navigator: $pickedLocation');
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+      });
+    } else {
+      print('No location was picked.');
+    }
+  }
 
+  String generateRandomString(int length) {
+    const characters = 'abcdefghijklmnopqrstuvwxyz';
+    Random random = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => characters.codeUnitAt(random.nextInt(characters.length))));
+  }
+  String? generatedString;
   @override
   Widget build(BuildContext context) {
 
@@ -121,30 +176,146 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   width: 140,
                   text: 'Add New Office',
                   onPressed: () {
+                    setState((){
+                      String generated = generateRandomString(1);
+                      generatedString = "Office ${generated}";
+                    });
+                    print("Generated String ${generatedString}");
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddOfficeSumbitButton(
-                          nameController: nameController,
-                          addressController: addressController,
-                          emailController: emailController,
-                          mobNumController: mobNumController,
-                          secNumController: secNumController,
-                          OptionalController: OptionalController,
-                          onPressed: () async{
-                            await
-                            addNewOffice(context,
-                              nameController.text,
-                              addressController.text,
-                              emailController.text,
-                              mobNumController.text,
-                              secNumController.text,
-                            );
-                            companyOfficeListGet(context, 1, 30).then((data) {
-                              _companyIdentityController
-                                  .add(data);
-                            }).catchError((error) {});
-                          }, formKey: _formKey,);
+                        return StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return AddOfficeSumbitButton(
+                              nameController: nameController,
+                              addressController: addressController,
+                              emailController: emailController,
+                              stateController: stateNameController,
+                              countryController: countryNameController,
+                              mobNumController: mobNumController,
+                              secNumController: secNumController,
+                              OptionalController: OptionalController,
+                              checkBoxHeadOffice:Container(
+                                  width: 300,
+                                  child: CheckboxTile(
+                                    title: 'Head Office',
+                                    initialValue: false,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isHeadOffice = true;
+                                        print('HeadOffice ${isHeadOffice}');
+                                      });
+                                    },
+                                  )),
+                              checkBoxServices: Container(
+                                height:100,
+                                child: Wrap(
+                                    children:[
+                                      Container(
+                                          width: 150,
+                                          child: Center(
+                                            child: CheckboxTile(
+                                              title: 'Home Health',
+                                              initialValue: false,
+                                              onChanged: (value) {},
+                                            ),
+                                          )),Container(
+                                          width: 150,
+                                          child: Center(
+                                            child: CheckboxTile(
+                                              title: 'Hospice',
+                                              initialValue: false,
+                                              onChanged: (value) {},
+                                            ),
+                                          )),Container(
+                                          width: 150,
+                                          child: Center(
+                                            child: CheckboxTile(
+                                              title: 'Home Care',
+                                              initialValue: false,
+                                              onChanged: (value) {},
+                                            ),
+                                          )),
+                                      Container(
+                                          width: 150,
+                                          child: Center(
+                                            child: CheckboxTile(
+                                              title: 'Palliative Care',
+                                              initialValue: false,
+                                              onChanged: (value) {},
+                                            ),
+                                          )),]
+                                ),
+                              ),
+                              pickLocationWidget: Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: _pickLocation,
+                                    style: TextButton.styleFrom(
+                                        backgroundColor: Colors.transparent),
+                                    child: Text(
+                                      'Pick Location',
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeightManager.bold,
+                                        color: ColorManager.bluelight,
+                                        //decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.location_on_outlined,
+                                    color: ColorManager.granitegray,
+                                    size: AppSize.s18,
+                                  ),
+                                  Text(
+                                    _location,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.granitegray,
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                              onPressed: () async{
+                                var response = await
+                                addNewOffice( context:context,
+                                  name: nameController.text,
+                                  address: addressController.text,
+                                  email: emailController.text,
+                                  primaryPhone:  mobNumController.text,
+                                  secondaryPhone:secNumController.text,
+                                  officeId: generatedString!,
+                                  lat: _selectedLocation.latitude.toString(),
+                                  long:_selectedLocation.longitude.toString(),
+                                  cityName: "",
+                                  stateName: stateNameController.text,
+                                  country: countryNameController.text,
+                                  isHeadOffice: isHeadOffice,
+                                );
+                                Navigator.pop(context);
+                                if(response.statusCode == 200 || response.statusCode ==201){
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      Future.delayed(Duration(seconds: 3), () {
+                                        if (Navigator.of(context).canPop()) {
+                                          Navigator.of(context).pop();
+                                        }
+                                      });
+                                      return AddSuccessPopup(
+                                        message: 'Added Successfully',);
+                                    },
+                                  );
+                                }
+                                companyOfficeListGet(context, 1, 30).then((data) {
+                                  _companyIdentityController
+                                      .add(data);
+                                }).catchError((error) {});
+                              }, formKey: _formKey,);
+                          },
+                        );
                       },
                     );
                   },
@@ -166,7 +337,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left:25),
+                  padding: const EdgeInsets.only(left:25,right: 45),
                   child: Container(height: 20,width:100),
                 ),
                 Expanded(
@@ -265,7 +436,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       children: [
                                         const SizedBox(height: 5),
                                         Container(
-                                          padding: const EdgeInsets.only(bottom: 5,top: 5),
+                                          padding: const EdgeInsets.only(bottom: 5,top: 0),
                                           margin: const EdgeInsets.symmetric(horizontal: 50),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -280,129 +451,152 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                             ],
                                           ),
                                           height: 60,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                          child: Stack(
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 25),
-                                                child: StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    return Center(
-                                                      child: InkWell(
-                                                        onTap: () async{
-                                                          String googleMapsUrl =
-                                                              'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
-                                                          if (await canLaunchUrlString(googleMapsUrl)) {
-                                                          await launchUrlString(googleMapsUrl);
-                                                          } else {
-                                                          print('Could not open the map.');
-                                                          }
-                                                        },
-                                                        child: MouseRegion(
-                                                          onEnter: (_) {
-                                                            setState(() {
-                                                              _isHovered = true;
-                                                            });
+                                              snapshot.data![index].isHeadOffice?Positioned(
+                                                right:0,
+                                                top:0,
+                                                child: Container(
+                                                  height:20,
+                                                  width:80,
+                                                  decoration: BoxDecoration(color: ColorManager.faintOrange,
+                                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight:Radius.circular(4))),
+                                                  child:Center(
+                                                      child:Text('Head Office',
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.white,
+                                                  ),))
+                                                ),
+                                              ):Offstage(),
+                                              Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 25,right: 45,top:5),
+                                                  child: StatefulBuilder(
+                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                      return Center(
+                                                        child: InkWell(
+                                                          onTap: () async{
+                                                            String googleMapsUrl =
+                                                                'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                            if (await canLaunchUrlString(googleMapsUrl)) {
+                                                            await launchUrlString(googleMapsUrl);
+                                                            } else {
+                                                            print('Could not open the map.');
+                                                            }
                                                           },
-                                                          onExit: (_) {
-                                                            setState(() {
-                                                              _isHovered = false;
-                                                            });
-                                                          },
-                                                          child: Stack(
-                                                            alignment: Alignment.center,
-                                                            children: [
-                                                              Container(
-                                                                height: 100,
-                                                                width: 100,
-                                                                child: Image.asset(
-                                                                  "images/mapImage.png",
-                                                                  fit: BoxFit.cover,
+                                                          child: MouseRegion(
+                                                            onEnter: (_) {
+                                                              setState(() {
+                                                                _isHovered = true;
+                                                              });
+                                                            },
+                                                            onExit: (_) {
+                                                              setState(() {
+                                                                _isHovered = false;
+                                                              });
+                                                            },
+                                                            child: Stack(
+                                                              alignment: Alignment.center,
+                                                              children: [
+                                                                Container(
+                                                                  height: 100,
+                                                                  width: 100,
+                                                                  child: Image.asset(
+                                                                    "images/mapImage.png",
+                                                                    fit: BoxFit.cover,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              if (_isHovered)
-                                                                Icon(
-                                                                  Icons.map,
-                                                                  size: 20,
-                                                                  color: ColorManager.blueprime,
-                                                                ),
-                                                            ],
+                                                                if (_isHovered)
+                                                                  Icon(
+                                                                    Icons.map,
+                                                                    size: 20,
+                                                                    color: ColorManager.blueprime,
+                                                                  ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
+                                                      ); },
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      formattedSerialNumber,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: const Color(0xff686464),
                                                       ),
-                                                    ); },
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                    formattedSerialNumber,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: const Color(0xff686464),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                    paginatedData[index].officeName.toString(),
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: const Color(0xff686464),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      paginatedData[index].officeName.toString(),
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: const Color(0xff686464),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      // Text('View Map',style:GoogleFonts.firaSans(
-                                                      //   fontSize: 10,
-                                                      //   fontWeight: FontWeight.w700,
-                                                      //   color: const Color(0xff686464),
-                                                      // ),),
-                                                      // SizedBox(width:15),
-                                                      Text(
-                                                        paginatedData[index].address.toString(),
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: const Color(0xff686464),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        // Text('View Map',style:GoogleFonts.firaSans(
+                                                        //   fontSize: 10,
+                                                        //   fontWeight: FontWeight.w700,
+                                                        //   color: const Color(0xff686464),
+                                                        // ),),
+                                                        // SizedBox(width:15),
+                                                        Text(
+                                                          paginatedData[index].address.toString(),
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: const Color(0xff686464),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      CustomButtonTransparentSM(
-                                                        text: 'Manage',
-                                                        onPressed: () {
-                                                          print(paginatedData[index].officeId);
-                                                          showManageScreenFunction(
-                                                            officeId: paginatedData[index].officeId,
-                                                            officeName: paginatedData[index].officeName,
-                                                            compId: paginatedData[index].companyId,
-                                                            companyOfficeId: paginatedData[index].companyOfficeId,
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        CustomButtonTransparentSM(
+                                                          text: 'Manage',
+                                                          onPressed: () {
+                                                            print(paginatedData[index].officeId);
+                                                            showManageScreenFunction(
+                                                              officeId: paginatedData[index].officeId,
+                                                              officeName: paginatedData[index].officeName,
+                                                              compId: paginatedData[index].companyId,
+                                                              companyOfficeId: paginatedData[index].companyOfficeId,
+                                                              stateName: paginatedData[index].stateName,
+                                                              countryName: paginatedData[index].countryName,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
+                                          ]
                                           ),
                                         ),
                                       ],
@@ -468,7 +662,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showStreamBuilder = true;
                   });
                 }
-              }, companyOfficeId: selectedCompOfficeId,
+              }, companyOfficeId: selectedCompOfficeId, stateName: selectedStateName, countryName: selectedCountryName,
             ),
           ),
 

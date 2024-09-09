@@ -119,6 +119,12 @@ Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId
             npiNum: items['npi_number'],
             medicareNum: items['medicare_provider_id'],
             hcoNum: items['hco_num_id'],
+            lat: items['lat'] ?? "",
+            long: items['lng'] ?? "",
+            city: items['city'] ?? "",
+            stateName: items['state'] ?? "",
+            countryName: items['country'] ?? "",
+            isHeadOffice: items['isHeadOffice'] ?? false,
           ));
         }
       }
@@ -136,6 +142,12 @@ Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId
         email: response.data['officeDetail']['email'],
         primaryFax: response.data['officeDetail']['primary_fax'],
         secondaryFax: response.data['officeDetail']['secondary_fax'],
+        lat: response.data['officeDetail']['lat'] ?? "",
+        long: response.data['officeDetail']['lng'] ?? "",
+        city: response.data['officeDetail']['city'] ?? "",
+        stateName: response.data['officeDetail']['state'] ?? "",
+        countryName: response.data['officeDetail']['country'] ?? "",
+        isHeadOffice: response.data['officeDetail']['isHeadOffice'] ?? false,
         serviceDetails: detailService,
       );
 

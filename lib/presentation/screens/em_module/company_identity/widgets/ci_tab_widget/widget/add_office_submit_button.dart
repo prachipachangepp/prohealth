@@ -26,12 +26,26 @@ class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController addressController;
   final TextEditingController emailController;
+  final TextEditingController stateController;
+  final TextEditingController countryController;
   final TextEditingController mobNumController;
   final TextEditingController secNumController;
   final TextEditingController OptionalController;
+  final Widget checkBoxHeadOffice;
+  final Widget checkBoxServices;
+  final Widget pickLocationWidget;
   final Future<void> Function() onPressed;
   final GlobalKey<FormState> formKey;
-  AddOfficeSumbitButton({super.key, required this.nameController, required this.addressController, required this.emailController, required this.mobNumController, required this.secNumController, required this.OptionalController, required this.onPressed, required this.formKey});
+  AddOfficeSumbitButton({super.key,
+    required this.pickLocationWidget,
+    required this.nameController,
+    required this.addressController,
+    required this.emailController,
+    required this.mobNumController,
+    required this.secNumController,
+    required this.OptionalController,
+    required this.onPressed,
+    required this.formKey, required this.stateController, required this.countryController, required this.checkBoxHeadOffice, required this.checkBoxServices});
 
   @override
   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
@@ -39,43 +53,7 @@ class AddOfficeSumbitButton extends StatefulWidget {
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   bool isLoading = false;
-  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
-  double? _latitude;
-  double? _longitude;
- void _pickLocation() async {
-   final pickedLocation = await Navigator.of(context).push<LatLng>(
-     MaterialPageRoute(
-       builder: (context) => MapScreen(
-         initialLocation: _selectedLocation,
-         onLocationPicked: (location) {
-           // Print debug information to ensure this is being called
-           print('Picked location inside MapScreen: $location');
-           setState(() {
-             _latitude = location.latitude;
-             _longitude = location.longitude;
-          _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-             //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-           });
-         },
-       ),
-     ),
-   );
 
-   if (pickedLocation != null) {
-     // Print debug information to ensure this is being reached
-     print('Picked location from Navigator: $pickedLocation');
-     setState(() {
-       _selectedLocation = pickedLocation;
-       _latitude = pickedLocation.latitude;
-       _longitude = pickedLocation.longitude;
-       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-       //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-     });
-   } else {
-     print('No location was picked.');
-   }
- }
   List<String> _suggestions = [];
   @override
   void initState() {
@@ -108,7 +86,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s390,
-        height: AppSize.s511,
+        height: AppSize.s600,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -184,6 +162,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       TextInputType.streetAddress,
                       text: AppString.officeaddress,
                     ),
+                    widget.checkBoxHeadOffice,
                     if (_suggestions.isNotEmpty)
                       Container(
                         decoration: BoxDecoration(
@@ -226,7 +205,18 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       TextInputType.emailAddress,
                       text: AppString.email,
                     ),
-
+                    const SizedBox(height: AppSize.s9),
+                    FirstSMTextFConst(
+                      controller: widget.stateController,
+                      keyboardType: TextInputType.text,
+                      text: 'State',
+                    ),
+                    const SizedBox(height: AppSize.s9),
+                    FirstSMTextFConst(
+                      controller: widget.countryController,
+                      keyboardType: TextInputType.text,
+                      text: 'Country',
+                    ),
                     const SizedBox(height: AppSize.s9),
                     SMTextFConstPhone(
                       controller: widget.mobNumController,
@@ -246,38 +236,16 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       text: 'Alternative Phone',
                     ),
                     const SizedBox(height: AppSize.s9),
+                    Text('Services',style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    )),
+                    widget.checkBoxServices,
+                    const SizedBox(height: AppSize.s9),
+                    widget.pickLocationWidget,
 
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: _pickLocation,
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.transparent),
-                          child: Text(
-                            'Pick Location',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.bluelight,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: ColorManager.granitegray,
-                          size: AppSize.s18,
-                        ),
-                        Text(
-                          _location,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.granitegray,
-                          ),
-                        ),
-
-                      ],
-                    ),
 
                   ],
                 ),
@@ -313,19 +281,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       setState(() {
                         isLoading = false;
                       });
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          Future.delayed(Duration(seconds: 3), () {
-                            if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                          return AddSuccessPopup(
-                            message: 'Added Successfully',);
-                        },
-                      );
+
                       widget.nameController.clear();
                       widget.mobNumController.clear();
                       widget.addressController.clear();

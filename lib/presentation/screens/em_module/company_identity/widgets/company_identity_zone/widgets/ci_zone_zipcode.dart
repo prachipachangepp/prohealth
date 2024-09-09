@@ -120,19 +120,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Text(''),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'City Name',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Center(
+                //     child: Text(
+                //       'City Name',
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.w700,
+                //         color: Colors.white,
+                //         decoration: TextDecoration.none,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   child: Center(
                     child: Text('Zip Code',textAlign: TextAlign.start,
@@ -157,19 +157,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                         )),
                   ),
                 ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'Landmark',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Center(
+                //     child: Text(
+                //       'Landmark',
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.w700,
+                //         color: Colors.white,
+                //         decoration: TextDecoration.none,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -258,19 +258,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   padding: const EdgeInsets.symmetric(horizontal: 15),
                                   child: Row(
                                     children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          textAlign: TextAlign.center,
-                                          zipcode.city.toString(),
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Text(
+                                      //     textAlign: TextAlign.center,
+                                      //     zipcode.city.toString(),
+                                      //     style: GoogleFonts.firaSans(
+                                      //       fontSize: 10,
+                                      //       fontWeight: FontWeight.w500,
+                                      //       color: ColorManager.mediumgrey,
+                                      //       decoration: TextDecoration.none,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       // Text(''),
                                       Expanded(
                                         flex: 2,
@@ -309,19 +309,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          textAlign: TextAlign.center,
-                                          zipcode.landmark.toString(),
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Text(
+                                      //     textAlign: TextAlign.center,
+                                      //     zipcode.landmark.toString(),
+                                      //     style: GoogleFonts.firaSans(
+                                      //       fontSize: 10,
+                                      //       fontWeight: FontWeight.w500,
+                                      //       color: ColorManager.mediumgrey,
+                                      //       decoration: TextDecoration.none,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       Expanded(
                                         flex: 2,
                                         child: Row(
@@ -351,9 +351,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
                                                     cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
-                                                    return EditZipCodePopup(title: 'Edit Zip Code',
+                                                    return EditZipCodePopup(
+                                                      title: 'Edit Zip Code',
                                                       countynameController: countynameController,
-                                                      cityNameController: cityController,
                                                       zipcodeController: zipcodeController,
                                                       child1: FutureBuilder<List<AllCountyGetList>>(
                                                           future: getCountyZoneList(context),
@@ -513,21 +513,20 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                           zoinId == docZoneId ? zoinId : docZoneId,
                                                           countyPreId == countyId ? countyPreId : countyId,
                                                           widget.officeId,
-                                                         cityName ==  cityController.text ? cityName.toString() :cityController.text,
+                                                         "",
                                                          zipCode == zipcodeController.text ? zipCode.toString() : zipcodeController.text,
                                                           _selectedLocation.latitude.toString(),
                                                           _selectedLocation.longitude.toString(),
                                                           // "37.0902°",
                                                           // "95.7129°",
-                                                          landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
+                                                          "");
                                                       getZipcodeSetup(context, widget.officeId,1, 20).then((data){
                                                         _zipcodeController.add(data);
                                                       }).catchError((error){
-
                                                       });
                                                       Navigator.pop(context);
                                                       },
-                                                      mapController: mapController, landmarkController: landmarkController,);
+                                                      );
                                                   }
                                                 );
                                               });

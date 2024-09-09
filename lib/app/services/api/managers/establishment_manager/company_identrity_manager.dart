@@ -114,22 +114,40 @@ Future<ApiData> uploadCompanyLogoApi(BuildContext context, String type) async {
 
 /// Post add new office
 
-Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
-    primaryPhone, secondaryPhone) async {
+Future<ApiData> addNewOffice(
+    {required BuildContext context,
+    required String name,
+    required String address,
+    required String email,
+    required String primaryPhone,
+    required String secondaryPhone,
+    required String officeId,
+    required String lat,
+    required String long,
+    required String cityName,
+    required String stateName,
+    required String country,
+    required bool isHeadOffice}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
         .post(path: EstablishmentManagerRepository.addNewOffice(), data: {
-      'name': name,
-      'address': address,
-      'email': email,
-      'primary_phone': primaryPhone,
-      'secondary_phone': secondaryPhone,
-      'company_id': companyId,
-      'primary_fax': "NA",
-      'secondary_fax': secondaryPhone,
-      'office_id': name,
-      'alternative_phone': primaryPhone
+      "company_id": companyId,
+      "office_id": officeId,
+      "primary_phone": primaryPhone,
+      "secondary_phone": secondaryPhone,
+      "primary_fax": primaryPhone,
+      "secondary_fax": secondaryPhone,
+      "alternative_phone": secondaryPhone,
+      "email": email,
+      "name": name,
+      "address": address,
+      "lat": lat,
+      "lng": long,
+      "city": cityName,
+      "state": stateName,
+      "country": country,
+      "isHeadOffice": isHeadOffice
     });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -175,6 +193,12 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(
           address: item['address'],
           officeId: item['office_id'],
           companyOfficeId: item['company_Office_id'],
+          cityName: item['city']??"",
+          stateName: item['state']??"",
+          countryName: item['country']??"",
+          lat: item['lat']??"37.7749",
+          long: item['lng']??"-122.4194",
+          isHeadOffice:item['isHeadOffice']??false
         ));
       }
       // print("ResponseList:::::${itemsList}");
@@ -205,16 +229,16 @@ Future<List<CompanyOfficeListData>> getCompanyOfficeList(
       for (var item in response.data) {
         itemsList.add(CompanyOfficeListData(
           name: item['name'] ?? "--",
-          companyId: companyId ,
-          address: item['address']?? "--",
-          officeId: item['office_id']?? "--",
-          primaryNbr: item['primary_phone']?? "--",
-          secondaryNbr: item['secondary_phone']?? "--",
-          slternativeNbr: item['alternative_phone']?? "--",
-          email: item['email']?? "--",
+          companyId: companyId,
+          address: item['address'] ?? "--",
+          officeId: item['office_id'] ?? "--",
+          primaryNbr: item['primary_phone'] ?? "--",
+          secondaryNbr: item['secondary_phone'] ?? "--",
+          slternativeNbr: item['alternative_phone'] ?? "--",
+          email: item['email'] ?? "--",
           companyOfficeId: item['company_Office_id'] ?? 0,
-          primaryFax: item['primary_fax']?? "--",
-          secondaryFax: item['secondary_fax']?? "--",
+          primaryFax: item['primary_fax'] ?? "--",
+          secondaryFax: item['secondary_fax'] ?? "--",
         ));
       }
       // print("ResponseList:::::${itemsList}");
