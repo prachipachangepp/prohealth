@@ -5,14 +5,20 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
+import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import '../../../widgets/establishment_text_const/text_widget_const.dart';
+import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class SeeAllScreen extends StatefulWidget {
@@ -60,7 +66,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           context,
           firstNameController.text,
           lastNameController.text,
-          roleController.text,
+          selectedDeptId!, // roleController.text,
           emailController.text,
           int.parse(companyIdController.text),
           passwordController.text);
@@ -142,7 +148,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       currentPage = pageNumber;
     });
   }
-
+  var deptId = 0;
+  int? firstDeptId;
+  String? selectedDeptName;
+  int? selectedDeptId;
   @override
 
   ///old
@@ -172,6 +181,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       emailController.clear();
                       companyIdController.clear();
                       passwordController.clear();
+                      if (selectedDeptId == null){
+                        setState(() {
+                          selectedDeptId = firstDeptId;
+                        });
+                      }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -190,7 +204,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   // userIdController.text,
                                   firstNameController.text,
                                   lastNameController.text,
-                                  roleController.text,
+                                  selectedDeptId!,// roleController.text,
                                   emailController.text,
                                   1, // int.parse(companyIdController.text),
                                   passwordController.text);
@@ -206,6 +220,126 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               companyIdController.clear();
                               passwordController.clear();
                             },
+                            child: FutureBuilder<List<HRHeadBar>>(
+                              future: companyHRHeadApi(context, deptId),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    child: loadingText, // Display a loading indicator
+                                  );
+                                }
+                                if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      ErrorMessageString.noroleAdded,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  // Extract dropdown items from snapshot
+                                  List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
+                                  String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
+                                  int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
+
+                                  if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
+                                    selectedDeptName = firstDeptName;
+                                    selectedDeptId = firstDeptId;
+                                  }
+
+                                  return HRManageDropdown(
+                                    controller: TextEditingController(text: selectedDeptName ?? ''),
+                                    labelText: "Select Department",
+                                    labelStyle: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                    labelFontSize: 12,
+                                    items: dropDownServiceList,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        selectedDeptName = val;
+                                        // Find the corresponding department ID from the snapshot
+                                        selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                      });
+                                    },
+                                  );
+                                }
+                                return const SizedBox(); // Return an empty widget in case of no data
+                              },
+                            ),
+                            // FutureBuilder<List<HRHeadBar>>(
+                            //   future: companyHRHeadApi(context, deptId),
+                            //   builder: (context, snapshot) {
+                            //     if (snapshot.connectionState ==
+                            //         ConnectionState.waiting) {
+                            //       return Container(
+                            //         // width: 180,
+                            //         // height: 30,
+                            //         alignment: Alignment.center,
+                            //         child: loadingText,
+                            //       );
+                            //     }
+                            //     if (snapshot.hasData && snapshot.data!.isEmpty) {
+                            //       return Center(
+                            //         child: Text(
+                            //           ErrorMessageString.noroleAdded,
+                            //           style: CustomTextStylesCommon.commonStyle(
+                            //             fontWeight: FontWeightManager.medium,
+                            //             fontSize: FontSize.s12,
+                            //             color: ColorManager.mediumgrey,
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }
+                            //     if (snapshot.hasData) {
+                            //       List<DropdownMenuItem<String>>
+                            //       dropDownServiceList = [];
+                            //       for (var dept in snapshot.data!) {
+                            //         dropDownServiceList.add(
+                            //           DropdownMenuItem<String>(
+                            //             value: dept.deptName,
+                            //             child: Text(dept.deptName ?? ''),
+                            //           ),
+                            //         );
+                            //       }
+                            //       if (dropDownServiceList.isNotEmpty) {
+                            //         firstDeptId = snapshot.data![0].deptId;
+                            //       }
+                            //
+                            //       if (selectedDeptName == null &&
+                            //           dropDownServiceList.isNotEmpty) {
+                            //         selectedDeptName =
+                            //             dropDownServiceList[0].value;
+                            //         selectedDeptId = firstDeptId;
+                            //       }
+                            //
+                            //       return CICCDropdown(
+                            //         width: 300,
+                            //         initialValue: selectedDeptName,
+                            //         onChange: (val) {
+                            //           setState(() {
+                            //             selectedDeptName = val;
+                            //             for (var dept in snapshot.data!) {
+                            //               if (dept.deptName == val) {
+                            //                 selectedDeptId =
+                            //                     dept.deptId;
+                            //               }
+                            //             }
+                            //           });
+                            //         },
+                            //         items: dropDownServiceList,
+                            //       );
+                            //     }
+                            //     return const SizedBox();
+                            //   },
+                            // ),
                           );
                         },
                       );
@@ -522,21 +656,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 /// Edit button
                                                 InkWell(
                                                   child: Container(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                        30,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                        25,
+                                                    height: MediaQuery.of(context).size.height / 30,
+                                                    width: MediaQuery.of(context).size.width / 25,
                                                     decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          10),
-                                                      border: Border.all(
-                                                          color: ColorManager
-                                                              .bluebottom),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      border: Border.all(color: ColorManager.bluebottom),
                                                     ),
                                                     child: Center(
                                                       child: Text(
@@ -551,100 +675,115 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       context: context,
                                                       builder:
                                                           (BuildContext context) {
-                                                        return FutureBuilder<
-                                                            UserModalPrefill>(
-                                                          future: getUserPrefill(
-                                                              context,
-                                                              user.userId),
-                                                          builder: (context,
-                                                              snapshotPrefill) {
-                                                            if (snapshotPrefill
-                                                                .connectionState ==
-                                                                ConnectionState
-                                                                    .waiting) {
+                                                        return FutureBuilder<UserModalPrefill>(
+                                                          future: getUserPrefill(context, user.userId),
+                                                          builder: (context, snapshotPrefill) {
+                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                               return Center(
                                                                 child: CircularProgressIndicator(
-                                                                    color: ColorManager
-                                                                        .blueprime),
+                                                                    color: ColorManager.blueprime),
                                                               );
                                                             }
-                                                            // Populate the controllers with the prefetched data
-                                                            userIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .userId
-                                                                        .toString());
-                                                            firstNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .firstName);
-                                                            lastNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .lastName);
-                                                            emailController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .email);
-                                                            companyIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .companyId
-                                                                        .toString());
+                                                            userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString());
+                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName);
+                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName);
+                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email);
+                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString());
                                                             return EditUserPopUp(
                                                               title: "Edit User ",
-                                                              userIdController:
-                                                              userIdController,
-                                                              lastNameController:
-                                                              lastNameController,
-                                                              emailController:
-                                                              emailController,
-                                                              firstNameController:
-                                                              firstNameController,
-                                                              roleController:
-                                                              roleController,
-                                                              companyIdController:
-                                                              companyIdController,
+                                                              userIdController: userIdController,
+                                                              lastNameController: lastNameController,
+                                                              emailController: emailController,
+                                                              firstNameController: firstNameController,
+                                                              roleController: roleController,
+                                                              companyIdController: companyIdController,
                                                               onSubmit: () async {
-                                                                await updateUserPatch(
-                                                                    context,
+                                                                await updateUserPatch(context,
                                                                     user.userId,
-                                                                    firstNameController
-                                                                        .text,
-                                                                    lastNameController
-                                                                        .text,
-                                                                    roleController
-                                                                        .text,
-                                                                    emailController
-                                                                        .text,
-                                                                    1
-                                                                );
-                                                                getUser(context)
-                                                                    .then((data) {
-                                                                  _companyUsersList
-                                                                      .add(data);
-                                                                }).catchError(
-                                                                        (error) {
+                                                                    firstNameController.text,
+                                                                    lastNameController.text,
+                                                                    selectedDeptId!,
+                                                                    emailController.text,
+                                                                    passwordController.text ?? "",
+                                                                    );
+                                                                print('password:::::::::::${passwordController.text}');
+                                                                // updateUserPatch(
+                                                                //     context,
+                                                                //     user.userId,
+                                                                //     firstNameController.text,
+                                                                //     lastNameController.text,
+                                                                //     selectedDeptName!,//roleController.text,
+                                                                //     emailController.text,
+                                                                //     1
+                                                                // );
+                                                                getUser(context).then((data) {
+                                                                  _companyUsersList.add(data);
+                                                                }).catchError((error) {
                                                                       // Handle error
                                                                     });
-                                                                Navigator.pop(
-                                                                    context);
-                                                                firstNameController
-                                                                    .clear();
-                                                                lastNameController
-                                                                    .clear();
-                                                                roleController
-                                                                    .clear();
-                                                                emailController
-                                                                    .clear();
-                                                                companyIdController
-                                                                    .clear();
+                                                                Navigator.pop(context);
+                                                                firstNameController.clear();
+                                                                lastNameController.clear();
+                                                                roleController.clear();
+                                                                emailController.clear();
+                                                                companyIdController.clear();
                                                               },
+                                                              passwordController: passwordController,
+                                                              child: FutureBuilder<List<HRHeadBar>>(
+                                                                future: companyHRHeadApi(context, deptId),
+                                                                builder: (context, snapshot) {
+                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                    return Container(
+                                                                      alignment: Alignment.center,
+                                                                      child: loadingText, // Display a loading indicator
+                                                                    );
+                                                                  }
+                                                                  if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                                                    return Center(
+                                                                      child: Text(
+                                                                        ErrorMessageString.noroleAdded,
+                                                                        style: CustomTextStylesCommon.commonStyle(
+                                                                          fontWeight: FontWeightManager.medium,
+                                                                          fontSize: FontSize.s12,
+                                                                          color: ColorManager.mediumgrey,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  if (snapshot.hasData) {
+                                                                    // Extract dropdown items from snapshot
+                                                                    List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
+                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
+                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
+
+                                                                    if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
+                                                                      selectedDeptName = firstDeptName;
+                                                                      selectedDeptId = firstDeptId;
+                                                                    }
+
+                                                                    return HRManageDropdown(
+                                                                      controller: TextEditingController(text: selectedDeptName ?? ''),
+                                                                      labelText: "Select Department",
+                                                                      labelStyle: GoogleFonts.firaSans(
+                                                                        fontSize: 12,
+                                                                        fontWeight: FontWeight.w500,
+                                                                        color: ColorManager.mediumgrey,
+                                                                      ),
+                                                                      labelFontSize: 12,
+                                                                      items: dropDownServiceList,
+                                                                      onChanged: (val) {
+                                                                        setState(() {
+                                                                          selectedDeptName = val;
+                                                                          // Find the corresponding department ID from the snapshot
+                                                                          selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                                                        });
+                                                                      },
+                                                                    );
+                                                                  }
+                                                                  return const SizedBox(); // Return an empty widget in case of no data
+                                                                },
+                                                              )
+                                                              ,
                                                             );
                                                           },
                                                         );

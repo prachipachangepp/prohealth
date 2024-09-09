@@ -455,7 +455,6 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                             ),
 
                                                             // Sub-Document Type Dropdown
-
                                                             child1:FutureBuilder<List<DocumentTypeData>>(
                                                               future: documentTypeGet(context),
                                                               builder: (context, snapshot) {

@@ -375,9 +375,11 @@ class HRManageTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   // final bool Function(String)? validator;
   final ValueChanged<String>? onChanged;
+  bool? enabled;
 
   HRManageTextField({
     Key? key,
+    this.enabled,
     required this.controller,
     required this.keyboardType,
     required this.text,
@@ -410,6 +412,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(
+          enabled: widget.enabled == null ? true : false,
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
@@ -542,7 +545,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
 
 
 
-
+///
 class PatientCustomDropDown extends StatefulWidget {
   final String? value;
   final List<String> items;
