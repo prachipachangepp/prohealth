@@ -130,41 +130,102 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        // Populate _suggestionsNotifier with suggestions when the field is focused
-        addressController.addListener(_onAddressChanged);
-      } else {
-        // Clear suggestions when the field loses focus
-        _suggestionsNotifier.value = [];
-      }
-    });
-
-    print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+    addressController.addListener(_onAddressChanged);
+   //  _focusNode.addListener(() {
+   //    if (_focusNode.hasFocus) {
+   //      // Populate _suggestionsNotifier with suggestions when the field is focused
+   //      addressController.addListener(_onAddressChanged);
+   //    } else {
+   //      // Clear suggestions when the field loses focus
+   //      _suggestionsNotifier.value = [];
+   //    }
+   //  });
   }
 
-  // List<String> _suggestions = [];
   @override
   void dispose() {
     _focusNode.removeListener(() {});
     _focusNode.dispose();
-    _suggestionsNotifier.value = [];
+    addressController.removeListener(_onAddressChanged);
     addressController.dispose();
+    _suggestionsNotifier.value = [];
     super.dispose();
   }
 
-  ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _focusNode.addListener(() {
+  //     if (_focusNode.hasFocus) {
+  //       // Populate _suggestionsNotifier with suggestions when the field is focused
+  //       addressController.addListener(_onAddressChanged);
+  //     } else {
+  //       // Clear suggestions when the field loses focus
+  //       _suggestionsNotifier.value = [];
+  //     }
+  //   });
+  //
+  //   print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+  // }
+  //
+  // // List<String> _suggestions = [];
+  // @override
+  // void dispose() {
+  //   _focusNode.dispose();
+  //   _suggestionsNotifier.value = [];
+  //   //addressController.dispose();
+  //   super.dispose();
+  // }
+
+  //ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
+
+  final _suggestionsNotifier = ValueNotifier<List<String>>([]);
+
+  // void _onAddressChanged() async {
+  //   if (addressController.text.isEmpty) {
+  //     _suggestionsNotifier.value = [];
+  //     return;
+  //   }
+  //
+  //   // Fetch suggestions based on the addressController's text
+  //   final suggestions = await fetchSuggestions(addressController.text);
+  //   _suggestionsNotifier.value = suggestions;
+  //   }
 
   void _onAddressChanged() async {
-    if (addressController.text.isEmpty) {
+    final query = addressController.text;
+
+    if (query.isEmpty) {
       _suggestionsNotifier.value = [];
       return;
     }
 
-    // Fetch suggestions based on the addressController's text
-    final suggestions = await fetchSuggestions(addressController.text);
-    _suggestionsNotifier.value = suggestions;
+    try {
+      final suggestions = await fetchSuggestions(query);
+      _suggestionsNotifier.value = suggestions;
+    } catch (e) {
+      print("Error fetching suggestions: $e");
+      _suggestionsNotifier.value = [];
+    }
   }
+
+  //   try {
+  //     // Fetch suggestions based on the addressController's text
+  //     final suggestions = await fetchSuggestions(addressController.text);
+  //     _suggestionsNotifier.value = suggestions;
+  //   } catch (e) {
+  //     // Handle error if fetching suggestions fails
+  //     print("Error fetching suggestions: $e");
+  //     _suggestionsNotifier.value = [];
+  //   }
+  // }
+
+  // Future<List<String>> fetchSuggestions(String query) async {
+  //   // Your logic to fetch suggestions goes here
+  //   // This is a placeholder implementation
+  //   await Future.delayed(Duration(seconds: 1)); // Simulate network delay
+  //   return ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']; // Replace with actual logic
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -315,8 +376,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     ),
                   ),
 
-
-
                   Stack(
                     children: [
                       Container(
@@ -388,53 +447,100 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           ],
                         ),
                       ),
-                      // Suggestion list appears above the container when not empty
+
                       ValueListenableBuilder<List<String>>(
-                        valueListenable: _suggestionsNotifier,
-                        builder: (context, suggestions, child) {
-                          if (suggestions.isEmpty) return SizedBox.shrink();
-                          return Positioned(
-                            top: 250, // Adjust the position as needed
-                            left: 200, // Align it with your container
-                            child: Container(
-                              height: 100,
-                              width: 360,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ListView.builder(
-                                itemCount: suggestions.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(
-                                      suggestions[index],
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w700,
-                                        color: ColorManager.mediumgrey,
-                                        decoration: TextDecoration.none,
-                                      ),
+                          valueListenable: _suggestionsNotifier,
+                          builder: (context, suggestions, child) {
+                            if (suggestions.isEmpty) return SizedBox.shrink();
+
+                            return Positioned(
+                              top: 250, // Adjust the position as needed
+                              left: 200,
+
+                              child: Container(
+                                height: 100,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
                                     ),
-                                    onTap: () {
-                                      _focusNode.unfocus();
-                                      addressController.text = suggestions[index];
-                                      _suggestionsNotifier.value = [];
-                                    },
-                                  );
-                                },
+                                  ],
+                                ),
+                                child: ListView.builder(
+                                  itemCount: suggestions.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      title: Text(suggestions[index]),
+                                      onTap: () {
+                                        // Update TextField with selected suggestion
+                                        addressController.text = suggestions[index];
+                                        // Optionally clear suggestions
+                                        _suggestionsNotifier.value = [];
+                                        // Unfocus the TextField if needed
+                                        _focusNode.unfocus();
+                                      },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            );
+                          }
+                      )
+
+
+                      // Suggestion list appears above the container when not empty
+                      // ValueListenableBuilder<List<String>>(
+                      //   valueListenable: _suggestionsNotifier,
+                      //   builder: (context, suggestions, child) {
+                      //     if (suggestions.isEmpty) return SizedBox.shrink();
+                      //     return Positioned(
+                      //       top: 250, // Adjust the position as needed
+                      //       left: 200, // Align it with your container
+                      //       child: Container(
+                      //         height: 100,
+                      //         width: 360,
+                      //         decoration: BoxDecoration(
+                      //           color: Colors.pink,
+                      //           borderRadius: BorderRadius.circular(8),
+                      //           boxShadow: [
+                      //             BoxShadow(
+                      //               color: Colors.black26,
+                      //               blurRadius: 4,
+                      //               offset: Offset(0, 2),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         child: ListView.builder(
+                      //           itemCount: suggestions.length,
+                      //           itemBuilder: (context, index) {
+                      //             return ListTile(
+                      //               title: Text(
+                      //                 suggestions[index],
+                      //                 style: GoogleFonts.firaSans(
+                      //                   fontSize: FontSize.s12,
+                      //                   fontWeight: FontWeight.w700,
+                      //                   color: ColorManager.mediumgrey,
+                      //                   decoration: TextDecoration.none,
+                      //                 ),
+                      //               ),
+                      //               onTap: () {
+                      //
+                      //                 addressController.text = suggestions[index];
+                      //                 _suggestionsNotifier.value = [];
+                      //                 _focusNode.unfocus();
+                      //               },
+                      //             );
+                      //           },
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
 
