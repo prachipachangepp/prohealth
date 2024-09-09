@@ -133,6 +133,14 @@ class _ManageWidgetState extends State<ManageWidget> {
                   width: MediaQuery.of(context).size.width / 1.1815,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorManager.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
                       color: ColorManager.blueprime,
                       borderRadius: BorderRadius.circular(14)),
                   child: Row(

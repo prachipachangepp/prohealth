@@ -146,6 +146,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   // List<String> _suggestions = [];
   @override
   void dispose() {
+    _focusNode.removeListener(() {});
     _focusNode.dispose();
     _suggestionsNotifier.value = [];
     addressController.dispose();
@@ -316,121 +317,127 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
 
 
-                  Container(
-                    height: AppSize.s350,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        width: 2,
-                        color: ColorManager.black.withOpacity(0.2),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.black.withOpacity(0.15),
-                          offset: const Offset(0, 4),
-                          blurRadius: 4,
-                          spreadRadius: 0,
+                  Stack(
+                    children: [
+                      Container(
+                        height: AppSize.s350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            width: 2,
+                            color: ColorManager.black.withOpacity(0.2),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.black.withOpacity(0.15),
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                              spreadRadius: 0,
+                            ),
+                          ],
+                          color: ColorManager.white,
                         ),
-                      ],
-                      color: ColorManager.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            SMTextFConst(
-                              controller: nameController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.officename,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SMTextFConst(
+                                  controller: nameController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.officename,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConstPhone(
+                                  controller: secNumberController,
+                                  keyboardType: TextInputType.number,
+                                  text: AppStringEM.secNum,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  focusNode: _focusNode,
+                                  controller: addressController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.address,
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConstPhone(
-                              controller: secNumberController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.secNum,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SMTextFConstPhone(
+                                  controller: primNumController,
+                                  keyboardType: TextInputType.number,
+                                  text: AppStringEM.primNum,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConstPhone(
+                                  controller: altNumController,
+                                  keyboardType: TextInputType.number,
+                                  text: AppStringEM.alternatephone,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.primarymail,
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
-                              focusNode: _focusNode,
-                              controller: addressController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.address,
-
-                            ),
-                            //if (_suggestions.isNotEmpty)
-                              ValueListenableBuilder<List<String>>(
-                                valueListenable: _suggestionsNotifier,
-                                builder: (context, suggestions, child) {
-                                  if (suggestions.isEmpty) return SizedBox.shrink();
-                                  return Container(
-                                    height: 100,
-                                       width:300,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
+                          ],
+                        ),
+                      ),
+                      // Suggestion list appears above the container when not empty
+                      ValueListenableBuilder<List<String>>(
+                        valueListenable: _suggestionsNotifier,
+                        builder: (context, suggestions, child) {
+                          if (suggestions.isEmpty) return SizedBox.shrink();
+                          return Positioned(
+                            top: 250, // Adjust the position as needed
+                            left: 200, // Align it with your container
+                            child: Container(
+                              height: 100,
+                              width: 360,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: ListView.builder(
+                                itemCount: suggestions.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(
+                                      suggestions[index],
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),
                                     ),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      //shrinkWrap: true,
-                                      itemCount: suggestions.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            suggestions[index],
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            addressController.text = suggestions[index];
-                                            _focusNode.unfocus();
-                                            _suggestionsNotifier.value = [];
-                                          },
-                                        );
-                                      },
-                                    ),
+                                    onTap: () {
+                                      _focusNode.unfocus();
+                                      addressController.text = suggestions[index];
+                                      _suggestionsNotifier.value = [];
+                                    },
                                   );
                                 },
-                              )
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SMTextFConstPhone(
-                              controller: primNumController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.primNum,
+                              ),
                             ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConstPhone(
-                              controller: altNumController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.alternatephone,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
-                              controller: emailController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.primarymail,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
+
                   /// Service List
                   if (snapshot.data!.serviceDetails != null &&
                       snapshot.data!.serviceDetails!.isNotEmpty)
