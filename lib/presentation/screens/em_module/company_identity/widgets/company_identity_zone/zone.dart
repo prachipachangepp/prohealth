@@ -26,8 +26,12 @@ class CiZone extends StatefulWidget {
   final int companyID;
   final String officeId;
   final int docId;
+  final String stateName;
+  final String countryName;
   const CiZone(
       {super.key,
+        required this.stateName,
+        required this.countryName,
       required this.companyID,
       required this.officeId,
       required this.docId});
@@ -221,7 +225,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                   //color: Colors.greenAccent,
                   padding: EdgeInsets.only(top: AppPadding.p10),
                   width: MediaQuery.of(context).size.width / 5.5,
-                  height: 40,
+                  height: 42,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -337,19 +341,19 @@ class _CiOrgDocumentState extends State<CiZone> {
                                   await addCounty(
                                       context,
                                       countynameController.text,
-                                      stateController.text,
-                                      countyController.text,
+                                      widget.stateName,
+                                      widget.countryName,
                                       "37.0902°",
                                       "95.7129°",
                                       widget.officeId);
                                   Navigator.pop(context);
                                 },
-                                title1: 'State Name',
-                                countynameController: stateController,
-                                title2: 'Country Name',
-                                zipcodeController: countyController,
-                                title3: 'County Name',
-                                mapController: countynameController,
+                                title1: 'County Name',
+                                countynameController: countynameController,
+                                // title2: 'Country Name',
+                                // zipcodeController: countyController,
+                                // title3: 'County Name',
+                                // mapController: countynameController,
                               );
                             });
                       })
@@ -484,7 +488,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                   return AddZipCodePopup(
                                     title: 'Add Zip Code',
                                     countynameController: countynameController,
-                                    cityNameController: cityController,
                                     zipcodeController: zipcodeController,
                                      onPickLocation: _pickLocation,
                                      child: FutureBuilder<List<AllCountyGetList>>(
@@ -594,7 +597,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       Navigator.pop(context);
                                     },
                                     mapController: mapController,
-                                    landmarkController: landmarkController,
                                     locationController: locationController,
                                     child1: FutureBuilder<List<SortByZoneData>>(
                                         future: PayRateZoneDropdown(context),

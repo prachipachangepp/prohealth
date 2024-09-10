@@ -232,8 +232,8 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                         onSavePressed: ()async{
                                                           await updateCounty(context, county.countyId,
                                                               countyName == countynameController.text ? countyName.toString() : countynameController.text,
-                                                              stateName == stateController.text ? stateName.toString() :  stateController.text,
-                                                              countryName == countyController.text ? countryName.toString() : countyController.text,
+                                                              stateName.toString(),
+                                                              countryName.toString(),
                                                               "37.0902°",
                                                               "95.7129°", widget.companyID, widget.officeId);
                                                           getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
@@ -242,12 +242,8 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                           Navigator.pop(context);
                                                         },
                                                         title: 'Edit County',
-                                                        title1: 'State Name',
-                                                        countynameController: stateController,
-                                                        title2: 'Country Name',
-                                                        zipcodeController: countyController,
-                                                        title3: 'County Name',
-                                                        mapController: countynameController,
+                                                        title1: 'County Name',
+                                                        countynameController: countynameController,
                                                         );
                                                     }
                                                   );
@@ -258,15 +254,16 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                   hoverColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,
                                                   onPressed: (){
-                                                showDialog(context: context, builder: (context) => DeletePopup(
+                                                showDialog(context: context, builder: (context) => NotAllowDeletePopup(
                                                     title: 'Delete County',
                                                     onCancel: (){
                                                   Navigator.pop(context);
                                                 }, onDelete: ()async{
-                                                  await deleteCounty(context, county.countyId);
-                                                  getZoneBYcompOffice(context, '18', 1, 15).then((data){
-                                                    _contyController.add(data);
-                                                  }).catchError((error){});
+                                                  Navigator.pop(context);
+                                                  // await deleteCounty(context, county.countyId);
+                                                  // getZoneBYcompOffice(context, widget.officeId, 1, 15).then((data){
+                                                  //   _contyController.add(data);
+                                                  // }).catchError((error){});
                                                 }));
                                               }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                             ],

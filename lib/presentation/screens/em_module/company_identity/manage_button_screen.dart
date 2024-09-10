@@ -21,6 +21,8 @@ class ManageWidget extends StatefulWidget {
   final int companyID;
   final int companyOfficeId;
   final String officeName;
+  final String stateName;
+  final String countryName;
   final BackButtonCallBack backButtonCallBack;
   ManageWidget({
     Key? key,
@@ -28,7 +30,7 @@ class ManageWidget extends StatefulWidget {
     required this.officeName,
     required this.backButtonCallBack,
     required this.companyID,
-    required this.companyOfficeId,
+    required this.companyOfficeId, required this.stateName, required this.countryName,
     // required this.selectedIndex,
     // required this.selectButton,
   }) : super(key: key);
@@ -357,12 +359,12 @@ class _ManageWidgetState extends State<ManageWidget> {
                         officeId: widget.officeID,
                         docTD: docID,
                         companyId: widget.companyID,
-                        companyOfficeid: widget.companyOfficeId,
+                        companyOfficeid: widget.companyOfficeId, stateName: widget.stateName, countryName: widget.countryName,
                       ),
                       CiZone(
                         companyID: widget.companyID,
                         officeId: widget.officeID,
-                        docId: docID,
+                        docId: docID, stateName: widget.stateName, countryName: widget.countryName,
                       ),
                       CiCorporateComplianceScreen(
                         docId: AppConfig.corporateAndCompliance,
