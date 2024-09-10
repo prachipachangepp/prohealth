@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -176,11 +178,11 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   width: 140,
                   text: 'Add New Office',
                   onPressed: () {
-                    setState((){
-                      String generated = generateRandomString(1);
-                      generatedString = "Office ${generated}";
-                    });
-                    print("Generated String ${generatedString}");
+                    // setState((){
+                    //   String generated = generateRandomString(1);
+                    //   generatedString = "Office ${generated}";
+                    // });
+                    // print("Generated String ${generatedString}");
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -209,42 +211,44 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   )),
                               checkBoxServices: Container(
                                 height:100,
-                                child: Wrap(
-                                    children:[
-                                      Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Home Health',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Hospice',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Home Care',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),
-                                      Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Palliative Care',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),]
+                                width: 300,
+                                child: FutureBuilder<List<ServicesData>>(
+                                  future: getAllServicesData(context),
+                                  builder: (context,snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return SizedBox();
+                                    }
+                                    if(snapshot.data!.isEmpty){
+                                      return Center(
+                                        child: Text('No services available',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s10,
+                                            fontWeight: FontWeightManager.medium,
+                                            color: ColorManager.mediumgrey,
+                                            //decoration: TextDecoration.none,
+                                          ),),
+                                      );
+                                    }
+                                    if(snapshot.hasData){
+                                      return Wrap(
+                                          children:[
+                                            ...List.generate(snapshot.data!.length, (index){
+                                              return Container(
+                                                  width: 150,
+                                                  child: Center(
+                                                    child: CheckboxTile(
+                                                      title: snapshot.data![index].serviceName,
+                                                      initialValue: false,
+                                                      onChanged: (value) {},
+                                                    ),
+                                                  ));
+                                            })]
+                                      );
+                                    }else{
+                                      return SizedBox();
+                                    }
+
+                                  }
                                 ),
                               ),
                               pickLocationWidget: Row(

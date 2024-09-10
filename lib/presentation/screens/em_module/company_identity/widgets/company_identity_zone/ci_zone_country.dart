@@ -229,6 +229,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                       countyController = TextEditingController(text:snapshotPrefill.data!.country);
 
                                                       return CIZoneAddPopup(
+                                                        buttonTitle: AppStringEM.save,
                                                         onSavePressed: ()async{
                                                           await updateCounty(context, county.countyId,
                                                               countyName == countynameController.text ? countyName.toString() : countynameController.text,

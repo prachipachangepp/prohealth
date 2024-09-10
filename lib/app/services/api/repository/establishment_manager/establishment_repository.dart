@@ -115,6 +115,10 @@ class EstablishmentManagerRepository {
     return "$companyOfficeService";
   }
 
+  static String companyOfficeServiceGetByCompanyId({required int companyId}) {
+    return "$companyOfficeService/${companyId}";
+  }
+
   ///insurance-vendor/add
   static String companyOfficeVendorPost() {
     return "$insurancevendors/$add";

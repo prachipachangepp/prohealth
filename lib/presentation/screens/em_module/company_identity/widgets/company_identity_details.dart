@@ -310,7 +310,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             //   text: '',
                             // ),
                             // const SizedBox(width: 100),
-
                             CIDetailsDropdown(
                               initialValue: serviceDetail.serviceName,
                               items: dropdownItems.map((item) {

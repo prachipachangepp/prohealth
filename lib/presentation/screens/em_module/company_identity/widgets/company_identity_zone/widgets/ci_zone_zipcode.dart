@@ -339,34 +339,38 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                       return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
                                                     }
-                                                    var countyName = snapshotPrefill.data!.countyName;
-                                                    var cityName = snapshotPrefill.data!.city;
+                                                    // var countyName = snapshotPrefill.data!.countyName;
+                                                    // var cityName = snapshotPrefill.data!.city;
                                                     var zipCode = snapshotPrefill.data!.zipcode;
-                                                    var landmark = snapshotPrefill.data!.landmark;
+                                                    // var landmark = snapshotPrefill.data!.landmark;
                                                     var zoinId = snapshotPrefill.data!.zoneId;
                                                     docZoneId = zoinId!;
                                                     var countyPreId = snapshotPrefill.data!.countyID;
                                                     countyId = countyPreId!;
-                                                    landmarkController = TextEditingController(text:snapshotPrefill.data!.landmark.toString());
-                                                    countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
-                                                    cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
+                                                    // landmarkController = TextEditingController(text:snapshotPrefill.data!.landmark.toString());
+                                                    // countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
+                                                    // cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
                                                     return EditZipCodePopup(
                                                       title: 'Edit Zip Code',
-                                                      countynameController: countynameController,
+                                                      // countynameController: countynameController,
                                                       zipcodeController: zipcodeController,
                                                       child1: FutureBuilder<List<AllCountyGetList>>(
                                                           future: getCountyZoneList(context),
                                                           builder: (context,snapshotZone) {
                                                             if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                              return Shimmer.fromColors(
-                                                                  baseColor: Colors.grey[300]!,
-                                                                  highlightColor: Colors.grey[100]!,
-                                                                  child: Container(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                  )
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: const Text(
+                                                                  "",
+                                                                  //AppString.dataNotFound,
+                                                                ),
                                                               );
                                                             }
                                                             if (snapshotZone.data!.isEmpty) {
@@ -436,14 +440,18 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                           future: PayRateZoneDropdown(context),
                                                           builder: (context,snapshotZone) {
                                                             if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                              return Shimmer.fromColors(
-                                                                  baseColor: Colors.grey[300]!,
-                                                                  highlightColor: Colors.grey[100]!,
-                                                                  child: Container(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                  )
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: const Text(
+                                                                  "",
+                                                                  //AppString.dataNotFound,
+                                                                ),
                                                               );
                                                             }
                                                             if (snapshotZone.data!.isEmpty) {
