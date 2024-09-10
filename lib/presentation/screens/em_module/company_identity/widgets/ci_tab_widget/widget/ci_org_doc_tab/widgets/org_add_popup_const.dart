@@ -77,7 +77,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height ?? AppSize.s598,
+        height: widget.height ?? AppSize.s560,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
