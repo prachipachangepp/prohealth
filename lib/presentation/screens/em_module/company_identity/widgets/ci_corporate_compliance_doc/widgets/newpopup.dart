@@ -417,54 +417,54 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
 
                       SizedBox(height: AppSize.s5),
                       /// upload  doc
-                    //  widget.uploadField!,
-                      Container(
-                        height: AppSize.s30,
-                        width: AppSize.s354,
-                        // margin: EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.greenAccent,
-                          border: Border.all(
-                            color: ColorManager.containerBorderGrey,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return Padding(
-                              padding: const EdgeInsets.all(0),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    fileName,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.lightgreyheading,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.all(4),
-                                    onPressed: _pickFile,
-                                    icon: Icon(
-                                      Icons.file_upload_outlined,
-                                      color: ColorManager.black,
-                                      size: 17,
-                                    ),
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                     widget.uploadField!,
+                      // Container(
+                      //   height: AppSize.s30,
+                      //   width: AppSize.s354,
+                      //   // margin: EdgeInsets.symmetric(horizontal: 5),
+                      //   decoration: BoxDecoration(
+                      //    // color: Colors.greenAccent,
+                      //     border: Border.all(
+                      //       color: ColorManager.containerBorderGrey,
+                      //       width: 1,
+                      //     ),
+                      //     borderRadius: BorderRadius.circular(4),
+                      //   ),
+                      //   child: StatefulBuilder(
+                      //     builder: (BuildContext context,
+                      //         void Function(void Function()) setState) {
+                      //       return Padding(
+                      //         padding: const EdgeInsets.all(0),
+                      //         child: Row(
+                      //           mainAxisAlignment:
+                      //           MainAxisAlignment.spaceBetween,
+                      //           children: [
+                      //             Text(
+                      //               fileName,
+                      //               style: GoogleFonts.firaSans(
+                      //                 fontSize: FontSize.s12,
+                      //                 fontWeight: FontWeightManager.regular,
+                      //                 color: ColorManager.lightgreyheading,
+                      //               ),
+                      //             ),
+                      //             IconButton(
+                      //               padding: EdgeInsets.all(4),
+                      //               onPressed: _pickFile,
+                      //               icon: Icon(
+                      //                 Icons.file_upload_outlined,
+                      //                 color: ColorManager.black,
+                      //                 size: 17,
+                      //               ),
+                      //               splashColor: Colors.transparent,
+                      //               highlightColor: Colors.transparent,
+                      //               hoverColor: Colors.transparent,
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
                   //       SizedBox(height: AppSize.s5),
@@ -518,47 +518,6 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-    // //  print('File path on pressed ${filePath}');
-    // setState(() {
-    // _isLoading = true;
-    // });
-    // // String expiryTypeToSend =
-    // // selectedExpiryType == "Not Applicable"
-    // // ? "Not Applicable"
-    // //     : calenderController.text;
-    // try {
-    // ApiData response =
-    // await addOrgDocPPPost(
-    // context: context,
-    // orgDocumentSetupid: null,
-    // idOfDocument: docTypeMetaId,
-    // expiryDate: "2024-08-16T09:39:48.030Z",
-    // docCreatedat: "2024-08-16T09:39:48.030Z",
-    // companyid: widget.companyID,
-    // url: "url",
-    // officeid: widget.officeId,);
-    // if (response.statusCode ==200 || response.statusCode==201){
-    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-    // }
-    //
-    // // await addManageCCVCPPPost(
-    // //   context: context,
-    // //   name: docNamecontroller.text,
-    // // docTypeID: docTypeMetaId,
-    // //   docSubTypeID: docSubTypeMetaId,
-    // //   expiryType: selectedExpiryType.toString(),
-    // //   expiryDate: calenderController.text,//expiryTypeToSend,
-    // //   expiryReminder: selectedExpiryType.toString(),
-    // //   officeId: widget.officeId,
-    // //   idOfDoc: docIdController.text
-    // // );
-    // // Navigator.pop(context);
-    // } finally {
-    // setState(() {
-    // _isLoading = false;
-    // });
-    // }
-    // },
 
                     widget.onPressed!();
                   },

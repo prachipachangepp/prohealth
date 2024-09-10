@@ -75,8 +75,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     });
   }
 
-
-
   String? documentTypeName;
   dynamic filePath;
   String? selectedDocType;
@@ -92,6 +90,19 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
       });
     }
   }
+
+  //
+  // Future<String?> _pickFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //   if (result != null) {
+  //     filePath = result.files.first.bytes;
+  //     String fileName = result.files.first.name;
+  //     print('File path ${filePath}');
+  //     print('File name ${fileName}');
+  //     return fileName;
+  //   }
+  //   return null;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +139,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     // nameDocController: docNamecontroller,
                                     loadingDuration: _isLoading,
                                     onPressed: () async {
-                                    //  print('File path on pressed ${filePath}');
+                                      //  print('File path on pressed ${filePath}');
                                       setState(() {
                                         _isLoading = true;
                                       });
@@ -139,22 +150,29 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       try {
                                         ApiData response =
                                             await addOrgDocPPPost(
-                                                context: context,
-                                                orgDocumentSetupid: docTypeId,
-                                                idOfDocument: "PPP",
-                                                expiryDate: "2024-09-10T07:04:41.358Z",
-                                                docCreatedat: "2024-08-16T09:39:48.030Z",
-                                                companyid: widget.companyID,
-                                                url: "url",
-                                                officeid: widget.officeId,);
-                                         if (response.statusCode ==200 || response.statusCode==201){
-                                           await uploadDocumentsoffice(context: context, documentFile: filePath, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                                         }
+                                          context: context,
+                                          orgDocumentSetupid: docTypeId,
+                                          idOfDocument: "PPP",
+                                          expiryDate:
+                                              "2024-09-10T07:04:41.358Z",
+                                          docCreatedat:
+                                              "2024-08-16T09:39:48.030Z",
+                                          companyid: widget.companyID,
+                                          url: "url",
+                                          officeid: widget.officeId,
+                                        );
+                                        // if (response.statusCode ==200 || response.statusCode==201){
+                                        await uploadDocumentsoffice(
+                                            context: context,
+                                            documentFile: filePath,
+                                            orgOfficeDocumentId:
+                                                response.orgOfficeDocumentId!);
+                                        //  }
 
                                         // await addManageCCVCPPPost(
                                         //   context: context,
                                         //   name: docNamecontroller.text,
-                                         // docTypeID: docTypeMetaId,
+                                        // docTypeID: docTypeMetaId,
                                         //   docSubTypeID: docSubTypeMetaId,
                                         //   expiryType: selectedExpiryType.toString(),
                                         //   expiryDate: calenderController.text,//expiryTypeToSend,
@@ -162,7 +180,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         //   officeId: widget.officeId,
                                         //   idOfDoc: docIdController.text
                                         // );
-                                        // Navigator.pop(context);
+                                        Navigator.pop(context);
                                       } finally {
                                         setState(() {
                                           _isLoading = false;
@@ -235,14 +253,78 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       },
                                     ),
 
-                                    uploadField: Container(
+                                    // uploadField: StatefulBuilder(builder:
+                                    //     (BuildContext context,
+                                    //         void Function(void Function())
+                                    //             setState) {
+                                    //   return Container(
+                                    //     height: AppSize.s30,
+                                    //     width: AppSize.s354,
+                                    //     // margin: EdgeInsets.symmetric(horizontal: 5),
+                                    //     decoration: BoxDecoration(
+                                    //       color: Colors.blueAccent,
+                                    //       border: Border.all(
+                                    //         color: ColorManager
+                                    //             .containerBorderGrey,
+                                    //         width: 1,
+                                    //       ),
+                                    //       borderRadius:
+                                    //           BorderRadius.circular(4),
+                                    //     ),
+                                    //     child: Padding(
+                                    //       padding: const EdgeInsets.all(0),
+                                    //       child: Row(
+                                    //         mainAxisAlignment:
+                                    //             MainAxisAlignment.spaceBetween,
+                                    //         children: [
+                                    //           Text(
+                                    //       fileName,
+                                    //       //fileName.isNotEmpty ? fileName : 'No file chosen',
+                                    //             style: GoogleFonts.firaSans(
+                                    //               fontSize: FontSize.s12,
+                                    //               fontWeight:
+                                    //                   FontWeightManager.regular,
+                                    //               color: ColorManager
+                                    //                   .lightgreyheading,
+                                    //             ),
+                                    //           ),
+                                    //           IconButton(
+                                    //             padding: EdgeInsets.all(4),
+                                    //             // onPressed: () async {
+                                    //             //   // Call _pickFile method and update the fileName
+                                    //             //   final pickedFileName = await _pickFile(); // Adjust this based on how _pickFile is defined
+                                    //             //   setState(() {
+                                    //             //     fileName = pickedFileName ?? ''; // Update the fileName state
+                                    //             //   });
+                                    //             // },
+                                    //          /////////////////////
+                                    //         onPressed: _pickFile,
+                                    //             icon: Icon(
+                                    //               Icons.file_upload_outlined,
+                                    //               color: ColorManager.black,
+                                    //               size: 17,
+                                    //             ),
+                                    //             splashColor: Colors.transparent,
+                                    //             highlightColor:
+                                    //                 Colors.transparent,
+                                    //             hoverColor: Colors.transparent,
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   );
+                                    // }),
+
+
+                                    ///////
+
+                                    uploadField:   Container(
                                       height: AppSize.s30,
                                       width: AppSize.s354,
                                       // margin: EdgeInsets.symmetric(horizontal: 5),
                                       decoration: BoxDecoration(
-
+                                        // color: Colors.greenAccent,
                                         border: Border.all(
-
                                           color: ColorManager.containerBorderGrey,
                                           width: 1,
                                         ),
@@ -283,8 +365,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         },
                                       ),
                                     ),
-
-
 
                                     // FutureBuilder<List<DocumentTypeData>>(
                                     //   future: documentTypeGet(context),
