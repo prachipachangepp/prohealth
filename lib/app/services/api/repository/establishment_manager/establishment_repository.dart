@@ -55,6 +55,9 @@ class EstablishmentManagerRepository {
   static String newPayrates = "/payrates";
   static String newPayratesdelete = "/payrates";
   static String addCompanyPost = "/Company/Insert";
+  static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
+  static String orgdocadd = "/org-office-document/add";
+  static String officedocbase = "/org-office-document/attach-documentbase64";
 
   //static String add ="/add";
 
@@ -462,6 +465,20 @@ class EstablishmentManagerRepository {
   static String getPayrates() {
     return "$newPayrates";
   }
+
+  static String addDocOrg() {
+    return "$orgdocadd";
+  }
+
+  static String uploadedocOffice({required int orgOfficeDocumentId }){
+    return "$officedocbase/$orgOfficeDocumentId";
+}
+
+
+  static String getdocPayratesdropdown({ required int DocumentTypeId, required int DocumentSubTypeId } ) {
+    return "$docgetDD/$DocumentTypeId/$DocumentSubTypeId";
+  }
+
 
   static String deleteeditprefillPayRates({required int payRatesId}) {
     return "$newPayratesdelete/$payRatesId";

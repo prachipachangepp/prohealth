@@ -129,7 +129,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       widget.child1,
                       SizedBox(height: 20,),
                       Text(
-                        'Zone',
+                        'Payrate',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeightManager.bold,
@@ -139,34 +139,54 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       SizedBox(height: 5,),
                       widget.child2,
                       SizedBox(height: 20,),
-                      SMTextFConst(
-                        prefixWidget: Text("\$ "),
-                        controller: widget.payRatesController,
-                        keyboardType: TextInputType.number,
-                        text: 'Rate',
-                      ),
-                      if (payRatesError != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text(
-                            payRatesError!,
-                            style: TextStyle(color: Colors.red, fontSize: 12),
-                          ),
-                        ),
+                      Text("Out of Zone", style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                      ),),
                       SizedBox(height: 20,),
-                      SMTextFConst(
-                        controller: widget.perMilesController,
-                        keyboardType: TextInputType.number,
-                        text: 'Per Mile',
-                      ),
-                      if (perMilesError != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text(
-                            perMilesError!,
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                      //////////////
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SMTextFConst(
+                            width: 150,
+                            prefixWidget: Text("\$ "),
+                            controller: widget.payRatesController,
+                            keyboardType: TextInputType.number,
+                            text: 'Fixed Rate',
                           ),
-                        ),
+                          if (payRatesError != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                payRatesError!,
+                                style: TextStyle(color: Colors.red, fontSize: 12),
+                              ),
+                            ),
+                          SizedBox(height: 20,),
+                          SMTextFConst(
+                            width: 150,
+
+                            controller: widget.perMilesController,
+                            keyboardType: TextInputType.number,
+                            text: 'Per Mile',
+                          ),
+                          if (perMilesError != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                perMilesError!,
+                                style: TextStyle(color: Colors.red, fontSize: 12),
+                              ),
+                            ),
+
+                        ],
+                      ),
+
+                      ///////////////////////
                     ],
                   ),
                 ],
