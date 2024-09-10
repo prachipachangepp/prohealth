@@ -61,6 +61,10 @@ class EstablishmentManagerRepository {
 
   //static String add ="/add";
 
+  ///new org
+  static String orgDocSetup ="/org-document-setup";
+  static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
+
 
   static String companyAll() {
     return "$company";
@@ -482,5 +486,23 @@ class EstablishmentManagerRepository {
 
   static String deleteeditprefillPayRates({required int payRatesId}) {
     return "$newPayratesdelete/$payRatesId";
+  }
+
+
+  ///new org doc
+  static String newOrgDocGet() {
+    return "$orgDocSetup";
+  }
+  ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
+  static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
+    return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+  ///org-document-setup/{orgDocumentSetupid}
+  static String updatePrefillPatchNewOrgDoc({required int orgDocumentSetupid}) {
+    return "$orgDocSetup/$orgDocumentSetupid";
+  }
+  ///
+  static String addNewDocumentPost() {
+    return "$orgDocSetup/$add";
   }
 }
