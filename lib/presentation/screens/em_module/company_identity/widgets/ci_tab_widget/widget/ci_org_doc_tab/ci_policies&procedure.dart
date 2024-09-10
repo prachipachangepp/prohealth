@@ -5,17 +5,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import '../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CIPoliciesProcedure extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _policiesandprocedureController = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<NewOrgDocument>> _policiesandprocedureController = StreamController<List<NewOrgDocument>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
   //int docTypeMetaId =0;
   int docSubTypeMetaId =0;
@@ -114,18 +115,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      AppString.expiry,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
                       AppString.reminderthershold,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -152,11 +141,10 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
           ),
           SizedBox(height: AppSize.s10),
           Expanded(
-            child: StreamBuilder<List<CiOrgDocumentCC>>(
+            child: StreamBuilder<List<NewOrgDocument>>(
               stream: _policiesandprocedureController.stream,
               builder: (context, snapshot) {
-                getORGDoc(context,widget.docId,widget.subDocId,1,15
-                ).then((data) {
+                getNewOrgDocfetch(context,AppConfig.policiesAndProcedure,AppConfig.subDocId0,1,50).then((data) {
                   _policiesandprocedureController.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -185,7 +173,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                 if (snapshot.hasData) {
                   int totalItems = snapshot.data!.length;
                   int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<CiOrgDocumentCC> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                  List<NewOrgDocument> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                   return Column(
                     children: [
                       Expanded(
@@ -195,7 +183,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                           itemBuilder: (context, index) {
                             int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            CiOrgDocumentCC policiesdata = paginatedData[index];
+                            NewOrgDocument policiesdata = paginatedData[index];
                             return Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
@@ -246,7 +234,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            policiesdata.name.toString().capitalizeFirst!,
+                                            policiesdata.docName.toString().capitalizeFirst!,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w700,
@@ -258,19 +246,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            policiesdata.expirtDate.toString(),
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            policiesdata.expirtReminder.toString().capitalizeFirst!,
+                                            policiesdata.expiryReminder.toString().capitalizeFirst!,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w700,
@@ -287,7 +263,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                               String? selectedExpiryType = expiryType;
                                               showDialog(context: context, builder: (context){
                                                 return  FutureBuilder<CorporatePrefillDocumentData>(
-                                                    future: getPrefillCorporateDocument(context,policiesdata.docId),
+                                                    future: getPrefillCorporateDocument(context,policiesdata.orgDocumentSetupid),
                                                     builder: (context,snapshotPrefill) {
                                                       if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                         return Center(
@@ -586,25 +562,22 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                               _isLoading = true;
                                                             });
                                                             try {
-                                                              await deleteDocument(
-                                                                  context,
-                                                                  snapshot.data![index].docId);
-                                                              getORGDoc(context,widget.docId,widget.subDocId,1,15
-                                                              ).then((data) {
-                                                                _policiesandprocedureController.add(data);
-                                                              }).catchError((error) {
-                                                                // Handle error
-                                                              });
+                                                              await deleteNewOrgDoc(context, snapshot.data![index].orgDocumentSetupid);
+                                                              // getNewOrgDocument(context).then((data) {
+                                                              //   _policiesandprocedureController.add(data);
+                                                              // }).catchError((error) {
+                                                              //   // Handle error
+                                                              // });
                                                             } finally {
                                                               setState(() {
                                                                 _isLoading = false;
                                                               });
                                                               Navigator.pop(context);
                                                             }
-            
+
                                                           });
                                                         },
-            
+
                                                       ));
                                                 }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                           ],
@@ -640,7 +613,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                           });
                         },
                       )
-            
                       // PaginationControlsWidget(
                       //   currentPage: currentPage,
                       //   items: items,
@@ -671,6 +643,5 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
           ),
         ],
       );
-
   }
 }

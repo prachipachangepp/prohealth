@@ -267,13 +267,6 @@ Future<ApiData> addOrgCorporateDocumentPost({
   try {
     final companyId = await TokenManager.getCompanyId();
     var data = {
-      // "doc_name": "string",
-      // "document_type_id": 0,
-      // "document_subtype_id": 0,
-      // "expiry_type": "string",
-      // "expiry_date": "string",
-      // "expiry_reminder": "string",
-      // "company_id": 0
       ///
       "doc_name": name,
       "document_type_id": docTypeID,

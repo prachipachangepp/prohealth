@@ -15,8 +15,10 @@ import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../../../app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -37,7 +39,7 @@ class _CICcdADRState extends State<CICcdADR> {
   TextEditingController idOfDocController = TextEditingController();
   int docTypeMetaIdCC = AppConfig.corporateAndCompliance;
   int docTypeMetaIdCCAdr = AppConfig.subDocId2Adr;
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<NewOrgDocument>> _controller = StreamController<List<NewOrgDocument>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
   int docSubTypeMetaId =0;
   String? expiryType;
@@ -113,18 +115,6 @@ class _CICcdADRState extends State<CICcdADR> {
               Expanded(
                 child: Center(
                   child: Text(
-                    AppString.expiry,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Text(
                     AppString.reminderthershold,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
@@ -151,11 +141,10 @@ class _CICcdADRState extends State<CICcdADR> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: StreamBuilder<List<CiOrgDocumentCC>>(
+          child: StreamBuilder<List<NewOrgDocument>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
-              getORGDoc(context,widget.docID,widget.subDocID,1,15
-              ).then((data) {
+              getNewOrgDocfetch(context,AppConfig.corporateAndCompliance,AppConfig.subDocId2Adr,1,50).then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -184,7 +173,7 @@ class _CICcdADRState extends State<CICcdADR> {
               if (snapshot.hasData) {
                 int totalItems = snapshot.data!.length;
                 int totalPages = (totalItems / itemsPerPage).ceil();
-                List<CiOrgDocumentCC> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                List<NewOrgDocument> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                 return Column(
                   children: [
                     Expanded(
@@ -194,7 +183,7 @@ class _CICcdADRState extends State<CICcdADR> {
                         itemBuilder: (context, index) {
                           int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                           String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                          CiOrgDocumentCC adrData = paginatedData[index];
+                          NewOrgDocument adrData = paginatedData[index];
                           return Column(
                             children: [
                               SizedBox(height: AppSize.s5),
@@ -245,7 +234,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          adrData.name.toString().capitalizeFirst!,
+                                          adrData.docName.toString().capitalizeFirst!,
                                           style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -257,19 +246,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          adrData.expirtDate.toString(),
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xff686464),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          adrData.expirtReminder!.toString().capitalizeFirst!,
+                                          adrData.expiryReminder!.toString().capitalizeFirst!,
                                           style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -289,7 +266,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                                 context: context,
                                                 builder: (context) {
                                                   return FutureBuilder<CorporatePrefillDocumentData>(
-                                                    future: getPrefillCorporateDocument(context, adrData.docId),
+                                                    future: getPrefillCorporateDocument(context, adrData.orgDocumentSetupid),
                                                     builder: (context,
                                                         snapshotPrefill) {
                                                       if (snapshotPrefill.connectionState == ConnectionState.waiting) {
@@ -687,11 +664,10 @@ class _CICcdADRState extends State<CICcdADR> {
                                                             _isLoading = true;
                                                           });
                                                           try {
-                                                            await deleteDocument(
+                                                            await deleteNewOrgDoc(
                                                                 context,
-                                                                snapshot.data![index].docId);
-                                                            getORGDoc(context,widget.docID,widget.subDocID,1,15
-                                                            ).then((data) {
+                                                                snapshot.data![index].orgDocumentSetupid);
+                                                            getNewOrgDocfetch(context,AppConfig.corporateAndCompliance,AppConfig.subDocId2Adr,1,50).then((data) {
                                                               _controller.add(data);
                                                             }).catchError((error) {
                                                               // Handle error

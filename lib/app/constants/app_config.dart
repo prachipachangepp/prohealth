@@ -1,6 +1,6 @@
-//
-//
-//  ///demo instance
+
+
+ ///demo instance
 // class AppConfig {
 //   // static const String dev =  "https://demoapp.symmetry.care";
 //   static const String dev = "https://resource.symmetry.care";
@@ -52,6 +52,14 @@
 //   static const int clinicalId = 1;
 //   static const int salesId = 2;
 //   static const int AdministrationId = 3;
+
+ /// org string
+ // static const String notApplicable = "Not Applicable";
+ // static const String scheduled = "Scheduled";
+ // static const String issuer = "Issuer Expiry";
+ // static const String year = "Year";
+ // static const String month = "Month";
+ // static const String misc = "MISC";
 // }
 
  ///dev instance
@@ -105,4 +113,12 @@ class AppConfig {
   static const int clinicalId = 1;
   static const int salesId = 2;
   static const int AdministrationId = 3;
+
+  /// org string
+  static const String notApplicable = "Not Applicable";
+  static const String scheduled = "Scheduled";
+  static const String issuer = "Issuer Expiry";
+  static const String year = "Year";
+  static const String month = "Month";
+  static const String misc = "MISC";
 }

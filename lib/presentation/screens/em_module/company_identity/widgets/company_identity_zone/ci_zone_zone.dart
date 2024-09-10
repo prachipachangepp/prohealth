@@ -102,18 +102,18 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                         )),
                   ),
                 ),
-                Expanded(
-                  child: Center(
-                    child: Text('Cities',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                  ),
-                ),
+                // Expanded(
+                //   child: Center(
+                //     child: Text('Cities',
+                //         textAlign: TextAlign.start,
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: Colors.white,
+                //           decoration: TextDecoration.none,
+                //         )),
+                //   ),
+                // ),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -246,20 +246,20 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 ),
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 3,
-                                              child: Text(
-                                                textAlign: TextAlign.center,
-                                                zone.cities
-                                                    .toString(),
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
+                                            // Expanded(
+                                            //   flex: 3,
+                                            //   child: Text(
+                                            //     textAlign: TextAlign.center,
+                                            //     zone.cities
+                                            //         .toString(),
+                                            //     style: GoogleFonts.firaSans(
+                                            //       fontSize: 10,
+                                            //       fontWeight: FontWeight.w500,
+                                            //       color: ColorManager.mediumgrey,
+                                            //       decoration: TextDecoration.none,
+                                            //     ),
+                                            //   ),
+                                            // ),
                                             Expanded(
                                               flex: 3,
                                               child: Row(

@@ -208,7 +208,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   emailController.text,
                                   1, // int.parse(companyIdController.text),
                                   passwordController.text);
-
                               getUser(context).then((data) {
                                 _companyUsersList.add(data);
                               }).catchError((error) {});
@@ -477,7 +476,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               child: StreamBuilder<List<UserModal>>(
                 stream: _companyUsersList.stream,
                 builder: (BuildContext context, snapshot) {
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -488,7 +486,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                         ErrorMessageString.noUser,                  // "No Data!",
+                         ErrorMessageString.noUser,  // "No Data!",
                         style: TextStyle(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.medium,
@@ -500,7 +498,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   if (snapshot.hasData) {
                     List<UserModal> sortedData = snapshot.data!;
                     sortedData.sort((a, b) => b.userId.compareTo(a.userId));
-
                     int totalItems = sortedData.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
                     List<UserModal> paginatedData = sortedData
@@ -676,7 +673,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       builder:
                                                           (BuildContext context) {
                                                         return FutureBuilder<UserModalPrefill>(
-                                                          future: getUserPrefill(context, user.userId),
+                                                          future: getUserPrefill(context,
+                                                              // deptId
+                                                              user.userId
+                                                          ),
                                                           builder: (context, snapshotPrefill) {
                                                             if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                               return Center(
@@ -699,12 +699,19 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               companyIdController: companyIdController,
                                                               onSubmit: () async {
                                                                 await updateUserPatch(context,
-                                                                    user.userId,
-                                                                    firstNameController.text,
-                                                                    lastNameController.text,
-                                                                    selectedDeptId!,
-                                                                    emailController.text,
-                                                                    passwordController.text ?? "",
+                                                                  user.userId,
+                                                                  firstNameController.text,
+                                                                  lastNameController.text,
+                                                                  selectedDeptId ?? 1,
+                                                                  emailController.text,
+                                                                  // Pass an empty string if you want to exclude password
+                                                                  null, // Or an empty string if the API allows it
+                                                                    // user.userId,
+                                                                    // firstNameController.text,
+                                                                    // lastNameController.text,
+                                                                    // selectedDeptId ?? 1,
+                                                                    // emailControlle   r.text,
+                                                                    //  passwordController.text,
                                                                     );
                                                                 print('password:::::::::::${passwordController.text}');
                                                                 // updateUserPatch(
@@ -717,7 +724,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 //     1
                                                                 // );
                                                                 getUser(context).then((data) {
-                                                                  _companyUsersList.add(data);
+                                                                    _companyUsersList.add(data);
                                                                 }).catchError((error) {
                                                                       // Handle error
                                                                     });
@@ -728,7 +735,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 emailController.clear();
                                                                 companyIdController.clear();
                                                               },
-                                                              passwordController: passwordController,
+                                                              // passwordController: passwordController,
                                                               child: FutureBuilder<List<HRHeadBar>>(
                                                                 future: companyHRHeadApi(context, deptId),
                                                                 builder: (context, snapshot) {
