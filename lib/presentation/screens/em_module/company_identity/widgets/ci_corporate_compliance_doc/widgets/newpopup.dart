@@ -280,6 +280,7 @@ class VCScreenPopupADDConst extends StatefulWidget {
   final Widget? uploadField;
   dynamic filePath;
   String? fileName;
+  final Visibility? child3;
 
   VCScreenPopupADDConst({
     super.key,
@@ -289,7 +290,7 @@ class VCScreenPopupADDConst extends StatefulWidget {
     this.height,
     this.loadingDuration,
     this.uploadField,
-    this.fileName,this.filePath,
+    this.fileName,this.filePath, this.child3,
   });
 
   @override
@@ -302,6 +303,12 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
   dynamic filePath;
   String? selectedDocType;
   String fileName = '';
+  String _url = "";
+  @override
+  void initState() {
+    super.initState();
+    _url = "";  // Reset _url when the popup is initialized
+  }
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -320,7 +327,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height == null ? AppSize.s300 : widget.height,
+        height: widget.height == null ? AppSize.s350 : widget.height,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -400,6 +407,15 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                       ),
                       SizedBox(height: AppSize.s5),
                       widget.child!,
+                      SizedBox(height: AppSize.s5),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppPadding.p20,
+                          right: AppPadding.p20,
+
+                        ),
+                        child: widget.child3,
+                      ),
                       SizedBox(height:AppSize.s12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -417,54 +433,54 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
 
                       SizedBox(height: AppSize.s5),
                       /// upload  doc
-                    //  widget.uploadField!,
-                      Container(
-                        height: AppSize.s30,
-                        width: AppSize.s354,
-                        // margin: EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.greenAccent,
-                          border: Border.all(
-                            color: ColorManager.containerBorderGrey,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return Padding(
-                              padding: const EdgeInsets.all(0),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    fileName,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.lightgreyheading,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.all(4),
-                                    onPressed: _pickFile,
-                                    icon: Icon(
-                                      Icons.file_upload_outlined,
-                                      color: ColorManager.black,
-                                      size: 17,
-                                    ),
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                      widget.uploadField!,
+                      // Container(
+                      //   height: AppSize.s30,
+                      //   width: AppSize.s354,
+                      //   // margin: EdgeInsets.symmetric(horizontal: 5),
+                      //   decoration: BoxDecoration(
+                      //     // color: Colors.greenAccent,
+                      //     border: Border.all(
+                      //       color: ColorManager.containerBorderGrey,
+                      //       width: 1,
+                      //     ),
+                      //     borderRadius: BorderRadius.circular(4),
+                      //   ),
+                      //   child: StatefulBuilder(
+                      //     builder: (BuildContext context,
+                      //         void Function(void Function()) setState) {
+                      //       return Padding(
+                      //         padding: const EdgeInsets.all(0),
+                      //         child: Row(
+                      //           mainAxisAlignment:
+                      //           MainAxisAlignment.spaceBetween,
+                      //           children: [
+                      //             Text(
+                      //               fileName,
+                      //               style: GoogleFonts.firaSans(
+                      //                 fontSize: FontSize.s12,
+                      //                 fontWeight: FontWeightManager.regular,
+                      //                 color: ColorManager.lightgreyheading,
+                      //               ),
+                      //             ),
+                      //             IconButton(
+                      //               padding: EdgeInsets.all(4),
+                      //               onPressed: _pickFile,
+                      //               icon: Icon(
+                      //                 Icons.file_upload_outlined,
+                      //                 color: ColorManager.black,
+                      //                 size: 17,
+                      //               ),
+                      //               splashColor: Colors.transparent,
+                      //               highlightColor: Colors.transparent,
+                      //               hoverColor: Colors.transparent,
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
                   //       SizedBox(height: AppSize.s5),

@@ -9,6 +9,7 @@ class TypeofDocpopup {
   final String expiryreminder;
   final int companyid;
   final String idOfDocument;
+  final bool? hasIssuerExpiry;
 
   TypeofDocpopup(
       {required this.orgDocumentSetupid,
@@ -20,5 +21,7 @@ class TypeofDocpopup {
       required this.expirydate,
       required this.expiryreminder,
       required this.companyid,
-      required this.idOfDocument});
+      required this.idOfDocument,
+        this.hasIssuerExpiry,
+      });
 }
