@@ -710,7 +710,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     // firstNameController.text,
                                                                     // lastNameController.text,
                                                                     // selectedDeptId ?? 1,
-                                                                    // emailController.text,
+                                                                    // emailControlle   r.text,
                                                                     //  passwordController.text,
                                                                     );
                                                                 print('password:::::::::::${passwordController.text}');
@@ -724,7 +724,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 //     1
                                                                 // );
                                                                 getUser(context).then((data) {
-                                                                  _companyUsersList.add(data);
+                                                                    _companyUsersList.add(data);
                                                                 }).catchError((error) {
                                                                       // Handle error
                                                                     });
