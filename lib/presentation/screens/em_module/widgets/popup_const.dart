@@ -147,19 +147,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   ),
                 ),
                 SizedBox(height: 18),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 8.0),
-                //   child: HRManageTextField(
-                //     controller: widget.userIdController,
-                //     keyboardType: TextInputType.phone,
-                //     text: "User ID",
-                //     cursorHeight: 12,
-                //     labelText: "User ID",
-                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                //     labelFontSize: 12,
-                //     errorText: 'User ID is required',
-                //   ),
-                // ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: HRManageTextField(
@@ -190,13 +178,6 @@ class _CustomDialogState extends State<CustomDialog> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: widget.child,
-                  // HRManageDropdown(
-                  //   controller: widget.roleController,
-                  //   labelText: 'Role',
-                  //   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                  //   labelFontSize: 12,
-                  //   items: ['Admin', 'Sales', 'Clinician'],
-                  // ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
@@ -226,34 +207,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 8.0),
-                //   child: HRManageTextFieldEmail(
-                //     controller: widget.passwordController,
-                //     suffixIcon: Icon(Icons.copy,size: 14,),
-                //     keyboardType: TextInputType.text,
-                //     text: "Password",
-                //     cursorHeight: 12,
-                //     labelText: "Password",       //  _password,
-                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                //     labelFontSize: 12,
-                //     errorText: 'Password is required',
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 8.0),
-                //   child: HRManageTextField(
-                //     readOnly: true,
-                //     controller: widget.companyIdController,
-                //     keyboardType: TextInputType.phone,
-                //     text: "Company ID",
-                //     cursorHeight: 12,
-                //     labelText: "Company ID",
-                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                //     labelFontSize: 12,
-                //     //errorText: 'Company ID is required',
-                //   ),
-                // ),
+
                 SizedBox(height: 24.0),
                 ReusableLoadingButton(
                   text: 'Create',
@@ -270,6 +224,54 @@ class _CustomDialogState extends State<CustomDialog> {
     );
   }
 }
+// Padding(
+//   padding: const EdgeInsets.only(bottom: 8.0),
+//   child: HRManageTextField(
+//     controller: widget.userIdController,
+//     keyboardType: TextInputType.phone,
+//     text: "User ID",
+//     cursorHeight: 12,
+//     labelText: "User ID",
+//     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+//     labelFontSize: 12,
+//     errorText: 'User ID is required',
+//   ),
+// ),
+// HRManageDropdown(
+//   controller: widget.roleController,
+//   labelText: 'Role',
+//   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+//   labelFontSize: 12,
+//   items: ['Admin', 'Sales', 'Clinician'],
+// ),
+// Padding(
+//   padding: const EdgeInsets.only(bottom: 8.0),
+//   child: HRManageTextFieldEmail(
+//     controller: widget.passwordController,
+//     suffixIcon: Icon(Icons.copy,size: 14,),
+//     keyboardType: TextInputType.text,
+//     text: "Password",
+//     cursorHeight: 12,
+//     labelText: "Password",       //  _password,
+//     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+//     labelFontSize: 12,
+//     errorText: 'Password is required',
+//   ),
+// ),
+// Padding(
+//   padding: const EdgeInsets.only(bottom: 8.0),
+//   child: HRManageTextField(
+//     readOnly: true,
+//     controller: widget.companyIdController,
+//     keyboardType: TextInputType.phone,
+//     text: "Company ID",
+//     cursorHeight: 12,
+//     labelText: "Company ID",
+//     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+//     labelFontSize: 12,
+//     //errorText: 'Company ID is required',
+//   ),
+// ),
 class CustomTextFieldWithIcon extends StatefulWidget {
   final TextEditingController controller;
   final Icon? suffixIcon;
@@ -376,7 +378,7 @@ class EditUserPopUp extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController firstNameController;
    TextEditingController? roleController;
-   final TextEditingController passwordController;
+   final TextEditingController? passwordController;
   final TextEditingController companyIdController ;
   final bool ? enable;
 
@@ -390,7 +392,7 @@ class EditUserPopUp extends StatefulWidget {
     required this.emailController,
     required this.firstNameController,
      this.roleController,
-    required this.companyIdController, required this.passwordController,
+    required this.companyIdController,  this.passwordController,
    this.enable});
 
 
@@ -532,19 +534,19 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           errorText: 'Email is required',
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          controller: widget.passwordController,
-                          keyboardType: TextInputType.visiblePassword,
-                          text: "Password",
-                          cursorHeight: 12,
-                          labelText: "Password",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                          labelFontSize: 12,
-                          errorText: 'Password is required',
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: HRManageTextField(
+                      //     controller: widget.passwordController,
+                      //     keyboardType: TextInputType.visiblePassword,
+                      //     text: "Password",
+                      //     cursorHeight: 12,
+                      //     labelText: "Password",
+                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                      //     labelFontSize: 12,
+                      //     errorText: 'Password is required',
+                      //   ),
+                      // ),
                       SizedBox(height: 24.0),
                       ReusableLoadingButton(
                         text: 'Submit',
