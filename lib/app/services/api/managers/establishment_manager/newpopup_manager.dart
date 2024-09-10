@@ -8,6 +8,8 @@ import '../../../token/token_manager.dart';
 import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
+
+/// get Type of document Manage(CC,VC,PP) Add Popup
 Future<List<TypeofDocpopup>> getTypeofDoc(
     BuildContext context, int DocumentTypeId, int DocumentSubTypeId) async {
   List<TypeofDocpopup> itemsList = [];
@@ -47,8 +49,7 @@ Future<List<TypeofDocpopup>> getTypeofDoc(
   }
 }
 
-////post
-
+///post API Save Button (CC,VC,PP) Add DocType
 Future<ApiData> addOrgDocPPPost({
   required BuildContext context,
   required int orgDocumentSetupid,
@@ -70,7 +71,7 @@ Future<ApiData> addOrgDocPPPost({
       "url": url,
       "office_id": officeid,
     };
-    print('Post Manage CCVCPP Doc$data');
+    print('Post Manage CCVCPP Doc Added $data');
     var response = await Api(context)
         .post(path: EstablishmentManagerRepository.addDocOrg(), data: data);
     print('Post Manage CCVCPP ::::$response ');
@@ -99,9 +100,9 @@ Future<ApiData> addOrgDocPPPost({
   }
 }
 
-////post document base 64
 
-///upload base 64
+
+///upload base 64 Add DocType(CC,VC, PP) Also use this in Edit
 Future<ApiData> uploadDocumentsoffice({
   required BuildContext context,
   required dynamic documentFile,

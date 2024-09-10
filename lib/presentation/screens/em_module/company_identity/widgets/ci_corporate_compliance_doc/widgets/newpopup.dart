@@ -280,6 +280,7 @@ class VCScreenPopupADDConst extends StatefulWidget {
   final Widget? uploadField;
   dynamic filePath;
   String? fileName;
+  final Visibility? child3;
 
   VCScreenPopupADDConst({
     super.key,
@@ -289,7 +290,7 @@ class VCScreenPopupADDConst extends StatefulWidget {
     this.height,
     this.loadingDuration,
     this.uploadField,
-    this.fileName,this.filePath,
+    this.fileName,this.filePath, this.child3,
   });
 
   @override
@@ -302,6 +303,12 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
   dynamic filePath;
   String? selectedDocType;
   String fileName = '';
+  String _url = "";
+  @override
+  void initState() {
+    super.initState();
+    _url = "";  // Reset _url when the popup is initialized
+  }
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -320,7 +327,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height == null ? AppSize.s300 : widget.height,
+        height: widget.height == null ? AppSize.s350 : widget.height,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -400,6 +407,15 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                       ),
                       SizedBox(height: AppSize.s5),
                       widget.child!,
+                      SizedBox(height: AppSize.s5),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppPadding.p20,
+                          right: AppPadding.p20,
+
+                        ),
+                        child: widget.child3,
+                      ),
                       SizedBox(height:AppSize.s12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -417,13 +433,13 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
 
                       SizedBox(height: AppSize.s5),
                       /// upload  doc
-                     widget.uploadField!,
+                      widget.uploadField!,
                       // Container(
                       //   height: AppSize.s30,
                       //   width: AppSize.s354,
                       //   // margin: EdgeInsets.symmetric(horizontal: 5),
                       //   decoration: BoxDecoration(
-                      //    // color: Colors.greenAccent,
+                      //     // color: Colors.greenAccent,
                       //     border: Border.all(
                       //       color: ColorManager.containerBorderGrey,
                       //       width: 1,
@@ -518,6 +534,47 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
+    // //  print('File path on pressed ${filePath}');
+    // setState(() {
+    // _isLoading = true;
+    // });
+    // // String expiryTypeToSend =
+    // // selectedExpiryType == "Not Applicable"
+    // // ? "Not Applicable"
+    // //     : calenderController.text;
+    // try {
+    // ApiData response =
+    // await addOrgDocPPPost(
+    // context: context,
+    // orgDocumentSetupid: null,
+    // idOfDocument: docTypeMetaId,
+    // expiryDate: "2024-08-16T09:39:48.030Z",
+    // docCreatedat: "2024-08-16T09:39:48.030Z",
+    // companyid: widget.companyID,
+    // url: "url",
+    // officeid: widget.officeId,);
+    // if (response.statusCode ==200 || response.statusCode==201){
+    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
+    // }
+    //
+    // // await addManageCCVCPPPost(
+    // //   context: context,
+    // //   name: docNamecontroller.text,
+    // // docTypeID: docTypeMetaId,
+    // //   docSubTypeID: docSubTypeMetaId,
+    // //   expiryType: selectedExpiryType.toString(),
+    // //   expiryDate: calenderController.text,//expiryTypeToSend,
+    // //   expiryReminder: selectedExpiryType.toString(),
+    // //   officeId: widget.officeId,
+    // //   idOfDoc: docIdController.text
+    // // );
+    // // Navigator.pop(context);
+    // } finally {
+    // setState(() {
+    // _isLoading = false;
+    // });
+    // }
+    // },
 
                     widget.onPressed!();
                   },
