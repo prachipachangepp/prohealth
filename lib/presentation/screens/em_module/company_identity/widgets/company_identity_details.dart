@@ -11,6 +11,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/manage
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -283,7 +284,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         padding: const EdgeInsets.only(
                             right: 25, left: 25, top: 10, bottom: 10),
                         child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
@@ -310,37 +311,166 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             //   text: '',
                             // ),
                             // const SizedBox(width: 100),
-                            CIDetailsDropdown(
-                              initialValue: serviceDetail.serviceName,
-                              items: dropdownItems.map((item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item),
-                                );
-                              }).toList(),
-                              onEditIconTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return CIDetailsDropdownPopup(
-                                      onSavePressed: () {
-                                        setState(() {
-                                          dropdownItems = [
-                                            serviceDetail.serviceName,
-                                            'HCO Number: ${hcoNumController.text}',
-                                            'Medicare ID: ${medicareController.text}',
-                                            'NPI Number: ${npiNumController.text}',
-                                          ];
-                                        });
-                                      },
-                                      hcoNumController: hcoNumController,
-                                      medicareController: medicareController,
-                                      npiNumController: npiNumController,
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                            Container(
+                              height: 170,
+                              width: 400,
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: ColorManager.white),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: AppSize.s40,
+                                    width: AppSize.s450,
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.blueprime,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                            width: 300,
+                                            child: CheckboxTileDetails(
+                                              title: serviceDetail.serviceName,
+                                              initialValue: false,
+                                              onChanged: (value) {
+                                                // setState(() {
+                                                //   isHeadOffice = true;
+                                                //   print('HeadOffice ${isHeadOffice}');
+                                                // });
+                                              },
+                                            )),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 15),
+                                          child: IconButton(
+                                            onPressed: () {
+                                            },
+                                            icon: Icon(Icons.mode_edit_outline_outlined, size:20,color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  /// HCO number
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('HCO Number',style:GoogleFonts.firaSans(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xff686464),
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                        Text("${hcoNumController.text}",style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),)
+                                      ],
+                                    ),
+                                  ),
+                                  // Divider
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Divider(color: ColorManager.faintGrey,thickness: 1,),
+                                  ),
+                                  /// Medicare ID
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Medicare ID',style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),),
+                                        Text("${medicareController.text}",style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),)
+                                      ],
+                                    ),
+                                  ),
+                                  // Divider
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Divider(color: ColorManager.faintGrey,thickness: 0.5,),
+                                  ),
+                                  /// NPI Number
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('NPI Number',style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),),
+                                        Text("${npiNumController.text}",style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),)
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+
+                            // CIDetailsDropdown(
+                            //   initialValue: serviceDetail.serviceName,
+                            //   items: dropdownItems.map((item) {
+                            //     return DropdownMenuItem(
+                            //       value: item,
+                            //       child: Text(item),
+                            //     );
+                            //   }).toList(),
+                            //   onEditIconTap: () {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (context) {
+                            //         return CIDetailsDropdownPopup(
+                            //           onSavePressed: () {
+                            //             setState(() {
+                            //               dropdownItems = [
+                            //                 serviceDetail.serviceName,
+                            //                 'HCO Number: ${hcoNumController.text}',
+                            //                 'Medicare ID: ${medicareController.text}',
+                            //                 'NPI Number: ${npiNumController.text}',
+                            //               ];
+                            //             });
+                            //           },
+                            //           hcoNumController: hcoNumController,
+                            //           medicareController: medicareController,
+                            //           npiNumController: npiNumController,
+                            //         );
+                            //       },
+                            //     );
+                            //   },
+                            // ),
                             //const SizedBox(width: 100),
                           ],
                         ),

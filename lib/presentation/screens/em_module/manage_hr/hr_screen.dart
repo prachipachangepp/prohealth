@@ -600,6 +600,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     );
                   }
                   if (snapshot.hasData) {
+
                     List<HRAllData> sortedData = snapshot.data!;
                     sortedData.sort((a, b) => b.employeeTypesId.compareTo(a.employeeTypesId));
 
@@ -620,7 +621,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                               int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                               String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               HRAllData hrdoc = paginatedData[index];
-
+                              print('Color code ${snapshot.data![index].color}');
                               return Column(
                                 children: [
                                   SizedBox(height: AppSize.s5),
@@ -731,6 +732,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                           .blueprime,
                                                                     ));
                                                                   }
+                                                                  print('Color prefill ${snapshot.data!.color}');
                                                                   var type = hrdoc.toString();
                                                                   var shorthand = hrdoc.toString();
                                                                   var hexColorData = snapshot.data!.color!.replaceAll("#", "").toString();
@@ -739,6 +741,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                   print('Hex Color ::::${hexColor}');
                                                                   hrcontainerColors[index] = hexColor;
                                                                   var splitHexColor = hexColor.toString().substring(10, 16);
+                                                                  String colortemp = "#${splitHexColor}";
                                                                   typeController = TextEditingController(text: hrdoc.empType.toString());
                                                                   shorthandController = TextEditingController(text: hrdoc.abbrivation.toString());
                                                                   return EditPopupWidget(
@@ -746,13 +749,15 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                     shorthandController: shorthandController,
                                                                     containerColor: hrcontainerColors[index],
                                                                     onSavePressed: () async {
+                                                                      print('Selected color ${snapshot.data!.color }');
                                                                       await AllFromHrPatch(
                                                                           context,
                                                                           snapshot.data!.empTypeId,
                                                                           snapshot.data!.deptId,
                                                                           type == typeController.text ? type.toString() : typeController.text,
                                                                           shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
-                                                                          splitHexColor == hrcontainerColors[index] ? splitHexColor : color);
+                                                                          colortemp == snapshot.data!.color ? colortemp : colortemp
+                                                                      );
                                                                       getAllHrDeptWise(context, widget.deptId).then((data) {
                                                                         _hrAllcontroller.add(data);
                                                                       }).catchError((error) {});
@@ -761,15 +766,17 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       shorthandController.clear();
                                                                       seletedType = "Clinical";
                                                                     },
-                                                                    onColorChanged: (Color seletedColor) {
+                                                                    onColorChanged: (Color seletedColor,) {
                                                                       setState(() {
                                                                         hrcontainerColors[index] = seletedColor;
                                                                         print("Color ${seletedColor}");
                                                                         color = seletedColor.toString().substring(10, 16);
+                                                                        colortemp = "#${color}";
                                                                         _saveColor(index, seletedColor);
                                                                       });
                                                                     },
                                                                     title: 'Edit Employee Type',
+
                                                                     child: Container(
                                                                       width: 354,
                                                                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),

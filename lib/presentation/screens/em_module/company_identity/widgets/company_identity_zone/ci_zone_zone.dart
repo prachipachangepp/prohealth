@@ -442,46 +442,46 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                         size: 18,
                                                         color: ColorManager.blueprime,
                                                       )),
-                                                  IconButton(
-                                                      splashColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      onPressed: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                DeletePopup(
-                                                                    title: 'Delete Zone',
-                                                                    onCancel: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                }, onDelete:
-                                                                        () async {
-                                                                  await deleteZoneCountyData(
-                                                                      context,
-                                                                      zone.zoneId);
-                                                                  getZoneByCounty(
-                                                                          context,
-                                                                          widget
-                                                                              .officeId,
-                                                                          25,
-                                                                          1,
-                                                                          20)
-                                                                      .then((data) {
-                                                                    _zoneController
-                                                                        .add(data);
-                                                                  }).catchError(
-                                                                          (error) {});
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                }));
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.delete_outline,
-                                                        size: 18,
-                                                        color:
-                                                            ColorManager.faintOrange,
-                                                      )),
+                                                  // IconButton(
+                                                  //     splashColor: Colors.transparent,
+                                                  //     hoverColor: Colors.transparent,
+                                                  //     highlightColor: Colors.transparent,
+                                                  //     onPressed: () {
+                                                  //       showDialog(
+                                                  //           context: context,
+                                                  //           builder: (context) =>
+                                                  //               DeletePopup(
+                                                  //                   title: 'Delete Zone',
+                                                  //                   onCancel: () {
+                                                  //                 Navigator.pop(
+                                                  //                     context);
+                                                  //               }, onDelete:
+                                                  //                       () async {
+                                                  //                 await deleteZoneCountyData(
+                                                  //                     context,
+                                                  //                     zone.zoneId);
+                                                  //                 getZoneByCounty(
+                                                  //                         context,
+                                                  //                         widget
+                                                  //                             .officeId,
+                                                  //                         25,
+                                                  //                         1,
+                                                  //                         20)
+                                                  //                     .then((data) {
+                                                  //                   _zoneController
+                                                  //                       .add(data);
+                                                  //                 }).catchError(
+                                                  //                         (error) {});
+                                                  //                 Navigator.pop(
+                                                  //                     context);
+                                                  //               }));
+                                                  //     },
+                                                  //     icon: Icon(
+                                                  //       Icons.delete_outline,
+                                                  //       size: 18,
+                                                  //       color:
+                                                  //           ColorManager.faintOrange,
+                                                  //     )),
                                                 ],
                                               ),
                                             )

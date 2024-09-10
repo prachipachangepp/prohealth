@@ -118,7 +118,7 @@ Future<List<ServiceData>> PayRateServiceDropdown(
   try {
     final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.getServicedropdown());
+        path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(companyId: companyID));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsList.add(

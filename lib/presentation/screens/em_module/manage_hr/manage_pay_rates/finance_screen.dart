@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -61,6 +62,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
   bool isServiceSelected = false;
   String? selectedServiceName;
   int? firstServiceId;
+  String? abbrivtionName;
+  int? employeeTypeId;
+  int? firstEmployeeTypeId;
 
   @override
   void initState() {
@@ -106,6 +110,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
             .toList();
     _payRatesController.add(filteredData);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -160,38 +165,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     ///disabled container
                     Row(
                       children: [
-                        Container(
-                          height: 30,
-                          width: 150,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 6, horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                color: ColorManager.fmediumgrey, width: 1.2),
-                            borderRadius: BorderRadius.circular(4),
-                            boxShadow: [
-                              // BoxShadow(
-                              //   color:
-                              //       const Color(0xff000000).withOpacity(0.25),
-                              //   blurRadius: 2,
-                              //   offset: const Offset(0, 2),
-                              // ),
-                            ],
-                          ),
-                          child: Text(
-                            'Clinical',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.fmediumgrey,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
                         FutureBuilder<List<ServiceData>>(
                           future: PayRateServiceDropdown(context),
                           builder: (context, snapshot) {
@@ -222,7 +195,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             }
                             if (snapshot.hasData) {
                               List<DropdownMenuItem<String>>
-                                  dropDownServiceList = [];
+                              dropDownServiceList = [];
                               for (var service in snapshot.data!) {
                                 dropDownServiceList.add(
                                   DropdownMenuItem<String>(
@@ -255,6 +228,111 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (service.serviceName == val) {
                                         selectedServiceId =
                                             service.officeServiceId;
+                                      }
+                                    }
+                                  });
+                                },
+                                items: dropDownServiceList,
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
+                        // Container(
+                        //   height: 30,
+                        //   width: 150,
+                        //   padding: const EdgeInsets.symmetric(
+                        //       vertical: 6, horizontal: 15),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     border: Border.all(
+                        //         color: ColorManager.fmediumgrey, width: 1.2),
+                        //     borderRadius: BorderRadius.circular(4),
+                        //     boxShadow: [
+                        //       // BoxShadow(
+                        //       //   color:
+                        //       //       const Color(0xff000000).withOpacity(0.25),
+                        //       //   blurRadius: 2,
+                        //       //   offset: const Offset(0, 2),
+                        //       // ),
+                        //     ],
+                        //   ),
+                        //   child: Text(
+                        //     'Clinical',
+                        //     style: GoogleFonts.firaSans(
+                        //       fontSize: 12,
+                        //       fontWeight: FontWeightManager.bold,
+                        //       color: ColorManager.fmediumgrey,
+                        //       decoration: TextDecoration.none,
+                        //     ),
+                        //   ),
+                        // ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        FutureBuilder<List<HRAllData>>(
+                          future: getAllHrDeptWise(context, 1),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return dummeyTextField(
+                                width: 300,
+                                height: 30,
+                                controller: dummyCtrl,
+                                labelText: 'Select',
+                                suffixIcon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: ColorManager.black,
+                                ),
+                              );
+                            }
+                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  ErrorMessageString.noserviceAdded,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeightManager.medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              List<DropdownMenuItem<String>>
+                              dropDownServiceList = [];
+                              for (var service in snapshot.data!) {
+                                dropDownServiceList.add(
+                                  DropdownMenuItem<String>(
+                                    value: service.abbrivation,
+                                    child: Text(service.abbrivation ?? ''),
+                                  ),
+                                );
+                              }
+
+                              // Store the service ID of the 0th position
+                              if (dropDownServiceList.isNotEmpty) {
+                                firstEmployeeTypeId =
+                                    snapshot.data![0].employeeTypesId;
+                              }
+
+                              if (
+                                  dropDownServiceList.isNotEmpty) {
+                                abbrivtionName =
+                                    dropDownServiceList[0].value;
+                                employeeTypeId = firstEmployeeTypeId;
+                              }
+
+                              return CICCDropdown(
+                                width: 300,
+                                initialValue: abbrivtionName,
+                                onChange: (val) {
+                                  setState(() {
+                                    abbrivtionName = val;
+                                    for (var abbrivation in snapshot.data!) {
+                                      if (abbrivation.abbrivation == val) {
+                                        employeeTypeId =
+                                            abbrivation.employeeTypesId;
                                       }
                                     }
                                   });

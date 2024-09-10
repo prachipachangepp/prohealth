@@ -290,7 +290,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   email: emailController.text,
                                   primaryPhone:  mobNumController.text,
                                   secondaryPhone:secNumController.text,
-                                  officeId: generatedString!,
+                                  officeId: "",
                                   lat: _selectedLocation.latitude.toString(),
                                   long:_selectedLocation.longitude.toString(),
                                   cityName: "",
@@ -342,7 +342,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left:25,right: 45),
-                  child: Container(height: 20,width:100),
+                  child: Container(height: 20,width:150),
                 ),
                 Expanded(
                   child: Center(
@@ -454,7 +454,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               ),
                                             ],
                                           ),
-                                          height: 60,
+                                          height: 90,
                                           child: Stack(
                                             children: [
                                               snapshot.data![index].isHeadOffice?Positioned(
@@ -482,50 +482,80 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                   padding: const EdgeInsets.only(left: 25,right: 45,top:5),
                                                   child: StatefulBuilder(
                                                     builder: (BuildContext context, void Function(void Function()) setState) {
-                                                      return Center(
-                                                        child: InkWell(
-                                                          onTap: () async{
-                                                            String googleMapsUrl =
-                                                                'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                            if (await canLaunchUrlString(googleMapsUrl)) {
-                                                            await launchUrlString(googleMapsUrl);
-                                                            } else {
-                                                            print('Could not open the map.');
-                                                            }
-                                                          },
-                                                          child: MouseRegion(
-                                                            onEnter: (_) {
-                                                              setState(() {
-                                                                _isHovered = true;
-                                                              });
-                                                            },
-                                                            onExit: (_) {
-                                                              setState(() {
-                                                                _isHovered = false;
-                                                              });
-                                                            },
-                                                            child: Stack(
-                                                              alignment: Alignment.center,
-                                                              children: [
-                                                                Container(
-                                                                  height: 100,
-                                                                  width: 100,
-                                                                  child: Image.asset(
-                                                                    "images/mapImage.png",
-                                                                    fit: BoxFit.cover,
-                                                                  ),
-                                                                ),
-                                                                if (_isHovered)
-                                                                  Icon(
-                                                                    Icons.map,
-                                                                    size: 20,
-                                                                    color: ColorManager.blueprime,
-                                                                  ),
-                                                              ],
+                                                      return InkWell(
+                                                        onTap: () async{
+                                                          String googleMapsUrl =
+                                                              'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                          if (await canLaunchUrlString(googleMapsUrl)) {
+                                                          await launchUrlString(googleMapsUrl);
+                                                          } else {
+                                                          print('Could not open the map.');
+                                                          }
+                                                        },
+                                                        child: SizedBox(
+                                                          height: 100,
+                                                          width: 150,
+                                                          child: GoogleMap(
+                                                            initialCameraPosition: CameraPosition(
+                                                              target: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                              zoom: 15.0,
                                                             ),
+                                                            markers: {
+                                                               Marker(
+                                                                markerId: MarkerId(''),
+                                                                position: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                              )
+                                                            }, // Optional: Disable if not needed// Optional: Disable if not needed
+                                                            zoomControlsEnabled: false,
+                                                            mapToolbarEnabled: false,
                                                           ),
                                                         ),
-                                                      ); },
+                                                      );
+                                                      //   Center(
+                                                      //   child: InkWell(
+                                                      //     onTap: () async{
+                                                      //       String googleMapsUrl =
+                                                      //           'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                      //       if (await canLaunchUrlString(googleMapsUrl)) {
+                                                      //       await launchUrlString(googleMapsUrl);
+                                                      //       } else {
+                                                      //       print('Could not open the map.');
+                                                      //       }
+                                                      //     },
+                                                      //     child: MouseRegion(
+                                                      //       onEnter: (_) {
+                                                      //         setState(() {
+                                                      //           _isHovered = true;
+                                                      //         });
+                                                      //       },
+                                                      //       onExit: (_) {
+                                                      //         setState(() {
+                                                      //           _isHovered = false;
+                                                      //         });
+                                                      //       },
+                                                      //       child: Stack(
+                                                      //         alignment: Alignment.center,
+                                                      //         children: [
+                                                      //           Container(
+                                                      //             height: 100,
+                                                      //             width: 100,
+                                                      //             child: Image.asset(
+                                                      //               "images/mapImage.png",
+                                                      //               fit: BoxFit.cover,
+                                                      //             ),
+                                                      //           ),
+                                                      //           if (_isHovered)
+                                                      //             Icon(
+                                                      //               Icons.map,
+                                                      //               size: 20,
+                                                      //               color: ColorManager.blueprime,
+                                                      //             ),
+                                                      //         ],
+                                                      //       ),
+                                                      //     ),
+                                                      //   ),
+                                                      // );
+                                                      },
                                                   ),
                                                 ),
                                                 Expanded(
