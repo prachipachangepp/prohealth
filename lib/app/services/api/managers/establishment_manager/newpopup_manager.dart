@@ -186,7 +186,7 @@ Future<List<NewOrgDocumentManage>> getNewDocManagefetch(BuildContext context,
 
 
 
-///////delete
+///////delete office document
 Future<ApiData> deleteNewOrgOfficeDoc(
     BuildContext context, int orgOfficeDocumentId) async {
   try {
