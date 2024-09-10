@@ -49,14 +49,12 @@ class EstablishmentManagerRepository {
   static String zonedropdown = "/zoneDropdownByCompany";
   static String addPayrates = "/payrates/add";
   static String companyOfficeGetList = "/company-office";
-
-  // static String zonedropdown ="/zone/zoneDropdown";
-  //static String addPayrates ="/payrates/add";
   static String newPayrates = "/payrates";
   static String newPayratesdelete = "/payrates";
   static String addCompanyPost = "/Company/Insert";
-
-  //static String add ="/add";
+  ///new org
+  static String orgDocSetup ="/org-document-setup";
+  static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
 
 
   static String companyAll() {
@@ -465,5 +463,22 @@ class EstablishmentManagerRepository {
 
   static String deleteeditprefillPayRates({required int payRatesId}) {
     return "$newPayratesdelete/$payRatesId";
+  }
+
+  ///new org doc
+  static String newOrgDocGet() {
+    return "$orgDocSetup";
+  }
+  ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
+  static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
+    return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+  ///org-document-setup/{orgDocumentSetupid}
+  static String updatePrefillPatchNewOrgDoc({required int orgDocumentSetupid}) {
+    return "$orgDocSetup/$orgDocumentSetupid";
+  }
+  ///
+  static String addNewDocumentPost() {
+    return "$orgDocSetup/$add";
   }
 }
