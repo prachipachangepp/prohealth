@@ -65,6 +65,13 @@ class EstablishmentManagerRepository {
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
 
+  ///office
+  static String officeDocSetup ="/org-document-setup";
+  static String byofficetypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
+
+
+
+
 
   static String companyAll() {
     return "$company";
@@ -487,6 +494,19 @@ class EstablishmentManagerRepository {
   static String deleteeditprefillPayRates({required int payRatesId}) {
     return "$newPayratesdelete/$payRatesId";
   }
+
+  ///new office manage button
+  static String newOfficeDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
+    return "$officeDocSetup/$byofficetypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+
+  static String deleteNewOrgOfficeDoc({required int orgOfficeDocumentId}) {
+    return "$officeDocSetup/$orgOfficeDocumentId";
+  }
+
+
+
+
 
 
   ///new org doc

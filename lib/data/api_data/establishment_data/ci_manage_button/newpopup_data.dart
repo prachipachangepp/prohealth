@@ -22,3 +22,29 @@ class TypeofDocpopup {
       required this.companyid,
       required this.idOfDocument});
 }
+
+
+
+
+//////
+
+class NewOrgDocumentManage {
+  final int orgOfficeDocumentId;
+  final int orgDocumentSetupid;
+  final String idOfDocument;
+  final String expirydate;
+  final String doccreatedat;
+  final int companyid;
+  final String url;
+  final String officeid;
+
+  NewOrgDocumentManage(
+      {required this.orgOfficeDocumentId,
+      required this.orgDocumentSetupid,
+      required this.idOfDocument,
+      required this.expirydate,
+      required this.doccreatedat,
+      required this.companyid,
+      required this.url,
+      required this.officeid});
+}
