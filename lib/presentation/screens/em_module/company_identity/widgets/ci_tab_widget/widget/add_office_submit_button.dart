@@ -96,7 +96,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
             Container(
               height: AppSize.s40,
               width: AppSize.s390,
-              padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: ColorManager.bluebottom,
                 borderRadius: BorderRadius.only(
@@ -108,7 +107,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 25),
+                    padding: const EdgeInsets.only(left: 35),
                     child: Text(
                       'Add New Office',
                       textAlign: TextAlign.center,
@@ -120,11 +119,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close, color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close, color: Colors.white),
+                    ),
                   ),
                 ],
               ),

@@ -131,7 +131,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
+                      padding: const EdgeInsets.only(left: 27.0),
                       child: Text(
                         widget.title,
                         style: GoogleFonts.firaSans(
