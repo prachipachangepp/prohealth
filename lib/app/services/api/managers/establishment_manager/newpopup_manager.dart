@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -62,16 +63,20 @@ Future<ApiData> addOrgDocPPPost({
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
+    // String formattedExpiryDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(expiryDate));
+
     var data = {
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
-      "expiry_date": expiryDate,
+      // "expiry_date": formattedExpiryDate,
+       "expiry_date": expiryDate,
       "doc_created_at": docCreatedat,
       "company_id": companyid,
       "url": url,
       "office_id": officeid,
     };
     print('Post Manage CCVCPP Doc Added $data');
+
     var response = await Api(context)
         .post(path: EstablishmentManagerRepository.addDocOrg(), data: data);
     print('Post Manage CCVCPP ::::$response ');
@@ -79,14 +84,14 @@ Future<ApiData> addOrgDocPPPost({
     if (response.statusCode == 200 || response.statusCode == 201) {
       var responseData = response.data;
       var docOfficeID =responseData["orgOfficeDocumentId"];
-      print("Post Manage CCVCPP  addded ");
+      print("Uploaded Document CCVCPP  addded ");
       return ApiData(
           orgOfficeDocumentId: docOfficeID,
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
     } else {
-      print("Error 1");
+      print("Error 1 Failed to add");
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
@@ -99,7 +104,6 @@ Future<ApiData> addOrgDocPPPost({
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
-
 
 
 ///upload base 64 Add DocType(CC,VC, PP) Also use this in Edit
