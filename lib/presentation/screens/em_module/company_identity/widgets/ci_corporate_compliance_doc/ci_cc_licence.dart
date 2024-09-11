@@ -65,6 +65,18 @@ class _CICCLicenseState extends State<CICCLicense> {
   }
 
   @override
+  void initState() {
+    getListMCorporateCompliancefetch(context,
+        AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+    )
+        .then((data) {
+      lisenceController.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
@@ -75,21 +87,22 @@ class _CICCLicenseState extends State<CICCLicense> {
             height: AppSize.s5,
           ),
           Expanded(
-            child: FutureBuilder<List<MCorporateComplianceModal>>(
-                future: getListMCorporateCompliancefetch(context,
-                    AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-                ),
-                // lisenceController.stream,
+            child: StreamBuilder<List<MCorporateComplianceModal>>(
+                // future:
+                // getListMCorporateCompliancefetch(context,
+                //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+                // ),
+               stream: lisenceController.stream,
                 builder: (context, snapshot) {
-                  // getListMCorporateCompliancefetch(context,
-                  //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-                  //     )
-                  //     .then((data) {
-                  //   lisenceController.add;
-                  // }).catchError((error) {
-                  //   // Handle error
-                  // });
-///
+                  getListMCorporateCompliancefetch(context,
+                      AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+                      )
+                      .then((data) {
+                    lisenceController.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
+                  ///
                   // getManageCorporate(context, widget.officeId, widget.docId,
                   //         widget.subDocId, 1, 20)
                   //     .then((data) {
@@ -212,7 +225,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         ),
                                                         Text(
                                                           // manageCCLicence.docname.toString(),
-                                                          manageCCLicence.idOfDocument.toString(),
+                                                          manageCCLicence.expiry_date.toString(),
                                                           textAlign: TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize:

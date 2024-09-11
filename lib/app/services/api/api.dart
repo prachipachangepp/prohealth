@@ -47,8 +47,8 @@ class Api {
       path,
 
     );
-    print(path);
-    print("Prachi:::::::::${response}");
+    // print(path);
+    // print("Prachi:::::::::${response}"
 
     return response;
   }
@@ -58,7 +58,8 @@ class Api {
       path,
       data: data,
     );
-
+    //  print(path);
+    // print("Prachi POST:::::::::${response}");
     return response;
   }
 
