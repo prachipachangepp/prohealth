@@ -330,7 +330,7 @@ class EstablishmentManagerRepository {
   }
 
   static String addEmployeDocSetup() {
-    return "$employeedocSetup$add";
+    return "$employeedocSetup/$add";
   }
 
   ///employee doc tab bar
