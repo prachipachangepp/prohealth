@@ -78,7 +78,7 @@ class AppStringEM{
 
 class ErrorMessageString{
   ///manage button flow
-  static const String noCounties =   "No available countyes!";
+  static const String noCounties =   "No available counties!";
   static const String noCountyAdded =  "No county added";
   static const String noZoneAdded =  "No zone added";
   static const String noZones =  "No available zones!";

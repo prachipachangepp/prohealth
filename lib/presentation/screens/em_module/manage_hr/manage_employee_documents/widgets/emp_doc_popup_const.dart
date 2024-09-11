@@ -205,7 +205,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.submit,
+                  text: AppStringEM.save,
                   onPressed: () async {
                     _validateFields();
                     if (_idError == null && _nameError == null) {
