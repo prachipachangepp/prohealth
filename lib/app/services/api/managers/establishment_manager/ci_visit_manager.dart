@@ -9,45 +9,48 @@ import '../../../../../data/api_data/api_data.dart';
 import '../../../../resources/const_string.dart';
 
 /// get
-Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows,) async {
+Future<List<CiVisit>> getVisit(
+  BuildContext context,
+  int pageNo,
+  int noOfRows,
+) async {
   List<CiVisit> itemsList = [];
 
   try {
     final companyId = await TokenManager.getCompanyId();
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.
-    getCiVisit(
-      companyId: companyId, pageNo: pageNo, noofRows: noOfRows,
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getCiVisit(
+      companyId: companyId,
+      pageNo: pageNo,
+      noofRows: noOfRows,
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
 
-            for (var item in response.data) {
-              List<CiVisitList> clinicians = [];
-              for(var clinical in item['eligibleClinician']){
-                try{
-                  clinicians.add(
-                      CiVisitList(
-                        empTypeId: clinical['employeeTypeId'],
-                        eligibleClinician: clinical['eligibleClinician'],
-                        color: clinical['color'],
-                      ));
-                }catch(e){
-                }
-              }
-              print("::Item${item}");
-            itemsList.add(
-            CiVisit(
-              visitId: item['visitId'],
-              typeofVisit: item['typeOfVisit'],
-              eligibleClinician: clinicians,
-              sucess: true,
-              message: response.statusMessage!,
-              // color:  item['color']
-            ),
-        );
+      for (var item in response.data) {
+        List<CiVisitList> clinicians = [];
+        for (var clinical in item['eligibleClinician']) {
+          try {
+            clinicians.add(CiVisitList(
+              empTypeId: clinical['employeeTypeId'],
+              eligibleClinician: clinical['eligibleClinician'],
+              color: clinical['color'],
+            ));
+          } catch (e) {}
         }
+        print("::Item${item}");
+        itemsList.add(
+          CiVisit(
+            visitId: item['visitId'],
+            typeofVisit: item['typeOfVisit'],
+            eligibleClinician: clinicians,
+            sucess: true,
+            message: response.statusMessage!,
+            // color:  item['color']
+          ),
+        );
+      }
     } else {
       print('Org Api Error');
       return itemsList;
@@ -68,13 +71,13 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
         .get(path: EstablishmentManagerRepository.getCiVisitList());
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
-      for(var item in response.data){
-       itemsList.add(VisitListData(
-           sucess: true,
-           message: response.statusMessage!,
-           companyId: item['companyId'] == null ? 1 :item['companyId'],
-           visitId: item['visitId'],
-           visitType: item['typeOfVisit']));
+      for (var item in response.data) {
+        itemsList.add(VisitListData(
+            sucess: true,
+            message: response.statusMessage!,
+            companyId: item['companyId'] == null ? 1 : item['companyId'],
+            visitId: item['visitId'],
+            visitType: item['typeOfVisit']));
       }
       print("1");
     } else {
@@ -89,19 +92,29 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
 }
 
 /// Get prefill visit
-Future<VisitListDataPrefill> getVisitListPrefill(BuildContext context, int visitId) async {
-var itemsList;
+Future<VisitListDataPrefill> getVisitListPrefill(
+    BuildContext context, int visitId) async {
+  var itemsList;
   try {
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.getCiVisitPrefill(visitId: visitId));
+    final response = await Api(context).get(
+        path:
+            EstablishmentManagerRepository.getCiVisitPrefill(visitId: visitId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
-        itemsList = VisitListDataPrefill(
-            sucess: true,
-            message: response.statusMessage!,
-            companyId: response.data['companyId']??1,
-            visitId: response.data['visitId']??0,
-            visitType: response.data['typeOfVisit']??"--");
+      itemsList = VisitListDataPrefill(
+        sucess: true,
+        message: response.statusMessage!,
+        visitId: response.data['visitId'] ?? 0,
+        visitType: response.data['typeOfVisit']??"",
+        eligibleClinicia:
+            (response.data['eligibleClinician'] as List<dynamic>?)?.map((item) {
+                  return EligibleClinician(
+                      employeeTypeId: item['employeeTypeId'],
+                      eligibleClinician: item['eligibleClinician'],
+                      color: item['color']);
+                }).toList() ??
+                [],
+      );
     } else {
       return itemsList;
     }
@@ -111,21 +124,24 @@ var itemsList;
     return itemsList;
   }
 }
+
 /// post
-Future<ApiData> addVisitPost(BuildContext context,
-    String typeOfVisit,
-    List<int> eligibleClinician,
-    ) async {
+Future<ApiData> addVisitPost({
+  required BuildContext context,
+  required String typeOfVisit,
+  required List<int> eligibleClinician,
+  required String serviceId
+}
+) async {
   try {
     final companyId = await TokenManager.getCompanyId();
-    var response = await Api(context).post(
-        path: EstablishmentManagerRepository.
-        postCiVisit(),
-        data: {
-          "typeOfVisit": typeOfVisit,
-          "companyId":companyId,
-          "employeeTypeId": eligibleClinician,
-           });
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.postCiVisit(), data: {
+      "typeOfVisit": typeOfVisit,
+      "companyId": companyId,
+      "employeeTypeId": eligibleClinician,
+      "serviceId": serviceId
+    });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");
       // orgDocumentGet(context);
@@ -148,20 +164,26 @@ Future<ApiData> addVisitPost(BuildContext context,
 }
 
 /// patch
-Future<ApiData> updateVisitPatch(BuildContext context, int typeVisist,String visitType, List<int> eligibleClinical) async {
+Future<ApiData> updateVisitPatch({required BuildContext context, required int typeVisist,
+  required String visitType, required List<int> eligibleClinical,required String serviceId}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var dymmyData = {
-      'typeOfVisit':visitType,
-      'companyId':companyId,
-      'employeeTypeId':eligibleClinical
+      'typeOfVisit': visitType,
+      'companyId': companyId,
+      'employeeTypeId': eligibleClinical,
+      'serviceId':serviceId
     };
     print("Updated pre data ${dymmyData}");
-    var response = await Api(context).patch(path: EstablishmentManagerRepository.updateCiVisit(typeVisit: typeVisist), data: {
-      'typeOfVisit':visitType,
-      'companyId':companyId,
-      'employeeTypeId':eligibleClinical
-    },);
+    var response = await Api(context).patch(
+      path: EstablishmentManagerRepository.updateCiVisit(typeVisit: typeVisist),
+      data: {
+        'typeOfVisit': visitType,
+        'companyId': companyId,
+        'employeeTypeId': eligibleClinical,
+        'serviceId':serviceId
+      },
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Updated visit data");
       // orgDocumentGet(context);
@@ -211,8 +233,7 @@ Future<ApiData> updateVisitPatch(BuildContext context, int typeVisist,String vis
 //   }
 // }
 
-Future<ApiData> deleteVisit(
-    BuildContext context, int visitId) async {
+Future<ApiData> deleteVisit(BuildContext context, int visitId) async {
   try {
     var response = await Api(context).delete(
         path: EstablishmentManagerRepository.deleteCiVisit(visitId: visitId));

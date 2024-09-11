@@ -44,6 +44,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController payRatesController = TextEditingController();
   TextEditingController perMilesController = TextEditingController();
+  TextEditingController fixedPayRatesController = TextEditingController();
   TextEditingController dummyCtrl = TextEditingController();
   final StreamController<List<PayRatesGet>> _payRatesController =
       StreamController<List<PayRatesGet>>();
@@ -120,10 +121,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 12),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [buildDropdownButton(context)],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [buildDropdownButton(context)],
+            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -355,16 +356,17 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         onPressed: () {
                           payRatesController.clear();
                           perMilesController.clear();
-                          if (selectedServiceId == null) {
-                            // If no service selected, use the ID of the first service
-                            setState(() {
-                              selectedServiceId = firstServiceId;
-                            });
-                          }
+                          // if (selectedServiceId == null) {
+                          //   // If no service selected, use the ID of the first service
+                          //   setState(() {
+                          //     selectedServiceId = firstServiceId;
+                          //   });
+                          // }
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return PayRatesPopup(
+                                fixPayRatesController: fixedPayRatesController,
                                 visitTypeTextActive: true,
                                 payRatesController: payRatesController,
                                 perMilesController: perMilesController,
@@ -423,7 +425,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                                FontWeightManager.medium,
+                                            FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -432,7 +434,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     }
                                     if (snapshot.hasData) {
                                       List<DropdownMenuItem<String>>
-                                          dropDownZoneList = [];
+                                      dropDownZoneList = [];
                                       for (var i in snapshot.data!) {
                                         dropDownZoneList.add(
                                           DropdownMenuItem<String>(
@@ -443,9 +445,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       }
                                       return CICCDropDownExcel(
                                         initialValue:
-                                            dropDownZoneList.isNotEmpty
-                                                ? dropDownZoneList[0].value
-                                                : null,
+                                        dropDownZoneList.isNotEmpty
+                                            ? dropDownZoneList[0].value
+                                            : null,
                                         onChange: (val) {
                                           for (var a in snapshot.data!) {
                                             if (a.visitType == val) {
@@ -479,7 +481,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                                FontWeightManager.medium,
+                                            FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -488,7 +490,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     }
                                     if (snapshotZone.hasData) {
                                       List<DropdownMenuItem<String>>
-                                          dropDownTypesList = [];
+                                      dropDownTypesList = [];
                                       for (var i in snapshotZone.data!) {
                                         dropDownTypesList.add(
                                           DropdownMenuItem<String>(
@@ -499,9 +501,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       }
                                       return CICCDropDownExcel(
                                         initialValue:
-                                            dropDownTypesList.isNotEmpty
-                                                ? dropDownTypesList[0].value
-                                                : null,
+                                        dropDownTypesList.isNotEmpty
+                                            ? dropDownTypesList[0].value
+                                            : null,
                                         onChange: (val) {
                                           for (var a in snapshotZone.data!) {
                                             if (a.zoneName == val) {
@@ -869,7 +871,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       //     .clear();
                                                                       // perMilesController
                                                                       //     .clear();
-                                                                    },
+                                                                    }, fixPayRatesController: fixedPayRatesController,
                                                                   );
                                                                 });
                                                           },

@@ -23,14 +23,15 @@ class SMTextFConst extends StatefulWidget {
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
+  final double? width;
 
-   SMTextFConst({
-     Key? key,
-     this.focusNode,
+  SMTextFConst({
+    Key? key,
+    this.focusNode,
     required this.controller,
     required this.keyboardType,
-     required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget,
+    required this.text,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget, this.width,
   }) : super(key: key);
 
   @override
@@ -58,7 +59,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
         ),
         SizedBox(height: 5,),
         Container(
-          width: 354,
+          width: widget.width ?? 354,
           height: 30,
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
@@ -86,9 +87,9 @@ class _SMTextFConstState extends State<SMTextFConst> {
               contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
             ),
             style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s12,
-              color: ColorManager.mediumgrey
+                fontWeight: FontWeightManager.medium,
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey
             ),
             //validator: widget.validator,
             onTap: widget.onChange,

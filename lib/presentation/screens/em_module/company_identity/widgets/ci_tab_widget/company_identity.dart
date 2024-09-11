@@ -114,6 +114,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           onLocationPicked: (location) {
             // Print debug information to ensure this is being called
             print('Picked location inside MapScreen: $_selectedLocation');
+            _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
             setState(() {
               _latitude = location.latitude;
               _longitude = location.longitude;
@@ -186,8 +187,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
                             return AddOfficeSumbitButton(
                               nameController: nameController,
                               addressController: addressController,
@@ -197,59 +196,68 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               mobNumController: mobNumController,
                               secNumController: secNumController,
                               OptionalController: OptionalController,
-                              checkBoxHeadOffice:Container(
-                                  width: 300,
-                                  child: CheckboxTile(
-                                    title: 'Head Office',
-                                    initialValue: false,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        isHeadOffice = true;
-                                        print('HeadOffice ${isHeadOffice}');
-                                      });
-                                    },
-                                  )),
-                              checkBoxServices: Container(
-                                height:100,
-                                width: 300,
-                                child: FutureBuilder<List<ServicesData>>(
-                                  future: getAllServicesData(context),
-                                  builder: (context,snapshot) {
-                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                      return SizedBox();
-                                    }
-                                    if(snapshot.data!.isEmpty){
-                                      return Center(
-                                        child: Text('No services available',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s10,
-                                            fontWeight: FontWeightManager.medium,
-                                            color: ColorManager.mediumgrey,
-                                            //decoration: TextDecoration.none,
-                                          ),),
-                                      );
-                                    }
-                                    if(snapshot.hasData){
-                                      return Wrap(
-                                          children:[
-                                            ...List.generate(snapshot.data!.length, (index){
-                                              return Container(
-                                                  width: 150,
-                                                  child: Center(
-                                                    child: CheckboxTile(
-                                                      title: snapshot.data![index].serviceName,
-                                                      initialValue: false,
-                                                      onChanged: (value) {},
-                                                    ),
-                                                  ));
-                                            })]
-                                      );
-                                    }else{
-                                      return SizedBox();
-                                    }
+                              checkBoxHeadOffice:StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return Container(
+                                      width: 300,
+                                      child: CheckboxTile(
+                                        title: 'Head Office',
+                                        initialValue: false,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            isHeadOffice = true;
+                                            print('HeadOffice ${isHeadOffice}');
+                                          });
+                                        },
+                                      ));
+                                },
+                              ),
+                              checkBoxServices: StatefulBuilder(
 
-                                  }
-                                ),
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return Container(
+                                    height:100,
+                                    width: 300,
+                                    child: FutureBuilder<List<ServicesData>>(
+                                        future: getAllServicesData(context),
+                                        builder: (context,snapshot) {
+                                          if(snapshot.connectionState == ConnectionState.waiting){
+                                            return SizedBox();
+                                          }
+                                          if(snapshot.data!.isEmpty){
+                                            return Center(
+                                              child: Text('No services available',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager.medium,
+                                                  color: ColorManager.mediumgrey,
+                                                  //decoration: TextDecoration.none,
+                                                ),),
+                                            );
+                                          }
+                                          if(snapshot.hasData){
+                                            return Wrap(
+                                                children:[
+                                                  ...List.generate(snapshot.data!.length, (index){
+                                                    return Container(
+                                                        width: 150,
+                                                        child: Center(
+                                                          child: CheckboxTile(
+                                                            title: snapshot.data![index].serviceName,
+                                                            initialValue: false,
+                                                            onChanged: (value) {},
+                                                          ),
+                                                        ));
+                                                  })]
+                                            );
+                                          }else{
+                                            return SizedBox();
+                                          }
+
+                                        }
+                                    ),
+                                  );
+                                },
                               ),
                               pickLocationWidget: Row(
                                 children: [
@@ -318,8 +326,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       .add(data);
                                 }).catchError((error) {});
                               }, formKey: _formKey,);
-                          },
-                        );
                       },
                     );
                   },
@@ -479,7 +485,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(left: 25,right: 45,top:5),
+                                                  padding: const EdgeInsets.only(left: 25,right: 45,top:10,bottom: 10),
                                                   child: StatefulBuilder(
                                                     builder: (BuildContext context, void Function(void Function()) setState) {
                                                       return InkWell(

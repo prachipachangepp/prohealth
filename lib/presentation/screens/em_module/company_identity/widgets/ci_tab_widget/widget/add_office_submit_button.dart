@@ -304,7 +304,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       setState(() {
                         isLoading = false;
                       });
-
+                      widget.stateController.clear();
+                      widget.countryController.clear();
                       widget.nameController.clear();
                       widget.mobNumController.clear();
                       widget.addressController.clear();
