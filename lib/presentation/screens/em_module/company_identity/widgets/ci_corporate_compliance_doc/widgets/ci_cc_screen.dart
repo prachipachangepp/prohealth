@@ -366,7 +366,7 @@ class _CiCorporateComplianceScreenState
                                 return UploadDocumentAddPopup(
                                   loadingDuration: _isLoading,
                                   onPressed: () async {
-                                    //  print('File path on pressed ${filePath}');
+                                     print('expDate ${expiryDateController.text}');
                                     setState(() {
                                       _isLoading = true;
                                     });
