@@ -531,7 +531,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                           Row(
                                             children: [
                                               Container(
-                                                height: 28,
+                                                height: 30,
                                                 width: 50,
                                                 //color: ColorManager.red,
                                                 child: TextFormField(
@@ -1004,7 +1004,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                               Row(
                                                 children: [
                                                   Container(
-                                                    height: 28,
+                                                    height: 30,
                                                     width: 50,
                                                     //color: ColorManager.red,
                                                     child: TextFormField(
@@ -1396,7 +1396,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                               Row(
                                                 children: [
                                                   Container(
-                                                    height: 28,
+                                                    height: 30,
                                                     width: 50,
                                                     //color: ColorManager.red,
                                                     child: TextFormField(
