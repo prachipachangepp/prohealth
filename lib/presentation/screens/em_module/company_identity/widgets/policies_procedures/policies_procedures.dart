@@ -63,6 +63,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   int docSubTypeMetaId = AppConfig.subDocId0;
   String? expiryType;
   bool _isLoading = false;
+  TextEditingController expiryDateController = TextEditingController();
 
   int currentPage = 1;
   int docTypeId = 0;
@@ -122,417 +123,462 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                               return StatefulBuilder(
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
-                                  return VCScreenPopupADDConst(
-                                    // calenderController: calenderController,
-                                    // idDocController: docIdController,
-                                    // nameDocController: docNamecontroller,
+                                  return PoliciesProcedureAddPopUp(
                                     loadingDuration: _isLoading,
                                     onPressed: () async {
-                                    //  print('File path on pressed ${filePath}');
+                                      //  print('File path on pressed ${filePath}');
                                       setState(() {
                                         _isLoading = true;
                                       });
-                                      // String expiryTypeToSend =
-                                      //     selectedExpiryType == "Not Applicable"
-                                      //         ? "Not Applicable"
-                                      //         : calenderController.text;
-                                      try {
-                                        ApiData response =
-                                            await addOrgDocPPPost(
-                                                context: context,
-                                                orgDocumentSetupid: docTypeId,
-                                                idOfDocument: "PPP",
-                                                expiryDate: "2024-09-10T07:04:41.358Z",
-                                                docCreatedat: "2024-08-16T09:39:48.030Z",
-                                                companyid: widget.companyID,
-                                                url: "url",
-                                                officeid: widget.officeId,);
-                                         if (response.statusCode ==200 || response.statusCode==201){
-                                           await uploadDocumentsoffice(context: context, documentFile: filePath, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                                         }
 
-                                        // await addManageCCVCPPPost(
-                                        //   context: context,
-                                        //   name: docNamecontroller.text,
-                                         // docTypeID: docTypeMetaId,
-                                        //   docSubTypeID: docSubTypeMetaId,
-                                        //   expiryType: selectedExpiryType.toString(),
-                                        //   expiryDate: calenderController.text,//expiryTypeToSend,
-                                        //   expiryReminder: selectedExpiryType.toString(),
-                                        //   officeId: widget.officeId,
-                                        //   idOfDoc: docIdController.text
-                                        // );
-                                        // Navigator.pop(context);
-                                      } finally {
+                                      ///Add Doctype API on save button
+                                      try {
+                                        ApiData response = await addOrgDocPPPost(
+                                          context: context,
+                                          orgDocumentSetupid: docTypeId,
+                                          idOfDocument: "PPP",
+                                          expiryDate:
+                                          // selectedExpiryType.toString(),
+                                          expiryDateController.text,
+                                          docCreatedat: DateTime.now().toIso8601String(),
+                                          companyid: widget.companyID,
+                                          url: "url",
+                                          officeid: widget.officeId,
+                                        );
+                                        expiryDateController.clear();
+                                        if (response.statusCode == 200 ||
+                                            response.statusCode == 201) {
+                                          await uploadDocumentsoffice(
+                                              context: context,
+                                              documentFile: filePath,
+                                              orgOfficeDocumentId:
+                                              response.orgOfficeDocumentId!);
+                                        }
+                                      }
+
+                                      finally {
                                         setState(() {
                                           _isLoading = false;
+                                          Navigator.pop(context);
                                         });
                                       }
+
                                     },
-                                    child: FutureBuilder<List<TypeofDocpopup>>(
-                                      future: getTypeofDoc(context,
-                                          widget.docID, widget.subDocID),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                          );
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon
-                                                  .commonStyle(
-                                                fontWeight:
-                                                    FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (snapshot.hasData) {
-                                          List<DropdownMenuItem<String>>
-                                              dropDownMenuItems = snapshot.data!
-                                                  .map((doc) =>
-                                                      DropdownMenuItem<String>(
-                                                        value: doc.docname,
-                                                        child:
-                                                            Text(doc.docname!),
-                                                      ))
-                                                  .toList();
-                                          return CICCDropdown(
-                                            initialValue: "Select",
-                                            onChange: (val) {
-                                              //   setState(() {
-                                              // selectedDocType = val;
-                                              for (var doc in snapshot.data!) {
-                                                if (doc.docname == val) {
-                                                  docTypeId =
-                                                      doc.orgDocumentSetupid!;
-                                                }
-                                              }
-                                              // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
-                                              //   _compliancePatientDataController
-                                              //       .add(data!);
-                                              // }).catchError((error) {
-                                              //   // Handle error
-                                              // });
-                                              // });
-                                            },
-                                            items: dropDownMenuItems,
-                                          );
-                                        } else {
-                                          return SizedBox();
-                                        }
-                                      },
-                                    ),
-
-                                    uploadField: Container(
-                                      height: AppSize.s30,
-                                      width: AppSize.s354,
-                                      // margin: EdgeInsets.symmetric(horizontal: 5),
-                                      decoration: BoxDecoration(
-
-                                        border: Border.all(
-
-                                          color: ColorManager.containerBorderGrey,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: StatefulBuilder(
-                                        builder: (BuildContext context,
-                                            void Function(void Function()) setState) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  fileName,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeightManager.regular,
-                                                    color: ColorManager.lightgreyheading,
-                                                  ),
-                                                ),
-                                                IconButton(
-                                                  padding: EdgeInsets.all(4),
-                                                  onPressed: _pickFile,
-                                                  icon: Icon(
-                                                    Icons.file_upload_outlined,
-                                                    color: ColorManager.black,
-                                                    size: 17,
-                                                  ),
-                                                  splashColor: Colors.transparent,
-                                                  highlightColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-
-
-
-                                    // FutureBuilder<List<DocumentTypeData>>(
-                                    //   future: documentTypeGet(context),
-                                    //   builder: (context, snapshot) {
-                                    //     if (snapshot.connectionState == ConnectionState.waiting) {
-                                    //       return Container(
-                                    //         width: 300,
-                                    //         child: Text(
-                                    //           'Loading...',
-                                    //           style: CustomTextStylesCommon.commonStyle(
-                                    //             fontWeight: FontWeightManager.medium,
-                                    //             fontSize: FontSize.s12,
-                                    //             color: ColorManager.mediumgrey,
-                                    //           ),
-                                    //         ),
-                                    //       );
-                                    //     }
-                                    //     if (snapshot.data!.isEmpty) {
-                                    //       return Center(
-                                    //         child: Text(
-                                    //           AppString.dataNotFound,
-                                    //           style: CustomTextStylesCommon.commonStyle(
-                                    //             fontWeight: FontWeightManager.medium,
-                                    //             fontSize: FontSize.s12,
-                                    //             color: ColorManager.mediumgrey,
-                                    //           ),
-                                    //         ),
-                                    //       );
-                                    //     }
-                                    //     if (snapshot.hasData) {
-                                    //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                    //       int docType = snapshot.data![0].docID;
-                                    //       docTypeMetaId = docType;
-                                    //
-                                    //       for (var i in snapshot.data!) {
-                                    //         dropDownMenuItems.add(
-                                    //           DropdownMenuItem<String>(
-                                    //             child: Text(i.docType),
-                                    //             value: i.docType,
-                                    //           ),
-                                    //         );
-                                    //       }
-                                    //       return CICCDropdown(
-                                    //         initialValue: dropDownMenuItems[0].value,
-                                    //         onChange: (val) {
-                                    //           for (var a in snapshot.data!) {
-                                    //             if (a.docType == val) {
-                                    //               docType = a.docID;
-                                    //               docTypeMetaId = docType;
-                                    //             }
-                                    //           }
-                                    //           identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                    //             _identityDataController.add(data);
-                                    //           }).catchError((error) {
-                                    //             // Handle error
-                                    //           });
-                                    //         },
-                                    //         items: dropDownMenuItems,
-                                    //       );
-                                    //     } else {
-                                    //       return SizedBox();
-                                    //     }
-                                    //   },
-                                    // ),
-                                    /// doc sub type
-                                    // child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                    //   stream: _identityDataController.stream,
-                                    //   builder: (context, snapshot) {
-                                    //     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                    //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                    //
-                                    //       // Add a placeholder item for "Select Subdocument"
-                                    //       dropDownMenuItems.add(
-                                    //         DropdownMenuItem<String>(
-                                    //           value: "Select Sub Document",
-                                    //           child: Text("Select Sub Document"),
-                                    //         ),
-                                    //       );
-                                    //
-                                    //       for (var i in snapshot.data!) {
-                                    //         dropDownMenuItems.add(
-                                    //           DropdownMenuItem<String>(
-                                    //             value: i.subDocType,
-                                    //             child: Text(i.subDocType),
-                                    //           ),
-                                    //         );
-                                    //       }
-                                    //
-                                    //       return CICCDropdown(
-                                    //         initialValue: "Select Sub Document",  // Set initial value to the placeholder
-                                    //         onChange: (val) {
-                                    //           if (val != "Select Sub Document") {
-                                    //             for (var a in snapshot.data!) {
-                                    //               if (a.subDocType == val) {
-                                    //                 docSubTypeMetaId = a.subDocID;
-                                    //               }
-                                    //             }
-                                    //           }
-                                    //         },
-                                    //         items: dropDownMenuItems,
-                                    //       );
-                                    //     } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                    //       // Optionally, you can still show a placeholder or nothing here
-                                    //       return SizedBox();
-                                    //     } else {
-                                    //       return Center(
-                                    //         child: Text(
-                                    //           AppString.dataNotFound,
-                                    //           style: CustomTextStylesCommon.commonStyle(
-                                    //             fontWeight: FontWeightManager.medium,
-                                    //             fontSize: FontSize.s12,
-                                    //             color: ColorManager.mediumgrey,
-                                    //           ),
-                                    //         ),
-                                    //       );
-                                    //     }
-                                    //   },
-                                    // ),
-                                    // radioButton: Padding(
-                                    //   padding: const EdgeInsets.only(left: 10.0),
-                                    //   child: Column(
-                                    //     mainAxisAlignment: MainAxisAlignment.start,
-                                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                                    //     children: [
-                                    //       Text(
-                                    //         "Expiry Type",
-                                    //         style: GoogleFonts.firaSans(
-                                    //           fontSize: FontSize.s12,
-                                    //           fontWeight: FontWeight.w700,
-                                    //           color: ColorManager.mediumgrey,
-                                    //           decoration: TextDecoration.none,
-                                    //         ),
-                                    //       ),
-                                    //       CustomRadioListTile(
-                                    //         value: "Not Applicable",
-                                    //         groupValue: selectedExpiryType,
-                                    //         onChanged: (value) {
-                                    //           setState(() {
-                                    //             selectedExpiryType = value;
-                                    //           });
-                                    //         },
-                                    //         title: "Not Applicable",
-                                    //       ),
-                                    //       CustomRadioListTile(
-                                    //         value: 'Scheduled',
-                                    //         groupValue: selectedExpiryType,
-                                    //         onChanged: (value) {
-                                    //           setState(() {
-                                    //             selectedExpiryType = value;
-                                    //           });
-                                    //         },
-                                    //         title: 'Scheduled',
-                                    //       ),
-                                    //       CustomRadioListTile(
-                                    //         value: 'Issuer Expiry',
-                                    //         groupValue: selectedExpiryType,
-                                    //         onChanged: (value) {
-                                    //           setState(() {
-                                    //             selectedExpiryType = value;
-                                    //           });
-                                    //         },
-                                    //         title: 'Issuer Expiry',
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                    // child2: Visibility(
-                                    //   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
-                                    //   child: Column(
-                                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                                    //     children: [
-                                    //       Text(
-                                    //         "Expiry Date",
-                                    //         style: GoogleFonts.firaSans(
-                                    //           fontSize: FontSize.s12,
-                                    //           fontWeight: FontWeight.w700,
-                                    //           color: ColorManager.mediumgrey,
-                                    //           decoration: TextDecoration.none,
-                                    //         ),
-                                    //       ),
-                                    //       SizedBox(height: AppSize.s5,),
-                                    //       FormField<String>(
-                                    //         builder: (FormFieldState<String> field) {
-                                    //           return SizedBox (
-                                    //             width: 354,
-                                    //             height: 30,
-                                    //             child:   TextFormField(
-                                    //               controller: calenderController,
-                                    //               cursorColor: ColorManager.black,
-                                    //               style: GoogleFonts.firaSans(
-                                    //                 fontSize: FontSize.s12,
-                                    //                 fontWeight: FontWeight.w700,
-                                    //                 color: ColorManager.mediumgrey,
-                                    //                 //decoration: TextDecoration.none,
-                                    //               ),
-                                    //               decoration: InputDecoration(
-                                    //                 enabledBorder: OutlineInputBorder(
-                                    //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                    //                   borderRadius: BorderRadius.circular(8),
-                                    //                 ),
-                                    //                 focusedBorder: OutlineInputBorder(
-                                    //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                    //                   borderRadius: BorderRadius.circular(8),
-                                    //                 ),
-                                    //                 hintText: 'mm-dd-yyyy',
-                                    //                 hintStyle: GoogleFonts.firaSans(
-                                    //                   fontSize: FontSize.s12,
-                                    //                   fontWeight: FontWeight.w700,
-                                    //                   color: ColorManager.mediumgrey,
-                                    //                   //decoration: TextDecoration.none,
-                                    //                 ),
-                                    //                 border: OutlineInputBorder(
-                                    //                   borderRadius: BorderRadius.circular(8),
-                                    //                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                                    //                 ),
-                                    //                 contentPadding:
-                                    //                 EdgeInsets.symmetric(horizontal: 16),
-                                    //                 suffixIcon: Icon(Icons.calendar_month_outlined,
-                                    //                     color: ColorManager.blueprime),
-                                    //                 errorText: field.errorText,
-                                    //               ),
-                                    //               onTap: () async {
-                                    //                 DateTime? pickedDate = await showDatePicker(
-                                    //                   context: context,
-                                    //                   initialDate: DateTime.now(),
-                                    //                   firstDate: DateTime(1901),
-                                    //                   lastDate: DateTime(3101),
-                                    //                 );
-                                    //                 if (pickedDate != null) {
-                                    //                   calenderController.text =
-                                    //                       DateFormat('MM-dd-yyyy').format(pickedDate);
-                                    //                 }
-                                    //               },
-                                    //               validator: (value) {
-                                    //                 if (value == null || value.isEmpty) {
-                                    //                   return 'please select birth date';
-                                    //                 }
-                                    //                 return null;
-                                    //               },
-                                    //             ),
-                                    //           );
-                                    //         },
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                    title: 'Add Policies And Procedure',
+                                    title: 'Upload Document',
                                   );
+
+
+                                  //   VCScreenPopupADDConst(
+                                  //   // calenderController: calenderController,
+                                  //   // idDocController: docIdController,
+                                  //   // nameDocController: docNamecontroller,
+                                  //   loadingDuration: _isLoading,
+                                  //   onPressed: () async {
+                                  //   //  print('File path on pressed ${filePath}');
+                                  //     setState(() {
+                                  //       _isLoading = true;
+                                  //     });
+                                  //     // String expiryTypeToSend =
+                                  //     //     selectedExpiryType == "Not Applicable"
+                                  //     //         ? "Not Applicable"
+                                  //     //         : calenderController.text;
+                                  //     try {
+                                  //       ApiData response =
+                                  //           await addOrgDocPPPost(
+                                  //               context: context,
+                                  //               orgDocumentSetupid: docTypeId,
+                                  //               idOfDocument: "PPP",
+                                  //               expiryDate: "2024-09-10T07:04:41.358Z",
+                                  //               docCreatedat: "2024-08-16T09:39:48.030Z",
+                                  //               companyid: widget.companyID,
+                                  //               url: "url",
+                                  //               officeid: widget.officeId,);
+                                  //        if (response.statusCode ==200 || response.statusCode==201){
+                                  //          await uploadDocumentsoffice(context: context, documentFile: filePath, orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                  //        }
+                                  //
+                                  //       // await addManageCCVCPPPost(
+                                  //       //   context: context,
+                                  //       //   name: docNamecontroller.text,
+                                  //        // docTypeID: docTypeMetaId,
+                                  //       //   docSubTypeID: docSubTypeMetaId,
+                                  //       //   expiryType: selectedExpiryType.toString(),
+                                  //       //   expiryDate: calenderController.text,//expiryTypeToSend,
+                                  //       //   expiryReminder: selectedExpiryType.toString(),
+                                  //       //   officeId: widget.officeId,
+                                  //       //   idOfDoc: docIdController.text
+                                  //       // );
+                                  //       // Navigator.pop(context);
+                                  //     } finally {
+                                  //       setState(() {
+                                  //         _isLoading = false;
+                                  //       });
+                                  //     }
+                                  //   },
+                                  //   child: FutureBuilder<List<TypeofDocpopup>>(
+                                  //     future: getTypeofDoc(context,
+                                  //         widget.docID, widget.subDocID),
+                                  //     builder: (context, snapshot) {
+                                  //       if (snapshot.connectionState ==
+                                  //           ConnectionState.waiting) {
+                                  //         return Container(
+                                  //           width: 350,
+                                  //           height: 30,
+                                  //           decoration: BoxDecoration(
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(8),
+                                  //           ),
+                                  //         );
+                                  //       }
+                                  //       if (snapshot.data!.isEmpty) {
+                                  //         return Center(
+                                  //           child: Text(
+                                  //             AppString.dataNotFound,
+                                  //             style: CustomTextStylesCommon
+                                  //                 .commonStyle(
+                                  //               fontWeight:
+                                  //                   FontWeightManager.medium,
+                                  //               fontSize: FontSize.s12,
+                                  //               color: ColorManager.mediumgrey,
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //       }
+                                  //       if (snapshot.hasData) {
+                                  //         List<DropdownMenuItem<String>>
+                                  //             dropDownMenuItems = snapshot.data!
+                                  //                 .map((doc) =>
+                                  //                     DropdownMenuItem<String>(
+                                  //                       value: doc.docname,
+                                  //                       child:
+                                  //                           Text(doc.docname!),
+                                  //                     ))
+                                  //                 .toList();
+                                  //         return CICCDropdown(
+                                  //           initialValue: "Select",
+                                  //           onChange: (val) {
+                                  //             //   setState(() {
+                                  //             // selectedDocType = val;
+                                  //             for (var doc in snapshot.data!) {
+                                  //               if (doc.docname == val) {
+                                  //                 docTypeId =
+                                  //                     doc.orgDocumentSetupid!;
+                                  //               }
+                                  //             }
+                                  //             // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
+                                  //             //   _compliancePatientDataController
+                                  //             //       .add(data!);
+                                  //             // }).catchError((error) {
+                                  //             //   // Handle error
+                                  //             // });
+                                  //             // });
+                                  //           },
+                                  //           items: dropDownMenuItems,
+                                  //         );
+                                  //       } else {
+                                  //         return SizedBox();
+                                  //       }
+                                  //     },
+                                  //   ),
+                                  //
+                                  //   uploadField: Container(
+                                  //     height: AppSize.s30,
+                                  //     width: AppSize.s354,
+                                  //     // margin: EdgeInsets.symmetric(horizontal: 5),
+                                  //     decoration: BoxDecoration(
+                                  //
+                                  //       border: Border.all(
+                                  //
+                                  //         color: ColorManager.containerBorderGrey,
+                                  //         width: 1,
+                                  //       ),
+                                  //       borderRadius: BorderRadius.circular(4),
+                                  //     ),
+                                  //     child: StatefulBuilder(
+                                  //       builder: (BuildContext context,
+                                  //           void Function(void Function()) setState) {
+                                  //         return Padding(
+                                  //           padding: const EdgeInsets.all(0),
+                                  //           child: Row(
+                                  //             mainAxisAlignment:
+                                  //             MainAxisAlignment.spaceBetween,
+                                  //             children: [
+                                  //               Text(
+                                  //                 fileName,
+                                  //                 style: GoogleFonts.firaSans(
+                                  //                   fontSize: FontSize.s12,
+                                  //                   fontWeight: FontWeightManager.regular,
+                                  //                   color: ColorManager.lightgreyheading,
+                                  //                 ),
+                                  //               ),
+                                  //               IconButton(
+                                  //                 padding: EdgeInsets.all(4),
+                                  //                 onPressed: _pickFile,
+                                  //                 icon: Icon(
+                                  //                   Icons.file_upload_outlined,
+                                  //                   color: ColorManager.black,
+                                  //                   size: 17,
+                                  //                 ),
+                                  //                 splashColor: Colors.transparent,
+                                  //                 highlightColor: Colors.transparent,
+                                  //                 hoverColor: Colors.transparent,
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  //
+                                  //
+                                  //
+                                  //   // FutureBuilder<List<DocumentTypeData>>(
+                                  //   //   future: documentTypeGet(context),
+                                  //   //   builder: (context, snapshot) {
+                                  //   //     if (snapshot.connectionState == ConnectionState.waiting) {
+                                  //   //       return Container(
+                                  //   //         width: 300,
+                                  //   //         child: Text(
+                                  //   //           'Loading...',
+                                  //   //           style: CustomTextStylesCommon.commonStyle(
+                                  //   //             fontWeight: FontWeightManager.medium,
+                                  //   //             fontSize: FontSize.s12,
+                                  //   //             color: ColorManager.mediumgrey,
+                                  //   //           ),
+                                  //   //         ),
+                                  //   //       );
+                                  //   //     }
+                                  //   //     if (snapshot.data!.isEmpty) {
+                                  //   //       return Center(
+                                  //   //         child: Text(
+                                  //   //           AppString.dataNotFound,
+                                  //   //           style: CustomTextStylesCommon.commonStyle(
+                                  //   //             fontWeight: FontWeightManager.medium,
+                                  //   //             fontSize: FontSize.s12,
+                                  //   //             color: ColorManager.mediumgrey,
+                                  //   //           ),
+                                  //   //         ),
+                                  //   //       );
+                                  //   //     }
+                                  //   //     if (snapshot.hasData) {
+                                  //   //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                  //   //       int docType = snapshot.data![0].docID;
+                                  //   //       docTypeMetaId = docType;
+                                  //   //
+                                  //   //       for (var i in snapshot.data!) {
+                                  //   //         dropDownMenuItems.add(
+                                  //   //           DropdownMenuItem<String>(
+                                  //   //             child: Text(i.docType),
+                                  //   //             value: i.docType,
+                                  //   //           ),
+                                  //   //         );
+                                  //   //       }
+                                  //   //       return CICCDropdown(
+                                  //   //         initialValue: dropDownMenuItems[0].value,
+                                  //   //         onChange: (val) {
+                                  //   //           for (var a in snapshot.data!) {
+                                  //   //             if (a.docType == val) {
+                                  //   //               docType = a.docID;
+                                  //   //               docTypeMetaId = docType;
+                                  //   //             }
+                                  //   //           }
+                                  //   //           identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                  //   //             _identityDataController.add(data);
+                                  //   //           }).catchError((error) {
+                                  //   //             // Handle error
+                                  //   //           });
+                                  //   //         },
+                                  //   //         items: dropDownMenuItems,
+                                  //   //       );
+                                  //   //     } else {
+                                  //   //       return SizedBox();
+                                  //   //     }
+                                  //   //   },
+                                  //   // ),
+                                  //   /// doc sub type
+                                  //   // child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                                  //   //   stream: _identityDataController.stream,
+                                  //   //   builder: (context, snapshot) {
+                                  //   //     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                  //   //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                  //   //
+                                  //   //       // Add a placeholder item for "Select Subdocument"
+                                  //   //       dropDownMenuItems.add(
+                                  //   //         DropdownMenuItem<String>(
+                                  //   //           value: "Select Sub Document",
+                                  //   //           child: Text("Select Sub Document"),
+                                  //   //         ),
+                                  //   //       );
+                                  //   //
+                                  //   //       for (var i in snapshot.data!) {
+                                  //   //         dropDownMenuItems.add(
+                                  //   //           DropdownMenuItem<String>(
+                                  //   //             value: i.subDocType,
+                                  //   //             child: Text(i.subDocType),
+                                  //   //           ),
+                                  //   //         );
+                                  //   //       }
+                                  //   //
+                                  //   //       return CICCDropdown(
+                                  //   //         initialValue: "Select Sub Document",  // Set initial value to the placeholder
+                                  //   //         onChange: (val) {
+                                  //   //           if (val != "Select Sub Document") {
+                                  //   //             for (var a in snapshot.data!) {
+                                  //   //               if (a.subDocType == val) {
+                                  //   //                 docSubTypeMetaId = a.subDocID;
+                                  //   //               }
+                                  //   //             }
+                                  //   //           }
+                                  //   //         },
+                                  //   //         items: dropDownMenuItems,
+                                  //   //       );
+                                  //   //     } else if (snapshot.connectionState == ConnectionState.waiting) {
+                                  //   //       // Optionally, you can still show a placeholder or nothing here
+                                  //   //       return SizedBox();
+                                  //   //     } else {
+                                  //   //       return Center(
+                                  //   //         child: Text(
+                                  //   //           AppString.dataNotFound,
+                                  //   //           style: CustomTextStylesCommon.commonStyle(
+                                  //   //             fontWeight: FontWeightManager.medium,
+                                  //   //             fontSize: FontSize.s12,
+                                  //   //             color: ColorManager.mediumgrey,
+                                  //   //           ),
+                                  //   //         ),
+                                  //   //       );
+                                  //   //     }
+                                  //   //   },
+                                  //   // ),
+                                  //   // radioButton: Padding(
+                                  //   //   padding: const EdgeInsets.only(left: 10.0),
+                                  //   //   child: Column(
+                                  //   //     mainAxisAlignment: MainAxisAlignment.start,
+                                  //   //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //   //     children: [
+                                  //   //       Text(
+                                  //   //         "Expiry Type",
+                                  //   //         style: GoogleFonts.firaSans(
+                                  //   //           fontSize: FontSize.s12,
+                                  //   //           fontWeight: FontWeight.w700,
+                                  //   //           color: ColorManager.mediumgrey,
+                                  //   //           decoration: TextDecoration.none,
+                                  //   //         ),
+                                  //   //       ),
+                                  //   //       CustomRadioListTile(
+                                  //   //         value: "Not Applicable",
+                                  //   //         groupValue: selectedExpiryType,
+                                  //   //         onChanged: (value) {
+                                  //   //           setState(() {
+                                  //   //             selectedExpiryType = value;
+                                  //   //           });
+                                  //   //         },
+                                  //   //         title: "Not Applicable",
+                                  //   //       ),
+                                  //   //       CustomRadioListTile(
+                                  //   //         value: 'Scheduled',
+                                  //   //         groupValue: selectedExpiryType,
+                                  //   //         onChanged: (value) {
+                                  //   //           setState(() {
+                                  //   //             selectedExpiryType = value;
+                                  //   //           });
+                                  //   //         },
+                                  //   //         title: 'Scheduled',
+                                  //   //       ),
+                                  //   //       CustomRadioListTile(
+                                  //   //         value: 'Issuer Expiry',
+                                  //   //         groupValue: selectedExpiryType,
+                                  //   //         onChanged: (value) {
+                                  //   //           setState(() {
+                                  //   //             selectedExpiryType = value;
+                                  //   //           });
+                                  //   //         },
+                                  //   //         title: 'Issuer Expiry',
+                                  //   //       ),
+                                  //   //     ],
+                                  //   //   ),
+                                  //   // ),
+                                  //   // child2: Visibility(
+                                  //   //   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                                  //   //   child: Column(
+                                  //   //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //   //     children: [
+                                  //   //       Text(
+                                  //   //         "Expiry Date",
+                                  //   //         style: GoogleFonts.firaSans(
+                                  //   //           fontSize: FontSize.s12,
+                                  //   //           fontWeight: FontWeight.w700,
+                                  //   //           color: ColorManager.mediumgrey,
+                                  //   //           decoration: TextDecoration.none,
+                                  //   //         ),
+                                  //   //       ),
+                                  //   //       SizedBox(height: AppSize.s5,),
+                                  //   //       FormField<String>(
+                                  //   //         builder: (FormFieldState<String> field) {
+                                  //   //           return SizedBox (
+                                  //   //             width: 354,
+                                  //   //             height: 30,
+                                  //   //             child:   TextFormField(
+                                  //   //               controller: calenderController,
+                                  //   //               cursorColor: ColorManager.black,
+                                  //   //               style: GoogleFonts.firaSans(
+                                  //   //                 fontSize: FontSize.s12,
+                                  //   //                 fontWeight: FontWeight.w700,
+                                  //   //                 color: ColorManager.mediumgrey,
+                                  //   //                 //decoration: TextDecoration.none,
+                                  //   //               ),
+                                  //   //               decoration: InputDecoration(
+                                  //   //                 enabledBorder: OutlineInputBorder(
+                                  //   //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                  //   //                   borderRadius: BorderRadius.circular(8),
+                                  //   //                 ),
+                                  //   //                 focusedBorder: OutlineInputBorder(
+                                  //   //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                  //   //                   borderRadius: BorderRadius.circular(8),
+                                  //   //                 ),
+                                  //   //                 hintText: 'mm-dd-yyyy',
+                                  //   //                 hintStyle: GoogleFonts.firaSans(
+                                  //   //                   fontSize: FontSize.s12,
+                                  //   //                   fontWeight: FontWeight.w700,
+                                  //   //                   color: ColorManager.mediumgrey,
+                                  //   //                   //decoration: TextDecoration.none,
+                                  //   //                 ),
+                                  //   //                 border: OutlineInputBorder(
+                                  //   //                   borderRadius: BorderRadius.circular(8),
+                                  //   //                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                  //   //                 ),
+                                  //   //                 contentPadding:
+                                  //   //                 EdgeInsets.symmetric(horizontal: 16),
+                                  //   //                 suffixIcon: Icon(Icons.calendar_month_outlined,
+                                  //   //                     color: ColorManager.blueprime),
+                                  //   //                 errorText: field.errorText,
+                                  //   //               ),
+                                  //   //               onTap: () async {
+                                  //   //                 DateTime? pickedDate = await showDatePicker(
+                                  //   //                   context: context,
+                                  //   //                   initialDate: DateTime.now(),
+                                  //   //                   firstDate: DateTime(1901),
+                                  //   //                   lastDate: DateTime(3101),
+                                  //   //                 );
+                                  //   //                 if (pickedDate != null) {
+                                  //   //                   calenderController.text =
+                                  //   //                       DateFormat('MM-dd-yyyy').format(pickedDate);
+                                  //   //                 }
+                                  //   //               },
+                                  //   //               validator: (value) {
+                                  //   //                 if (value == null || value.isEmpty) {
+                                  //   //                   return 'please select birth date';
+                                  //   //                 }
+                                  //   //                 return null;
+                                  //   //               },
+                                  //   //             ),
+                                  //   //           );
+                                  //   //         },
+                                  //   //       ),
+                                  //   //     ],
+                                  //   //   ),
+                                  //   // ),
+                                  //   title: 'Add Policies And Procedure',
+                                  // );
                                 },
                               );
                             });
