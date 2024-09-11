@@ -3,11 +3,13 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/heading_constant_widget.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +18,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
@@ -25,13 +28,12 @@ import '../../../../../../../../../../data/api_data/establishment_data/company_i
 import '../../../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../org_add_popup_const.dart';
 
 class VendorContractLicense extends StatefulWidget {
   final int docId;
   final int subDocID;
- // final String officeId;
   const VendorContractLicense({super.key, required this.docId, required this.subDocID,
-  //  required this.officeId
   });
 
   @override
@@ -43,39 +45,20 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
+  TextEditingController daysController = TextEditingController(text: "1");
   int docTypeMetaIdVC = AppConfig.vendorContracts;
   int docTypeMetaIdVCLeases = AppConfig.subDocId6Leases;
   final StreamController<List<NewOrgDocument>> _controller = StreamController<List<NewOrgDocument>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
-  //int docTypeMetaId =0;
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
-
-
-
+  String? selectedYear = AppConfig.year;
   String? selectedValue;
-  late List<Color> hrcontainerColors;
   @override
   void initState() {
     super.initState();
-    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    // orgDocumentGet(context);
-    _loadColors();
-
   }
-  void _loadColors() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      for (int i = 0; i < hrcontainerColors.length; i++) {
-        int? colorValue = prefs.getInt('containerColor$i');
-        if (colorValue != null) {
-          hrcontainerColors[i] = Color(colorValue);
-        }
-      }
-    });
-  }
-
   int currentPage = 1;
   final int itemsPerPage = 10;
   final int totalPages = 5;
@@ -89,81 +72,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: AppSize.s30,
-          margin: EdgeInsets.symmetric(horizontal: 40),
-          decoration: BoxDecoration(
-            color: ColorManager.fmediumgrey,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: Center(
-                    child: Text(
-                        AppString.srNo,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
-                        )
-                      // style: RegisterTableHead.customTextStyle(context),
-                    )),
-              ),
-              Expanded(
-                child: Center(
-                  child: Text(
-                    "Document Id",
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                    child: Text(
-                        AppString.name,
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
-                        )
-                      // style: RegisterTableHead.customTextStyle(context),
-                    )),
-              ),
-              Expanded(
-                child: Center(
-                    child: Text(
-                        AppString.reminderthershold,
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
-                        )
-                      // style: RegisterTableHead.customTextStyle(context),
-                    )),
-              ),
-
-              Expanded(
-                child: Center(
-                    child: Text(
-                        AppString.actions,
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
-                        )
-                      // style: RegisterTableHead.customTextStyle(context),
-                    )),
-              ),
-            ],
-          ),
-        ),
+        TableHeadingConst(),
         SizedBox(height: AppSize.s10,),
         Expanded(
           child:StreamBuilder<List<NewOrgDocument>>(
@@ -187,11 +96,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                     child: Text(
                       ErrorMessageString.noLeases,
                      // AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style:  DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   );
                 }
@@ -236,12 +141,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                         child: Center(
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                              ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.start,
                                             )),
                                       ),
@@ -249,11 +149,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                         child: Center(
                                           child: Text(
                                             civcdata.idOfDocument,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
@@ -261,420 +157,360 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                         child: Center(
                                             child: Text(
                                               civcdata.docName.toString().capitalizeFirst!,
-                                              style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                              ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
                                               civcdata.expiryReminder.toString().capitalizeFirst!,
-                                              style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                              ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                String? selectedExpiryType = expiryType;
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return FutureBuilder<CorporatePrefillDocumentData>(
-                                                      future: getPrefillCorporateDocument(context,civcdata.orgDocumentSetupid),
-                                                      builder: (context, snapshotPrefill) {
-                                                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                          return Center(
-                                                            child: CircularProgressIndicator(
-                                                              color: ColorManager.blueprime,
-                                                            ),
-                                                          );
-                                                        }
-
-                                                        // Prefill values from API
-                                                        var documentPreId = snapshotPrefill.data!.documentId;
-                                                        docIdController = TextEditingController(
-                                                          text: snapshotPrefill.data!.documentId.toString(),
+                                            IconButton(onPressed: (){
+                                              String? selectedExpiryType = expiryType;
+                                              showDialog(context: context, builder: (context){
+                                                return  FutureBuilder<NewOrgDocument>(
+                                                    future: getPrefillNewOrgDocument(context,civcdata.orgDocumentSetupid),
+                                                    builder: (context,snapshotPrefill) {
+                                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                        return Center(
+                                                          child: CircularProgressIndicator(color: ColorManager.blueprime,),
                                                         );
+                                                      }
+                                                      var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
+                                                      docSubTypeMetaId = documentSubPreId;
 
-                                                        // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-                                                        // docTypeMetaId = documentTypePreId;
+                                                      var name = snapshotPrefill.data!.docName;
+                                                      docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
 
-                                                        var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
-                                                        docSubTypeMetaId = documentSubPreId;
+                                                      var expiry = snapshotPrefill.data!.expiryType;
+                                                      String? selectedExpiryType = expiry;
 
-                                                        var name = snapshotPrefill.data!.docName;
-                                                        docNameController = TextEditingController(
-                                                          text: snapshotPrefill.data!.docName,
-                                                        );
+                                                      var idOfDoc = snapshotPrefill.data!.idOfDocument;
+                                                      idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDocument.toString());
 
-                                                        var calender = snapshotPrefill.data!.expiryDate;
-                                                        calenderController = TextEditingController(
-                                                          text: snapshotPrefill.data!.expiryDate,
-                                                        );
+                                                      return StatefulBuilder(
+                                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                                          return CCScreenEditNewPopup(
+                                                            title: EditPopupString.editLeases,
+                                                            idOfDocController: idOfDocController,
+                                                            nameDocController: docNameController,
+                                                            calenderController: calenderController,
+                                                            loadingDuration: _isLoading,
+                                                            onSavePressed: () async {
+                                                              setState(() {
+                                                                _isLoading = true;
+                                                              });
 
-                                                        var expiry = snapshotPrefill.data!.expiryType;
-                                                        expiryType = expiry;
-
-                                                        var idOfDoc = snapshotPrefill.data!.idOfDoc;
-                                                        idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
-
-
-                                                        return StatefulBuilder(
-                                                          builder: (BuildContext context,
-                                                              void Function(void Function()) setState) {
-                                                            return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
-                                                              //id: documentPreId,
-                                                              idOfDocController: idOfDocController,
-                                                              nameDocController: docNameController,
-                                                              calenderController: calenderController,
-                                                              loadingDuration: _isLoading,
-                                                              onSavePressed: () async {
+                                                              try {
+                                                                int threshold = 0;
+                                                                String? expiryDateToSend = "";
+                                                                if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+                                                                  int enteredValue = int.parse(daysController.text);
+                                                                  if (selectedYear == AppConfig.year) {
+                                                                    threshold = enteredValue * 365;
+                                                                  } else if (selectedYear == AppConfig.month) {
+                                                                    threshold = enteredValue * 30;
+                                                                  }
+                                                                  expiryDateToSend = calenderController.text;
+                                                                } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
+                                                                  threshold = 0;
+                                                                  expiryDateToSend = null;
+                                                                }
+                                                                await updateNewOrgDocumentPatch(
+                                                                  context: context,
+                                                                  orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
+                                                                  docTypeID: AppConfig.vendorContracts,
+                                                                  docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                                  docName: name == docNameController.text ? name.toString() : docNameController.text,
+                                                                  expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+                                                                  threshold: threshold,
+                                                                  expiryDate: null,
+                                                                  expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+                                                                  idOfDoc: idOfDoc,
+                                                                );
+                                                              } finally {
                                                                 setState(() {
-                                                                  _isLoading = true;
+                                                                  _isLoading = false;
                                                                 });
-                                                                try {
-                                                                  String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                      ? "Not Applicable"
-                                                                      : calenderController.text;
-                                                                  await updateCorporateDocumentPost(
-                                                                    context: context,
-                                                                    docId: documentPreId,
-                                                                    name: name == docNameController.text ? name.toString() : docNameController.text,
-                                                                    docTypeID: AppConfig.vendorContracts,
-                                                                    docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
-                                                                    docCreated: DateTime.now().toString(),
-                                                                    url: "url",
-                                                                    expiryType:selectedExpiryType ?? expiryType.toString(),// expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                                    expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                    expiryReminder: selectedExpiryType ?? expiryType.toString(),// selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                    officeId: "",//widget.officeId,
-                                                                      idOfDoc: snapshotPrefill.data!.idOfDoc
+                                                                Navigator.pop(context);
+                                                              }
+                                                            },
+                                                            child:  FutureBuilder<List<DocumentTypeData>>(
+                                                              future: documentTypeGet(context),
+                                                              builder: (context, snapshot) {
+                                                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                  return Container(
+                                                                    width: 300,
+                                                                    child: Text(
+                                                                      'Loading...',
+                                                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                    ),
                                                                   );
-                                                                } finally {
-                                                                  setState(() {
-                                                                    _isLoading = false;
+                                                                }
+                                                                if (snapshot.data!.isEmpty) {
+                                                                  return Center(
+                                                                    child: Text(
+                                                                      AppString.dataNotFound,
+                                                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                if (snapshot.hasData) {
+                                                                  String selectedDocType = "";
+                                                                  int docType = snapshot.data![0].docID;
+                                                                  for (var i in snapshot.data!) {
+                                                                    if (i.docID == AppConfig.vendorContracts) {
+                                                                      selectedDocType = i.docType;
+                                                                      docType = i.docID;
+                                                                      break;
+                                                                    }
+                                                                  }
+
+                                                                  docTypeMetaIdVC = docType;
+                                                                  identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
+                                                                    _identityDataController.add(data);
+                                                                  }).catchError((error) {
+                                                                    // Handle error
                                                                   });
-                                                                  Navigator.pop(context);
+                                                                  return Container(
+                                                                    width: 354,
+                                                                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                    decoration: BoxDecoration(
+                                                                      color: ColorManager.white,
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                                    ),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      children: [
+                                                                        Text(
+                                                                          selectedDocType,
+                                                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                        ),
+                                                                        Icon(
+                                                                          Icons.arrow_drop_down,
+                                                                          color: Colors.transparent,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                } else {
+                                                                  return SizedBox();
                                                                 }
                                                               },
+                                                            ),
+                                                            // Sub-Document Type Dropdown
+                                                            child1:FutureBuilder<List<DocumentTypeData>>(
+                                                              future: documentTypeGet(context),
+                                                              builder: (context, snapshot) {
+                                                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                  return Container(
+                                                                    width: 300,
+                                                                    child: Text(
+                                                                      'Loading...',
+                                                                      style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                if (snapshot.data!.isEmpty) {
+                                                                  return Center(
+                                                                    child: Text(
+                                                                      AppString.dataNotFound,
+                                                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                if (snapshot.hasData) {
+                                                                  String selectedDocType = "Leases & Services";
+                                                                  int docType = snapshot.data![0].docID;
 
-                                                              // Document Type Dropdown
-                                                              child:FutureBuilder<List<DocumentTypeData>>(
-                                                                future: documentTypeGet(context),
-                                                                builder: (context, snapshot) {
-                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                    return Container(
-                                                                      width: 300,
-                                                                      child: Text(
-                                                                        'Loading...',
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                          fontWeight: FontWeightManager.medium,
-                                                                          fontSize: FontSize.s12,
-                                                                          color: ColorManager.mediumgrey,
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.data!.isEmpty) {
-                                                                    return Center(
-                                                                      child: Text(
-                                                                        AppString.dataNotFound,
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                          fontWeight: FontWeightManager.medium,
-                                                                          fontSize: FontSize.s12,
-                                                                          color: ColorManager.mediumgrey,
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.hasData) {
-                                                                    String selectedDocType = "";
-                                                                    int docType = snapshot.data![0].docID;
-
-                                                                    for (var i in snapshot.data!) {
-                                                                      if (i.docID == AppConfig.vendorContracts) {
-                                                                        selectedDocType = i.docType;
-                                                                        docType = i.docID;
-                                                                        break;
-                                                                      }
+                                                                  for (var i in snapshot.data!) {
+                                                                    if (i.docID == docTypeMetaIdVCLeases) {
+                                                                      selectedDocType = i.docType;
+                                                                      docType = i.docID;
+                                                                      break;
                                                                     }
+                                                                  }
 
-                                                                    docTypeMetaIdVC = docType;
-
-                                                                    identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
-                                                                      _identityDataController.add(data);
-                                                                    }).catchError((error) {
-                                                                      // Handle error
-                                                                    });
-                                                                    return Container(
-                                                                      width: 354,
-                                                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                                                                      decoration: BoxDecoration(
-                                                                        color: ColorManager.white,
-                                                                        borderRadius: BorderRadius.circular(8),
-                                                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                                      ),
-                                                                      child: Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Text(
-                                                                            selectedDocType,
-                                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                              fontWeight: FontWeightManager.medium,
-                                                                              fontSize: FontSize.s12,
-                                                                              color: ColorManager.mediumgrey,
+                                                                  docTypeMetaIdVCLeases = docType;
+                                                                  identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
+                                                                    _identityDataController.add(data);
+                                                                  }).catchError((error) {
+                                                                    // Handle error
+                                                                  });
+                                                                  SizedBox(height: 5,);
+                                                                  return Container(
+                                                                    width: 354,
+                                                                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                    decoration: BoxDecoration(
+                                                                      color: ColorManager.white,
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                                    ),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      children: [
+                                                                        Text(
+                                                                          selectedDocType,
+                                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                                        ),
+                                                                        Icon(
+                                                                          Icons.arrow_drop_down,
+                                                                          color: Colors.transparent,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                } else {
+                                                                  return SizedBox();
+                                                                }
+                                                              },
+                                                            ),
+                                                            radioButton:  Padding(
+                                                              padding: const EdgeInsets.only(left: AppPadding.p10),
+                                                              child: Column(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Text(
+                                                                    AppStringEM.expiryType,
+                                                                    style: RadioButtonHeadStyle.customTextStyle(context),
+                                                                  ),
+                                                                  CustomRadioListTile(
+                                                                    value:AppConfig.notApplicable,
+                                                                    groupValue:
+                                                                    selectedExpiryType,
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        selectedExpiryType = value;
+                                                                      });
+                                                                    },
+                                                                    title: AppConfig.notApplicable,
+                                                                  ),
+                                                                  CustomRadioListTile(
+                                                                    value: AppConfig.scheduled,
+                                                                    groupValue:
+                                                                    selectedExpiryType,
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        selectedExpiryType = value;
+                                                                      });
+                                                                    },
+                                                                    title: AppConfig.scheduled,
+                                                                  ),
+                                                                  CustomRadioListTile(
+                                                                    value: AppConfig.issuer,
+                                                                    groupValue:
+                                                                    selectedExpiryType,
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        selectedExpiryType = value;
+                                                                      });
+                                                                    },
+                                                                    title: AppConfig.issuer,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            child3: Visibility(
+                                                              visible: selectedExpiryType == AppConfig.scheduled,
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: AppSize.s10,),
+                                                                  Row(
+                                                                    children: [
+                                                                      Container(
+                                                                        height: AppSize.s30,
+                                                                        width: AppSize.s50,
+                                                                        child: TextFormField(
+                                                                          controller: daysController, // Use the controller initialized with "1"
+                                                                          cursorColor: ColorManager.black,
+                                                                          cursorWidth: 1,
+                                                                          style: DocDefination.customTextStyle(context),
+                                                                          decoration: InputDecoration(
+                                                                            enabledBorder: OutlineInputBorder(
+                                                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 2),
+                                                                              borderRadius: BorderRadius.circular(8),),
+                                                                            focusedBorder: OutlineInputBorder(
+                                                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 2),
+                                                                              borderRadius: BorderRadius.circular(8),
                                                                             ),
+                                                                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                                                           ),
-                                                                          Icon(
+                                                                          keyboardType:
+                                                                          TextInputType.number,
+                                                                          inputFormatters: [
+                                                                            FilteringTextInputFormatter.digitsOnly, // This ensures only digits are accepted
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(width: AppSize.s10),
+                                                                      Container(
+                                                                        height: AppSize.s30,
+                                                                        width: AppSize.s80,
+                                                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                                                        decoration: BoxDecoration(
+                                                                          border: Border.all(color: ColorManager.fmediumgrey),
+                                                                          borderRadius: BorderRadius.circular(8),
+                                                                        ),
+                                                                        child: DropdownButtonFormField<String>(
+                                                                          value:
+                                                                          selectedYear, // Initial value (you should define this variable)
+                                                                          items: [
+                                                                            DropdownMenuItem(
+                                                                              value: AppConfig.year,
+                                                                              child: Text(
+                                                                                  AppConfig.year,
+                                                                                  style: DocDefination.customTextStyle(context)
+                                                                              ),
+                                                                            ),
+                                                                            DropdownMenuItem(
+                                                                              value: AppConfig.month,
+                                                                              child: Text(
+                                                                                  AppConfig.month,
+                                                                                  style: DocDefination.customTextStyle(context)
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                          onChanged: (value) {
+                                                                            setState(() {
+                                                                              selectedYear = value;
+                                                                            });
+                                                                          },
+                                                                          decoration: InputDecoration(
+                                                                            enabledBorder: InputBorder.none,
+                                                                            focusedBorder: InputBorder.none,
+                                                                            hintText: AppConfig.year,
+                                                                            hintStyle: DocDefination.customTextStyle(context),
+                                                                            contentPadding: EdgeInsets.only(bottom: 20),
+                                                                          ),
+                                                                          icon: Icon(
                                                                             Icons.arrow_drop_down,
-                                                                            color: Colors.transparent,
+                                                                            color: ColorManager.black,
+                                                                            size: 16,
                                                                           ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  } else {
-                                                                    return SizedBox();
-                                                                  }
-                                                                },
-                                                              ),
-
-                                                              // Sub-Document Type Dropdown
-                                                              child1: FutureBuilder<List<DocumentTypeData>>(
-                                                                future: documentTypeGet(context),
-                                                                builder: (context, snapshot) {
-                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                    return Container(
-                                                                      width: 300,
-                                                                      child: Text(
-                                                                        'Loading...',
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                          fontWeight: FontWeightManager.medium,
-                                                                          fontSize: FontSize.s12,
-                                                                          color: ColorManager.mediumgrey,
                                                                         ),
                                                                       ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.data!.isEmpty) {
-                                                                    return Center(
-                                                                      child: Text(
-                                                                        AppString.dataNotFound,
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                          fontWeight: FontWeightManager.medium,
-                                                                          fontSize: FontSize.s12,
-                                                                          color: ColorManager.mediumgrey,
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.hasData) {
-                                                                    String selectedDocType = "Leases and Services";
-                                                                    int docType = snapshot.data![0].docID;
-
-                                                                    for (var i in snapshot.data!) {
-                                                                      if (i.docID == AppConfig.subDocId6Leases) {
-                                                                        selectedDocType = i.docType;
-                                                                        docType = i.docID;
-                                                                        break;
-                                                                      }
-                                                                    }
-
-                                                                    docTypeMetaIdVCLeases = docType;
-
-                                                                    identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
-                                                                      _identityDataController.add(data);
-                                                                    }).catchError((error) {
-                                                                      // Handle error
-                                                                    });
-                                                                    return Container(
-                                                                      width: 354,
-                                                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                                                                      decoration: BoxDecoration(
-                                                                        color: ColorManager.white,
-                                                                        borderRadius: BorderRadius.circular(8),
-                                                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                                      ),
-                                                                      child: Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Text(
-                                                                            selectedDocType,
-                                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                              fontWeight: FontWeightManager.medium,
-                                                                              fontSize: FontSize.s12,
-                                                                              color: ColorManager.mediumgrey,
-                                                                            ),
-                                                                          ),
-                                                                          Icon(
-                                                                            Icons.arrow_drop_down,
-                                                                            color: Colors.transparent,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  } else {
-                                                                    return SizedBox();
-                                                                  }
-                                                                },
+                                                                    ],
+                                                                  ),
+                                                                ],
                                                               ),
-                                                              radioButton: Padding(
-                                                                padding: const EdgeInsets.only(left: 10.0),
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Expiry Type",
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        decoration: TextDecoration.none,
-                                                                      ),
-                                                                    ),
-                                                                    CustomRadioListTile(
-                                                                      value: "Not Applicable",
-                                                                      groupValue: selectedExpiryType,
-                                                                      onChanged: (value) {
-                                                                        setState(() {
-                                                                          selectedExpiryType = value;
-                                                                        });
-                                                                      },
-                                                                      title: "Not Applicable",
-                                                                    ),
-                                                                    CustomRadioListTile(
-                                                                      value: 'Scheduled',
-                                                                      groupValue: selectedExpiryType,
-                                                                      onChanged: (value) {
-                                                                        setState(() {
-                                                                          selectedExpiryType = value;
-                                                                        });
-                                                                      },
-                                                                      title: 'Scheduled',
-                                                                    ),
-                                                                    CustomRadioListTile(
-                                                                      value: 'Issuer Expiry',
-                                                                      groupValue: selectedExpiryType,
-                                                                      onChanged: (value) {
-                                                                        setState(() {
-                                                                          selectedExpiryType = value;
-                                                                        });
-                                                                      },
-                                                                      title: 'Issuer Expiry',
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              child2: Visibility(
-                                                                visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.only(left: 5),
-                                                                      child: Text(
-                                                                        "Expiry Date",
-                                                                        style: GoogleFonts.firaSans(
-                                                                          fontSize: FontSize.s12,
-                                                                          fontWeight: FontWeight.w700,
-                                                                          color: ColorManager.mediumgrey,
-                                                                          decoration: TextDecoration.none,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(height: 5,),
-                                                                    FormField<String>(
-                                                                      builder: (FormFieldState<String> field) {
-                                                                        return SizedBox (
-                                                                          width: 354,
-                                                                          height: 30,
-                                                                          child:   TextFormField(
-                                                                            controller: calenderController,
-                                                                            cursorColor: ColorManager.black,
-                                                                            style: GoogleFonts.firaSans(
-                                                                              fontSize: FontSize.s12,
-                                                                              fontWeight: FontWeight.w700,
-                                                                              color: ColorManager.mediumgrey,
-                                                                              //decoration: TextDecoration.none,
-                                                                            ),
-                                                                            decoration: InputDecoration(
-                                                                              enabledBorder: OutlineInputBorder(
-                                                                                borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                                borderRadius: BorderRadius.circular(8),
-                                                                              ),
-                                                                              focusedBorder: OutlineInputBorder(
-                                                                                borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                                borderRadius: BorderRadius.circular(8),
-                                                                              ),
-                                                                              hintText: 'mm-dd-yyyy',
-                                                                              hintStyle: GoogleFonts.firaSans(
-                                                                                fontSize: FontSize.s12,
-                                                                                fontWeight: FontWeight.w700,
-                                                                                color: ColorManager.mediumgrey,
-                                                                                //decoration: TextDecoration.none,
-                                                                              ),
-                                                                              border: OutlineInputBorder(
-                                                                                borderRadius: BorderRadius.circular(8),
-                                                                                borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                                                                              ),
-                                                                              contentPadding:
-                                                                              EdgeInsets.symmetric(horizontal: 16),
-                                                                              suffixIcon: Icon(Icons.calendar_month_outlined,
-                                                                                  color: ColorManager.blueprime),
-                                                                              errorText: field.errorText,
-                                                                            ),
-                                                                            onTap: () async {
-                                                                              DateTime? pickedDate = await showDatePicker(
-                                                                                context: context,
-                                                                                initialDate: DateTime.now(),
-                                                                                firstDate: DateTime(1901),
-                                                                                lastDate: DateTime(3101),
-                                                                              );
-                                                                              if (pickedDate != null) {
-                                                                                calenderController.text =
-                                                                                    DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                              }
-                                                                            },
-                                                                            validator: (value) {
-                                                                              if (value == null || value.isEmpty) {
-                                                                                return 'please select birth date';
-                                                                              }
-                                                                              return null;
-                                                                            },
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                    );
-                                                  },
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    }
                                                 );
-                                              },
-                                              icon: Icon(
-                                                Icons.edit_outlined,
-                                                size: 18,
-                                                color: ColorManager.bluebottom,
-                                              ),
-                                            ),
+                                              });
+                                            },
+                                                icon: Icon(Icons.edit_outlined,
+                                                  size:18,color: ColorManager.bluebottom,)),
                                             IconButton(
                                                 onPressed: (){
                                                   showDialog(context: context,
