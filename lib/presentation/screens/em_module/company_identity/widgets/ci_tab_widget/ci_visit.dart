@@ -129,6 +129,13 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 void Function(void Function()) setState) {
                               List<Widget> listWidget = selectedChips;
                               return AddVisitPopup(
+                                onClosePressed: () async{
+                                  Navigator.pop(context);
+                                  editChipValues.clear();
+                                  selectedEditChipsId.clear();
+                                  selectedEditChips.clear();
+                                  docNamecontroller.clear();
+                                },
                                 title: 'Add New Visit',
                                 nameOfDocumentController: docNamecontroller,
                                 idOfDocumentController: docIdController,
@@ -136,7 +143,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   print(":::::${_selectedItem}");
                                   await addVisitPost(context:context,
                                          typeOfVisit: docNamecontroller.text, eligibleClinician: selectedChipsId, serviceId: serviceId!);
-                                  getVisit(context,  1, 30).then((data) {
+                                  getVisit(context, 1, 30).then((data) {
                                     _visitController.add(data);
                                   }).catchError((error) {
                                     // Handle error
@@ -274,7 +281,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return dummeyTextField(
-                                        width: 300,
+                                        width: 354,
                                         height: 30,
                                         controller: dummyCtrl,
                                         labelText: 'Select',
@@ -310,22 +317,24 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       selectedServiceName = snapshot.data![0].serviceName;
                                       serviceId = snapshot.data![0].serviceId;
                                       // Store the service ID of the 0th position
-
-                                      return CICCDropdown(
-                                        width: 300,
-                                        initialValue: selectedServiceName,
-                                        onChange: (val) {
-                                          setState(() {
-                                            selectedServiceName = val;
-                                            for (var service in snapshot.data!) {
-                                              if (service.serviceName == val) {
-                                                serviceId =
-                                                    service.serviceId;
-                                              }
-                                            }
-                                          });
+                                      return StatefulBuilder(
+                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                          return CICCDropdown(
+                                            initialValue: selectedServiceName,
+                                            onChange: (val) {
+                                              setState(() {
+                                                selectedServiceName = val;
+                                                for (var service in snapshot.data!) {
+                                                  if (service.serviceName == val) {
+                                                    serviceId =
+                                                        service.serviceId;
+                                                  }
+                                                }
+                                              });
+                                            },
+                                            items: dropDownServiceList,
+                                          );
                                         },
-                                        items: dropDownServiceList,
                                       );
                                     }
                                     return const SizedBox();
@@ -342,7 +351,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         SizedBox(
           height: AppSize.s10,
         ),
-
         ///headings
         Container(
           height: AppSize.s30,
@@ -621,6 +629,13 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                     }
 
                                                                     return AddVisitPopup(
+                                                                      onClosePressed: () async{
+                                                                        Navigator.pop(context);
+                                                                        editChipValues.clear();
+                                                                        selectedEditChipsId.clear();
+                                                                        selectedEditChips.clear();
+                                                                        docNamecontroller.clear();
+                                                                      },
                                                                       nameOfDocumentController: docNamecontroller,
                                                                       idOfDocumentController: docIdController,
                                                                       onSavePressed: () async {
@@ -640,6 +655,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                         });
 
                                                                         // Clear data after save
+                                                                        editChipValues.clear();
                                                                         selectedEditChipsId.clear();
                                                                         selectedEditChips.clear();
                                                                         docNamecontroller.clear();
@@ -651,7 +667,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                           if (snapshot.connectionState ==
                                                                               ConnectionState.waiting) {
                                                                             return dummeyTextField(
-                                                                              width: 300,
+                                                                              width: 354,
                                                                               height: 30,
                                                                               controller: dummyCtrl,
                                                                               labelText: 'Select',
@@ -687,22 +703,24 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             selectedServiceName = snapshot.data![0].serviceName;
                                                                             serviceId = snapshot.data![0].serviceId;
                                                                             // Store the service ID of the 0th position
-
-                                                                            return CICCDropdown(
-                                                                              width: 300,
-                                                                              initialValue: selectedServiceName,
-                                                                              onChange: (val) {
-                                                                                setState(() {
-                                                                                  selectedServiceName = val;
-                                                                                  for (var service in snapshot.data!) {
-                                                                                    if (service.serviceName == val) {
-                                                                                      serviceId =
-                                                                                          service.serviceId;
-                                                                                    }
-                                                                                  }
-                                                                                });
+                                                                            return StatefulBuilder(
+                                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                                return CICCDropdown(
+                                                                                  initialValue: selectedServiceName,
+                                                                                  onChange: (val) {
+                                                                                    setState(() {
+                                                                                      selectedServiceName = val;
+                                                                                      for (var service in snapshot.data!) {
+                                                                                        if (service.serviceName == val) {
+                                                                                          serviceId =
+                                                                                              service.serviceId;
+                                                                                        }
+                                                                                      }
+                                                                                    });
+                                                                                  },
+                                                                                  items: dropDownServiceList,
+                                                                                );
                                                                               },
-                                                                              items: dropDownServiceList,
                                                                             );
                                                                           }
                                                                           return const SizedBox();
@@ -823,8 +841,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                           },
                                                         );
                                                       },
-
-
                                                       icon: Icon(
                                                         Icons.edit_outlined,
                                                         size: 20,

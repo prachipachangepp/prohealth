@@ -57,6 +57,7 @@ class EstablishmentManagerRepository {
   static String addCompanyPost = "/Company/Insert";
   static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
   static String orgdocadd = "/org-office-document/add";
+  static String orgdocEndPoind = "/org-office-document";
   static String officedocbase = "/org-office-document/attach-documentbase64";
 
   //static String add ="/add";
@@ -476,6 +477,12 @@ class EstablishmentManagerRepository {
 
   static String addDocOrg() {
     return "$orgdocadd";
+  }
+  static String patchDocOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
+  }
+  static String deleteDocOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
   }
 
   static String uploadedocOffice({required int orgOfficeDocumentId }){

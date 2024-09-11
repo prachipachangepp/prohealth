@@ -17,6 +17,7 @@ class AddVisitPopup extends StatefulWidget {
   //final Widget child1;
   final String title;
   final Widget dropdownServices;
+  final Future<void> Function() onClosePressed;
 
   const AddVisitPopup({
     super.key,
@@ -25,7 +26,7 @@ class AddVisitPopup extends StatefulWidget {
     required this.onSavePressed,
     required this.child,
     //required this.child1,
-    required this.title, required this.dropdownServices,
+    required this.title, required this.dropdownServices, required this.onClosePressed,
   });
 
   @override
@@ -99,9 +100,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: widget.onClosePressed,
                     icon: Icon(
                       Icons.close,
                       color: ColorManager.white,

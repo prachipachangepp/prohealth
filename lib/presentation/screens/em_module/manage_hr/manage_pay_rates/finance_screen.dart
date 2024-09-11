@@ -111,6 +111,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
             .toList();
     _payRatesController.add(filteredData);
   }
+  String? serviceId;
 
 
   @override
@@ -211,6 +212,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 firstServiceId =
                                     snapshot.data![0].officeServiceId;
                               }
+                              serviceId =
+                                  snapshot.data![0].serviceId;
 
                               if (selectedServiceName == null &&
                                   dropDownServiceList.isNotEmpty) {
@@ -229,6 +232,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (service.serviceName == val) {
                                         selectedServiceId =
                                             service.officeServiceId;
+                                        serviceId = service.serviceId;
                                       }
                                     }
                                   });
@@ -380,15 +384,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       int rate = int.parse(payRatesController.text);
                                       String typeOfVisitId = docAddVisitTypeId.toString();
                                       int perMile = int.parse(perMilesController.text);
-                                      int serviceTypeId = selectedServiceId!;
+                                      String serviceTypeId = serviceId!;
+                                      int fixedRate = int.parse(fixedPayRatesController.text);
 
                                       await addPayrates(
                                         context,
-                                        zoneId,
                                         rate,
                                         typeOfVisitId,
                                         perMile,
                                         serviceTypeId,
+                                          fixedRate
                                       );
                                       setState(() {
                                         companyPayratesGet(context)
