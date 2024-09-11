@@ -65,6 +65,8 @@ class EstablishmentManagerRepository {
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
 
+  static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
+
 
   static String companyAll() {
     return "$company";
@@ -493,6 +495,8 @@ class EstablishmentManagerRepository {
   static String newOrgDocGet() {
     return "$orgDocSetup";
   }
+
+
   ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
   static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
     return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
@@ -505,4 +509,10 @@ class EstablishmentManagerRepository {
   static String addNewDocumentPost() {
     return "$orgDocSetup/$add";
   }
+
+  ///org-office-document/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
+  static String getListMCorporateCompliance({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}){
+    return "$getCCList$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+
 }

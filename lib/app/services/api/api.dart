@@ -40,10 +40,16 @@ class Api {
 
   Future<Response> get({
     required String path,
+
   }) async {
     var response = await dio.get(
+
       path,
+
     );
+    print(path);
+    print("Prachi:::::::::${response}");
+
     return response;
   }
 
@@ -52,6 +58,7 @@ class Api {
       path,
       data: data,
     );
+
     return response;
   }
 
