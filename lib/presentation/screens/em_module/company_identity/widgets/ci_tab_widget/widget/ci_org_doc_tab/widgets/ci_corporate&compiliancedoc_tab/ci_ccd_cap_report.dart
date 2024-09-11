@@ -335,7 +335,6 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
 
                                                                 for (var i in snapshot.data!) {
                                                                   if (i.docID == docTypeMetaIdCCCap) {
-                                                                    selectedDocType = i.docType;
                                                                     docType = i.docID;
                                                                     break;
                                                                   }

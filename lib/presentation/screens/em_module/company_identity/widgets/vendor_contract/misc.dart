@@ -676,6 +676,7 @@ class _CiMiscState extends State<CiMisc> {
                                                                       _isLoading = true;
                                                                     });
                                                                     try {
+                                                                      // await deleteOrgDoc(context: context, orgDocId: null,);
                                                                       await deleteManageCorporate(
                                                                           context,
                                                                           miscData.docId);

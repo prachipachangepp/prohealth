@@ -356,7 +356,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
 
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == docTypeMetaIdCCL) {
-                                                                      selectedDocType = i.docType;
+                                                                      //selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

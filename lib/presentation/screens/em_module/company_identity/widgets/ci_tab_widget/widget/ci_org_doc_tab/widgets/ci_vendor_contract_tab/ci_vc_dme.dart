@@ -323,7 +323,6 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
 
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == docTypeMetaIdVCdme) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

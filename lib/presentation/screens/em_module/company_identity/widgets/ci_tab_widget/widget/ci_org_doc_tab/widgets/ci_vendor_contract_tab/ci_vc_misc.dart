@@ -335,7 +335,6 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
 
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == docTypeMetaIdVCMisc) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

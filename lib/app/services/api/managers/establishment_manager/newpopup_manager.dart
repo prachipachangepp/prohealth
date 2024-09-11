@@ -155,7 +155,6 @@ Future<ApiData> updateOrgDoc({
   required String idOfDocument,
   required String expiryDate,
   required String docCreatedat,
-  required int companyid,
   required String url,
   required String officeid,
 }) async {

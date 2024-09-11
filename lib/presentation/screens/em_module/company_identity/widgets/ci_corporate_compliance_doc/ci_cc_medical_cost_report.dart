@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
@@ -238,7 +239,9 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                           String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                                               ? "Not Applicable"
                                                                               : calenderController.text;
-
+                                                                          // await updateOrgDoc(context: context,
+                                                                          //     orgDocId: documentPreId, orgDocumentSetupid: null,
+                                                                          //     idOfDocument: '', expiryDate: '', docCreatedat: '', url: "", officeid: widget.officeId,);
                                                                           await updateManageCCVVPP(
                                                                             context: context,
                                                                             docId: documentPreId,
@@ -579,6 +582,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                       _isLoading = true;
                                                                     });
                                                                     try {
+                                                                      // await deleteOrgDoc(context: context, orgDocId: null,);
                                                                       await deleteManageCorporate(
                                                                           context,
                                                                           MedicalCostReport.docId);

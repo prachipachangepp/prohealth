@@ -345,7 +345,6 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
 
                                                                 for (var i in snapshot.data!) {
                                                                   if (i.docID == docTypeMetaIdCCMCR) {
-                                                                    selectedDocType = i.docType;
                                                                     docType = i.docID;
                                                                     break;
                                                                   }

@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:shimmer/shimmer.dart';
@@ -244,6 +245,9 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                           String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                                               ? "Not Applicable"
                                                                               : calenderController.text;
+                                                                          // await updateOrgDoc(context: context,
+                                                                          //     orgDocId: documentPreId, orgDocumentSetupid: null,
+                                                                          //     idOfDocument: '', expiryDate: '', docCreatedat: '', url: "", officeid: widget.officeId,);
 
                                                                           await updateManageCCVVPP(
                                                                             context: context,
@@ -585,6 +589,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                       _isLoading = true;
                                                                     });
                                                                     try {
+                                                                      // await deleteOrgDoc(context: context, orgDocId: null,);
                                                                       await deleteManageCorporate(
                                                                           context,
                                                                           CapReports.docId);
