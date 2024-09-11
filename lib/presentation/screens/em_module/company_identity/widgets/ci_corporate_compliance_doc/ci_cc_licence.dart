@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
@@ -337,6 +338,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                           String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                                               ? "Not Applicable"
                                                                               : calenderController.text;
+                                                                          // await updateOrgDoc(context: context,
+                                                                          //     orgDocId: documentPreId, orgDocumentSetupid: null,
+                                                                          //     idOfDocument: '', expiryDate: '', docCreatedat: '', url: "", officeid: widget.officeId,);
 
                                                                           await updateManageCCVVPP(
                                                                             context:
@@ -748,7 +752,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
-                                                                              await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              // await deleteOrgDoc(context: context, orgDocId: null,);
+                                                                               await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
                                                                                 await getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
                                                                                   lisenceController.add(data);

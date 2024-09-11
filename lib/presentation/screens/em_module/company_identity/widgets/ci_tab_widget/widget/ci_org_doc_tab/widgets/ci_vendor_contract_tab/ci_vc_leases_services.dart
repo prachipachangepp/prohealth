@@ -335,7 +335,6 @@ class _VendorContractADRState extends State<VendorContractADR> {
 
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == docTypeMetaIdVCSnf) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

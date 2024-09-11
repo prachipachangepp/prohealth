@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
@@ -310,6 +311,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                 .zoneName
                                                                                 .toString());
                                                                     return AddZonePopup(
+                                                                      buttonTitle: AppStringEM.save,
                                                                       zoneNumberController:
                                                                           zoneNumberController,
                                                                       title:
@@ -361,14 +363,19 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                     .connectionState ==
                                                                                 ConnectionState
                                                                                     .waiting) {
-                                                                              return Shimmer.fromColors(
-                                                                                  baseColor: Colors.grey[300]!,
-                                                                                  highlightColor: Colors.grey[100]!,
-                                                                                  child: Container(
-                                                                                    width: 354,
-                                                                                    height: 30,
-                                                                                    decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
-                                                                                  ));
+                                                                              return Container(
+                                                                                width: 354,
+                                                                                height: 30,
+                                                                                decoration: BoxDecoration(
+                                                                                  border: Border.all(
+                                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                                  borderRadius: BorderRadius.circular(4),
+                                                                                ),
+                                                                                child: const Text(
+                                                                                  "",
+                                                                                  //AppString.dataNotFound,
+                                                                                ),
+                                                                              );
                                                                             }
                                                                             if (snapshotZone
                                                                                 .data!
@@ -435,46 +442,46 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                         size: 18,
                                                         color: ColorManager.blueprime,
                                                       )),
-                                                  IconButton(
-                                                      splashColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      onPressed: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                DeletePopup(
-                                                                    title: 'Delete Zone',
-                                                                    onCancel: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                }, onDelete:
-                                                                        () async {
-                                                                  await deleteZoneCountyData(
-                                                                      context,
-                                                                      zone.zoneId);
-                                                                  getZoneByCounty(
-                                                                          context,
-                                                                          widget
-                                                                              .officeId,
-                                                                          25,
-                                                                          1,
-                                                                          20)
-                                                                      .then((data) {
-                                                                    _zoneController
-                                                                        .add(data);
-                                                                  }).catchError(
-                                                                          (error) {});
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                }));
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.delete_outline,
-                                                        size: 18,
-                                                        color:
-                                                            ColorManager.faintOrange,
-                                                      )),
+                                                  // IconButton(
+                                                  //     splashColor: Colors.transparent,
+                                                  //     hoverColor: Colors.transparent,
+                                                  //     highlightColor: Colors.transparent,
+                                                  //     onPressed: () {
+                                                  //       showDialog(
+                                                  //           context: context,
+                                                  //           builder: (context) =>
+                                                  //               DeletePopup(
+                                                  //                   title: 'Delete Zone',
+                                                  //                   onCancel: () {
+                                                  //                 Navigator.pop(
+                                                  //                     context);
+                                                  //               }, onDelete:
+                                                  //                       () async {
+                                                  //                 await deleteZoneCountyData(
+                                                  //                     context,
+                                                  //                     zone.zoneId);
+                                                  //                 getZoneByCounty(
+                                                  //                         context,
+                                                  //                         widget
+                                                  //                             .officeId,
+                                                  //                         25,
+                                                  //                         1,
+                                                  //                         20)
+                                                  //                     .then((data) {
+                                                  //                   _zoneController
+                                                  //                       .add(data);
+                                                  //                 }).catchError(
+                                                  //                         (error) {});
+                                                  //                 Navigator.pop(
+                                                  //                     context);
+                                                  //               }));
+                                                  //     },
+                                                  //     icon: Icon(
+                                                  //       Icons.delete_outline,
+                                                  //       size: 18,
+                                                  //       color:
+                                                  //           ColorManager.faintOrange,
+                                                  //     )),
                                                 ],
                                               ),
                                             )

@@ -215,7 +215,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
               ),
               child: Row(
                 children: [
-                  Text('Do not allow to delete county?',
+                  Text('Not allow to delete county.',
                     style:CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.semiBold,
                         fontSize: FontSize.s12,
@@ -258,7 +258,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                     child: CustomElevatedButton(
                       width: AppSize.s105,
                       height: AppSize.s30,
-                      text: "Ok",
+                      text: "OK",
                       onPressed: () {
                         widget.onDelete();
                         //Navigator.pop(context);

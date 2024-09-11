@@ -333,7 +333,6 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
 
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == docTypeMetaIdVCMD) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

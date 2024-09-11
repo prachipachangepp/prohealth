@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -112,6 +114,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           onLocationPicked: (location) {
             // Print debug information to ensure this is being called
             print('Picked location inside MapScreen: $_selectedLocation');
+            _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
             setState(() {
               _latitude = location.latitude;
               _longitude = location.longitude;
@@ -176,16 +179,14 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   width: 140,
                   text: 'Add New Office',
                   onPressed: () {
-                    setState((){
-                      String generated = generateRandomString(1);
-                      generatedString = "Office ${generated}";
-                    });
-                    print("Generated String ${generatedString}");
+                    // setState((){
+                    //   String generated = generateRandomString(1);
+                    //   generatedString = "Office ${generated}";
+                    // });
+                    // print("Generated String ${generatedString}");
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
                             return AddOfficeSumbitButton(
                               nameController: nameController,
                               addressController: addressController,
@@ -195,57 +196,68 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               mobNumController: mobNumController,
                               secNumController: secNumController,
                               OptionalController: OptionalController,
-                              checkBoxHeadOffice:Container(
-                                  width: 300,
-                                  child: CheckboxTile(
-                                    title: 'Head Office',
-                                    initialValue: false,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        isHeadOffice = true;
-                                        print('HeadOffice ${isHeadOffice}');
-                                      });
-                                    },
-                                  )),
-                              checkBoxServices: Container(
-                                height:100,
-                                child: Wrap(
-                                    children:[
-                                      Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Home Health',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Hospice',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Home Care',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),
-                                      Container(
-                                          width: 150,
-                                          child: Center(
-                                            child: CheckboxTile(
-                                              title: 'Palliative Care',
-                                              initialValue: false,
-                                              onChanged: (value) {},
-                                            ),
-                                          )),]
-                                ),
+                              checkBoxHeadOffice:StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return Container(
+                                      width: 300,
+                                      child: CheckboxTile(
+                                        title: 'Head Office',
+                                        initialValue: false,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            isHeadOffice = true;
+                                            print('HeadOffice ${isHeadOffice}');
+                                          });
+                                        },
+                                      ));
+                                },
+                              ),
+                              checkBoxServices: StatefulBuilder(
+
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return Container(
+                                    height:100,
+                                    width: 300,
+                                    child: FutureBuilder<List<ServicesData>>(
+                                        future: getAllServicesData(context),
+                                        builder: (context,snapshot) {
+                                          if(snapshot.connectionState == ConnectionState.waiting){
+                                            return SizedBox();
+                                          }
+                                          if(snapshot.data!.isEmpty){
+                                            return Center(
+                                              child: Text('No services available',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager.medium,
+                                                  color: ColorManager.mediumgrey,
+                                                  //decoration: TextDecoration.none,
+                                                ),),
+                                            );
+                                          }
+                                          if(snapshot.hasData){
+                                            return Wrap(
+                                                children:[
+                                                  ...List.generate(snapshot.data!.length, (index){
+                                                    return Container(
+                                                        width: 150,
+                                                        child: Center(
+                                                          child: CheckboxTile(
+                                                            title: snapshot.data![index].serviceName,
+                                                            initialValue: false,
+                                                            onChanged: (value) {},
+                                                          ),
+                                                        ));
+                                                  })]
+                                            );
+                                          }else{
+                                            return SizedBox();
+                                          }
+
+                                        }
+                                    ),
+                                  );
+                                },
                               ),
                               pickLocationWidget: Row(
                                 children: [
@@ -286,7 +298,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   email: emailController.text,
                                   primaryPhone:  mobNumController.text,
                                   secondaryPhone:secNumController.text,
-                                  officeId: generatedString!,
+                                  officeId: "",
                                   lat: _selectedLocation.latitude.toString(),
                                   long:_selectedLocation.longitude.toString(),
                                   cityName: "",
@@ -314,8 +326,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       .add(data);
                                 }).catchError((error) {});
                               }, formKey: _formKey,);
-                          },
-                        );
                       },
                     );
                   },
@@ -338,7 +348,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left:25,right: 45),
-                  child: Container(height: 20,width:100),
+                  child: Container(height: 20,width:150),
                 ),
                 Expanded(
                   child: Center(
@@ -450,7 +460,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               ),
                                             ],
                                           ),
-                                          height: 60,
+                                          height: 90,
                                           child: Stack(
                                             children: [
                                               snapshot.data![index].isHeadOffice?Positioned(
@@ -475,53 +485,83 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(left: 25,right: 45,top:5),
+                                                  padding: const EdgeInsets.only(left: 25,right: 45,top:10,bottom: 10),
                                                   child: StatefulBuilder(
                                                     builder: (BuildContext context, void Function(void Function()) setState) {
-                                                      return Center(
-                                                        child: InkWell(
-                                                          onTap: () async{
-                                                            String googleMapsUrl =
-                                                                'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                            if (await canLaunchUrlString(googleMapsUrl)) {
-                                                            await launchUrlString(googleMapsUrl);
-                                                            } else {
-                                                            print('Could not open the map.');
-                                                            }
-                                                          },
-                                                          child: MouseRegion(
-                                                            onEnter: (_) {
-                                                              setState(() {
-                                                                _isHovered = true;
-                                                              });
-                                                            },
-                                                            onExit: (_) {
-                                                              setState(() {
-                                                                _isHovered = false;
-                                                              });
-                                                            },
-                                                            child: Stack(
-                                                              alignment: Alignment.center,
-                                                              children: [
-                                                                Container(
-                                                                  height: 100,
-                                                                  width: 100,
-                                                                  child: Image.asset(
-                                                                    "images/mapImage.png",
-                                                                    fit: BoxFit.cover,
-                                                                  ),
-                                                                ),
-                                                                if (_isHovered)
-                                                                  Icon(
-                                                                    Icons.map,
-                                                                    size: 20,
-                                                                    color: ColorManager.blueprime,
-                                                                  ),
-                                                              ],
+                                                      return InkWell(
+                                                        onTap: () async{
+                                                          String googleMapsUrl =
+                                                              'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                          if (await canLaunchUrlString(googleMapsUrl)) {
+                                                          await launchUrlString(googleMapsUrl);
+                                                          } else {
+                                                          print('Could not open the map.');
+                                                          }
+                                                        },
+                                                        child: SizedBox(
+                                                          height: 100,
+                                                          width: 150,
+                                                          child: GoogleMap(
+                                                            initialCameraPosition: CameraPosition(
+                                                              target: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                              zoom: 15.0,
                                                             ),
+                                                            markers: {
+                                                               Marker(
+                                                                markerId: MarkerId(''),
+                                                                position: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                              )
+                                                            }, // Optional: Disable if not needed// Optional: Disable if not needed
+                                                            zoomControlsEnabled: false,
+                                                            mapToolbarEnabled: false,
                                                           ),
                                                         ),
-                                                      ); },
+                                                      );
+                                                      //   Center(
+                                                      //   child: InkWell(
+                                                      //     onTap: () async{
+                                                      //       String googleMapsUrl =
+                                                      //           'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                      //       if (await canLaunchUrlString(googleMapsUrl)) {
+                                                      //       await launchUrlString(googleMapsUrl);
+                                                      //       } else {
+                                                      //       print('Could not open the map.');
+                                                      //       }
+                                                      //     },
+                                                      //     child: MouseRegion(
+                                                      //       onEnter: (_) {
+                                                      //         setState(() {
+                                                      //           _isHovered = true;
+                                                      //         });
+                                                      //       },
+                                                      //       onExit: (_) {
+                                                      //         setState(() {
+                                                      //           _isHovered = false;
+                                                      //         });
+                                                      //       },
+                                                      //       child: Stack(
+                                                      //         alignment: Alignment.center,
+                                                      //         children: [
+                                                      //           Container(
+                                                      //             height: 100,
+                                                      //             width: 100,
+                                                      //             child: Image.asset(
+                                                      //               "images/mapImage.png",
+                                                      //               fit: BoxFit.cover,
+                                                      //             ),
+                                                      //           ),
+                                                      //           if (_isHovered)
+                                                      //             Icon(
+                                                      //               Icons.map,
+                                                      //               size: 20,
+                                                      //               color: ColorManager.blueprime,
+                                                      //             ),
+                                                      //         ],
+                                                      //       ),
+                                                      //     ),
+                                                      //   ),
+                                                      // );
+                                                      },
                                                   ),
                                                 ),
                                                 Expanded(

@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -285,6 +286,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                           String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                                               ? "Not Applicable"
                                                                               : calenderController.text;
+                                                                          // await updateOrgDoc(context: context,
+                                                                          //     orgDocId: documentPreId, orgDocumentSetupid: null,
+                                                                          //     idOfDocument: '', expiryDate: '', docCreatedat: '', url: "", officeid: widget.officeId,);
                                                                           await updateManageCCVVPP(
                                                                               context: context,
                                                                               docId: documentPreId,
@@ -639,6 +643,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
+                                                                              // await deleteOrgDoc(context: context, orgDocId: null,);
                                                                               await deleteManageCorporate(context, leasesData.docId);
                                                                               setState(() async {
                                                                                 await getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {

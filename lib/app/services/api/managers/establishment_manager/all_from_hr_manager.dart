@@ -197,15 +197,23 @@ Future<ApiData> AllFromHrPatch(
     String color,
     ) async {
   try {
+    var allData = {
+      "DepartmentId": deptId,
+      "employeeType": empType,
+      "color": color,
+      "abbreviation": abbreviation
+    };
+    print('All data ${allData}');
     var response = await Api(context).patch(path:
     AllFromHrRepository.patchHRType(
         empId : employeeTypeId,
     ), data: {
       "DepartmentId": deptId,
       "employeeType": empType,
-      "color": "#${color}",
+      "color": color,
       "abbreviation": abbreviation
     });
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Hr Doc updated");
       return ApiData(

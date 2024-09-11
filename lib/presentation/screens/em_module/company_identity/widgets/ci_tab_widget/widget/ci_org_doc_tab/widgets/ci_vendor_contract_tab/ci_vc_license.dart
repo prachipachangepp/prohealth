@@ -332,7 +332,6 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
 
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == docTypeMetaIdVCLeases) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

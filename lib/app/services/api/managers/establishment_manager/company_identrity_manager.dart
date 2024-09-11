@@ -129,6 +129,25 @@ Future<ApiData> addNewOffice(
     required String country,
     required bool isHeadOffice}) async {
   try {
+    var data = {
+      "company_id": 2,
+      "office_id": officeId,
+      "primary_phone": primaryPhone,
+      "secondary_phone": secondaryPhone,
+      "primary_fax": primaryPhone,
+      "secondary_fax": secondaryPhone,
+      "alternative_phone": secondaryPhone,
+      "email": email,
+      "name": name,
+      "address": address,
+      "lat": lat,
+      "lng": long,
+      "city": cityName,
+      "state": stateName,
+      "country": country,
+      "isHeadOffice": isHeadOffice
+    };
+    print("All inserted office data ${data}");
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
         .post(path: EstablishmentManagerRepository.addNewOffice(), data: {

@@ -334,7 +334,6 @@ class _CICcdADRState extends State<CICcdADR> {
 
                                                                 for (var i in snapshot.data!) {
                                                                   if (i.docID == docTypeMetaIdCCAdr) {
-                                                                    selectedDocType = i.docType;
                                                                     docType = i.docID;
                                                                     break;
                                                                   }

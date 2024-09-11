@@ -261,7 +261,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                                   int docType = snapshot.data![0].docID;
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == AppConfig.policiesAndProcedure) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }

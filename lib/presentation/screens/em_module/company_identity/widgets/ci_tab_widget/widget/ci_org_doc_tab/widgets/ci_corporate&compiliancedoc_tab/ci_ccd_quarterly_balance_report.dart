@@ -338,7 +338,6 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
 
                                                                 for (var i in snapshot.data!) {
                                                                   if (i.docID == docTypeMetaIdCCbal) {
-                                                                    selectedDocType = i.docType;
                                                                     docType = i.docID;
                                                                     break;
                                                                   }

@@ -369,6 +369,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       CiCorporateComplianceScreen(
                         docId: AppConfig.corporateAndCompliance,
                         officeId: widget.officeID,
+                        companyID: widget.companyID,
                       ),
                       CIInsurance(
                         officeId: widget.officeID,

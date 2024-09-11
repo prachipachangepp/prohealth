@@ -31,6 +31,7 @@ class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController? countryController;
   final TextEditingController? stateController;
   final Future<void> Function() onSavePressed;
+  final String buttonTitle;
   final String title1;
   final String? title2;
   final String? title3;
@@ -58,7 +59,7 @@ class CIZoneAddPopup extends StatefulWidget {
     this.cityController,
     this.countryController,
     this.stateController,
-    required this.title,
+    required this.title, required this.buttonTitle,
   }) : super(key: key);
 
   @override
@@ -130,7 +131,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
+                      padding: const EdgeInsets.only(left: 27.0),
                       child: Text(
                         widget.title,
                         style: GoogleFonts.firaSans(
@@ -254,7 +255,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   child: CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
-                    text: AppStringEM.save,
+                    text: widget.buttonTitle,
                     onPressed: () async {
                       if (validateFields()) {
                         setState(() {
@@ -487,26 +488,28 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             color: ColorManager.granitegray,
                             size: AppSize.s18,
                           ),
+                          SizedBox(width:10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _location,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xff686464),
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
 
-                     Padding(
-                       padding: const EdgeInsets.only(left: 10),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.start,
-                         children: [
-                           Text(
-                             _location,
-                             style: GoogleFonts.firaSans(
-                               fontSize: 11,
-                               fontWeight: FontWeight.w500,
-                               color: const Color(0xff686464),
-                               decoration: TextDecoration.none,
-                             ),
-                           ),
-                         ],
-                       ),
-                     ),
+
                       // Text('${widget.location}'),
                       // Text('Picked Location: ${widget.locationController.text}'),
                       // SizedBox(height: AppSize.s15),
@@ -536,7 +539,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         child: CustomElevatedButton(
                           width: AppSize.s105,
                           height: AppSize.s30,
-                          text: AppStringEM.save,
+                          text: AppStringEM.add,
                           onPressed: () async {
                             setState(() {
                               isLoading = true;
@@ -570,7 +573,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 ///edit
 class EditZipCodePopup extends StatefulWidget {
   final String title;
-  final TextEditingController countynameController;
+  final TextEditingController? countynameController;
   final TextEditingController zipcodeController;
   final TextEditingController? mapController;
   final TextEditingController? cityNameController;
@@ -582,8 +585,8 @@ class EditZipCodePopup extends StatefulWidget {
   EditZipCodePopup({
     super.key,
     required this.title,
-    required this.countynameController,
-    required this.zipcodeController,
+     this.countynameController,
+     required this.zipcodeController,
      this.mapController,
      this.landmarkController,
     this.child,
@@ -645,7 +648,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s400,
-          height: AppSize.s500,
+          height: AppSize.s400,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -702,23 +705,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppString.zone,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          widget.child!
-                        ],
-                      ),
-                      SizedBox(height: AppSize.s10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
                             'County Name',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
@@ -731,12 +717,31 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           widget.child1!
                         ],
                       ),
-                      SizedBox(height: AppSize.s15),
-                      FirstSMTextFConst(
-                        controller: widget.cityNameController!,
-                        keyboardType: TextInputType.text,
-                        text: 'City Name',
+                      SizedBox(height: AppSize.s10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppString.zone,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.mediumgrey,
+                              //decoration: TextDecoration.none,
+                            ),
+                          ),
+                          SizedBox(height: AppSize.s5),
+                          widget.child!
+                        ],
                       ),
+
+
+                      // SizedBox(height: AppSize.s15),
+                      // FirstSMTextFConst(
+                      //   controller: widget.cityNameController!,
+                      //   keyboardType: TextInputType.text,
+                      //   text: 'City Name',
+                      // ),
                       SizedBox(height: AppSize.s15),
                       SMTextFConst(
                         controller: widget.zipcodeController,
@@ -788,11 +793,11 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       ),
                       SizedBox(height: AppSize.s15),
 
-                      FirstSMTextFConst(
-                        controller: widget.landmarkController!,
-                        keyboardType: TextInputType.text,
-                        text: 'Landmark',
-                      ),
+                      // FirstSMTextFConst(
+                      //   controller: widget.landmarkController!,
+                      //   keyboardType: TextInputType.text,
+                      //   text: 'Landmark',
+                      // ),
 
                     ],
                   ),
@@ -919,12 +924,13 @@ class AddZonePopup extends StatefulWidget {
   final Future<void> Function() onSavePressed;
   final Widget? child;
   final String title;
+  final String buttonTitle;
   AddZonePopup(
       {super.key,
       required this.zoneNumberController,
       this.child,
       required this.title,
-      required this.onSavePressed});
+      required this.onSavePressed, required this.buttonTitle});
 
   @override
   State<AddZonePopup> createState() => _AddZonePopupState();
@@ -1078,7 +1084,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                   child: CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
-                    text: AppStringEM.save,
+                    text: widget.buttonTitle,
                     onPressed: () async {
                       if (validateFields()) {
                         setState(() {

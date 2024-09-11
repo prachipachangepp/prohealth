@@ -9,8 +9,9 @@ class ApiData {
   final int? labReportId;
   final int? miscNoteId;
   final int? rDignosisId;
+  final int? orgOfficeDocumentId;
 
-  ApiData({
+  ApiData( {
     required this.statusCode,
     required this.success,
     required this.message,
@@ -21,6 +22,7 @@ class ApiData {
     this.patientId,
     this.miscNoteId,
     this.rDignosisId,
+    this.orgOfficeDocumentId
   });
 }
 
