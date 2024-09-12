@@ -356,6 +356,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     docIdController.clear();
                     docNamecontroller.clear();
                     selectedExpiryType = "";
+                    int? selectedDocTypeId;
 
                     showDialog(
                         context: context,
@@ -363,19 +364,42 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
+                              String? selectedExpiryDate;
+                              String? expiryDateToSend;
                               return VCScreenPopupADDConst(
+
                                 loadingDuration: _isLoading,
+                                onDocTypeSelected: (int docTypeId) {
+                                  setState(() {
+                                    selectedDocTypeId = docTypeId; // Update the selected docTypeId
+                                  });
+                                },
+                                onExpiryDateSelected: (String? expiryDate) {
+                                  setState(() {
+                                    print('EXP Date : ${expiryDate}');
+
+                                    selectedExpiryDate = expiryDate;
+                                    print('selected EXP Date : ${selectedExpiryDate}');
+                                  });
+                                },
                                 onPressed: () async {
                                   //  print('File path on pressed ${filePath}');
                                   setState(() {
                                     _isLoading = true;
                                   });
 
+
                                   ///Add Doctype API on save button
                                   try {
+                                    print('EXP Date ${selectedExpiryDate}');
+                                    if (selectedExpiryDate != null && selectedExpiryDate!.isNotEmpty) {
+                                      expiryDateToSend = selectedExpiryDate;
+                                    } else {
+                                      expiryDateToSend = null;
+                                    }
                                     ApiData response = await addOrgDocPPPost(
                                       context: context,
-                                      orgDocumentSetupid: docTypeMetaIdVC,
+                                      orgDocumentSetupid: selectedDocTypeId!,
                                       idOfDocument: "PPP",
                                       expiryDate:
                                       // selectedExpiryType.toString(),
