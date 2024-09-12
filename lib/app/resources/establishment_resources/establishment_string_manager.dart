@@ -66,12 +66,19 @@ class AppStringEM{
   static const String fax = "Fax";
   static const String street = "Street";
   static const String primaryEmail = "Primary Email";
+  ///Document definition
+  static const String srNo = "Sr No.";
+  static const String docID = "Document Id";
+  static const String reminderthershold= "Reminder Threshold";
+  static const String expiryType= "Expiry Type";
+  static const String loading= 'Loading...';
+  static const String misc= "MISC";
 
 }
 
 class ErrorMessageString{
   ///manage button flow
-  static const String noCounties =   "No available countyes!";
+  static const String noCounties =   "No available counties!";
   static const String noCountyAdded =  "No county added";
   static const String noZoneAdded =  "No zone added";
   static const String noZones =  "No available zones!";
@@ -80,7 +87,7 @@ class ErrorMessageString{
   static const String noADR =   "No available ADR!";
   static const String noMCR =  "No available medical cost reports!";
   static const String noCR =  "No available cap reports!";
-  static const String noQBR =  "No available quaterly balance reports!";
+  static const String noQBR =  "No available quarterly balance reports!";
   static const String noVendor =  "No available vendors!";
   static const String noVendorAdded =  "No vendor added";
   static const String noContract =  "No available contracts!";
@@ -109,4 +116,33 @@ class ErrorMessageString{
  static const String noPayRates =  "No available pay rates!";
  static const String noserviceAdded = "no service added";
  static const String noroleAdded = "no role added";
+}
+///edit
+class EditPopupString{
+  static const String editPolicy = 'Edit Policies Procedure';
+  static const String editLicenses = 'Edit Licenses';
+  static const String editAdr = 'Edit ADR';
+  static const String editMCR = 'Edit Medical Cost Reports';
+  static const String editCap = 'Edit Cap Reports';
+  static const String editQBR = 'Edit Quarterly Balance Report';
+  ///vendor contract
+  static const String editLeases = 'Edit Leases & Services';
+  static const String editSNF = 'Edit SNF';
+  static const String editDME = 'Edit DME';
+  static const String editMD = 'Edit MD';
+  static const String editMISC = 'Edit MISC';
+}
+class DeletePopupString{
+  static const String editPolicy = 'Edit Policies Procedure';
+  static const String editLicenses = 'Edit Licenses';
+  static const String editAdr = 'Edit ADR';
+  static const String editMCR = 'Edit Medical Cost Reports';
+  static const String editCap = 'Edit Cap Reports';
+  static const String editQBR = 'Edit Quarterly Balance Report';
+  ///vendor contract
+  static const String editLeases = 'Edit Leases & Services';
+  static const String editSNF = 'Edit SNF';
+  static const String editDME = 'Edit DME';
+  static const String editMD = 'Edit MD';
+  static const String deleteMISC = 'Delete MISC';
 }

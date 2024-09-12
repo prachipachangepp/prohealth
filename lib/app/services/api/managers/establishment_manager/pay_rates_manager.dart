@@ -118,7 +118,7 @@ Future<List<ServiceData>> PayRateServiceDropdown(
   try {
     final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.getServicedropdown());
+        path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(companyId: companyID));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsList.add(
@@ -148,23 +148,23 @@ Future<List<ServiceData>> PayRateServiceDropdown(
 /// Add pay rates POST 22-8
 Future<ApiData> addPayrates(
     BuildContext context,
-    int zoneId,
     int rate,
     String typeOfVisitId,
     int perMile,
-    int serviceTypeId,
+    String serviceTypeId,
+    int outOfZoneRate
     ) async {
   try {
     final companyId= await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.postPayrates(),
         data: {
-          "ZoneId": zoneId,
           "rate": rate,
           "typeOfVisitId": typeOfVisitId,
-          "perMile": perMile,
-          "serviceTypeId": serviceTypeId,
+          "serviceId": serviceTypeId,
           "companyId": companyId,
+          "outOfZoneRate": outOfZoneRate,
+          "outOfZoneperMile": perMile
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("payrate Addded");

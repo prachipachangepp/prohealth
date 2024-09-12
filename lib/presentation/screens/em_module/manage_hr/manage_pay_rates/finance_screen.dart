@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -20,7 +21,6 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
@@ -44,6 +44,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController payRatesController = TextEditingController();
   TextEditingController perMilesController = TextEditingController();
+  TextEditingController fixedPayRatesController = TextEditingController();
   TextEditingController dummyCtrl = TextEditingController();
   final StreamController<List<PayRatesGet>> _payRatesController =
       StreamController<List<PayRatesGet>>();
@@ -59,11 +60,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
   int empTypeId = 0;
   bool _isLoading = false;
   int? selectedServiceId;
-  String? selectedserviceId;
-  String? selectedChipsId;
   bool isServiceSelected = false;
   String? selectedServiceName;
   int? firstServiceId;
+  String? abbrivtionName;
+  int? employeeTypeId;
+  int? firstEmployeeTypeId;
 
   @override
   void initState() {
@@ -109,6 +111,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
             .toList();
     _payRatesController.add(filteredData);
   }
+  String? serviceId;
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,10 +122,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 12),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [buildDropdownButton(context)],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [buildDropdownButton(context)],
+            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -163,38 +167,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     ///disabled container
                     Row(
                       children: [
-                        // Container(
-                        //   height: 30,
-                        //   width: 150,
-                        //   padding: const EdgeInsets.symmetric(
-                        //       vertical: 6, horizontal: 15),
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.white,
-                        //     border: Border.all(
-                        //         color: ColorManager.fmediumgrey, width: 1.2),
-                        //     borderRadius: BorderRadius.circular(4),
-                        //     boxShadow: [
-                        //       // BoxShadow(
-                        //       //   color:
-                        //       //       const Color(0xff000000).withOpacity(0.25),
-                        //       //   blurRadius: 2,
-                        //       //   offset: const Offset(0, 2),
-                        //       // ),
-                        //     ],
-                        //   ),
-                        //   child: Text(
-                        //     'Clinical',
-                        //     style: GoogleFonts.firaSans(
-                        //       fontSize: 12,
-                        //       fontWeight: FontWeightManager.bold,
-                        //       color: ColorManager.fmediumgrey,
-                        //       decoration: TextDecoration.none,
-                        //     ),
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   width: 10,
-                        // ),
                         FutureBuilder<List<ServiceData>>(
                           future: PayRateServiceDropdown(context),
                           builder: (context, snapshot) {
@@ -225,7 +197,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             }
                             if (snapshot.hasData) {
                               List<DropdownMenuItem<String>>
-                                  dropDownServiceList = [];
+                              dropDownServiceList = [];
                               for (var service in snapshot.data!) {
                                 dropDownServiceList.add(
                                   DropdownMenuItem<String>(
@@ -236,31 +208,34 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               }
 
                               // Store the service ID of the 0th position
-                              // if (dropDownServiceList.isNotEmpty) {
-                              //   firstServiceId =
-                              //       snapshot.data![0].officeServiceId;
-                              // }
-                              //
-                              // if (selectedServiceName == null &&
-                              //     dropDownServiceList.isNotEmpty) {
-                              //   selectedServiceName =
-                              //       dropDownServiceList[0].value;
-                              //   selectedServiceId = firstServiceId;
-                              // }
+                              if (dropDownServiceList.isNotEmpty) {
+                                firstServiceId =
+                                    snapshot.data![0].officeServiceId;
+                              }
+                              serviceId =
+                                  snapshot.data![0].serviceId;
+
+                              if (selectedServiceName == null &&
+                                  dropDownServiceList.isNotEmpty) {
+                                selectedServiceName =
+                                    dropDownServiceList[0].value;
+                                selectedServiceId = firstServiceId;
+                              }
 
                               return CICCDropdown(
                                 width: 300,
-                                initialValue: "Select",
+                                initialValue: selectedServiceName,
                                 onChange: (val) {
-                                  // setState(() {
-                                  //   selectedServiceName = val;
+                                  setState(() {
+                                    selectedServiceName = val;
                                     for (var service in snapshot.data!) {
                                       if (service.serviceName == val) {
-                                        selectedserviceId =
-                                            service.serviceName;
+                                        selectedServiceId =
+                                            service.officeServiceId;
+                                        serviceId = service.serviceId;
                                       }
                                     }
-                                //  });
+                                  });
                                 },
                                 items: dropDownServiceList,
                               );
@@ -268,11 +243,40 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             return const SizedBox();
                           },
                         ),
+                        // Container(
+                        //   height: 30,
+                        //   width: 150,
+                        //   padding: const EdgeInsets.symmetric(
+                        //       vertical: 6, horizontal: 15),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     border: Border.all(
+                        //         color: ColorManager.fmediumgrey, width: 1.2),
+                        //     borderRadius: BorderRadius.circular(4),
+                        //     boxShadow: [
+                        //       // BoxShadow(
+                        //       //   color:
+                        //       //       const Color(0xff000000).withOpacity(0.25),
+                        //       //   blurRadius: 2,
+                        //       //   offset: const Offset(0, 2),
+                        //       // ),
+                        //     ],
+                        //   ),
+                        //   child: Text(
+                        //     'Clinical',
+                        //     style: GoogleFonts.firaSans(
+                        //       fontSize: 12,
+                        //       fontWeight: FontWeightManager.bold,
+                        //       color: ColorManager.fmediumgrey,
+                        //       decoration: TextDecoration.none,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(
                           width: 10,
                         ),
-                        FutureBuilder<List<HRClinical>>(
-                          future: companyAllHrClinicApi(context),
+                        FutureBuilder<List<HRAllData>>(
+                          future: getAllHrDeptWise(context, 1),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -312,31 +316,31 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               }
 
                               // Store the service ID of the 0th position
-                              // if (dropDownServiceList.isNotEmpty) {
-                              //   firstServiceId =
-                              //       snapshot.data![0].employeeTypesId;
-                              // }
-                              //
-                              // if (selectedServiceName == null &&
-                              //     dropDownServiceList.isNotEmpty) {
-                              //   selectedServiceName =
-                              //       dropDownServiceList[0].value;
-                              //   selectedServiceId = firstServiceId;
-                              // }
+                              if (dropDownServiceList.isNotEmpty) {
+                                firstEmployeeTypeId =
+                                    snapshot.data![0].employeeTypesId;
+                              }
+
+                              if (
+                                  dropDownServiceList.isNotEmpty) {
+                                abbrivtionName =
+                                    dropDownServiceList[0].value;
+                                employeeTypeId = firstEmployeeTypeId;
+                              }
 
                               return CICCDropdown(
                                 width: 300,
-                                initialValue: "Select",
+                                initialValue: abbrivtionName,
                                 onChange: (val) {
-                                  // setState(() {
-                                  //   selectedServiceName = val;
-                                    for (var service in snapshot.data!) {
-                                      if (service.abbrivation == val) {
-                                        selectedChipsId =
-                                            service.abbrivation;
+                                  setState(() {
+                                    abbrivtionName = val;
+                                    for (var abbrivation in snapshot.data!) {
+                                      if (abbrivation.abbrivation == val) {
+                                        employeeTypeId =
+                                            abbrivation.employeeTypesId;
                                       }
                                     }
-                                 // });
+                                  });
                                 },
                                 items: dropDownServiceList,
                               );
@@ -366,6 +370,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             context: context,
                             builder: (BuildContext context) {
                               return PayRatesPopup(
+                                fixPayRatesController: fixedPayRatesController,
                                 visitTypeTextActive: true,
                                 payRatesController: payRatesController,
                                 perMilesController: perMilesController,
@@ -379,15 +384,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       int rate = int.parse(payRatesController.text);
                                       String typeOfVisitId = docAddVisitTypeId.toString();
                                       int perMile = int.parse(perMilesController.text);
-                                      int serviceTypeId = selectedServiceId!;
+                                      String serviceTypeId = serviceId!;
+                                      int fixedRate = int.parse(fixedPayRatesController.text);
 
                                       await addPayrates(
                                         context,
-                                        zoneId,
                                         rate,
                                         typeOfVisitId,
                                         perMile,
                                         serviceTypeId,
+                                          fixedRate
                                       );
                                       setState(() {
                                         companyPayratesGet(context)
@@ -424,7 +430,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                                FontWeightManager.medium,
+                                            FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -433,7 +439,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     }
                                     if (snapshot.hasData) {
                                       List<DropdownMenuItem<String>>
-                                          dropDownZoneList = [];
+                                      dropDownZoneList = [];
                                       for (var i in snapshot.data!) {
                                         dropDownZoneList.add(
                                           DropdownMenuItem<String>(
@@ -444,9 +450,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       }
                                       return CICCDropDownExcel(
                                         initialValue:
-                                            dropDownZoneList.isNotEmpty
-                                                ? dropDownZoneList[0].value
-                                                : null,
+                                        dropDownZoneList.isNotEmpty
+                                            ? dropDownZoneList[0].value
+                                            : null,
                                         onChange: (val) {
                                           for (var a in snapshot.data!) {
                                             if (a.visitType == val) {
@@ -480,7 +486,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                                FontWeightManager.medium,
+                                            FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -489,7 +495,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     }
                                     if (snapshotZone.hasData) {
                                       List<DropdownMenuItem<String>>
-                                          dropDownTypesList = [];
+                                      dropDownTypesList = [];
                                       for (var i in snapshotZone.data!) {
                                         dropDownTypesList.add(
                                           DropdownMenuItem<String>(
@@ -500,9 +506,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       }
                                       return CICCDropDownExcel(
                                         initialValue:
-                                            dropDownTypesList.isNotEmpty
-                                                ? dropDownTypesList[0].value
-                                                : null,
+                                        dropDownTypesList.isNotEmpty
+                                            ? dropDownTypesList[0].value
+                                            : null,
                                         onChange: (val) {
                                           for (var a in snapshotZone.data!) {
                                             if (a.zoneName == val) {
@@ -535,7 +541,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 TableHeadItem(
                     text: 'Type of Visit', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
-              //  TableHeadItem(text: 'Per Miles', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Per Miles', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
               ],
@@ -660,21 +666,21 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                 ),
                                               ),
                                             ),
-                                            // Expanded(
-                                            //   child: Center(
-                                            //     child: Text(
-                                            //       '${finance.perMile}',
-                                            //       style: GoogleFonts.firaSans(
-                                            //         fontSize: 10,
-                                            //         fontWeight: FontWeight.w500,
-                                            //         color:
-                                            //             const Color(0xff686464),
-                                            //         decoration:
-                                            //             TextDecoration.none,
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  '${finance.perMile}',
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                             Expanded(
                                               child: Center(
                                                 child: Text(
@@ -870,7 +876,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       //     .clear();
                                                                       // perMilesController
                                                                       //     .clear();
-                                                                    },
+                                                                    }, fixPayRatesController: fixedPayRatesController,
                                                                   );
                                                                 });
                                                           },
@@ -883,58 +889,58 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                             .blueprime,
                                                       ),
                                                     ),
-                                                    // IconButton(
-                                                    //     splashColor:
-                                                    //         Colors.transparent,
-                                                    //     highlightColor:
-                                                    //         Colors.transparent,
-                                                    //     hoverColor:
-                                                    //         Colors.transparent,
-                                                    //     onPressed: () {
-                                                    //       showDialog(
-                                                    //           context: context,
-                                                    //           builder: (context) =>
-                                                    //               StatefulBuilder(
-                                                    //                 builder: (BuildContext
-                                                    //                         context,
-                                                    //                     void Function(void Function())
-                                                    //                         setState) {
-                                                    //                   return DeletePopup(
-                                                    //                       title:
-                                                    //                           'Delete Pay Rates',
-                                                    //                       loadingDuration:
-                                                    //                           _isLoading,
-                                                    //                       onCancel:
-                                                    //                           () {
-                                                    //                         Navigator.pop(context);
-                                                    //                       },
-                                                    //                       onDelete:
-                                                    //                           () async {
-                                                    //                         setState(() {
-                                                    //                           _isLoading = true;
-                                                    //                         });
-                                                    //                         try {
-                                                    //                           await deletePayRatesId(context, finance.payratesId);
-                                                    //                         } finally {
-                                                    //                           setState(() {
-                                                    //                             _isLoading = false;
-                                                    //                           });
-                                                    //                           companyPayratesGet(context).then((data) {
-                                                    //                             _payRatesController.add(data);
-                                                    //                           }).catchError((error) {});
-                                                    //                           Navigator.pop(context);
-                                                    //                         }
-                                                    //                       });
-                                                    //                 },
-                                                    //               ));
-                                                    //     },
-                                                    //     icon: Icon(
-                                                    //       Icons
-                                                    //           .delete_outline_outlined,
-                                                    //       size: 18,
-                                                    //       color:
-                                                    //           ColorManager.red,
-                                                    //     ))
+                                                    IconButton(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                            context,
+                                                                        void Function(void Function())
+                                                                            setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                              'Delete Pay Rates',
+                                                                          loadingDuration:
+                                                                              _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deletePayRatesId(context, finance.payratesId);
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                              companyPayratesGet(context).then((data) {
+                                                                                _payRatesController.add(data);
+                                                                              }).catchError((error) {});
+                                                                              Navigator.pop(context);
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons
+                                                              .delete_outline_outlined,
+                                                          size: 18,
+                                                          color:
+                                                              ColorManager.red,
+                                                        ))
                                                   ],
                                                 ),
                                               ),
@@ -1027,7 +1033,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
           List<SortByZoneData> zoneList = snapshot.data!;
           return Container(
             height: 31,
-            width: 100,
+            width: 110,
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
             decoration: BoxDecoration(
               color: Colors.white,

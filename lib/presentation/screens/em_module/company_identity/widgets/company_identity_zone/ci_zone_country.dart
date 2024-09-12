@@ -229,6 +229,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                       countyController = TextEditingController(text:snapshotPrefill.data!.country);
 
                                                       return CIZoneAddPopup(
+                                                        buttonTitle: AppStringEM.save,
                                                         onSavePressed: ()async{
                                                           await updateCounty(context, county.countyId,
                                                               countyName == countynameController.text ? countyName.toString() : countynameController.text,
@@ -249,23 +250,23 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                   );
                                                 });
                                               }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                              IconButton(
-                                                  splashColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                  highlightColor: Colors.transparent,
-                                                  onPressed: (){
-                                                showDialog(context: context, builder: (context) => NotAllowDeletePopup(
-                                                    title: 'Delete County',
-                                                    onCancel: (){
-                                                  Navigator.pop(context);
-                                                }, onDelete: ()async{
-                                                  Navigator.pop(context);
-                                                  // await deleteCounty(context, county.countyId);
-                                                  // getZoneBYcompOffice(context, widget.officeId, 1, 15).then((data){
-                                                  //   _contyController.add(data);
-                                                  // }).catchError((error){});
-                                                }));
-                                              }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                              // IconButton(
+                                              //     splashColor: Colors.transparent,
+                                              //     hoverColor: Colors.transparent,
+                                              //     highlightColor: Colors.transparent,
+                                              //     onPressed: (){
+                                              //   showDialog(context: context, builder: (context) => NotAllowDeletePopup(
+                                              //       title: 'Delete County',
+                                              //       onCancel: (){
+                                              //     Navigator.pop(context);
+                                              //   }, onDelete: ()async{
+                                              //     Navigator.pop(context);
+                                              //     // await deleteCounty(context, county.countyId);
+                                              //     // getZoneBYcompOffice(context, widget.officeId, 1, 15).then((data){
+                                              //     //   _contyController.add(data);
+                                              //     // }).catchError((error){});
+                                              //   }));
+                                              // }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                             ],
                                           ),
                                         ),

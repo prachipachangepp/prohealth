@@ -145,6 +145,91 @@ Future<List<NewOrgDocument>> getNewOrgDocfetch(BuildContext context,
   }
 }
 
+/// GET prefill corporate document
+Future<NewOrgDocument> getPrefillNewOrgDocument(
+    BuildContext context, int orgDocumentSetupid) async {
+  var itemsList;
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.updatePrefillPatchNewOrgDoc(
+            orgDocumentSetupid: orgDocumentSetupid));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Document type Response:::::${itemsList}");
+      itemsList = NewOrgDocument(
+          orgDocumentSetupid: response.data['orgDocumentSetupid'],
+          documentTypeId: response.data['document_type_id'],
+          documentSubTypeId: response.data['document_subtype_id'],
+          docName: response.data['doc_name'],
+          expiryType: response.data['expiry_type'],
+          threshold: response.data['threshold'] ?? 0,
+          expiryDate: response.data['expiry_date'] ?? "",
+          expiryReminder: response.data['expiry_reminder'],
+          companyId: companyId,
+          idOfDocument: response.data['idOfDocument'] ?? "");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    print("GetDcoType Prefill Response:::::${itemsList}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+/// Update corporate document
+Future<ApiData> updateNewOrgDocumentPatch({
+  required BuildContext context,
+  required int orgDocumentSetupid,
+  required int docTypeID,
+  required int docSubTypeID,
+  required String docName,
+  required String expiryType,
+  required int threshold,
+  required String? expiryDate,
+  required String expiryReminder,
+  required String idOfDoc,
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.updatePrefillPatchNewOrgDoc(
+            orgDocumentSetupid: orgDocumentSetupid),
+        data: {
+          "document_type_id": docTypeID,
+          "document_subtype_id": docSubTypeID,
+          "doc_name": docName,
+          "expiry_type": expiryType,
+          "threshold":threshold,
+          "expiry_date": expiryDate,
+          "expiry_reminder": expiryReminder,
+          "company_id": companyId,
+          "idOfDocument": idOfDoc,
+        });
+    print('::::$response');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Document Patch new org");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 ///delete
 Future<ApiData> deleteNewOrgDoc(
     BuildContext context, int orgDocumentSetupid) async {

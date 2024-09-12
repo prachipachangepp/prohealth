@@ -26,12 +26,12 @@ class SMTextFConst extends StatefulWidget {
   final double? width;
 
   SMTextFConst({
-     Key? key,
-     this.focusNode,
+    Key? key,
+    this.focusNode,
     required this.controller,
     required this.keyboardType,
-     required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget, this.width,
+    required this.text,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget, this.width,
   }) : super(key: key);
 
   @override
@@ -87,9 +87,9 @@ class _SMTextFConstState extends State<SMTextFConst> {
               contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
             ),
             style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s12,
-              color: ColorManager.mediumgrey
+                fontWeight: FontWeightManager.medium,
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey
             ),
             //validator: widget.validator,
             onTap: widget.onChange,

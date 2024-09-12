@@ -12,6 +12,7 @@ class PayRatesPopup extends StatefulWidget {
   final Widget child2;
   final String title;
   final Future<void> Function() onPressed;
+  final TextEditingController fixPayRatesController;
   final TextEditingController payRatesController;
   final TextEditingController perMilesController;
   final bool visitTypeTextActive;
@@ -23,7 +24,7 @@ class PayRatesPopup extends StatefulWidget {
     required this.payRatesController,
     required this.onPressed,
     required this.title,
-    required this.perMilesController, required this.visitTypeTextActive,
+    required this.perMilesController, required this.visitTypeTextActive, required this.fixPayRatesController,
   });
 
   @override
@@ -117,7 +118,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    widget.visitTypeTextActive ? Text(
+                      widget.visitTypeTextActive ? Text(
                         'Type of Visit',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -128,16 +129,12 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       SizedBox(height: 5,),
                       widget.child1,
                       SizedBox(height: 20,),
-                      Text(
-                        'Payrate',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.mediumgrey,
-                        ),
+                      SMTextFConst(
+                        prefixWidget: Text("\$ "),
+                        controller: widget.payRatesController,
+                        keyboardType: TextInputType.number,
+                        text: 'Payrates',
                       ),
-                      SizedBox(height: 5,),
-                      widget.child2,
                       SizedBox(height: 20,),
                       Text("Out of Zone", style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -154,7 +151,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                           SMTextFConst(
                             width: 150,
                             prefixWidget: Text("\$ "),
-                            controller: widget.payRatesController,
+                            controller: widget.fixPayRatesController,
                             keyboardType: TextInputType.number,
                             text: 'Fixed Rate',
                           ),
@@ -169,7 +166,6 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                           SizedBox(height: 20,),
                           SMTextFConst(
                             width: 150,
-
                             controller: widget.perMilesController,
                             keyboardType: TextInputType.number,
                             text: 'Per Mile',

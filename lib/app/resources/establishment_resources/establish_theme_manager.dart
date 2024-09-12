@@ -36,3 +36,47 @@ class CompanyIdentityManageHeadings {
     );
   }
 }
+///document defination
+class DocDefination {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeightManager.medium,
+      color: ColorManager.mediumgrey,
+    );
+  }
+}
+
+class RadioButtonHeadStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+class DocumentTypeDataStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontWeight: FontWeightManager.medium,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///document definition
+class DocDefineTableData {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontWeight: FontWeightManager.bold,
+      fontSize: FontSize.s10,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+

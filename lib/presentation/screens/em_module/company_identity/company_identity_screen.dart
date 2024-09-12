@@ -101,7 +101,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
         ]));
   }
 }
-
 ///
 
 class NonScrollablePageView extends StatelessWidget {
