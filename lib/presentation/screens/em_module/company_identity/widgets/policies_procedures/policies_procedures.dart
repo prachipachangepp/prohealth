@@ -280,8 +280,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                     .spaceBetween,
 
                                                 children: [
-                                                  // SizedBox(
-                                                  //     width: AppSize.s10),
+
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     mainAxisAlignment: MainAxisAlignment.center,
