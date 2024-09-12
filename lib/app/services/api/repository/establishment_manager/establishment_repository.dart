@@ -57,7 +57,7 @@ class EstablishmentManagerRepository {
   static String addCompanyPost = "/Company/Insert";
   static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
   static String orgdocadd = "/org-office-document";
-  static String orgdocEndPoind = "/org-office-document";
+  static String orgdocEndPoind = "/org-office-document/";
   static String officedocbase = "/org-office-document/attach-documentbase64";
 
   ///new org

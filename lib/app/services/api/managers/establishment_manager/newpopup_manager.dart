@@ -269,14 +269,14 @@ Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
       itemsList = MCorporateComplianceModal(
-        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
-        orgDocumentSetupid: response.data['orgDocumentSetupid'],
-        idOfDocument: response.data['idOfDocument'],
-        expiry_date: response.data['doc_name'],
-        doc_created_at: response.data['doc_created_at'],
+        orgOfficeDocumentId: response.data['orgOfficeDocumentId'] ?? "",
+        orgDocumentSetupid: response.data['orgDocumentSetupid'] ?? "",
+        idOfDocument: response.data['idOfDocument'] ?? "",
+        expiry_date: response.data['expiry_date']  ?? "2024-09-12T09:50:07.228Z",
+        doc_created_at: response.data['doc_created_at'] ?? "2024-09-12T09:50:07.228Z",
         companyId: response.data['company_id'] ?? 0,
         url: response.data['url'] ?? "",
-        officeId: response.data['office_id'],
+        officeId: response.data['office_id'] ?? "",
       );
     } else {
       print('Api Error');
@@ -322,5 +322,91 @@ Future<ApiData> deleteOrgDoc({
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
+
+//
+//
+// /// GET prefill cc vc pp document
+// Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
+//     BuildContext context, int orgDocId) async {
+//   var itemsList;
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.prefillDocOfficeOrg(
+//              orgDocID: orgDocId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       // print("Document type Response:::::${itemsList}");
+//       itemsList = MCorporateComplianceModal(
+//           orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
+//           orgDocumentSetupid: response.data['orgDocumentSetupid'],
+//           idOfDocument: response.data['idOfDocument'],
+//           expiry_date: response.data['doc_name'],
+//           doc_created_at: response.data['doc_created_at'],
+//         companyId: response.data['company_id'] ?? 0,
+//         url: response.data['url'] ?? "",
+//           officeId: response.data['office_id'],
+//          );
+//     } else {
+//       print('Api Error');
+//       //return itemsList;
+//     }
+//     print("GetDcoType Prefill Response:::::${itemsList}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
+//
+
+
+
+
+
+
+// ///get api doc wise NEW
+//prajwal
+// Future<List<NewOrgDocumentManage>> getNewDocManagefetch(BuildContext context,
+//     int docTypeID, int docSubTypeID, int pageNo, int rowsNo) async {
+//   List<NewOrgDocumentManage> itemsList = [];
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.newOfficeDocGetTypeWise(
+//             DocumentTypeId: docTypeID,
+//             DocumentSubTypeId: docSubTypeID,
+//             pageNbr: pageNo,
+//             NbrofRows: rowsNo));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Org Office Tab bar response:::::${itemsList}");
+//       print("111");
+//       for (var item in response.data) {
+//         itemsList.add(
+//             NewOrgDocumentManage(
+//               orgOfficeDocumentId: item['orgOfficeDocumentId'] ,
+//               orgDocumentSetupid: item['orgDocumentSetupid'],
+//               idOfDocument: item['idOfDocument'],
+//               expirydate: item['expiry_date'] ??"2024-09-10T17:31:58.479Z",
+//               doccreatedat: item['doc_created_at'] ??"2024-09-10T17:31:58.479Z",
+//               companyid: companyId,
+//               url: item['url'] ?? "",
+//               officeid: item['office_id'] ,
+//             )
+//         );
+//       }
+//       // print("Org Document response:::::${itemsList}");
+//     } else {
+//       print('Org Office Api Error');
+//       return itemsList;
+//     }
+//     // print("Org response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
 
 
