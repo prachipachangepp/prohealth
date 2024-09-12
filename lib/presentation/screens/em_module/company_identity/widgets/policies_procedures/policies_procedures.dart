@@ -31,6 +31,39 @@ import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_pop
 import '../ci_corporate_compliance_doc/widgets/newpopup.dart';
 import 'widgets/add_policies_popup.dart';
 
+import 'dart:async';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import '../ci_corporate_compliance_doc/widgets/newpopup.dart';
+import 'widgets/add_policies_popup.dart';
+
 class CiPoliciesAndProcedures extends StatefulWidget {
   final int docID;
   final int subDocID;
@@ -38,10 +71,10 @@ class CiPoliciesAndProcedures extends StatefulWidget {
   final String officeId;
   const CiPoliciesAndProcedures(
       {super.key,
-      required this.docID,
-      required this.subDocID,
-      required this.companyID,
-      required this.officeId});
+        required this.docID,
+        required this.subDocID,
+        required this.companyID,
+        required this.officeId});
 
   @override
   State<CiPoliciesAndProcedures> createState() =>
@@ -115,13 +148,15 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                         docIdController.clear();
                         docNamecontroller.clear();
                         selectedExpiryType = "";
-                        String? selectedExpiryDate;
+
                         showDialog(
                             context: context,
                             builder: (context) {
                               return StatefulBuilder(
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
+                                  String? selectedExpiryDate;
+                                  String? expiryDateToSend;
                                   return PoliciesProcedureAddPopUp(
                                     loadingDuration: _isLoading,
                                     onDocTypeSelected: (int docTypeId) {
@@ -131,7 +166,10 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     },
                                     onExpiryDateSelected: (String? expiryDate) {
                                       setState(() {
+                                        print('EXP Date : ${expiryDate}');
+
                                         selectedExpiryDate = expiryDate;
+                                        print('selected EXP Date : ${selectedExpiryDate}');
                                       });
                                     },
                                     onPressed: () async {
@@ -141,8 +179,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
 
                                       ///Add Doctype API on save button
                                       try {
-                                        String? expiryDateToSend;
-                                        if (expiryType == AppConfig.issuer && selectedExpiryDate != null && selectedExpiryDate!.isNotEmpty) {
+                                        print('EXP Date ${selectedExpiryDate}');
+                                        if (selectedExpiryDate != null && selectedExpiryDate!.isNotEmpty) {
                                           expiryDateToSend = selectedExpiryDate;
                                         } else {
                                           expiryDateToSend = null;
@@ -152,7 +190,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             orgDocumentSetupid: selectedDocTypeId!,
                                             idOfDocument: "",
                                             expiryDate: expiryDateToSend,
-                                            docCreated: DateTime.now().toIso8601String(),
+                                            docCreated: DateTime.now().toIso8601String()+"Z",
                                             url: "",
                                             officeId: widget.officeId);
                                         print(expiryDateToSend);
@@ -339,147 +377,147 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           String?selectedExpiryType = expiryType;
                                                           showDialog(
                                                             context: context, builder: (context) {
-                                                              return FutureBuilder<MCorporateComplianceModal>(
-                                                                future: getPrefillNewOrgOfficeDocument(context, policiesdata.orgOfficeDocumentId),
-                                                                builder: (context, snapshotPrefill) {
-                                                                  if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                                    return Center(
-                                                                      child: CircularProgressIndicator(
-                                                                        color: ColorManager
-                                                                            .blueprime,
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  //
-                                                                  //  var documentPreId = snapshotPrefill.data!.idOfDocument;
-                                                                  //  docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),);
-                                                                  //
-                                                                  //
-                                                                  // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-                                                                  // docTypeMetaId = documentTypePreId;
-                                                                  //
-                                                                  // var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;docSubTypeMetaId = documentSubPreId;
-                                                                  //
-                                                                  // var name = snapshotPrefill.data!.docName;
-                                                                  // nameOfDocController = TextEditingController(text: snapshotPrefill.data!.docName,);
+                                                            return FutureBuilder<MCorporateComplianceModal>(
+                                                              future: getPrefillNewOrgOfficeDocument(context, policiesdata.orgOfficeDocumentId),
+                                                              builder: (context, snapshotPrefill) {
+                                                                if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                  return Center(
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager
+                                                                          .blueprime,
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                //
+                                                                //  var documentPreId = snapshotPrefill.data!.idOfDocument;
+                                                                //  docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),);
+                                                                //
+                                                                //
+                                                                // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
+                                                                // docTypeMetaId = documentTypePreId;
+                                                                //
+                                                                // var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;docSubTypeMetaId = documentSubPreId;
+                                                                //
+                                                                // var name = snapshotPrefill.data!.docName;
+                                                                // nameOfDocController = TextEditingController(text: snapshotPrefill.data!.docName,);
 
-                                                                  var calender = snapshotPrefill.data!.expiry_date;
-                                                                  calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
+                                                                var calender = snapshotPrefill.data!.expiry_date;
+                                                                calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
 
-                                                                  // var expiry = snapshotPrefill.data!.expiryType;expiryType = expiry;
-                                                                  //
-                                                                  // var idOfDoc = snapshotPrefill.data!.idOfDoc;
-                                                                  // idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
+                                                                // var expiry = snapshotPrefill.data!.expiryType;expiryType = expiry;
+                                                                //
+                                                                // var idOfDoc = snapshotPrefill.data!.idOfDoc;
+                                                                // idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
 
-                                                                  return StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                    context,
-                                                                        void Function(void Function())
-                                                                        setState) {
-                                                                      return VCScreenPopupEditConst(
-                                                                        title:
-                                                                        'Edit Policies And Procedure',
-                                                                        loadingDuration: _isLoading,
-                                                                        onSavePressed:
-                                                                            () async {
-                                                                          setState(() {_isLoading = true;});
-                                                                          try {
-                                                                            String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                                ? "Not Applicable"
-                                                                                : calenderController.text;
-                                                                            await updateOrgDoc(context: context,
-                                                                              orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
-                                                                              orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
-                                                                              idOfDocument: '',
-                                                                              expiryDate: expiryTypeToSend,
-                                                                              docCreatedat: DateTime.now().toString(),
-                                                                              url: "",
-                                                                              officeid: widget.officeId,);
-                                                                            // await updateCorporateDocumentPost(
-                                                                            //     context: context,
-                                                                            //     docId: documentPreId,
-                                                                            //     name: name == nameOfDocController.text ? name.toString() : nameOfDocController.text,
-                                                                            //     docTypeID: AppConfig.policiesAndProcedure,
-                                                                            //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                                            //     docCreated: DateTime.now().toString(),
-                                                                            //     url: "url",
-                                                                            //     expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                                            //     expiryDate: expiryTypeToSend, //calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                            //     expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                            //     officeId: widget.officeId,
-                                                                            //     idOfDoc: snapshotPrefill.data!.idOfDoc);
-                                                                          } finally {
-                                                                            setState(() {
-                                                                              _isLoading = false;
-                                                                            });
-                                                                            Navigator.pop(context);
+                                                                return StatefulBuilder(
+                                                                  builder: (BuildContext
+                                                                  context,
+                                                                      void Function(void Function())
+                                                                      setState) {
+                                                                    return VCScreenPopupEditConst(
+                                                                      title:
+                                                                      'Edit Policies And Procedure',
+                                                                      loadingDuration: _isLoading,
+                                                                      onSavePressed:
+                                                                          () async {
+                                                                        setState(() {_isLoading = true;});
+                                                                        try {
+                                                                          String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                                              ? "Not Applicable"
+                                                                              : calenderController.text;
+                                                                          await updateOrgDoc(context: context,
+                                                                            orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                            orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
+                                                                            idOfDocument: '',
+                                                                            expiryDate: expiryTypeToSend,
+                                                                            docCreatedat: DateTime.now().toString(),
+                                                                            url: "",
+                                                                            officeid: widget.officeId,);
+                                                                          // await updateCorporateDocumentPost(
+                                                                          //     context: context,
+                                                                          //     docId: documentPreId,
+                                                                          //     name: name == nameOfDocController.text ? name.toString() : nameOfDocController.text,
+                                                                          //     docTypeID: AppConfig.policiesAndProcedure,
+                                                                          //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                                          //     docCreated: DateTime.now().toString(),
+                                                                          //     url: "url",
+                                                                          //     expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                                          //     expiryDate: expiryTypeToSend, //calender == calenderController.text ? calender.toString() : calenderController.text,
+                                                                          //     expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+                                                                          //     officeId: widget.officeId,
+                                                                          //     idOfDoc: snapshotPrefill.data!.idOfDoc);
+                                                                        } finally {
+                                                                          setState(() {
+                                                                            _isLoading = false;
+                                                                          });
+                                                                          Navigator.pop(context);
+                                                                        }
+                                                                      },
+
+                                                                      child: FutureBuilder<List<TypeofDocpopup>>(
+                                                                        future: getTypeofDoc(context, widget.docID, widget.subDocID),
+                                                                        builder: (context, snapshot) {
+                                                                          if (snapshot.connectionState ==
+                                                                              ConnectionState.waiting) {
+                                                                            return Container(
+                                                                              width: 350,
+                                                                              height: 30,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(8),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          if (snapshot.data!.isEmpty) {
+                                                                            return Center(
+                                                                              child: Text(
+                                                                                AppString.dataNotFound,
+                                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                                  fontWeight: FontWeightManager.medium,
+                                                                                  fontSize: FontSize.s12,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          if (snapshot.hasData) {
+                                                                            List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                                                                .map((doc) => DropdownMenuItem<String>(
+                                                                              value: doc.docname,
+                                                                              child: Text(doc.docname!),
+                                                                            ))
+                                                                                .toList();
+                                                                            return CICCDropdown(
+                                                                              initialValue: "Select",
+                                                                              onChange: (val) {
+                                                                                //   setState(() {
+                                                                                // selectedDocType = val;
+                                                                                for (var doc in snapshot.data!) {
+                                                                                  if (doc.docname == val) {
+                                                                                    docTypeId = doc.documenttypeid!;
+                                                                                  }
+                                                                                }
+                                                                                // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
+                                                                                //   _compliancePatientDataController
+                                                                                //       .add(data!);
+                                                                                // }).catchError((error) {
+                                                                                //   // Handle error
+                                                                                // });
+                                                                                // });
+                                                                              },
+                                                                              items: dropDownMenuItems,
+                                                                            );
+                                                                          } else {
+                                                                            return SizedBox();
                                                                           }
                                                                         },
+                                                                      ),
 
-                                                                        child: FutureBuilder<List<TypeofDocpopup>>(
-                                                                          future: getTypeofDoc(context, widget.docID, widget.subDocID),
-                                                                          builder: (context, snapshot) {
-                                                                            if (snapshot.connectionState ==
-                                                                                ConnectionState.waiting) {
-                                                                              return Container(
-                                                                                width: 350,
-                                                                                height: 30,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(8),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            if (snapshot.data!.isEmpty) {
-                                                                              return Center(
-                                                                                child: Text(
-                                                                                  AppString.dataNotFound,
-                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeightManager.medium,
-                                                                                    fontSize: FontSize.s12,
-                                                                                    color: ColorManager.mediumgrey,
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            if (snapshot.hasData) {
-                                                                              List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                                                                                  .map((doc) => DropdownMenuItem<String>(
-                                                                                value: doc.docname,
-                                                                                child: Text(doc.docname!),
-                                                                              ))
-                                                                                  .toList();
-                                                                              return CICCDropdown(
-                                                                                initialValue: "Select",
-                                                                                onChange: (val) {
-                                                                                  //   setState(() {
-                                                                                  // selectedDocType = val;
-                                                                                  for (var doc in snapshot.data!) {
-                                                                                    if (doc.docname == val) {
-                                                                                      docTypeId = doc.documenttypeid!;
-                                                                                    }
-                                                                                  }
-                                                                                  // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
-                                                                                  //   _compliancePatientDataController
-                                                                                  //       .add(data!);
-                                                                                  // }).catchError((error) {
-                                                                                  //   // Handle error
-                                                                                  // });
-                                                                                  // });
-                                                                                },
-                                                                                items: dropDownMenuItems,
-                                                                              );
-                                                                            } else {
-                                                                              return SizedBox();
-                                                                            }
-                                                                          },
-                                                                        ),
-
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
+                                                            );
+                                                          },
                                                           );
                                                         },
                                                         icon: Icon(

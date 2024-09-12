@@ -7,8 +7,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
@@ -134,6 +136,10 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal CapReports = paginatedData[index];
+                                var ccCapReport = snapshot.data![index];
+                                var fileUrl = ccCapReport.docurl;
+                                final fileExtension = fileUrl.split('/').last;
+
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -584,6 +590,18 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                     //   highlightColor: Colors.transparent,
                                                     //   hoverColor: Colors.transparent,
                                                     // ),
+                                                    IconButton(onPressed: (){},
+                                                        icon: Icon(Icons.history,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
+                                                    IconButton(onPressed: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"Cap Report.pdf");
+                                                      downloadFile(fileUrl);
+                                                    },
+                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
                                                     IconButton(
                                                         splashColor:
                                                         Colors.transparent,

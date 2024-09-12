@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
@@ -20,6 +21,7 @@ import '../../../../../../app/services/api/managers/establishment_manager/org_do
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -133,6 +135,10 @@ class _CICCLicenseState extends State<CICCLicense> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
+                                var cclicenses = snapshot.data![index];
+                                var fileUrl = cclicenses.docurl;
+                                final fileExtension = fileUrl.split('/').last;
+
                                 int serialNumber = index +
                                     1 +
                                     (currentPage - 1) * itemsPerPage;
@@ -241,8 +247,12 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         icon: Icon(Icons.history,  size: 18,
                                                           color: ColorManager.blueprime
                                                         )),
-                                                    IconButton(onPressed: (){},
-                                                        icon: Icon(Icons.download_rounded,  size: 18,
+                                                    IconButton(onPressed: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"Licenses.pdf");
+                                                      downloadFile(fileUrl);
+                                                    },
+                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
                                                             color: ColorManager.blueprime
                                                         )),
                                                     // IconButton(
