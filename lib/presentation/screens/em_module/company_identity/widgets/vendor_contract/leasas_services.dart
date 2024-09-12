@@ -190,31 +190,19 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                           style: GoogleFonts
                                                               .firaSans(
                                                             fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: Color(0xff686464),
+                                                            decoration: TextDecoration.none,
                                                           ),
                                                         ),
                                                         Text(
-                                                          leasesData.docname
-                                                              .toString()
-                                                              .capitalizeFirst!,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
+                                                          leasesData.docname.toString().capitalizeFirst!,
+                                                          textAlign: TextAlign.center,
+                                                          style: GoogleFonts.firaSans(
                                                             fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
+                                                            fontWeight: FontWeight.bold,
+                                                            color: Color(0xff686464),
+                                                            decoration: TextDecoration.none,
                                                           ),
                                                         ),
                                                       ],
