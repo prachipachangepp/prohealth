@@ -141,7 +141,7 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s350,
-        height: AppSize.s250,
+        height: AppSize.s210,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -216,7 +216,7 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                         ),
                         SizedBox(height: AppSize.s5),
                         Text(
-                          "Created: ${historyItem['doc_created_at'] ?? 'N/A'}",
+                          "Modified on: ${historyItem['doc_created_at'] ?? 'N/A'}",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.regular,
                             fontSize: FontSize.s10,

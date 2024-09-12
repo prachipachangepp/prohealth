@@ -377,9 +377,7 @@ class _CiCorporateComplianceScreenState
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
                                         idOfDocument: "PPP",
-                                        expiryDate:
-                                        // selectedExpiryType.toString(),
-                                        expiryDateController.text,
+                                        expiryDate: expiryDateController.text,
                                         docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",
                                         officeId: widget.officeId,
