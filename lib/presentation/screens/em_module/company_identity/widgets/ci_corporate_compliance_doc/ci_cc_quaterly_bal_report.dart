@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,14 +22,11 @@ import '../../../../../../app/services/api/managers/establishment_manager/manage
 import '../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
-import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../manage_history_version.dart';
-
 
 class CICCQuarterlyBalReport extends StatefulWidget {
   final int docId;
@@ -128,7 +126,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal balReport = paginatedData[index];
                                 var ccQBR = snapshot.data![index];
-                                var fileUrl = ccQBR.url;
+                                var fileUrl = ccQBR.docurl;
                                 final fileExtension = fileUrl.split('/').last;
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -580,21 +578,10 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                     //   highlightColor: Colors.transparent,
                                                     //   hoverColor: Colors.transparent,
                                                     // ),
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [balReport],// policiesdata.docHistory,
-                                                          ),
-                                                        );
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager.bluebottom,
-                                                      ),
-                                                    ),
+                                                    IconButton(onPressed: (){},
+                                                        icon: Icon(Icons.history,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
                                                       DowloadFile().downloadPdfFromBase64(fileExtension,"Licenses.pdf");

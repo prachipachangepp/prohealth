@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -14,15 +14,14 @@ import '../../../../../../app/resources/establishment_resources/establishment_st
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
+import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../manage_history_version.dart';
 
 class CICCADR extends StatefulWidget {
   final int docId;
@@ -88,14 +87,14 @@ class _CICCADRState extends State<CICCADR> {
                   }).catchError((error) {
                     // Handle error
                   });
-                  // StreamBuilder<List<ManageCCDoc>>(
-                  //     stream : _ccAdrController.stream,
-                  //     builder: (context, snapshot) {
-                  //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                  //         _ccAdrController.add(data);
-                  //       }).catchError((error) {
-                  //         // Handle error
-                  //       });
+            // StreamBuilder<List<ManageCCDoc>>(
+            //     stream : _ccAdrController.stream,
+            //     builder: (context, snapshot) {
+            //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
+            //         _ccAdrController.add(data);
+            //       }).catchError((error) {
+            //         // Handle error
+            //       });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -131,7 +130,7 @@ class _CICCADRState extends State<CICCADR> {
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal manageCCADR = paginatedData[index];
                                 var ccADR = snapshot.data![index];
-                                var fileUrl = ccADR.url;
+                                var fileUrl = ccADR.docurl;
                                 final fileExtension = fileUrl.split('/').last;
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +177,7 @@ class _CICCADRState extends State<CICCADR> {
                                                       children: [
                                                         Text(
                                                           "ID : ${ manageCCADR.idOfDocument.toString()}",
-                                                          // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
+                                                         // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize: FontSize.s10,
                                                             fontWeight: FontWeightManager.regular,
@@ -202,21 +201,6 @@ class _CICCADRState extends State<CICCADR> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [manageCCADR],// policiesdata.docHistory,
-                                                          ),
-                                                        );
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager.bluebottom,
-                                                      ),
-                                                    ),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
                                                       DowloadFile().downloadPdfFromBase64(fileExtension,"ADR.pdf");

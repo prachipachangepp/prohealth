@@ -63,6 +63,10 @@ class EstablishmentManagerRepository {
   ///new org
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
+
+  // static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
+  static String getCCList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
+
   static String addofficeservices = "/company-office-service/add";
 
   ///new office doc
@@ -349,7 +353,7 @@ class EstablishmentManagerRepository {
   }
 
   static String addEmployeDocSetup() {
-    return "$employeedocSetup/$add";
+    return "$employeedocSetup$add";
   }
 
   ///employee doc tab bar
@@ -509,6 +513,8 @@ class EstablishmentManagerRepository {
   static String newOrgDocGet() {
     return "$orgDocSetup";
   }
+
+
   ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
   static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
     return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";

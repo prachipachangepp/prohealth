@@ -268,8 +268,8 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
   String _url = "";
   bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
-  int docTypeMetaIdCC = AppConfig.vendorContracts;
-  int selectedSubDocId = AppConfig.subDocId6Leases;
+  int docTypeMetaIdCC = AppConfig.corporateAndCompliance;
+  int selectedSubDocId = AppConfig.subDocId1Licenses;
   @override
   void initState() {
     super.initState();
@@ -859,7 +859,7 @@ class UploadDocumentAddPopup extends StatefulWidget {
   String? fileName;
   // final Visibility? child3;
  UploadDocumentAddPopup({
-    required this.child,
+     required this.child,
     required this.title,
     required this.onPressed,
    this.loadingDuration,
@@ -881,40 +881,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   String _url = "";
   bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
-  int docTypeMetaIdCC = AppConfig.corporateAndCompliance;
-  int selectedSubDocId = AppConfig.subDocId1Licenses;
-
+  int docTypeMetaIdCC = AppConfig.vendorContracts;
+  int selectedSubDocId = AppConfig.subDocId6Leases;
   @override
   void initState() {
     super.initState();
     _url = "";
-    showExpiryDateField;
-    _updateSelectedSubDocId(selectedSubDocId);// Reset _url when the popup is initialized
-  }
-  String selectedSubDocType = "";
-
-  void _updateSelectedSubDocId(int subDocId) {
-    setState(() {
-      selectedSubDocId = subDocId;
-      selectedSubDocType = getSubDocTypeText(subDocId);
-    });
-  }
-
-  String getSubDocTypeText(int subDocId) {
-    switch (subDocId) {
-      case AppConfig.subDocId1Licenses:
-        return "Licenses";
-      case AppConfig.subDocId2Adr:
-        return "ADR";
-      case AppConfig.subDocId3CICCMedicalCR:
-        return "Medical Cost Reports";
-      case AppConfig.subDocId4CapReport:
-        return "CAP Reports";
-      case AppConfig.subDocId5BalReport:
-        return "Quarterly Balance Reports";
-      default:
-        return "Unknown Document Type";
-    }
+    showExpiryDateField;// Reset _url when the popup is initialized
   }
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();

@@ -155,17 +155,17 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
               ),
               Container(
                 // color: Colors.greenAccent,
-                padding: EdgeInsets.only(top: AppPadding.p8),
+                padding: EdgeInsets.only(top: AppPadding.p6),
                 width: MediaQuery.of(context).size.width / 1.7,
-                height: 50,
+                height: AppSize.s60,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
                       child: Container(
-                        height: 50,
+                        height: AppSize.s56,
                         width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
+                        padding: EdgeInsets.symmetric(vertical: 2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:

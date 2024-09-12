@@ -7,9 +7,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
@@ -19,18 +20,14 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
+import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../manage_history_version.dart';
-
-
 
 class CICCCAPReports extends StatefulWidget {
   final int docId;
@@ -81,29 +78,29 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
           ),
           Expanded(
             child:
-            StreamBuilder<List<MCorporateComplianceModal>>(
+              StreamBuilder<List<MCorporateComplianceModal>>(
               // future:
               // getListMCorporateCompliancefetch(context,
               //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
               // ),
-                stream: _ccCapController.stream,
-                builder: (context, snapshot) {
-                  getListMCorporateCompliancefetch(context,
-                      AppConfig.corporateAndCompliance, AppConfig.subDocId4CapReport, 1, 20
-                  )
-                      .then((data) {
-                    _ccCapController.add(data);
-                  }).catchError((error) {
-                    // Handle error
-                  });
-                  // StreamBuilder<List<ManageCCDoc>>(
-                  //     stream : _ccCapController.stream,
-                  //     builder: (context, snapshot) {
-                  //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                  //         _ccCapController.add(data);
-                  //       }).catchError((error) {
-                  //         // Handle error
-                  //       });
+              stream: _ccCapController.stream,
+              builder: (context, snapshot) {
+                getListMCorporateCompliancefetch(context,
+                    AppConfig.corporateAndCompliance, AppConfig.subDocId4CapReport, 1, 20
+                )
+                    .then((data) {
+                  _ccCapController.add(data);
+                }).catchError((error) {
+                  // Handle error
+                });
+            // StreamBuilder<List<ManageCCDoc>>(
+            //     stream : _ccCapController.stream,
+            //     builder: (context, snapshot) {
+            //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
+            //         _ccCapController.add(data);
+            //       }).catchError((error) {
+            //         // Handle error
+            //       });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -140,7 +137,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal CapReports = paginatedData[index];
                                 var ccCapReport = snapshot.data![index];
-                                var fileUrl = ccCapReport.url;
+                                var fileUrl = ccCapReport.docurl;
                                 final fileExtension = fileUrl.split('/').last;
 
                                 return Column(
@@ -593,21 +590,10 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                     //   highlightColor: Colors.transparent,
                                                     //   hoverColor: Colors.transparent,
                                                     // ),
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [CapReports],// policiesdata.docHistory,
-                                                          ),
-                                                        );
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager.bluebottom,
-                                                      ),
-                                                    ),
+                                                    IconButton(onPressed: (){},
+                                                        icon: Icon(Icons.history,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
                                                       DowloadFile().downloadPdfFromBase64(fileExtension,"Cap Report.pdf");

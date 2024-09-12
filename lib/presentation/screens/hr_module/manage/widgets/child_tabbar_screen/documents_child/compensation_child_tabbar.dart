@@ -124,7 +124,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
 
                       Widget fileWidget;
 
-                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension))
+                      {
                         fileWidget = Image.network(
                           fileUrl,
                           fit: BoxFit.cover,
