@@ -235,6 +235,14 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                   mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                                   children: [
+                                                    IconButton(onPressed: (){},
+                                                        icon: Icon(Icons.history,  size: 18,
+                                                          color: ColorManager.blueprime
+                                                        )),
+                                                    IconButton(onPressed: (){},
+                                                        icon: Icon(Icons.download_rounded,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
                                                     // IconButton(
                                                     //   onPressed: () {
                                                     //     String?
@@ -792,6 +800,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                           color:
                                                           ColorManager.red,
                                                         )),
+
                                                   ],
                                                 ),
                                               ],
