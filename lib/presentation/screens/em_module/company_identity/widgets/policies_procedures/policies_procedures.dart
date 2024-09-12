@@ -68,6 +68,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
 
   int currentPage = 1;
   int docTypeId = 0;
+  String? documentID;
   final int itemsPerPage = 10;
   final int totalPages = 5;
 
