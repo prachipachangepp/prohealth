@@ -425,7 +425,7 @@ Future<ApiData> addOrgDocPPPost({
         path: EstablishmentManagerRepository.addDocOrg(),
         data: {
           "orgDocumentSetupid": orgDocumentSetupid,
-          //"idOfDocument": '',
+          "idOfDocument": idOfDocument,
           "expiry_date": expiryDate == null ? null :"${expiryDate}T00:00:00Z",
           "doc_created_at": docCreated,
           "company_id": companyId,

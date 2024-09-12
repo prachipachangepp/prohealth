@@ -76,7 +76,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
   int selectedSubDocId = AppConfig.subDocId6Leases;
   bool showExpiryDateField = false;
   int docTypeId = 0;
-  String? documentID;
+
   @override
   void initState() {
     super.initState();
@@ -364,6 +364,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
+                              String? documentID;
                               return VCScreenPopupADDConst(
                                 loadingDuration: _isLoading,
                                 onPressed: () async {
@@ -371,6 +372,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   setState(() {
                                     _isLoading = true;
                                   });
+                                  print("Id document ${documentID}");
 
                                   ///Add Doctype API on save button
                                   try {
