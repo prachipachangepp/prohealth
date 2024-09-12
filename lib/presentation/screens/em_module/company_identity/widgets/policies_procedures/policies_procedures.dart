@@ -1540,13 +1540,25 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         size: 18,
                                                         color: ColorManager
                                                             .bluebottom,
-                                                      )),
+                                                      ),
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,),
                                                       IconButton(onPressed: (){}, icon: Icon(
                                                         Icons.save_alt_outlined,
                                                         size: 18,
                                                         color: ColorManager
                                                             .bluebottom,
-                                                      )),
+                                                      ),
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,),
                                                       IconButton(
                                                         onPressed: () {
                                                           String?selectedExpiryType = expiryType;
@@ -1608,19 +1620,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                               docCreatedat: DateTime.now().toString(),
                                                                               url: "",
                                                                               officeid: widget.officeId,);
-                                                                            // await updateCorporateDocumentPost(
-                                                                            //     context: context,
-                                                                            //     docId: documentPreId,
-                                                                            //     name: name == nameOfDocController.text ? name.toString() : nameOfDocController.text,
-                                                                            //     docTypeID: AppConfig.policiesAndProcedure,
-                                                                            //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                                            //     docCreated: DateTime.now().toString(),
-                                                                            //     url: "url",
-                                                                            //     expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                                            //     expiryDate: expiryTypeToSend, //calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                            //     expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                            //     officeId: widget.officeId,
-                                                                            //     idOfDoc: snapshotPrefill.data!.idOfDoc);
+
                                                                           } finally {
                                                                             setState(() {
                                                                               _isLoading = false;

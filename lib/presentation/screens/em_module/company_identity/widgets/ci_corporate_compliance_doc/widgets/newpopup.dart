@@ -286,6 +286,8 @@ class VCScreenPopupADDConst extends StatefulWidget {
   dynamic filePath;
   String? fileName;
   // final Visibility? child3;
+  final Function(int) onDocTypeSelected;
+  final Function(String?) onExpiryDateSelected;
 
   VCScreenPopupADDConst({
     super.key,
@@ -296,6 +298,8 @@ class VCScreenPopupADDConst extends StatefulWidget {
     this.loadingDuration,
     this.uploadField,
     this.fileName,this.filePath,
+    required this.onDocTypeSelected,
+    required this.onExpiryDateSelected,
     // this.child3,
   });
 

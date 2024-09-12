@@ -352,6 +352,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                   text: "Add Document",
                   onPressed: () async {
                     String? selectedExpiryType = expiryType;
+                    int? selectedDocTypeId;
                     calenderController.clear();
                     docIdController.clear();
                     docNamecontroller.clear();
@@ -363,8 +364,24 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
+                              String? selectedExpiryDate;
+                              String? expiryDateToSend;
                               return VCScreenPopupADDConst(
                                 loadingDuration: _isLoading,
+                                onDocTypeSelected: (int docTypeId) {
+                                  setState(() {
+                                    selectedDocTypeId = docTypeId; // Update the selected docTypeId
+                                  });
+                                },
+                                onExpiryDateSelected: (String? expiryDate) {
+                                  setState(() {
+                                    print('EXP Date : ${expiryDate}');
+
+                                    selectedExpiryDate = expiryDate;
+                                    print('selected EXP Date : ${selectedExpiryDate}');
+                                  });
+                                },
+
                                 onPressed: () async {
                                   //  print('File path on pressed ${filePath}');
                                   setState(() {
@@ -376,11 +393,11 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                     ApiData response = await addOrgDocPPPost(
                                       context: context,
                                       orgDocumentSetupid: docTypeMetaIdVC,
-                                      idOfDocument: "PPP",
-                                      expiryDate:
+                                      idOfDocument: "vvcc",
+                                      expiryDate:expiryDateToSend,
                                       // selectedExpiryType.toString(),
-                                      expiryDateController.text,
-                                      docCreated: DateTime.now().toIso8601String(),
+                                      //expiryDateController.text,
+                                      docCreated: DateTime.now().toIso8601String()+"Z",
                                       url: "url",
                                       officeId: widget.officeId,
                                     );

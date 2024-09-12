@@ -26,6 +26,7 @@ import '../../../../../../app/services/api/managers/establishment_manager/newpop
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import '../ci_corporate_compliance_doc/widgets/newpopup.dart';
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiLeasesAndServices extends StatefulWidget {
@@ -65,6 +66,8 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
   int currentPage = 1;
   final int itemsPerPage = 10;
   final int totalPages = 5;
+
+  int docTypeId = 0;
 
   void onPageNumberPressed(int pageNumber) {
     setState(() {
@@ -203,7 +206,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${leasesData.idOfDocument.toString()}",
+                                                          "ID : ${leasesData.idOfDocument}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(
@@ -218,472 +221,900 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          leasesData.expiry_date
-                                                              .toString()
-                                                              .capitalizeFirst!,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
+                                                          leasesData.orgDocumentSetupid.toString(),
+                                                          textAlign: TextAlign.center,
+                                                          style: GoogleFonts.firaSans(
                                                             fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
+                                                            fontWeight: FontWeight.bold,
+                                                            color: Color(0xff686464),
+                                                            decoration: TextDecoration.none,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                   ],
                                                 ),
+
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .center,
                                                   children: [
-                                                    // IconButton(
-                                                    //   onPressed: () {
-                                                    //     String? selectedExpiryType = expiryType;
-                                                    //     showDialog(
-                                                    //       context: context,
-                                                    //       builder: (context) {
-                                                    //         return FutureBuilder<CorporatePrefillCCVVPP>(
-                                                    //           future: getManageCCPrefill(context, leasesData.docId),
-                                                    //           builder: (context,
-                                                    //               snapshotPrefill) {
-                                                    //             if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                    //               return Center(
-                                                    //                 child: CircularProgressIndicator(
-                                                    //                   color: ColorManager.blueprime,
-                                                    //                 ),
-                                                    //               );
-                                                    //             }
-                                                    //
-                                                    //             // Prefill values from API
-                                                    //             var documentPreId = snapshotPrefill.data!.documentId;
-                                                    //             docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),
-                                                    //             );
-                                                    //
-                                                    //             // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-                                                    //             // docTypeMetaId = documentTypePreId;
-                                                    //
-                                                    //             var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
-                                                    //             docSubTypeMetaId = documentSubPreId;
-                                                    //
-                                                    //             var name = snapshotPrefill.data!.docName;
-                                                    //             docNameController = TextEditingController(
-                                                    //               text: snapshotPrefill.data!.docName,
-                                                    //             );
-                                                    //
-                                                    //             var calender = snapshotPrefill.data!.expiryDate;
-                                                    //             calenderController = TextEditingController(
-                                                    //               text: snapshotPrefill.data!.expiryDate,
-                                                    //             );
-                                                    //
-                                                    //             var expiry = snapshotPrefill.data!.expiryType;
-                                                    //             expiryType = expiry;
-                                                    //             var idOfDoc = snapshotPrefill.data!.idOfDoc;
-                                                    //             idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
-                                                    //
-                                                    //             return StatefulBuilder(
-                                                    //               builder: (BuildContextcontext,
-                                                    //                   void Function(void Function())setState) {
-                                                    //                 return CCScreenEditPopup(
-                                                    //                   title: 'Edit Leases & Services',
-                                                    //                   // id: documentPreId,
-                                                    //                   idOfDocController: idOfDocController,
-                                                    //                   nameDocController: docNameController,
-                                                    //                   loadingDuration: _isLoading,
-                                                    //                   onSavePressed: () async {
-                                                    //                     setState(() {
-                                                    //                       _isLoading = true;
-                                                    //                     });
-                                                    //                     try {
-                                                    //                       String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                    //                           ? "Not Applicable"
-                                                    //                           : calenderController.text;
-                                                    //                       await updateManageCCVVPP(
-                                                    //                           context: context,
-                                                    //                           docId: documentPreId,
-                                                    //                           name: name == docNameController.text ? name.toString() : docNameController.text,
-                                                    //                           docTypeID: AppConfig.vendorContracts,// documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
-                                                    //                           docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                    //                           docCreated: DateTime.now().toString(),
-                                                    //                           url: "url",
-                                                    //                           expiryType: selectedExpiryType ?? expiryType.toString(),
-                                                    //                           expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                    //                           expiryReminder: selectedExpiryType ?? expiryType.toString(),
-                                                    //                           officeId: widget.officeId,
-                                                    //                           idOfDoc: snapshotPrefill.data!.idOfDoc
-                                                    //                       );
-                                                    //                     } finally {
-                                                    //                       setState(
-                                                    //                               () {
-                                                    //                             _isLoading =
-                                                    //                             false;
-                                                    //                           });
-                                                    //                       Navigator.pop(
-                                                    //                           context);
-                                                    //                     }
-                                                    //                   },
-                                                    //                   child:FutureBuilder<List<DocumentTypeData>>(
-                                                    //                     future: documentTypeGet(context),
-                                                    //                     builder: (context, snapshot) {
-                                                    //                       if (snapshot.connectionState == ConnectionState.waiting) {
-                                                    //                         return Container(
-                                                    //                           width: 300,
-                                                    //                           child: Text(
-                                                    //                             'Loading...',
-                                                    //                             style: CustomTextStylesCommon.commonStyle(
-                                                    //                               fontWeight: FontWeightManager.medium,
-                                                    //                               fontSize: FontSize.s12,
-                                                    //                               color: ColorManager.mediumgrey,
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         );
-                                                    //                       }
-                                                    //                       if (snapshot.data!.isEmpty) {
-                                                    //                         return Center(
-                                                    //                           child: Text(
-                                                    //                             AppString.dataNotFound,
-                                                    //                             style: CustomTextStylesCommon.commonStyle(
-                                                    //                               fontWeight: FontWeightManager.medium,
-                                                    //                               fontSize: FontSize.s12,
-                                                    //                               color: ColorManager.mediumgrey,
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         );
-                                                    //                       }
-                                                    //                       if (snapshot.hasData) {
-                                                    //                         String selectedDocType = "";
-                                                    //                         int docType = snapshot.data![0].docID;
-                                                    //
-                                                    //                         for (var i in snapshot.data!) {
-                                                    //                           if (i.docID == AppConfig.vendorContracts) {
-                                                    //                             selectedDocType = i.docType;
-                                                    //                             docType = i.docID;
-                                                    //                             break;
-                                                    //                           }
-                                                    //                         }
-                                                    //
-                                                    //                         docTypeMetaIdVC = docType;
-                                                    //
-                                                    //                         identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
-                                                    //                           _identityDataController.add(data);
-                                                    //                         }).catchError((error) {
-                                                    //                           // Handle error
-                                                    //                         });
-                                                    //                         return Container(
-                                                    //                           width: 354,
-                                                    //                           padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                                                    //                           decoration: BoxDecoration(
-                                                    //                             color: ColorManager.white,
-                                                    //                             borderRadius: BorderRadius.circular(8),
-                                                    //                             border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                    //                           ),
-                                                    //                           child: Row(
-                                                    //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    //                             children: [
-                                                    //                               Text(
-                                                    //                                 selectedDocType,
-                                                    //                                 style: CustomTextStylesCommon.commonStyle(
-                                                    //                                   fontWeight: FontWeightManager.medium,
-                                                    //                                   fontSize: FontSize.s12,
-                                                    //                                   color: ColorManager.mediumgrey,
-                                                    //                                 ),
-                                                    //                               ),
-                                                    //                               Icon(
-                                                    //                                 Icons.arrow_drop_down,
-                                                    //                                 color: Colors.transparent,
-                                                    //                               ),
-                                                    //                             ],
-                                                    //                           ),
-                                                    //                         );
-                                                    //                       } else {
-                                                    //                         return SizedBox();
-                                                    //                       }
-                                                    //                     },
-                                                    //                   ),
-                                                    //                   // Sub-Document Type Dropdown
-                                                    //                   child1: FutureBuilder<List<DocumentTypeData>>(
-                                                    //                     future: documentTypeGet(context),
-                                                    //                     builder: (context, snapshot) {
-                                                    //                       if (snapshot.connectionState == ConnectionState.waiting) {
-                                                    //                         return Container(
-                                                    //                           width: 300,
-                                                    //                           child: Text(
-                                                    //                             'Loading...',
-                                                    //                             style: CustomTextStylesCommon.commonStyle(
-                                                    //                               fontWeight: FontWeightManager.medium,
-                                                    //                               fontSize: FontSize.s12,
-                                                    //                               color: ColorManager.mediumgrey,
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         );
-                                                    //                       }
-                                                    //                       if (snapshot.data!.isEmpty) {
-                                                    //                         return Center(
-                                                    //                           child: Text(
-                                                    //                             AppString.dataNotFound,
-                                                    //                             style: CustomTextStylesCommon.commonStyle(
-                                                    //                               fontWeight: FontWeightManager.medium,
-                                                    //                               fontSize: FontSize.s12,
-                                                    //                               color: ColorManager.mediumgrey,
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         );
-                                                    //                       }
-                                                    //                       if (snapshot.hasData) {
-                                                    //                         String selectedDocType = "Leases and Services";
-                                                    //                         int docType = snapshot.data![0].docID;
-                                                    //
-                                                    //                         for (var i in snapshot.data!) {
-                                                    //                           if (i.docID == AppConfig.subDocId6Leases) {
-                                                    //                             selectedDocType = i.docType;
-                                                    //                             docType = i.docID;
-                                                    //                             break;
-                                                    //                           }
-                                                    //                         }
-                                                    //
-                                                    //                         docTypeMetaIdVCLeases = docType;
-                                                    //
-                                                    //                         identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
-                                                    //                           _identityDataController.add(data);
-                                                    //                         }).catchError((error) {
-                                                    //                           // Handle error
-                                                    //                         });
-                                                    //                         return Container(
-                                                    //                           width: 354,
-                                                    //                           padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                                                    //                           decoration: BoxDecoration(
-                                                    //                             color: ColorManager.white,
-                                                    //                             borderRadius: BorderRadius.circular(8),
-                                                    //                             border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                    //                           ),
-                                                    //                           child: Row(
-                                                    //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    //                             children: [
-                                                    //                               Text(
-                                                    //                                 selectedDocType,
-                                                    //                                 style: CustomTextStylesCommon.commonStyle(
-                                                    //                                   fontWeight: FontWeightManager.medium,
-                                                    //                                   fontSize: FontSize.s12,
-                                                    //                                   color: ColorManager.mediumgrey,
-                                                    //                                 ),
-                                                    //                               ),
-                                                    //                               Icon(
-                                                    //                                 Icons.arrow_drop_down,
-                                                    //                                 color: Colors.transparent,
-                                                    //                               ),
-                                                    //                             ],
-                                                    //                           ),
-                                                    //                         );
-                                                    //                       } else {
-                                                    //                         return SizedBox();
-                                                    //                       }
-                                                    //                     },
-                                                    //                   ),
-                                                    //                   radioButton: Padding(padding: const EdgeInsets.only(left: 10.0),
-                                                    //                     child: Column(
-                                                    //                       mainAxisAlignment: MainAxisAlignment.start,
-                                                    //                       crossAxisAlignment: CrossAxisAlignment.start,
-                                                    //                       children: [
-                                                    //                         Text(
-                                                    //                           "Expiry Type",
-                                                    //                           style: GoogleFonts.firaSans(
-                                                    //                             fontSize: FontSize.s12,
-                                                    //                             fontWeight: FontWeight.w700,
-                                                    //                             color: ColorManager.mediumgrey,
-                                                    //                             decoration: TextDecoration.none,
-                                                    //                           ),
-                                                    //                         ),
-                                                    //                         CustomRadioListTile(
-                                                    //                           value: "Not Applicable",
-                                                    //                           groupValue: selectedExpiryType,
-                                                    //                           onChanged: (value) {
-                                                    //                             setState(() {
-                                                    //                               selectedExpiryType = value;
-                                                    //                             });
-                                                    //                           },
-                                                    //                           title: "Not Applicable",
-                                                    //                         ),
-                                                    //                         CustomRadioListTile(
-                                                    //                           value: 'Scheduled',
-                                                    //                           groupValue: selectedExpiryType,
-                                                    //                           onChanged: (value) {
-                                                    //                             setState(() {
-                                                    //                               selectedExpiryType = value;
-                                                    //                             });
-                                                    //                           },
-                                                    //                           title: 'Scheduled',
-                                                    //                         ),
-                                                    //                         CustomRadioListTile(
-                                                    //                           value: 'Issuer Expiry',
-                                                    //                           groupValue: selectedExpiryType,
-                                                    //                           onChanged: (value) {
-                                                    //                             setState(() {
-                                                    //                               selectedExpiryType = value;
-                                                    //                             });
-                                                    //                           },
-                                                    //                           title: 'Issuer Expiry',
-                                                    //                         ),
-                                                    //                       ],
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                   child2: Visibility(
-                                                    //                     visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
-                                                    //                     child: Column(
-                                                    //                       crossAxisAlignment: CrossAxisAlignment.start,
-                                                    //                       children: [
-                                                    //                         Padding(
-                                                    //                           padding: const EdgeInsets.only(left: 2),
-                                                    //                           child: Text(
-                                                    //                             "Expiry Date",
-                                                    //                             style: GoogleFonts.firaSans(
-                                                    //                               fontSize: FontSize.s12,
-                                                    //                               fontWeight: FontWeight.w700,
-                                                    //                               color: ColorManager.mediumgrey,
-                                                    //                               decoration: TextDecoration.none,
-                                                    //                             ),
-                                                    //                           ),
-                                                    //                         ),
-                                                    //                         SizedBox(height: 5,),
-                                                    //                         FormField<String>(
-                                                    //                           builder: (FormFieldState<String> field) {
-                                                    //                             return SizedBox(
-                                                    //                               width: 354,
-                                                    //                               height: 30,
-                                                    //                               child: TextFormField(
-                                                    //                                 controller: calenderController,
-                                                    //                                 cursorColor: ColorManager.black,
-                                                    //                                 style: GoogleFonts.firaSans(
-                                                    //                                   fontSize: FontSize.s12,
-                                                    //                                   fontWeight: FontWeight.w700,
-                                                    //                                   color: ColorManager.mediumgrey,
-                                                    //                                   //decoration: TextDecoration.none,
-                                                    //                                 ),
-                                                    //                                 decoration: InputDecoration(
-                                                    //                                   enabledBorder: OutlineInputBorder(
-                                                    //                                     borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                    //                                     borderRadius: BorderRadius.circular(8),
-                                                    //                                   ),
-                                                    //                                   focusedBorder: OutlineInputBorder(
-                                                    //                                     borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                    //                                     borderRadius: BorderRadius.circular(8),
-                                                    //                                   ),
-                                                    //                                   hintText: 'mm-dd-yyyy',
-                                                    //                                   hintStyle: GoogleFonts.firaSans(
-                                                    //                                     fontSize: FontSize.s12,
-                                                    //                                     fontWeight: FontWeight.w700,
-                                                    //                                     color: ColorManager.mediumgrey,
-                                                    //                                     //decoration: TextDecoration.none,
-                                                    //                                   ),
-                                                    //                                   border: OutlineInputBorder(
-                                                    //                                     borderRadius: BorderRadius.circular(8),
-                                                    //                                     borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
-                                                    //                                   ),
-                                                    //                                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                                    //                                   suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                                                    //                                   errorText: field.errorText,
-                                                    //                                 ),
-                                                    //                                 onTap: () async {
-                                                    //                                   DateTime? pickedDate = await showDatePicker(
-                                                    //                                     context: context,
-                                                    //                                     initialDate: DateTime.now(),
-                                                    //                                     firstDate: DateTime(1901),
-                                                    //                                     lastDate: DateTime(3101),
-                                                    //                                   );
-                                                    //                                   if (pickedDate != null) {
-                                                    //                                     calenderController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                    //                                   }
-                                                    //                                 },
-                                                    //                                 validator: (value) {
-                                                    //                                   if (value == null || value.isEmpty) {
-                                                    //                                     return 'please select birth date';
-                                                    //                                   }
-                                                    //                                   return null;
-                                                    //                                 },
-                                                    //                               ),
-                                                    //                             );
-                                                    //                           },
-                                                    //                         ),
-                                                    //                       ],
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                 );
-                                                    //               },
-                                                    //             );
-                                                    //           },
-                                                    //         );
-                                                    //       },
-                                                    //     );
-                                                    //   },
-                                                    //   icon: Icon(
-                                                    //     Icons.edit_outlined,
-                                                    //     size: 18,
-                                                    //     color: ColorManager
-                                                    //         .bluebottom,
-                                                    //   ),
-                                                    //   splashColor: Colors.transparent,
-                                                    //   highlightColor: Colors.transparent,
-                                                    //   hoverColor: Colors.transparent,
-                                                    // ),
-                                                    // IconButton(
-                                                    //     splashColor: Colors.transparent,
-                                                    //     highlightColor: Colors.transparent,
-                                                    //     hoverColor: Colors.transparent,
-                                                    //     onPressed: () {
-                                                    //       showDialog(
-                                                    //           context: context,
-                                                    //           builder: (context) =>
-                                                    //               StatefulBuilder(
-                                                    //                 builder: (BuildContext
-                                                    //                         context,
-                                                    //                     void Function(void Function())
-                                                    //                         setState) {
-                                                    //                   return DeletePopup(
-                                                    //                       title:
-                                                    //                           'Delete Leases Services',
-                                                    //                       loadingDuration:
-                                                    //                           _isLoading,
-                                                    //                       onCancel:
-                                                    //                           () {
-                                                    //                         Navigator.pop(context);
-                                                    //                       },
-                                                    //                       onDelete:
-                                                    //                           () async {
-                                                    //                         setState(() {
-                                                    //                           _isLoading = true;
-                                                    //                         });
-                                                    //                         try {
-                                                    //                           await deleteManageCorporate(context, leasesData.docId);
-                                                    //                           setState(() async {
-                                                    //                             await getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                                                    //                               vendorLeasesController.add(data);
-                                                    //                             }).catchError((error) {
-                                                    //                               // Handle error
-                                                    //                             });
-                                                    //                             Navigator.pop(context);
-                                                    //                           });
-                                                    //                         } finally {
-                                                    //                           setState(() {
-                                                    //                             _isLoading = false;
-                                                    //                           });
-                                                    //                         }
-                                                    //                       });
-                                                    //                 },
-                                                    //               ));
-                                                    //     },
-                                                    //     icon: Icon(
-                                                    //       Icons.delete_outline,
-                                                    //       size: 18,
-                                                    //       color:
-                                                    //           ColorManager.red,
-                                                    //     )),
+                                                    IconButton(onPressed: (){}, icon: Icon(
+                                                      Icons.history,
+                                                      size: 18,
+                                                      color: ColorManager
+                                                          .bluebottom,
+                                                    ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,),
+                                                    IconButton(onPressed: (){}, icon: Icon(
+                                                      Icons.save_alt_outlined,
+                                                      size: 18,
+                                                      color: ColorManager
+                                                          .bluebottom,
+                                                    ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        String?selectedExpiryType = expiryType;
+                                                        showDialog(
+                                                          context: context, builder: (context) {
+                                                          return FutureBuilder<MCorporateCompliancePreFillModal>(
+                                                            future: getPrefillNewOrgOfficeDocument(context, leasesData.orgOfficeDocumentId),
+                                                            builder: (context, snapshotPrefill) {
+                                                              if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                return Center(
+                                                                  child: CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                  ),
+                                                                );
+                                                              }
+                                                              //
+                                                              //  var documentPreId = snapshotPrefill.data!.idOfDocument;
+                                                              //  docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),);
+                                                              //
+                                                              //
+                                                              // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
+                                                              // docTypeMetaId = documentTypePreId;
+                                                              //
+                                                              // var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;docSubTypeMetaId = documentSubPreId;
+                                                              //
+                                                              // var name = snapshotPrefill.data!.docName;
+                                                              // nameOfDocController = TextEditingController(text: snapshotPrefill.data!.docName,);
+
+                                                              var calender = snapshotPrefill.data!.expiry_date;
+                                                              calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
+
+                                                              // var expiry = snapshotPrefill.data!.expiryType;expiryType = expiry;
+                                                              //
+                                                              // var idOfDoc = snapshotPrefill.data!.idOfDoc;
+                                                              // idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
+
+                                                              return StatefulBuilder(
+                                                                builder: (BuildContext
+                                                                context,
+                                                                    void Function(void Function())
+                                                                    setState) {
+                                                                  return VCScreenPopupEditConst(
+                                                                    title:
+                                                                    'Edit Policies And Procedure',
+                                                                    loadingDuration: _isLoading,
+                                                                    onSavePressed:
+                                                                        () async {
+                                                                      setState(() {_isLoading = true;});
+                                                                      try {
+                                                                        String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                                            ? "Not Applicable"
+                                                                            : calenderController.text;
+                                                                        await updateOrgDoc(context: context,
+                                                                          orgDocId: leasesData.orgOfficeDocumentId,
+                                                                          orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                          idOfDocument: '',
+                                                                          expiryDate: expiryTypeToSend,
+                                                                          docCreatedat: DateTime.now().toString(),
+                                                                          url: "",
+                                                                          officeid: widget.officeId,);
+
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    },
+
+                                                                    child: FutureBuilder<List<TypeofDocpopup>>(
+                                                                      future: getTypeofDoc(context, widget.docId, widget.subDocId),
+                                                                      builder: (context, snapshot) {
+                                                                        if (snapshot.connectionState ==
+                                                                            ConnectionState.waiting) {
+                                                                          return Container(
+                                                                            width: 350,
+                                                                            height: 30,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        if (snapshot.data!.isEmpty) {
+                                                                          return Center(
+                                                                            child: Text(
+                                                                              AppString.dataNotFound,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                                fontSize: FontSize.s12,
+                                                                                color: ColorManager.mediumgrey,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        if (snapshot.hasData) {
+                                                                          List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                                                              .map((doc) => DropdownMenuItem<String>(
+                                                                            value: doc.docname,
+                                                                            child: Text(doc.docname!),
+                                                                          ))
+                                                                              .toList();
+                                                                          return CICCDropdown(
+                                                                            initialValue: "Select",
+                                                                            onChange: (val) {
+                                                                              //   setState(() {
+                                                                              // selectedDocType = val;
+                                                                              for (var doc in snapshot.data!) {
+                                                                                if (doc.docname == val) {
+                                                                                  docTypeId = doc.documenttypeid!;
+                                                                                }
+                                                                              }
+                                                                              // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
+                                                                              //   _compliancePatientDataController
+                                                                              //       .add(data!);
+                                                                              // }).catchError((error) {
+                                                                              //   // Handle error
+                                                                              // });
+                                                                              // });
+                                                                            },
+                                                                            items: dropDownMenuItems,
+                                                                          );
+                                                                        } else {
+                                                                          return SizedBox();
+                                                                        }
+                                                                      },
+                                                                    ),
+
+                                                                    // child: FutureBuilder<List<DocumentTypeData>>(
+                                                                    //    future: documentTypeGet(context),
+                                                                    //    builder: (context, snapshot) {
+                                                                    //      if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                    //        return Container(
+                                                                    //          width: 300,
+                                                                    //          child: Text(
+                                                                    //            'Loading...',
+                                                                    //            style: CustomTextStylesCommon.commonStyle(
+                                                                    //              fontWeight: FontWeightManager.medium,
+                                                                    //              fontSize: FontSize.s12,
+                                                                    //              color: ColorManager.mediumgrey,
+                                                                    //            ),
+                                                                    //          ),
+                                                                    //        );
+                                                                    //      }
+                                                                    //      if (snapshot.data!.isEmpty) {
+                                                                    //        return Center(
+                                                                    //          child: Text(
+                                                                    //            AppString.dataNotFound,
+                                                                    //            style: CustomTextStylesCommon.commonStyle(
+                                                                    //              fontWeight: FontWeightManager.medium,
+                                                                    //              fontSize: FontSize.s12,
+                                                                    //              color: ColorManager.mediumgrey,
+                                                                    //            ),
+                                                                    //          ),
+                                                                    //        );
+                                                                    //      }
+                                                                    //      if (snapshot.hasData) {
+                                                                    //        String selectedDocType = "";
+                                                                    //        int docType = snapshot.data![0].docID;
+                                                                    //
+                                                                    //        for (var i in snapshot.data!) {
+                                                                    //          if (i.docID == AppConfig.policiesAndProcedure) {
+                                                                    //            selectedDocType = i.docType;
+                                                                    //            docType = i.docID;
+                                                                    //            break;
+                                                                    //          }
+                                                                    //        }
+                                                                    //
+                                                                    //        docTypeMetaId = docType;
+                                                                    //
+                                                                    //        identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                                                    //          _identityDataController.add(data);
+                                                                    //        }).catchError((error) {
+                                                                    //          // Handle error
+                                                                    //        });
+                                                                    //
+                                                                    //        return Container(
+                                                                    //          width: 354,
+                                                                    //          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                    //          decoration: BoxDecoration(
+                                                                    //            color: ColorManager.white,
+                                                                    //            borderRadius: BorderRadius.circular(8),
+                                                                    //            border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                                    //          ),
+                                                                    //          child: Row(
+                                                                    //            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    //            children: [
+                                                                    //              Text(
+                                                                    //                selectedDocType,
+                                                                    //                style: CustomTextStylesCommon.commonStyle(
+                                                                    //                  fontWeight: FontWeightManager.medium,
+                                                                    //                  fontSize: FontSize.s12,
+                                                                    //                  color: ColorManager.mediumgrey,
+                                                                    //                ),
+                                                                    //              ),
+                                                                    //              Icon(
+                                                                    //                Icons.arrow_drop_down,
+                                                                    //                color: Colors.transparent,
+                                                                    //              ),
+                                                                    //            ],
+                                                                    //          ),
+                                                                    //        );
+                                                                    //      } else {
+                                                                    //        return SizedBox();
+                                                                    //      }
+                                                                    //    },
+                                                                    //  ),
+                                                                    // radioButton: Padding(
+                                                                    //   padding: const EdgeInsets.only(left: 10.0),
+                                                                    //   child: Column(
+                                                                    //     mainAxisAlignment: MainAxisAlignment.start,
+                                                                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    //     children: [
+                                                                    //       Text(
+                                                                    //         "Expiry Type",
+                                                                    //         style: GoogleFonts.firaSans(
+                                                                    //           fontSize: FontSize.s12,
+                                                                    //           fontWeight: FontWeight.w700,
+                                                                    //           color: ColorManager.mediumgrey,
+                                                                    //           decoration: TextDecoration.none,
+                                                                    //         ),
+                                                                    //       ),
+                                                                    //       CustomRadioListTile(
+                                                                    //         value: "Not Applicable",
+                                                                    //         groupValue: selectedExpiryType,
+                                                                    //         onChanged: (value) {
+                                                                    //           setState(() {
+                                                                    //             selectedExpiryType = value;
+                                                                    //           });
+                                                                    //         },
+                                                                    //         title: "Not Applicable",
+                                                                    //       ),
+                                                                    //       CustomRadioListTile(
+                                                                    //         value: 'Scheduled',
+                                                                    //         groupValue: selectedExpiryType,
+                                                                    //         onChanged: (value) {
+                                                                    //           setState(() {
+                                                                    //             selectedExpiryType = value;
+                                                                    //           });
+                                                                    //         },
+                                                                    //         title: 'Scheduled',
+                                                                    //       ),
+                                                                    //       CustomRadioListTile(
+                                                                    //         value: 'Issuer Expiry',
+                                                                    //         groupValue: selectedExpiryType,
+                                                                    //         onChanged: (value) {
+                                                                    //           setState(() {
+                                                                    //             selectedExpiryType = value;
+                                                                    //           });
+                                                                    //         },
+                                                                    //         title: 'Issuer Expiry',
+                                                                    //       ),
+                                                                    //     ],
+                                                                    //   ),
+                                                                    // ),
+                                                                    // child2: Visibility(
+                                                                    //   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                                                                    //   child: Column(
+                                                                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    //     children: [
+                                                                    //       Padding(
+                                                                    //         padding: const EdgeInsets.only(left: 2),
+                                                                    //         child: Text(
+                                                                    //           "Expiry Date",
+                                                                    //           style: GoogleFonts.firaSans(
+                                                                    //             fontSize: FontSize.s12,
+                                                                    //             fontWeight: FontWeight.w700,
+                                                                    //             color: ColorManager.mediumgrey,
+                                                                    //             decoration: TextDecoration.none,
+                                                                    //           ),
+                                                                    //         ),
+                                                                    //       ),
+                                                                    //       SizedBox(height: 5,),
+                                                                    //       FormField<String>(
+                                                                    //         builder: (FormFieldState<String> field) {
+                                                                    //           return SizedBox (
+                                                                    //             width: 354,
+                                                                    //             height: 30,
+                                                                    //             child:   TextFormField(
+                                                                    //               controller: calenderController,
+                                                                    //               cursorColor: ColorManager.black,
+                                                                    //               style: GoogleFonts.firaSans(
+                                                                    //                 fontSize: FontSize.s12,
+                                                                    //                 fontWeight: FontWeight.w700,
+                                                                    //                 color: ColorManager.mediumgrey,
+                                                                    //                 //decoration: TextDecoration.none,
+                                                                    //               ),
+                                                                    //               decoration: InputDecoration(
+                                                                    //                 enabledBorder: OutlineInputBorder(
+                                                                    //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                    //                   borderRadius: BorderRadius.circular(8),
+                                                                    //                 ),
+                                                                    //                 focusedBorder: OutlineInputBorder(
+                                                                    //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                    //                   borderRadius: BorderRadius.circular(8),
+                                                                    //                 ),
+                                                                    //                 hintText: 'mm-dd-yyyy',
+                                                                    //                 hintStyle: GoogleFonts.firaSans(
+                                                                    //                   fontSize: FontSize.s12,
+                                                                    //                   fontWeight: FontWeight.w700,
+                                                                    //                   color: ColorManager.mediumgrey,
+                                                                    //                   //decoration: TextDecoration.none,
+                                                                    //                 ),
+                                                                    //                 border: OutlineInputBorder(
+                                                                    //                   borderRadius: BorderRadius.circular(8),
+                                                                    //                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                                                    //                 ),
+                                                                    //                 contentPadding:
+                                                                    //                 EdgeInsets.symmetric(horizontal: 16),
+                                                                    //                 suffixIcon: Icon(Icons.calendar_month_outlined,
+                                                                    //                     color: ColorManager.blueprime),
+                                                                    //                 errorText: field.errorText,
+                                                                    //               ),
+                                                                    //               onTap: () async {
+                                                                    //                 DateTime? pickedDate = await showDatePicker(
+                                                                    //                   context: context,
+                                                                    //                   initialDate: DateTime.now(),
+                                                                    //                   firstDate: DateTime(1901),
+                                                                    //                   lastDate: DateTime(3101),
+                                                                    //                 );
+                                                                    //                 if (pickedDate != null) {
+                                                                    //                   calenderController.text =
+                                                                    //                       DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                    //                 }
+                                                                    //               },
+                                                                    //               validator: (value) {
+                                                                    //                 if (value == null || value.isEmpty) {
+                                                                    //                   return 'please select birth date';
+                                                                    //                 }
+                                                                    //                 return null;
+                                                                    //               },
+                                                                    //             ),
+                                                                    //           );
+                                                                    //         },
+                                                                    //       ),
+                                                                    //     ],
+                                                                    //   ),
+                                                                    // ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: 18,
+                                                        color: ColorManager
+                                                            .bluebottom,
+                                                      ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
+                                                    ),
+                                                    IconButton(
+                                                        splashColor: Colors
+                                                            .transparent,
+                                                        highlightColor: Colors
+                                                            .transparent,
+                                                        hoverColor: Colors
+                                                            .transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context:
+                                                              context,
+                                                              builder: (context) =>
+                                                                  DeletePopup(
+                                                                      title:
+                                                                      'Delete Policies Procedure',
+                                                                      onCancel:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      onDelete:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                        setState(
+                                                                                () async {
+                                                                              await  deleteOrgDoc(context:context, orgDocId:leasesData.orgOfficeDocumentId );
+                                                                              // await deleteManageCorporate(context,
+                                                                              //     policiesdata.docId);
+                                                                              // getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
+                                                                              //   _controller.add(data);
+                                                                              // }).catchError((error) {
+                                                                              //   // Handle error
+                                                                              // });
+                                                                            });
+                                                                      }));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons
+                                                              .delete_outline,
+                                                          size: 18,
+                                                          color: ColorManager
+                                                              .red,
+                                                        )),
                                                   ],
-                                                ),
+                                                )
+
+                                                // Row(
+                                                //   mainAxisAlignment:
+                                                //       MainAxisAlignment.center,
+                                                //   children: [
+                                                //     // IconButton(
+                                                //     //   onPressed: () {
+                                                //     //     String? selectedExpiryType = expiryType;
+                                                //     //     showDialog(
+                                                //     //       context: context,
+                                                //     //       builder: (context) {
+                                                //     //         return FutureBuilder<CorporatePrefillCCVVPP>(
+                                                //     //           future: getManageCCPrefill(context, leasesData.docId),
+                                                //     //           builder: (context,
+                                                //     //               snapshotPrefill) {
+                                                //     //             if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                //     //               return Center(
+                                                //     //                 child: CircularProgressIndicator(
+                                                //     //                   color: ColorManager.blueprime,
+                                                //     //                 ),
+                                                //     //               );
+                                                //     //             }
+                                                //     //
+                                                //     //             // Prefill values from API
+                                                //     //             var documentPreId = snapshotPrefill.data!.documentId;
+                                                //     //             docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),
+                                                //     //             );
+                                                //     //
+                                                //     //             // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
+                                                //     //             // docTypeMetaId = documentTypePreId;
+                                                //     //
+                                                //     //             var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
+                                                //     //             docSubTypeMetaId = documentSubPreId;
+                                                //     //
+                                                //     //             var name = snapshotPrefill.data!.docName;
+                                                //     //             docNameController = TextEditingController(
+                                                //     //               text: snapshotPrefill.data!.docName,
+                                                //     //             );
+                                                //     //
+                                                //     //             var calender = snapshotPrefill.data!.expiryDate;
+                                                //     //             calenderController = TextEditingController(
+                                                //     //               text: snapshotPrefill.data!.expiryDate,
+                                                //     //             );
+                                                //     //
+                                                //     //             var expiry = snapshotPrefill.data!.expiryType;
+                                                //     //             expiryType = expiry;
+                                                //     //             var idOfDoc = snapshotPrefill.data!.idOfDoc;
+                                                //     //             idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
+                                                //     //
+                                                //     //             return StatefulBuilder(
+                                                //     //               builder: (BuildContextcontext,
+                                                //     //                   void Function(void Function())setState) {
+                                                //     //                 return CCScreenEditPopup(
+                                                //     //                   title: 'Edit Leases & Services',
+                                                //     //                   // id: documentPreId,
+                                                //     //                   idOfDocController: idOfDocController,
+                                                //     //                   nameDocController: docNameController,
+                                                //     //                   loadingDuration: _isLoading,
+                                                //     //                   onSavePressed: () async {
+                                                //     //                     setState(() {
+                                                //     //                       _isLoading = true;
+                                                //     //                     });
+                                                //     //                     try {
+                                                //     //                       String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                //     //                           ? "Not Applicable"
+                                                //     //                           : calenderController.text;
+                                                //     //                       await updateManageCCVVPP(
+                                                //     //                           context: context,
+                                                //     //                           docId: documentPreId,
+                                                //     //                           name: name == docNameController.text ? name.toString() : docNameController.text,
+                                                //     //                           docTypeID: AppConfig.vendorContracts,// documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
+                                                //     //                           docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                //     //                           docCreated: DateTime.now().toString(),
+                                                //     //                           url: "url",
+                                                //     //                           expiryType: selectedExpiryType ?? expiryType.toString(),
+                                                //     //                           expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
+                                                //     //                           expiryReminder: selectedExpiryType ?? expiryType.toString(),
+                                                //     //                           officeId: widget.officeId,
+                                                //     //                           idOfDoc: snapshotPrefill.data!.idOfDoc
+                                                //     //                       );
+                                                //     //                     } finally {
+                                                //     //                       setState(
+                                                //     //                               () {
+                                                //     //                             _isLoading =
+                                                //     //                             false;
+                                                //     //                           });
+                                                //     //                       Navigator.pop(
+                                                //     //                           context);
+                                                //     //                     }
+                                                //     //                   },
+                                                //     //                   child:FutureBuilder<List<DocumentTypeData>>(
+                                                //     //                     future: documentTypeGet(context),
+                                                //     //                     builder: (context, snapshot) {
+                                                //     //                       if (snapshot.connectionState == ConnectionState.waiting) {
+                                                //     //                         return Container(
+                                                //     //                           width: 300,
+                                                //     //                           child: Text(
+                                                //     //                             'Loading...',
+                                                //     //                             style: CustomTextStylesCommon.commonStyle(
+                                                //     //                               fontWeight: FontWeightManager.medium,
+                                                //     //                               fontSize: FontSize.s12,
+                                                //     //                               color: ColorManager.mediumgrey,
+                                                //     //                             ),
+                                                //     //                           ),
+                                                //     //                         );
+                                                //     //                       }
+                                                //     //                       if (snapshot.data!.isEmpty) {
+                                                //     //                         return Center(
+                                                //     //                           child: Text(
+                                                //     //                             AppString.dataNotFound,
+                                                //     //                             style: CustomTextStylesCommon.commonStyle(
+                                                //     //                               fontWeight: FontWeightManager.medium,
+                                                //     //                               fontSize: FontSize.s12,
+                                                //     //                               color: ColorManager.mediumgrey,
+                                                //     //                             ),
+                                                //     //                           ),
+                                                //     //                         );
+                                                //     //                       }
+                                                //     //                       if (snapshot.hasData) {
+                                                //     //                         String selectedDocType = "";
+                                                //     //                         int docType = snapshot.data![0].docID;
+                                                //     //
+                                                //     //                         for (var i in snapshot.data!) {
+                                                //     //                           if (i.docID == AppConfig.vendorContracts) {
+                                                //     //                             selectedDocType = i.docType;
+                                                //     //                             docType = i.docID;
+                                                //     //                             break;
+                                                //     //                           }
+                                                //     //                         }
+                                                //     //
+                                                //     //                         docTypeMetaIdVC = docType;
+                                                //     //
+                                                //     //                         identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
+                                                //     //                           _identityDataController.add(data);
+                                                //     //                         }).catchError((error) {
+                                                //     //                           // Handle error
+                                                //     //                         });
+                                                //     //                         return Container(
+                                                //     //                           width: 354,
+                                                //     //                           padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                //     //                           decoration: BoxDecoration(
+                                                //     //                             color: ColorManager.white,
+                                                //     //                             borderRadius: BorderRadius.circular(8),
+                                                //     //                             border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                //     //                           ),
+                                                //     //                           child: Row(
+                                                //     //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                //     //                             children: [
+                                                //     //                               Text(
+                                                //     //                                 selectedDocType,
+                                                //     //                                 style: CustomTextStylesCommon.commonStyle(
+                                                //     //                                   fontWeight: FontWeightManager.medium,
+                                                //     //                                   fontSize: FontSize.s12,
+                                                //     //                                   color: ColorManager.mediumgrey,
+                                                //     //                                 ),
+                                                //     //                               ),
+                                                //     //                               Icon(
+                                                //     //                                 Icons.arrow_drop_down,
+                                                //     //                                 color: Colors.transparent,
+                                                //     //                               ),
+                                                //     //                             ],
+                                                //     //                           ),
+                                                //     //                         );
+                                                //     //                       } else {
+                                                //     //                         return SizedBox();
+                                                //     //                       }
+                                                //     //                     },
+                                                //     //                   ),
+                                                //     //                   // Sub-Document Type Dropdown
+                                                //     //                   child1: FutureBuilder<List<DocumentTypeData>>(
+                                                //     //                     future: documentTypeGet(context),
+                                                //     //                     builder: (context, snapshot) {
+                                                //     //                       if (snapshot.connectionState == ConnectionState.waiting) {
+                                                //     //                         return Container(
+                                                //     //                           width: 300,
+                                                //     //                           child: Text(
+                                                //     //                             'Loading...',
+                                                //     //                             style: CustomTextStylesCommon.commonStyle(
+                                                //     //                               fontWeight: FontWeightManager.medium,
+                                                //     //                               fontSize: FontSize.s12,
+                                                //     //                               color: ColorManager.mediumgrey,
+                                                //     //                             ),
+                                                //     //                           ),
+                                                //     //                         );
+                                                //     //                       }
+                                                //     //                       if (snapshot.data!.isEmpty) {
+                                                //     //                         return Center(
+                                                //     //                           child: Text(
+                                                //     //                             AppString.dataNotFound,
+                                                //     //                             style: CustomTextStylesCommon.commonStyle(
+                                                //     //                               fontWeight: FontWeightManager.medium,
+                                                //     //                               fontSize: FontSize.s12,
+                                                //     //                               color: ColorManager.mediumgrey,
+                                                //     //                             ),
+                                                //     //                           ),
+                                                //     //                         );
+                                                //     //                       }
+                                                //     //                       if (snapshot.hasData) {
+                                                //     //                         String selectedDocType = "Leases and Services";
+                                                //     //                         int docType = snapshot.data![0].docID;
+                                                //     //
+                                                //     //                         for (var i in snapshot.data!) {
+                                                //     //                           if (i.docID == AppConfig.subDocId6Leases) {
+                                                //     //                             selectedDocType = i.docType;
+                                                //     //                             docType = i.docID;
+                                                //     //                             break;
+                                                //     //                           }
+                                                //     //                         }
+                                                //     //
+                                                //     //                         docTypeMetaIdVCLeases = docType;
+                                                //     //
+                                                //     //                         identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
+                                                //     //                           _identityDataController.add(data);
+                                                //     //                         }).catchError((error) {
+                                                //     //                           // Handle error
+                                                //     //                         });
+                                                //     //                         return Container(
+                                                //     //                           width: 354,
+                                                //     //                           padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                //     //                           decoration: BoxDecoration(
+                                                //     //                             color: ColorManager.white,
+                                                //     //                             borderRadius: BorderRadius.circular(8),
+                                                //     //                             border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                //     //                           ),
+                                                //     //                           child: Row(
+                                                //     //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                //     //                             children: [
+                                                //     //                               Text(
+                                                //     //                                 selectedDocType,
+                                                //     //                                 style: CustomTextStylesCommon.commonStyle(
+                                                //     //                                   fontWeight: FontWeightManager.medium,
+                                                //     //                                   fontSize: FontSize.s12,
+                                                //     //                                   color: ColorManager.mediumgrey,
+                                                //     //                                 ),
+                                                //     //                               ),
+                                                //     //                               Icon(
+                                                //     //                                 Icons.arrow_drop_down,
+                                                //     //                                 color: Colors.transparent,
+                                                //     //                               ),
+                                                //     //                             ],
+                                                //     //                           ),
+                                                //     //                         );
+                                                //     //                       } else {
+                                                //     //                         return SizedBox();
+                                                //     //                       }
+                                                //     //                     },
+                                                //     //                   ),
+                                                //     //                   radioButton: Padding(padding: const EdgeInsets.only(left: 10.0),
+                                                //     //                     child: Column(
+                                                //     //                       mainAxisAlignment: MainAxisAlignment.start,
+                                                //     //                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                //     //                       children: [
+                                                //     //                         Text(
+                                                //     //                           "Expiry Type",
+                                                //     //                           style: GoogleFonts.firaSans(
+                                                //     //                             fontSize: FontSize.s12,
+                                                //     //                             fontWeight: FontWeight.w700,
+                                                //     //                             color: ColorManager.mediumgrey,
+                                                //     //                             decoration: TextDecoration.none,
+                                                //     //                           ),
+                                                //     //                         ),
+                                                //     //                         CustomRadioListTile(
+                                                //     //                           value: "Not Applicable",
+                                                //     //                           groupValue: selectedExpiryType,
+                                                //     //                           onChanged: (value) {
+                                                //     //                             setState(() {
+                                                //     //                               selectedExpiryType = value;
+                                                //     //                             });
+                                                //     //                           },
+                                                //     //                           title: "Not Applicable",
+                                                //     //                         ),
+                                                //     //                         CustomRadioListTile(
+                                                //     //                           value: 'Scheduled',
+                                                //     //                           groupValue: selectedExpiryType,
+                                                //     //                           onChanged: (value) {
+                                                //     //                             setState(() {
+                                                //     //                               selectedExpiryType = value;
+                                                //     //                             });
+                                                //     //                           },
+                                                //     //                           title: 'Scheduled',
+                                                //     //                         ),
+                                                //     //                         CustomRadioListTile(
+                                                //     //                           value: 'Issuer Expiry',
+                                                //     //                           groupValue: selectedExpiryType,
+                                                //     //                           onChanged: (value) {
+                                                //     //                             setState(() {
+                                                //     //                               selectedExpiryType = value;
+                                                //     //                             });
+                                                //     //                           },
+                                                //     //                           title: 'Issuer Expiry',
+                                                //     //                         ),
+                                                //     //                       ],
+                                                //     //                     ),
+                                                //     //                   ),
+                                                //     //                   child2: Visibility(
+                                                //     //                     visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                                                //     //                     child: Column(
+                                                //     //                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                //     //                       children: [
+                                                //     //                         Padding(
+                                                //     //                           padding: const EdgeInsets.only(left: 2),
+                                                //     //                           child: Text(
+                                                //     //                             "Expiry Date",
+                                                //     //                             style: GoogleFonts.firaSans(
+                                                //     //                               fontSize: FontSize.s12,
+                                                //     //                               fontWeight: FontWeight.w700,
+                                                //     //                               color: ColorManager.mediumgrey,
+                                                //     //                               decoration: TextDecoration.none,
+                                                //     //                             ),
+                                                //     //                           ),
+                                                //     //                         ),
+                                                //     //                         SizedBox(height: 5,),
+                                                //     //                         FormField<String>(
+                                                //     //                           builder: (FormFieldState<String> field) {
+                                                //     //                             return SizedBox(
+                                                //     //                               width: 354,
+                                                //     //                               height: 30,
+                                                //     //                               child: TextFormField(
+                                                //     //                                 controller: calenderController,
+                                                //     //                                 cursorColor: ColorManager.black,
+                                                //     //                                 style: GoogleFonts.firaSans(
+                                                //     //                                   fontSize: FontSize.s12,
+                                                //     //                                   fontWeight: FontWeight.w700,
+                                                //     //                                   color: ColorManager.mediumgrey,
+                                                //     //                                   //decoration: TextDecoration.none,
+                                                //     //                                 ),
+                                                //     //                                 decoration: InputDecoration(
+                                                //     //                                   enabledBorder: OutlineInputBorder(
+                                                //     //                                     borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                //     //                                     borderRadius: BorderRadius.circular(8),
+                                                //     //                                   ),
+                                                //     //                                   focusedBorder: OutlineInputBorder(
+                                                //     //                                     borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                //     //                                     borderRadius: BorderRadius.circular(8),
+                                                //     //                                   ),
+                                                //     //                                   hintText: 'mm-dd-yyyy',
+                                                //     //                                   hintStyle: GoogleFonts.firaSans(
+                                                //     //                                     fontSize: FontSize.s12,
+                                                //     //                                     fontWeight: FontWeight.w700,
+                                                //     //                                     color: ColorManager.mediumgrey,
+                                                //     //                                     //decoration: TextDecoration.none,
+                                                //     //                                   ),
+                                                //     //                                   border: OutlineInputBorder(
+                                                //     //                                     borderRadius: BorderRadius.circular(8),
+                                                //     //                                     borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                                                //     //                                   ),
+                                                //     //                                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                //     //                                   suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                                //     //                                   errorText: field.errorText,
+                                                //     //                                 ),
+                                                //     //                                 onTap: () async {
+                                                //     //                                   DateTime? pickedDate = await showDatePicker(
+                                                //     //                                     context: context,
+                                                //     //                                     initialDate: DateTime.now(),
+                                                //     //                                     firstDate: DateTime(1901),
+                                                //     //                                     lastDate: DateTime(3101),
+                                                //     //                                   );
+                                                //     //                                   if (pickedDate != null) {
+                                                //     //                                     calenderController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                //     //                                   }
+                                                //     //                                 },
+                                                //     //                                 validator: (value) {
+                                                //     //                                   if (value == null || value.isEmpty) {
+                                                //     //                                     return 'please select birth date';
+                                                //     //                                   }
+                                                //     //                                   return null;
+                                                //     //                                 },
+                                                //     //                               ),
+                                                //     //                             );
+                                                //     //                           },
+                                                //     //                         ),
+                                                //     //                       ],
+                                                //     //                     ),
+                                                //     //                   ),
+                                                //     //                 );
+                                                //     //               },
+                                                //     //             );
+                                                //     //           },
+                                                //     //         );
+                                                //     //       },
+                                                //     //     );
+                                                //     //   },
+                                                //     //   icon: Icon(
+                                                //     //     Icons.edit_outlined,
+                                                //     //     size: 18,
+                                                //     //     color: ColorManager
+                                                //     //         .bluebottom,
+                                                //     //   ),
+                                                //     //   splashColor: Colors.transparent,
+                                                //     //   highlightColor: Colors.transparent,
+                                                //     //   hoverColor: Colors.transparent,
+                                                //     // ),
+                                                //     // IconButton(
+                                                //     //     splashColor: Colors.transparent,
+                                                //     //     highlightColor: Colors.transparent,
+                                                //     //     hoverColor: Colors.transparent,
+                                                //     //     onPressed: () {
+                                                //     //       showDialog(
+                                                //     //           context: context,
+                                                //     //           builder: (context) =>
+                                                //     //               StatefulBuilder(
+                                                //     //                 builder: (BuildContext
+                                                //     //                         context,
+                                                //     //                     void Function(void Function())
+                                                //     //                         setState) {
+                                                //     //                   return DeletePopup(
+                                                //     //                       title:
+                                                //     //                           'Delete Leases Services',
+                                                //     //                       loadingDuration:
+                                                //     //                           _isLoading,
+                                                //     //                       onCancel:
+                                                //     //                           () {
+                                                //     //                         Navigator.pop(context);
+                                                //     //                       },
+                                                //     //                       onDelete:
+                                                //     //                           () async {
+                                                //     //                         setState(() {
+                                                //     //                           _isLoading = true;
+                                                //     //                         });
+                                                //     //                         try {
+                                                //     //                           await deleteManageCorporate(context, leasesData.docId);
+                                                //     //                           setState(() async {
+                                                //     //                             await getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
+                                                //     //                               vendorLeasesController.add(data);
+                                                //     //                             }).catchError((error) {
+                                                //     //                               // Handle error
+                                                //     //                             });
+                                                //     //                             Navigator.pop(context);
+                                                //     //                           });
+                                                //     //                         } finally {
+                                                //     //                           setState(() {
+                                                //     //                             _isLoading = false;
+                                                //     //                           });
+                                                //     //                         }
+                                                //     //                       });
+                                                //     //                 },
+                                                //     //               ));
+                                                //     //     },
+                                                //     //     icon: Icon(
+                                                //     //       Icons.delete_outline,
+                                                //     //       size: 18,
+                                                //     //       color:
+                                                //     //           ColorManager.red,
+                                                //     //     )),
+                                                //   ],
+                                                // ),
                                               ],
                                             ),
                                           )),
