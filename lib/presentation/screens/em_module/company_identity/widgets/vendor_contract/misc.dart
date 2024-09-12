@@ -304,7 +304,7 @@ class _CiMiscState extends State<CiMisc> {
                                                                     'Edit MISC',
                                                                     loadingDuration: _isLoading,
                                                                     onSavePressed:
-                                                                        () async {
+                                                                        (file) async {
                                                                       setState(() {_isLoading = true;});
                                                                       try {
                                                                         String expiryTypeToSend = selectedExpiryType == "Not Applicable"
@@ -313,16 +313,16 @@ class _CiMiscState extends State<CiMisc> {
                                                                         var response = await updateOrgDoc(context: context,
                                                                           orgDocId: miscData.orgOfficeDocumentId,
                                                                           orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
-                                                                          idOfDocument: '',
+                                                                          idOfDocument: snapshotPrefill.data!.docName,
                                                                           expiryDate: expiryTypeToSend,
                                                                           docCreatedat: DateTime.now().toIso8601String()+"Z",
-                                                                          url: "",
+                                                                          url: snapshotPrefill.data!.url,
                                                                           officeid: widget.officeId,);
 
                                                                         if (response.statusCode == 200 || response.statusCode == 201) {
                                                                           await uploadDocumentsoffice(
                                                                               context: context,
-                                                                              documentFile: filePath,
+                                                                              documentFile: file,
                                                                               orgOfficeDocumentId: response.orgOfficeDocumentId!);
                                                                         }
                                                                       } finally {
@@ -333,97 +333,97 @@ class _CiMiscState extends State<CiMisc> {
                                                                       }
                                                                     },
 
-                                                                    // child: Container(
-                                                                    //   width: 354,
-                                                                    //   padding: EdgeInsets.symmetric(
-                                                                    //       vertical: 3, horizontal: 12),
-                                                                    //   decoration: BoxDecoration(
-                                                                    //     color: ColorManager.white,
-                                                                    //     borderRadius: BorderRadius.circular(8),
-                                                                    //     border: Border.all(
-                                                                    //         color: ColorManager.fmediumgrey,
-                                                                    //         width: 1),
-                                                                    //   ),
-                                                                    //   child: Row(
-                                                                    //     mainAxisAlignment:
-                                                                    //     MainAxisAlignment.spaceBetween,
-                                                                    //     children: [
-                                                                    //       Text(
-                                                                    //         selectedSubDocType,
-                                                                    //         style: CustomTextStylesCommon
-                                                                    //             .commonStyle(
-                                                                    //           fontWeight:
-                                                                    //           FontWeightManager.medium,
-                                                                    //           fontSize: FontSize.s12,
-                                                                    //           color: ColorManager.mediumgrey,
-                                                                    //         ),
-                                                                    //       ),
-                                                                    //       Icon(
-                                                                    //         Icons.arrow_drop_down,
-                                                                    //         color: Colors.transparent,
-                                                                    //       ),
-                                                                    //     ],
-                                                                    //   ),
-                                                                    // ),
+                                                                    child: Container(
+                                                                      width: 354,
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          vertical: 3, horizontal: 12),
+                                                                      decoration: BoxDecoration(
+                                                                        color: ColorManager.white,
+                                                                        borderRadius: BorderRadius.circular(4),
+                                                                        border: Border.all(
+                                                                            color: ColorManager.fmediumgrey,
+                                                                            width: 1),
+                                                                      ),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                        MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            miscData.docName!,
+                                                                            style: CustomTextStylesCommon
+                                                                                .commonStyle(
+                                                                              fontWeight:
+                                                                              FontWeightManager.medium,
+                                                                              fontSize: FontSize.s12,
+                                                                              color: ColorManager.mediumgrey,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.arrow_drop_down,
+                                                                            color: Colors.transparent,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
 
                                                                     /////
-                                                                    child: FutureBuilder<List<TypeofDocpopup>>(
-                                                                      future: getTypeofDoc(context, widget.docId, widget.subDocId),
-                                                                      builder: (context, snapshot) {
-                                                                        if (snapshot.connectionState ==
-                                                                            ConnectionState.waiting) {
-                                                                          return Container(
-                                                                            width: 350,
-                                                                            height: 30,
-                                                                            decoration: BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                            ),
-                                                                          );
-                                                                        }
-                                                                        if (snapshot.data!.isEmpty) {
-                                                                          return Center(
-                                                                            child: Text(
-                                                                              AppString.dataNotFound,
-                                                                              style: CustomTextStylesCommon.commonStyle(
-                                                                                fontWeight: FontWeightManager.medium,
-                                                                                fontSize: FontSize.s12,
-                                                                                color: ColorManager.mediumgrey,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        }
-                                                                        if (snapshot.hasData) {
-                                                                          List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                                                                              .map((doc) => DropdownMenuItem<String>(
-                                                                            value: doc.docname,
-                                                                            child: Text(doc.docname!),
-                                                                          ))
-                                                                              .toList();
-                                                                          return CICCDropdown(
-                                                                            initialValue: "Select",
-                                                                            onChange: (val) {
-                                                                              //   setState(() {
-                                                                              // selectedDocType = val;
-                                                                              for (var doc in snapshot.data!) {
-                                                                                if (doc.docname == val) {
-                                                                                  docTypeId = doc.documenttypeid!;
-                                                                                }
-                                                                              }
-                                                                              // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
-                                                                              //   _compliancePatientDataController
-                                                                              //       .add(data!);
-                                                                              // }).catchError((error) {
-                                                                              //   // Handle error
-                                                                              // });
-                                                                              // });
-                                                                            },
-                                                                            items: dropDownMenuItems,
-                                                                          );
-                                                                        } else {
-                                                                          return SizedBox();
-                                                                        }
-                                                                      },
-                                                                    ),
+                                                                    // child: FutureBuilder<List<TypeofDocpopup>>(
+                                                                    //   future: getTypeofDoc(context, widget.docId, widget.subDocId),
+                                                                    //   builder: (context, snapshot) {
+                                                                    //     if (snapshot.connectionState ==
+                                                                    //         ConnectionState.waiting) {
+                                                                    //       return Container(
+                                                                    //         width: 350,
+                                                                    //         height: 30,
+                                                                    //         decoration: BoxDecoration(
+                                                                    //           borderRadius: BorderRadius.circular(8),
+                                                                    //         ),
+                                                                    //       );
+                                                                    //     }
+                                                                    //     if (snapshot.data!.isEmpty) {
+                                                                    //       return Center(
+                                                                    //         child: Text(
+                                                                    //           AppString.dataNotFound,
+                                                                    //           style: CustomTextStylesCommon.commonStyle(
+                                                                    //             fontWeight: FontWeightManager.medium,
+                                                                    //             fontSize: FontSize.s12,
+                                                                    //             color: ColorManager.mediumgrey,
+                                                                    //           ),
+                                                                    //         ),
+                                                                    //       );
+                                                                    //     }
+                                                                    //     if (snapshot.hasData) {
+                                                                    //       List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                                                    //           .map((doc) => DropdownMenuItem<String>(
+                                                                    //         value: doc.docname,
+                                                                    //         child: Text(doc.docname!),
+                                                                    //       ))
+                                                                    //           .toList();
+                                                                    //       return CICCDropdown(
+                                                                    //         initialValue: "Select",
+                                                                    //         onChange: (val) {
+                                                                    //           //   setState(() {
+                                                                    //           // selectedDocType = val;
+                                                                    //           for (var doc in snapshot.data!) {
+                                                                    //             if (doc.docname == val) {
+                                                                    //               docTypeId = doc.documenttypeid!;
+                                                                    //             }
+                                                                    //           }
+                                                                    //           // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
+                                                                    //           //   _compliancePatientDataController
+                                                                    //           //       .add(data!);
+                                                                    //           // }).catchError((error) {
+                                                                    //           //   // Handle error
+                                                                    //           // });
+                                                                    //           // });
+                                                                    //         },
+                                                                    //         items: dropDownMenuItems,
+                                                                    //       );
+                                                                    //     } else {
+                                                                    //       return SizedBox();
+                                                                    //     }
+                                                                    //   },
+                                                                    // ),
                                                                     uploadField: Container(
                                                                       height: AppSize.s30,
                                                                       width: AppSize.s354,

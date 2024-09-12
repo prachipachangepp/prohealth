@@ -479,7 +479,11 @@ Future<ApiData> addOrgDocPPPost({
     print('New manage Doc Post::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New manage Corporate Doc addded ");
+      var responseData = response.data;
+      var docOfficeID =responseData["orgOfficeDocumentId"];
+      print("Post Manage CCVCPP  addded ");
       return ApiData(
+          orgOfficeDocumentId: docOfficeID,
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
@@ -575,6 +579,7 @@ Future<ApiData> updateOrgDoc({
       var docOfficeID =responseData["orgOfficeDocumentId"];
       print("Patch CCVCPP  Updated ");
       return ApiData(
+          orgOfficeDocumentId: docOfficeID,
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);

@@ -383,7 +383,7 @@ class _CiCorporateComplianceScreenState
                                       ApiData response = await addOrgDocPPPost(
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
-                                        idOfDocument: "PPP",
+                                        idOfDocument: "",
                                         expiryDate: expiryDate,
                                         docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",

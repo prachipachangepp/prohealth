@@ -384,7 +384,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                     print('selected EXP Date : ${selectedExpiryDate}');
                                   });
                                 },
-                                onPressed: () async {
+                                onPressed: (file) async {
                                   //  print('File path on pressed ${filePath}');
                                   setState(() {
                                     _isLoading = true;
@@ -410,11 +410,14 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       officeId: widget.officeId,
                                     );
                                     expiryDateController.clear();
+                                    print(":::::::=>${response.orgOfficeDocumentId}");
+
                                     if (response.statusCode == 200 ||
                                         response.statusCode == 201) {
+
                                       await uploadDocumentsoffice(
                                           context: context,
-                                          documentFile: filePath,
+                                          documentFile: file,
                                           orgOfficeDocumentId:
                                           response.orgOfficeDocumentId!);
                                     }

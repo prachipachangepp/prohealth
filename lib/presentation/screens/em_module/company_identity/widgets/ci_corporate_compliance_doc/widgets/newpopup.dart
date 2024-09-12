@@ -21,14 +21,14 @@ class VCScreenPopupEditConst extends StatefulWidget {
   final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback? onSavePressed;
+  final OnUpload onSavePressed;
   final double? height;
   final Widget? uploadField;
   VCScreenPopupEditConst({
     super.key,
     required this.child,
     required this.title,
-    this.onSavePressed,
+    required this.onSavePressed,
     this.height,
     this.loadingDuration,
     this.uploadField,
@@ -159,7 +159,57 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
                       SizedBox(height: AppSize.s5),
                       /// upload  doc
-                      widget.uploadField!,
+                     // widget.uploadField!,
+                      Container(
+                        height: AppSize.s30,
+                        width: AppSize.s354,
+                        padding: EdgeInsets.only(left: AppPadding.p15),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.containerBorderGrey,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function())
+                              setState) {
+                            return Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    fileName,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight:
+                                      FontWeightManager.regular,
+                                      color: ColorManager
+                                          .lightgreyheading,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    padding: EdgeInsets.all(4),
+                                    onPressed: _pickFile,
+                                    icon: Icon(
+                                      Icons.file_upload_outlined,
+                                      color: ColorManager.black,
+                                      size: 17,
+                                    ),
+                                    splashColor: Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
 
                     ],
                   ),
@@ -214,7 +264,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         height: AppSize.s30,
                         text: AppStringEM.save, //submit
                         onPressed: () {
-                          widget.onSavePressed!();
+                          widget.onSavePressed!(filePath);
                         },
                       ),
               ),
@@ -231,12 +281,15 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
 
 ////add
+typedef void OnUpload (dynamic val);
+
 
 class VCScreenPopupADDConst extends StatefulWidget {
+
    final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback onPressed;
+  final OnUpload onPressed;
   final double? height;
   final Widget? uploadField;
   dynamic filePath;
@@ -259,9 +312,14 @@ class VCScreenPopupADDConst extends StatefulWidget {
     // this.child3,
   });
 
+
+
+
   @override
   State<VCScreenPopupADDConst> createState() => _VCScreenPopupADDConstState();
 }
+
+
 
 class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
   int docTypeId = 0;
@@ -280,6 +338,8 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
     _url = "";
     showExpiryDateField;// Reset _url when the popup is initialized
   }
+
+
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -701,7 +761,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   text: AppStringEM.add, //submit
                   onPressed: () async{
 
-                    widget.onPressed!();
+                    widget.onPressed!(filePath);
                   },
                 ),
               ),
