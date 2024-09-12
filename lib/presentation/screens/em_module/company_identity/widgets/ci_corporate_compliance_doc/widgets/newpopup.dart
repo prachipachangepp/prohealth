@@ -356,250 +356,251 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                     ),
                   ),
                   SizedBox(height: AppSize.s5),
-                  FutureBuilder<List<TypeofDocpopup>>(
-                    future: getTypeofDoc(context,
-                        docTypeMetaIdCC, selectedSubDocId) ,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Container(
-                          width: 350,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.circular(8),
-                          ),
-                        );
-                      }
-
-                      if (!snapshot.hasData ||
-                          snapshot.data!.isEmpty) {
-                        return Center(
-                          child: Text(
-                            AppString.dataNotFound,
-                            style: CustomTextStylesCommon
-                                .commonStyle(
-                              fontWeight:
-                              FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey,
-                            ),
-                          ),
-                        );
-                      }
-
-                      if (snapshot.hasData) {
-                        List<DropdownMenuItem<String>>
-                        dropDownMenuItems = snapshot.data!
-                            .map((doc) =>
-                            DropdownMenuItem<String>(
-                              value: doc.docname,
-                              child: Text(doc.docname!),
-                            ))
-                            .toList();
-
-                        return
-                          // StatefulBuilder(
-                          //   builder: (context, setState) {
-                          //     return Column(
-                          //       children: [
-                          //         CICCDropdown(
-                          //           initialValue: "Select",
-                          //           onChange: (val) {
-                          //             setState(() {
-                          //               for (var doc in snapshot.data!) {
-                          //                 if (doc.docname == val) {
-                          //                   docTypeId = doc.orgDocumentSetupid!;
-                          //
-                          //                   // Show expiry date field only if expirytype is "issuer expiry"
-                          //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
-                          //                 }
-                          //               }
-                          //             });
-                          //           },
-                          //           items: dropDownMenuItems,
-                          //         ),
-                          //         Visibility(
-                          //           visible: showExpiryDateField, // Conditionally display expiry date field
-                          //           child: Padding(
-                          //             padding: const EdgeInsets.only(top: 8.0),
-                          //             child: Container(
-                          //               height: 30, // Set height to 30
-                          //               width: 175, // Set width to 175
-                          //               child: TextField(
-                          //                 controller: expiryDateController,
-                          //                 readOnly: true,
-                          //                 decoration: InputDecoration(
-                          //                   labelText: "Expiry Date",
-                          //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
-                          //                   suffixIcon: IconButton(
-                          //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
-                          //                     onPressed: () async {
-                          //                       DateTime? pickedDate = await showDatePicker(
-                          //                         context: context,
-                          //                         initialDate: DateTime.now(),
-                          //                         firstDate: DateTime(2000),
-                          //                         lastDate: DateTime(2101),
-                          //                       );
-                          //                       if (pickedDate != null) {
-                          //                         setState(() {
-                          //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-                          //                         });
-                          //                       }
-                          //                     },
-                          //                   ),
-                          //                   border: OutlineInputBorder(),
-                          //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
-                          //                   hintText: 'YYYY-MM-DD',
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     );
-                          //   },
-                          // );
-                          ///
-                          StatefulBuilder(
-                            builder: (context, setState) {
-                              return Column(
-                                children: [
-                                  CICCDropdown(
-                                    initialValue: "Select",
-                                    onChange: (val) {
-                                      setState(() {
-                                        // Always reset the expiry field visibility to false initially
-                                        showExpiryDateField = false;
-                                        // Loop through the documents and check the selected value
-                                        for (var doc in snapshot.data!) {
-                                          if (doc.docname ==
-                                              val) {
-                                            docTypeId = doc.orgDocumentSetupid!;
-
-                                            // Show expiry date field only if expirytype is "issuer expiry"
-                                            if (doc.expirytype ==
-                                                AppConfig
-                                                    .issuer) {
-                                              showExpiryDateField =
-                                              true;
-                                            }
-                                          }
-                                        }
-                                      });
-                                    },
-                                    items: dropDownMenuItems,
-                                  ),
-                                  Visibility(
-                                    visible: showExpiryDateField,
-
-                                    /// Conditionally display expiry date field
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(
-                                          top: 8.0),
-                                      child: Container(
-                                        height: 30,
-                                        width: 352,
-                                        child: TextField(
-                                          controller:
-                                          expiryDateController,
-                                          style: GoogleFonts
-                                              .firaSans(
-                                            fontSize:
-                                            FontSize.s12,
-                                            fontWeight:
-                                            FontWeightManager
-                                                .bold,
-                                            color: ColorManager
-                                                .mediumgrey,
-                                          ),
-                                          readOnly: true,
-                                          decoration:
-                                          InputDecoration(
-                                            labelText:
-                                            "Expiry Date",
-                                            labelStyle:
-                                            GoogleFonts
-                                                .firaSans(
-                                              fontSize:
-                                              FontSize.s12,
-                                              fontWeight:
-                                              FontWeightManager
-                                                  .semiBold,
-                                              color: ColorManager
-                                                  .mediumgrey,
-                                            ),
-                                            suffixIcon:
-                                            IconButton(
-                                              icon: Icon(
-                                                  Icons
-                                                      .calendar_today,
-                                                  size: 16),
-                                              onPressed:
-                                                  () async {
-                                                DateTime?
-                                                pickedDate =
-                                                await showDatePicker(
-                                                  context:
-                                                  context,
-                                                  initialDate:
-                                                  DateTime
-                                                      .now(),
-                                                  firstDate:
-                                                  DateTime(
-                                                      2000),
-                                                  lastDate:
-                                                  DateTime(
-                                                      2101),
-                                                );
-                                                if (pickedDate !=
-                                                    null) {
-                                                  setState(() {
-                                                    expiryDateController
-                                                        .text = DateFormat(
-                                                        'yyyy-MM-dd')
-                                                        .format(
-                                                        pickedDate);
-                                                  });
-                                                }
-                                              },
-                                            ),
-                                            border: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: ColorManager
-                                                        .fmediumgrey)),
-                                            contentPadding:
-                                            EdgeInsets.symmetric(
-                                                vertical: 8.0,
-                                                horizontal:
-                                                10.0), // Adjust padding
-                                            hintText:
-                                            'YYYY-MM-DD',
-                                            hintStyle: GoogleFonts
-                                                .firaSans(
-                                              fontSize:
-                                              FontSize.s12,
-                                              fontWeight:
-                                              FontWeightManager
-                                                  .bold,
-                                              color: ColorManager
-                                                  .mediumgrey,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                      } else {
-                        return SizedBox();
-                      }
-                    },
-                  ),
+                  widget.child,
+                  // FutureBuilder<List<TypeofDocpopup>>(
+                  //   future: getTypeofDoc(context,
+                  //       docTypeMetaIdCC, selectedSubDocId) ,
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState ==
+                  //         ConnectionState.waiting) {
+                  //       return Container(
+                  //         width: 350,
+                  //         height: 30,
+                  //         decoration: BoxDecoration(
+                  //           borderRadius:
+                  //           BorderRadius.circular(8),
+                  //         ),
+                  //       );
+                  //     }
+                  //
+                  //     if (!snapshot.hasData ||
+                  //         snapshot.data!.isEmpty) {
+                  //       return Center(
+                  //         child: Text(
+                  //           AppString.dataNotFound,
+                  //           style: CustomTextStylesCommon
+                  //               .commonStyle(
+                  //             fontWeight:
+                  //             FontWeightManager.medium,
+                  //             fontSize: FontSize.s12,
+                  //             color: ColorManager.mediumgrey,
+                  //           ),
+                  //         ),
+                  //       );
+                  //     }
+                  //
+                  //     if (snapshot.hasData) {
+                  //       List<DropdownMenuItem<String>>
+                  //       dropDownMenuItems = snapshot.data!
+                  //           .map((doc) =>
+                  //           DropdownMenuItem<String>(
+                  //             value: doc.docname,
+                  //             child: Text(doc.docname!),
+                  //           ))
+                  //           .toList();
+                  //
+                  //       return
+                  //         // StatefulBuilder(
+                  //         //   builder: (context, setState) {
+                  //         //     return Column(
+                  //         //       children: [
+                  //         //         CICCDropdown(
+                  //         //           initialValue: "Select",
+                  //         //           onChange: (val) {
+                  //         //             setState(() {
+                  //         //               for (var doc in snapshot.data!) {
+                  //         //                 if (doc.docname == val) {
+                  //         //                   docTypeId = doc.orgDocumentSetupid!;
+                  //         //
+                  //         //                   // Show expiry date field only if expirytype is "issuer expiry"
+                  //         //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
+                  //         //                 }
+                  //         //               }
+                  //         //             });
+                  //         //           },
+                  //         //           items: dropDownMenuItems,
+                  //         //         ),
+                  //         //         Visibility(
+                  //         //           visible: showExpiryDateField, // Conditionally display expiry date field
+                  //         //           child: Padding(
+                  //         //             padding: const EdgeInsets.only(top: 8.0),
+                  //         //             child: Container(
+                  //         //               height: 30, // Set height to 30
+                  //         //               width: 175, // Set width to 175
+                  //         //               child: TextField(
+                  //         //                 controller: expiryDateController,
+                  //         //                 readOnly: true,
+                  //         //                 decoration: InputDecoration(
+                  //         //                   labelText: "Expiry Date",
+                  //         //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
+                  //         //                   suffixIcon: IconButton(
+                  //         //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
+                  //         //                     onPressed: () async {
+                  //         //                       DateTime? pickedDate = await showDatePicker(
+                  //         //                         context: context,
+                  //         //                         initialDate: DateTime.now(),
+                  //         //                         firstDate: DateTime(2000),
+                  //         //                         lastDate: DateTime(2101),
+                  //         //                       );
+                  //         //                       if (pickedDate != null) {
+                  //         //                         setState(() {
+                  //         //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                  //         //                         });
+                  //         //                       }
+                  //         //                     },
+                  //         //                   ),
+                  //         //                   border: OutlineInputBorder(),
+                  //         //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
+                  //         //                   hintText: 'YYYY-MM-DD',
+                  //         //                 ),
+                  //         //               ),
+                  //         //             ),
+                  //         //           ),
+                  //         //         ),
+                  //         //       ],
+                  //         //     );
+                  //         //   },
+                  //         // );
+                  //         ///
+                  //         StatefulBuilder(
+                  //           builder: (context, setState) {
+                  //             return Column(
+                  //               children: [
+                  //                 CICCDropdown(
+                  //                   initialValue: "Select",
+                  //                   onChange: (val) {
+                  //                     setState(() {
+                  //                       // Always reset the expiry field visibility to false initially
+                  //                       showExpiryDateField = false;
+                  //                       // Loop through the documents and check the selected value
+                  //                       for (var doc in snapshot.data!) {
+                  //                         if (doc.docname ==
+                  //                             val) {
+                  //                           docTypeId = doc.orgDocumentSetupid!;
+                  //
+                  //                           // Show expiry date field only if expirytype is "issuer expiry"
+                  //                           if (doc.expirytype ==
+                  //                               AppConfig
+                  //                                   .issuer) {
+                  //                             showExpiryDateField =
+                  //                             true;
+                  //                           }
+                  //                         }
+                  //                       }
+                  //                     });
+                  //                   },
+                  //                   items: dropDownMenuItems,
+                  //                 ),
+                  //                 Visibility(
+                  //                   visible: showExpiryDateField,
+                  //
+                  //                   /// Conditionally display expiry date field
+                  //                   child: Padding(
+                  //                     padding:
+                  //                     const EdgeInsets.only(
+                  //                         top: 8.0),
+                  //                     child: Container(
+                  //                       height: 30,
+                  //                       width: 352,
+                  //                       child: TextField(
+                  //                         controller:
+                  //                         expiryDateController,
+                  //                         style: GoogleFonts
+                  //                             .firaSans(
+                  //                           fontSize:
+                  //                           FontSize.s12,
+                  //                           fontWeight:
+                  //                           FontWeightManager
+                  //                               .bold,
+                  //                           color: ColorManager
+                  //                               .mediumgrey,
+                  //                         ),
+                  //                         readOnly: true,
+                  //                         decoration:
+                  //                         InputDecoration(
+                  //                           labelText:
+                  //                           "Expiry Date",
+                  //                           labelStyle:
+                  //                           GoogleFonts
+                  //                               .firaSans(
+                  //                             fontSize:
+                  //                             FontSize.s12,
+                  //                             fontWeight:
+                  //                             FontWeightManager
+                  //                                 .semiBold,
+                  //                             color: ColorManager
+                  //                                 .mediumgrey,
+                  //                           ),
+                  //                           suffixIcon:
+                  //                           IconButton(
+                  //                             icon: Icon(
+                  //                                 Icons
+                  //                                     .calendar_today,
+                  //                                 size: 16),
+                  //                             onPressed:
+                  //                                 () async {
+                  //                               DateTime?
+                  //                               pickedDate =
+                  //                               await showDatePicker(
+                  //                                 context:
+                  //                                 context,
+                  //                                 initialDate:
+                  //                                 DateTime
+                  //                                     .now(),
+                  //                                 firstDate:
+                  //                                 DateTime(
+                  //                                     2000),
+                  //                                 lastDate:
+                  //                                 DateTime(
+                  //                                     2101),
+                  //                               );
+                  //                               if (pickedDate !=
+                  //                                   null) {
+                  //                                 setState(() {
+                  //                                   expiryDateController
+                  //                                       .text = DateFormat(
+                  //                                       'yyyy-MM-dd')
+                  //                                       .format(
+                  //                                       pickedDate);
+                  //                                 });
+                  //                               }
+                  //                             },
+                  //                           ),
+                  //                           border: OutlineInputBorder(
+                  //                               borderSide: BorderSide(
+                  //                                   color: ColorManager
+                  //                                       .fmediumgrey)),
+                  //                           contentPadding:
+                  //                           EdgeInsets.symmetric(
+                  //                               vertical: 8.0,
+                  //                               horizontal:
+                  //                               10.0), // Adjust padding
+                  //                           hintText:
+                  //                           'YYYY-MM-DD',
+                  //                           hintStyle: GoogleFonts
+                  //                               .firaSans(
+                  //                             fontSize:
+                  //                             FontSize.s12,
+                  //                             fontWeight:
+                  //                             FontWeightManager
+                  //                                 .bold,
+                  //                             color: ColorManager
+                  //                                 .mediumgrey,
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             );
+                  //           },
+                  //         );
+                  //     } else {
+                  //       return SizedBox();
+                  //     }
+                  //   },
+                  // ),
                   SizedBox(height: AppSize.s5),
                   Padding(
                     padding: const EdgeInsets.only(
