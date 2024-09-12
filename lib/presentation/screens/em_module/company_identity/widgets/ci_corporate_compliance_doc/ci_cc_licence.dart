@@ -74,6 +74,7 @@ class _CICCLicenseState extends State<CICCLicense> {
     }).catchError((error) {
       // Handle error
     });
+    print("prachi:::::: ${widget.officeId}");
   }
 
   @override
@@ -88,10 +89,6 @@ class _CICCLicenseState extends State<CICCLicense> {
           ),
           Expanded(
             child: StreamBuilder<List<MCorporateComplianceModal>>(
-                // future:
-                // getListMCorporateCompliancefetch(context,
-                //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-                // ),
                stream: lisenceController.stream,
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(context,
@@ -100,16 +97,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                       .then((data) {
                     lisenceController.add(data);
                   }).catchError((error) {
-                    // Handle error
                   });
-                  ///
-                  // getManageCorporate(context, widget.officeId, widget.docId,
-                  //         widget.subDocId, 1, 20)
-                  //     .then((data) {
-                  //   lisenceController.add(data);
-                  // }).catchError((error) {
-                  //   // Handle error
-                  // });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -776,7 +764,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
-                                                                              await deleteOrgDoc(context: context, orgDocId: widget.docId,);
+                                                                              await deleteOrgDoc(context: context, orgDocId: manageCCLicence.orgOfficeDocumentId ,);
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
                                                                                 await getListMCorporateCompliancefetch(context,

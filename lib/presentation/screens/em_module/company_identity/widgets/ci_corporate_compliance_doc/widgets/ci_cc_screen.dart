@@ -95,6 +95,7 @@ class _CiCorporateComplianceScreenState
     selectedSubDocTypeValue = "Select Sub Document";
     docTypeFuture = documentTypeGet(context);
     _updateSelectedSubDocId(selectedSubDocId);
+    print("office id ::::::::${widget.officeId}");
   }
 
   void _selectButton(int index) {

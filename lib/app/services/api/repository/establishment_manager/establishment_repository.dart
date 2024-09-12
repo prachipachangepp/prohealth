@@ -66,7 +66,8 @@ class EstablishmentManagerRepository {
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
 
-  static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
+  // static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
+  static String getCCList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
 
   static String addofficeservices = "/company-office-service/add";
 

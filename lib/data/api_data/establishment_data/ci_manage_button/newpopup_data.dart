@@ -36,6 +36,7 @@ class MCorporateComplianceModal {
   final int companyId;
   final String officeId;
 
+
   MCorporateComplianceModal(
   {
     required this.orgOfficeDocumentId,

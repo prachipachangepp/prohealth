@@ -23,7 +23,8 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getListMCorporateCompliance(
             DocumentTypeId: DocumentTypeId,
-            DocumentSubTypeId: DocumentSubTypeId, pageNbr: pageNbr, NbrofRows: NbrofRows));
+            DocumentSubTypeId: DocumentSubTypeId,
+            pageNbr: pageNbr, NbrofRows: NbrofRows));
     print(" Prachi Corporate Compliance response:::::${response.data}");
     if (response.statusCode == 200 || response.statusCode == 201) {
 
