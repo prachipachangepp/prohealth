@@ -233,7 +233,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 ////add
 
 class VCScreenPopupADDConst extends StatefulWidget {
-  // final Widget child;
+   final Widget child;
   final String title;
   bool? loadingDuration;
   final VoidCallback onPressed;
@@ -245,7 +245,7 @@ class VCScreenPopupADDConst extends StatefulWidget {
 
   VCScreenPopupADDConst({
     super.key,
-    // required this.child,
+    required this.child,
     required this.title,
     required this.onPressed,
     this.height,
@@ -854,7 +854,7 @@ class UploadDocumentAddPopup extends StatefulWidget {
   bool? loadingDuration;
   final VoidCallback onPressed;
   final double? height;
-  // final Widget? uploadField;
+  final Widget? uploadField;
   dynamic filePath;
   String? fileName;
   // final Visibility? child3;
@@ -864,7 +864,7 @@ class UploadDocumentAddPopup extends StatefulWidget {
     required this.onPressed,
    this.loadingDuration,
     this.height,
-    // this.uploadField,
+     this.uploadField,
     // this.child3
  });
 

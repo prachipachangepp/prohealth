@@ -407,7 +407,7 @@ Future<ApiData> addOrgDocPPPost({
     var data = {
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
-      "expiry_date": "",
+      "expiry_date": expiryDate,
       "doc_created_at": docCreated,
       "company_id": companyId,
       "url": url,
