@@ -373,11 +373,18 @@ class _CiCorporateComplianceScreenState
 
                                     ///Add Doctype API on save button
                                     try {
+
+                                      String? expiryDate;
+                                      if (expiryDateController.text.isEmpty) {
+                                        expiryDate = null;
+                                      } else {
+                                        expiryDate = expiryDateController.text;
+                                      }
                                       ApiData response = await addOrgDocPPPost(
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
                                         idOfDocument: "PPP",
-                                        expiryDate: expiryDateController.text,
+                                        expiryDate: expiryDate,
                                         docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",
                                         officeId: widget.officeId,
@@ -444,68 +451,6 @@ class _CiCorporateComplianceScreenState
                                                 .toList();
 
                                         return
-                                            // StatefulBuilder(
-                                            //   builder: (context, setState) {
-                                            //     return Column(
-                                            //       children: [
-                                            //         CICCDropdown(
-                                            //           initialValue: "Select",
-                                            //           onChange: (val) {
-                                            //             setState(() {
-                                            //               for (var doc in snapshot.data!) {
-                                            //                 if (doc.docname == val) {
-                                            //                   docTypeId = doc.orgDocumentSetupid!;
-                                            //
-                                            //                   // Show expiry date field only if expirytype is "issuer expiry"
-                                            //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
-                                            //                 }
-                                            //               }
-                                            //             });
-                                            //           },
-                                            //           items: dropDownMenuItems,
-                                            //         ),
-                                            //         Visibility(
-                                            //           visible: showExpiryDateField, // Conditionally display expiry date field
-                                            //           child: Padding(
-                                            //             padding: const EdgeInsets.only(top: 8.0),
-                                            //             child: Container(
-                                            //               height: 30, // Set height to 30
-                                            //               width: 175, // Set width to 175
-                                            //               child: TextField(
-                                            //                 controller: expiryDateController,
-                                            //                 readOnly: true,
-                                            //                 decoration: InputDecoration(
-                                            //                   labelText: "Expiry Date",
-                                            //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
-                                            //                   suffixIcon: IconButton(
-                                            //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
-                                            //                     onPressed: () async {
-                                            //                       DateTime? pickedDate = await showDatePicker(
-                                            //                         context: context,
-                                            //                         initialDate: DateTime.now(),
-                                            //                         firstDate: DateTime(2000),
-                                            //                         lastDate: DateTime(2101),
-                                            //                       );
-                                            //                       if (pickedDate != null) {
-                                            //                         setState(() {
-                                            //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-                                            //                         });
-                                            //                       }
-                                            //                     },
-                                            //                   ),
-                                            //                   border: OutlineInputBorder(),
-                                            //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
-                                            //                   hintText: 'YYYY-MM-DD',
-                                            //                 ),
-                                            //               ),
-                                            //             ),
-                                            //           ),
-                                            //         ),
-                                            //       ],
-                                            //     );
-                                            //   },
-                                            // );
-                                            ///
 
                                             StatefulBuilder(
                                           builder: (context, setState) {
@@ -540,105 +485,86 @@ class _CiCorporateComplianceScreenState
                                                   },
                                                   items: dropDownMenuItems,
                                                 ),
+                                                SizedBox(height: 10,),
                                                 Visibility(
                                                   visible: showExpiryDateField,
 
                                                   /// Conditionally display expiry date field
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 352,
-                                                      child: TextField(
-                                                        controller:
-                                                            expiryDateController,
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          fontWeight:
-                                                              FontWeightManager
-                                                                  .bold,
-                                                          color: ColorManager
-                                                              .mediumgrey,
-                                                        ),
-                                                        readOnly: true,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              "Expiry Date",
-                                                          labelStyle:
-                                                              GoogleFonts
-                                                                  .firaSans(
-                                                            fontSize:
-                                                                FontSize.s12,
-                                                            fontWeight:
-                                                                FontWeightManager
-                                                                    .semiBold,
-                                                            color: ColorManager
-                                                                .mediumgrey,
-                                                          ),
-                                                          suffixIcon:
-                                                              IconButton(
-                                                            icon: Icon(
-                                                                Icons
-                                                                    .calendar_today,
-                                                                size: 16),
-                                                            onPressed:
-                                                                () async {
-                                                              DateTime?
-                                                                  pickedDate =
-                                                                  await showDatePicker(
-                                                                context:
-                                                                    context,
-                                                                initialDate:
-                                                                    DateTime
-                                                                        .now(),
-                                                                firstDate:
-                                                                    DateTime(
-                                                                        2000),
-                                                                lastDate:
-                                                                    DateTime(
-                                                                        2101),
-                                                              );
-                                                              if (pickedDate !=
-                                                                  null) {
-                                                                setState(() {
-                                                                  expiryDateController
-                                                                      .text = DateFormat(
-                                                                          'yyyy-MM-dd')
-                                                                      .format(
-                                                                          pickedDate);
-                                                                });
-                                                              }
-                                                            },
-                                                          ),
-                                                          border: OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: ColorManager
-                                                                      .fmediumgrey)),
-                                                          contentPadding:
-                                                              EdgeInsets.symmetric(
-                                                                  vertical: 8.0,
-                                                                  horizontal:
-                                                                      10.0), // Adjust padding
-                                                          hintText:
-                                                              'YYYY-MM-DD',
-                                                          hintStyle: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize:
-                                                                FontSize.s12,
-                                                            fontWeight:
-                                                                FontWeightManager
-                                                                    .bold,
-                                                            color: ColorManager
-                                                                .mediumgrey,
+                                                  child:   Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(left: 2),
+                                                        child: Text(
+                                                          "Expiry Date",
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorManager.mediumgrey,
+                                                            decoration: TextDecoration.none,
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
+                                                      SizedBox(height: 5,),
+                                                      FormField<String>(
+                                                        builder: (FormFieldState<String> field) {
+                                                          return SizedBox(
+                                                            width: 354,
+                                                            height: 30,
+                                                            child: TextFormField(
+                                                              controller: expiryDateController,
+                                                              cursorColor: ColorManager.black,
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: FontSize.s12,
+                                                                fontWeight: FontWeight.w700,
+                                                                color: ColorManager.mediumgrey,
+                                                              ),
+                                                              decoration: InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                ),
+                                                                hintText: 'mm-dd-yyyy',
+                                                                hintStyle: GoogleFonts.firaSans(
+                                                                  fontSize: FontSize.s12,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  color: ColorManager.mediumgrey,
+                                                                ),
+                                                                border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                  borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                                                                ),
+                                                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                                suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                                                errorText: field.errorText,
+                                                              ),
+                                                              onTap: () async {
+                                                                DateTime? pickedDate = await showDatePicker(
+                                                                  context: context,
+                                                                  initialDate: DateTime.now(),
+                                                                  firstDate: DateTime(1901),
+                                                                  lastDate: DateTime(3101),
+                                                                );
+                                                                if (pickedDate != null) {
+                                                                  expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                }
+                                                              },
+                                                              validator: (value) {
+                                                                if (value == null || value.isEmpty) {
+                                                                  return 'please select date';
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],

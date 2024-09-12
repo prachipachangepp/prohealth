@@ -68,6 +68,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
 
   int currentPage = 1;
   int docTypeId = 0;
+  String? documentID;
   final int itemsPerPage = 10;
   final int totalPages = 5;
 
@@ -161,9 +162,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             docCreated: DateTime.now().toIso8601String()+"Z",
                                             url: "",
                                             officeId: widget.officeId);
-                                        // print(expiryDateToSend);
-                                        // print(DateTime.now().toIso8601String());
-                                        // print(widget.officeId);
+                                        print(expiryDateToSend);
+                                        print(DateTime.now().toIso8601String());
+                                        print(widget.officeId);
                                         expiryDateController.clear();
 
                                         if (response.statusCode == 200 || response.statusCode == 201) {
@@ -286,7 +287,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        "ID : ${policiesdata.docName}",
                                                         style: GoogleFonts
                                                             .firaSans(
                                                           fontSize: 10,
@@ -318,7 +319,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           showDialog(
                                                             context: context,
                                                             builder: (context) => ManageHistoryPopup(
-                                                              docHistory: [],// policiesdata.docHistory,
+                                                              docHistory: policiesdata.docHistory,
                                                             ),
                                                           );
                                                         },
