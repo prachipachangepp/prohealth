@@ -19,11 +19,11 @@ class _App extends State<App> {
   void initState() {
     super.initState();
     // If splash screen hasn't been shown, navigate to it.
-    if (!_hasShownSplash) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _navigateToSplashScreen();
-      });
-    }
+    // if (!_hasShownSplash) {
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     _navigateToSplashScreen();
+    //   });
+    // }
   }
 
   void _navigateToSplashScreen() async {
