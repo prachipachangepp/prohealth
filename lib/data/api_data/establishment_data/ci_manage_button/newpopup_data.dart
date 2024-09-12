@@ -25,3 +25,27 @@ class TypeofDocpopup {
         this.hasIssuerExpiry,
       });
 }
+
+///get
+class MCorporateComplianceModal {
+  final int orgOfficeDocumentId;
+  final int orgDocumentSetupid;
+  final String idOfDocument;
+  final String doc_created_at;
+  final String expiry_date;
+  final String url;
+  final int companyId;
+  final String officeId;
+
+  MCorporateComplianceModal(
+      {
+        required this.orgOfficeDocumentId,
+        required this.orgDocumentSetupid,
+        required this.idOfDocument,
+        required this.doc_created_at,
+        required this.expiry_date,
+        required this.url,
+        required this.companyId,
+        required this.officeId
+      });
+}

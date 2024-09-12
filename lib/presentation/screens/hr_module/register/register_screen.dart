@@ -155,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 lastNameController.text,
                                 selectedDeptId!,// roleController.text,
                                 emailController.text,
-                                1, // int.parse(companyIdController.text),
+                                //1, // int.parse(companyIdController.text),
                                 passwordController.text);
 
                             getUser(context).then((data) {

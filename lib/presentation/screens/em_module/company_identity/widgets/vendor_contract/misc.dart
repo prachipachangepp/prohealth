@@ -252,36 +252,35 @@ class _CiMiscState extends State<CiMisc> {
 
 
 
-                                                                          ApiData response =
-                                                                          await addOrgDocPPPost(
-                                                                            context: context,
-                                                                            orgDocumentSetupid: docTypeId,
-                                                                            idOfDocument: "PPP",
-                                                                            expiryDate: "2024-09-10T07:04:41.358Z",
-                                                                            docCreatedat: "2024-08-16T09:39:48.030Z",
-                                                                            companyid: widget.companyID,
-                                                                            url: "url",
-                                                                            officeid: widget.officeId,);
-                                                                          if (response.statusCode ==200 || response.statusCode==201){
-                                                                            await uploadDocumentsoffice(context: context, documentFile: filePath, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                                                                          }
-                                                                          // String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                          //     ? "Not Applicable"
-                                                                          //     : calenderController.text;
-                                                                          // await updateManageCCVVPP(
-                                                                          //     context: context,
-                                                                          //     docId: documentPreId,
-                                                                          //     name: name == docNameController.text ? name.toString() : docNameController.text,
-                                                                          //     docTypeID: AppConfig.vendorContracts,// documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
-                                                                          //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                                          //     docCreated: DateTime.now().toString(),
-                                                                          //     url: "url",
-                                                                          //     expiryType: selectedExpiryType ?? expiryType.toString(),
-                                                                          //     expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                          //     expiryReminder: selectedExpiryType ?? expiryType.toString(),
-                                                                          //     officeId: widget.officeId,
-                                                                          //     idOfDoc: snapshotPrefill.data!.idOfDoc
-                                                                          // );
+                                                                          // ApiData response =
+                                                                          // await addOrgDocPPPost(
+                                                                          //   context: context,
+                                                                          //   orgDocumentSetupid: docTypeId,
+                                                                          //   idOfDocument: "PPP",
+                                                                          //   expiryDate: "2024-09-10T07:04:41.358Z",
+                                                                          //   docCreated: "2024-08-16T09:39:48.030Z",
+                                                                          //   url: "url",
+                                                                          //   officeId: widget.officeId,);
+                                                                          // if (response.statusCode ==200 || response.statusCode==201){
+                                                                          //   await uploadDocumentsoffice(context: context, documentFile: filePath, orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                                                          // }
+                                                                          String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                                              ? "Not Applicable"
+                                                                              : calenderController.text;
+                                                                          await updateManageCCVVPP(
+                                                                              context: context,
+                                                                              docId: documentPreId,
+                                                                              name: name == docNameController.text ? name.toString() : docNameController.text,
+                                                                              docTypeID: AppConfig.vendorContracts,// documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
+                                                                              docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                                              docCreated: DateTime.now().toString(),
+                                                                              url: "url",
+                                                                              expiryType: selectedExpiryType ?? expiryType.toString(),
+                                                                              expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
+                                                                              expiryReminder: selectedExpiryType ?? expiryType.toString(),
+                                                                              officeId: widget.officeId,
+                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
+                                                                          );
                                                                         } finally {
                                                                           setState(
                                                                                   () {

@@ -247,23 +247,24 @@ class _CiMdState extends State<CiMd> {
                                                                           String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                                               ? "Not Applicable"
                                                                               : calenderController.text;
-                                                                          // await updateOrgDoc(context: context,
-                                                                          //     orgDocId: documentPreId, orgDocumentSetupid: null,
-                                                                          //     idOfDocument: '', expiryDate: '', docCreatedat: '', url: "", officeid: widget.officeId,);
-                                                                          await updateManageCCVVPP(
-                                                                              context: context,
-                                                                              docId: documentPreId,
-                                                                              name: name == docNameController.text ? name.toString() : docNameController.text,
-                                                                              docTypeID: AppConfig.vendorContracts,// documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
-                                                                              docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                                              docCreated: DateTime.now().toString(),
-                                                                              url: "url",
-                                                                              expiryType: selectedExpiryType ?? expiryType.toString(),
-                                                                              expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                              expiryReminder: selectedExpiryType ?? expiryType.toString(),
-                                                                              officeId: widget.officeId,
-                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
-                                                                          );
+                                                                          await updateOrgDoc(context: context,
+                                                                              orgDocId: documentPreId, orgDocumentSetupid: 1,
+                                                                              idOfDocument: '', expiryDate: '',
+                                                                            docCreatedat: '', url: "", officeid: widget.officeId,);
+                                                                          // await updateManageCCVVPP(
+                                                                          //     context: context,
+                                                                          //     docId: documentPreId,
+                                                                          //     name: name == docNameController.text ? name.toString() : docNameController.text,
+                                                                          //     docTypeID: AppConfig.vendorContracts,// documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
+                                                                          //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                                          //     docCreated: DateTime.now().toString(),
+                                                                          //     url: "url",
+                                                                          //     expiryType: selectedExpiryType ?? expiryType.toString(),
+                                                                          //     expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
+                                                                          //     expiryReminder: selectedExpiryType ?? expiryType.toString(),
+                                                                          //     officeId: widget.officeId,
+                                                                          //     idOfDoc: snapshotPrefill.data!.idOfDoc
+                                                                          // );
                                                                         } finally {
                                                                           setState(
                                                                                   () {

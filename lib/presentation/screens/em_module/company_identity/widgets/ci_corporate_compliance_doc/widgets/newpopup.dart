@@ -1533,7 +1533,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   }
 }
 
-
+///manage policy post
 class PoliciesProcedureAddPopUp extends StatefulWidget {
   final String title;
   bool? loadingDuration;
@@ -1542,6 +1542,8 @@ class PoliciesProcedureAddPopUp extends StatefulWidget {
   final Widget? uploadField;
   dynamic filePath;
   String? fileName;
+  final Function(int) onDocTypeSelected;
+  final Function(String?) onExpiryDateSelected;
    PoliciesProcedureAddPopUp({
     super.key,
     // required this.child,
@@ -1551,6 +1553,8 @@ class PoliciesProcedureAddPopUp extends StatefulWidget {
     this.loadingDuration,
     this.uploadField,
     this.fileName,this.filePath,
+     required this.onDocTypeSelected,
+     required this.onExpiryDateSelected,
 });
 
   @override
@@ -1566,8 +1570,8 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
   String _url = "";
   bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
-  int docTypeMetaIdCC = AppConfig.vendorContracts;
-  int selectedSubDocId = AppConfig.subDocId6Leases;
+  int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
+  int selectedSubDocId = AppConfig.subDocId0;
   @override
   void initState() {
     super.initState();
@@ -1645,19 +1649,6 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // SMTextFConst(
-                  //   enable: false,
-                  //   // readOnly: true,
-                  //   controller: widget.idOfDocController,
-                  //   keyboardType: TextInputType.text,
-                  //   text: AppString.id_of_the_document,
-                  // ),
-                  // SizedBox(height: AppSize.s12),
-                  // SMTextFConst(
-                  //   controller: widget.nameDocController,
-                  //   keyboardType: TextInputType.text,
-                  //   text: AppString.name_of_the_document,
-                  // ),
                   SizedBox(height: AppSize.s12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1673,8 +1664,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                       ),
                       SizedBox(height: AppSize.s5),
                       FutureBuilder<List<TypeofDocpopup>>(
-                        future: getTypeofDoc(context,
-                            docTypeMetaIdCC, selectedSubDocId) ,
+                        future: getTypeofDoc(context, docTypeMetaIdPP, selectedSubDocId) ,
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -1715,67 +1705,6 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                                 .toList();
 
                             return
-                              // StatefulBuilder(
-                              //   builder: (context, setState) {
-                              //     return Column(
-                              //       children: [
-                              //         CICCDropdown(
-                              //           initialValue: "Select",
-                              //           onChange: (val) {
-                              //             setState(() {
-                              //               for (var doc in snapshot.data!) {
-                              //                 if (doc.docname == val) {
-                              //                   docTypeId = doc.orgDocumentSetupid!;
-                              //
-                              //                   // Show expiry date field only if expirytype is "issuer expiry"
-                              //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
-                              //                 }
-                              //               }
-                              //             });
-                              //           },
-                              //           items: dropDownMenuItems,
-                              //         ),
-                              //         Visibility(
-                              //           visible: showExpiryDateField, // Conditionally display expiry date field
-                              //           child: Padding(
-                              //             padding: const EdgeInsets.only(top: 8.0),
-                              //             child: Container(
-                              //               height: 30, // Set height to 30
-                              //               width: 175, // Set width to 175
-                              //               child: TextField(
-                              //                 controller: expiryDateController,
-                              //                 readOnly: true,
-                              //                 decoration: InputDecoration(
-                              //                   labelText: "Expiry Date",
-                              //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
-                              //                   suffixIcon: IconButton(
-                              //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
-                              //                     onPressed: () async {
-                              //                       DateTime? pickedDate = await showDatePicker(
-                              //                         context: context,
-                              //                         initialDate: DateTime.now(),
-                              //                         firstDate: DateTime(2000),
-                              //                         lastDate: DateTime(2101),
-                              //                       );
-                              //                       if (pickedDate != null) {
-                              //                         setState(() {
-                              //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-                              //                         });
-                              //                       }
-                              //                     },
-                              //                   ),
-                              //                   border: OutlineInputBorder(),
-                              //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
-                              //                   hintText: 'YYYY-MM-DD',
-                              //                 ),
-                              //               ),
-                              //             ),
-                              //           ),
-                              //         ),
-                              //       ],
-                              //     );
-                              //   },
-                              // );
                               ///
                               StatefulBuilder(
                                 builder: (context, setState) {
@@ -1785,20 +1714,16 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                                         initialValue: "Select",
                                         onChange: (val) {
                                           setState(() {
-                                            // Always reset the expiry field visibility to false initially
                                             showExpiryDateField = false;
-                                            // Loop through the documents and check the selected value
                                             for (var doc in snapshot.data!) {
-                                              if (doc.docname ==
-                                                  val) {
+                                              if (doc.docname == val) {
                                                 docTypeId = doc.orgDocumentSetupid!;
+                                                widget.onDocTypeSelected(docTypeId);
+                                                print(doc.orgDocumentSetupid);
 
                                                 // Show expiry date field only if expirytype is "issuer expiry"
-                                                if (doc.expirytype ==
-                                                    AppConfig
-                                                        .issuer) {
-                                                  showExpiryDateField =
-                                                  true;
+                                                if (doc.expirytype == AppConfig.issuer) {
+                                                  showExpiryDateField = true;
                                                 }
                                               }
                                             }
@@ -1872,11 +1797,8 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                                                     if (pickedDate !=
                                                         null) {
                                                       setState(() {
-                                                        expiryDateController
-                                                            .text = DateFormat(
-                                                            'yyyy-MM-dd')
-                                                            .format(
-                                                            pickedDate);
+                                                        expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                                        widget.onExpiryDateSelected(expiryDateController.text); // Pass expiry date back to parent screen
                                                       });
                                                     }
                                                   },
@@ -1992,87 +1914,11 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                           },
                         ),
                       ),
-                      // Container(
-                      //   height: AppSize.s30,
-                      //   width: AppSize.s354,
-                      //   // margin: EdgeInsets.symmetric(horizontal: 5),
-                      //   decoration: BoxDecoration(
-                      //     // color: Colors.greenAccent,
-                      //     border: Border.all(
-                      //       color: ColorManager.containerBorderGrey,
-                      //       width: 1,
-                      //     ),
-                      //     borderRadius: BorderRadius.circular(4),
-                      //   ),
-                      //   child: StatefulBuilder(
-                      //     builder: (BuildContext context,
-                      //         void Function(void Function()) setState) {
-                      //       return Padding(
-                      //         padding: const EdgeInsets.all(0),
-                      //         child: Row(
-                      //           mainAxisAlignment:
-                      //           MainAxisAlignment.spaceBetween,
-                      //           children: [
-                      //             Text(
-                      //               fileName,
-                      //               style: GoogleFonts.firaSans(
-                      //                 fontSize: FontSize.s12,
-                      //                 fontWeight: FontWeightManager.regular,
-                      //                 color: ColorManager.lightgreyheading,
-                      //               ),
-                      //             ),
-                      //             IconButton(
-                      //               padding: EdgeInsets.all(4),
-                      //               onPressed: _pickFile,
-                      //               icon: Icon(
-                      //                 Icons.file_upload_outlined,
-                      //                 color: ColorManager.black,
-                      //                 size: 17,
-                      //               ),
-                      //               splashColor: Colors.transparent,
-                      //               highlightColor: Colors.transparent,
-                      //               hoverColor: Colors.transparent,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
                     ],
                   ),
-                  //       SizedBox(height: AppSize.s5),
-                  //       if (widget.child1 != null) ...[
-                  //         Text(
-                  //           AppString.sub_type_of_the_document,
-                  //           style: GoogleFonts.firaSans(
-                  //             fontSize: FontSize.s12,
-                  //             fontWeight: FontWeightManager.bold,
-                  //             color: ColorManager.mediumgrey,
-                  //             decoration: TextDecoration.none,
-                  //           ),
-                  //         ),
-                  //         SizedBox(height: AppSize.s5),
-                  //       ],
-                  //       widget.child1 ?? Offstage(),
                 ],
               ),
             ),
-            // SizedBox(height: AppSize.s5),
-            // ///radio
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
-            //   child: widget.radioButton,
-            // ),
-            // SizedBox(height: AppSize.s10),
-            //
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //     left: AppPadding.p20,
-            //     right: AppPadding.p20,
-            //   ),
-            //   child: widget.child2,
-            // ),
             SizedBox(height: AppSize.s20),
 
             ///button
@@ -2092,49 +1938,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    // //  print('File path on pressed ${filePath}');
-                    // setState(() {
-                    // _isLoading = true;
-                    // });
-                    // // String expiryTypeToSend =
-                    // // selectedExpiryType == "Not Applicable"
-                    // // ? "Not Applicable"
-                    // //     : calenderController.text;
-                    // try {
-                    // ApiData response =
-                    // await addOrgDocPPPost(
-                    // context: context,
-                    // orgDocumentSetupid: null,
-                    // idOfDocument: docTypeMetaId,
-                    // expiryDate: "2024-08-16T09:39:48.030Z",
-                    // docCreatedat: "2024-08-16T09:39:48.030Z",
-                    // companyid: widget.companyID,
-                    // url: "url",
-                    // officeid: widget.officeId,);
-                    // if (response.statusCode ==200 || response.statusCode==201){
-                    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    // }
-                    //
-                    // // await addManageCCVCPPPost(
-                    // //   context: context,
-                    // //   name: docNamecontroller.text,
-                    // // docTypeID: docTypeMetaId,
-                    // //   docSubTypeID: docSubTypeMetaId,
-                    // //   expiryType: selectedExpiryType.toString(),
-                    // //   expiryDate: calenderController.text,//expiryTypeToSend,
-                    // //   expiryReminder: selectedExpiryType.toString(),
-                    // //   officeId: widget.officeId,
-                    // //   idOfDoc: docIdController.text
-                    // // );
-                    // // Navigator.pop(context);
-                    // } finally {
-                    // setState(() {
-                    // _isLoading = false;
-                    // });
-                    // }
-                    // },
-
-                    widget.onPressed!();
+                    widget.onPressed();
                   },
                 ),
               ),

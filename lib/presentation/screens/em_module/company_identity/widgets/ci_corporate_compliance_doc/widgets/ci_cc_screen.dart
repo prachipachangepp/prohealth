@@ -349,7 +349,7 @@ class _CiCorporateComplianceScreenState
                 padding: const EdgeInsets.only(bottom: 5.0, right: 5),
                 child: CustomIconButton(
                     icon: CupertinoIcons.plus,
-                    text: "Add Doctype",
+                    text: "Add Document",
                     onPressed: () async {
                       String? selectedExpiryType = expiryType;
                       calenderController.clear();
@@ -380,10 +380,9 @@ class _CiCorporateComplianceScreenState
                                         expiryDate:
                                         // selectedExpiryType.toString(),
                                         expiryDateController.text,
-                                        docCreatedat: DateTime.now().toIso8601String(),
-                                        companyid: widget.companyID,
+                                        docCreated: DateTime.now().toIso8601String(),
                                         url: "url",
-                                        officeid: widget.officeId,
+                                        officeId: widget.officeId,
                                       );
                                       expiryDateController.clear();
                                       if (response.statusCode == 200 ||

@@ -349,7 +349,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
               ),
               CustomIconButton(
                   icon: CupertinoIcons.plus,
-                  text: "Add Doctype",
+                  text: "Add Document",
                   onPressed: () async {
                     String? selectedExpiryType = expiryType;
                     calenderController.clear();
@@ -380,10 +380,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       expiryDate:
                                       // selectedExpiryType.toString(),
                                       expiryDateController.text,
-                                      docCreatedat: DateTime.now().toIso8601String(),
-                                      companyid: widget.companyID,
+                                      docCreated: DateTime.now().toIso8601String(),
                                       url: "url",
-                                      officeid: widget.officeId,
+                                      officeId: widget.officeId,
                                     );
                                     expiryDateController.clear();
                                     if (response.statusCode == 200 ||
