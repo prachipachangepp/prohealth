@@ -383,7 +383,7 @@ class _CiCorporateComplianceScreenState
                                       ApiData response = await addOrgDocPPPost(
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
-                                        idOfDocument: "PPP",
+                                        idOfDocument: "",
                                         expiryDate: expiryDate,
                                         docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",
@@ -412,8 +412,7 @@ class _CiCorporateComplianceScreenState
                                     future: getTypeofDoc(context,
                                         docTypeMetaIdCC, selectedSubDocId) ,
                                     builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
                                         return Container(
                                           width: 350,
                                           height: 30,
@@ -450,9 +449,7 @@ class _CiCorporateComplianceScreenState
                                                     ))
                                                 .toList();
 
-                                        return
-
-                                            StatefulBuilder(
+                                        return StatefulBuilder(
                                           builder: (context, setState) {
                                             return Column(
                                               children: [
@@ -461,22 +458,15 @@ class _CiCorporateComplianceScreenState
                                                   onChange: (val) {
                                                     setState(() {
                                                       // Always reset the expiry field visibility to false initially
-                                                      showExpiryDateField =
-                                                          false;
+                                                      showExpiryDateField = false;
 
                                                       // Loop through the documents and check the selected value
-                                                      for (var doc
-                                                          in snapshot.data!) {
-                                                        if (doc.docname ==
-                                                            val) {
-                                                          docTypeId = doc
-                                                              .orgDocumentSetupid!;
+                                                      for (var doc in snapshot.data!) {
+                                                        if (doc.docname == val) {
+                                                          docTypeId = doc.orgDocumentSetupid!;
 
                                                           // Show expiry date field only if expirytype is "issuer expiry"
-                                                          if (doc.expirytype ==
-                                                              AppConfig
-                                                                  .issuer) {
-                                                            showExpiryDateField =
+                                                          if (doc.expirytype == AppConfig.issuer) {showExpiryDateField =
                                                                 true;
                                                           }
                                                         }

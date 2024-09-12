@@ -681,11 +681,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     color: ColorManager.blueprime),
                                                               );
                                                             }
-                                                            userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString());
-                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName);
-                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName);
-                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email);
-                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString());
+                                                            userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString()??"0");
+                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName ?? " ");
+                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName?? "");
+                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email ??" ");
+                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString()??"0");
                                                             return EditUserPopUp(
                                                               title: "Edit User ",
                                                               userIdController: userIdController,
@@ -703,8 +703,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   emailController.text,
                                                                   null,
                                                                     );
-                                                                print('password:::::::::::${passwordController.text}');
-                                                                print('Dept id:::::::::::${selectedDeptId}');
+                                                                // print('password:::::::::::${passwordController.text}');
+                                                                // print('Dept id:::::::::::${selectedDeptId}');
                                                                 getUser(context).then((data) {
                                                                     _companyUsersList.add(data);
                                                                 }).catchError((error) {
@@ -741,8 +741,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   }
                                                                   if (snapshot.hasData) {
                                                                     List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
-                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
-                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
+                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName??"" :" ";
+                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId?? 0 : 0;
 
                                                                     if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
                                                                       selectedDeptName = firstDeptName;

@@ -834,7 +834,6 @@ class ButtonSelectionController extends GetxController {
 
 
 
-
 class CustomDropdownButton extends StatelessWidget {
   final double height;
   final double width;
@@ -868,38 +867,42 @@ class CustomDropdownButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.white),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          icon: Icon(
-            Icons.arrow_drop_down,
-            color: selectedItem == 'Select a module'
-                ? ColorManager.textPrimaryColor
-                : Colors.white,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            hoverColor: Colors.transparent,
           ),
-          value: selectedItem,
-          onChanged: onChanged,
-          items: items,
-          selectedItemBuilder: (BuildContext context) {
-            return items.map<Widget>((DropdownMenuItem<String> item) {
-              return Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  item.value ?? '',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: item.value == 'Select a module'
-                        ? ColorManager.textPrimaryColor
-                        : (selectedItem == item.value
-                        ? Colors.white
-                        : ColorManager.textPrimaryColor),
+          child: DropdownButton<String>(
+            icon: Icon(
+              Icons.arrow_drop_down,
+              color: selectedItem == 'Select a module'
+                  ? ColorManager.textPrimaryColor
+                  : Colors.white,
+            ),
+            value: selectedItem,
+            onChanged: onChanged,
+            items: items,
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((DropdownMenuItem<String> item) {
+                return Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    item.value ?? '',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: item.value == 'Select a module'
+                          ? ColorManager.textPrimaryColor
+                          : (selectedItem == item.value
+                          ? Colors.white
+                          : ColorManager.textPrimaryColor),
+                    ),
                   ),
-                ),
-              );
-            }).toList();
-          },
-
-          dropdownColor: Colors.white,
+                );
+              }).toList();
+            },
+            dropdownColor: Colors.white,
+          ),
         ),
       ),
     );

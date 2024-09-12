@@ -18,6 +18,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/widgets/establishment_text_const/text_widget_const.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
@@ -66,6 +67,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   String? abbrivtionName;
   int? employeeTypeId;
   int? firstEmployeeTypeId;
+  String abbNameVal = 'Select';
 
   @override
   void initState() {
@@ -283,79 +285,152 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         SizedBox(
                           width: 10,
                         ),
+                        // FutureBuilder<List<HRAllData>>(
+                        //   future: getAllHrDeptWise(context, 1),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.connectionState ==
+                        //         ConnectionState.waiting) {
+                        //       return dummeyTextField(
+                        //         width: 300,
+                        //         height: 30,
+                        //         controller: dummyCtrl,
+                        //         labelText: 'Select',
+                        //         suffixIcon: Icon(
+                        //           Icons.arrow_drop_down,
+                        //           color: ColorManager.black,
+                        //         ),
+                        //       );
+                        //     }
+                        //     if (snapshot.hasData && snapshot.data!.isEmpty) {
+                        //       return Center(
+                        //         child: Text(
+                        //           ErrorMessageString.noserviceAdded,
+                        //           style: CustomTextStylesCommon.commonStyle(
+                        //             fontWeight: FontWeightManager.medium,
+                        //             fontSize: FontSize.s12,
+                        //             color: ColorManager.mediumgrey,
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }
+                        //     if (snapshot.hasData) {
+                        //       List<DropdownMenuItem<String>>
+                        //       dropDownServiceList = [];
+                        //       for (var service in snapshot.data!) {
+                        //         dropDownServiceList.add(
+                        //           DropdownMenuItem<String>(
+                        //             value: service.abbrivation,
+                        //             child: Text(service.abbrivation ?? ''),
+                        //           ),
+                        //         );
+                        //       }
+                        //
+                        //       // Store the service ID of the 0th position
+                        //       if (dropDownServiceList.isNotEmpty) {
+                        //         firstEmployeeTypeId =
+                        //             snapshot.data![0].employeeTypesId;
+                        //       }
+                        //
+                        //       if (
+                        //           dropDownServiceList.isNotEmpty) {
+                        //         abbrivtionName =
+                        //             dropDownServiceList[0].value;
+                        //         employeeTypeId = firstEmployeeTypeId;
+                        //       }
+                        //
+                        //       return CICCDropdown(
+                        //         width: 300,
+                        //         initialValue: abbrivtionName,
+                        //         onChange: (val) {
+                        //           setState(() {
+                        //             abbrivtionName = val;
+                        //             for (var abbrivation in snapshot.data!) {
+                        //               if (abbrivation.abbrivation == val) {
+                        //                 employeeTypeId =
+                        //                     abbrivation.employeeTypesId;
+                        //               }
+                        //             }
+                        //           });
+                        //         },
+                        //         items: dropDownServiceList,
+                        //       );
+                        //     }
+                        //     return const SizedBox();
+                        //   },
+                        // ),
                         FutureBuilder<List<HRAllData>>(
-                          future: getAllHrDeptWise(context, 1),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
+                          future: getAllHrDeptWise(context, AppConfig.clinicalId),
+                          builder: (context, snapshotZone) {
+                            if (snapshotZone.connectionState ==
                                 ConnectionState.waiting) {
-                              return dummeyTextField(
-                                width: 300,
+                              return Container(
+                                width: 350,
                                 height: 30,
-                                controller: dummyCtrl,
-                                labelText: 'Select',
-                                suffixIcon: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: ColorManager.black,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                               );
                             }
-                            if (snapshot.hasData && snapshot.data!.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  ErrorMessageString.noserviceAdded,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.mediumgrey,
+                            if (snapshotZone.data!.isEmpty) {
+                              return Container(
+                                height: 30,
+                                width: 354,
+                                child: Center(
+                                  child: Text(
+                                    ErrorMessageString.noserviceAdded,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.mediumgrey,
+                                    ),
                                   ),
                                 ),
                               );
                             }
-                            if (snapshot.hasData) {
-                              List<DropdownMenuItem<String>>
-                              dropDownServiceList = [];
-                              for (var service in snapshot.data!) {
-                                dropDownServiceList.add(
+                            if (snapshotZone.hasData) {
+                              List<DropdownMenuItem<String>> dropDownTypesList = [];
+                              int docType = 0;
+
+                              for (var i in snapshotZone.data!) {
+                                dropDownTypesList.add(
                                   DropdownMenuItem<String>(
-                                    value: service.abbrivation,
-                                    child: Text(service.abbrivation ?? ''),
+                                    value: i.abbrivation,
+                                    child: Text(i.abbrivation!),
                                   ),
                                 );
                               }
 
-                              // Store the service ID of the 0th position
-                              if (dropDownServiceList.isNotEmpty) {
-                                firstEmployeeTypeId =
-                                    snapshot.data![0].employeeTypesId;
+                              if (abbNameVal == 'Select County') {
+                                empTypeId = snapshotZone.data![0].employeeTypesId;
                               }
 
-                              if (
-                                  dropDownServiceList.isNotEmpty) {
-                                abbrivtionName =
-                                    dropDownServiceList[0].value;
-                                employeeTypeId = firstEmployeeTypeId;
-                              }
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return CICCDropdown(
+                                    initialValue: abbNameVal,
+                                    onChange: (val) {
+                                      setState(() {
+                                        abbNameVal = val!;
 
-                              return CICCDropdown(
-                                width: 300,
-                                initialValue: abbrivtionName,
-                                onChange: (val) {
-                                  setState(() {
-                                    abbrivtionName = val;
-                                    for (var abbrivation in snapshot.data!) {
-                                      if (abbrivation.abbrivation == val) {
-                                        employeeTypeId =
-                                            abbrivation.employeeTypesId;
-                                      }
-                                    }
-                                  });
+                                        for (var a in snapshotZone.data!) {
+                                          if (a.abbrivation == val) {
+                                            docType = a.employeeTypesId;
+                                            empTypeId = docType;
+                                            //_selectButton(1);
+                                            break;
+                                          }
+                                        }
+                                      });
+                                    },
+                                    items: dropDownTypesList,
+                                  );
                                 },
-                                items: dropDownServiceList,
                               );
                             }
                             return const SizedBox();
                           },
-                        ),
+                        )
                       ],
                     ),
                     // SizedBox(width: 10,),
