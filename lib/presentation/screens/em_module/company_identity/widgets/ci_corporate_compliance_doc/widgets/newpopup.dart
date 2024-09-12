@@ -336,6 +336,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                 ],
               ),
             ),
+            SizedBox(height: AppSize.s20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
