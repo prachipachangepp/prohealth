@@ -15,13 +15,15 @@ class EmpDocCertification {
 }
 
 class EmployeeDocumentModal {
+  final int employeeDocTypesetupId;
   final String docName;
   final String expiry;
   final String reminderThreshold;
-  final String idOfDocument;
-  final int employeeDocTypesetupId;
   final int employeeDocTypeMetaId;
+  final String idOfDocument;
   final int companyId;
+  final String expiryType;
+  final int threshold;
   final bool sucess;
   final String message;
 
@@ -33,49 +35,11 @@ class EmployeeDocumentModal {
     required this.idOfDocument,
     required this.expiry,
     required this.reminderThreshold,
+    required this.expiryType,
+    required this.threshold,
     required this.sucess,
     required this.message,
   });
-}
-
-class EmpDocClinicalVerify {
-  final String? name;
-  final String? expiry;
-  final String? reminderThreshold;
-
-  EmpDocClinicalVerify({this.name, this.expiry, this.reminderThreshold});
-}
-
-class EmpDocAcknowledgement {
-  final String? name;
-  final String? expiry;
-  final String? reminderThreshold;
-
-  EmpDocAcknowledgement({this.name, this.expiry, this.reminderThreshold});
-}
-
-class EmpDocCompensation {
-  final String? name;
-  final String? expiry;
-  final String? reminderThreshold;
-
-  EmpDocCompensation({this.name, this.expiry, this.reminderThreshold});
-}
-
-class EmpDocPerformance {
-  final String? name;
-  final String? expiry;
-  final String? reminderThreshold;
-
-  EmpDocPerformance({this.name, this.expiry, this.reminderThreshold});
-}
-
-class EmpDocAddEdit {
-  final String docId;
-  final String docName;
-  final String docType;
-
-  EmpDocAddEdit(this.docId, this.docName, this.docType);
 }
 
 class EmployeeDocTabModal {
@@ -113,13 +77,15 @@ class EmployeeDocSetupModal {
 }
 
 class GetEmployeeSetupPrefillData {
+  final int employeeDocTypesetupId;
   final String docName;
   final String expiry;
   final String reminderThreshold;
-  final String idOfDocument;
-  final int employeeDocTypesetupId;
   final int employeeDocTypeMetaId;
+  final String idOfDocument;
   final int companyId;
+  final String expiryType;
+  final int threshold;
   final bool sucess;
   final String message;
 
@@ -131,6 +97,8 @@ class GetEmployeeSetupPrefillData {
     required this.employeeDocTypesetupId,
     required this.employeeDocTypeMetaId,
     required this.companyId,
+    required this.expiryType,
+    required this.threshold,
     required this.sucess,
     required this.message,
   });

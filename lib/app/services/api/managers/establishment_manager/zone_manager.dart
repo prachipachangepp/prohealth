@@ -512,10 +512,9 @@ Future<ZipCodeGetPrefill> getZipcodeSetupPrefill(
           longitude: response.data['longitude'],
           landmark: response.data['landmark'],
           officeId: response.data['officeId'],
-          sucess: true,
-          message: response.statusMessage,
-          zoneName: response.data['zone'] ?? "--",
-          countyName: response.data['county'] ?? "--");
+          // zoneName: response.data['zone'] ?? "--",
+          // countyName: response.data['county'] ?? "--"
+      );
 
       // print("Org Document response:::::${itemsList}");
     } else {

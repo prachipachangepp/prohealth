@@ -16,6 +16,8 @@ class AddVisitPopup extends StatefulWidget {
   final Widget child;
   //final Widget child1;
   final String title;
+  final Widget dropdownServices;
+  final Future<void> Function() onClosePressed;
 
   const AddVisitPopup({
     super.key,
@@ -24,7 +26,7 @@ class AddVisitPopup extends StatefulWidget {
     required this.onSavePressed,
     required this.child,
     //required this.child1,
-    required this.title,
+    required this.title, required this.dropdownServices, required this.onClosePressed,
   });
 
   @override
@@ -63,7 +65,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s330,
+        height: AppSize.s450,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -98,9 +100,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: widget.onClosePressed,
                     icon: Icon(
                       Icons.close,
                       color: ColorManager.white,
@@ -140,6 +140,23 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                               ),
                             ),
                           ),
+                      ],
+                    ),
+                    SizedBox(height: AppSize.s30),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Select services',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        SizedBox(height: AppSize.s5),
+                        widget.dropdownServices
+
                       ],
                     ),
                     SizedBox(height: AppSize.s30),

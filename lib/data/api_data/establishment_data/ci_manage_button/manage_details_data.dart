@@ -9,7 +9,7 @@ class ManageDetails {
   final String primaryFax;
   final String secondaryFax;
   final List<DetailsServiceData>? serviceDetails;
-  final bool success;  // Corrected spelling from 'sucess' to 'success'
+  final bool success; // Corrected spelling from 'sucess' to 'success'
   final String message;
   final String lat;
   final String long;
@@ -19,9 +19,14 @@ class ManageDetails {
   final bool isHeadOffice;
 
   ManageDetails({
-    required this.lat, required this.long, required this.city, required this.stateName, required this.countryName, required this.isHeadOffice,
+    required this.lat,
+    required this.long,
+    required this.city,
+    required this.stateName,
+    required this.countryName,
+    required this.isHeadOffice,
     required this.officeID,
-    required this.success,  // Corrected spelling
+    required this.success, // Corrected spelling
     required this.message,
     required this.officeName,
     required this.priNumber,
@@ -76,8 +81,13 @@ class DetailsServiceData {
   final String countryName;
   final bool isHeadOffice;
 
-
-  DetailsServiceData({required this.lat, required this.long, required this.city, required this.stateName, required this.countryName, required this.isHeadOffice,
+  DetailsServiceData({
+    required this.lat,
+    required this.long,
+    required this.city,
+    required this.stateName,
+    required this.countryName,
+    required this.isHeadOffice,
     required this.officeServiceId,
     required this.companyId,
     required this.officeId,
@@ -109,24 +119,56 @@ class DetailsServiceData {
   }
 }
 
-
 ///get doc type : /document-type
-class GetManageDetailsHeadData{
+class GetManageDetailsHeadData {
   final int? id;
   final String? docName;
   final bool sucess;
   final String message;
 
-  GetManageDetailsHeadData({this.id, this.docName, required this.sucess, required this.message,});
+  GetManageDetailsHeadData({
+    this.id,
+    this.docName,
+    required this.sucess,
+    required this.message,
+  });
 }
 
 ///get document subtype: /identity/GetDocType/{document_type_id}
-class GetManageDetailsSubHeadData{
+class GetManageDetailsSubHeadData {
   final int docTypeId;
   final String docType;
   final int subDocTypeId;
   final String subDocType;
   final bool sucess;
   final String message;
-  GetManageDetailsSubHeadData({required this.docTypeId, required this.docType,required this.subDocTypeId,required this.subDocType,required this.sucess,required this.message, });
+  GetManageDetailsSubHeadData({
+    required this.docTypeId,
+    required this.docType,
+    required this.subDocTypeId,
+    required this.subDocType,
+    required this.sucess,
+    required this.message,
+  });
+}
+
+/// get services data
+class ServicesData {
+  final int officeServiceId;
+  final int companyId;
+  final String officeId;
+  final String serviceName;
+  final String serviceId;
+  final String npiNumber;
+  final String medicareId;
+  final String hcoNumber;
+  ServicesData(
+      {required this.officeServiceId,
+      required this.companyId,
+      required this.officeId,
+      required this.serviceName,
+      required this.serviceId,
+      required this.npiNumber,
+      required this.medicareId,
+      required this.hcoNumber});
 }

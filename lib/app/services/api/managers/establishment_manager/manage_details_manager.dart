@@ -312,3 +312,42 @@ Future<ApiData> patchCompanyOfficeService(BuildContext context, int OfficeServic
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+/// Get services
+Future<List<ServicesData>> getAllServicesData(
+    BuildContext context,
+    ) async {
+  List<ServicesData> itemsList = [];
+  try {
+    final companyID = await TokenManager.getCompanyId();
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(companyId: companyID));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for (var item in response.data) {
+        itemsList.add(
+          ServicesData(
+              officeServiceId: item['Office_service_id'],
+              companyId: item['company_id'],
+              officeId: item['office_id'],
+              serviceName: item['service_name'],
+              serviceId: item['service_id'],
+              npiNumber: item['npi_number'],
+              medicareId: item['medicare_provider_id'],
+              hcoNumber: item['hco_num_id']
+              ),
+        );
+      }
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('Ci Policies Pr Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

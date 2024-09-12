@@ -57,6 +57,7 @@ class EstablishmentManagerRepository {
   static String addCompanyPost = "/Company/Insert";
   static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
   static String orgdocadd = "/org-office-document/add";
+  static String orgdocEndPoind = "/org-office-document";
   static String officedocbase = "/org-office-document/attach-documentbase64";
 
   //static String add ="/add";
@@ -65,12 +66,7 @@ class EstablishmentManagerRepository {
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
 
-  ///office
-  static String officeDocSetup ="/org-document-setup";
-  static String byofficetypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
-
-
-
+  static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
 
 
   static String companyAll() {
@@ -127,6 +123,10 @@ class EstablishmentManagerRepository {
 
   static String companyOfficeServiceGet() {
     return "$companyOfficeService";
+  }
+
+  static String companyOfficeServiceGetByCompanyId({required int companyId}) {
+    return "$companyOfficeService/${companyId}";
   }
 
   ///insurance-vendor/add
@@ -346,7 +346,7 @@ class EstablishmentManagerRepository {
   }
 
   static String addEmployeDocSetup() {
-    return "$employeedocSetup$add";
+    return "$employeedocSetup/$add";
   }
 
   ///employee doc tab bar
@@ -480,6 +480,12 @@ class EstablishmentManagerRepository {
   static String addDocOrg() {
     return "$orgdocadd";
   }
+  static String patchDocOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
+  }
+  static String deleteDocOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
+  }
 
   static String uploadedocOffice({required int orgOfficeDocumentId }){
     return "$officedocbase/$orgOfficeDocumentId";
@@ -495,24 +501,13 @@ class EstablishmentManagerRepository {
     return "$newPayratesdelete/$payRatesId";
   }
 
-  ///new office manage button
-  static String newOfficeDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
-    return "$officeDocSetup/$byofficetypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
-  }
-
-  static String deleteNewOrgOfficeDoc({required int orgOfficeDocumentId}) {
-    return "$officeDocSetup/$orgOfficeDocumentId";
-  }
-
-
-
-
-
 
   ///new org doc
   static String newOrgDocGet() {
     return "$orgDocSetup";
   }
+
+
   ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
   static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
     return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
@@ -525,4 +520,10 @@ class EstablishmentManagerRepository {
   static String addNewDocumentPost() {
     return "$orgDocSetup/$add";
   }
+
+  ///org-office-document/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
+  static String getListMCorporateCompliance({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}){
+    return "$getCCList$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+
 }

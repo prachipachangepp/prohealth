@@ -80,7 +80,6 @@ Future<List<EmployeeDocSetupModal>> getEmployeeDocSetupDropDown(BuildContext con
 }
 /// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
 Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
-    // int metaDocID
     int employeeDocTypeMetataId,
     int pageNo,
     int rowsNo
@@ -101,11 +100,13 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
       for(var item in response.data){
         itemsList.add(EmployeeDocumentModal(
               docName: item["DocumentName"],
-              expiry: item["Expiry"],
+              expiry: item["Expiry"] ?? "",
               reminderThreshold: item["ReminderThreshold"],
               employeeDocTypesetupId: item['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: item['EmployeeDocumentTypeMetaDataId'],
               idOfDocument: item['idOfDocument'],
+              expiryType: item['expiry_type'],
+            threshold: item['threshold'] ?? 0,
               companyId: companyId,
               sucess: true,
               message: response.statusMessage!
@@ -126,27 +127,37 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
 }
 
 ///Add employee doc type setup Id
-Future<ApiData> addEmployeeDocSetup(
-    BuildContext context,
-    int empDocMetaDataId,
-    String docName,
-    String reminerThreshild,
-    String expiry,
-    String idOfDoc,
-    ) async {
+Future<ApiData> addEmployeeDocSetup({
+  required BuildContext context,
+  required String docName,
+  required String? expiryDate,
+  required String remainderThreshold,
+  required int empDocMetaDataId,
+  required String idOfDoc,
+  required String expiryType,
+  required int threshold,
+
+}) async {
   try {
-    var response = await Api(context).post(path: EstablishmentManagerRepository.addEmployeDocSetup(),
-        data:
-    {
+    final companyId = await TokenManager.getCompanyId();
+    var data = {
       "DocumentName": docName,
-      "Expiry": expiry,
-      "ReminderThreshold": reminerThreshild,
+      "Expiry": expiryDate,
+      "companyId": companyId,
+      "ReminderThreshold": remainderThreshold,
       "EmployeeDocumentTypeMetaDataId": empDocMetaDataId,
       "idOfDocument": idOfDoc,
-    });
-    print('Post Emp doc ::::$response ');
+      "expiry_type": expiryType,
+      "threshold": threshold,
+    };
+
+    print('New EMP doc $data');
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.addEmployeDocSetup(),
+        data: data);
+    print('New EMP post new::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Employee Document Addded");
+      print("New EMP Doc addded ");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -160,6 +171,7 @@ Future<ApiData> addEmployeeDocSetup(
     }
   } catch (e) {
     print("Error $e");
+    print("Error 2");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
@@ -248,6 +260,8 @@ Future<GetEmployeeSetupPrefillData> getPrefillEmployeeDocTab(BuildContext contex
               employeeDocTypesetupId: response.data['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: response.data['EmployeeDocumentTypeMetaDataId'],
                 idOfDocument: response.data['idOfDocument'] ?? "--",
+                expiryType: response.data['expiry_type'] ?? "--",
+                threshold: response.data['threshold'] ?? 0,
               companyId: companyId,
               sucess: true,
               message: response.statusMessage!

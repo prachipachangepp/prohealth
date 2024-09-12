@@ -153,17 +153,17 @@ class _CiCorporateComplianceScreenState
             children: [
               Container(
                 //color: Colors.greenAccent,
-                padding: EdgeInsets.only(top: AppPadding.p8),
+                padding: EdgeInsets.only(top: AppPadding.p6),
                 width: MediaQuery.of(context).size.width / 1.7,
-                height: AppSize.s50,
+                height: AppSize.s60,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
                       child: Container(
-                        height: AppSize.s50,
+                        height: AppSize.s56,
                         width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
+                        padding: EdgeInsets.symmetric(vertical: 2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
@@ -356,14 +356,13 @@ class _CiCorporateComplianceScreenState
                       docIdController.clear();
                       docNamecontroller.clear();
                       selectedExpiryType = "";
-
                       showDialog(
                           context: context,
                           builder: (context) {
                             return StatefulBuilder(
                               builder: (BuildContext context,
                                   void Function(void Function()) setState) {
-                                return VCScreenPopupADDConst(
+                                return UploadDocumentAddPopup(
                                   loadingDuration: _isLoading,
                                   onPressed: () async {
                                     //  print('File path on pressed ${filePath}');
@@ -377,7 +376,9 @@ class _CiCorporateComplianceScreenState
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
                                         idOfDocument: "PPP",
-                                        expiryDate: expiryDateController.text,
+                                        expiryDate:
+                                        // selectedExpiryType.toString(),
+                                        expiryDateController.text,
                                         docCreatedat: DateTime.now().toIso8601String(),
                                         companyid: widget.companyID,
                                         url: "url",
@@ -392,18 +393,19 @@ class _CiCorporateComplianceScreenState
                                             orgOfficeDocumentId:
                                                 response.orgOfficeDocumentId!);
                                       }
-                                    } finally {
+                                    }
+
+                                    finally {
                                       setState(() {
                                         _isLoading = false;
+                                        Navigator.pop(context);
                                       });
                                     }
-                                    Navigator.pop(context);
-                                  },
 
-                                  ///Type Of the Document
+                                  },
                                   child: FutureBuilder<List<TypeofDocpopup>>(
                                     future: getTypeofDoc(context,
-                                        docTypeMetaIdCC, selectedSubDocId),
+                                        docTypeMetaIdCC, selectedSubDocId) ,
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
@@ -651,63 +653,364 @@ class _CiCorporateComplianceScreenState
                                     },
                                   ),
 
-                                  uploadField: Container(
-                                    height: AppSize.s30,
-                                    width: AppSize.s354,
-                                    // margin: EdgeInsets.symmetric(horizontal: 5),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: StatefulBuilder(
-                                      builder: (BuildContext context,
-                                          void Function(void Function())
-                                              setState) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                fileName,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight:
-                                                      FontWeightManager.regular,
-                                                  color: ColorManager
-                                                      .lightgreyheading,
-                                                ),
-                                              ),
-                                              IconButton(
-                                                padding: EdgeInsets.all(4),
-                                                onPressed: _pickFile,
-                                                icon: Icon(
-                                                  Icons.file_upload_outlined,
-                                                  color: ColorManager.black,
-                                                  size: 17,
-                                                ),
-                                                splashColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
+                                  // uploadField: Container(
+                                  //   height: AppSize.s30,
+                                  //   width: AppSize.s354,
+                                  //   // margin: EdgeInsets.symmetric(horizontal: 5),
+                                  //   decoration: BoxDecoration(
+                                  //     border: Border.all(
+                                  //       color: ColorManager.containerBorderGrey,
+                                  //       width: 1,
+                                  //     ),
+                                  //     borderRadius: BorderRadius.circular(4),
+                                  //   ),
+                                  //   child: StatefulBuilder(
+                                  //     builder: (BuildContext context,
+                                  //         void Function(void Function())
+                                  //             setState) {
+                                  //       return Padding(
+                                  //         padding: const EdgeInsets.all(0),
+                                  //         child: Row(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.spaceBetween,
+                                  //           children: [
+                                  //             Text(
+                                  //               fileName,
+                                  //               style: GoogleFonts.firaSans(
+                                  //                 fontSize: FontSize.s12,
+                                  //                 fontWeight:
+                                  //                     FontWeightManager.regular,
+                                  //                 color: ColorManager
+                                  //                     .lightgreyheading,
+                                  //               ),
+                                  //             ),
+                                  //             IconButton(
+                                  //               padding: EdgeInsets.all(4),
+                                  //               onPressed: _pickFile,
+                                  //               icon: Icon(
+                                  //                 Icons.file_upload_outlined,
+                                  //                 color: ColorManager.black,
+                                  //                 size: 17,
+                                  //               ),
+                                  //               splashColor: Colors.transparent,
+                                  //               highlightColor:
+                                  //                   Colors.transparent,
+                                  //               hoverColor: Colors.transparent,
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       );
+                                  //     },
+                                  //   ),
+                                  // ),
+                                  title: 'Upload Document',
 
-                                  title: 'Add Doctype',
                                 );
                               },
                             );
                           });
                     }),
+                ///Type Of the Document
+                // child: FutureBuilder<List<TypeofDocpopup>>(
+                //   future: getTypeofDoc(context,
+                //       docTypeMetaIdCC, selectedSubDocId) ,
+                //   builder: (context, snapshot) {
+                //     if (snapshot.connectionState ==
+                //         ConnectionState.waiting) {
+                //       return Container(
+                //         width: 350,
+                //         height: 30,
+                //         decoration: BoxDecoration(
+                //           borderRadius:
+                //               BorderRadius.circular(8),
+                //         ),
+                //       );
+                //     }
+                //
+                //     if (!snapshot.hasData ||
+                //         snapshot.data!.isEmpty) {
+                //       return Center(
+                //         child: Text(
+                //           AppString.dataNotFound,
+                //           style: CustomTextStylesCommon
+                //               .commonStyle(
+                //             fontWeight:
+                //                 FontWeightManager.medium,
+                //             fontSize: FontSize.s12,
+                //             color: ColorManager.mediumgrey,
+                //           ),
+                //         ),
+                //       );
+                //     }
+                //
+                //     if (snapshot.hasData) {
+                //       List<DropdownMenuItem<String>>
+                //           dropDownMenuItems = snapshot.data!
+                //               .map((doc) =>
+                //                   DropdownMenuItem<String>(
+                //                     value: doc.docname,
+                //                     child: Text(doc.docname!),
+                //                   ))
+                //               .toList();
+                //
+                //       return
+                //           // StatefulBuilder(
+                //           //   builder: (context, setState) {
+                //           //     return Column(
+                //           //       children: [
+                //           //         CICCDropdown(
+                //           //           initialValue: "Select",
+                //           //           onChange: (val) {
+                //           //             setState(() {
+                //           //               for (var doc in snapshot.data!) {
+                //           //                 if (doc.docname == val) {
+                //           //                   docTypeId = doc.orgDocumentSetupid!;
+                //           //
+                //           //                   // Show expiry date field only if expirytype is "issuer expiry"
+                //           //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
+                //           //                 }
+                //           //               }
+                //           //             });
+                //           //           },
+                //           //           items: dropDownMenuItems,
+                //           //         ),
+                //           //         Visibility(
+                //           //           visible: showExpiryDateField, // Conditionally display expiry date field
+                //           //           child: Padding(
+                //           //             padding: const EdgeInsets.only(top: 8.0),
+                //           //             child: Container(
+                //           //               height: 30, // Set height to 30
+                //           //               width: 175, // Set width to 175
+                //           //               child: TextField(
+                //           //                 controller: expiryDateController,
+                //           //                 readOnly: true,
+                //           //                 decoration: InputDecoration(
+                //           //                   labelText: "Expiry Date",
+                //           //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
+                //           //                   suffixIcon: IconButton(
+                //           //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
+                //           //                     onPressed: () async {
+                //           //                       DateTime? pickedDate = await showDatePicker(
+                //           //                         context: context,
+                //           //                         initialDate: DateTime.now(),
+                //           //                         firstDate: DateTime(2000),
+                //           //                         lastDate: DateTime(2101),
+                //           //                       );
+                //           //                       if (pickedDate != null) {
+                //           //                         setState(() {
+                //           //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                //           //                         });
+                //           //                       }
+                //           //                     },
+                //           //                   ),
+                //           //                   border: OutlineInputBorder(),
+                //           //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
+                //           //                   hintText: 'YYYY-MM-DD',
+                //           //                 ),
+                //           //               ),
+                //           //             ),
+                //           //           ),
+                //           //         ),
+                //           //       ],
+                //           //     );
+                //           //   },
+                //           // );
+                //           ///
+                //
+                //           StatefulBuilder(
+                //         builder: (context, setState) {
+                //           return Column(
+                //             children: [
+                //               CICCDropdown(
+                //                 initialValue: "Select",
+                //                 onChange: (val) {
+                //                   setState(() {
+                //                     // Always reset the expiry field visibility to false initially
+                //                     showExpiryDateField =
+                //                         false;
+                //
+                //                     // Loop through the documents and check the selected value
+                //                     for (var doc
+                //                         in snapshot.data!) {
+                //                       if (doc.docname ==
+                //                           val) {
+                //                         docTypeId = doc
+                //                             .orgDocumentSetupid!;
+                //
+                //                         // Show expiry date field only if expirytype is "issuer expiry"
+                //                         if (doc.expirytype ==
+                //                             AppConfig
+                //                                 .issuer) {
+                //                           showExpiryDateField =
+                //                               true;
+                //                         }
+                //                       }
+                //                     }
+                //                   });
+                //                 },
+                //                 items: dropDownMenuItems,
+                //               ),
+                //               Visibility(
+                //                 visible: showExpiryDateField,
+                //
+                //                 /// Conditionally display expiry date field
+                //                 child: Padding(
+                //                   padding:
+                //                       const EdgeInsets.only(
+                //                           top: 8.0),
+                //                   child: Container(
+                //                     height: 30,
+                //                     width: 352,
+                //                     child: TextField(
+                //                       controller:
+                //                           expiryDateController,
+                //                       style: GoogleFonts
+                //                           .firaSans(
+                //                         fontSize:
+                //                             FontSize.s12,
+                //                         fontWeight:
+                //                             FontWeightManager
+                //                                 .bold,
+                //                         color: ColorManager
+                //                             .mediumgrey,
+                //                       ),
+                //                       readOnly: true,
+                //                       decoration:
+                //                           InputDecoration(
+                //                         labelText:
+                //                             "Expiry Date",
+                //                         labelStyle:
+                //                             GoogleFonts
+                //                                 .firaSans(
+                //                           fontSize:
+                //                               FontSize.s12,
+                //                           fontWeight:
+                //                               FontWeightManager
+                //                                   .semiBold,
+                //                           color: ColorManager
+                //                               .mediumgrey,
+                //                         ),
+                //                         suffixIcon:
+                //                             IconButton(
+                //                           icon: Icon(
+                //                               Icons
+                //                                   .calendar_today,
+                //                               size: 16),
+                //                           onPressed:
+                //                               () async {
+                //                             DateTime?
+                //                                 pickedDate =
+                //                                 await showDatePicker(
+                //                               context:
+                //                                   context,
+                //                               initialDate:
+                //                                   DateTime
+                //                                       .now(),
+                //                               firstDate:
+                //                                   DateTime(
+                //                                       2000),
+                //                               lastDate:
+                //                                   DateTime(
+                //                                       2101),
+                //                             );
+                //                             if (pickedDate !=
+                //                                 null) {
+                //                               setState(() {
+                //                                 expiryDateController
+                //                                     .text = DateFormat(
+                //                                         'yyyy-MM-dd')
+                //                                     .format(
+                //                                         pickedDate);
+                //                               });
+                //                             }
+                //                           },
+                //                         ),
+                //                         border: OutlineInputBorder(
+                //                             borderSide: BorderSide(
+                //                                 color: ColorManager
+                //                                     .fmediumgrey)),
+                //                         contentPadding:
+                //                             EdgeInsets.symmetric(
+                //                                 vertical: 8.0,
+                //                                 horizontal:
+                //                                     10.0), // Adjust padding
+                //                         hintText:
+                //                             'YYYY-MM-DD',
+                //                         hintStyle: GoogleFonts
+                //                             .firaSans(
+                //                           fontSize:
+                //                               FontSize.s12,
+                //                           fontWeight:
+                //                               FontWeightManager
+                //                                   .bold,
+                //                           color: ColorManager
+                //                               .mediumgrey,
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //             ],
+                //           );
+                //         },
+                //       );
+                //     } else {
+                //       return SizedBox();
+                //     }
+                //   },
+                // ),
+                //
+                // uploadField: Container(
+                //   height: AppSize.s30,
+                //   width: AppSize.s354,
+                //   // margin: EdgeInsets.symmetric(horizontal: 5),
+                //   decoration: BoxDecoration(
+                //     border: Border.all(
+                //       color: ColorManager.containerBorderGrey,
+                //       width: 1,
+                //     ),
+                //     borderRadius: BorderRadius.circular(4),
+                //   ),
+                //   child: StatefulBuilder(
+                //     builder: (BuildContext context,
+                //         void Function(void Function())
+                //             setState) {
+                //       return Padding(
+                //         padding: const EdgeInsets.all(0),
+                //         child: Row(
+                //           mainAxisAlignment:
+                //               MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               fileName,
+                //               style: GoogleFonts.firaSans(
+                //                 fontSize: FontSize.s12,
+                //                 fontWeight:
+                //                     FontWeightManager.regular,
+                //                 color: ColorManager
+                //                     .lightgreyheading,
+                //               ),
+                //             ),
+                //             IconButton(
+                //               padding: EdgeInsets.all(4),
+                //               onPressed: _pickFile,
+                //               icon: Icon(
+                //                 Icons.file_upload_outlined,
+                //                 color: ColorManager.black,
+                //                 size: 17,
+                //               ),
+                //               splashColor: Colors.transparent,
+                //               highlightColor:
+                //                   Colors.transparent,
+                //               hoverColor: Colors.transparent,
+                //             ),
+                //           ],
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
 
                 ///old
                 // FutureBuilder<List<TypeofDocpopup>>(
