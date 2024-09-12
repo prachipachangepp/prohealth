@@ -310,7 +310,7 @@ class _ReusableLoadingButtonState extends State<ReusableLoadingButton> {
       _isLoading = true;
     });
 
-    widget.onPressed?.call();
+    widget.onPressed.call();
     Future.delayed(Duration(seconds: widget.loadingDuration), () {
       setState(() {
         _isLoading = false;

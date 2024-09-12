@@ -27,22 +27,21 @@ class PayRateFinanceData {
 }
 
 class PayRatePrefillFinanceData {
-
   final int payratesId;
-  final int ZoneId;
   final int rate;
   final String typeOfVisitId;
-  final int perMile;
-  final int serviceTypeId;
+  final String serviceId;
   final int companyId;
-  PayRatePrefillFinanceData(
-      {required this.payratesId,
-      required this.ZoneId,
-      required this.rate,
-      required this.typeOfVisitId,
-      required this.perMile,
-      required this.serviceTypeId,
-      required this.companyId,});
+  final int outOfZoneRate;
+  final int outOfZoneperMile;
+  PayRatePrefillFinanceData({
+    required this.serviceId,
+    required this.outOfZoneRate,
+    required this.outOfZoneperMile,
+    required this.payratesId,
+    required this.rate,
+    required this.typeOfVisitId,
+    required this.companyId,});
 }
 
 ///zone data file dropdown
@@ -81,22 +80,17 @@ class ServiceData {
 ///payrate get
 class PayRatesGet {
   final int payratesId;
-  final int ZoneId;
   final int rate;
   final String typeOfVisitId;
-  final String ZoneName;
-  final int perMile;
-  final int serviceTypeId;
+  final String serviceID;
   final int companyId;
+  final int outOfZoneRate;
+  final int outOfZonePerMile;
 
-  PayRatesGet({
+  PayRatesGet({required this.serviceID, required this.outOfZoneRate, required this.outOfZonePerMile,
     required this.payratesId,
-    required this.ZoneId,
     required this.rate,
     required this.typeOfVisitId,
-    required this.ZoneName,
-    required this.perMile,
-    required this.serviceTypeId,
     required this.companyId
   });
 }

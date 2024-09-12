@@ -27,7 +27,7 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
              department: item['department'] ?? "Administration",
              departmentId: item['departmentId'] ?? 1,
              email: item['email'] ?? "",
-             companyId: item['company_id']  ,
+             companyId: companyId,// item['company_id']  ,
              phoneNbr: item['phoneNbr'] ?? "",
              link: item['link'] ?? "",
              employeeEnrollId: item['employeeEnrollId'] ?? 0,
@@ -79,6 +79,7 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
 Future<UserModalPrefill> getUserPrefill(BuildContext context, int userId) async {
   var itemsList;
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.userPrefillGet(userId: userId));
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -90,7 +91,7 @@ Future<UserModalPrefill> getUserPrefill(BuildContext context, int userId) async 
         department: (response.data['department'] is List)
             ? response.data['department'].join(", ") // Convert list to comma-separated string
             : response.data['department'], // If it's already a string
-        companyId: response.data['company_id'],
+        companyId: companyId,// response.data['company_id'],
         password: response.data['password'], // Still including but not using in UI
         email: response.data['email'],
         sucess: true,
@@ -150,17 +151,16 @@ Future<ApiData> createUserPost(
     String lastName,
     int departmentId,
     String email,
-    int companyId,
     String password
     ) async {
   try {
-    // final companyId = await TokenManager.getCompanyId();
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(path: EstablishmentManagerRepository.createUserPost(), data: {
       'firstName':firstName,
       'lastName':lastName,
       'departmentId':departmentId,
       'email':email,
-      'company_id':1,
+      'company_id':companyId,
       'password':password
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
