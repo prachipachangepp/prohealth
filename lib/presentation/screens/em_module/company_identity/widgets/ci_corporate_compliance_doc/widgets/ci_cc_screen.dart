@@ -370,10 +370,8 @@ class _CiCorporateComplianceScreenState
                                     setState(() {
                                       _isLoading = true;
                                     });
-
                                     ///Add Doctype API on save button
                                     try {
-
                                       String? expiryDate;
                                       if (expiryDateController.text.isEmpty) {
                                         expiryDate = null;
