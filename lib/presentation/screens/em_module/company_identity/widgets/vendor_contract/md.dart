@@ -168,15 +168,15 @@ class _CiMdState extends State<CiMd> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                      },
-                                                      child: Image.asset(
-                                                        'images/eye.png',
-                                                        height: 15,
-                                                        width: 22,
-                                                      ),
-                                                    ),
+                                                    // InkWell(
+                                                    //   onTap: () {
+                                                    //   },
+                                                    //   child: Image.asset(
+                                                    //     'images/eye.png',
+                                                    //     height: 15,
+                                                    //     width: 22,
+                                                    //   ),
+                                                    // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(width: 10,),
                                                     Column(
