@@ -1363,7 +1363,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             docCreated: DateTime.now().toIso8601String(),
                                             url: "",
                                             officeId: widget.officeId);
-
                                         print(expiryDateToSend);
                                         print(DateTime.now().toIso8601String());
                                         print(widget.officeId);
