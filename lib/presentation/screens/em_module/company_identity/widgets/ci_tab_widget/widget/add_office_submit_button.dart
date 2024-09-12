@@ -31,7 +31,7 @@ class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController mobNumController;
   final TextEditingController secNumController;
   final TextEditingController OptionalController;
-  final Widget checkBoxHeadOffice;
+  //final Widget checkBoxHeadOffice;
   final Widget checkBoxServices;
   final Widget pickLocationWidget;
   final Future<void> Function() onPressed;
@@ -45,7 +45,11 @@ class AddOfficeSumbitButton extends StatefulWidget {
     required this.secNumController,
     required this.OptionalController,
     required this.onPressed,
-    required this.formKey, required this.stateController, required this.countryController, required this.checkBoxHeadOffice, required this.checkBoxServices});
+    required this.formKey,
+    required this.stateController,
+    required this.countryController,
+    // required this.checkBoxHeadOffice,
+    required this.checkBoxServices});
 
   @override
   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
@@ -107,7 +111,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 35),
+                    padding: const EdgeInsets.only(left: 40),
                     child: Text(
                       'Add New Office',
                       textAlign: TextAlign.center,
@@ -204,7 +208,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                               TextInputType.streetAddress,
                               text: AppString.officeaddress,
                             ),
-                            widget.checkBoxHeadOffice,
+                            // widget.checkBoxHeadOffice,
                             const SizedBox(height: AppSize.s9),
                             FirstSMTextFConst(
                               controller: widget.stateController,

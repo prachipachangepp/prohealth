@@ -114,7 +114,7 @@ class ErrorMessageString{
  static const String noEmpType = "No available employee type!";
  static const String noEmpDocc =  "No available employee document!";
  static const String noPayRates =  "No available pay rates!";
- static const String noserviceAdded = "no service added";
+ static const String noserviceAdded = "No service added";
  static const String noroleAdded = "no role added";
 }
 ///edit

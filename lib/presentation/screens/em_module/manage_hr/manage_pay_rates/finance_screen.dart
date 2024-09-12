@@ -72,9 +72,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
     super.initState();
     _loadPayRatesData();
 
-    companyPayratesGet(context).then((data) {
-      _payRatesController.add(data);
-    }).catchError((error) {});
+
   }
 
   // List<PayRatesGet> allData = [];
@@ -96,21 +94,21 @@ class _FinanceScreenState extends State<FinanceScreen> {
       setState(() {
         _fullPayRatesList = data;
       });
-      _filterPayRatesByZone();
+     // _filterPayRatesByZone();
     } catch (error) {
       // Handle error
     }
   }
-
-  void _filterPayRatesByZone() {
-    List<PayRatesGet> filteredData = _selectedZone == null
-        ? _fullPayRatesList
-        : _fullPayRatesList
-            .where((rate) =>
-                rate.ZoneId.toString() == _selectedZone!.split('-')[0])
-            .toList();
-    _payRatesController.add(filteredData);
-  }
+  //
+  // void _filterPayRatesByZone() {
+  //   List<PayRatesGet> filteredData = _selectedZone == null
+  //       ? _fullPayRatesList
+  //       : _fullPayRatesList
+  //           .where((rate) =>
+  //               rate.ZoneId.toString() == _selectedZone!.split('-')[0])
+  //           .toList();
+  //   _payRatesController.add(filteredData);
+  // }
   String? serviceId;
 
 
@@ -184,13 +182,23 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               );
                             }
                             if (snapshot.hasData && snapshot.data!.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  ErrorMessageString.noserviceAdded,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.mediumgrey,
+                              return Container(
+                                width:354,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                  child: Text(
+                                    ErrorMessageString.noserviceAdded,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.mediumgrey,
+                                    ),
                                   ),
                                 ),
                               );
@@ -541,8 +549,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 TableHeadItem(
                     text: 'Type of Visit', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
-                TableHeadItem(text: 'Per Miles', textAlign: TextAlign.center),
-                TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
+                //TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
               ],
             ),
@@ -556,6 +563,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 stream: _payRatesController.stream,
                 //companyPayratesGet(context);
                 builder: (context, snapshot) {
+                  companyPayratesGet(context).then((data) {
+                    _payRatesController.add(data);
+                  }).catchError((error) {});
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -666,36 +676,21 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                 ),
                                               ),
                                             ),
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  '${finance.perMile}',
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  finance.ZoneName ?? "--",
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
+                                            // Expanded(
+                                            //   child: Center(
+                                            //     child: Text(
+                                            //       finance.serviceID ?? "--",
+                                            //       style: GoogleFonts.firaSans(
+                                            //         fontSize: 10,
+                                            //         fontWeight: FontWeight.w500,
+                                            //         color:
+                                            //             const Color(0xff686464),
+                                            //         decoration:
+                                            //             TextDecoration.none,
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // ),
                                             Expanded(
                                               child: Center(
                                                 child: Row(
@@ -738,7 +733,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       ),
                                                                     );
                                                                   }
-
+                                                                  var fixPayRates =
+                                                                      snapshotPrefill
+                                                                          .data
+                                                                          ?.outOfZoneRate;
                                                                   var payRates =
                                                                       snapshotPrefill
                                                                           .data
@@ -750,13 +748,17 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                   var perMile =
                                                                       snapshotPrefill
                                                                           .data
-                                                                          ?.perMile;
+                                                                          ?.outOfZoneperMile;
                                                                   print(
                                                                       ":::PAYRATESTYPE${visitTypeId}");
-                                                                  var zoneTypeId =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.ZoneId;
+                                                                  // var zoneTypeId =
+                                                                  //     snapshotPrefill
+                                                                  //         .data
+                                                                  //         ?.ZoneId;
+                                                                  fixedPayRatesController = TextEditingController(text:snapshotPrefill
+                                                                      .data
+                                                                      ?.outOfZoneRate
+                                                                      .toString());
                                                                   payRatesController = TextEditingController(
                                                                       text: snapshotPrefill
                                                                           .data
@@ -765,7 +767,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                   perMilesController = TextEditingController(
                                                                       text: snapshotPrefill
                                                                           .data
-                                                                          ?.perMile
+                                                                          ?.outOfZoneperMile
                                                                           .toString());
                                                                   return PayRatesPopup(
                                                                     visitTypeTextActive:
@@ -847,36 +849,25 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                         }),
                                                                     payRatesController: payRatesController,
                                                                     perMilesController: perMilesController,
+                                                                    fixPayRatesController: fixedPayRatesController,
                                                                     onPressed:
                                                                         () async {
                                                                       await updatePayRatesSetupPost(
-                                                                          context,
-                                                                          finance.payratesId,
-                                                                          docZoneId,
-                                                                          payRates == int.parse(payRatesController.text)
-                                                                              ? payRates!
-                                                                              : int.parse(payRatesController
-                                                                                  .text),
-                                                                          visitTypeId!,
-                                                                          perMile == int.parse(perMilesController.text)
-                                                                              ? perMile!
-                                                                              : int.parse(perMilesController.text),
-                                                                          selectedServiceId!);
-                                                                      print(
-                                                                          "ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-
-                                                                      companyPayratesGet(context).then(
-                                                                          (data) {
-                                                                        _payRatesController
-                                                                            .add(data);
-                                                                      }).catchError(
-                                                                          (error) {});
+                                                                          context:context,
+                                                                          payratesId: finance.payratesId, rate: payRates == int.parse(payRatesController.text)
+                                                                          ? payRates!
+                                                                          : int.parse(payRatesController
+                                                                          .text), typeOfVisitId: visitTypeId!, outOfZoneperMile: perMile == int.parse(perMilesController.text)
+                                                                          ? perMile!
+                                                                          : int.parse(perMilesController.text),
+                                                                          outOfZoneRate: fixPayRates == int.parse(fixedPayRatesController.text)?fixPayRates!:int.parse(fixedPayRatesController.text),
+                                                                          serviceId: snapshotPrefill.data!.serviceId);
 
                                                                       // payRatesController
                                                                       //     .clear();
                                                                       // perMilesController
                                                                       //     .clear();
-                                                                    }, fixPayRatesController: fixedPayRatesController,
+                                                                    },
                                                                   );
                                                                 });
                                                           },
@@ -1067,7 +1058,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               onChanged: (String? newValue) {
                 setState(() {
                   _selectedZone = newValue;
-                  _filterPayRatesByZone();
+                 // _filterPayRatesByZone();
                 });
               },
               isDense: true,

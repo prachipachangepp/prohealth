@@ -198,22 +198,22 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               mobNumController: mobNumController,
                               secNumController: secNumController,
                               OptionalController: OptionalController,
-                              checkBoxHeadOffice:StatefulBuilder(
-                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                  return Container(
-                                      width: 300,
-                                      child: CheckboxTile(
-                                        title: 'Head Office',
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isHeadOffice = true;
-                                            print('HeadOffice ${isHeadOffice}');
-                                          });
-                                        },
-                                      ));
-                                },
-                              ),
+                              // checkBoxHeadOffice:StatefulBuilder(
+                              //   builder: (BuildContext context, void Function(void Function()) setState) {
+                              //     return Container(
+                              //         width: 300,
+                              //         child: CheckboxTile(
+                              //           title: 'Head Office',
+                              //           initialValue: false,
+                              //           onChanged: (value) {
+                              //             setState(() {
+                              //               isHeadOffice = true;
+                              //               print('HeadOffice ${isHeadOffice}');
+                              //             });
+                              //           },
+                              //         ));
+                              //   },
+                              // ),
                               checkBoxServices: StatefulBuilder(
 
                                 builder: (BuildContext context, void Function(void Function()) setState) {
@@ -322,7 +322,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   cityName: "",
                                   stateName: stateNameController.text,
                                   country: countryNameController.text,
-                                  isHeadOffice: isHeadOffice,
+                                  isHeadOffice: false,
                                 );
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode ==201){
