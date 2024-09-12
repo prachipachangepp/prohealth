@@ -6,6 +6,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -15,6 +17,7 @@ import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -127,6 +130,9 @@ class _CICCADRState extends State<CICCADR> {
                                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal manageCCADR = paginatedData[index];
+                                var ccADR = snapshot.data![index];
+                                var fileUrl = ccADR.docurl;
+                                final fileExtension = fileUrl.split('/').last;
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -196,6 +202,29 @@ class _CICCADRState extends State<CICCADR> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => ManageHistoryPopup(
+                                                            docHistory: [],// policiesdata.docHistory,
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.history,
+                                                        size: 18,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                    ),
+                                                    IconButton(onPressed: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"ADR.pdf");
+                                                      downloadFile(fileUrl);
+                                                    },
+                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
                                                     IconButton(
                                                       onPressed: () {
                                                         // String? selectedExpiryType = expiryType;  // Local variable to hold the selected expiry type
@@ -578,47 +607,64 @@ class _CICCADRState extends State<CICCADR> {
                                                       hoverColor: Colors.transparent,
                                                     ),
                                                     IconButton(
-                                                        splashColor: Colors.transparent,
-                                                        highlightColor: Colors.transparent,
-                                                        hoverColor: Colors.transparent,
-                                                        onPressed: (){
-                                                          // showDialog(context: context,
-                                                          //     builder: (context) => StatefulBuilder(
-                                                          //       builder: (BuildContext context, void Function(void Function()) setState) {
-                                                          //         return  DeletePopup(
-                                                          //             title: 'Delete ADR',
-                                                          //             loadingDuration: _isLoading,
-                                                          //             onCancel: (){
-                                                          //               Navigator.pop(context);
-                                                          //             }, onDelete: () async{
-                                                          //           setState(() {
-                                                          //             _isLoading = true;
-                                                          //           });
-                                                          //           try {
-                                                          //             await deleteManageCorporate(
-                                                          //                 context, manageCCADR.idOfDocument);
-                                                          //             setState(() async {
-                                                          //               await  getListMCorporateCompliancefetch(context,
-                                                          //                   AppConfig.corporateAndCompliance, AppConfig.subDocId2Adr, 1, 20
-                                                          //               )
-                                                          //                   .then((data) {
-                                                          //                 _ccAdrController.add(data);
-                                                          //               }).catchError((error) {
-                                                          //                 // Handle error
-                                                          //               });
-                                                          //               Navigator.pop(context);
-                                                          //             });
-                                                          //           } finally {
-                                                          //             setState(() {
-                                                          //               _isLoading = false;
-                                                          //             });
-                                                          //           }
-                                                          //
-                                                          //         });
-                                                          //       },
-                                                          //
-                                                          //     ));
-                                                        }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                    context,
+                                                                        void Function(void Function())
+                                                                        setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                          'Delete license',
+                                                                          loadingDuration:
+                                                                          _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteOrgDoc(context: context, orgDocId: manageCCADR.orgOfficeDocumentId ,);
+                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              setState(() async {
+                                                                                await getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId2Adr, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  _ccAdrController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete_outline,
+                                                          size: 18,
+                                                          color:
+                                                          ColorManager.red,
+                                                        )),
                                                   ],
                                                 ),
                                               ],

@@ -7,8 +7,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
@@ -134,6 +137,10 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal CapReports = paginatedData[index];
+                                var ccCapReport = snapshot.data![index];
+                                var fileUrl = ccCapReport.docurl;
+                                final fileExtension = fileUrl.split('/').last;
+
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -584,46 +591,88 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                     //   highlightColor: Colors.transparent,
                                                     //   hoverColor: Colors.transparent,
                                                     // ),
-                                                    // IconButton(
-                                                    //     splashColor: Colors.transparent,
-                                                    //     highlightColor: Colors.transparent,
-                                                    //     hoverColor: Colors.transparent,
-                                                    //     onPressed: (){
-                                                    //       showDialog(context: context,
-                                                    //           builder: (context) => StatefulBuilder(
-                                                    //             builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    //               return  DeletePopup(
-                                                    //                   title: 'Delete CAP Report',
-                                                    //                   loadingDuration: _isLoading,
-                                                    //                   onCancel: (){
-                                                    //                     Navigator.pop(context);
-                                                    //                   }, onDelete: () async{
-                                                    //                 setState(() {
-                                                    //                   _isLoading = true;
-                                                    //                 });
-                                                    //                 try {
-                                                    //                   await deleteManageCorporate(
-                                                    //                       context,
-                                                    //                       CapReports.docId);
-                                                    //                   setState(() async {
-                                                    //                     await  getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                                                    //                       _ccCapController.add(data);
-                                                    //                     }).catchError((error) {
-                                                    //                       // Handle error
-                                                    //                     });
-                                                    //                     Navigator.pop(context);
-                                                    //                   });
-                                                    //                 } finally {
-                                                    //                   setState(() {
-                                                    //                     _isLoading = false;
-                                                    //                   });
-                                                    //                 }
-                                                    //
-                                                    //               });
-                                                    //             },
-                                                    //
-                                                    //           ));
-                                                    //     }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => ManageHistoryPopup(
+                                                            docHistory: [],// policiesdata.docHistory,
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.history,
+                                                        size: 18,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                    ),
+                                                    IconButton(onPressed: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"Cap Report.pdf");
+                                                      downloadFile(fileUrl);
+                                                    },
+                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
+                                                    IconButton(
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                    context,
+                                                                        void Function(void Function())
+                                                                        setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                          'Delete license',
+                                                                          loadingDuration:
+                                                                          _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteOrgDoc(context: context, orgDocId: CapReports.orgOfficeDocumentId ,);
+                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              setState(() async {
+                                                                                await getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId4CapReport, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  _ccCapController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete_outline,
+                                                          size: 18,
+                                                          color:
+                                                          ColorManager.red,
+                                                        )),
                                                   ],
                                                 ),
                                               ],

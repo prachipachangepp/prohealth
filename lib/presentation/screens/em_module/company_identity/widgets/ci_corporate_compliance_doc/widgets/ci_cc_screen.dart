@@ -95,6 +95,7 @@ class _CiCorporateComplianceScreenState
     selectedSubDocTypeValue = "Select Sub Document";
     docTypeFuture = documentTypeGet(context);
     _updateSelectedSubDocId(selectedSubDocId);
+    print("office id ::::::::${widget.officeId}");
   }
 
   void _selectButton(int index) {
@@ -163,7 +164,7 @@ class _CiCorporateComplianceScreenState
                       child: Container(
                         height: AppSize.s56,
                         width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 2),
+                        padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
@@ -379,7 +380,7 @@ class _CiCorporateComplianceScreenState
                                         expiryDate:
                                         // selectedExpiryType.toString(),
                                         expiryDateController.text,
-                                        docCreated: DateTime.now().toIso8601String(),
+                                        docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",
                                         officeId: widget.officeId,
                                       );

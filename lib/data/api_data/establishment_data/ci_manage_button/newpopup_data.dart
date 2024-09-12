@@ -13,15 +13,15 @@ class TypeofDocpopup {
 
   TypeofDocpopup(
       {required this.orgDocumentSetupid,
-      required this.documenttypeid,
-      required this.documentsubtypeid,
-      required this.docname,
-      required this.expirytype,
-      required this.threshold,
-      required this.expirydate,
-      required this.expiryreminder,
-      required this.companyid,
-      required this.idOfDocument,
+        required this.documenttypeid,
+        required this.documentsubtypeid,
+        required this.docname,
+        required this.expirytype,
+        required this.threshold,
+        required this.expirydate,
+        required this.expiryreminder,
+        required this.companyid,
+        required this.idOfDocument,
         this.hasIssuerExpiry,
       });
 }
@@ -33,7 +33,7 @@ class MCorporateComplianceModal {
   final String idOfDocument;
   final String doc_created_at;
   final String expiry_date;
-  final String url;
+  final String docurl;
   final int companyId;
   final String officeId;
 
@@ -44,7 +44,7 @@ class MCorporateComplianceModal {
         required this.idOfDocument,
         required this.doc_created_at,
         required this.expiry_date,
-        required this.url,
+        required this.docurl,
         required this.companyId,
         required this.officeId
       });

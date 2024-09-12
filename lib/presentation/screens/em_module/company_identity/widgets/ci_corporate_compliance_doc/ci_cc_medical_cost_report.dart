@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
@@ -117,6 +120,9 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
+                                var ccMCR = snapshot.data![index];
+                                var fileUrl = ccMCR.docurl;
+                                final fileExtension = fileUrl.split('/').last;
                                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal MedicalCostReport = paginatedData[index];
@@ -570,46 +576,88 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                     //   highlightColor: Colors.transparent,
                                                     //   hoverColor: Colors.transparent,
                                                     // ),
-                                                    // IconButton(
-                                                    //     splashColor: Colors.transparent,
-                                                    //     highlightColor: Colors.transparent,
-                                                    //     hoverColor: Colors.transparent,
-                                                    //     onPressed: (){
-                                                    //       showDialog(context: context,
-                                                    //           builder: (context) => StatefulBuilder(
-                                                    //             builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    //               return  DeletePopup(
-                                                    //                   title: 'Delete Medical Cost Report',
-                                                    //                   loadingDuration: _isLoading,
-                                                    //                   onCancel: (){
-                                                    //                     Navigator.pop(context);
-                                                    //                   }, onDelete: () async{
-                                                    //                 setState(() {
-                                                    //                   _isLoading = true;
-                                                    //                 });
-                                                    //                 try {
-                                                    //                   await deleteManageCorporate(
-                                                    //                       context,
-                                                    //                       MedicalCostReport.docId);
-                                                    //                   setState(() async {
-                                                    //                     await  getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                                                    //                       _ccMedicalController.add(data);
-                                                    //                     }).catchError((error) {
-                                                    //                       // Handle error
-                                                    //                     });
-                                                    //                     Navigator.pop(context);
-                                                    //                   });
-                                                    //                 } finally {
-                                                    //                   setState(() {
-                                                    //                     _isLoading = false;
-                                                    //                   });
-                                                    //                 }
-                                                    //
-                                                    //               });
-                                                    //             },
-                                                    //
-                                                    //           ));
-                                                    //     }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => ManageHistoryPopup(
+                                                            docHistory: [],// policiesdata.docHistory,
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.history,
+                                                        size: 18,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                    ),
+                                                    IconButton(onPressed: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"Licenses.pdf");
+                                                      downloadFile(fileUrl);
+                                                    },
+                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
+                                                    IconButton(
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                    context,
+                                                                        void Function(void Function())
+                                                                        setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                          'Delete license',
+                                                                          loadingDuration:
+                                                                          _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteOrgDoc(context: context, orgDocId: MedicalCostReport.orgOfficeDocumentId ,);
+                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              setState(() async {
+                                                                                await getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId3CICCMedicalCR, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  _ccMedicalController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete_outline,
+                                                          size: 18,
+                                                          color:
+                                                          ColorManager.red,
+                                                        )),
                                                   ],
                                                 ),
                                               ],

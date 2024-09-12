@@ -1,6 +1,6 @@
 
 
-//  ///demo instance
+ ///demo instance
 // class AppConfig {
 //   // static const String dev =  "https://demoapp.symmetry.care";
 //   static const String dev = "https://resource.symmetry.care";
