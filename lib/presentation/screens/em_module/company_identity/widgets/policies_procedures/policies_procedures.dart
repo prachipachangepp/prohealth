@@ -1552,7 +1552,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           String?selectedExpiryType = expiryType;
                                                           showDialog(
                                                             context: context, builder: (context) {
-                                                              return FutureBuilder<MCorporateComplianceModal>(
+                                                              return FutureBuilder<MCorporateCompliancePreFillModal>(
                                                                 future: getPrefillNewOrgOfficeDocument(context, policiesdata.orgOfficeDocumentId),
                                                                 builder: (context, snapshotPrefill) {
                                                                   if (snapshotPrefill.connectionState == ConnectionState.waiting) {
@@ -1601,8 +1601,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                                 ? "Not Applicable"
                                                                                 : calenderController.text;
                                                                             await updateOrgDoc(context: context,
-                                                                              orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
-                                                                              orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
+                                                                              orgDocId: policiesdata.orgOfficeDocumentId,
+                                                                              orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
                                                                               idOfDocument: '',
                                                                               expiryDate: expiryTypeToSend,
                                                                               docCreatedat: DateTime.now().toString(),

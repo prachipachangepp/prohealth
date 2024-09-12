@@ -258,7 +258,7 @@ Future<ApiData> updateOrgDoc({
 
 
 /// GET prefill cc vc pp document prajwal
-Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
+Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
     BuildContext context, int orgDocId) async {
   var itemsList;
   try {
@@ -268,15 +268,19 @@ Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
             orgDocID: orgDocId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
-      itemsList = MCorporateComplianceModal(
-        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
-        orgDocumentSetupid: response.data['orgDocumentSetupid'],
-        idOfDocument: response.data['idOfDocument'],
-        expiry_date: response.data['doc_name'],
-        doc_created_at: response.data['doc_created_at'],
+      itemsList = MCorporateCompliancePreFillModal(
+        documentSetupId: response.data['orgDocumentSetupid'],
+        idOfDocument: response.data['idOfDocument']??"",
+        expiry_date: response.data['expiry_date']??"2024-09-12T15:45:27.749Z",
+        doc_created_at: response.data['doc_created_at']??"2024-09-12T15:45:27.749Z",
         companyId: response.data['company_id'] ?? 0,
         url: response.data['url'] ?? "",
         officeId: response.data['office_id'],
+        threshould: response.data['threshold']??0,
+        expType: response.data['expiry_type']??"",
+        docName: response.data['doc_name']??'',
+        docSubTypeId: response.data['document_subtype_id'],
+        docTypeId: response.data['document_type_id'],
       );
     } else {
       print('Api Error');

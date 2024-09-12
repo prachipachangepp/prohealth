@@ -49,3 +49,34 @@ class MCorporateComplianceModal {
         required this.officeId
       });
 }
+
+
+class MCorporateCompliancePreFillModal {
+  final int documentSetupId;
+  final String idOfDocument;
+  final String doc_created_at;
+  final String expiry_date;
+  final String url;
+  final int companyId;
+  final String officeId;
+  final int threshould;
+  final String expType;
+  final String docName;
+  final int docSubTypeId;
+  final int docTypeId;
+
+  MCorporateCompliancePreFillModal({
+    required this.documentSetupId,
+    required this.threshould,
+    required this.expType,
+    required this.docName,
+    required this.docSubTypeId,
+    required this.docTypeId,
+    required this.idOfDocument,
+    required this.doc_created_at,
+    required this.expiry_date,
+    required this.url,
+    required this.companyId,
+    required this.officeId
+  });
+}
