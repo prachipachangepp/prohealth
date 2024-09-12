@@ -76,8 +76,7 @@ class _CiCorporateComplianceScreenState
 
   TextEditingController expiryDateController = TextEditingController();
   String fileName = '';
-  String? documentID;
-  Future<void> pickFile() async {
+  Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       setState(() {
@@ -374,14 +373,18 @@ class _CiCorporateComplianceScreenState
 
                                     ///Add Doctype API on save button
                                     try {
-                                      print("Doc Name ${documentID}");
+
+                                      String? expiryDate;
+                                      if (expiryDateController.text.isEmpty) {
+                                        expiryDate = null;
+                                      } else {
+                                        expiryDate = expiryDateController.text;
+                                      }
                                       ApiData response = await addOrgDocPPPost(
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
-                                        idOfDocument: documentID!,
-                                        expiryDate:
-                                        // selectedExpiryType.toString(),
-                                        expiryDateController.text,
+                                        idOfDocument: "PPP",
+                                        expiryDate: expiryDate,
                                         docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",
                                         officeId: widget.officeId,
@@ -447,7 +450,71 @@ class _CiCorporateComplianceScreenState
                                                     ))
                                                 .toList();
 
-                                        return StatefulBuilder(
+                                        return
+                                            // StatefulBuilder(
+                                            //   builder: (context, setState) {
+                                            //     return Column(
+                                            //       children: [
+                                            //         CICCDropdown(
+                                            //           initialValue: "Select",
+                                            //           onChange: (val) {
+                                            //             setState(() {
+                                            //               for (var doc in snapshot.data!) {
+                                            //                 if (doc.docname == val) {
+                                            //                   docTypeId = doc.orgDocumentSetupid!;
+                                            //
+                                            //                   // Show expiry date field only if expirytype is "issuer expiry"
+                                            //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
+                                            //                 }
+                                            //               }
+                                            //             });
+                                            //           },
+                                            //           items: dropDownMenuItems,
+                                            //         ),
+                                            //         Visibility(
+                                            //           visible: showExpiryDateField, // Conditionally display expiry date field
+                                            //           child: Padding(
+                                            //             padding: const EdgeInsets.only(top: 8.0),
+                                            //             child: Container(
+                                            //               height: 30, // Set height to 30
+                                            //               width: 175, // Set width to 175
+                                            //               child: TextField(
+                                            //                 controller: expiryDateController,
+                                            //                 readOnly: true,
+                                            //                 decoration: InputDecoration(
+                                            //                   labelText: "Expiry Date",
+                                            //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
+                                            //                   suffixIcon: IconButton(
+                                            //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
+                                            //                     onPressed: () async {
+                                            //                       DateTime? pickedDate = await showDatePicker(
+                                            //                         context: context,
+                                            //                         initialDate: DateTime.now(),
+                                            //                         firstDate: DateTime(2000),
+                                            //                         lastDate: DateTime(2101),
+                                            //                       );
+                                            //                       if (pickedDate != null) {
+                                            //                         setState(() {
+                                            //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                            //                         });
+                                            //                       }
+                                            //                     },
+                                            //                   ),
+                                            //                   border: OutlineInputBorder(),
+                                            //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
+                                            //                   hintText: 'YYYY-MM-DD',
+                                            //                 ),
+                                            //               ),
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //       ],
+                                            //     );
+                                            //   },
+                                            // );
+                                            ///
+
+                                            StatefulBuilder(
                                           builder: (context, setState) {
                                             return Column(
                                               children: [
@@ -466,7 +533,6 @@ class _CiCorporateComplianceScreenState
                                                             val) {
                                                           docTypeId = doc
                                                               .orgDocumentSetupid!;
-                                                          documentID = doc.docname;
 
                                                           // Show expiry date field only if expirytype is "issuer expiry"
                                                           if (doc.expirytype ==
@@ -591,56 +657,57 @@ class _CiCorporateComplianceScreenState
                                       }
                                     },
                                   ),
-                                  uploadField: Container(
-                                    height: AppSize.s30,
-                                    width: AppSize.s354,
-                                    // margin: EdgeInsets.symmetric(horizontal: 5),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: StatefulBuilder(
-                                      builder: (BuildContext context,
-                                          void Function(void Function())
-                                              setState) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                fileName,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight:
-                                                      FontWeightManager.regular,
-                                                  color: ColorManager
-                                                      .lightgreyheading,
-                                                ),
-                                              ),
-                                              IconButton(
-                                                padding: EdgeInsets.all(4),
-                                                onPressed: pickFile,
-                                                icon: Icon(
-                                                  Icons.file_upload_outlined,
-                                                  color: ColorManager.black,
-                                                  size: 17,
-                                                ),
-                                                splashColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
+
+                                  // uploadField: Container(
+                                  //   height: AppSize.s30,
+                                  //   width: AppSize.s354,
+                                  //   // margin: EdgeInsets.symmetric(horizontal: 5),
+                                  //   decoration: BoxDecoration(
+                                  //     border: Border.all(
+                                  //       color: ColorManager.containerBorderGrey,
+                                  //       width: 1,
+                                  //     ),
+                                  //     borderRadius: BorderRadius.circular(4),
+                                  //   ),
+                                  //   child: StatefulBuilder(
+                                  //     builder: (BuildContext context,
+                                  //         void Function(void Function())
+                                  //             setState) {
+                                  //       return Padding(
+                                  //         padding: const EdgeInsets.all(0),
+                                  //         child: Row(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.spaceBetween,
+                                  //           children: [
+                                  //             Text(
+                                  //               fileName,
+                                  //               style: GoogleFonts.firaSans(
+                                  //                 fontSize: FontSize.s12,
+                                  //                 fontWeight:
+                                  //                     FontWeightManager.regular,
+                                  //                 color: ColorManager
+                                  //                     .lightgreyheading,
+                                  //               ),
+                                  //             ),
+                                  //             IconButton(
+                                  //               padding: EdgeInsets.all(4),
+                                  //               onPressed: _pickFile,
+                                  //               icon: Icon(
+                                  //                 Icons.file_upload_outlined,
+                                  //                 color: ColorManager.black,
+                                  //                 size: 17,
+                                  //               ),
+                                  //               splashColor: Colors.transparent,
+                                  //               highlightColor:
+                                  //                   Colors.transparent,
+                                  //               hoverColor: Colors.transparent,
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       );
+                                  //     },
+                                  //   ),
+                                  // ),
                                   title: 'Upload Document',
 
                                 );

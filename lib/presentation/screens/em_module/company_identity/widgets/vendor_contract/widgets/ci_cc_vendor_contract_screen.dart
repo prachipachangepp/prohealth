@@ -376,13 +376,18 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
 
                                   ///Add Doctype API on save button
                                   try {
+
+                                    String? expiryDate;
+                                    if (expiryDateController.text.isEmpty) {
+                                      expiryDate = null;
+                                    } else {
+                                      expiryDate = expiryDateController.text;
+                                    }
                                     ApiData response = await addOrgDocPPPost(
                                       context: context,
                                       orgDocumentSetupid: docTypeId,
                                       idOfDocument: documentID!,
-                                      expiryDate:
-                                      // selectedExpiryType.toString(),
-                                      expiryDateController.text,
+                                      expiryDate: expiryDate,
                                       docCreated: DateTime.now().toIso8601String()+"Z",
                                       url: "url",
                                       officeId: widget.officeId,

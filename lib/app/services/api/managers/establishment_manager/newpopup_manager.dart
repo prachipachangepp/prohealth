@@ -372,8 +372,8 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
                 doc_created_at: item['doc_created_at'] ?? '',
                 expiry_date: item['expiry_date'] ?? '',
                 docurl: item['url'] ?? '',
-                companyId: item['company_id'] ?? 0,
-                officeId: item['office_id'] ?? ''
+                companyId: companyId,
+                officeId: item['office_id'] ?? '',
             )
         );
       }
@@ -407,7 +407,7 @@ Future<ApiData> addOrgDocPPPost({
     var data = {
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
-      "expiry_date": null,
+      "expiry_date": expiryDate,
       "doc_created_at": docCreated,
       "company_id": companyId,
       "url": url,
