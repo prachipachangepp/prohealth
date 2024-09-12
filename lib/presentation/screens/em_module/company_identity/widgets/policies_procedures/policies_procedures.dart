@@ -1323,13 +1323,15 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                         docIdController.clear();
                         docNamecontroller.clear();
                         selectedExpiryType = "";
-                        String? selectedExpiryDate;
+
                         showDialog(
                             context: context,
                             builder: (context) {
                               return StatefulBuilder(
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
+                                  String? selectedExpiryDate;
+                                  String? expiryDateToSend;
                                   return PoliciesProcedureAddPopUp(
                                     loadingDuration: _isLoading,
                                     onDocTypeSelected: (int docTypeId) {
@@ -1339,7 +1341,10 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     },
                                     onExpiryDateSelected: (String? expiryDate) {
                                       setState(() {
+                                        print('EXP Date : ${expiryDate}');
+
                                         selectedExpiryDate = expiryDate;
+                                        print('selected EXP Date : ${selectedExpiryDate}');
                                       });
                                     },
                                     onPressed: () async {
@@ -1349,8 +1354,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
 
                                       ///Add Doctype API on save button
                                       try {
-                                        String? expiryDateToSend;
-                                        if (expiryType == AppConfig.issuer && selectedExpiryDate != null && selectedExpiryDate!.isNotEmpty) {
+                                        print('EXP Date ${selectedExpiryDate}');
+                                        if (selectedExpiryDate != null && selectedExpiryDate!.isNotEmpty) {
                                           expiryDateToSend = selectedExpiryDate;
                                         } else {
                                           expiryDateToSend = null;
@@ -1360,7 +1365,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             orgDocumentSetupid: selectedDocTypeId!,
                                             idOfDocument: "",
                                             expiryDate: expiryDateToSend,
-                                            docCreated: DateTime.now().toIso8601String(),
+                                            docCreated: DateTime.now().toIso8601String()+"Z",
                                             url: "",
                                             officeId: widget.officeId);
                                         print(expiryDateToSend);
