@@ -344,9 +344,54 @@ Future<List<TypeofDocpopup>> getTypeofDoc(
 }
 
 /// get API list in manage Corporate compliance prajwal
+// Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
+//     BuildContext context,
+//     // String officeId,
+//     int DocumentTypeId,
+//     int DocumentSubTypeId,
+//     int pageNbr,
+//     int NbrofRows
+//     ) async {
+//   List<MCorporateComplianceModal> itemsList = [];
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.getListMCorporateCompliance(
+//             DocumentTypeId: DocumentTypeId,
+//             DocumentSubTypeId: DocumentSubTypeId, pageNbr: pageNbr, NbrofRows: NbrofRows));
+//     print(" Prachi Corporate Compliance response:::::${response.data}");
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//
+//       print("1");
+//       for (var item in response.data) {
+//         itemsList.add(
+//             MCorporateComplianceModal(
+//                 orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
+//                 orgDocumentSetupid: item['orgDocumentSetupid']  ?? 0,
+//                 idOfDocument: item['idOfDocument'] ?? '',
+//                 doc_created_at: item['doc_created_at'] ?? '',
+//                 expiry_date: item['expiry_date'] ?? '',
+//                 docurl: item['url'] ?? '',
+//                 companyId: companyId,
+//                 officeId: item['office_id'] ?? '',
+//             )
+//         );
+//       }
+//       // print('${response.data['DocumentList']}');
+//       print(" Manage Corporate Compliance Get :::::${itemsList}");
+//     } else {
+//       print(' Manage Compliance Data Added');
+//       return itemsList;
+//     }
+//     // print("Org response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error for add $e");
+//     return itemsList;
+//   }
+// }
 Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
     BuildContext context,
-    // String officeId,
     int DocumentTypeId,
     int DocumentSubTypeId,
     int pageNbr,
@@ -359,31 +404,30 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
         path: EstablishmentManagerRepository.getListMCorporateCompliance(
             DocumentTypeId: DocumentTypeId,
             DocumentSubTypeId: DocumentSubTypeId, pageNbr: pageNbr, NbrofRows: NbrofRows));
+
     print(" Prachi Corporate Compliance response:::::${response.data}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-
-      print("1");
       for (var item in response.data) {
         itemsList.add(
-            MCorporateComplianceModal(
-                orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
-                orgDocumentSetupid: item['orgDocumentSetupid']  ?? 0,
-                idOfDocument: item['idOfDocument'] ?? '',
-                doc_created_at: item['doc_created_at'] ?? '',
-                expiry_date: item['expiry_date'] ?? '',
-                docurl: item['url'] ?? '',
-                companyId: item['company_id'] ?? 0,
-                officeId: item['office_id'] ?? ''
-            )
+          MCorporateComplianceModal(
+            orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
+            orgDocumentSetupid: item['orgDocumentSetupid'] ?? 0,
+            idOfDocument: item['idOfDocument'] ?? '',
+            doc_created_at: item['doc_created_at'] ?? '',
+            expiry_date: item['expiry_date'] ?? '',
+            docurl: item['url'] ?? '',
+            companyId: companyId,
+            officeId: item['office_id'] ?? '',
+            docName: item['doc_name'] ?? '',
+            docHistory: item['docHistory'] ?? [], // Parse docHistory here
+          ),
         );
       }
-      // print('${response.data['DocumentList']}');
       print(" Manage Corporate Compliance Get :::::${itemsList}");
     } else {
       print(' Manage Compliance Data Added');
       return itemsList;
     }
-    // print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error for add $e");
@@ -425,7 +469,7 @@ Future<ApiData> addOrgDocPPPost({
         path: EstablishmentManagerRepository.addDocOrg(),
         data: {
           "orgDocumentSetupid": orgDocumentSetupid,
-          //"idOfDocument": '',
+          "idOfDocument": idOfDocument,
           "expiry_date": expiryDate == null ? null :"${expiryDate}T00:00:00Z",
           "doc_created_at": docCreated,
           "company_id": companyId,
@@ -501,7 +545,7 @@ Future<ApiData> updateOrgDoc({
   required int orgDocId,
   required int orgDocumentSetupid,
   required String idOfDocument,
-  required String expiryDate,
+  required String? expiryDate,
   required String docCreatedat,
   required String url,
   required String officeid,
@@ -514,7 +558,7 @@ Future<ApiData> updateOrgDoc({
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
       // "expiry_date": formattedExpiryDate,
-      "expiry_date": "${expiryDate}T00:00:00Z",
+      "expiry_date": null,
       "doc_created_at": docCreatedat,
       "company_id": companyId,
       "url": url,
@@ -527,9 +571,9 @@ Future<ApiData> updateOrgDoc({
     print('Patch Manage CCVCPP ::::$response ');
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      // var responseData = response.data;
-      // var docOfficeID =responseData["orgOfficeDocumentId"];
-      // print("Uploaded Document CCVCPP  addded ");
+      var responseData = response.data;
+      var docOfficeID =responseData["orgOfficeDocumentId"];
+      print("Patch CCVCPP  Updated ");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -551,7 +595,7 @@ Future<ApiData> updateOrgDoc({
 
 
 /// GET prefill cc vc pp document prajwal
-Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
+Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
     BuildContext context, int orgDocId) async {
   var itemsList;
   try {
@@ -561,15 +605,19 @@ Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
             orgDocID: orgDocId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
-      itemsList = MCorporateComplianceModal(
-        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
-        orgDocumentSetupid: response.data['orgDocumentSetupid'],
-        idOfDocument: response.data['idOfDocument'],
+      itemsList = MCorporateCompliancePreFillModal(
+        documentSetupId: response.data['orgDocumentSetupid'],
+        idOfDocument: response.data['idOfDocument']??"",
         expiry_date: response.data['expiry_date'] ?? "",
         doc_created_at: response.data['doc_created_at'] ?? "",
         companyId: companyId,
-        docurl: response.data['url'] ?? "",
+        url: response.data['url'] ?? "",
         officeId: response.data['office_id'],
+        threshould: response.data['threshold']??0,
+        expType: response.data['expiry_type']??"",
+        docName: response.data['doc_name']??'',
+        docSubTypeId: response.data['document_subtype_id'],
+        docTypeId: response.data['document_type_id'],
       );
     } else {
       print('Api Error');

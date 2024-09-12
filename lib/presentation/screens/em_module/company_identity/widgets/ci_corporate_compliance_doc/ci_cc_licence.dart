@@ -8,6 +8,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/newpop
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
@@ -243,10 +244,21 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                   mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                                   children: [
-                                                    IconButton(onPressed: (){},
-                                                        icon: Icon(Icons.history,  size: 18,
-                                                          color: ColorManager.blueprime
-                                                        )),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => ManageHistoryPopup(
+                                                            docHistory: [],// policiesdata.docHistory,
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.history,
+                                                        size: 18,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                    ),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
                                                       DowloadFile().downloadPdfFromBase64(fileExtension,"Licenses.pdf");

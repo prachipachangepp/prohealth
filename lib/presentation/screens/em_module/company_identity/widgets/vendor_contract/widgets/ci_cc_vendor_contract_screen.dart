@@ -75,13 +75,15 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
   TextEditingController expiryDateController = TextEditingController();
   int selectedSubDocId = AppConfig.subDocId6Leases;
   bool showExpiryDateField = false;
+  int docTypeId = 0;
+
   @override
   void initState() {
     super.initState();
     selectedDocTypeValue = "Select Document Type";
     selectedSubDocTypeValue = "Select Sub Document";
     docTypeFuture = documentTypeGet(context);
-    _updateSelectedSubDocIdVC(selectedSubDocIdVC);
+    _updateSelectedSubDocIdVC(selectedSubDocId);
     showExpiryDateField;
   }
 
@@ -119,7 +121,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
 
   void _updateSelectedSubDocIdVC(int subDocIdVC) {
     setState(() {
-      selectedSubDocIdVC = subDocIdVC;
+      selectedSubDocId = subDocIdVC;
       selectedSubDocType = getSubDocTypeTextVC(subDocIdVC);
     });
   }
@@ -356,13 +358,13 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     docIdController.clear();
                     docNamecontroller.clear();
                     selectedExpiryType = "";
-
                     showDialog(
                         context: context,
                         builder: (context) {
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
+                              String? documentID;
                               return VCScreenPopupADDConst(
                                 loadingDuration: _isLoading,
                                 onPressed: () async {
@@ -370,17 +372,23 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   setState(() {
                                     _isLoading = true;
                                   });
+                                  print("Id document ${documentID}");
 
                                   ///Add Doctype API on save button
                                   try {
+
+                                    String? expiryDate;
+                                    if (expiryDateController.text.isEmpty) {
+                                      expiryDate = null;
+                                    } else {
+                                      expiryDate = expiryDateController.text;
+                                    }
                                     ApiData response = await addOrgDocPPPost(
                                       context: context,
-                                      orgDocumentSetupid: docTypeMetaIdVC,
-                                      idOfDocument: "PPP",
-                                      expiryDate:
-                                      // selectedExpiryType.toString(),
-                                      expiryDateController.text,
-                                      docCreated: DateTime.now().toIso8601String(),
+                                      orgDocumentSetupid: docTypeId,
+                                      idOfDocument: documentID!,
+                                      expiryDate: expiryDate,
+                                      docCreated: DateTime.now().toIso8601String()+"Z",
                                       url: "url",
                                       officeId: widget.officeId,
                                     );
@@ -404,6 +412,170 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
 
                                 },
                                 title: 'Upload Document',
+                                child:FutureBuilder<List<TypeofDocpopup>>(
+                                  future: getTypeofDoc(context,
+                                      docTypeMetaIdVC, selectedSubDocId) ,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Container(
+                                        width: 350,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(8),
+                                        ),
+                                      );
+                                    }
+
+                                    if (!snapshot.hasData ||
+                                        snapshot.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          AppString.dataNotFound,
+                                          style: CustomTextStylesCommon
+                                              .commonStyle(
+                                            fontWeight:
+                                            FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    if (snapshot.hasData) {
+                                      List<DropdownMenuItem<String>>
+                                      dropDownMenuItems = snapshot.data!
+                                          .map((doc) =>
+                                          DropdownMenuItem<String>(
+                                            value: doc.docname,
+                                            child: Text(doc.docname!),
+                                          ))
+                                          .toList();
+
+                                      return
+                                        ///
+                                        StatefulBuilder(
+                                          builder: (context, setState) {
+                                            return Column(
+                                              children: [
+                                                CICCDropdown(
+                                                  initialValue: "Select",
+                                                  onChange: (val) {
+                                                    setState(() {
+                                                      // Always reset the expiry field visibility to false initially
+                                                      showExpiryDateField = false;
+                                                      // Loop through the documents and check the selected value
+                                                      for (var doc in snapshot.data!) {
+                                                        if (doc.docname ==
+                                                            val) {
+                                                          docTypeId = doc.orgDocumentSetupid!;
+                                                          documentID = doc.docname;
+
+                                                          // Show expiry date field only if expirytype is "issuer expiry"
+                                                          if (doc.expirytype ==
+                                                              AppConfig
+                                                                  .issuer) {
+                                                            showExpiryDateField =
+                                                            true;
+                                                          }
+                                                        }
+                                                      }
+                                                    });
+                                                  },
+                                                  items: dropDownMenuItems,
+                                                ),
+                                                SizedBox(height: 10,),
+                                                Visibility(
+                                                  visible: showExpiryDateField,
+                                                  /// Conditionally display expiry date field
+                                                  child:   Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(left: 2),
+                                                        child: Text(
+                                                          "Expiry Date",
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorManager.mediumgrey,
+                                                            decoration: TextDecoration.none,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 5,),
+                                                      FormField<String>(
+                                                        builder: (FormFieldState<String> field) {
+                                                          return SizedBox(
+                                                            width: 354,
+                                                            height: 30,
+                                                            child: TextFormField(
+                                                              controller: expiryDateController,
+                                                              cursorColor: ColorManager.black,
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: FontSize.s12,
+                                                                fontWeight: FontWeight.w700,
+                                                                color: ColorManager.mediumgrey,
+                                                              ),
+                                                              decoration: InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                ),
+                                                                hintText: 'mm-dd-yyyy',
+                                                                hintStyle: GoogleFonts.firaSans(
+                                                                  fontSize: FontSize.s12,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  color: ColorManager.mediumgrey,
+                                                                ),
+                                                                border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                  borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                                                                ),
+                                                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                                suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                                                errorText: field.errorText,
+                                                              ),
+                                                              onTap: () async {
+                                                                DateTime? pickedDate = await showDatePicker(
+                                                                  context: context,
+                                                                  initialDate: DateTime.now(),
+                                                                  firstDate: DateTime(1901),
+                                                                  lastDate: DateTime(3101),
+                                                                );
+                                                                if (pickedDate != null) {
+                                                                  expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                }
+                                                              },
+                                                              validator: (value) {
+                                                                if (value == null || value.isEmpty) {
+                                                                  return 'please select date';
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                    } else {
+                                      return SizedBox();
+                                    }
+                                  },
+                                ),
                               );
                             },
                           );
