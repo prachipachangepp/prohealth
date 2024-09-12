@@ -68,7 +68,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           lastNameController.text,
           selectedDeptId!, // roleController.text,
           emailController.text,
-          int.parse(companyIdController.text),
+         // int.parse(companyIdController.text),
           passwordController.text);
       // Handle response here
       firstNameController.clear();
@@ -206,7 +206,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   lastNameController.text,
                                   selectedDeptId!,// roleController.text,
                                   emailController.text,
-                                  1, // int.parse(companyIdController.text),
+                                 // 1, // int.parse(companyIdController.text),
                                   passwordController.text);
                               getUser(context).then((data) {
                                 _companyUsersList.add(data);
@@ -673,10 +673,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       builder:
                                                           (BuildContext context) {
                                                         return FutureBuilder<UserModalPrefill>(
-                                                          future: getUserPrefill(context,
-                                                              // deptId
-                                                              user.userId
-                                                          ),
+                                                          future: getUserPrefill(context, user.userId),
                                                           builder: (context, snapshotPrefill) {
                                                             if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                               return Center(
@@ -702,27 +699,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   user.userId,
                                                                   firstNameController.text,
                                                                   lastNameController.text,
-                                                                  selectedDeptId ?? 1,
+                                                                  selectedDeptId ?? snapshotPrefill.data!.deptId,
                                                                   emailController.text,
-                                                                  // Pass an empty string if you want to exclude password
-                                                                  null, // Or an empty string if the API allows it
-                                                                    // user.userId,
-                                                                    // firstNameController.text,
-                                                                    // lastNameController.text,
-                                                                    // selectedDeptId ?? 1,
-                                                                    // emailControlle   r.text,
-                                                                    //  passwordController.text,
+                                                                  null,
                                                                     );
                                                                 print('password:::::::::::${passwordController.text}');
-                                                                // updateUserPatch(
-                                                                //     context,
-                                                                //     user.userId,
-                                                                //     firstNameController.text,
-                                                                //     lastNameController.text,
-                                                                //     selectedDeptName!,//roleController.text,
-                                                                //     emailController.text,
-                                                                //     1
-                                                                // );
+                                                                print('Dept id:::::::::::${selectedDeptId}');
                                                                 getUser(context).then((data) {
                                                                     _companyUsersList.add(data);
                                                                 }).catchError((error) {
@@ -758,8 +740,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     );
                                                                   }
                                                                   if (snapshot.hasData) {
-                                                                    // Extract dropdown items from snapshot
-                                                                    List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
+                                                                    List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
                                                                     String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
                                                                     int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
 
@@ -767,7 +748,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       selectedDeptName = firstDeptName;
                                                                       selectedDeptId = firstDeptId;
                                                                     }
-
                                                                     return HRManageDropdown(
                                                                       controller: TextEditingController(text: selectedDeptName ?? ''),
                                                                       labelText: "Select Department",
@@ -781,13 +761,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       onChanged: (val) {
                                                                         setState(() {
                                                                           selectedDeptName = val;
-                                                                          // Find the corresponding department ID from the snapshot
                                                                           selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
                                                                         });
                                                                       },
                                                                     );
                                                                   }
-                                                                  return const SizedBox(); // Return an empty widget in case of no data
+                                                                  return const SizedBox();
                                                                 },
                                                               )
                                                               ,

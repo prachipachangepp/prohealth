@@ -56,19 +56,17 @@ class EstablishmentManagerRepository {
   static String newPayratesdelete = "/payrates";
   static String addCompanyPost = "/Company/Insert";
   static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
-  static String orgdocadd = "/org-office-document/add";
+  static String orgdocadd = "/org-office-document";
   static String orgdocEndPoind = "/org-office-document";
   static String officedocbase = "/org-office-document/attach-documentbase64";
-
-  //static String add ="/add";
 
   ///new org
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
-
-  static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
-
   static String addofficeservices = "/company-office-service/add";
+
+  ///new office doc
+  static String getCCVCPPList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
 
   static String companyAll() {
     return "$company";
@@ -351,7 +349,7 @@ class EstablishmentManagerRepository {
   }
 
   static String addEmployeDocSetup() {
-    return "$employeedocSetup$add";
+    return "$employeedocSetup/$add";
   }
 
   ///employee doc tab bar
@@ -483,7 +481,7 @@ class EstablishmentManagerRepository {
   }
 
   static String addDocOrg() {
-    return "$orgdocadd";
+    return "$orgdocadd/$add";
   }
   static String patchDocOrg({required int orgDocID}) {
     return "$orgdocEndPoind/$orgDocID";
@@ -511,8 +509,6 @@ class EstablishmentManagerRepository {
   static String newOrgDocGet() {
     return "$orgDocSetup";
   }
-
-
   ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
   static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
     return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
@@ -525,10 +521,13 @@ class EstablishmentManagerRepository {
   static String addNewDocumentPost() {
     return "$orgDocSetup/$add";
   }
-
+  ///new office doc
   ///org-office-document/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
   static String getListMCorporateCompliance({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}){
-    return "$getCCList$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+    return "$getCCVCPPList$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
   }
 
+  static String prefillDocOfficeOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
+  }
 }
