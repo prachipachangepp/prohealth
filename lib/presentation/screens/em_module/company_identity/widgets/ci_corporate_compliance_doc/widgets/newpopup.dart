@@ -1087,13 +1087,14 @@ class PoliciesProcedureAddPopUp extends StatefulWidget {
   final VoidCallback onPressed;
   final double? height;
   final Widget? uploadField;
+  final Widget child;
   dynamic filePath;
   String? fileName;
   final Function(int) onDocTypeSelected;
   final Function(String?) onExpiryDateSelected;
    PoliciesProcedureAddPopUp({
     super.key,
-    // required this.child,
+    required this.child,
     required this.title,
     required this.onPressed,
     this.height,
@@ -1203,159 +1204,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                     ),
                   ),
                   SizedBox(height: AppSize.s5),
-                  FutureBuilder<List<TypeofDocpopup>>(
-                    future: getTypeofDoc(context, docTypeMetaIdPP, selectedSubDocId) ,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container(
-                          width: 350,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.circular(8),
-                          ),
-                        );
-                      }
-
-                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(
-                          child: Text(
-                            AppString.dataNotFound,
-                            style: CustomTextStylesCommon
-                                .commonStyle(
-                              fontWeight:
-                              FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey,
-                            ),
-                          ),
-                        );
-                      }
-
-                      if (snapshot.hasData) {
-                        List<DropdownMenuItem<String>>dropDownMenuItems = snapshot.data!
-                            .map((doc) =>
-                            DropdownMenuItem<String>(
-                              value: doc.docname,
-                              child: Text(doc.docname!),
-                            ))
-                            .toList();
-
-                        return StatefulBuilder(
-                            builder: (context, setState) {
-                              return Column(
-                                children: [
-                                  CICCDropdown(
-                                    initialValue: "Select",
-                                    onChange: (val) {
-                                      setState(() {
-                                        showExpiryDateField = false;
-                                        for (var doc in snapshot.data!) {
-                                          if (doc.docname == val) {
-                                            docTypeId = doc.orgDocumentSetupid!;
-                                            widget.onDocTypeSelected(docTypeId);
-                                            print(doc.orgDocumentSetupid);
-
-                                            // Show expiry date field only if expirytype is "issuer expiry"
-                                            if (doc.expirytype == AppConfig.issuer) {
-                                              showExpiryDateField = true;
-                                            }
-                                          }
-                                        }
-                                      });
-                                    },
-                                    items: dropDownMenuItems,
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Visibility(
-                                    visible: showExpiryDateField,
-                                    /// Conditionally display expiry date field
-                                    child:   Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 2),
-                                          child: Text(
-                                            "Expiry Date",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 5,),
-                                        FormField<String>(
-                                          builder: (FormFieldState<String> field) {
-                                            return SizedBox(
-                                              width: 354,
-                                              height: 30,
-                                              child: TextFormField(
-                                                controller: expiryDateController,
-                                                cursorColor: ColorManager.black,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                                decoration: InputDecoration(
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                    borderRadius: BorderRadius.circular(6),
-                                                  ),
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                    borderRadius: BorderRadius.circular(6),
-                                                  ),
-                                                  hintText: 'mm-dd-yyyy',
-                                                  hintStyle: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorManager.mediumgrey,
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(6),
-                                                    borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
-                                                  ),
-                                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                                  suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                                                  errorText: field.errorText,
-                                                ),
-                                                onTap: () async {
-                                                  DateTime? pickedDate = await showDatePicker(
-                                                    context: context,
-                                                    initialDate: DateTime.now(),
-                                                    firstDate: DateTime(1901),
-                                                    lastDate: DateTime(3101),
-                                                  );
-                                                  if (pickedDate != null) {
-                                                    expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                  }
-                                                },
-                                                validator: (value) {
-                                                  if (value == null || value.isEmpty) {
-                                                    return 'please select date';
-                                                  }
-                                                  return null;
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                      } else {
-                        return SizedBox();
-                      }
-                    },
-                  ),
+                  widget.child,
                   SizedBox(height: AppSize.s5),
                   SizedBox(height:AppSize.s12),
                   Row(
