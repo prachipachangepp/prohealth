@@ -181,7 +181,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         width: AppSize.s22,
                                                       ),
                                                     ),
-                                                    //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
+                                                    //IconButton(onPressed: (){},
+                                                    // icon: Icon(Icons.remove_red_eye_outlined,
+                                                    // size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(
                                                         width: AppSize.s30),
                                                     Column(
