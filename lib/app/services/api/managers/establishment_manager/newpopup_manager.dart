@@ -272,9 +272,9 @@ Future<MCorporateComplianceModal> getPrefillNewOrgOfficeDocument(
         orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
         orgDocumentSetupid: response.data['orgDocumentSetupid'],
         idOfDocument: response.data['idOfDocument'],
-        expiry_date: response.data['doc_name'],
-        doc_created_at: response.data['doc_created_at'],
-        companyId: response.data['company_id'] ?? 0,
+        expiry_date: response.data['expiry_date'] ?? "",
+        doc_created_at: response.data['doc_created_at'] ?? "",
+        companyId: companyId,
         url: response.data['url'] ?? "",
         officeId: response.data['office_id'],
       );
