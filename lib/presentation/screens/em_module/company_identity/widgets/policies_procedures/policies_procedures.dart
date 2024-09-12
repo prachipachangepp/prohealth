@@ -709,6 +709,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           color: ColorManager
                                                               .bluebottom,
                                                         ),
+
                                                         splashColor:
                                                         Colors.transparent,
                                                         highlightColor:
