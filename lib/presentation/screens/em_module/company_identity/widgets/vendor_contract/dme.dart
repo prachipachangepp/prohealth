@@ -172,17 +172,9 @@ class _CiDmeState extends State<CiDme> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                      },
-                                                      child: Image.asset(
-                                                        'images/eye.png',
-                                                        height: 15,
-                                                        width: 22,
-                                                      ),
-                                                    ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(width: 10,),
+                                                    SizedBox(
+                                                        width: AppSize.s50),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       mainAxisAlignment: MainAxisAlignment.center,

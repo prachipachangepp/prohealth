@@ -190,17 +190,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    InkWell(
-                                                      onTap: () {},
-                                                      child: Image.asset(
-                                                        'images/eye.png',
-                                                        height: AppSize.s15,
-                                                        width: AppSize.s22,
-                                                      ),
-                                                    ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(
-                                                        width: AppSize.s10),
+                                                        width: AppSize.s50),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment

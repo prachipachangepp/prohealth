@@ -55,7 +55,7 @@ class _CiCorporateComplianceScreenState
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController =
-      StreamController<List<IdentityDocumentIdData>>.broadcast();
+  StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 0;
   //int docTypeMetaId = 8;
@@ -105,12 +105,12 @@ class _CiCorporateComplianceScreenState
       _updateSelectedSubDocId(index == 0
           ? AppConfig.subDocId1Licenses
           : index == 1
-              ? AppConfig.subDocId2Adr
-              : index == 2
-                  ? AppConfig.subDocId3CICCMedicalCR
-                  : index == 3
-                      ? AppConfig.subDocId4CapReport
-                      : AppConfig.subDocId5BalReport);
+          ? AppConfig.subDocId2Adr
+          : index == 2
+          ? AppConfig.subDocId3CICCMedicalCR
+          : index == 3
+          ? AppConfig.subDocId4CapReport
+          : AppConfig.subDocId5BalReport);
     });
     _tabPageController.animateToPage(
       index,
@@ -168,7 +168,7 @@ class _CiCorporateComplianceScreenState
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 0 ? Colors.transparent : null,
+                          _selectedIndex == 0 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -187,9 +187,9 @@ class _CiCorporateComplianceScreenState
                             ),
                             _selectedIndex == 0
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -204,7 +204,7 @@ class _CiCorporateComplianceScreenState
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 1 ? Colors.transparent : null,
+                          _selectedIndex == 1 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -223,9 +223,9 @@ class _CiCorporateComplianceScreenState
                             ),
                             _selectedIndex == 1
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -240,7 +240,7 @@ class _CiCorporateComplianceScreenState
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 2 ? Colors.transparent : null,
+                          _selectedIndex == 2 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -259,9 +259,9 @@ class _CiCorporateComplianceScreenState
                             ),
                             _selectedIndex == 2
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -276,7 +276,7 @@ class _CiCorporateComplianceScreenState
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 3 ? Colors.transparent : null,
+                          _selectedIndex == 3 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -295,9 +295,9 @@ class _CiCorporateComplianceScreenState
                             ),
                             _selectedIndex == 3
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -312,7 +312,7 @@ class _CiCorporateComplianceScreenState
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 4 ? Colors.transparent : null,
+                          _selectedIndex == 4 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -331,9 +331,9 @@ class _CiCorporateComplianceScreenState
                             ),
                             _selectedIndex == 4
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -396,7 +396,7 @@ class _CiCorporateComplianceScreenState
                                             context: context,
                                             documentFile: filePath,
                                             orgOfficeDocumentId:
-                                                response.orgOfficeDocumentId!);
+                                            response.orgOfficeDocumentId!);
                                       }
                                     }
 
@@ -419,7 +419,7 @@ class _CiCorporateComplianceScreenState
                                           height: 30,
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(8),
+                                            BorderRadius.circular(8),
                                           ),
                                         );
                                       }
@@ -432,7 +432,7 @@ class _CiCorporateComplianceScreenState
                                             style: CustomTextStylesCommon
                                                 .commonStyle(
                                               fontWeight:
-                                                  FontWeightManager.medium,
+                                              FontWeightManager.medium,
                                               fontSize: FontSize.s12,
                                               color: ColorManager.mediumgrey,
                                             ),
@@ -442,135 +442,135 @@ class _CiCorporateComplianceScreenState
 
                                       if (snapshot.hasData) {
                                         List<DropdownMenuItem<String>>
-                                            dropDownMenuItems = snapshot.data!
-                                                .map((doc) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: doc.docname,
-                                                      child: Text(doc.docname!),
-                                                    ))
-                                                .toList();
+                                        dropDownMenuItems = snapshot.data!
+                                            .map((doc) =>
+                                            DropdownMenuItem<String>(
+                                              value: doc.docname,
+                                              child: Text(doc.docname!),
+                                            ))
+                                            .toList();
 
                                         return
 
-                                            StatefulBuilder(
-                                          builder: (context, setState) {
-                                            return Column(
-                                              children: [
-                                                CICCDropdown(
-                                                  initialValue: "Select",
-                                                  onChange: (val) {
-                                                    setState(() {
-                                                      // Always reset the expiry field visibility to false initially
-                                                      showExpiryDateField =
-                                                          false;
+                                          StatefulBuilder(
+                                            builder: (context, setState) {
+                                              return Column(
+                                                children: [
+                                                  CICCDropdown(
+                                                    initialValue: "Select",
+                                                    onChange: (val) {
+                                                      setState(() {
+                                                        // Always reset the expiry field visibility to false initially
+                                                        showExpiryDateField =
+                                                        false;
 
-                                                      // Loop through the documents and check the selected value
-                                                      for (var doc
-                                                          in snapshot.data!) {
-                                                        if (doc.docname ==
-                                                            val) {
-                                                          docTypeId = doc
-                                                              .orgDocumentSetupid!;
+                                                        // Loop through the documents and check the selected value
+                                                        for (var doc
+                                                        in snapshot.data!) {
+                                                          if (doc.docname ==
+                                                              val) {
+                                                            docTypeId = doc
+                                                                .orgDocumentSetupid!;
 
-                                                          // Show expiry date field only if expirytype is "issuer expiry"
-                                                          if (doc.expirytype ==
-                                                              AppConfig
-                                                                  .issuer) {
-                                                            showExpiryDateField =
-                                                                true;
+                                                            // Show expiry date field only if expirytype is "issuer expiry"
+                                                            if (doc.expirytype ==
+                                                                AppConfig
+                                                                    .issuer) {
+                                                              showExpiryDateField =
+                                                              true;
+                                                            }
                                                           }
                                                         }
-                                                      }
-                                                    });
-                                                  },
-                                                  items: dropDownMenuItems,
-                                                ),
-                                                SizedBox(height: 10,),
-                                                Visibility(
-                                                  visible: showExpiryDateField,
+                                                      });
+                                                    },
+                                                    items: dropDownMenuItems,
+                                                  ),
+                                                  SizedBox(height: 10,),
+                                                  Visibility(
+                                                    visible: showExpiryDateField,
 
-                                                  /// Conditionally display expiry date field
-                                                  child:   Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                    children: [
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(left: 2),
-                                                        child: Text(
-                                                          "Expiry Date",
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: FontSize.s12,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: ColorManager.mediumgrey,
-                                                            decoration: TextDecoration.none,
+                                                    /// Conditionally display expiry date field
+                                                    child:   Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(left: 2),
+                                                          child: Text(
+                                                            "Expiry Date",
+                                                            style: GoogleFonts.firaSans(
+                                                              fontSize: FontSize.s12,
+                                                              fontWeight: FontWeight.w700,
+                                                              color: ColorManager.mediumgrey,
+                                                              decoration: TextDecoration.none,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      SizedBox(height: 5,),
-                                                      FormField<String>(
-                                                        builder: (FormFieldState<String> field) {
-                                                          return SizedBox(
-                                                            width: 354,
-                                                            height: 30,
-                                                            child: TextFormField(
-                                                              controller: expiryDateController,
-                                                              cursorColor: ColorManager.black,
-                                                              style: GoogleFonts.firaSans(
-                                                                fontSize: FontSize.s12,
-                                                                fontWeight: FontWeight.w700,
-                                                                color: ColorManager.mediumgrey,
-                                                              ),
-                                                              decoration: InputDecoration(
-                                                                enabledBorder: OutlineInputBorder(
-                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                  borderRadius: BorderRadius.circular(6),
-                                                                ),
-                                                                focusedBorder: OutlineInputBorder(
-                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                  borderRadius: BorderRadius.circular(6),
-                                                                ),
-                                                                hintText: 'mm-dd-yyyy',
-                                                                hintStyle: GoogleFonts.firaSans(
+                                                        SizedBox(height: 5,),
+                                                        FormField<String>(
+                                                          builder: (FormFieldState<String> field) {
+                                                            return SizedBox(
+                                                              width: 354,
+                                                              height: 30,
+                                                              child: TextFormField(
+                                                                controller: expiryDateController,
+                                                                cursorColor: ColorManager.black,
+                                                                style: GoogleFonts.firaSans(
                                                                   fontSize: FontSize.s12,
                                                                   fontWeight: FontWeight.w700,
                                                                   color: ColorManager.mediumgrey,
                                                                 ),
-                                                                border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(6),
-                                                                  borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                                                                decoration: InputDecoration(
+                                                                  enabledBorder: OutlineInputBorder(
+                                                                    borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                    borderRadius: BorderRadius.circular(6),
+                                                                  ),
+                                                                  focusedBorder: OutlineInputBorder(
+                                                                    borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                    borderRadius: BorderRadius.circular(6),
+                                                                  ),
+                                                                  hintText: 'mm-dd-yyyy',
+                                                                  hintStyle: GoogleFonts.firaSans(
+                                                                    fontSize: FontSize.s12,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    color: ColorManager.mediumgrey,
+                                                                  ),
+                                                                  border: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(6),
+                                                                    borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                                                                  ),
+                                                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                                                  suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                                                  errorText: field.errorText,
                                                                 ),
-                                                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                                                suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                                                                errorText: field.errorText,
+                                                                onTap: () async {
+                                                                  DateTime? pickedDate = await showDatePicker(
+                                                                    context: context,
+                                                                    initialDate: DateTime.now(),
+                                                                    firstDate: DateTime(1901),
+                                                                    lastDate: DateTime(3101),
+                                                                  );
+                                                                  if (pickedDate != null) {
+                                                                    expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                  }
+                                                                },
+                                                                validator: (value) {
+                                                                  if (value == null || value.isEmpty) {
+                                                                    return 'please select date';
+                                                                  }
+                                                                  return null;
+                                                                },
                                                               ),
-                                                              onTap: () async {
-                                                                DateTime? pickedDate = await showDatePicker(
-                                                                  context: context,
-                                                                  initialDate: DateTime.now(),
-                                                                  firstDate: DateTime(1901),
-                                                                  lastDate: DateTime(3101),
-                                                                );
-                                                                if (pickedDate != null) {
-                                                                  expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                }
-                                                              },
-                                                              validator: (value) {
-                                                                if (value == null || value.isEmpty) {
-                                                                  return 'please select date';
-                                                                }
-                                                                return null;
-                                                              },
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
+                                                ],
+                                              );
+                                            },
+                                          );
                                       } else {
                                         return SizedBox();
                                       }
@@ -1003,7 +1003,7 @@ class _CiCorporateComplianceScreenState
                 //   },
                 // ),
                 ///
-              //                                   FutureBuilder<List<TypeofDocpopup>>(
+                //                                   FutureBuilder<List<TypeofDocpopup>>(
 //                                     future: getTypeofDoc(context, docTypeMetaIdCC, selectedSubDocId),
 //                                     builder: (context, snapshot) {
 //                                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -1147,583 +1147,3 @@ class _CiCorporateComplianceScreenState
     );
   }
 }
-
-// calenderController: calenderController,
-// idDocController: docIdController,
-// nameDocController: docNamecontroller,
-// String expiryTypeToSend =
-//     selectedExpiryType == "Not Applicable"
-//         ? "Not Applicable"
-//         : calenderController.text;
-// await addManageCCVCPPPost(
-//   context: context,
-//   name: docNamecontroller.text,
-// docTypeID: docTypeMetaId,
-//   docSubTypeID: docSubTypeMetaId,
-//   expiryType: selectedExpiryType.toString(),
-//   expiryDate: calenderController.text,//expiryTypeToSend,
-//   expiryReminder: selectedExpiryType.toString(),
-//   officeId: widget.officeId,
-//   idOfDoc: docIdController.text
-// );
-// Navigator.pop(context);
-// FutureBuilder<List<DocumentTypeData>>(
-//   future: documentTypeGet(context),
-//   builder: (context, snapshot) {
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return Container(
-//         width: 300,
-//         child: Text(
-//           'Loading...',
-//           style: CustomTextStylesCommon.commonStyle(
-//             fontWeight: FontWeightManager.medium,
-//             fontSize: FontSize.s12,
-//             color: ColorManager.mediumgrey,
-//           ),
-//         ),
-//       );
-//     }
-//     if (snapshot.data!.isEmpty) {
-//       return Center(
-//         child: Text(
-//           AppString.dataNotFound,
-//           style: CustomTextStylesCommon.commonStyle(
-//             fontWeight: FontWeightManager.medium,
-//             fontSize: FontSize.s12,
-//             color: ColorManager.mediumgrey,
-//           ),
-//         ),
-//       );
-//     }
-//     if (snapshot.hasData) {
-//       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-//       int docType = snapshot.data![0].docID;
-//       docTypeMetaId = docType;
-//
-//       for (var i in snapshot.data!) {
-//         dropDownMenuItems.add(
-//           DropdownMenuItem<String>(
-//             child: Text(i.docType),
-//             value: i.docType,
-//           ),
-//         );
-//       }
-//       return CICCDropdown(
-//         initialValue: dropDownMenuItems[0].value,
-//         onChange: (val) {
-//           for (var a in snapshot.data!) {
-//             if (a.docType == val) {
-//               docType = a.docID;
-//               docTypeMetaId = docType;
-//             }
-//           }
-//           identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-//             _identityDataController.add(data);
-//           }).catchError((error) {
-//             // Handle error
-//           });
-//         },
-//         items: dropDownMenuItems,
-//       );
-//     } else {
-//       return SizedBox();
-//     }
-//   },
-// ),
-/// doc sub type
-// child1: StreamBuilder<List<IdentityDocumentIdData>>(
-//   stream: _identityDataController.stream,
-//   builder: (context, snapshot) {
-//     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-//       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-//
-//       // Add a placeholder item for "Select Subdocument"
-//       dropDownMenuItems.add(
-//         DropdownMenuItem<String>(
-//           value: "Select Sub Document",
-//           child: Text("Select Sub Document"),
-//         ),
-//       );
-//
-//       for (var i in snapshot.data!) {
-//         dropDownMenuItems.add(
-//           DropdownMenuItem<String>(
-//             value: i.subDocType,
-//             child: Text(i.subDocType),
-//           ),
-//         );
-//       }
-//
-//       return CICCDropdown(
-//         initialValue: "Select Sub Document",  // Set initial value to the placeholder
-//         onChange: (val) {
-//           if (val != "Select Sub Document") {
-//             for (var a in snapshot.data!) {
-//               if (a.subDocType == val) {
-//                 docSubTypeMetaId = a.subDocID;
-//               }
-//             }
-//           }
-//         },
-//         items: dropDownMenuItems,
-//       );
-//     } else if (snapshot.connectionState == ConnectionState.waiting) {
-//       // Optionally, you can still show a placeholder or nothing here
-//       return SizedBox();
-//     } else {
-//       return Center(
-//         child: Text(
-//           AppString.dataNotFound,
-//           style: CustomTextStylesCommon.commonStyle(
-//             fontWeight: FontWeightManager.medium,
-//             fontSize: FontSize.s12,
-//             color: ColorManager.mediumgrey,
-//           ),
-//         ),
-//       );
-//     }
-//   },
-// ),
-// radioButton: Padding(
-//   padding: const EdgeInsets.only(left: 10.0),
-//   child: Column(
-//     mainAxisAlignment: MainAxisAlignment.start,
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Text(
-//         "Expiry Type",
-//         style: GoogleFonts.firaSans(
-//           fontSize: FontSize.s12,
-//           fontWeight: FontWeight.w700,
-//           color: ColorManager.mediumgrey,
-//           decoration: TextDecoration.none,
-//         ),
-//       ),
-//       CustomRadioListTile(
-//         value: "Not Applicable",
-//         groupValue: selectedExpiryType,
-//         onChanged: (value) {
-//           setState(() {
-//             selectedExpiryType = value;
-//           });
-//         },
-//         title: "Not Applicable",
-//       ),
-//       CustomRadioListTile(
-//         value: 'Scheduled',
-//         groupValue: selectedExpiryType,
-//         onChanged: (value) {
-//           setState(() {
-//             selectedExpiryType = value;
-//           });
-//         },
-//         title: 'Scheduled',
-//       ),
-//       CustomRadioListTile(
-//         value: 'Issuer Expiry',
-//         groupValue: selectedExpiryType,
-//         onChanged: (value) {
-//           setState(() {
-//             selectedExpiryType = value;
-//           });
-//         },
-//         title: 'Issuer Expiry',
-//       ),
-//     ],
-//   ),
-// ),
-// child2: Visibility(
-//   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Text(
-//         "Expiry Date",
-//         style: GoogleFonts.firaSans(
-//           fontSize: FontSize.s12,
-//           fontWeight: FontWeight.w700,
-//           color: ColorManager.mediumgrey,
-//           decoration: TextDecoration.none,
-//         ),
-//       ),
-//       SizedBox(height: AppSize.s5,),
-//       FormField<String>(
-//         builder: (FormFieldState<String> field) {
-//           return SizedBox (
-//             width: 354,
-//             height: 30,
-//             child:   TextFormField(
-//               controller: calenderController,
-//               cursorColor: ColorManager.black,
-//               style: GoogleFonts.firaSans(
-//                 fontSize: FontSize.s12,
-//                 fontWeight: FontWeight.w700,
-//                 color: ColorManager.mediumgrey,
-//                 //decoration: TextDecoration.none,
-//               ),
-//               decoration: InputDecoration(
-//                 enabledBorder: OutlineInputBorder(
-//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//                 focusedBorder: OutlineInputBorder(
-//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//                 hintText: 'mm-dd-yyyy',
-//                 hintStyle: GoogleFonts.firaSans(
-//                   fontSize: FontSize.s12,
-//                   fontWeight: FontWeight.w700,
-//                   color: ColorManager.mediumgrey,
-//                   //decoration: TextDecoration.none,
-//                 ),
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-//                 ),
-//                 contentPadding:
-//                 EdgeInsets.symmetric(horizontal: 16),
-//                 suffixIcon: Icon(Icons.calendar_month_outlined,
-//                     color: ColorManager.blueprime),
-//                 errorText: field.errorText,
-//               ),
-//               onTap: () async {
-//                 DateTime? pickedDate = await showDatePicker(
-//                   context: context,
-//                   initialDate: DateTime.now(),
-//                   firstDate: DateTime(1901),
-//                   lastDate: DateTime(3101),
-//                 );
-//                 if (pickedDate != null) {
-//                   calenderController.text =
-//                       DateFormat('MM-dd-yyyy').format(pickedDate);
-//                 }
-//               },
-//               validator: (value) {
-//                 if (value == null || value.isEmpty) {
-//                   return 'please select birth date';
-//                 }
-//                 return null;
-//               },
-//             ),
-//           );
-//         },
-//       ),
-//     ],
-//   ),
-// ),
-
-///old
-
-// CustomIconButton(
-//   icon: Icons.add,
-//   text: "Add Doctype",
-//   onPressed: () async {
-//     String? selectedExpiryType = expiryType;
-//     calenderController.clear();
-//     docIdController.clear();
-//     docNamecontroller.clear();
-//     selectedExpiryType = "";
-//     showDialog(
-//       context: context,
-//       builder: (context) {
-//         return StatefulBuilder(
-//           builder: (BuildContext context,
-//               void Function(void Function()) setState) {
-//             return AddOrgDocButton(
-//               calenderController: calenderController,
-//               idDocController: docIdController,
-//               nameDocController: docNamecontroller,
-//               loadingDuration: _isLoading,
-//               onPressed: () async {
-//                 setState(() {
-//                   _isLoading = true;
-//                 });
-//                 int subDocId = _selectedIndex == 0 ? AppConfig.subDocId1Licenses :
-//                 _selectedIndex == 1 ? AppConfig.subDocId2Adr :
-//                 _selectedIndex == 2 ? AppConfig.subDocId3CICCMedicalCR :
-//                 _selectedIndex == 3 ? AppConfig.subDocId4CapReport :
-//                 AppConfig.subDocId5BalReport;
-//
-//                 String expiryTypeToSend =
-//                     selectedExpiryType == "Not Applicable"
-//                         ? "Not Applicable"
-//                         : calenderController.text;
-//                 try {
-//                   await addManageCCVCPPPost(
-//                     context: context,
-//                     name: docNamecontroller.text,
-//                     docTypeID: docTypeMetaIdCC,
-//                     docSubTypeID: selectedSubDocId,//docSubTypeMetaId,
-//                     expiryType: selectedExpiryType.toString(),
-//                     expiryDate: calenderController.text,//expiryTypeToSend,
-//                     expiryReminder: selectedExpiryType.toString(),
-//                     officeId: widget.officeId,
-//                     idOfDoc: docIdController.text,
-//                   );
-//                   Navigator.pop(context);
-//                 } finally {
-//                   setState(() {
-//                     _isLoading = false;
-//                   });
-//                 }
-//               },
-//               child:FutureBuilder<List<DocumentTypeData>>(
-//                 future: documentTypeGet(context),
-//                 builder: (context, snapshot) {
-//                   if (snapshot.connectionState == ConnectionState.waiting) {
-//                     return Container(
-//                       width: 300,
-//                       child: Text(
-//                         'Loading...',
-//                         style: CustomTextStylesCommon.commonStyle(
-//                           fontWeight: FontWeightManager.medium,
-//                           fontSize: FontSize.s12,
-//                           color: ColorManager.mediumgrey,
-//                         ),
-//                       ),
-//                     );
-//                   }
-//                   if (snapshot.data!.isEmpty) {
-//                     return Center(
-//                       child: Text(
-//                         AppString.dataNotFound,
-//                         style: CustomTextStylesCommon.commonStyle(
-//                           fontWeight: FontWeightManager.medium,
-//                           fontSize: FontSize.s12,
-//                           color: ColorManager.mediumgrey,
-//                         ),
-//                       ),
-//                     );
-//                   }
-//                   if (snapshot.hasData) {
-//                     String selectedDocType = "";
-//                     int docType = snapshot.data![0].docID;
-//
-//                     for (var i in snapshot.data!) {
-//                       if (i.docID == AppConfig.corporateAndCompliance) {
-//                         selectedDocType = i.docType;
-//                         docType = i.docID;
-//                         break;
-//                       }
-//                     }
-//
-//                     docTypeMetaIdCC = docType;
-//
-//                     identityDocumentTypeGet(context, docTypeMetaIdCC).then((data) {
-//                       _identityDataController.add(data);
-//                     }).catchError((error) {
-//                       // Handle error
-//                     });
-//                     return Container(
-//                       width: 354,
-//                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-//                       decoration: BoxDecoration(
-//                         color: ColorManager.white,
-//                         borderRadius: BorderRadius.circular(8),
-//                         border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-//                       ),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Text(
-//                             selectedDocType,
-//                             style: CustomTextStylesCommon.commonStyle(
-//                               fontWeight: FontWeightManager.medium,
-//                               fontSize: FontSize.s12,
-//                               color: ColorManager.mediumgrey,
-//                             ),
-//                           ),
-//                           Icon(
-//                             Icons.arrow_drop_down,
-//                             color: Colors.transparent
-//                           ),
-//                         ],
-//                       ),
-//                     );
-//                   } else {
-//                     return SizedBox();
-//                   }
-//                 },
-//               ),
-//
-//               selectedSubDocType: selectedSubDocType,
-//               child1: Container(
-//                 width: 354,
-//                 padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-//                 decoration: BoxDecoration(
-//                   color: ColorManager.white,
-//                   borderRadius: BorderRadius.circular(8),
-//                   border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-//                 ),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Text(
-//                       selectedSubDocType,
-//                       style: CustomTextStylesCommon.commonStyle(
-//                         fontWeight: FontWeightManager.medium,
-//                         fontSize: FontSize.s12,
-//                         color: ColorManager.mediumgrey,
-//                       ),
-//                     ),
-//                     Icon(
-//                       Icons.arrow_drop_down,
-//                       color: Colors.transparent,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               radioButton: Padding(
-//                 padding: const EdgeInsets.only(left: 10.0),
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       "Expiry Type",
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: FontSize.s12,
-//                         fontWeight: FontWeight.w700,
-//                         color: ColorManager.mediumgrey,
-//                         decoration: TextDecoration.none,
-//                       ),
-//                     ),
-//                     CustomRadioListTile(
-//                       value: "Not Applicable",
-//                       groupValue: selectedExpiryType,
-//                       onChanged: (value) {
-//                         setState(() {
-//                           selectedExpiryType = value;
-//                         });
-//                       },
-//                       title: "Not Applicable",
-//                     ),
-//                     CustomRadioListTile(
-//                       value: 'Scheduled',
-//                       groupValue: selectedExpiryType,
-//                       onChanged: (value) {
-//                         setState(() {
-//                           selectedExpiryType = value;
-//                         });
-//                       },
-//                       title: 'Scheduled',
-//                     ),
-//                     CustomRadioListTile(
-//                       value: 'Issuer Expiry',
-//                       groupValue: selectedExpiryType,
-//                       onChanged: (value) {
-//                         setState(() {
-//                           selectedExpiryType = value;
-//                         });
-//                       },
-//                       title: 'Issuer Expiry',
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               child2: Visibility(
-//                 visible: selectedExpiryType == "Scheduled" ||
-//                     selectedExpiryType == "Issuer Expiry",
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       "Expiry Date",
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: FontSize.s12,
-//                         fontWeight: FontWeight.w700,
-//                         color: ColorManager.mediumgrey,
-//                         decoration: TextDecoration.none,
-//                       ),
-//                     ),
-//                     SizedBox(height: AppSize.s5,),
-//                     FormField<String>(
-//                       builder: (FormFieldState<String> field) {
-//                         return SizedBox(
-//                           width: 354,
-//                           height: 30,
-//                           child: TextFormField(
-//                             controller: calenderController,
-//                             cursorColor: ColorManager.black,
-//                             style: GoogleFonts.firaSans(
-//                               fontSize: FontSize.s12,
-//                               fontWeight: FontWeight.w700,
-//                               color: ColorManager.mediumgrey,
-//                             ),
-//                             decoration: InputDecoration(
-//                               enabledBorder: OutlineInputBorder(
-//                                 borderSide: BorderSide(
-//                                     color: ColorManager
-//                                         .fmediumgrey,
-//                                     width: 1),
-//                                 borderRadius:
-//                                     BorderRadius.circular(8),
-//                               ),
-//                               focusedBorder: OutlineInputBorder(
-//                                 borderSide: BorderSide(
-//                                     color: ColorManager
-//                                         .fmediumgrey,
-//                                     width: 1),
-//                                 borderRadius:
-//                                     BorderRadius.circular(8),
-//                               ),
-//                               hintText: 'mm-dd-yyyy',
-//                               hintStyle: GoogleFonts.firaSans(
-//                                 fontSize: FontSize.s12,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: ColorManager.mediumgrey,
-//                               ),
-//                               border: OutlineInputBorder(
-//                                 borderRadius:
-//                                     BorderRadius.circular(8),
-//                                 borderSide: BorderSide(
-//                                     width: 1,
-//                                     color: ColorManager
-//                                         .fmediumgrey),
-//                               ),
-//                               contentPadding:
-//                                   EdgeInsets.symmetric(
-//                                       horizontal: 16),
-//                               suffixIcon: Icon(
-//                                   Icons.calendar_month_outlined,
-//                                   color:
-//                                       ColorManager.blueprime),
-//                               errorText: field.errorText,
-//                             ),
-//                             onTap: () async {
-//                               DateTime? pickedDate =
-//                                   await showDatePicker(
-//                                 context: context,
-//                                 initialDate: DateTime.now(),
-//                                 firstDate: DateTime(1901),
-//                                 lastDate: DateTime(3101),
-//                               );
-//                               if (pickedDate != null) {
-//                                 calenderController.text =
-//                                     DateFormat('MM-dd-yyyy')
-//                                         .format(pickedDate);
-//                               }
-//                             },
-//                             validator: (value) {
-//                               if (value == null ||
-//                                   value.isEmpty) {
-//                                 return 'Please select an expiry date';
-//                               }
-//                               return null;
-//                             },
-//                           ),
-//                         );
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               title: 'Add Coporate & Compliance ',
-//             );
-//           },
-//         );
-//       },
-//     );
-//   },
-// ),
