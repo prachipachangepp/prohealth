@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
@@ -148,6 +149,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         length, (_) => characters.codeUnitAt(random.nextInt(characters.length))));
   }
   String? generatedString;
+  List<String> selectedServices = [];
   @override
   Widget build(BuildContext context) {
 
@@ -236,19 +238,35 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                             );
                                           }
                                           if(snapshot.hasData){
-                                            return Wrap(
-                                                children:[
-                                                  ...List.generate(snapshot.data!.length, (index){
-                                                    return Container(
-                                                        width: 150,
-                                                        child: Center(
-                                                          child: CheckboxTile(
-                                                            title: snapshot.data![index].serviceName,
-                                                            initialValue: false,
-                                                            onChanged: (value) {},
-                                                          ),
-                                                        ));
-                                                  })]
+                                            return StatefulBuilder(
+                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                return Wrap(
+                                                    children:[
+                                                      ...List.generate(snapshot.data!.length, (index){
+                                                        String serviceID = snapshot.data![index].serviceId;
+                                                        bool isSelected = selectedServices.contains(serviceID);
+                                                        return Container(
+                                                            width: 150,
+                                                            child: Center(
+                                                              child: CheckboxTile(
+                                                                title: snapshot.data![index].serviceName,
+                                                                initialValue: false,
+                                                                onChanged: (value) {
+                                                                  setState(() {
+                                                                    if (value == true) {
+                                                                      selectedServices.add(serviceID);
+                                                                    } else {
+                                                                      selectedServices.remove(serviceID);
+                                                                    }
+                                                                  });
+                                                                  print("Service Id List ${selectedServices}");
+                                                                },
+                                                              ),
+                                                            ));
+                                                      })]
+                                                );
+                                              },
+
                                             );
                                           }else{
                                             return SizedBox();
@@ -291,7 +309,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 ],
                               ),
                               onPressed: () async{
-                                var response = await
+                                ApiData response = await
                                 addNewOffice( context:context,
                                   name: nameController.text,
                                   address: addressController.text,
@@ -308,6 +326,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 );
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode ==201){
+                                  await addNewOfficeServices(context: context, officeId: response.officeId!, serviceList: selectedServices);
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {

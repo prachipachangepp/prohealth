@@ -245,12 +245,12 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                                   children: [
                                                     // IconButton(
                                                     //   onPressed: () {
                                                     //     String?
-                                                    //         selectedExpiryType =
+                                                    //     selectedExpiryType =
                                                     //         expiryType; // Local variable to hold the selected expiry type
                                                     //     showDialog(
                                                     //       context: context,
@@ -258,16 +258,18 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //         return FutureBuilder<
                                                     //             CorporatePrefillCCVVPP>(
                                                     //           future: getManageCCPrefill(
-                                                    //               context, manageCCLicence.docId),
+                                                    //               context,
+                                                    //               manageCCLicence
+                                                    //                   .docId),
                                                     //           builder: (context,
                                                     //               snapshotPrefill) {
                                                     //             if (snapshotPrefill
-                                                    //                     .connectionState ==
+                                                    //                 .connectionState ==
                                                     //                 ConnectionState
                                                     //                     .waiting) {
                                                     //               return Center(
                                                     //                 child:
-                                                    //                     CircularProgressIndicator(
+                                                    //                 CircularProgressIndicator(
                                                     //                   color: ColorManager
                                                     //                       .blueprime,
                                                     //                 ),
@@ -281,11 +283,11 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                     .documentId;
                                                     //             docIdController =
                                                     //                 TextEditingController(
-                                                    //               text: snapshotPrefill
-                                                    //                   .data!
-                                                    //                   .documentId
-                                                    //                   .toString(),
-                                                    //             );
+                                                    //                   text: snapshotPrefill
+                                                    //                       .data!
+                                                    //                       .documentId
+                                                    //                       .toString(),
+                                                    //                 );
                                                     //
                                                     //             var documentSubPreId =
                                                     //                 snapshotPrefill
@@ -300,10 +302,10 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                     .docName;
                                                     //             docNameController =
                                                     //                 TextEditingController(
-                                                    //               text: snapshotPrefill
-                                                    //                   .data!
-                                                    //                   .docName,
-                                                    //             );
+                                                    //                   text: snapshotPrefill
+                                                    //                       .data!
+                                                    //                       .docName,
+                                                    //                 );
                                                     //
                                                     //             var calender =
                                                     //                 snapshotPrefill
@@ -311,10 +313,10 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                     .expiryDate;
                                                     //             calenderController =
                                                     //                 TextEditingController(
-                                                    //               text: snapshotPrefill
-                                                    //                   .data!
-                                                    //                   .expiryDate,
-                                                    //             );
+                                                    //                   text: snapshotPrefill
+                                                    //                       .data!
+                                                    //                       .expiryDate,
+                                                    //                 );
                                                     //
                                                     //             var expiry =
                                                     //                 snapshotPrefill
@@ -335,66 +337,69 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //
                                                     //             return StatefulBuilder(
                                                     //               builder: (BuildContext
-                                                    //                       context,
+                                                    //               context,
                                                     //                   void Function(
-                                                    //                           void Function())
-                                                    //                       setState) {
+                                                    //                       void Function())
+                                                    //                   setState) {
                                                     //                 return CCScreenEditPopup(
                                                     //                   title:
-                                                    //                       'Edit Licence',
+                                                    //                   'Edit Licence',
                                                     //                   idOfDocController:
-                                                    //                       idOfDocController,
+                                                    //                   idOfDocController,
                                                     //                   nameDocController:
-                                                    //                       docNameController,
+                                                    //                   docNameController,
                                                     //                   loadingDuration:
-                                                    //                       _isLoading,
+                                                    //                   _isLoading,
                                                     //                   onSavePressed:
                                                     //                       () async {
                                                     //                     setState(
-                                                    //                         () {
-                                                    //                       _isLoading =
+                                                    //                             () {
+                                                    //                           _isLoading =
                                                     //                           true;
-                                                    //                     });
+                                                    //                         });
                                                     //                     try {
                                                     //                       // Ensure you are passing the selected or prefilled values
                                                     //                       String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                     //                           ? "Not Applicable"
                                                     //                           : calenderController.text;
+                                                    //                       // await updateOrgDoc(context: context,
+                                                    //                       //     orgDocId: documentPreId, orgDocumentSetupid: null,
+                                                    //                       //     idOfDocument: '', expiryDate: '', docCreatedat: '', url: "", officeid: widget.officeId,);
                                                     //
                                                     //                       await updateManageCCVVPP(
                                                     //                         context:
-                                                    //                             context,
+                                                    //                         context,
                                                     //                         docId:
-                                                    //                             documentPreId,
+                                                    //                         documentPreId,
                                                     //                         name: name == docNameController.text
                                                     //                             ? name.toString()
                                                     //                             : docNameController.text,
                                                     //                         docTypeID:
-                                                    //                             AppConfig.corporateAndCompliance,
+                                                    //                         AppConfig.corporateAndCompliance,
                                                     //                         docSubTypeID: documentSubPreId == docSubTypeMetaId
                                                     //                             ? documentSubPreId
                                                     //                             : docSubTypeMetaId,
                                                     //                         docCreated:
-                                                    //                             DateTime.now().toString(),
+                                                    //                         DateTime.now().toString(),
                                                     //                         url:
-                                                    //                             "url",
+                                                    //                         "url",
                                                     //                         expiryType:
-                                                    //                             selectedExpiryType ?? expiry.toString(), // Use the selected or prefilled expiry type
+                                                    //                         selectedExpiryType ?? expiry.toString(), // Use the selected or prefilled expiry type
                                                     //                         expiryDate:
-                                                    //                             expiryTypeToSend,
+                                                    //                         expiryTypeToSend,
                                                     //                         expiryReminder:
-                                                    //                             selectedExpiryType ?? expiry.toString(), // Ensure the correct value is passed
+                                                    //                         selectedExpiryType ?? expiry.toString(), // Ensure the correct value is passed
                                                     //                         officeId:
-                                                    //                             widget.officeId,
+                                                    //                         widget.officeId,
                                                     //                         idOfDoc:
-                                                    //                             snapshotPrefill.data!.idOfDoc,
+                                                    //                         snapshotPrefill.data!.idOfDoc,
                                                     //                       );
                                                     //                     } finally {
                                                     //                       setState(
-                                                    //                           () {
-                                                    //                         _isLoading =
+                                                    //                               () {
+                                                    //                             _isLoading =
                                                     //                             false;
-                                                    //                       });
+                                                    //                           });
                                                     //                       Navigator.pop(
                                                     //                           context);
                                                     //                     }
@@ -404,7 +409,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                       List<DocumentTypeData>>(
                                                     //                     future: documentTypeGet(context),
                                                     //                     builder: (context,
-                                                    //                             snapshot) {
+                                                    //                         snapshot) {
                                                     //                       if (snapshot.connectionState ==
                                                     //                           ConnectionState.waiting) {
                                                     //                         return Container(
@@ -437,13 +442,13 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                       if (snapshot
                                                     //                           .hasData) {
                                                     //                         String
-                                                    //                             selectedDocType =
+                                                    //                         selectedDocType =
                                                     //                             "";
                                                     //                         int docType =
                                                     //                             snapshot.data![0].docID;
                                                     //
                                                     //                         for (var i
-                                                    //                             in snapshot.data!) {
+                                                    //                         in snapshot.data!) {
                                                     //                           if (i.docID == AppConfig.corporateAndCompliance) {
                                                     //                             selectedDocType = i.docType;
                                                     //                             docType = i.docID;
@@ -492,10 +497,10 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                   // Sub-Document Type Dropdown
                                                     //                   child1: FutureBuilder<List<DocumentTypeData>>(
                                                     //                     future:
-                                                    //                         documentTypeGet(context),
+                                                    //                     documentTypeGet(context),
                                                     //                     builder:
                                                     //                         (context,
-                                                    //                             snapshot) {
+                                                    //                         snapshot) {
                                                     //                       if (snapshot.connectionState ==
                                                     //                           ConnectionState.waiting) {
                                                     //                         return Container(
@@ -527,13 +532,13 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                       if (snapshot
                                                     //                           .hasData) {
                                                     //                         String
-                                                    //                             selectedDocType =
+                                                    //                         selectedDocType =
                                                     //                             "Licenses";
                                                     //                         int docType =
                                                     //                             snapshot.data![0].docID;
                                                     //
                                                     //                         for (var i
-                                                    //                             in snapshot.data!) {
+                                                    //                         in snapshot.data!) {
                                                     //                           if (i.docID == AppConfig.subDocId1Licenses) {
                                                     //                             selectedDocType = i.docType;
                                                     //                             docType = i.docID;
@@ -581,17 +586,17 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                     },
                                                     //                   ),
                                                     //                   radioButton:
-                                                    //                       Padding(
+                                                    //                   Padding(
                                                     //                     padding: const EdgeInsets
                                                     //                         .only(
                                                     //                         left:
-                                                    //                             10.0),
+                                                    //                         10.0),
                                                     //                     child:
-                                                    //                         Column(
+                                                    //                     Column(
                                                     //                       mainAxisAlignment:
-                                                    //                           MainAxisAlignment.start,
+                                                    //                       MainAxisAlignment.start,
                                                     //                       crossAxisAlignment:
-                                                    //                           CrossAxisAlignment.start,
+                                                    //                       CrossAxisAlignment.start,
                                                     //                       children: [
                                                     //                         Text(
                                                     //                           "Expiry Type",
@@ -636,15 +641,15 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //                     ),
                                                     //                   ),
                                                     //                   child2:
-                                                    //                       Visibility(
+                                                    //                   Visibility(
                                                     //                     visible: selectedExpiryType ==
-                                                    //                             "Scheduled" ||
+                                                    //                         "Scheduled" ||
                                                     //                         selectedExpiryType ==
                                                     //                             "Issuer Expiry",
                                                     //                     child:
-                                                    //                         Column(
+                                                    //                     Column(
                                                     //                       crossAxisAlignment:
-                                                    //                           CrossAxisAlignment.start,
+                                                    //                       CrossAxisAlignment.start,
                                                     //                       children: [
                                                     //                         Padding(
                                                     //                           padding: const EdgeInsets.only(left: 2),
@@ -734,67 +739,71 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //         .bluebottom,
                                                     //   ),
                                                     //   splashColor:
-                                                    //       Colors.transparent,
+                                                    //   Colors.transparent,
                                                     //   highlightColor:
-                                                    //       Colors.transparent,
+                                                    //   Colors.transparent,
                                                     //   hoverColor:
-                                                    //       Colors.transparent,
+                                                    //   Colors.transparent,
                                                     // ),
-                                                    // IconButton(
-                                                    //     splashColor:
-                                                    //         Colors.transparent,
-                                                    //     highlightColor:
-                                                    //         Colors.transparent,
-                                                    //     hoverColor:
-                                                    //         Colors.transparent,
-                                                    //     onPressed: () {
-                                                    //       showDialog(
-                                                    //           context: context,
-                                                    //           builder: (context) =>
-                                                    //               StatefulBuilder(
-                                                    //                 builder: (BuildContext
-                                                    //                         context,
-                                                    //                     void Function(void Function())
-                                                    //                         setState) {
-                                                    //                   return DeletePopup(
-                                                    //                       title:
-                                                    //                           'Delete license',
-                                                    //                       loadingDuration:
-                                                    //                           _isLoading,
-                                                    //                       onCancel:
-                                                    //                           () {
-                                                    //                         Navigator.pop(context);
-                                                    //                       },
-                                                    //                       onDelete:
-                                                    //                           () async {
-                                                    //                         setState(() {
-                                                    //                           _isLoading = true;
-                                                    //                         });
-                                                    //                         try {
-                                                    //                           await deleteManageCorporate(context, manageCCLicence.docId);
-                                                    //                           setState(() async {
-                                                    //                             await getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                                                    //                               lisenceController.add(data);
-                                                    //                             }).catchError((error) {
-                                                    //                               // Handle error
-                                                    //                             });
-                                                    //                             Navigator.pop(context);
-                                                    //                           });
-                                                    //                         } finally {
-                                                    //                           setState(() {
-                                                    //                             _isLoading = false;
-                                                    //                           });
-                                                    //                         }
-                                                    //                       });
-                                                    //                 },
-                                                    //               ));
-                                                    //     },
-                                                    //     icon: Icon(
-                                                    //       Icons.delete_outline,
-                                                    //       size: 18,
-                                                    //       color:
-                                                    //           ColorManager.red,
-                                                    //     )),
+                                                    IconButton(
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                    context,
+                                                                        void Function(void Function())
+                                                                        setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                          'Delete license',
+                                                                          loadingDuration:
+                                                                          _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteOrgDoc(context: context, orgDocId: widget.docId,);
+                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              setState(() async {
+                                                                                await getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  lisenceController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete_outline,
+                                                          size: 18,
+                                                          color:
+                                                          ColorManager.red,
+                                                        )),
                                                   ],
                                                 ),
                                               ],

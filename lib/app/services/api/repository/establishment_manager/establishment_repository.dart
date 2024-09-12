@@ -68,6 +68,7 @@ class EstablishmentManagerRepository {
 
   static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
 
+  static String addofficeservices = "/company-office-service/add";
 
   static String companyAll() {
     return "$company";
@@ -97,6 +98,10 @@ class EstablishmentManagerRepository {
 
   static String addNewOffice() {
     return "$companyOffice/$add";
+  }
+
+  static String addNewOfficeServices() {
+    return "$addofficeservices";
   }
 
   ///identity get all
@@ -346,7 +351,7 @@ class EstablishmentManagerRepository {
   }
 
   static String addEmployeDocSetup() {
-    return "$employeedocSetup/$add";
+    return "$employeedocSetup$add";
   }
 
   ///employee doc tab bar
