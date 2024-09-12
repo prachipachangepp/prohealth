@@ -199,3 +199,93 @@ Future<ApiData> uploadDocumentsoffice({
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
+/// Made by shubham_dev
+/// Patch org document(CC VV PP)
+Future<ApiData> updateOrgDoc({
+  required BuildContext context,
+  required int orgDocId,
+  required int orgDocumentSetupid,
+  required String idOfDocument,
+  required String expiryDate,
+  required String docCreatedat,
+  required String url,
+  required String officeid,
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    // String formattedExpiryDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(expiryDate));
+
+    var data = {
+      "orgDocumentSetupid": orgDocumentSetupid,
+      "idOfDocument": idOfDocument,
+      // "expiry_date": formattedExpiryDate,
+      "expiry_date": "${expiryDate}T00:00:00Z",
+      "doc_created_at": docCreatedat,
+      "company_id": companyId,
+      "url": url,
+      "office_id": officeid,
+    };
+    print('patch Manage CCVCPP Doc $data');
+
+    var response = await Api(context)
+        .patch(path: EstablishmentManagerRepository.patchDocOrg(orgDocID: orgDocId), data: data);
+    print('Patch Manage CCVCPP ::::$response ');
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // var responseData = response.data;
+      // var docOfficeID =responseData["orgOfficeDocumentId"];
+      // print("Uploaded Document CCVCPP  addded ");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1 Failed to patch");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
+/// delete org document(CC VV PP)
+Future<ApiData> deleteOrgDoc({
+  required BuildContext context,
+  required int orgDocId,
+}) async {
+  try {
+    var response = await Api(context)
+        .delete(path: EstablishmentManagerRepository.deleteDocOrg(orgDocID: orgDocId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Document deleted');
+      // var responseData = response.data;
+      // var docOfficeID =responseData["orgOfficeDocumentId"];
+      // print("Uploaded Document CCVCPP  addded ");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1 Failed to delete");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
