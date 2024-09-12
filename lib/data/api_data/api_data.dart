@@ -4,6 +4,7 @@ class ApiData {
   final int statusCode;
   final Object? data;
   final String? imageUrl;
+  final String? officeId;
   final int? employeeId;
   final int? patientId;
   final int? labReportId;
@@ -11,7 +12,7 @@ class ApiData {
   final int? rDignosisId;
   final int? orgOfficeDocumentId;
 
-  ApiData( {
+  ApiData({this.officeId,
     required this.statusCode,
     required this.success,
     required this.message,

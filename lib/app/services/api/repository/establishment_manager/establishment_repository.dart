@@ -65,7 +65,7 @@ class EstablishmentManagerRepository {
   ///new org
   static String orgDocSetup ="/org-document-setup";
   static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
-
+  static String addofficeservices = "/company-office-service/add";
 
   static String companyAll() {
     return "$company";
@@ -95,6 +95,10 @@ class EstablishmentManagerRepository {
 
   static String addNewOffice() {
     return "$companyOffice/$add";
+  }
+
+  static String addNewOfficeServices() {
+    return "$addofficeservices";
   }
 
   ///identity get all
