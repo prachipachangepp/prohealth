@@ -23,8 +23,10 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
+import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
@@ -136,6 +138,10 @@ class _CiDmeState extends State<CiDme> {
                               itemBuilder: (context, index) {
                                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                var vcDME = snapshot.data![index];
+                                var fileUrl = vcDME.docurl;
+                                final fileExtension = fileUrl.split('/').last;
+
                                 MCorporateComplianceModal dmeData = paginatedData[index];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,6 +212,78 @@ class _CiDmeState extends State<CiDme> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
+                                                    IconButton(onPressed: (){},
+                                                        icon: Icon(Icons.history,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
+                                                    IconButton(onPressed: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"DME.pdf");
+                                                      downloadFile(fileUrl);
+                                                    },
+                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
+                                                            color: ColorManager.blueprime
+                                                        )),
+                                                    IconButton(
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                    context,
+                                                                        void Function(void Function())
+                                                                        setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                          'Delete license',
+                                                                          loadingDuration:
+                                                                          _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteOrgDoc(context: context, orgDocId: dmeData.orgOfficeDocumentId ,);
+                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              setState(() async {
+                                                                                getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.vendorContracts, AppConfig.subDocId8DME, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  vendorDMEController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete_outline,
+                                                          size: 18,
+                                                          color:
+                                                          ColorManager.red,
+                                                        )),
+
                                                     // IconButton(
                                                     //   onPressed: () {
                                                     //     String? selectedExpiryType = expiryType;

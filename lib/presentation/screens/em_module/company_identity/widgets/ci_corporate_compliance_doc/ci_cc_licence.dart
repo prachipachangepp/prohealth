@@ -255,6 +255,65 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         icon: Icon(Icons.save_alt_outlined,  size: 18,
                                                             color: ColorManager.blueprime
                                                         )),
+                                                    IconButton(
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                    context,
+                                                                        void Function(void Function())
+                                                                        setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                          'Delete license',
+                                                                          loadingDuration:
+                                                                          _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteOrgDoc(context: context, orgDocId: manageCCLicence.orgOfficeDocumentId ,);
+                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
+                                                                              setState(() async {
+                                                                                await getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  lisenceController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete_outline,
+                                                          size: 18,
+                                                          color:
+                                                          ColorManager.red,
+                                                        )),
                                                     // IconButton(
                                                     //   onPressed: () {
                                                     //     String?
@@ -753,65 +812,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //   hoverColor:
                                                     //   Colors.transparent,
                                                     // ),
-                                                    IconButton(
-                                                        splashColor:
-                                                        Colors.transparent,
-                                                        highlightColor:
-                                                        Colors.transparent,
-                                                        hoverColor:
-                                                        Colors.transparent,
-                                                        onPressed: () {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (context) =>
-                                                                  StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                    context,
-                                                                        void Function(void Function())
-                                                                        setState) {
-                                                                      return DeletePopup(
-                                                                          title:
-                                                                          'Delete license',
-                                                                          loadingDuration:
-                                                                          _isLoading,
-                                                                          onCancel:
-                                                                              () {
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                          onDelete:
-                                                                              () async {
-                                                                            setState(() {
-                                                                              _isLoading = true;
-                                                                            });
-                                                                            try {
-                                                                              await deleteOrgDoc(context: context, orgDocId: manageCCLicence.orgOfficeDocumentId ,);
-                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
-                                                                              setState(() async {
-                                                                                await getListMCorporateCompliancefetch(context,
-                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-                                                                                )
-                                                                                    .then((data) {
-                                                                                  lisenceController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                                Navigator.pop(context);
-                                                                              });
-                                                                            } finally {
-                                                                              setState(() {
-                                                                                _isLoading = false;
-                                                                              });
-                                                                            }
-                                                                          });
-                                                                    },
-                                                                  ));
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                          ColorManager.red,
-                                                        )),
+
 
                                                   ],
                                                 ),
