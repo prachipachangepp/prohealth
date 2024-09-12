@@ -358,21 +358,40 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     docIdController.clear();
                     docNamecontroller.clear();
                     selectedExpiryType = "";
+                    int? selectedDocTypeId;
+
                     showDialog(
                         context: context,
                         builder: (context) {
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
+                              String? selectedExpiryDate;
+                              String? expiryDateToSend;
                               String? documentID;
                               return VCScreenPopupADDConst(
+
                                 loadingDuration: _isLoading,
+                                onDocTypeSelected: (int docTypeId) {
+                                  setState(() {
+                                    selectedDocTypeId = docTypeId; // Update the selected docTypeId
+                                  });
+                                },
+                                onExpiryDateSelected: (String? expiryDate) {
+                                  setState(() {
+                                    print('EXP Date : ${expiryDate}');
+
+                                    selectedExpiryDate = expiryDate;
+                                    print('selected EXP Date : ${selectedExpiryDate}');
+                                  });
+                                },
                                 onPressed: () async {
                                   //  print('File path on pressed ${filePath}');
                                   setState(() {
                                     _isLoading = true;
                                   });
                                   print("Id document ${documentID}");
+
 
                                   ///Add Doctype API on save button
                                   try {

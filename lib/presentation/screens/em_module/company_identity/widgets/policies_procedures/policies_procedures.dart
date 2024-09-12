@@ -252,7 +252,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     children: [
-                                      // SizedBox(height: 5),
+                                    //SizedBox(height: 5),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
@@ -279,7 +279,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 mainAxisAlignment:
                                                 MainAxisAlignment
                                                     .spaceBetween,
+
                                                 children: [
+
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -326,6 +328,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           size: 18,
                                                           color: ColorManager.bluebottom,
                                                         ),
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                       ),
 
                                                       IconButton(onPressed: (){}, icon: Icon(
@@ -333,7 +338,10 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         size: 18,
                                                         color: ColorManager
                                                             .bluebottom,
-                                                      )),
+                                                      ),
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,),
                                                       IconButton(
                                                         onPressed: () {
                                                           String?selectedExpiryType = expiryType;
@@ -354,7 +362,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                 var calender = snapshotPrefill.data!.expiry_date;
                                                                 calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
 
-                                                                fileName = snapshotPrefill.data!.url;
+                                                                //fileName = snapshotPrefill.data!.url;
 
 
                                                                 return StatefulBuilder(
@@ -549,11 +557,14 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                                 await  deleteOrgDoc(context:context, orgDocId:policiesdata.orgOfficeDocumentId );
                                                                                 // await deleteManageCorporate(context,
                                                                                 //     policiesdata.docId);
-                                                                                // getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
-                                                                                //   _controller.add(data);
-                                                                                // }).catchError((error) {
-                                                                                //   // Handle error
-                                                                                // });
+                                                                                await getListMCorporateCompliancefetch(context,
+                                                                                    AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+                                                                                )
+                                                                                    .then((data) {
+                                                                                  _controller.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
                                                                               });
                                                                         }));
                                                           },
