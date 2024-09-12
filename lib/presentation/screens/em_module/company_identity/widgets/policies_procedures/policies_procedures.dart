@@ -18,6 +18,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
@@ -278,61 +279,54 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 MainAxisAlignment
                                                     .spaceBetween,
                                                 children: [
-                                                  Row(
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(
-                                                            Icons
-                                                                .remove_red_eye_outlined,
-                                                            color: ColorManager
-                                                                .blueprime,
-                                                          )),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        children: [
-                                                          Text(
-                                                            "ID : ${policiesdata.idOfDocument}",
-                                                            style: GoogleFonts
-                                                                .firaSans(
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: const Color(0xff686464), decoration: TextDecoration.none,
-                                                            ),
-                                                          ),
-                                                          SizedBox(height: AppSize.s5,),
-                                                          Text(
-                                                            policiesdata.orgDocumentSetupid.toString(),
-                                                            textAlign: TextAlign.center,
-                                                            style: GoogleFonts.firaSans(
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.bold,
-                                                              color: const Color(0xff686464),
-                                                              decoration: TextDecoration.none,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                      Text(
+                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: const Color(0xff686464), decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: AppSize.s5,),
+                                                      Text(
+                                                        policiesdata.orgDocumentSetupid.toString(),
+                                                        textAlign: TextAlign.center,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: const Color(0xff686464),
+                                                          decoration: TextDecoration.none,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
 
-                                                  Text(''),
                                                   Row(
                                                     mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .center,
                                                     children: [
-                                                      IconButton(onPressed: (){}, icon: Icon(
-                                                        Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      )),
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) => ManageHistoryPopup(
+                                                              docHistory: [policiesdata],// policiesdata.docHistory,
+                                                            ),
+                                                          );
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.history,
+                                                          size: 18,
+                                                          color: ColorManager.bluebottom,
+                                                        ),
+                                                      ),
+
                                                       IconButton(onPressed: (){}, icon: Icon(
                                                         Icons.save_alt_outlined,
                                                         size: 18,
@@ -344,157 +338,425 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           String?selectedExpiryType = expiryType;
                                                           showDialog(
                                                             context: context, builder: (context) {
-                                                              return FutureBuilder<MCorporateComplianceModal>(
-                                                                future: getPrefillNewOrgOfficeDocument(context, policiesdata.orgOfficeDocumentId),
-                                                                builder: (context, snapshotPrefill) {
-                                                                  if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                                    return Center(
-                                                                      child: CircularProgressIndicator(
-                                                                        color: ColorManager
-                                                                            .blueprime,
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  //
-                                                                  //  var documentPreId = snapshotPrefill.data!.idOfDocument;
-                                                                  //  docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),);
-                                                                  //
-                                                                  //
-                                                                  // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-                                                                  // docTypeMetaId = documentTypePreId;
-                                                                  //
-                                                                  // var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;docSubTypeMetaId = documentSubPreId;
-                                                                  //
-                                                                  // var name = snapshotPrefill.data!.docName;
-                                                                  // nameOfDocController = TextEditingController(text: snapshotPrefill.data!.docName,);
+                                                            return FutureBuilder<MCorporateCompliancePreFillModal>(
+                                                              future: getPrefillNewOrgOfficeDocument(context, policiesdata.orgOfficeDocumentId),
+                                                              builder: (context, snapshotPrefill) {
+                                                                if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                  return Center(
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager
+                                                                          .blueprime,
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                //
+                                                                //  var documentPreId = snapshotPrefill.data!.idOfDocument;
+                                                                //  docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString(),);
+                                                                //
+                                                                //
+                                                                // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
+                                                                // docTypeMetaId = documentTypePreId;
+                                                                //
+                                                                // var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;docSubTypeMetaId = documentSubPreId;
+                                                                //
+                                                                // var name = snapshotPrefill.data!.docName;
+                                                                // nameOfDocController = TextEditingController(text: snapshotPrefill.data!.docName,);
 
-                                                                  var calender = snapshotPrefill.data!.expiry_date;
-                                                                  calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
+                                                                var calender = snapshotPrefill.data!.expiry_date;
+                                                                calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
 
-                                                                  // var expiry = snapshotPrefill.data!.expiryType;expiryType = expiry;
-                                                                  //
-                                                                  // var idOfDoc = snapshotPrefill.data!.idOfDoc;
-                                                                  // idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
+                                                                fileName = snapshotPrefill.data!.url;
 
-                                                                  return StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                    context,
-                                                                        void Function(void Function())
-                                                                        setState) {
-                                                                      return VCScreenPopupEditConst(
-                                                                        title:
-                                                                        'Edit Policies And Procedure',
-                                                                        loadingDuration: _isLoading,
-                                                                        onSavePressed:
-                                                                            () async {
-                                                                          setState(() {_isLoading = true;});
-                                                                          try {
-                                                                            String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                                ? "Not Applicable"
-                                                                                : calenderController.text;
-                                                                            await updateOrgDoc(context: context,
-                                                                              orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
-                                                                              orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
-                                                                              idOfDocument: '',
-                                                                              expiryDate: expiryTypeToSend,
-                                                                              docCreatedat: DateTime.now().toString(),
-                                                                              url: "",
-                                                                              officeid: widget.officeId,);
-                                                                            // await updateCorporateDocumentPost(
-                                                                            //     context: context,
-                                                                            //     docId: documentPreId,
-                                                                            //     name: name == nameOfDocController.text ? name.toString() : nameOfDocController.text,
-                                                                            //     docTypeID: AppConfig.policiesAndProcedure,
-                                                                            //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                                            //     docCreated: DateTime.now().toString(),
-                                                                            //     url: "url",
-                                                                            //     expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                                            //     expiryDate: expiryTypeToSend, //calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                            //     expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                            //     officeId: widget.officeId,
-                                                                            //     idOfDoc: snapshotPrefill.data!.idOfDoc);
-                                                                          } finally {
-                                                                            setState(() {
-                                                                              _isLoading = false;
-                                                                            });
-                                                                            Navigator.pop(context);
+                                                                // var expiry = snapshotPrefill.data!.expiryType;expiryType = expiry;
+                                                                //
+                                                                // var idOfDoc = snapshotPrefill.data!.idOfDoc;
+                                                                // idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
+
+                                                                return StatefulBuilder(
+                                                                  builder: (BuildContext
+                                                                  context,
+                                                                      void Function(void Function())
+                                                                      setState) {
+                                                                    return VCScreenPopupEditConst(
+                                                                      title:
+                                                                      'Edit Policies And Procedure',
+                                                                      loadingDuration: _isLoading,
+                                                                      onSavePressed:
+                                                                          () async {
+                                                                        setState(() {_isLoading = true;});
+                                                                        try {
+                                                                          String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                                              ? "Not Applicable"
+                                                                              : calenderController.text;
+                                                                          var response = await updateOrgDoc(context: context,
+                                                                            orgDocId: policiesdata.orgOfficeDocumentId,
+                                                                            orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                            idOfDocument: '',
+                                                                            expiryDate: expiryTypeToSend,
+                                                                            docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                            url: "",
+                                                                            officeid: widget.officeId,);
+
+                                                                          if (response.statusCode == 200 || response.statusCode == 201) {
+                                                                            await uploadDocumentsoffice(
+                                                                                context: context,
+                                                                                documentFile: filePath,
+                                                                                orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                                                          }
+                                                                          // await updateCorporateDocumentPost(
+                                                                          //     context: context,
+                                                                          //     docId: documentPreId,
+                                                                          //     name: name == nameOfDocController.text ? name.toString() : nameOfDocController.text,
+                                                                          //     docTypeID: AppConfig.policiesAndProcedure,
+                                                                          //     docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                                          //     docCreated: DateTime.now().toString(),
+                                                                          //     url: "url",
+                                                                          //     expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                                          //     expiryDate: expiryTypeToSend, //calender == calenderController.text ? calender.toString() : calenderController.text,
+                                                                          //     expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+                                                                          //     officeId: widget.officeId,
+                                                                          //     idOfDoc: snapshotPrefill.data!.idOfDoc);
+                                                                        } finally {
+                                                                          setState(() {
+                                                                            _isLoading = false;
+                                                                          });
+                                                                          Navigator.pop(context);
+                                                                        }
+                                                                      },
+
+                                                                      child: FutureBuilder<List<TypeofDocpopup>>(
+                                                                        future: getTypeofDoc(context, widget.docID, widget.subDocID),
+                                                                        builder: (context, snapshot) {
+                                                                          if (snapshot.connectionState ==
+                                                                              ConnectionState.waiting) {
+                                                                            return Container(
+                                                                              width: 350,
+                                                                              height: 30,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(8),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          if (snapshot.data!.isEmpty) {
+                                                                            return Center(
+                                                                              child: Text(
+                                                                                AppString.dataNotFound,
+                                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                                  fontWeight: FontWeightManager.medium,
+                                                                                  fontSize: FontSize.s12,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          if (snapshot.hasData) {
+                                                                            List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                                                                .map((doc) => DropdownMenuItem<String>(
+                                                                              value: doc.docname,
+                                                                              child: Text(doc.docname!),
+                                                                            ))
+                                                                                .toList();
+                                                                            return CICCDropdown(
+                                                                              initialValue: "Select",
+                                                                              onChange: (val) {
+                                                                                //   setState(() {
+                                                                                // selectedDocType = val;
+                                                                                for (var doc in snapshot.data!) {
+                                                                                  if (doc.docname == val) {
+                                                                                    docTypeId = doc.documenttypeid!;
+                                                                                  }
+                                                                                }
+                                                                                // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
+                                                                                //   _compliancePatientDataController
+                                                                                //       .add(data!);
+                                                                                // }).catchError((error) {
+                                                                                //   // Handle error
+                                                                                // });
+                                                                                // });
+                                                                              },
+                                                                              items: dropDownMenuItems,
+                                                                            );
+                                                                          } else {
+                                                                            return SizedBox();
                                                                           }
                                                                         },
-
-                                                                        child: FutureBuilder<List<TypeofDocpopup>>(
-                                                                          future: getTypeofDoc(context, widget.docID, widget.subDocID),
-                                                                          builder: (context, snapshot) {
-                                                                            if (snapshot.connectionState ==
-                                                                                ConnectionState.waiting) {
-                                                                              return Container(
-                                                                                width: 350,
-                                                                                height: 30,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(8),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            if (snapshot.data!.isEmpty) {
-                                                                              return Center(
-                                                                                child: Text(
-                                                                                  AppString.dataNotFound,
-                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeightManager.medium,
-                                                                                    fontSize: FontSize.s12,
-                                                                                    color: ColorManager.mediumgrey,
+                                                                      ),
+                                                                      uploadField: Container(
+                                                                        height: AppSize.s30,
+                                                                        width: AppSize.s354,
+                                                                        // margin: EdgeInsets.symmetric(horizontal: 5),
+                                                                        decoration: BoxDecoration(
+                                                                          border: Border.all(
+                                                                            color: ColorManager.containerBorderGrey,
+                                                                            width: 1,
+                                                                          ),
+                                                                          borderRadius: BorderRadius.circular(4),
+                                                                        ),
+                                                                        child: StatefulBuilder(
+                                                                          builder: (BuildContext context,
+                                                                              void Function(void Function()) setState) {
+                                                                            return Padding(
+                                                                              padding: const EdgeInsets.all(0),
+                                                                              child: Row(
+                                                                                mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    fileName,
+                                                                                    style: GoogleFonts.firaSans(
+                                                                                      fontSize: FontSize.s12,
+                                                                                      fontWeight: FontWeightManager.regular,
+                                                                                      color: ColorManager.lightgreyheading,
+                                                                                    ),
                                                                                   ),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            if (snapshot.hasData) {
-                                                                              List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                                                                                  .map((doc) => DropdownMenuItem<String>(
-                                                                                value: doc.docname,
-                                                                                child: Text(doc.docname!),
-                                                                              ))
-                                                                                  .toList();
-                                                                              return CICCDropdown(
-                                                                                initialValue: "Select",
-                                                                                onChange: (val) {
-                                                                                  //   setState(() {
-                                                                                  // selectedDocType = val;
-                                                                                  for (var doc in snapshot.data!) {
-                                                                                    if (doc.docname == val) {
-                                                                                      docTypeId = doc.documenttypeid!;
-                                                                                    }
-                                                                                  }
-                                                                                  // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
-                                                                                  //   _compliancePatientDataController
-                                                                                  //       .add(data!);
-                                                                                  // }).catchError((error) {
-                                                                                  //   // Handle error
-                                                                                  // });
-                                                                                  // });
-                                                                                },
-                                                                                items: dropDownMenuItems,
-                                                                              );
-                                                                            } else {
-                                                                              return SizedBox();
-                                                                            }
+                                                                                  IconButton(
+                                                                                    padding: EdgeInsets.all(4),
+                                                                                    onPressed: _pickFile,
+                                                                                    icon: Icon(
+                                                                                      Icons.file_upload_outlined,
+                                                                                      color: ColorManager.black,
+                                                                                      size: 17,
+                                                                                    ),
+                                                                                    splashColor: Colors.transparent,
+                                                                                    highlightColor: Colors.transparent,
+                                                                                    hoverColor: Colors.transparent,
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            );
                                                                           },
                                                                         ),
-
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
+                                                                      ),
+                                                                      // child: FutureBuilder<List<DocumentTypeData>>(
+                                                                      //    future: documentTypeGet(context),
+                                                                      //    builder: (context, snapshot) {
+                                                                      //      if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                      //        return Container(
+                                                                      //          width: 300,
+                                                                      //          child: Text(
+                                                                      //            'Loading...',
+                                                                      //            style: CustomTextStylesCommon.commonStyle(
+                                                                      //              fontWeight: FontWeightManager.medium,
+                                                                      //              fontSize: FontSize.s12,
+                                                                      //              color: ColorManager.mediumgrey,
+                                                                      //            ),
+                                                                      //          ),
+                                                                      //        );
+                                                                      //      }
+                                                                      //      if (snapshot.data!.isEmpty) {
+                                                                      //        return Center(
+                                                                      //          child: Text(
+                                                                      //            AppString.dataNotFound,
+                                                                      //            style: CustomTextStylesCommon.commonStyle(
+                                                                      //              fontWeight: FontWeightManager.medium,
+                                                                      //              fontSize: FontSize.s12,
+                                                                      //              color: ColorManager.mediumgrey,
+                                                                      //            ),
+                                                                      //          ),
+                                                                      //        );
+                                                                      //      }
+                                                                      //      if (snapshot.hasData) {
+                                                                      //        String selectedDocType = "";
+                                                                      //        int docType = snapshot.data![0].docID;
+                                                                      //
+                                                                      //        for (var i in snapshot.data!) {
+                                                                      //          if (i.docID == AppConfig.policiesAndProcedure) {
+                                                                      //            selectedDocType = i.docType;
+                                                                      //            docType = i.docID;
+                                                                      //            break;
+                                                                      //          }
+                                                                      //        }
+                                                                      //
+                                                                      //        docTypeMetaId = docType;
+                                                                      //
+                                                                      //        identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                                                      //          _identityDataController.add(data);
+                                                                      //        }).catchError((error) {
+                                                                      //          // Handle error
+                                                                      //        });
+                                                                      //
+                                                                      //        return Container(
+                                                                      //          width: 354,
+                                                                      //          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                      //          decoration: BoxDecoration(
+                                                                      //            color: ColorManager.white,
+                                                                      //            borderRadius: BorderRadius.circular(8),
+                                                                      //            border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                                      //          ),
+                                                                      //          child: Row(
+                                                                      //            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      //            children: [
+                                                                      //              Text(
+                                                                      //                selectedDocType,
+                                                                      //                style: CustomTextStylesCommon.commonStyle(
+                                                                      //                  fontWeight: FontWeightManager.medium,
+                                                                      //                  fontSize: FontSize.s12,
+                                                                      //                  color: ColorManager.mediumgrey,
+                                                                      //                ),
+                                                                      //              ),
+                                                                      //              Icon(
+                                                                      //                Icons.arrow_drop_down,
+                                                                      //                color: Colors.transparent,
+                                                                      //              ),
+                                                                      //            ],
+                                                                      //          ),
+                                                                      //        );
+                                                                      //      } else {
+                                                                      //        return SizedBox();
+                                                                      //      }
+                                                                      //    },
+                                                                      //  ),
+                                                                      // radioButton: Padding(
+                                                                      //   padding: const EdgeInsets.only(left: 10.0),
+                                                                      //   child: Column(
+                                                                      //     mainAxisAlignment: MainAxisAlignment.start,
+                                                                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      //     children: [
+                                                                      //       Text(
+                                                                      //         "Expiry Type",
+                                                                      //         style: GoogleFonts.firaSans(
+                                                                      //           fontSize: FontSize.s12,
+                                                                      //           fontWeight: FontWeight.w700,
+                                                                      //           color: ColorManager.mediumgrey,
+                                                                      //           decoration: TextDecoration.none,
+                                                                      //         ),
+                                                                      //       ),
+                                                                      //       CustomRadioListTile(
+                                                                      //         value: "Not Applicable",
+                                                                      //         groupValue: selectedExpiryType,
+                                                                      //         onChanged: (value) {
+                                                                      //           setState(() {
+                                                                      //             selectedExpiryType = value;
+                                                                      //           });
+                                                                      //         },
+                                                                      //         title: "Not Applicable",
+                                                                      //       ),
+                                                                      //       CustomRadioListTile(
+                                                                      //         value: 'Scheduled',
+                                                                      //         groupValue: selectedExpiryType,
+                                                                      //         onChanged: (value) {
+                                                                      //           setState(() {
+                                                                      //             selectedExpiryType = value;
+                                                                      //           });
+                                                                      //         },
+                                                                      //         title: 'Scheduled',
+                                                                      //       ),
+                                                                      //       CustomRadioListTile(
+                                                                      //         value: 'Issuer Expiry',
+                                                                      //         groupValue: selectedExpiryType,
+                                                                      //         onChanged: (value) {
+                                                                      //           setState(() {
+                                                                      //             selectedExpiryType = value;
+                                                                      //           });
+                                                                      //         },
+                                                                      //         title: 'Issuer Expiry',
+                                                                      //       ),
+                                                                      //     ],
+                                                                      //   ),
+                                                                      // ),
+                                                                      // child2: Visibility(
+                                                                      //   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                                                                      //   child: Column(
+                                                                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      //     children: [
+                                                                      //       Padding(
+                                                                      //         padding: const EdgeInsets.only(left: 2),
+                                                                      //         child: Text(
+                                                                      //           "Expiry Date",
+                                                                      //           style: GoogleFonts.firaSans(
+                                                                      //             fontSize: FontSize.s12,
+                                                                      //             fontWeight: FontWeight.w700,
+                                                                      //             color: ColorManager.mediumgrey,
+                                                                      //             decoration: TextDecoration.none,
+                                                                      //           ),
+                                                                      //         ),
+                                                                      //       ),
+                                                                      //       SizedBox(height: 5,),
+                                                                      //       FormField<String>(
+                                                                      //         builder: (FormFieldState<String> field) {
+                                                                      //           return SizedBox (
+                                                                      //             width: 354,
+                                                                      //             height: 30,
+                                                                      //             child:   TextFormField(
+                                                                      //               controller: calenderController,
+                                                                      //               cursorColor: ColorManager.black,
+                                                                      //               style: GoogleFonts.firaSans(
+                                                                      //                 fontSize: FontSize.s12,
+                                                                      //                 fontWeight: FontWeight.w700,
+                                                                      //                 color: ColorManager.mediumgrey,
+                                                                      //                 //decoration: TextDecoration.none,
+                                                                      //               ),
+                                                                      //               decoration: InputDecoration(
+                                                                      //                 enabledBorder: OutlineInputBorder(
+                                                                      //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                      //                   borderRadius: BorderRadius.circular(8),
+                                                                      //                 ),
+                                                                      //                 focusedBorder: OutlineInputBorder(
+                                                                      //                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                      //                   borderRadius: BorderRadius.circular(8),
+                                                                      //                 ),
+                                                                      //                 hintText: 'mm-dd-yyyy',
+                                                                      //                 hintStyle: GoogleFonts.firaSans(
+                                                                      //                   fontSize: FontSize.s12,
+                                                                      //                   fontWeight: FontWeight.w700,
+                                                                      //                   color: ColorManager.mediumgrey,
+                                                                      //                   //decoration: TextDecoration.none,
+                                                                      //                 ),
+                                                                      //                 border: OutlineInputBorder(
+                                                                      //                   borderRadius: BorderRadius.circular(8),
+                                                                      //                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                                                      //                 ),
+                                                                      //                 contentPadding:
+                                                                      //                 EdgeInsets.symmetric(horizontal: 16),
+                                                                      //                 suffixIcon: Icon(Icons.calendar_month_outlined,
+                                                                      //                     color: ColorManager.blueprime),
+                                                                      //                 errorText: field.errorText,
+                                                                      //               ),
+                                                                      //               onTap: () async {
+                                                                      //                 DateTime? pickedDate = await showDatePicker(
+                                                                      //                   context: context,
+                                                                      //                   initialDate: DateTime.now(),
+                                                                      //                   firstDate: DateTime(1901),
+                                                                      //                   lastDate: DateTime(3101),
+                                                                      //                 );
+                                                                      //                 if (pickedDate != null) {
+                                                                      //                   calenderController.text =
+                                                                      //                       DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                      //                 }
+                                                                      //               },
+                                                                      //               validator: (value) {
+                                                                      //                 if (value == null || value.isEmpty) {
+                                                                      //                   return 'please select birth date';
+                                                                      //                 }
+                                                                      //                 return null;
+                                                                      //               },
+                                                                      //             ),
+                                                                      //           );
+                                                                      //         },
+                                                                      //       ),
+                                                                      //     ],
+                                                                      //   ),
+                                                                      // ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
+                                                            );
+                                                          },
                                                           );
                                                         },
                                                         icon: Icon(
                                                           Icons.edit_outlined,
                                                           size: 18,
-                                                          color: ColorManager.bluebottom,
+                                                          color: ColorManager
+                                                              .bluebottom,
                                                         ),
-                                                        splashColor: Colors.transparent,
-                                                        highlightColor: Colors.transparent,
-                                                        hoverColor: Colors.transparent,
+                                                        splashColor:
+                                                        Colors.transparent,
+                                                        highlightColor:
+                                                        Colors.transparent,
+                                                        hoverColor:
+                                                        Colors.transparent,
                                                       ),
                                                       IconButton(
                                                           splashColor: Colors
