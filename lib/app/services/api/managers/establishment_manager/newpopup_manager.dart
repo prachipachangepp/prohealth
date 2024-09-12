@@ -208,7 +208,7 @@ Future<ApiData> updateOrgDoc({
   required int orgDocId,
   required int orgDocumentSetupid,
   required String idOfDocument,
-  required String expiryDate,
+  required String? expiryDate,
   required String docCreatedat,
   required String url,
   required String officeid,
@@ -221,7 +221,7 @@ Future<ApiData> updateOrgDoc({
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
       // "expiry_date": formattedExpiryDate,
-      "expiry_date": "${expiryDate}T00:00:00Z",
+      "expiry_date": null,
       "doc_created_at": docCreatedat,
       "company_id": companyId,
       "url": url,
@@ -234,9 +234,9 @@ Future<ApiData> updateOrgDoc({
     print('Patch Manage CCVCPP ::::$response ');
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      // var responseData = response.data;
-      // var docOfficeID =responseData["orgOfficeDocumentId"];
-      // print("Uploaded Document CCVCPP  addded ");
+      var responseData = response.data;
+      var docOfficeID =responseData["orgOfficeDocumentId"];
+      print("Patch CCVCPP  Updated ");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

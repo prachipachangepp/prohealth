@@ -1579,6 +1579,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                   var calender = snapshotPrefill.data!.expiry_date;
                                                                   calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
 
+                                                                   fileName = snapshotPrefill.data!.url;
+
                                                                   // var expiry = snapshotPrefill.data!.expiryType;expiryType = expiry;
                                                                   //
                                                                   // var idOfDoc = snapshotPrefill.data!.idOfDoc;
@@ -1600,14 +1602,21 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                             String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                                                                 ? "Not Applicable"
                                                                                 : calenderController.text;
-                                                                            await updateOrgDoc(context: context,
+                                                                            var response = await updateOrgDoc(context: context,
                                                                               orgDocId: policiesdata.orgOfficeDocumentId,
                                                                               orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
                                                                               idOfDocument: '',
                                                                               expiryDate: expiryTypeToSend,
-                                                                              docCreatedat: DateTime.now().toString(),
+                                                                              docCreatedat: DateTime.now().toIso8601String()+"Z",
                                                                               url: "",
                                                                               officeid: widget.officeId,);
+
+                                                                            if (response.statusCode == 200 || response.statusCode == 201) {
+                                                                              await uploadDocumentsoffice(
+                                                                                  context: context,
+                                                                                  documentFile: filePath,
+                                                                                  orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                                                            }
                                                                             // await updateCorporateDocumentPost(
                                                                             //     context: context,
                                                                             //     docId: documentPreId,
@@ -1686,7 +1695,52 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                             }
                                                                           },
                                                                         ),
-
+                                                                        uploadField: Container(
+                                                                          height: AppSize.s30,
+                                                                          width: AppSize.s354,
+                                                                          // margin: EdgeInsets.symmetric(horizontal: 5),
+                                                                          decoration: BoxDecoration(
+                                                                            border: Border.all(
+                                                                              color: ColorManager.containerBorderGrey,
+                                                                              width: 1,
+                                                                            ),
+                                                                            borderRadius: BorderRadius.circular(4),
+                                                                          ),
+                                                                          child: StatefulBuilder(
+                                                                            builder: (BuildContext context,
+                                                                                void Function(void Function()) setState) {
+                                                                              return Padding(
+                                                                                padding: const EdgeInsets.all(0),
+                                                                                child: Row(
+                                                                                  mainAxisAlignment:
+                                                                                  MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      fileName,
+                                                                                      style: GoogleFonts.firaSans(
+                                                                                        fontSize: FontSize.s12,
+                                                                                        fontWeight: FontWeightManager.regular,
+                                                                                        color: ColorManager.lightgreyheading,
+                                                                                      ),
+                                                                                    ),
+                                                                                    IconButton(
+                                                                                      padding: EdgeInsets.all(4),
+                                                                                      onPressed: _pickFile,
+                                                                                      icon: Icon(
+                                                                                        Icons.file_upload_outlined,
+                                                                                        color: ColorManager.black,
+                                                                                        size: 17,
+                                                                                      ),
+                                                                                      splashColor: Colors.transparent,
+                                                                                      highlightColor: Colors.transparent,
+                                                                                      hoverColor: Colors.transparent,
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ),
                                                                         // child: FutureBuilder<List<DocumentTypeData>>(
                                                                         //    future: documentTypeGet(context),
                                                                         //    builder: (context, snapshot) {
