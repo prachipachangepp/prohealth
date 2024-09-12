@@ -316,7 +316,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           showDialog(
                                                             context: context,
                                                             builder: (context) => ManageHistoryPopup(
-                                                              docHistory: [policiesdata],// policiesdata.docHistory,
+                                                              docHistory: [],// policiesdata.docHistory,
                                                             ),
                                                           );
                                                         },

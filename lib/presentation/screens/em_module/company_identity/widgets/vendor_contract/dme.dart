@@ -12,6 +12,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/vendor_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
@@ -212,10 +213,21 @@ class _CiDmeState extends State<CiDme> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    IconButton(onPressed: (){},
-                                                        icon: Icon(Icons.history,  size: 18,
-                                                            color: ColorManager.blueprime
-                                                        )),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => ManageHistoryPopup(
+                                                            docHistory: [],// policiesdata.docHistory,
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.history,
+                                                        size: 18,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                    ),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
                                                       DowloadFile().downloadPdfFromBase64(fileExtension,"DME.pdf");

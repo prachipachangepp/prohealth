@@ -407,7 +407,7 @@ Future<ApiData> addOrgDocPPPost({
     var data = {
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
-      "expiry_date": expiryDate,
+      "expiry_date": null,
       "doc_created_at": docCreated,
       "company_id": companyId,
       "url": url,
@@ -561,10 +561,9 @@ Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
             orgDocID: orgDocId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
-      itemsList = MCorporateComplianceModal(
-        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
-        orgDocumentSetupid: response.data['orgDocumentSetupid'],
-        idOfDocument: response.data['idOfDocument'],
+      itemsList = MCorporateCompliancePreFillModal(
+        documentSetupId: response.data['orgDocumentSetupid'],
+        idOfDocument: response.data['idOfDocument']??"",
         expiry_date: response.data['expiry_date'] ?? "",
         doc_created_at: response.data['doc_created_at'] ?? "",
         companyId: companyId,

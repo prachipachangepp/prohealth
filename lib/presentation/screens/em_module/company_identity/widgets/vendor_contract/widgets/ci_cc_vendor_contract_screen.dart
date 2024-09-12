@@ -380,7 +380,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       expiryDate:
                                       // selectedExpiryType.toString(),
                                       expiryDateController.text,
-                                      docCreated: DateTime.now().toIso8601String(),
+                                      docCreated: DateTime.now().toIso8601String()+"Z",
                                       url: "url",
                                       officeId: widget.officeId,
                                     );
