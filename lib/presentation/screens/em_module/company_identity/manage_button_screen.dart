@@ -11,7 +11,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
-
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 
@@ -22,6 +21,8 @@ class ManageWidget extends StatefulWidget {
   final int companyID;
   final int companyOfficeId;
   final String officeName;
+  final String stateName;
+  final String countryName;
   final BackButtonCallBack backButtonCallBack;
   ManageWidget({
     Key? key,
@@ -29,7 +30,7 @@ class ManageWidget extends StatefulWidget {
     required this.officeName,
     required this.backButtonCallBack,
     required this.companyID,
-    required this.companyOfficeId,
+    required this.companyOfficeId, required this.stateName, required this.countryName,
     // required this.selectedIndex,
     // required this.selectButton,
   }) : super(key: key);
@@ -90,22 +91,21 @@ class _ManageWidgetState extends State<ManageWidget> {
       child: Column(
         children: [
           _selectedIndex != 0
-              ? Container(height: 15)
+              ? Container(height: AppSize.s15)
               : Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p160, vertical: AppPadding.p28),
+                      horizontal: AppPadding.p120, vertical: AppPadding.p28),
                   child: Row(
                     children: [
                       Text(
                         widget.officeName,
-                        style: CompanyIdentityManageHeadings.customTextStyle(
-                            context),
+                        style: CompanyIdentityManageHeadings.customTextStyle(context),
                       ),
                     ],
                   ),
                 ),
           Padding(
-            padding: const EdgeInsets.only(left: 35),
+            padding: EdgeInsets.only(left: AppPadding.p35),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -126,216 +126,214 @@ class _ManageWidgetState extends State<ManageWidget> {
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.mediumgrey,
-                        // decoration: TextDecoration
-                        //     .underline, // Remove underline from the text
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 50,
-                ),
-                Material(
-                  elevation: 4,
-                  borderRadius: BorderRadius.circular(14),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.1814,
-                    height: AppSize.s30,
-                    decoration: BoxDecoration(
-                        color: ColorManager.blueprime,
-                        borderRadius: BorderRadius.circular(14)),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          child: Container(
-                            height: 30,
-                            width: MediaQuery.of(context).size.width / 8.4,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 0 ? Colors.white : null,
-                            ),
-                            child: Text(
-                              'Details',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: AppSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 0
-                                    ? ColorManager.mediumgrey
-                                    : ColorManager.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(0),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.9,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 1
-                                  ? ColorManager.white
-                                  : null,
-                            ),
-                            child: Text(
-                              'Zones',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 1
-                                    ? ColorManager.mediumgrey
-                                    : Colors.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(1),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 7,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 2
-                                  ? ColorManager.white
-                                  : null,
-                            ),
-                            child: Text(
-                              'Corporate & Compliance',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 2
-                                    ? ColorManager.mediumgrey
-                                    : Colors.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(2),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.7,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 3
-                                  ? ColorManager.white
-                                  : null,
-                            ),
-                            child: Text(
-                              'Insurance',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 3
-                                    ? ColorManager.mediumgrey
-                                    : ColorManager.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(3),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.4,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 4
-                                  ? ColorManager.white
-                                  : null,
-                            ),
-                            child: Text(
-                              'Vendor Contracts',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 4
-                                    ? ColorManager.mediumgrey
-                                    : ColorManager.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(4),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.4,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 5
-                                  ? ColorManager.white
-                                  : null,
-                            ),
-                            child: Text(
-                              'Policies & Procedures',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 5
-                                    ? ColorManager.mediumgrey
-                                    : ColorManager.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(5),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.4,
-                            padding: EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 6
-                                  ? ColorManager.white
-                                  : null,
-                            ),
-                            child: Text(
-                              'Templates',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: _selectedIndex == 6
-                                    ? ColorManager.mediumgrey
-                                    : ColorManager.white,
-                              ),
-                            ),
-                          ),
-                          onTap: () => _selectButton(6),
+                SizedBox(width: MediaQuery.of(context).size.width / 50,),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.1815,
+                  height: AppSize.s30,
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorManager.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
                         ),
                       ],
-                    ),
+                      color: ColorManager.blueprime,
+                      borderRadius: BorderRadius.circular(14)),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        child: Container(
+                          height: 30,
+                          width: MediaQuery.of(context).size.width / 8.4,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 0 ? Colors.white : null,
+                          ),
+                          child: Text(
+                            'Details',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: AppSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 0
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(0),
+                      ),
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 8.9,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 1
+                                ? ColorManager.white
+                                : null,
+                          ),
+                          child: Text(
+                            'Zones',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 1
+                                  ? ColorManager.mediumgrey
+                                  : Colors.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(1),
+                      ),
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 7,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 2
+                                ? ColorManager.white
+                                : null,
+                          ),
+                          child: Text(
+                            'Corporate & Compliance',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 2
+                                  ? ColorManager.mediumgrey
+                                  : Colors.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(2),
+                      ),
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 8.7,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 3
+                                ? ColorManager.white
+                                : null,
+                          ),
+                          child: Text(
+                            'Insurance',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 3
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(3),
+                      ),
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 8.4,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 4
+                                ? ColorManager.white
+                                : null,
+                          ),
+                          child: Text(
+                            'Vendor Contracts',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 4
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(4),
+                      ),
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 8.4,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 5
+                                ? ColorManager.white
+                                : null,
+                          ),
+                          child: Text(
+                            'Policies & Procedures',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 5
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(5),
+                      ),
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 8.4,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: _selectedIndex == 6
+                                ? ColorManager.white
+                                : null,
+                          ),
+                          child: Text(
+                            'Templates',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: _selectedIndex == 6
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () => _selectButton(6),
+                      ),
+                    ],
                   ),
                 )
               ],
             ),
           ),
-          const SizedBox(
-            height: AppSize.s30,
-          ),
+          const SizedBox(height: AppSize.s30,),
           Expanded(
             flex: 10,
             child: Stack(children: [
               _selectedIndex == 0
                   ? const Offstage()
                   : Container(
-                      height: MediaQuery.of(context).size.height / 3,
+                      //height: MediaQuery.of(context).size.height / 3,
                       decoration: BoxDecoration(
                           color: Color(0xFFF2F9FC),
                           borderRadius: const BorderRadius.only(
@@ -351,9 +349,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                           ]),
                     ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    //horizontal: MediaQuery.of(context).size.width / 45,
-                    vertical: 5),
+                padding: const EdgeInsets.symmetric(vertical: AppPadding.p5),
                 child: PageView(
                     controller: _managePageController,
                     physics: const NeverScrollableScrollPhysics(),
@@ -363,26 +359,17 @@ class _ManageWidgetState extends State<ManageWidget> {
                         officeId: widget.officeID,
                         docTD: docID,
                         companyId: widget.companyID,
-                        companyOfficeid: widget.companyOfficeId,
+                        companyOfficeid: widget.companyOfficeId, stateName: widget.stateName, countryName: widget.countryName,
                       ),
-
                       CiZone(
                         companyID: widget.companyID,
                         officeId: widget.officeID,
-                        docId: docID,
+                        docId: docID, stateName: widget.stateName, countryName: widget.countryName,
                       ),
-                      // CiPageview(
-                      //   docId: 5,
-                      //     managePageController: _managePageController,
-                      //     selectedIndex: _selectedIndex,
-                      //     selectButton: _selectButton,
-                      //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
-                      //     nameList: ['County', 'Zone'],
-                      //     screenList: [CIZoneCountry(), CIZoneZone()],
-                      //     mediaQueryWidth: 3.5,),
                       CiCorporateComplianceScreen(
                         docId: AppConfig.corporateAndCompliance,
                         officeId: widget.officeID,
+                        companyID: widget.companyID,
                       ),
                       CIInsurance(
                         officeId: widget.officeID,
@@ -433,7 +420,7 @@ class CustomButtonList extends StatelessWidget {
       child: Container(
         height: AppSize.s30,
         width: MediaQuery.of(context).size.width / 8.62,
-        padding: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isSelected == docID ? ColorManager.white : null,
@@ -451,4 +438,3 @@ class CustomButtonList extends StatelessWidget {
     );
   }
 }
-/////

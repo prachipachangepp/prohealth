@@ -22,13 +22,16 @@ class SMTextFConst extends StatefulWidget {
   final bool ? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
+  final double? width;
 
-   SMTextFConst({
-     Key? key,
+  SMTextFConst({
+    Key? key,
+    this.focusNode,
     required this.controller,
     required this.keyboardType,
-     required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget,
+    required this.text,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget, this.width,
   }) : super(key: key);
 
   @override
@@ -56,13 +59,14 @@ class _SMTextFConstState extends State<SMTextFConst> {
         ),
         SizedBox(height: 5,),
         Container(
-          width: 354,
+          width: widget.width ?? 354,
           height: 30,
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+            focusNode: widget.focusNode,
             autofocus: true,
             enabled: widget.enable == null ? true : false,
             controller: widget.controller,
@@ -83,9 +87,9 @@ class _SMTextFConstState extends State<SMTextFConst> {
               contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
             ),
             style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s12,
-              color: ColorManager.mediumgrey
+                fontWeight: FontWeightManager.medium,
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey
             ),
             //validator: widget.validator,
             onTap: widget.onChange,
@@ -204,11 +208,16 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 18, left: 15),
             ),
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.firaSans(
               fontSize: 12,
+              fontWeight: FontWeight.w500,
               color: Color(0xff686464),
             ),
+            // style: TextStyle(
+            //   fontWeight: FontWeight.w500,
+            //   fontSize: 12,
+            //   color: Color(0xff686464),
+            // ),
             onTap: widget.onChange,
             validator: widget.validator,
           ),
@@ -461,7 +470,16 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
 
 
 
-
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
+  }
+}
 
 ///first latter capital
 class FirstSMTextFConst extends StatefulWidget {
@@ -475,9 +493,11 @@ class FirstSMTextFConst extends StatefulWidget {
   final bool ? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormated;
 
   FirstSMTextFConst({
     Key? key,
+    this.inputFormated,
     required this.controller,
     required this.keyboardType,
     required this.text,
@@ -540,10 +560,9 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
             ),
             //validator: widget.validator,
             onTap: widget.onChange,
-            inputFormatters: [
+            inputFormatters: widget.inputFormated == null ?[
               CapitalizeFirstLetterFormatter(),
-            ],
-
+            ]: widget.inputFormated
           ),
         ),
       ],
@@ -715,6 +734,7 @@ class EditTextField extends StatelessWidget {
   final Color textColor;
   final Icon? icon;
   final bool? readOnly;
+  final bool? enabled;
   final VoidCallback? onChange;
 
 
@@ -723,7 +743,7 @@ class EditTextField extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.text,
-    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enabled,
   }) : super(key: key);
 
   @override
@@ -750,6 +770,7 @@ class EditTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+            enabled: enabled,
             readOnly: true,
             autofocus: true,
             controller: controller,
@@ -786,6 +807,7 @@ class EditTextFieldPhone extends StatelessWidget {
   final Color textColor;
   final Icon? icon;
   final bool? readOnly;
+  final bool? enabled;
   final VoidCallback? onChange;
 
 
@@ -794,7 +816,7 @@ class EditTextFieldPhone extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.text,
-    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enabled,
   }) : super(key: key);
 
   @override
@@ -826,6 +848,7 @@ class EditTextFieldPhone extends StatelessWidget {
             ],
             readOnly: true,
             autofocus: true,
+            enabled: enabled,
             controller: controller,
             keyboardType: keyboardType,
             cursorHeight: 17,

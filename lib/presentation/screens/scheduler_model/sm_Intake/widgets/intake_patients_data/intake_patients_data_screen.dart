@@ -16,6 +16,7 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class SmIntakePatientsScreen extends StatefulWidget {
@@ -268,12 +269,14 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     final companyId = await TokenManager.getCompanyId();
+                    // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
                     ApiData result = await IntakeInfoSave(
                       context,
                       ctlrSos.text,
                       //"2024-08-12",
                       ctlrMedicalRecord.text,
-                      'Pending',
+                      selectedStatus!.toString() ?? '',
+                      // 'Pending',
                       ctlrfirstName.text,
                       ctlrLastName.text,
                       ctlrMI.text,
@@ -299,7 +302,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       selectedReligion.toString() ?? '',
                       selectedMaritalStatus.toString() ?? '',
                       //"2024-08-12",
-                      ctlrDateOfDeath.text,
+                      // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
+                      ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text,
+
                       1,
                       'At Land OSC',
                       'case',
@@ -414,6 +419,326 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   ctlrSocialSec: ctlrSocialSec,
                   ctlrDischargeResaon: ctlrDischargeResaon,
                   ctlrDateOfDeath: ctlrDateOfDeath,
+                  // childStatus:  FutureBuilder<List<PatientStatusData>>(
+                  //   future: StatusChange(context),  // Call your API method here
+                  //   builder: (BuildContext context, AsyncSnapshot<List<PatientStatusData>> snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return const CircularProgressIndicator();  // Show loading indicator while waiting
+                  //     } else if (snapshot.hasError) {
+                  //       return Text('Error: ${snapshot.error}');  // Show error if there's an issue
+                  //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  //       return const Text('No Data Available');  // Show message if no data
+                  //     } else {
+                  //       // Data is available, map it to dropdown items
+                  //       List<String> statusOptions = snapshot.data!.map((statusData) {
+                  //         return statusData.patientStatus;  // Use patientStatus for the dropdown item label
+                  //       }).toList();
+                  //
+                  //       return Flexible(
+                  //         child: SchedularDropdown(
+                  //           labelText: AppString.status,  // Your dropdown label
+                  //           items: statusOptions,  // Populate dropdown with API data
+                  //           onChanged: (newValue) {
+                  //             setState(() {
+                  //               selectedStatus = newValue;
+                  //               print(selectedStatus);
+                  //             });
+                  //           },
+                  //         ),
+                  //       );
+                  //     }
+                  //   },
+                  // ),
+                  childStatus:
+                  FutureBuilder<List<PatientStatusData>>(
+                    future: StatusChange(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SchedularTextField(
+                          controller: dummyCtrl,
+                          labelText: 'Status',
+                          suffixIcon: Icon(Icons.arrow_drop_down, color: ColorManager.blueprime),
+                        );
+                      }
+                      // if (snapshot.hasData) {
+                      //   List<PatientStatusData> statusList = snapshot.data!;
+                      //   return DropdownButtonFormField<PatientStatusData>(
+                      //     decoration: InputDecoration(
+                      //       labelText: 'Status',
+                      //       labelStyle: GoogleFonts.firaSans(
+                      //         fontSize: 10.0,
+                      //         fontWeight: FontWeight.w400,
+                      //         color: ColorManager.greylight,
+                      //       ),
+                      //       focusedBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+                      //       ),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(4.0),
+                      //         borderSide: const BorderSide(color: Colors.grey),
+                      //       ),
+                      //       contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                      //     ),
+                      //     value: statusList.isNotEmpty ? statusList.first : null,
+                      //     icon: Icon(Icons.arrow_drop_down, color: ColorManager.blueprime),
+                      //     iconSize: 24,
+                      //     elevation: 16,
+                      //     style: GoogleFonts.firaSans(
+                      //       fontSize: 10.0,
+                      //       fontWeight: FontWeight.w400,
+                      //       color: const Color(0xff686464),
+                      //     ),
+                      //     onChanged: (newValue) {
+                      //       for (var a in snapshot.data!) {
+                      //         if (a.patientStatus == newValue) {
+                      //           selectedState = a.patientStatus!;
+                      //           //country = a
+                      //           // int? docType = a.companyOfficeID;
+                      //         }
+                      //       }
+                      //     },
+                      //     // onChanged: (newValue) {
+                      //     //   if (newValue != null) {
+                      //     //     controller.text = newValue.patientStatus!;
+                      //     //     // Additional logic for selected value if needed
+                      //     //   }
+                      //     // },
+                      //     items: statusList.map((PatientStatusData status) {
+                      //       return DropdownMenuItem<PatientStatusData>(
+                      //         value: status,
+                      //         child: Text(
+                      //           status.patientStatus!,
+                      //           style: GoogleFonts.firaSans(
+                      //             fontSize: 12,
+                      //             color: Color(0xff575757),
+                      //             fontWeight: FontWeight.w400,
+                      //           ),
+                      //         ),
+                      //       );
+                      //     }).toList(),
+                      //   );
+                      if (snapshot.hasData) {
+                        List<String> statusList = [];
+                        for (var i in snapshot.data!) {
+                          statusList.add(i.patientStatus);
+                        }
+
+                        return SizedBox(
+                          height: 27,
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Status',
+                              labelStyle: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.greylight,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager
+                                        .containerBorderGrey),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(4.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey),
+                              ),
+                              contentPadding:
+                              const EdgeInsets.symmetric(
+                                //   //  vertical: 5,
+                                  horizontal: 12),
+                            ),
+                            // value: selectedCountry,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: ColorManager.blueprime,
+                            ),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff686464),
+                            ),
+
+                            onChanged: (newValue) {
+                              for (var a in snapshot.data!) {
+                                if (a.patientStatus == newValue) {
+                                  selectedStatus = a.patientStatus!;
+                                  //country = a
+                                  // int? docType = a.companyOfficeID;
+                                }
+                              }
+                            },
+                            items: statusList.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      } else {
+                        return const Offstage();
+                      }
+                    },
+                  ),
+                      ///
+                  // FutureBuilder<List<PatientStatusData>>(
+                  //   future: StatusChange(context),
+                  //   builder: (BuildContext context, AsyncSnapshot<List<PatientStatusData>> snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return SchedularTextField(
+                  //         width: 350,
+                  //         controller: dummyCtrl,
+                  //         labelText: 'Status',
+                  //         suffixIcon: Icon(
+                  //           Icons.arrow_drop_down,
+                  //           color: ColorManager.blueprime,
+                  //         ),
+                  //       );
+                  //     } else if (snapshot.hasError) {
+                  //       return Text('Error: ${snapshot.error}');
+                  //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  //       return const Text('No Data Available');
+                  //     } else {
+                  //
+                  //       List<String> statusOptions = snapshot.data!.map((statusData) {
+                  //         return statusData.patientStatus;
+                  //       }).toList();
+                  //
+                  //       return DropdownButtonFormField<String>(
+                  //         decoration: InputDecoration(
+                  //           labelText: 'Status',
+                  //           labelStyle: GoogleFonts.firaSans(
+                  //             fontSize: 10.0,
+                  //             fontWeight: FontWeight.w400,
+                  //             color: ColorManager.greylight,
+                  //           ),
+                  //           focusedBorder: OutlineInputBorder(
+                  //             borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+                  //           ),
+                  //           border: OutlineInputBorder(
+                  //             borderRadius: BorderRadius.circular(4.0),
+                  //             borderSide: const BorderSide(color: Colors.grey),
+                  //           ),
+                  //           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  //         ),
+                  //         value: selectedStatus,
+                  //         icon: Icon(
+                  //           Icons.arrow_drop_down,
+                  //           color: ColorManager.blueprime,
+                  //         ),
+                  //         iconSize: 24,
+                  //         elevation: 16,
+                  //         style: GoogleFonts.firaSans(
+                  //           fontSize: 10.0,
+                  //           fontWeight: FontWeight.w400,
+                  //           color: const Color(0xff686464),
+                  //         ),
+                  //         onChanged: (newValue) {
+                  //           setState(() {
+                  //             selectedStatus = newValue;
+                  //             print(selectedStatus);
+                  //           });
+                  //         },
+                  //         items: statusOptions.map((String value) {
+                  //           return DropdownMenuItem<String>(
+                  //             value: value,
+                  //             child: Text(
+                  //               value,
+                  //               style: GoogleFonts.firaSans(
+                  //                 fontSize: 12,
+                  //                 color: Color(0xff575757),
+                  //                 fontWeight: FontWeight.w400,
+                  //               ),
+                  //             ),
+                  //           );
+                  //         }).toList(),
+                  //       );
+                  //     }
+                  //   },
+                  // ),
+///
+                // FutureBuilder<List<PatientStatusData>>(
+                  //   future: StatusChange(context), // Call your API method here
+                  //   builder: (BuildContext context, AsyncSnapshot<List<PatientStatusData>> snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return SchedularTextField(
+                  //         width: 350,
+                  //         controller: dummyCtrl,
+                  //         labelText: 'Status',
+                  //         suffixIcon: Icon(Icons.arrow_drop_down,
+                  //           color: ColorManager
+                  //               .blueprime,),); // Show loading indicator while waiting
+                  //     } if (snapshot.hasData){
+                  //       // Data is available, map it to dropdown items
+                  //       List<String> statusOptions = snapshot.data!.map((statusData) {
+                  //         return statusData.patientStatus; // Use patientStatus for the dropdown item label
+                  //       }).toList();
+                  //       return DropdownButtonFormField<String>(
+                  //         decoration: InputDecoration(
+                  //           labelText: 'Status',
+                  //           labelStyle: GoogleFonts.firaSans(
+                  //             fontSize: 10.0,
+                  //             fontWeight: FontWeight.w400,
+                  //             color: ColorManager.greylight,
+                  //           ),
+                  //           focusedBorder: OutlineInputBorder(
+                  //             borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+                  //           ),
+                  //           border: OutlineInputBorder(
+                  //             borderRadius: BorderRadius.circular(4.0),
+                  //             borderSide: const BorderSide(color: Colors.grey),
+                  //           ),
+                  //           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  //         ),
+                  //         value: selectedStatus,
+                  //         icon: Icon(
+                  //           Icons.arrow_drop_down,
+                  //           color: ColorManager.blueprime,
+                  //         ),
+                  //         iconSize: 24,
+                  //         elevation: 16,
+                  //         style: GoogleFonts.firaSans(
+                  //           fontSize: 10.0,
+                  //           fontWeight: FontWeight.w400,
+                  //           color: const Color(0xff686464),
+                  //         ),
+                  //         onChanged: (newValue) {
+                  //           setState(() {
+                  //             selectedStatus = newValue;
+                  //             print(selectedStatus);
+                  //           });
+                  //         },
+                  //         items: statusOptions.map((String value) {
+                  //           return DropdownMenuItem<String>(
+                  //             value: value,
+                  //             child: Text(
+                  //               value,
+                  //               style: GoogleFonts.firaSans(
+                  //                 fontSize: 12,
+                  //                 color: Color(0xff575757),
+                  //                 fontWeight: FontWeight.w400,
+                  //               ),
+                  //             ),
+                  //           );
+                  //         }).toList(),
+                  //       );
+                  //     } else {
+                  //       return const Offstage();
+                  //     }
+                  //   },
+                  // ),
+
                   childState: FutureBuilder<List<StateData>>(
                     future: getStateDropDown(context),
                     builder: (context, snapshot) {

@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../resources/const_string.dart';
@@ -21,11 +22,14 @@ Future<ApiData> editEmployeeDocTypeSetupId(
     String expiry,
     String reminderThreshold,
     String idOfDocument,
+    String expiryType,
     int employeeDoctypeSetupId,
-    int employeeDocTypeMetaDataId
+    int employeeDocTypeMetaDataId,
+    int threshold,
 
     ) async {
   try {
+    var companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(path:
     EmployeeDocumentRepository.patchEmpDocSetUp(
         employeeDoctypeSetupId: employeeDoctypeSetupId
@@ -33,9 +37,12 @@ Future<ApiData> editEmployeeDocTypeSetupId(
     ), data: {
       "DocumentName": docName,
       "Expiry": expiry,
+      "companyId":companyId,
       "ReminderThreshold": reminderThreshold,
       "EmployeeDocumentTypeMetaDataId": employeeDocTypeMetaDataId,
       "idOfDocument": idOfDocument ?? "--",
+      "expiry_type": expiryType,
+      "threshold": threshold,
     });
     print('Patch Emp doc ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {

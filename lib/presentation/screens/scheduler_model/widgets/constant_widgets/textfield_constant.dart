@@ -6,7 +6,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 /////Schedular PopUp Textfield constant///////
-class PopUpTextField extends StatelessWidget {
+class PopUpTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String labelText;
   final String? initialValue;
@@ -23,10 +23,16 @@ class PopUpTextField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<PopUpTextField> createState() => _PopUpTextFieldState();
+}
+
+class _PopUpTextFieldState extends State<PopUpTextField> {
+  @override
   Widget build(BuildContext context) {
     // final TextEditingController controller =
     //     TextEditingController(text: initialValue);
     var dateSelected;
+    DateTime? selectedDateTime;
 
     Future<void> _selectDate(BuildContext context) async {
       final DateTime? selectedDate = await showDatePicker(
@@ -46,7 +52,11 @@ class PopUpTextField extends StatelessWidget {
           DateTime.now().second,
         );
 
-        controller!.text = DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTimeWithCurrentTime)+ 'Z';
+        setState(() {
+          selectedDateTime = selectedDate;
+        });
+        print("Time Picker : ${selectedDateTime} + ${selectedDate}");
+        widget.controller!.text = DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTimeWithCurrentTime)+ 'Z';
         dateSelected =  DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTimeWithCurrentTime)+ 'Z';
       }
     }
@@ -56,27 +66,31 @@ class PopUpTextField extends StatelessWidget {
         context: context,
         initialTime: TimeOfDay.now(),
       );
+try{
+  if (selectedTime != null ) {
+    final now = DateTime.now();
+    final selectedDateTimeP = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      selectedTime.hour,
+      selectedTime.minute,
+    );
 
-      if (selectedTime != null) {
-        final now = DateTime.now();
-        final selectedDateTime = DateTime(
-          now.year,
-          now.month,
-          now.day,
-          selectedTime.hour,
-          selectedTime.minute,
-        );
+    print("Time Picker : ${selectedDateTimeP}");
 
-        // Format the date and time in UTC
-        controller!.text = DateFormat('yyyy-MM-ddTHH:mm:ss').format(selectedDateTime) + 'Z';
-      }
-
+    // Format the date and time in UTC
+    widget.controller!.text = DateFormat('yyyy-MM-ddTHH:mm:ss').format(selectedDateTimeP) + 'Z';
+  }
+}catch (e){
+  print(e);
+}
     }
 
     return SizedBox(
       height: AppSize.s30,
       child: TextFormField(
-        controller: controller,
+        controller: widget.controller,
         style: GoogleFonts.firaSans(
           fontSize: FontSize.s12,
           fontWeight: FontWeightManager.regular,
@@ -84,6 +98,7 @@ class PopUpTextField extends StatelessWidget {
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 5,horizontal: 6),
           labelText: '',
           labelStyle: GoogleFonts.firaSans(
             fontSize: FontSize.s10,
@@ -91,40 +106,40 @@ class PopUpTextField extends StatelessWidget {
             color: ColorManager.greylight,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
               width: AppSize.s1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
               width: AppSize.s1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
               width: AppSize.s1,
             ),
           ),
-          suffixIcon: isDate
+          suffixIcon: widget.isDate
               ? Icon(Icons.calendar_month_outlined,
                   color: ColorManager.blueprime)
-              : isTime
+              : widget.isTime
                   ? Icon(Icons.access_time_filled,
                       color: ColorManager.blueprime)
                   : null,
         ),
-        readOnly: isDate || isTime,
-        onTap: isDate
+        readOnly: widget.isDate || widget.isTime,
+        onTap: widget.isDate
             ? () async {
                 await _selectDate(context);
               }
-            : isTime
+            : widget.isTime
                 ? () async {
                     await _selectTime(context);
                   }

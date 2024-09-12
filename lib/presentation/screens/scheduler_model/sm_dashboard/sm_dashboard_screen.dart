@@ -30,52 +30,50 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
-        padding: const EdgeInsets.only(left: 64.0, right: 32),
+        padding:  EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 32.0),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CustomContainer(
-                        imagePath: 'images/PatientOnBed.png',
-                        numberText: '250',
-                        descriptionText: 'Partially admitted',
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 40),
-                      CustomContainer(
-                        imagePath: 'images/TableWithLamp.png',
-                        numberText: '89',
-                        descriptionText: 'Partially Scheduled',
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 40),
-                      CustomContainer(
-                        imagePath: 'images/HospitalBuilding.png',
-                        numberText: '300',
-                        descriptionText: 'Not admitted',
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 40),
-                      CustomContainer(
-                        imagePath: 'images/PatientOnBed.png',
-                        numberText: '52',
-                        descriptionText: 'Not admitted',
-                      ),
-                    ],
-                  ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomContainer(
+                      imagePath: 'images/PatientOnBed.png',
+                      numberText: '250',
+                      descriptionText: 'Partially admitted',
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width / 40),
+                    CustomContainer(
+                      imagePath: 'images/TableWithLamp.png',
+                      numberText: '89',
+                      descriptionText: 'Partially Scheduled',
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width / 40),
+                    CustomContainer(
+                      imagePath: 'images/HospitalBuilding.png',
+                      numberText: '300',
+                      descriptionText: 'Not admitted',
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width / 40),
+                    CustomContainer(
+                      imagePath: 'images/PatientOnBed.png',
+                      numberText: '52',
+                      descriptionText: 'Not admitted',
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 80),
               Padding(
                 padding: EdgeInsets.only(left: 32.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
                               height: AppSize.s98,
@@ -214,7 +212,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                               value,
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
-                                                fontSize: MediaQuery.of(context).size.width * 0.008, //12
+                                                fontSize: 12, //12
                                                 fontWeight: FontWeightManager.medium,
                                                 color: ColorManager.granitegray,
                                               ),

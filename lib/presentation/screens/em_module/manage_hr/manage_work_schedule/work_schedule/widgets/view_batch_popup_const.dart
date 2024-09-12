@@ -53,58 +53,43 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
         child: SingleChildScrollView(
           child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                          child: Text("Batches",style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s16,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.blueprime,
-                            decoration: TextDecoration.none,
-                          ),),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: ColorManager.bluebottom,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.close),
-                        ),
-                      ],
+                      ),
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
+                            child: Text("Batches",style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s16,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            ),),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon:  Icon(Icons.close,color: ColorManager.white,),
+                          ),
+                        ],
+                      ),
                     ),
                     StreamBuilder<List<ShiftBachesData>>(
                         stream: workWeekShiftBatchesController.stream,
                         builder: (context, snapshot) {
                           if(snapshot.connectionState == ConnectionState.waiting){
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child:  Container(
-                                height:MediaQuery.of(context).size.height/1.5,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: 10,
-                                    itemBuilder: (context, index) {
-                                      // int serialNumber =
-                                      //     index + 1 + (currentPage - 1) * itemsPerPage;
-                                      return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          // SizedBox(height: 5),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: ColorManager.faintGrey,
-                                                  borderRadius: BorderRadius.circular(4),
-                                                ),
-                                                height: 50),
-                                          ),
-                                        ],
-                                      );
-                                    }),
-                              ),
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 150),
+                              child: Center(child:CircularProgressIndicator(color: ColorManager.blueprime,)),
                             );
                           }
                           if (snapshot.data!.isEmpty) {
@@ -112,7 +97,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                               padding: const EdgeInsets.symmetric(vertical: 100),
                               child: Center(
                                 child: Text(
-                                  AppString.dataNotFound,
+                                  "No available batches!",
                                   style: CustomTextStylesCommon.commonStyle(
                                     fontWeight: FontWeightManager.medium,
                                     fontSize: FontSize.s12,
@@ -125,7 +110,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                           if(snapshot.hasData){
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                vertical: AppPadding.p3,
+                                vertical: AppPadding.p10,
                                 horizontal: AppPadding.p20,
                               ),
                               child: Column(
@@ -313,7 +298,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                   startTimeController.clear();
                                                                                   endTimeController.clear();
                                                                                   Navigator.pop(context);
-                                                                                },
+                                                                                }, title: 'Edit Batches',
                                                                               );
                                                                             }
                                                                           );

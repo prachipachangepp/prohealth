@@ -96,7 +96,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                   style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.darkgrey,
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold),
+                      fontWeight: FontWeightManager.semiBold),
                 ),
                 ///txtfield
                 Row(
@@ -214,7 +214,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.blueprime,
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeightManager.semiBold,
                     ),
                   ),
                   onTap: () {

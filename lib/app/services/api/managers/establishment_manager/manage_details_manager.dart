@@ -119,6 +119,12 @@ Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId
             npiNum: items['npi_number'],
             medicareNum: items['medicare_provider_id'],
             hcoNum: items['hco_num_id'],
+            lat: items['lat'] ?? "",
+            long: items['lng'] ?? "",
+            city: items['city'] ?? "",
+            stateName: items['state'] ?? "",
+            countryName: items['country'] ?? "",
+            isHeadOffice: items['isHeadOffice'] ?? false,
           ));
         }
       }
@@ -136,6 +142,12 @@ Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId
         email: response.data['officeDetail']['email'],
         primaryFax: response.data['officeDetail']['primary_fax'],
         secondaryFax: response.data['officeDetail']['secondary_fax'],
+        lat: response.data['officeDetail']['lat'] ?? "",
+        long: response.data['officeDetail']['lng'] ?? "",
+        city: response.data['officeDetail']['city'] ?? "",
+        stateName: response.data['officeDetail']['state'] ?? "",
+        countryName: response.data['officeDetail']['country'] ?? "",
+        isHeadOffice: response.data['officeDetail']['isHeadOffice'] ?? false,
         serviceDetails: detailService,
       );
 
@@ -298,5 +310,44 @@ Future<ApiData> patchCompanyOfficeService(BuildContext context, int OfficeServic
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Get services
+Future<List<ServicesData>> getAllServicesData(
+    BuildContext context,
+    ) async {
+  List<ServicesData> itemsList = [];
+  try {
+    final companyID = await TokenManager.getCompanyId();
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(companyId: companyID));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for (var item in response.data) {
+        itemsList.add(
+          ServicesData(
+              officeServiceId: item['Office_service_id'],
+              companyId: item['company_id'],
+              officeId: item['office_id'],
+              serviceName: item['service_name'],
+              serviceId: item['service_id'],
+              npiNumber: item['npi_number'],
+              medicareId: item['medicare_provider_id'],
+              hcoNumber: item['hco_num_id']
+              ),
+        );
+      }
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('Ci Policies Pr Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }

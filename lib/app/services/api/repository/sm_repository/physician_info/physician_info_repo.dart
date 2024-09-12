@@ -24,6 +24,7 @@ static String suppliesDropdown="/dropdown-supplies-dme";
 static String pharmacyDropdown="/dropdown-pharmacy";
 static String facilityDropdown="/dropdown-facility";
 static String countryDropdown="/country";
+static String getreferringDiagnosis = '/intake-physician-rdignosis-pd';
 
 
 
@@ -120,5 +121,9 @@ static String addfirstRD(){
 
   static String countryDD(){
     return"$countryDropdown";
+  }
+
+  static String getRD(){
+    return "$getreferringDiagnosis";
   }
 }

@@ -30,20 +30,76 @@ class _CheckboxTileState extends State<CheckboxTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.regular,color: Colors.black),),
-      leading: Checkbox(
-        activeColor: ColorManager.blueprime,
-        value: _value,
-        onChanged: (value) {
-          setState(() {
-            _value = value!;
-          });
-          if (widget.onChanged != null) {
-            widget.onChanged!(_value);
-          }
-        },
-      ),
+    return Row(
+      children: [
+        Checkbox(
+          activeColor: ColorManager.blueprime,
+          value: _value,
+          onChanged: (value) {
+            setState(() {
+              _value = value!;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(_value);
+            }
+          },
+        ),
+        SizedBox(width: 10,),
+        Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s10,fontWeight: FontWeightManager.medium,color: Colors.black),),
+      ],
+
+
+    );
+  }
+}
+
+/// Use in Details Screen
+class CheckboxTileDetails extends StatefulWidget {
+  final String title;
+  final bool initialValue;
+  final Function(bool)? onChanged;
+
+  CheckboxTileDetails({
+    required this.title,
+    this.initialValue = false,
+    this.onChanged,
+  });
+
+  @override
+  _CheckboxTileDetailsState createState() => _CheckboxTileDetailsState();
+}
+
+class _CheckboxTileDetailsState extends State<CheckboxTileDetails> {
+  late bool _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+          side: BorderSide(color: ColorManager.white),
+          activeColor: ColorManager.blueprime,
+          value: _value,
+          onChanged: (value) {
+            setState(() {
+              _value = value!;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(_value);
+            }
+          },
+        ),
+        SizedBox(width: 10,),
+        Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
+      ],
+
+
     );
   }
 }

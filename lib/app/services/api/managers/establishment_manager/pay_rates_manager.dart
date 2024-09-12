@@ -19,11 +19,12 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
       print(":::::LIST${response.data}");
       itemsData = PayRatePrefillFinanceData(
           payratesId: response.data['payratesId'] ?? 0,
-          ZoneId: response.data['ZoneId'] ?? 0,
           rate: response.data['rate'] ?? 0,
-          perMile: response.data['perMile'] ?? 0,
           typeOfVisitId: response.data['typeOfVisitId'] ?? "--",
-          serviceTypeId: response.data['serviceTypeId'] ?? 0,
+          companyId: response.data['companyId'],
+          serviceId: response.data['serviceId'],
+          outOfZoneRate: response.data['outOfZoneRate'],
+          outOfZoneperMile: response.data['outOfZoneperMile']
          );
     } else {
       print("Api Pay rates Data Error");
@@ -37,13 +38,14 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
 
 /// Update pay rates
 Future<ApiData> updatePayRatesSetupPost(
-    BuildContext context,
-    int payratesId,
-    int ZoneId,
-    int rate,
-    String typeOfVisitId,
-    int perMile,
-    int serviceTypeId,
+{
+    required BuildContext context,
+    required int payratesId,
+    required int rate,
+    required String typeOfVisitId,
+    required int outOfZoneperMile,
+   required int outOfZoneRate,
+    required String serviceId,}
        ) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -51,13 +53,12 @@ Future<ApiData> updatePayRatesSetupPost(
         path: EstablishmentManagerRepository.deleteeditprefillPayRates(
             payRatesId: payratesId),
         data: {
-          'payratesId': payratesId,
-          'ZoneId': ZoneId,
-          'rate': rate,
-          'typeOfVisitId': typeOfVisitId,
-          'perMile': perMile,
-          'serviceTypeId': serviceTypeId,
-          // 'companyId': companyId
+          "typeOfVisitId": typeOfVisitId,
+          "rate": rate,
+          "serviceId": serviceId,
+          "companyId": companyId,
+          "outOfZoneRate": outOfZoneRate,
+          "outOfZoneperMile": outOfZoneperMile
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Pay Rates updates");
@@ -117,7 +118,7 @@ Future<List<ServiceData>> PayRateServiceDropdown(
   try {
     final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.getServicedropdown());
+        path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(companyId: companyID));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsList.add(
@@ -147,22 +148,23 @@ Future<List<ServiceData>> PayRateServiceDropdown(
 /// Add pay rates POST 22-8
 Future<ApiData> addPayrates(
     BuildContext context,
-    int zoneId,
     int rate,
     String typeOfVisitId,
     int perMile,
-    int serviceTypeId,
+    String serviceTypeId,
+    int outOfZoneRate
     ) async {
   try {
     final companyId= await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.postPayrates(),
         data: {
-          "ZoneId": zoneId,
           "rate": rate,
           "typeOfVisitId": typeOfVisitId,
-          "perMile": perMile,
-          "serviceTypeId": serviceTypeId,
+          "serviceId": serviceTypeId,
+          "companyId": companyId,
+          "outOfZoneRate": outOfZoneRate,
+          "outOfZoneperMile": perMile
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("payrate Addded");
@@ -188,6 +190,7 @@ Future<ApiData> addPayrates(
 Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
   List<PayRatesGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getPayrates());
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -196,12 +199,12 @@ Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
         itemsList.add(
           PayRatesGet(
             payratesId: item['payratesId'],
-            ZoneId: item['ZoneId'],
             rate: item['rate'],
             typeOfVisitId: item['typeOfVisitId'],
-            ZoneName: item['ZoneName'],
-            perMile: item['perMile'],
-            serviceTypeId: item['serviceTypeId'],
+            companyId: companyId,
+            serviceID: item['serviceId'],
+            outOfZoneRate: item['outOfZoneRate'],
+            outOfZonePerMile: item['outOfZoneperMile'],
           ),
         );
       }
@@ -223,6 +226,7 @@ Future<ApiData> deletePayRatesId(
     int payRatesId,
     ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).delete(
         path: EstablishmentManagerRepository.deleteeditprefillPayRates(
             payRatesId: payRatesId));

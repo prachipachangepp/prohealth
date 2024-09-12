@@ -73,7 +73,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
             if (snapshot.data!.isEmpty) {
               return Center(
                   child: Text(
-               "No available work weeks!!",
+               ErrorMessageString.noWorkWeek,
                 style: CustomTextStylesCommon.commonStyle(
                     fontWeight: FontWeightManager.medium,
                     fontSize: FontSize.s12,
@@ -392,7 +392,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                           .data!.isEmpty) {
                                                         return Center(
                                                             child: Text(
-                                                        "No available shift !!",
+                                                        "No available shift!",
                                                           style: CustomTextStylesCommon.commonStyle(
                                                               fontWeight:
                                                                   FontWeightManager
@@ -436,117 +436,120 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                             vertical:
                                                                                 5),
                                                                         child:
-                                                                            Row(
-                                                                          //alignment: WrapAlignment.spaceBetween,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceAround,
-                                                                          children: [
-                                                                            Text(
-                                                                              snapshotShift.data![index].shiftName,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 12,
-                                                                                fontWeight: FontWeightManager.bold,
-                                                                                color: ColorManager.mediumgrey,
-                                                                                decoration: TextDecoration.none,
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                                              child: Row(
+                                                                                mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                                children: [
+                                                                              Text(
+                                                                                snapshotShift.data![index].shiftName,
+                                                                                style: GoogleFonts.firaSans(
+                                                                                  fontSize: 12,
+                                                                                  fontWeight: FontWeightManager.bold,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                  decoration: TextDecoration.none,
+                                                                                ),
                                                                               ),
-                                                                            ),
-                                                                            FutureBuilder<List<ShiftBachesData>>(
-                                                                                future: shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays),
-                                                                                builder: (context,snapshot) {
-                                                                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                                                                    return Text('');
-                                                                                  }
-                                                                                  if(snapshot.data!.isEmpty){
-                                                                                    return SizedBox(width:150);
-                                                                                  }
-                                                                                  if(snapshot.hasData){
-                                                                                    return  Row(
-                                                                                      children: [
-                                                                                        ...List.generate(min(snapshot.data!.length, 1),(index){
-                                                                                          return Container(
-                                                                                            height: mediaQuery.height / 30,
-                                                                                            width: mediaQuery.width / 15,
-                                                                                            decoration: BoxDecoration(color: ColorManager.white,
-                                                                                                border: Border.all(color: Color(0xFFEEEEEE), width: 1),
-                                                                                                borderRadius: BorderRadius.circular(20)),
-                                                                                            child: Center(
-                                                                                                child: Text(
-                                                                                                  snapshot.data![index].officeStartTime,
-                                                                                                  style: GoogleFonts.firaSans(
-                                                                                                    fontSize: 12,
-                                                                                                    fontWeight: FontWeightManager.semiBold,
-                                                                                                    color: ColorManager.mediumgrey,
-                                                                                                    decoration: TextDecoration.none,
-                                                                                                  ),
-                                                                                                )),
-                                                                                          );
-                                                                                        }),
-                                                                                        SizedBox(width:10),
-                                                                                        snapshot.data!.length <= 1 ? SizedBox(width: 80,):
-                                                                                        InkWell(
-                                                                                          onTap: () {
-                                                                                            showDialog(
-                                                                                                context: context,
-                                                                                                builder: (BuildContext context) {
-                                                                                                  return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
-                                                                                                    weekName: snapshotShift.data![index].weekDays,
-                                                                                                    //companyId: snapshot.data![index].companyId,
-                                                                                                  );
-                                                                                                });
-                                                                                          },
-                                                                                          child: Text(
-                                                                                            'Batches more',
-                                                                                            style: GoogleFonts.firaSans(
-                                                                                              fontSize: 12,
-                                                                                              fontWeight: FontWeightManager.light,
-                                                                                              color: ColorManager.faintgrey,
-                                                                                              decoration: TextDecoration.none,
+                                                                              FutureBuilder<List<ShiftBachesData>>(
+                                                                                  future: shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays),
+                                                                                  builder: (context,snapshot) {
+                                                                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                                                                      return SizedBox();
+                                                                                    }
+                                                                                    if(snapshot.data!.isEmpty){
+                                                                                      return SizedBox();
+                                                                                    }
+                                                                                    if(snapshot.hasData){
+                                                                                      return  Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                        children: [
+                                                                                          ...List.generate(min(snapshot.data!.length, 1),(index){
+                                                                                            return Container(
+                                                                                              height: mediaQuery.height / 30,
+                                                                                              width: mediaQuery.width / 15,
+                                                                                              decoration: BoxDecoration(color: ColorManager.white,
+                                                                                                  border: Border.all(color: Color(0xFFEEEEEE), width: 1),
+                                                                                                  borderRadius: BorderRadius.circular(20)),
+                                                                                              child: Center(
+                                                                                                  child: Text(
+                                                                                                    snapshot.data![index].officeStartTime,
+                                                                                                    style: GoogleFonts.firaSans(
+                                                                                                      fontSize: 12,
+                                                                                                      fontWeight: FontWeightManager.semiBold,
+                                                                                                      color: ColorManager.mediumgrey,
+                                                                                                      decoration: TextDecoration.none,
+                                                                                                    ),
+                                                                                                  )),
+                                                                                            );
+                                                                                          }),
+                                                                                          SizedBox(width:10),
+                                                                                          snapshot.data!.length <= 1 ? SizedBox(width: 60,):
+                                                                                          InkWell(
+                                                                                            onTap: () {
+                                                                                              showDialog(
+                                                                                                  context: context,
+                                                                                                  builder: (BuildContext context) {
+                                                                                                    return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
+                                                                                                      weekName: snapshotShift.data![index].weekDays,
+                                                                                                      //companyId: snapshot.data![index].companyId,
+                                                                                                    );
+                                                                                                  });
+                                                                                            },
+                                                                                            child: Text(
+                                                                                              'View more',
+                                                                                              style: GoogleFonts.firaSans(
+                                                                                                fontSize: 12,
+                                                                                                fontWeight: FontWeightManager.light,
+                                                                                                color: ColorManager.faintgrey,
+                                                                                                decoration: TextDecoration.none,
+                                                                                              ),
                                                                                             ),
                                                                                           ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    );
-                                                                                  }else{
-                                                                                    return SizedBox();
-                                                                                  }
-                                                                                      }
-                                                                                  ),
-                                                                            Container(
-                                                                                height: mediaQuery.height / 26,
-                                                                                width: mediaQuery.width / 55,
-                                                                                decoration: BoxDecoration(border: Border.all(
-                                                                                    color: ColorManager.faintOrange),
-                                                                                    borderRadius: BorderRadius.circular(5), color: ColorManager.white),
-                                                                                child: InkWell(
-                                                                                  onTap: () {
-                                                                                    showDialog(
-                                                                                        context: context,
-                                                                                        builder: (BuildContext context) {
-                                                                                          return AddBatchPopup(
-                                                                                            controller1: startTimeController,
-                                                                                            controller2: endTimeController,
-                                                                                            onPressed: () async{
-                                                                                              await addShiftBatch(context, snapshotShift.data![index].shiftName,
-                                                                                                  snapshotShift
-                                                                                                      .data![index].weekDays, startTimeController.text, endTimeController.text);
-                                                                                              setState((){
-                                                                                                shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
-                                                                                              });
-                                                                                              startTimeController.clear();
-                                                                                              endTimeController.clear();
-                                                                                              //Navigator.pop(context);
-                                                                                            },
-                                                                                          );
-                                                                                        });
-                                                                                  },
-                                                                                  child: Icon(
-                                                                                    Icons.add,
-                                                                                    color: ColorManager.faintOrange,
-                                                                                    size: mediaQuery.width / 80,
-                                                                                  ),
-                                                                                ))
-                                                                          ],
-                                                                        ),
+                                                                                        ],
+                                                                                      );
+                                                                                    }else{
+                                                                                      return SizedBox();
+                                                                                    }
+                                                                                        }
+                                                                                    ),
+                                                                              Container(
+                                                                                  height: mediaQuery.height / 26,
+                                                                                  width: mediaQuery.width / 55,
+                                                                                  decoration: BoxDecoration(border: Border.all(
+                                                                                      color: ColorManager.faintOrange),
+                                                                                      borderRadius: BorderRadius.circular(5), color: ColorManager.white),
+                                                                                  child: InkWell(
+                                                                                    onTap: () {
+                                                                                      showDialog(
+                                                                                          context: context,
+                                                                                          builder: (BuildContext context) {
+                                                                                            return AddBatchPopup(
+                                                                                              controller1: startTimeController,
+                                                                                              controller2: endTimeController,
+                                                                                              onPressed: () async{
+                                                                                                await addShiftBatch(context, snapshotShift.data![index].shiftName,
+                                                                                                    snapshotShift
+                                                                                                        .data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                                setState((){
+                                                                                                  shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
+                                                                                                });
+                                                                                                startTimeController.clear();
+                                                                                                endTimeController.clear();
+                                                                                                //Navigator.pop(context);
+                                                                                              }, title: 'Add Batche',
+                                                                                            );
+                                                                                          });
+                                                                                    },
+                                                                                    child: Icon(
+                                                                                      Icons.add,
+                                                                                      color: ColorManager.faintOrange,
+                                                                                      size: mediaQuery.width / 80,
+                                                                                    ),
+                                                                                  ))
+                                                                                                                                                        ],
+                                                                                                                                                      ),
+                                                                            ),
                                                                       ),
                                                                     ),
                                                                   ),

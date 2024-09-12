@@ -11,6 +11,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/manage
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -18,7 +19,15 @@ import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
 class CIDetailsScreen extends StatefulWidget {
-   CIDetailsScreen({super.key, required this.officeId, required this.docTD, required this.companyId, required int companyID, required this.companyOfficeid});
+  CIDetailsScreen(
+      {super.key,
+      required this.officeId,
+      required this.docTD,
+      required this.companyId,
+      required int companyID,
+      required this.companyOfficeid, required this.stateName, required this.countryName});
+  final String stateName;
+  final String countryName;
   final int companyId;
   final int docTD;
   final int companyOfficeid;
@@ -40,6 +49,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   TextEditingController hcoNumController = TextEditingController();
   TextEditingController medicareController = TextEditingController();
   TextEditingController npiNumController = TextEditingController();
+  TextEditingController stateNameController = TextEditingController();
+  TextEditingController countryNameController = TextEditingController();
   late final Future<ManageDetails> _companyDetailsFuture;
   //  final StreamController<List<ManageDetails>> _companyDetailsFuture =
   //  StreamController<List<ManageDetails>>();
@@ -48,6 +59,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   bool checkboxValue2 = false;
   bool checkboxValue3 = false;
   bool checkboxValue4 = false;
+  final FocusNode _focusNode = FocusNode();
 
   List<String> dropdownItems1 = [
     'Home Health',
@@ -123,294 +135,100 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    addressController.addListener(_onAddressChanged);
-    print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+    // addressController.addListener(_onAddressChanged);
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        // Populate _suggestionsNotifier with suggestions when the field is focused
+        addressController.addListener(_onAddressChanged);
+      } else {
+        // Clear suggestions when the field loses focus
+        _suggestionsNotifier.value = [];
+      }
+    });
   }
-  // List<String> _suggestions = [];
+
   @override
   void dispose() {
+    _focusNode.dispose();
     addressController.removeListener(_onAddressChanged);
+    addressController.dispose();
+    _suggestionsNotifier.value = [];
     super.dispose();
   }
-  ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _focusNode.addListener(() {
+  //     if (_focusNode.hasFocus) {
+  //       // Populate _suggestionsNotifier with suggestions when the field is focused
+  //       addressController.addListener(_onAddressChanged);
+  //     } else {
+  //       // Clear suggestions when the field loses focus
+  //       _suggestionsNotifier.value = [];
+  //     }
+  //   });
+  //
+  //   print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+  // }
+  //
+  // // List<String> _suggestions = [];
+  // @override
+  // void dispose() {
+  //   _focusNode.dispose();
+  //   _suggestionsNotifier.value = [];
+  //   //addressController.dispose();
+  //   super.dispose();
+  // }
+
+  //ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
+
+  final _suggestionsNotifier = ValueNotifier<List<String>>([]);
+
+  // void _onAddressChanged() async {
+  //   if (addressController.text.isEmpty) {
+  //     _suggestionsNotifier.value = [];
+  //     return;
+  //   }
+  //
+  //   // Fetch suggestions based on the addressController's text
+  //   final suggestions = await fetchSuggestions(addressController.text);
+  //   _suggestionsNotifier.value = suggestions;
+  //   }
 
   void _onAddressChanged() async {
-    if (addressController.text.isEmpty) {
+    final query = addressController.text;
+
+    if (query.isEmpty) {
       _suggestionsNotifier.value = [];
       return;
     }
 
-    // Fetch suggestions based on the addressController's text
-    final suggestions = await fetchSuggestions(addressController.text);
-    _suggestionsNotifier.value = suggestions;
+    try {
+      final suggestions = await fetchSuggestions(query);
+      _suggestionsNotifier.value = suggestions;
+    } catch (e) {
+      print("Error fetching suggestions: $e");
+      _suggestionsNotifier.value = [];
+    }
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SingleChildScrollView(
-  //     child: FutureBuilder<ManageDetails?>(
-  //       future: companyDetailGetAll(context, widget.officeId),
-  //       builder: (context, snapshot) {
-  //         if (snapshot.connectionState == ConnectionState.waiting) {
-  //           return Center(
-  //             child: Padding(
-  //               padding: const EdgeInsets.symmetric(vertical: 50),
-  //               child: CircularProgressIndicator(
-  //                 color: ColorManager.blueprime,
-  //               ),
-  //             ),
-  //           );
-  //         }
-  //         if (snapshot.hasData && snapshot.data != null) {
-  //           // Initialize controllers with fetched data
-  //           nameController = TextEditingController(text: snapshot.data!.officeName);
-  //           primNumController = TextEditingController(text: snapshot.data!.priNumber);
-  //           secNumberController = TextEditingController(text: snapshot.data!.secNumber);
-  //           altNumController = TextEditingController(text: snapshot.data!.alternateNumber);
-  //           addressController = TextEditingController(text: snapshot.data!.address);
-  //           emailController = TextEditingController(text: snapshot.data!.email);
-  //           primeFaxController = TextEditingController(text: snapshot.data!.primaryFax);
-  //           secFaxController = TextEditingController(text: snapshot.data!.secondaryFax);
-  //
-  //           return Padding(
-  //             padding: EdgeInsets.only(
-  //               left: MediaQuery.of(context).size.width / 12.4,
-  //               right: MediaQuery.of(context).size.width / 15,
-  //             ),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 Padding(
-  //                   padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
-  //                   child: Row(
-  //                     children: [
-  //                       Text(
-  //                         AppStringEM.details,
-  //                         style: CompanyIdentityManageHeadings.customTextStyle(context),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   height: AppSize.s250,
-  //                   decoration: BoxDecoration(
-  //                     borderRadius: BorderRadius.circular(16),
-  //                     border: Border.all(
-  //                       width: 2,
-  //                       color: ColorManager.black.withOpacity(0.2),
-  //                     ),
-  //                     boxShadow: [
-  //                       BoxShadow(
-  //                         color: ColorManager.black.withOpacity(0.15),
-  //                         offset: const Offset(0, 4),
-  //                         blurRadius: 4,
-  //                         spreadRadius: 0,
-  //                       ),
-  //                     ],
-  //                     color: ColorManager.white,
-  //                   ),
-  //                   child: Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                     children: [
-  //                       Column(
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: [
-  //                           SMTextFConst(
-  //                             controller: nameController,
-  //                             keyboardType: TextInputType.text,
-  //                             text: AppStringEM.officename,
-  //                           ),
-  //                           const SizedBox(height: AppSize.s10),
-  //                           SMTextFConst(
-  //                             controller: secNumberController,
-  //                             keyboardType: TextInputType.number,
-  //                             text: AppStringEM.secNum,
-  //                           ),
-  //                           const SizedBox(height: AppSize.s10),
-  //                           SMTextFConst(
-  //                             controller: addressController,
-  //                             keyboardType: TextInputType.text,
-  //                             text: AppStringEM.address,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                       Column(
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: [
-  //                           SMTextFConst(
-  //                             controller: primNumController,
-  //                             keyboardType: TextInputType.number,
-  //                             text: AppStringEM.primNum,
-  //                           ),
-  //                           const SizedBox(height: AppSize.s10),
-  //                           SMTextFConst(
-  //                             controller: altNumController,
-  //                             keyboardType: TextInputType.number,
-  //                             text: AppStringEM.alternatephone,
-  //                           ),
-  //                           const SizedBox(height: AppSize.s10),
-  //                           SMTextFConst(
-  //                             controller: emailController,
-  //                             keyboardType: TextInputType.text,
-  //                             text: AppStringEM.primarymail,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 /// Service List
-  //                 if (snapshot.data!.serviceDetails != null && snapshot.data!.serviceDetails!.isNotEmpty)
-  //                   Padding(
-  //                     padding: const EdgeInsets.symmetric(vertical: 20),
-  //                     child: Column(
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: [
-  //                         Text(
-  //                           'Services',
-  //                           style: CompanyIdentityManageHeadings.customTextStyle(context),
-  //                         ),
-  //                         const SizedBox(height: AppSize.s10),
-  //                         Container(
-  //                           height: AppSize.s181,
-  //                           decoration: BoxDecoration(
-  //                             borderRadius: BorderRadius.circular(16),
-  //                             border: Border.all(
-  //                               width: 2,
-  //                               color: ColorManager.black.withOpacity(0.2),
-  //                             ),
-  //                             boxShadow: [
-  //                               BoxShadow(
-  //                                 color: ColorManager.black.withOpacity(0.15),
-  //                                 offset: const Offset(0, 4),
-  //                                 blurRadius: 4,
-  //                                 spreadRadius: 0,
-  //                               ),
-  //                             ],
-  //                             color: Colors.white,
-  //                           ),
-  //                           child: ListView.builder(
-  //                             itemCount: snapshot.data!.serviceDetails!.length,
-  //                             itemBuilder: (context, index) {
-  //                               var serviceDetail = snapshot.data!.serviceDetails![index];
-  //
-  //                               // Update controllers with current service details
-  //                               npiNumController.text = serviceDetail.npiNum;
-  //                               hcoNumController.text = serviceDetail.hcoNum;
-  //                               medicareController.text = serviceDetail.medicareNum;
-  //
-  //                               // Update dropdown items for the current service
-  //                               List<String> dropdownItems = [
-  //                                 serviceDetail.serviceName,
-  //                                 'HCO Number: ${serviceDetail.hcoNum}',
-  //                                 'Medicare ID: ${serviceDetail.medicareNum}',
-  //                                 'NPI Number: ${serviceDetail.npiNum}',
-  //                               ];
-  //
-  //                               return Row(
-  //                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                                 children: [
-  //                                   // CheckboxConstant(
-  //                                   //   value: index == 0 ? checkboxValue1 : index == 1 ? checkboxValue2 : index == 2 ? checkboxValue3 : checkboxValue4,
-  //                                   //   onChanged: (newValue) {
-  //                                   //     setState(() {
-  //                                   //       if (index == 0) {
-  //                                   //         checkboxValue1 = newValue!;
-  //                                   //       } else if (index == 1) {
-  //                                   //         checkboxValue2 = newValue!;
-  //                                   //       } else if (index == 2) {
-  //                                   //         checkboxValue3 = newValue!;
-  //                                   //       } else {
-  //                                   //         checkboxValue4 = newValue!;
-  //                                   //       }
-  //                                   //     });
-  //                                   //   },
-  //                                   //   text: '',
-  //                                   // ),
-  //                                   // const SizedBox(width: 5),
-  //                                   CIDetailsDropdown(
-  //                                     initialValue: serviceDetail.serviceName,
-  //                                     items: dropdownItems.map((item) {
-  //                                       return DropdownMenuItem(
-  //                                         value: item,
-  //                                         child: Text(item),
-  //                                       );
-  //                                     }).toList(),
-  //                                     onEditIconTap: () {
-  //                                       showDialog(
-  //                                         context: context,
-  //                                         builder: (context) {
-  //                                           return CIDetailsDropdownPopup(
-  //                                             onSavePressed: () {
-  //                                               setState(() {
-  //                                                 dropdownItems = [
-  //                                                   serviceDetail.serviceName,
-  //                                                   'HCO Number: ${hcoNumController.text}',
-  //                                                   'Medicare ID: ${medicareController.text}',
-  //                                                   'NPI Number: ${npiNumController.text}',
-  //                                                 ];
-  //                                               });
-  //                                             },
-  //                                             hcoNumController: hcoNumController,
-  //                                             medicareController: medicareController,
-  //                                             npiNumController: npiNumController,
-  //                                           );
-  //                                         },
-  //                                       );
-  //                                     },
-  //                                   ),
-  //                                 ],
-  //                               );
-  //                             },
-  //                           ),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 SizedBox(height: AppSize.s10),
-  //                 /// Button
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     CustomElevatedButton(
-  //                       width: AppSize.s105,
-  //                       height: AppSize.s30,
-  //                       text: AppStringEM.save,
-  //                       onPressed: () async {
-  //                         await patchCompanyOffice(
-  //                           context,
-  //                           widget.companyOfficeid,
-  //                           widget.officeId,
-  //                           primNumController.text,
-  //                           secNumberController.text,
-  //                           primeFaxController.text,
-  //                           secFaxController.text,
-  //                           altNumController.text,
-  //                           emailController.text,
-  //                           nameController.text,
-  //                           addressController.text,
-  //                         );
-  //                         showDialog(
-  //                           context: context,
-  //                           builder: (BuildContext context) {
-  //                             return SuccessPopup();
-  //                           },
-  //                         );
-  //                       },
-  //                     ),
-  //                   ],
-  //                 )
-  //               ],
-  //             ),
-  //           );
-  //         } else {
-  //           return const SizedBox();
-  //         }
-  //       },
-  //     ),
-  //   );
+  //   try {
+  //     // Fetch suggestions based on the addressController's text
+  //     final suggestions = await fetchSuggestions(addressController.text);
+  //     _suggestionsNotifier.value = suggestions;
+  //   } catch (e) {
+  //     // Handle error if fetching suggestions fails
+  //     print("Error fetching suggestions: $e");
+  //     _suggestionsNotifier.value = [];
+  //   }
+  // }
+
+  // Future<List<String>> fetchSuggestions(String query) async {
+  //   // Your logic to fetch suggestions goes here
+  //   // This is a placeholder implementation
+  //   await Future.delayed(Duration(seconds: 1)); // Simulate network delay
+  //   return ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']; // Replace with actual logic
   // }
 
   @override
@@ -439,9 +257,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
             emailController.text = snapshot.data!.email;
             primeFaxController.text = snapshot.data!.primaryFax;
             secFaxController.text = snapshot.data!.secondaryFax;
+            stateNameController.text = snapshot.data!.stateName;
+            countryNameController.text = snapshot.data!.countryName;
 
             List<Widget> serviceRows = [];
-
 
             for (int i = 0; i < snapshot.data!.serviceDetails!.length; i += 2) {
               List<Widget> rowChildren = [];
@@ -462,9 +281,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                   rowChildren.add(
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 10),
+                        padding: const EdgeInsets.only(
+                            right: 25, left: 25, top: 10, bottom: 10),
                         child: Row(
-                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
@@ -490,39 +310,167 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             //   },
                             //   text: '',
                             // ),
-                           // const SizedBox(width: 100),
+                            // const SizedBox(width: 100),
+                            Container(
+                              height: 170,
+                              width: 400,
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: ColorManager.white),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: AppSize.s40,
+                                    width: AppSize.s450,
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.blueprime,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                            width: 300,
+                                            child: CheckboxTileDetails(
+                                              title: serviceDetail.serviceName,
+                                              initialValue: false,
+                                              onChanged: (value) {
+                                                // setState(() {
+                                                //   isHeadOffice = true;
+                                                //   print('HeadOffice ${isHeadOffice}');
+                                                // });
+                                              },
+                                            )),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 15),
+                                          child: IconButton(
+                                            onPressed: () {
+                                            },
+                                            icon: Icon(Icons.mode_edit_outline_outlined, size:20,color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  /// HCO number
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('HCO Number',style:GoogleFonts.firaSans(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xff686464),
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                        Text("${hcoNumController.text}",style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),)
+                                      ],
+                                    ),
+                                  ),
+                                  // Divider
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Divider(color: ColorManager.faintGrey,thickness: 1,),
+                                  ),
+                                  /// Medicare ID
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Medicare ID',style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),),
+                                        Text("${medicareController.text}",style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),)
+                                      ],
+                                    ),
+                                  ),
+                                  // Divider
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Divider(color: ColorManager.faintGrey,thickness: 0.5,),
+                                  ),
+                                  /// NPI Number
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('NPI Number',style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),),
+                                        Text("${npiNumController.text}",style:GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),)
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
 
-                            CIDetailsDropdown(
-                              initialValue: serviceDetail.serviceName,
-                              items: dropdownItems.map((item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item),
-                                );
-                              }).toList(),
-                              onEditIconTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return CIDetailsDropdownPopup(
-                                      onSavePressed: () {
-                                        setState(() {
-                                          dropdownItems = [
-                                            serviceDetail.serviceName,
-                                            'HCO Number: ${hcoNumController.text}',
-                                            'Medicare ID: ${medicareController.text}',
-                                            'NPI Number: ${npiNumController.text}',
-                                          ];
-                                        });
-                                      },
-                                      hcoNumController: hcoNumController,
-                                      medicareController: medicareController,
-                                      npiNumController: npiNumController,
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                            // CIDetailsDropdown(
+                            //   initialValue: serviceDetail.serviceName,
+                            //   items: dropdownItems.map((item) {
+                            //     return DropdownMenuItem(
+                            //       value: item,
+                            //       child: Text(item),
+                            //     );
+                            //   }).toList(),
+                            //   onEditIconTap: () {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (context) {
+                            //         return CIDetailsDropdownPopup(
+                            //           onSavePressed: () {
+                            //             setState(() {
+                            //               dropdownItems = [
+                            //                 serviceDetail.serviceName,
+                            //                 'HCO Number: ${hcoNumController.text}',
+                            //                 'Medicare ID: ${medicareController.text}',
+                            //                 'NPI Number: ${npiNumController.text}',
+                            //               ];
+                            //             });
+                            //           },
+                            //           hcoNumController: hcoNumController,
+                            //           medicareController: medicareController,
+                            //           npiNumController: npiNumController,
+                            //         );
+                            //       },
+                            //     );
+                            //   },
+                            // ),
                             //const SizedBox(width: 100),
                           ],
                         ),
@@ -536,7 +484,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: rowChildren,
-
               ));
             }
 
@@ -550,130 +497,208 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: AppPadding.p20),
                     child: Row(
                       children: [
                         Text(
                           AppStringEM.details,
-                          style: CompanyIdentityManageHeadings.customTextStyle(context),
+                          style: CompanyIdentityManageHeadings.customTextStyle(
+                              context),
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    height: AppSize.s350,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        width: 2,
-                        color: ColorManager.black.withOpacity(0.2),
+
+                  Stack(
+                    children: [
+                      Container(
+                        height: AppSize.s350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            width: 2,
+                            color: ColorManager.black.withOpacity(0.2),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.black.withOpacity(0.15),
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                              spreadRadius: 0,
+                            ),
+                          ],
+                          color: ColorManager.white,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SMTextFConst(
+                                  controller: nameController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.officename,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConstPhone(
+                                  controller: secNumberController,
+                                  keyboardType: TextInputType.number,
+                                  text: AppStringEM.secNum,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  focusNode: _focusNode,
+                                  controller: addressController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.address,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  controller: stateNameController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.stateName,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SMTextFConstPhone(
+                                  controller: primNumController,
+                                  keyboardType: TextInputType.number,
+                                  text: AppStringEM.primNum,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConstPhone(
+                                  controller: altNumController,
+                                  keyboardType: TextInputType.number,
+                                  text: AppStringEM.alternatephone,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.primarymail,
+                                ),
+                                const SizedBox(height: AppSize.s10),
+                                SMTextFConst(
+                                  controller: countryNameController,
+                                  keyboardType: TextInputType.text,
+                                  text: AppStringEM.countryName,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.black.withOpacity(0.15),
-                          offset: const Offset(0, 4),
-                          blurRadius: 4,
-                          spreadRadius: 0,
-                        ),
-                      ],
-                      color: ColorManager.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SMTextFConst(
-                              controller: nameController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.officename,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConstPhone(
-                              controller: secNumberController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.secNum,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
-                              controller: addressController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.address,
-                            ),
-                            //if (_suggestions.isNotEmpty)
-                              ValueListenableBuilder<List<String>>(
-                                valueListenable: _suggestionsNotifier,
-                                builder: (context, suggestions, child) {
-                                  if (suggestions.isEmpty) return SizedBox.shrink();
-                                  return Container(
-                                    height: 100,
-                                       width:300,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
+
+                      ValueListenableBuilder<List<String>>(
+                          valueListenable: _suggestionsNotifier,
+                          builder: (context, suggestions, child) {
+                            if (suggestions.isEmpty) return SizedBox.shrink();
+
+                            return Positioned(
+                              top: 250, // Adjust the position as needed
+                              left: 200,
+
+                              child: Container(
+                                height: 100,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
                                     ),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      //shrinkWrap: true,
-                                      itemCount: suggestions.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            suggestions[index],
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            addressController.text = suggestions[index];
-                                            _suggestionsNotifier.value = [];
-                                          },
-                                        );
+                                  ],
+                                ),
+                                child: ListView.builder(
+                                  itemCount: suggestions.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      title: Text(suggestions[index],
+                                        style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),),
+                                      onTap: () {
+                                        // Update TextField with selected suggestion
+                                        addressController.text = suggestions[index];
+                                        // Optionally clear suggestions
+                                        _suggestionsNotifier.value = [];
+                                        // Unfocus the TextField if needed
+                                        _focusNode.unfocus();
                                       },
-                                    ),
-                                  );
-                                },
-                              )
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SMTextFConstPhone(
-                              controller: primNumController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.primNum,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConstPhone(
-                              controller: altNumController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.alternatephone,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
-                              controller: emailController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.primarymail,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          }
+                      )
+
+
+                      // Suggestion list appears above the container when not empty
+                      // ValueListenableBuilder<List<String>>(
+                      //   valueListenable: _suggestionsNotifier,
+                      //   builder: (context, suggestions, child) {
+                      //     if (suggestions.isEmpty) return SizedBox.shrink();
+                      //     return Positioned(
+                      //       top: 250, // Adjust the position as needed
+                      //       left: 200, // Align it with your container
+                      //       child: Container(
+                      //         height: 100,
+                      //         width: 360,
+                      //         decoration: BoxDecoration(
+                      //           color: Colors.pink,
+                      //           borderRadius: BorderRadius.circular(8),
+                      //           boxShadow: [
+                      //             BoxShadow(
+                      //               color: Colors.black26,
+                      //               blurRadius: 4,
+                      //               offset: Offset(0, 2),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         child: ListView.builder(
+                      //           itemCount: suggestions.length,
+                      //           itemBuilder: (context, index) {
+                      //             return ListTile(
+                      //               title: Text(
+                      //                 suggestions[index],
+                      //                 style: GoogleFonts.firaSans(
+                      //                   fontSize: FontSize.s12,
+                      //                   fontWeight: FontWeight.w700,
+                      //                   color: ColorManager.mediumgrey,
+                      //                   decoration: TextDecoration.none,
+                      //                 ),
+                      //               ),
+                      //               onTap: () {
+                      //
+                      //                 addressController.text = suggestions[index];
+                      //                 _suggestionsNotifier.value = [];
+                      //                 _focusNode.unfocus();
+                      //               },
+                      //             );
+                      //           },
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+                    ],
                   ),
+
                   /// Service List
-                  if (snapshot.data!.serviceDetails != null && snapshot.data!.serviceDetails!.isNotEmpty)
+                  if (snapshot.data!.serviceDetails != null &&
+                      snapshot.data!.serviceDetails!.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
@@ -681,7 +706,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         children: [
                           Text(
                             'Services',
-                            style: CompanyIdentityManageHeadings.customTextStyle(context),
+                            style:
+                                CompanyIdentityManageHeadings.customTextStyle(
+                                    context),
                           ),
                           const SizedBox(height: AppSize.s10),
                           Container(
@@ -709,6 +736,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       ),
                     ),
                   SizedBox(height: AppSize.s10),
+
                   /// Button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -735,14 +763,18 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AddSuccessPopup(message: 'Edited successfully.',);
+                              return AddSuccessPopup(
+                                message: 'Edited successfully.',
+                              );
                             },
                           );
                         },
                       ),
                     ],
                   ),
-                  SizedBox(height: 5,)
+                  SizedBox(
+                    height: 5,
+                  )
                 ],
               ),
             );

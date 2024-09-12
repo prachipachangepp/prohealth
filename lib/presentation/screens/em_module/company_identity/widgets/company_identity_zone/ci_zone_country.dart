@@ -124,7 +124,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    "No available counties !!",
+                    ErrorMessageString.noCounties,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -205,7 +205,11 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              IconButton(onPressed: (){
+                                              IconButton(
+                                                splashColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  onPressed: (){
                                                 showDialog(context: context, builder: (context){
                                                   return FutureBuilder<CountyPrefillGet>(
                                                     future: countyPrefillGet(context,county.countyId),
@@ -224,43 +228,45 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                       var countryName = snapshotPrefill.data!.country;
                                                       countyController = TextEditingController(text:snapshotPrefill.data!.country);
 
-
                                                       return CIZoneAddPopup(
+                                                        buttonTitle: AppStringEM.save,
                                                         onSavePressed: ()async{
                                                           await updateCounty(context, county.countyId,
                                                               countyName == countynameController.text ? countyName.toString() : countynameController.text,
-                                                              stateName == stateController.text ? stateName.toString() :  stateController.text,
-                                                              countryName == countyController.text ? countryName.toString() : countyController.text,
+                                                              stateName.toString(),
+                                                              countryName.toString(),
                                                               "37.0902°",
                                                               "95.7129°", widget.companyID, widget.officeId);
                                                           getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
                                                             _contyController.add(data);
                                                           }).catchError((error){});
+                                                          Navigator.pop(context);
                                                         },
                                                         title: 'Edit County',
-                                                        title1: 'State Name',
-                                                        countynameController: stateController,
-                                                        title2: 'Country Name',
-                                                        zipcodeController: countyController,
-                                                        title3: 'County Name',
-                                                        mapController: countynameController,
+                                                        title1: 'County Name',
+                                                        countynameController: countynameController,
                                                         );
                                                     }
                                                   );
                                                 });
                                               }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                              IconButton(onPressed: (){
-                                                showDialog(context: context, builder: (context) => DeletePopup(
-                                                    title: 'Delete Country',
-                                                    onCancel: (){
-                                                  Navigator.pop(context);
-                                                }, onDelete: ()async{
-                                                  await deleteCounty(context, county.countyId);
-                                                  getZoneBYcompOffice(context, '18', 1, 15).then((data){
-                                                    _contyController.add(data);
-                                                  }).catchError((error){});
-                                                }));
-                                              }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                              // IconButton(
+                                              //     splashColor: Colors.transparent,
+                                              //     hoverColor: Colors.transparent,
+                                              //     highlightColor: Colors.transparent,
+                                              //     onPressed: (){
+                                              //   showDialog(context: context, builder: (context) => NotAllowDeletePopup(
+                                              //       title: 'Delete County',
+                                              //       onCancel: (){
+                                              //     Navigator.pop(context);
+                                              //   }, onDelete: ()async{
+                                              //     Navigator.pop(context);
+                                              //     // await deleteCounty(context, county.countyId);
+                                              //     // getZoneBYcompOffice(context, widget.officeId, 1, 15).then((data){
+                                              //     //   _contyController.add(data);
+                                              //     // }).catchError((error){});
+                                              //   }));
+                                              // }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                             ],
                                           ),
                                         ),

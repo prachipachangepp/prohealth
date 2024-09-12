@@ -9,6 +9,7 @@ import '../../../../../../../../app/resources/establishment_resources/establishm
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/referral_diagonsis_manager.dart';
+import '../../../../../../../../data/api_data/api_data.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 
@@ -38,15 +39,23 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
   String? codestatusA;
 
   List<GlobalKey<_ReferringTextfieldState>> referenceFormKeys = [];
+  List<GlobalKey<_allergiesState>> allergiesFormKeys = [];
   @override
   void initState() {
     super.initState();
     addReferenseForm();
+    addallergiesForm();
   }
 
   void addReferenseForm() {
     setState(() {
       referenceFormKeys.add(GlobalKey<_ReferringTextfieldState>());
+    });
+  }
+
+  void addallergiesForm() {
+    setState(() {
+      allergiesFormKeys.add(GlobalKey<_allergiesState>());
     });
   }
 
@@ -56,11 +65,18 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
     });
   }
 
+  void removeallergiesForm(GlobalKey<_allergiesState> key) {
+    setState(() {
+      allergiesFormKeys.remove(key);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
+          ///button save api done
           Padding(
             padding: const EdgeInsets.only(right: 40),
             child: Row(
@@ -69,7 +85,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     try {
-                      await postRDoneScreen(
+                      ApiData response = await postRDoneScreen(
                         context,
                         widget.patientId,
                         codestatusA.toString(),
@@ -79,23 +95,30 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         DSummarycont.text,
                       );
 
-                      await postRDTWOScreen(
-                        context,
-                        widget.patientId,
-                        1,
-                        "Primary Diagnosis", // titleController.text,
-                        descriptionController.text,
-                        icdCodeController.text,
-                        pdDateController.text,
-                      );
+                      for (var key in referenceFormKeys) {
+                        final st = key.currentState;
+                        await postRDTWOScreen(
+                          context,
+                          widget.patientId,
+                          response.rDignosisId!,
+                    //  " title",
+                       "Secondary Diagnosis", // titleController.text,
+                          st!.prdescription.text,
+                          st!.prcode.text,
+                          st!.prdate.text,
+                        );
+                      }
 
-                      await postRDThreeScreen(
-                        context,
-                        widget.patientId,
-                        1,
-                        allergiesController.text,
-                        startEffectiveDate.text,
-                      );
+                      for (var key in allergiesFormKeys) {
+                        final st = key.currentState;
+                        await postRDThreeScreen(
+                          context,
+                          widget.patientId,
+                          response.rDignosisId!,
+                          st!.allergiesController.text,
+                          st!.startEffectiveDate.text,
+                        );
+                      }
 
                       // Optionally show a success message
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -111,9 +134,6 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                       );
                     }
                   },
-
-
-
                   // onPressed: () async {
                   //   await postRDoneScreen(
                   //       context,
@@ -187,6 +207,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
+
           Padding(
             padding: EdgeInsets.only(left: 29.0, right: 32.0),
             child: Container(
@@ -200,6 +221,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                 padding: EdgeInsets.only(left: 39.0, right: 40, top: 35.0),
                 child: Column(
                   children: [
+                    ///Diagnosis Summary textfield
                     Container(
                       height: AppSize.s88,
                       child: TextFormField(
@@ -239,6 +261,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     SizedBox(height: MediaQuery.of(context).size.height / 25),
                     Column(
                       children: [
+                        ///heading
                         Container(
                           height: AppSize.s30,
                           decoration: BoxDecoration(
@@ -292,107 +315,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             ],
                           ),
                         ),
-
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 40),
-                        // Row(
-                        //   children: [
-                        //     Padding(
-                        //       padding: const EdgeInsets.only(left: 40.0),
-                        //       child: Text(
-                        //           'Primary Diagnosis',
-                        //       style: GoogleFonts.firaSans(
-                        //         fontSize: FontSize.s10,
-                        //         fontWeight: FontWeightManager.regular
-                        //       ),
-                        //       ),
-                        //     ),
-                        //
-                        //
-                        //     SizedBox(width: MediaQuery.of(context).size.width/10),
-                        //     Flexible(
-                        //       child: Container(
-                        //         height: AppSize.s25,
-                        //         width: MediaQuery.of(context).size.width/7,
-                        //         child: TextFormField(
-                        //           cursorColor: ColorManager.black,
-                        //           decoration: InputDecoration(
-                        //             border: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.circular(8.0),
-                        //               borderSide: BorderSide(
-                        //                 color: ColorManager.containerBorderGrey,
-                        //                 width: 1.0,
-                        //               ),
-                        //             ),
-                        //             enabledBorder: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.circular(8.0),
-                        //               borderSide: BorderSide(
-                        //                 color: ColorManager.containerBorderGrey,
-                        //                 width: 1.0,
-                        //               ),
-                        //             ),
-                        //             focusedBorder: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.circular(8.0),
-                        //               borderSide: BorderSide(
-                        //                 color: ColorManager.containerBorderGrey,
-                        //                 width: 1.0,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //
-                        //
-                        //
-                        //     SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //     Flexible(
-                        //       child: Container(
-                        //         height: AppSize.s25,
-                        //         width: MediaQuery.of(context).size.width/6,
-                        //         child: TextFormField(
-                        //           cursorColor: ColorManager.black,
-                        //           decoration: InputDecoration(
-                        //             border: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.circular(8.0),
-                        //               borderSide: BorderSide(
-                        //                 color: ColorManager.containerBorderGrey,
-                        //                 width: 1.0,
-                        //               ),
-                        //             ),
-                        //             enabledBorder: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.circular(8.0),
-                        //               borderSide: BorderSide(
-                        //                 color: ColorManager.containerBorderGrey,
-                        //                 width: 1.0,
-                        //               ),
-                        //             ),
-                        //             focusedBorder: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.circular(8.0),
-                        //               borderSide: BorderSide(
-                        //                 color: ColorManager.containerBorderGrey,
-                        //                 width: 1.0,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //
-                        //     SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //     Container(
-                        //       width: AppSize.s267,
-                        //       child: SchedularTextField(
-                        //           labelText: '',
-                        //           suffixIcon: Icon(
-                        //             Icons.calendar_month_outlined,
-                        //             size: 18,
-                        //           )
-                        //           ),
-                        //     ),
-                        //   ],
-                        // ),
 
+                        ///Primary text field
                         Container(
                           // color: Colors.blue,
                           child: Column(children: [
@@ -404,6 +330,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                       padding:
                                           const EdgeInsets.only(left: 40.0),
                                       child: Text(
+
                                         '  Primary Diagnosis   ',
                                         style: GoogleFonts.firaSans(
                                             fontSize: FontSize.s10,
@@ -458,7 +385,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                               controller: pdDateController,
                                               labelText: '',
                                               suffixIcon: Icon(
-                                                Icons.calendar_month_outlined,color: ColorManager.blueprime,
+                                                Icons.calendar_month_outlined,
+                                                color: ColorManager.blueprime,
                                                 size: 18,
                                               )),
                                         ),
@@ -470,513 +398,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             )
                           ]),
                         ),
-
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 20),
-                        // Container(
-                        //   // color: Colors.blue,
-                        //   child: Column(
-                        //     children: [
-                        //       Row(
-                        //         children: [
-                        //           Column(
-                        //             children: [
-                        //               Padding(
-                        //                 padding:
-                        //                     const EdgeInsets.only(left: 40.0),
-                        //                 child: Text(
-                        //                   'Secondary Diagnosis',
-                        //                   style: GoogleFonts.firaSans(
-                        //                       fontSize: FontSize.s10,
-                        //                       fontWeight:
-                        //                           FontWeightManager.regular),
-                        //                 ),
-                        //               ),
-                        //             ],
-                        //           ),
-                        //           SizedBox(
-                        //               width: MediaQuery.of(context).size.width /
-                        //                   10),
-                        //           Column(
-                        //             children: [
-                        //               Row(
-                        //                 children: [
-                        //                   Container(
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width /
-                        //                         7,
-                        //                     child: SchedularTextField(
-                        //                       labelText: 'pr 1',
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           15),
-                        //                   Container(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           7,
-                        //                       child: SchedularTextField(
-                        //                         labelText: 'pr 2',
-                        //                       )),
-                        //                   SizedBox(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           15),
-                        //                   Container(
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width /
-                        //                         7,
-                        //                     child: SchedularTextField(
-                        //                         labelText: '',
-                        //                         suffixIcon: Icon(
-                        //                           Icons.calendar_month_outlined,
-                        //                           size: 18,
-                        //                         )),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //               SizedBox(
-                        //                 height: 10,
-                        //               ),
-                        //               Row(
-                        //                 children: [
-                        //                   Container(
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width /
-                        //                         7,
-                        //                     child: SchedularTextField(
-                        //                       labelText: 'sr 1',
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           15),
-                        //                   Container(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           7,
-                        //                       child: SchedularTextField(
-                        //                         labelText: 'sr 2',
-                        //                       )),
-                        //                   SizedBox(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           15),
-                        //                   Container(
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width /
-                        //                         7,
-                        //                     child: SchedularTextField(
-                        //                         labelText: '',
-                        //                         suffixIcon: Icon(
-                        //                           Icons.calendar_month_outlined,
-                        //                           size: 18,
-                        //                         )),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //               SizedBox(
-                        //                 height: 10,
-                        //               ),
-                        //               Row(
-                        //                 children: [
-                        //                   Container(
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width /
-                        //                         7,
-                        //                     child: SchedularTextField(
-                        //                       labelText: 'tr 1',
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           15),
-                        //                   Container(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           7,
-                        //                       child: SchedularTextField(
-                        //                         labelText: 'tr 2',
-                        //                       )),
-                        //                   SizedBox(
-                        //                       width: MediaQuery.of(context)
-                        //                               .size
-                        //                               .width /
-                        //                           15),
-                        //                   Container(
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width /
-                        //                         7,
-                        //                     child: SchedularTextField(
-                        //                         labelText: '',
-                        //                         suffixIcon: Icon(
-                        //                           Icons.calendar_month_outlined,
-                        //                           size: 18,
-                        //                         )),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ],
-                        //           )
-                        //         ],
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
 
-                        // ///////2 nd containe 3 row
-                        // SizedBox(height: MediaQuery.of(context).size.height/20),
-                        // Row(
-                        //   children: [
-                        //     Column(
-                        //       children: [
-                        //         Padding(
-                        //           padding: const EdgeInsets.only(left: 40.0),
-                        //           child: Text(
-                        //             'Primary   Diagnosis',
-                        //             style: GoogleFonts.firaSans(
-                        //                 fontSize: FontSize.s10,
-                        //                 fontWeight: FontWeightManager.regular,
-                        //               color: Colors.transparent
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-
-                        // SizedBox(width: MediaQuery.of(context).size.width/10),
-
-                        // Row(
-                        //   children: [
-                        //     Container(
-                        //       width: AppSize.s267,
-                        //       child: SchedularTextField(
-                        //           labelText: 'pr 1',
-                        //
-                        //       ),
-                        //     ),
-                        //     SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //     Container(
-                        //       width: AppSize.s267,
-                        //       child: SchedularTextField(
-                        //         labelText: 'pr 2',
-                        //       )
-                        //       ),
-                        //     SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //     Container(
-                        //       width: AppSize.s267,
-                        //       child: SchedularTextField(
-                        //           labelText: '',
-                        //           suffixIcon: Icon(
-                        //             Icons.calendar_month_outlined,
-                        //             size: 18,
-                        //           )
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        // Flexible(
-                        //   child: Container(
-                        //     height: AppSize.s25,
-                        //     width: MediaQuery.of(context).size.width/7,
-                        //     child: TextFormField(
-                        //
-                        //       cursorColor: ColorManager.black,
-                        //       decoration: InputDecoration(
-                        //         border: OutlineInputBorder(
-                        //           borderRadius: BorderRadius.circular(8.0),
-                        //           borderSide: BorderSide(
-                        //             color: ColorManager.containerBorderGrey,
-                        //             width: 1.0,
-                        //           ),
-                        //         ),
-                        //         enabledBorder: OutlineInputBorder(
-                        //           borderRadius: BorderRadius.circular(8.0),
-                        //           borderSide: BorderSide(
-                        //             color: ColorManager.containerBorderGrey,
-                        //             width: 1.0,
-                        //           ),
-                        //         ),
-                        //         focusedBorder: OutlineInputBorder(
-                        //           borderRadius: BorderRadius.circular(8.0),
-                        //           borderSide: BorderSide(
-                        //             color: ColorManager.containerBorderGrey,
-                        //             width: 1.0,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-
-                        // Flexible(
-                        //   child: Container(
-                        //     height: AppSize.s25,
-                        //     width: MediaQuery.of(context).size.width/6,
-                        //     child: TextFormField(
-                        //       cursorColor: ColorManager.black,
-                        //       decoration: InputDecoration(
-                        //         border: OutlineInputBorder(
-                        //           borderRadius: BorderRadius.circular(8.0),
-                        //           borderSide: BorderSide(
-                        //             color: ColorManager.containerBorderGrey,
-                        //             width: 1.0,
-                        //           ),
-                        //         ),
-                        //         enabledBorder: OutlineInputBorder(
-                        //           borderRadius: BorderRadius.circular(8.0),
-                        //           borderSide: BorderSide(
-                        //             color: ColorManager.containerBorderGrey,
-                        //             width: 1.0,
-                        //           ),
-                        //         ),
-                        //         focusedBorder: OutlineInputBorder(
-                        //           borderRadius: BorderRadius.circular(8.0),
-                        //           borderSide: BorderSide(
-                        //             color: ColorManager.containerBorderGrey,
-                        //             width: 1.0,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-
-                        // SizedBox(width: MediaQuery.of(context).size.width/15),
-                        // Container(
-                        //   width: AppSize.s267,
-                        //   child: SchedularTextField(
-                        //       labelText: '',
-                        //       suffixIcon: Icon(
-                        //         Icons.calendar_month_outlined,
-                        //         size: 18,
-                        //       )
-                        //   ),
-                        // ),
-                        //   ],
-                        // ),
-
-                        //
-                        // ///////////////////////////////////////
-                        //                       SizedBox(height: MediaQuery.of(context).size.height/100),
-                        //                         Row(
-                        //                           children: [
-                        //                             Padding(
-                        //                               padding: const EdgeInsets.only(left: 40.0),
-                        //                               child: Text(
-                        //                                 'Secondary Diagnosis',
-                        //                                 style: GoogleFonts.firaSans(
-                        //                                     fontSize: FontSize.s10,
-                        //                                     fontWeight: FontWeightManager.regular
-                        //                                 ),
-                        //                               ),
-                        //                             ),
-                        //
-                        //
-                        //                             SizedBox(width: MediaQuery.of(context).size.width/10),
-                        //                             Flexible(
-                        //                               child: Container(
-                        //                                 height: AppSize.s25,
-                        //                                 width: MediaQuery.of(context).size.width/7,
-                        //                                 child: TextFormField(
-                        //                                   cursorColor: Colors.black,
-                        //                                   decoration: InputDecoration(
-                        //                                     border: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     enabledBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     focusedBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                   ),
-                        //                                 ),
-                        //                               ),
-                        //                             ),
-                        //
-                        //
-                        //
-                        //                             SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //                             Flexible(
-                        //                               child: Container(
-                        //                                 height: AppSize.s25,
-                        //                                 width: MediaQuery.of(context).size.width/6,
-                        //                                 child: TextFormField(
-                        //                                   cursorColor: ColorManager.black,
-                        //                                   decoration: InputDecoration(
-                        //                                     border: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     enabledBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     focusedBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                   ),
-                        //                                 ),
-                        //                               ),
-                        //                             ),
-                        //
-                        //                             SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //                             Container(
-                        //                               width: AppSize.s267,
-                        //                               child: SchedularTextField(
-                        //                                   labelText: '',
-                        //                                   suffixIcon: Icon(
-                        //                                     Icons.calendar_month_outlined,
-                        //                                     size: 18,
-                        //                                   )
-                        //                                  ),
-                        //                             ),
-                        //                           ],
-                        //                         ),
-                        //
-                        //
-                        //
-                        // /////////////////////////////////////////
-                        //                         SizedBox(height: MediaQuery.of(context).size.height/100),
-                        //                         Row(
-                        //                           children: [
-                        //                             Padding(
-                        //                               padding: const EdgeInsets.only(left: 40.0),
-                        //                               child: Text(
-                        //                                 'Primary Diagnosis',
-                        //                                 style: GoogleFonts.firaSans(
-                        //                                     fontSize: FontSize.s10,
-                        //                                     fontWeight: FontWeightManager.regular,
-                        //                                   color: Colors.transparent
-                        //                                 ),
-                        //                               ),
-                        //                             ),
-                        //
-                        //
-                        //                             SizedBox(width: MediaQuery.of(context).size.width/10),
-                        //                             Flexible(
-                        //                               child: Container(
-                        //                                 height: AppSize.s25,
-                        //                                 width: MediaQuery.of(context).size.width/7,
-                        //                                 child: TextFormField(
-                        //                                   cursorColor: ColorManager.black,
-                        //                                   decoration: InputDecoration(
-                        //                                     border: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     enabledBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     focusedBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                   ),
-                        //                                 ),
-                        //                               ),
-                        //                             ),
-                        //
-                        //
-                        //
-                        //                             SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //                             Flexible(
-                        //                               child: Container(
-                        //                                 height: AppSize.s25,
-                        //                                 width: MediaQuery.of(context).size.width/6,
-                        //                                 child: TextFormField(
-                        //                                   cursorColor: ColorManager.black,
-                        //                                   decoration: InputDecoration(
-                        //                                     border: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     enabledBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                     focusedBorder: OutlineInputBorder(
-                        //                                       borderRadius: BorderRadius.circular(8.0),
-                        //                                       borderSide: BorderSide(
-                        //                                         color: ColorManager.containerBorderGrey,
-                        //                                         width: 1.0,
-                        //                                       ),
-                        //                                     ),
-                        //                                   ),
-                        //                                 ),
-                        //                               ),
-                        //                             ),
-                        //
-                        //                             SizedBox(width: MediaQuery.of(context).size.width/15),
-                        //                             Container(
-                        //                               width: AppSize.s267,
-                        //                               child: SchedularTextField(
-                        //                                   labelText: '',
-                        //                                   suffixIcon: Icon(
-                        //                                     Icons.calendar_month_outlined,
-                        //                                     size: 18,
-                        //                                   )
-                        //                                   ),
-                        //                             ),
-                        //                           ],
-                        //                         ),
+                        ///Secondary textfield
                         Column(
                           children:
                               referenceFormKeys.asMap().entries.map((entry) {
@@ -994,6 +419,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 15),
+
+                        ///Last Inpatient Stay Information and  Add button
                         Row(
                           children: [
                             Padding(
@@ -1023,9 +450,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                           ],
                         ),
 
-                        //////////////2nd container separate
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 20),
+
+                        /// Allergies and Start Effective Date Heading
                         Container(
                           height: AppSize.s30,
                           decoration: BoxDecoration(
@@ -1063,138 +491,155 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 80),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 50.0),
-                                child: Container(
-                                  height: AppSize.s25,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.5,
-                                  child: TextFormField(
-                                    controller: allergiesController,
-                                    cursorColor: ColorManager.black,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(
-                                          color:
-                                              ColorManager.containerBorderGrey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(
-                                          color:
-                                              ColorManager.containerBorderGrey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(
-                                          color:
-                                              ColorManager.containerBorderGrey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                    ),
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 5),
-                            Container(
-                              width: AppSize.s267,
-                              child: SchedularTextField(
-                                  controller: startEffectiveDate,
-                                  labelText: '',
-                                  suffixIcon: Icon(
-                                    Icons.calendar_month_outlined,color: ColorManager.blueprime,
-                                    size: 18,
-                                  )),
-                            ),
-                          ],
+
+                        /// Allergies and Start Effective Date TextField
+                        ///
+
+                        Column(
+                          children:
+                              allergiesFormKeys.asMap().entries.map((entry) {
+                            int index = entry.key;
+                            GlobalKey<_allergiesState> key = entry.value;
+                            return allergies(
+                              key: key,
+                              index: index + 1,
+                              onRemove: () => removeallergiesForm(key),
+                            );
+                          }).toList(),
                         ),
 
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 80),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 50.0),
-                                child: Container(
-                                  height: AppSize.s25,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.5,
-                                  child: TextFormField(
-                                    cursorColor: ColorManager.black,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(
-                                          color:
-                                              ColorManager.containerBorderGrey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(
-                                          color:
-                                              ColorManager.containerBorderGrey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(
-                                          color:
-                                              ColorManager.containerBorderGrey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                    ),
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 5),
-                            Container(
-                              width: AppSize.s267,
-                              child: SchedularTextField(
-                                  labelText: '',
-                                  suffixIcon: Icon(
-                                    Icons.calendar_month_outlined,color: ColorManager.blueprime,
-                                    size: 18,
-                                  )),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Flexible(
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.only(left: 50.0),
+                        //         child: Container(
+                        //           height: AppSize.s25,
+                        //           width:
+                        //               MediaQuery.of(context).size.width / 2.5,
+                        //           child: TextFormField(
+                        //             controller: allergiesController,
+                        //             cursorColor: ColorManager.black,
+                        //             decoration: InputDecoration(
+                        //               border: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(8.0),
+                        //                 borderSide: BorderSide(
+                        //                   color:
+                        //                       ColorManager.containerBorderGrey,
+                        //                   width: 1.0,
+                        //                 ),
+                        //               ),
+                        //               enabledBorder: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(8.0),
+                        //                 borderSide: BorderSide(
+                        //                   color:
+                        //                       ColorManager.containerBorderGrey,
+                        //                   width: 1.0,
+                        //                 ),
+                        //               ),
+                        //               focusedBorder: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(8.0),
+                        //                 borderSide: BorderSide(
+                        //                   color:
+                        //                       ColorManager.containerBorderGrey,
+                        //                   width: 1.0,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             style: GoogleFonts.firaSans(
+                        //               fontSize: FontSize.s12,
+                        //               fontWeight: FontWeightManager.regular,
+                        //               color: ColorManager.black,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(
+                        //         width: MediaQuery.of(context).size.width / 5),
+                        //     Container(
+                        //       width: AppSize.s267,
+                        //       child: SchedularTextField(
+                        //           controller: startEffectiveDate,
+                        //           labelText: '',
+                        //           suffixIcon: Icon(
+                        //             Icons.calendar_month_outlined,color: ColorManager.blueprime,
+                        //             size: 18,
+                        //           )),
+                        //     ),
+                        //   ],
+                        // ),
+
+                        // Row(
+                        //   children: [
+                        //     Flexible(
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.only(left: 50.0),
+                        //         child: Container(
+                        //           height: AppSize.s25,
+                        //           width:
+                        //               MediaQuery.of(context).size.width / 2.5,
+                        //           child: TextFormField(
+                        //             cursorColor: ColorManager.black,
+                        //             decoration: InputDecoration(
+                        //               border: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(8.0),
+                        //                 borderSide: BorderSide(
+                        //                   color:
+                        //                       ColorManager.containerBorderGrey,
+                        //                   width: 1.0,
+                        //                 ),
+                        //               ),
+                        //               enabledBorder: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(8.0),
+                        //                 borderSide: BorderSide(
+                        //                   color:
+                        //                       ColorManager.containerBorderGrey,
+                        //                   width: 1.0,
+                        //                 ),
+                        //               ),
+                        //               focusedBorder: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(8.0),
+                        //                 borderSide: BorderSide(
+                        //                   color:
+                        //                       ColorManager.containerBorderGrey,
+                        //                   width: 1.0,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             style: GoogleFonts.firaSans(
+                        //               fontSize: FontSize.s12,
+                        //               fontWeight: FontWeightManager.regular,
+                        //               color: ColorManager.black,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(
+                        //         width: MediaQuery.of(context).size.width / 5),
+                        //     Container(
+                        //       width: AppSize.s267,
+                        //       child: SchedularTextField(
+                        //           labelText: '',
+                        //           suffixIcon: Icon(
+                        //             Icons.calendar_month_outlined,color: ColorManager.blueprime,
+                        //             size: 18,
+                        //           )),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30),
+
+                    ///code status
                     Row(
                       children: [
                         Column(
@@ -1307,9 +752,25 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             ),
                           ],
                         ),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 39.0),
+                          child: Container(
+                            height: AppSize.s32,
+                            width: AppSize.s105,
+                            child: SchedularIconButtonConst(
+                              text: 'Add New',
+                              icon: Icons.add,
+                              onPressed: addallergiesForm,
+                              // onPressed: () {}
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30),
+
+                    /// helpline & comment
                     Row(
                       children: [
                         Flexible(
@@ -1385,12 +846,8 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
   TextEditingController prdescription = TextEditingController();
   TextEditingController prcode = TextEditingController();
   TextEditingController prdate = TextEditingController();
-  // TextEditingController srdescription = TextEditingController();
-  // TextEditingController srcode = TextEditingController();
-  // TextEditingController srdate = TextEditingController();
-  // TextEditingController trdescription = TextEditingController();
-  // TextEditingController trcode = TextEditingController();
-  // TextEditingController trdate = TextEditingController();
+  //final TextEditingController secondaryDiagnosisController = TextEditingController(text: 'Secondary Diagnosis');
+
 
   @override
   Widget build(BuildContext context) {
@@ -1401,25 +858,17 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
           Row(
             children: [
               Column(
-
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0),
                     child: Text(
+
                       'Secondary Diagnosis',
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.regular),
                     ),
-
-
-
                   ),
-                  // IconButton(
-                  //   icon: Icon(Icons.remove_circle, color: Colors.red,size:12),
-                  //   onPressed: widget.onRemove,
-                  // ),
-
                 ],
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 10),
@@ -1448,84 +897,16 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                             controller: prdate,
                             labelText: '',
                             suffixIcon: Icon(
-                              Icons.calendar_month_outlined,color: ColorManager.blueprime,
+                              Icons.calendar_month_outlined,
+                              color: ColorManager.blueprime,
                               size: 18,
                             )),
                       ),
                     ],
                   ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Container(
-                  //       width: MediaQuery.of(context).size.width / 7,
-                  //       child: SchedularTextField(
-                  //         controller: srdescription,
-                  //         labelText: 'sr 1',
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
-                  //     Container(
-                  //         width: MediaQuery.of(context).size.width / 7,
-                  //         child: SchedularTextField(
-                  //           controller: srcode,
-                  //           labelText: 'sr 2',
-                  //         )),
-                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
-                  //     Container(
-                  //       width: MediaQuery.of(context).size.width / 7,
-                  //       child: SchedularTextField(
-                  //           controller: srdate,
-                  //           labelText: '',
-                  //           suffixIcon: Icon(
-                  //             Icons.calendar_month_outlined,color: ColorManager.blueprime,
-                  //             size: 18,
-                  //           )),
-                  //     ),
-                  //   ],
-                  // ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Container(
-                  //       width: MediaQuery.of(context).size.width / 7,
-                  //       child: SchedularTextField(
-                  //         controller: trdescription,
-                  //         labelText: 'tr 1',
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
-                  //     Container(
-                  //         width: MediaQuery.of(context).size.width / 7,
-                  //         child: SchedularTextField(
-                  //           controller: trcode,
-                  //           labelText: 'tr 2',
-                  //         )),
-                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
-                  //     Container(
-                  //       width: MediaQuery.of(context).size.width / 7,
-                  //       child: SchedularTextField(
-                  //           controller: trdate,
-                  //           labelText: '',
-                  //           suffixIcon: Icon(
-                  //             Icons.calendar_month_outlined,color: ColorManager.blueprime,
-                  //             size: 18,
-                  //           )),
-                  //     ),
-                  //   ],
-                  // ),
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
-
                 ],
               ),
-              // IconButton(
-              //   icon: Icon(Icons.remove_circle, color: Colors.red,size:12),
-              //   onPressed: widget.onRemove,
-              // ),
             ],
           ),
         ],
@@ -1533,3 +914,907 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
     );
   }
 }
+
+class allergies extends StatefulWidget {
+  final VoidCallback onRemove;
+  final int index;
+  const allergies({super.key, required this.onRemove, required this.index});
+
+  @override
+  _allergiesState createState() => _allergiesState();
+}
+
+class _allergiesState extends State<allergies> {
+  TextEditingController allergiesController = TextEditingController();
+  TextEditingController startEffectiveDate = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 50.0),
+                child: Container(
+                  height: AppSize.s25,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  child: TextFormField(
+                    controller: allergiesController,
+                    cursorColor: ColorManager.black,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: ColorManager.containerBorderGrey,
+                          width: 1.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: ColorManager.containerBorderGrey,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: ColorManager.containerBorderGrey,
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.black,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width / 5),
+            Container(
+              width: AppSize.s267,
+              child: SchedularTextField(
+                  controller: startEffectiveDate,
+                  labelText: '',
+                  suffixIcon: Icon(
+                    Icons.calendar_month_outlined,
+                    color: ColorManager.blueprime,
+                    size: 18,
+                  )),
+            ),
+          ],
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 80),
+      ],
+    );
+  }
+}
+
+// Row(
+//   children: [
+//     Padding(
+//       padding: const EdgeInsets.only(left: 40.0),
+//       child: Text(
+//           'Primary Diagnosis',
+//       style: GoogleFonts.firaSans(
+//         fontSize: FontSize.s10,
+//         fontWeight: FontWeightManager.regular
+//       ),
+//       ),
+//     ),
+//
+//
+//     SizedBox(width: MediaQuery.of(context).size.width/10),
+//     Flexible(
+//       child: Container(
+//         height: AppSize.s25,
+//         width: MediaQuery.of(context).size.width/7,
+//         child: TextFormField(
+//           cursorColor: ColorManager.black,
+//           decoration: InputDecoration(
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8.0),
+//               borderSide: BorderSide(
+//                 color: ColorManager.containerBorderGrey,
+//                 width: 1.0,
+//               ),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8.0),
+//               borderSide: BorderSide(
+//                 color: ColorManager.containerBorderGrey,
+//                 width: 1.0,
+//               ),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8.0),
+//               borderSide: BorderSide(
+//                 color: ColorManager.containerBorderGrey,
+//                 width: 1.0,
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//
+//
+//
+//     SizedBox(width: MediaQuery.of(context).size.width/15),
+//     Flexible(
+//       child: Container(
+//         height: AppSize.s25,
+//         width: MediaQuery.of(context).size.width/6,
+//         child: TextFormField(
+//           cursorColor: ColorManager.black,
+//           decoration: InputDecoration(
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8.0),
+//               borderSide: BorderSide(
+//                 color: ColorManager.containerBorderGrey,
+//                 width: 1.0,
+//               ),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8.0),
+//               borderSide: BorderSide(
+//                 color: ColorManager.containerBorderGrey,
+//                 width: 1.0,
+//               ),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8.0),
+//               borderSide: BorderSide(
+//                 color: ColorManager.containerBorderGrey,
+//                 width: 1.0,
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//
+//     SizedBox(width: MediaQuery.of(context).size.width/15),
+//     Container(
+//       width: AppSize.s267,
+//       child: SchedularTextField(
+//           labelText: '',
+//           suffixIcon: Icon(
+//             Icons.calendar_month_outlined,
+//             size: 18,
+//           )
+//           ),
+//     ),
+//   ],
+// ),
+///
+// SizedBox(
+//   height: 10,
+// ),
+// Row(
+//   children: [
+//     Container(
+//       width: MediaQuery.of(context).size.width / 7,
+//       child: SchedularTextField(
+//         controller: srdescription,
+//         labelText: 'sr 1',
+//       ),
+//     ),
+//     SizedBox(width: MediaQuery.of(context).size.width / 15),
+//     Container(
+//         width: MediaQuery.of(context).size.width / 7,
+//         child: SchedularTextField(
+//           controller: srcode,
+//           labelText: 'sr 2',
+//         )),
+//     SizedBox(width: MediaQuery.of(context).size.width / 15),
+//     Container(
+//       width: MediaQuery.of(context).size.width / 7,
+//       child: SchedularTextField(
+//           controller: srdate,
+//           labelText: '',
+//           suffixIcon: Icon(
+//             Icons.calendar_month_outlined,color: ColorManager.blueprime,
+//             size: 18,
+//           )),
+//     ),
+//   ],
+// ),
+// SizedBox(
+//   height: 10,
+// ),
+// Row(
+//   children: [
+//     Container(
+//       width: MediaQuery.of(context).size.width / 7,
+//       child: SchedularTextField(
+//         controller: trdescription,
+//         labelText: 'tr 1',
+//       ),
+//     ),
+//     SizedBox(width: MediaQuery.of(context).size.width / 15),
+//     Container(
+//         width: MediaQuery.of(context).size.width / 7,
+//         child: SchedularTextField(
+//           controller: trcode,
+//           labelText: 'tr 2',
+//         )),
+//     SizedBox(width: MediaQuery.of(context).size.width / 15),
+//     Container(
+//       width: MediaQuery.of(context).size.width / 7,
+//       child: SchedularTextField(
+//           controller: trdate,
+//           labelText: '',
+//           suffixIcon: Icon(
+//             Icons.calendar_month_outlined,color: ColorManager.blueprime,
+//             size: 18,
+//           )),
+//     ),
+//   ],
+// ),
+///
+// IconButton(
+//   icon: Icon(Icons.remove_circle, color: Colors.red,size:12),
+//   onPressed: widget.onRemove,
+// ),
+///
+// IconButton(
+//   icon: Icon(Icons.remove_circle, color: Colors.red,size:12),
+//   onPressed: widget.onRemove,
+// ),
+///
+// TextEditingController srdescription = TextEditingController();
+// TextEditingController srcode = TextEditingController();
+// TextEditingController srdate = TextEditingController();
+// TextEditingController trdescription = TextEditingController();
+// TextEditingController trcode = TextEditingController();
+// TextEditingController trdate = TextEditingController();
+///
+// Container(
+//   // color: Colors.blue,
+//   child: Column(
+//     children: [
+//       Row(
+//         children: [
+//           Column(
+//             children: [
+//               Padding(
+//                 padding:
+//                     const EdgeInsets.only(left: 40.0),
+//                 child: Text(
+//                   'Secondary Diagnosis',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: FontSize.s10,
+//                       fontWeight:
+//                           FontWeightManager.regular),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(
+//               width: MediaQuery.of(context).size.width /
+//                   10),
+//           Column(
+//             children: [
+//               Row(
+//                 children: [
+//                   Container(
+//                     width: MediaQuery.of(context)
+//                             .size
+//                             .width /
+//                         7,
+//                     child: SchedularTextField(
+//                       labelText: 'pr 1',
+//                     ),
+//                   ),
+//                   SizedBox(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           15),
+//                   Container(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           7,
+//                       child: SchedularTextField(
+//                         labelText: 'pr 2',
+//                       )),
+//                   SizedBox(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           15),
+//                   Container(
+//                     width: MediaQuery.of(context)
+//                             .size
+//                             .width /
+//                         7,
+//                     child: SchedularTextField(
+//                         labelText: '',
+//                         suffixIcon: Icon(
+//                           Icons.calendar_month_outlined,
+//                           size: 18,
+//                         )),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Row(
+//                 children: [
+//                   Container(
+//                     width: MediaQuery.of(context)
+//                             .size
+//                             .width /
+//                         7,
+//                     child: SchedularTextField(
+//                       labelText: 'sr 1',
+//                     ),
+//                   ),
+//                   SizedBox(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           15),
+//                   Container(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           7,
+//                       child: SchedularTextField(
+//                         labelText: 'sr 2',
+//                       )),
+//                   SizedBox(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           15),
+//                   Container(
+//                     width: MediaQuery.of(context)
+//                             .size
+//                             .width /
+//                         7,
+//                     child: SchedularTextField(
+//                         labelText: '',
+//                         suffixIcon: Icon(
+//                           Icons.calendar_month_outlined,
+//                           size: 18,
+//                         )),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Row(
+//                 children: [
+//                   Container(
+//                     width: MediaQuery.of(context)
+//                             .size
+//                             .width /
+//                         7,
+//                     child: SchedularTextField(
+//                       labelText: 'tr 1',
+//                     ),
+//                   ),
+//                   SizedBox(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           15),
+//                   Container(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           7,
+//                       child: SchedularTextField(
+//                         labelText: 'tr 2',
+//                       )),
+//                   SizedBox(
+//                       width: MediaQuery.of(context)
+//                               .size
+//                               .width /
+//                           15),
+//                   Container(
+//                     width: MediaQuery.of(context)
+//                             .size
+//                             .width /
+//                         7,
+//                     child: SchedularTextField(
+//                         labelText: '',
+//                         suffixIcon: Icon(
+//                           Icons.calendar_month_outlined,
+//                           size: 18,
+//                         )),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           )
+//         ],
+//       ),
+//     ],
+//   ),
+// ),
+
+// ///////2 nd containe 3 row
+// SizedBox(height: MediaQuery.of(context).size.height/20),
+// Row(
+//   children: [
+//     Column(
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.only(left: 40.0),
+//           child: Text(
+//             'Primary   Diagnosis',
+//             style: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s10,
+//                 fontWeight: FontWeightManager.regular,
+//               color: Colors.transparent
+//             ),
+//           ),
+//         ),
+//       ],
+//     ),
+
+// SizedBox(width: MediaQuery.of(context).size.width/10),
+
+// Row(
+//   children: [
+//     Container(
+//       width: AppSize.s267,
+//       child: SchedularTextField(
+//           labelText: 'pr 1',
+//
+//       ),
+//     ),
+//     SizedBox(width: MediaQuery.of(context).size.width/15),
+//     Container(
+//       width: AppSize.s267,
+//       child: SchedularTextField(
+//         labelText: 'pr 2',
+//       )
+//       ),
+//     SizedBox(width: MediaQuery.of(context).size.width/15),
+//     Container(
+//       width: AppSize.s267,
+//       child: SchedularTextField(
+//           labelText: '',
+//           suffixIcon: Icon(
+//             Icons.calendar_month_outlined,
+//             size: 18,
+//           )
+//       ),
+//     ),
+//   ],
+// ),
+// Flexible(
+//   child: Container(
+//     height: AppSize.s25,
+//     width: MediaQuery.of(context).size.width/7,
+//     child: TextFormField(
+//
+//       cursorColor: ColorManager.black,
+//       decoration: InputDecoration(
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           borderSide: BorderSide(
+//             color: ColorManager.containerBorderGrey,
+//             width: 1.0,
+//           ),
+//         ),
+//         enabledBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           borderSide: BorderSide(
+//             color: ColorManager.containerBorderGrey,
+//             width: 1.0,
+//           ),
+//         ),
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           borderSide: BorderSide(
+//             color: ColorManager.containerBorderGrey,
+//             width: 1.0,
+//           ),
+//         ),
+//       ),
+//     ),
+//   ),
+// ),
+
+// Flexible(
+//   child: Container(
+//     height: AppSize.s25,
+//     width: MediaQuery.of(context).size.width/6,
+//     child: TextFormField(
+//       cursorColor: ColorManager.black,
+//       decoration: InputDecoration(
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           borderSide: BorderSide(
+//             color: ColorManager.containerBorderGrey,
+//             width: 1.0,
+//           ),
+//         ),
+//         enabledBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           borderSide: BorderSide(
+//             color: ColorManager.containerBorderGrey,
+//             width: 1.0,
+//           ),
+//         ),
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           borderSide: BorderSide(
+//             color: ColorManager.containerBorderGrey,
+//             width: 1.0,
+//           ),
+//         ),
+//       ),
+//     ),
+//   ),
+// ),
+
+// SizedBox(width: MediaQuery.of(context).size.width/15),
+// Container(
+//   width: AppSize.s267,
+//   child: SchedularTextField(
+//       labelText: '',
+//       suffixIcon: Icon(
+//         Icons.calendar_month_outlined,
+//         size: 18,
+//       )
+//   ),
+// ),
+//   ],
+// ),
+
+//
+// ///////////////////////////////////////
+//                       SizedBox(height: MediaQuery.of(context).size.height/100),
+//                         Row(
+//                           children: [
+//                             Padding(
+//                               padding: const EdgeInsets.only(left: 40.0),
+//                               child: Text(
+//                                 'Secondary Diagnosis',
+//                                 style: GoogleFonts.firaSans(
+//                                     fontSize: FontSize.s10,
+//                                     fontWeight: FontWeightManager.regular
+//                                 ),
+//                               ),
+//                             ),
+//
+//
+//                             SizedBox(width: MediaQuery.of(context).size.width/10),
+//                             Flexible(
+//                               child: Container(
+//                                 height: AppSize.s25,
+//                                 width: MediaQuery.of(context).size.width/7,
+//                                 child: TextFormField(
+//                                   cursorColor: Colors.black,
+//                                   decoration: InputDecoration(
+//                                     border: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     enabledBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     focusedBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//
+//
+//
+//                             SizedBox(width: MediaQuery.of(context).size.width/15),
+//                             Flexible(
+//                               child: Container(
+//                                 height: AppSize.s25,
+//                                 width: MediaQuery.of(context).size.width/6,
+//                                 child: TextFormField(
+//                                   cursorColor: ColorManager.black,
+//                                   decoration: InputDecoration(
+//                                     border: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     enabledBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     focusedBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//
+//                             SizedBox(width: MediaQuery.of(context).size.width/15),
+//                             Container(
+//                               width: AppSize.s267,
+//                               child: SchedularTextField(
+//                                   labelText: '',
+//                                   suffixIcon: Icon(
+//                                     Icons.calendar_month_outlined,
+//                                     size: 18,
+//                                   )
+//                                  ),
+//                             ),
+//                           ],
+//                         ),
+//
+//
+//
+// /////////////////////////////////////////
+//                         SizedBox(height: MediaQuery.of(context).size.height/100),
+//                         Row(
+//                           children: [
+//                             Padding(
+//                               padding: const EdgeInsets.only(left: 40.0),
+//                               child: Text(
+//                                 'Primary Diagnosis',
+//                                 style: GoogleFonts.firaSans(
+//                                     fontSize: FontSize.s10,
+//                                     fontWeight: FontWeightManager.regular,
+//                                   color: Colors.transparent
+//                                 ),
+//                               ),
+//                             ),
+//
+//
+//                             SizedBox(width: MediaQuery.of(context).size.width/10),
+//                             Flexible(
+//                               child: Container(
+//                                 height: AppSize.s25,
+//                                 width: MediaQuery.of(context).size.width/7,
+//                                 child: TextFormField(
+//                                   cursorColor: ColorManager.black,
+//                                   decoration: InputDecoration(
+//                                     border: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     enabledBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     focusedBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//
+//
+//
+//                             SizedBox(width: MediaQuery.of(context).size.width/15),
+//                             Flexible(
+//                               child: Container(
+//                                 height: AppSize.s25,
+//                                 width: MediaQuery.of(context).size.width/6,
+//                                 child: TextFormField(
+//                                   cursorColor: ColorManager.black,
+//                                   decoration: InputDecoration(
+//                                     border: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     enabledBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                     focusedBorder: OutlineInputBorder(
+//                                       borderRadius: BorderRadius.circular(8.0),
+//                                       borderSide: BorderSide(
+//                                         color: ColorManager.containerBorderGrey,
+//                                         width: 1.0,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//
+//                             SizedBox(width: MediaQuery.of(context).size.width/15),
+//                             Container(
+//                               width: AppSize.s267,
+//                               child: SchedularTextField(
+//                                   labelText: '',
+//                                   suffixIcon: Icon(
+//                                     Icons.calendar_month_outlined,
+//                                     size: 18,
+//                                   )
+//                                   ),
+//                             ),
+//                           ],
+//                         ),
+
+
+
+
+
+
+////////////
+//
+// Container(
+// height: AppSize.s350,
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(16),
+// border: Border.all(
+// width: 2,
+// color: ColorManager.black.withOpacity(0.2),
+// ),
+// boxShadow: [
+// BoxShadow(
+// color: ColorManager.black.withOpacity(0.15),
+// offset: const Offset(0, 4),
+// blurRadius: 4,
+// spreadRadius: 0,
+// ),
+// ],
+// color: ColorManager.white,
+// ),
+// child: Stack(
+// children: [
+// Row(
+// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+// children: [
+// Expanded(
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// SMTextFConst(
+// controller: nameController,
+// keyboardType: TextInputType.text,
+// text: AppStringEM.officename,
+// ),
+// const SizedBox(height: AppSize.s10),
+// SMTextFConstPhone(
+// controller: secNumberController,
+// keyboardType: TextInputType.number,
+// text: AppStringEM.secNum,
+// ),
+// const SizedBox(height: AppSize.s10),
+// SMTextFConst(
+// focusNode: _focusNode,
+// controller: addressController,
+// keyboardType: TextInputType.text,
+// text: AppStringEM.address,
+// ),
+// // The suggestions container will be overlaid here
+// // (Only shown if there are suggestions)
+// ],
+// ),
+// ),
+// const SizedBox(
+// width:
+// 16), // Add spacing between columns if needed
+// Expanded(
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// SMTextFConstPhone(
+// controller: primNumController,
+// keyboardType: TextInputType.number,
+// text: AppStringEM.primNum,
+// ),
+// const SizedBox(height: AppSize.s10),
+// SMTextFConstPhone(
+// controller: altNumController,
+// keyboardType: TextInputType.number,
+// text: AppStringEM.alternatephone,
+// ),
+// const SizedBox(height: AppSize.s10),
+// SMTextFConst(
+// controller: emailController,
+// keyboardType: TextInputType.text,
+// text: AppStringEM.primarymail,
+// ),
+// ],
+// ),
+// ),
+// ],
+// ),
+// ValueListenableBuilder<List<String>>(
+// valueListenable: _suggestionsNotifier,
+// builder: (context, suggestions, child) {
+// if (suggestions.isEmpty) return SizedBox.shrink();
+// return Positioned(
+// top: 150, // Adjust this value as needed
+// left: 16,
+// right: 16,
+// child: Container(
+// height: 100,
+// width: 300,
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.circular(8),
+// boxShadow: [
+// BoxShadow(
+// color: Colors.black26,
+// blurRadius: 4,
+// offset: Offset(0, 2),
+// ),
+// ],
+// ),
+// child: ListView.builder(
+// scrollDirection: Axis.vertical,
+// itemCount: suggestions.length,
+// itemBuilder: (context, index) {
+// return ListTile(
+// title: Text(
+// suggestions[index],
+// style: GoogleFonts.firaSans(
+// fontSize: FontSize.s12,
+// fontWeight: FontWeight.w700,
+// color: ColorManager.mediumgrey,
+// decoration: TextDecoration.none,
+// ),
+// ),
+// onTap: () {
+// addressController.text =
+// suggestions[index];
+// _focusNode.unfocus();
+// _suggestionsNotifier.value = [];
+// },
+// );
+// },
+// ),
+// ),
+// );
+// },
+// ),
+// ],
+// ),
+// ),

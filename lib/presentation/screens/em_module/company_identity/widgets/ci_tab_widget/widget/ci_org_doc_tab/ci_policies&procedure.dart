@@ -1,26 +1,27 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/heading_constant_widget.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
-import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import '../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 
 class CIPoliciesProcedure extends StatefulWidget {
   final int docId;
   final int subDocId;
-  //final String officeId;
   const CIPoliciesProcedure({super.key, required this.docId, required this.subDocId, //required this.officeId,
   });
 
@@ -33,15 +34,16 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _policiesandprocedureController = StreamController<List<CiOrgDocumentCC>>();
+  TextEditingController daysController = TextEditingController(text: "1");
+  final StreamController<List<NewOrgDocument>> _policiesandprocedureController = StreamController<List<NewOrgDocument>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
-  //int docTypeMetaId =0;
-  int docSubTypeMetaId =0;
+
+  int docSubTypeMetaId = AppConfig.subDocId0;
   String? expiryType;
   bool _isLoading = false;
   String? selectedValue;
   int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
-
+  String? selectedYear = AppConfig.year;
 
   @override
   void initState() {
@@ -64,98 +66,13 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
     return
       Column(
         children: [
-          Container(
-            height: AppSize.s30,
-            margin: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
-            decoration: BoxDecoration(
-              color: ColorManager.fmediumgrey,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppString.srNo,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      "Document Id",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppString.name,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppString.expiry,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppString.reminderthershold,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppString.actions,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          TableHeadingConst(),
           SizedBox(height: AppSize.s10),
           Expanded(
-            child: StreamBuilder<List<CiOrgDocumentCC>>(
+            child: StreamBuilder<List<NewOrgDocument>>(
               stream: _policiesandprocedureController.stream,
               builder: (context, snapshot) {
-                getORGDoc(context,widget.docId,widget.subDocId,1,15
-                ).then((data) {
+                getNewOrgDocfetch(context,AppConfig.policiesAndProcedure,AppConfig.subDocId0,1,50).then((data) {
                   _policiesandprocedureController.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -171,20 +88,15 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      "No available policies & procedures !!",
-                      //AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      ErrorMessageString.noPolicyProcedure,
+                      style: DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   );
                 }
                 if (snapshot.hasData) {
                   int totalItems = snapshot.data!.length;
                   int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<CiOrgDocumentCC> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                  List<NewOrgDocument> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                   return Column(
                     children: [
                       Expanded(
@@ -194,7 +106,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                           itemBuilder: (context, index) {
                             int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            CiOrgDocumentCC policiesdata = paginatedData[index];
+                            NewOrgDocument policiesdata = paginatedData[index];
                             return Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
@@ -221,11 +133,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                         child: Center(
                                           child: Text(
                                             formattedSerialNumber,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
+                                            style: DocDefineTableData.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           ),
                                         ),
@@ -234,47 +142,23 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                         child: Center(
                                           child: Text(
                                             policiesdata.idOfDocument,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
+                                            style: DocDefineTableData.customTextStyle(context)
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            policiesdata.name.toString().capitalizeFirst!,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
+                                            policiesdata.docName.toString().capitalizeFirst!,
+                                            style: DocDefineTableData.customTextStyle(context)
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            policiesdata.expirtDate.toString(),
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            policiesdata.expirtReminder.toString().capitalizeFirst!,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
+                                            policiesdata.expiryReminder.toString().capitalizeFirst!,
+                                            style: DocDefineTableData.customTextStyle(context),
                                           ),
                                         ),
                                       ),
@@ -285,65 +169,65 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                             IconButton(onPressed: (){
                                               String? selectedExpiryType = expiryType;
                                               showDialog(context: context, builder: (context){
-                                                return  FutureBuilder<CorporatePrefillDocumentData>(
-                                                    future: getPrefillCorporateDocument(context,policiesdata.docId),
+                                                return  FutureBuilder<NewOrgDocument>(
+                                                    future: getPrefillNewOrgDocument(context,policiesdata.orgDocumentSetupid),
                                                     builder: (context,snapshotPrefill) {
                                                       if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                         return Center(
                                                           child: CircularProgressIndicator(color: ColorManager.blueprime,),
                                                         );
                                                       }
-                                                      var documentPreId = snapshotPrefill.data!.documentId;
-                                                      docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString());
-
-                                                      // var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-                                                      // docTypeMetaId = documentTypePreId;
-
                                                       var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
                                                       docSubTypeMetaId = documentSubPreId;
 
                                                       var name = snapshotPrefill.data!.docName;
                                                       docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
 
-                                                      var calender = snapshotPrefill.data!.expiryDate;
-                                                      calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
-
                                                       var expiry = snapshotPrefill.data!.expiryType;
-                                                      expiryType = expiry;
+                                                      String? selectedExpiryType = expiry;
 
-                                                      var idOfDoc = snapshotPrefill.data!.idOfDoc;
-                                                      idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDoc.toString());
+                                                      var idOfDoc = snapshotPrefill.data!.idOfDocument;
+                                                      idOfDocController = TextEditingController(text: snapshotPrefill.data!.idOfDocument.toString());
 
                                                       return StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
-                                                          return CCScreenEditPopup(
-                                                            title: 'Edit Policies Procedure',
-                                                           // id: documentPreId,
+                                                          return CCScreenEditNewPopup(
+                                                            title: EditPopupString.editPolicy,
                                                             idOfDocController: idOfDocController,
                                                             nameDocController: docNameController,
                                                             calenderController: calenderController,
                                                             loadingDuration: _isLoading,
-                                                            onSavePressed: ()async{
+                                                            onSavePressed: () async {
                                                               setState(() {
                                                                 _isLoading = true;
                                                               });
+
                                                               try {
-                                                                String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                    ? "Not Applicable"
-                                                                    : calenderController.text;
-                                                                await updateCorporateDocumentPost(
+                                                                int threshold = 0;
+                                                                String? expiryDateToSend = "";
+                                                                if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+                                                                  int enteredValue = int.parse(daysController.text);
+                                                                  if (selectedYear == AppConfig.year) {
+                                                                    threshold = enteredValue * 365;
+                                                                  } else if (selectedYear == AppConfig.month) {
+                                                                    threshold = enteredValue * 30;
+                                                                  }
+                                                                  expiryDateToSend = calenderController.text;
+                                                                } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
+                                                                  threshold = 0;
+                                                                  expiryDateToSend = null;
+                                                                }
+                                                                await updateNewOrgDocumentPatch(
                                                                   context: context,
-                                                                  docId: documentPreId,
-                                                                  name: name == docNameController.text ? name.toString() : docNameController.text,
+                                                                  orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
                                                                   docTypeID: AppConfig.policiesAndProcedure,
-                                                                  docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
-                                                                  docCreated: DateTime.now().toString(),
-                                                                  url: "url",
-                                                                  expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                                  expiryDate: expiryTypeToSend,
+                                                                  docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
+                                                                  docName: name == docNameController.text ? name.toString() : docNameController.text,
+                                                                  expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+                                                                  threshold: threshold,
+                                                                  expiryDate: null,
                                                                   expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                  officeId: "",//widget.officeId,
-                                                                  idOfDoc: snapshotPrefill.data!.idOfDoc
+                                                                  idOfDoc: idOfDoc,
                                                                 );
                                                               } finally {
                                                                 setState(() {
@@ -360,11 +244,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                                     width: 300,
                                                                     child: Text(
                                                                       'Loading...',
-                                                                      style: CustomTextStylesCommon.commonStyle(
-                                                                        fontWeight: FontWeightManager.medium,
-                                                                        fontSize: FontSize.s12,
-                                                                        color: ColorManager.mediumgrey,
-                                                                      ),
+                                                                      style: DocumentTypeDataStyle.customTextStyle(context),
                                                                     ),
                                                                   );
                                                                 }
@@ -372,28 +252,21 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                                   return Center(
                                                                     child: Text(
                                                                       AppString.dataNotFound,
-                                                                      style: CustomTextStylesCommon.commonStyle(
-                                                                        fontWeight: FontWeightManager.medium,
-                                                                        fontSize: FontSize.s12,
-                                                                        color: ColorManager.mediumgrey,
-                                                                      ),
+                                                                      style: DocumentTypeDataStyle.customTextStyle(context),
                                                                     ),
                                                                   );
                                                                 }
                                                                 if (snapshot.hasData) {
                                                                   String selectedDocType = "";
                                                                   int docType = snapshot.data![0].docID;
-
                                                                   for (var i in snapshot.data!) {
                                                                     if (i.docID == AppConfig.policiesAndProcedure) {
-                                                                      selectedDocType = i.docType;
                                                                       docType = i.docID;
                                                                       break;
                                                                     }
                                                                   }
 
                                                                   docTypeMetaIdPP = docType;
-
                                                                   identityDocumentTypeGet(context, docTypeMetaIdPP).then((data) {
                                                                     _identityDataController.add(data);
                                                                   }).catchError((error) {
@@ -412,11 +285,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                                       children: [
                                                                         Text(
                                                                           selectedDocType,
-                                                                          style: CustomTextStylesCommon.commonStyle(
-                                                                            fontWeight: FontWeightManager.medium,
-                                                                            fontSize: FontSize.s12,
-                                                                            color: ColorManager.mediumgrey,
-                                                                          ),
+                                                                          style: DocumentTypeDataStyle.customTextStyle(context),
                                                                         ),
                                                                         Icon(
                                                                           Icons.arrow_drop_down,
@@ -430,133 +299,134 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                                 }
                                                               },
                                                             ),
-                                                            radioButton: Padding(
-                                                              padding: const EdgeInsets.only(left: 10.0),
+                                                            radioButton:  Padding(
+                                                              padding: const EdgeInsets.only(left: AppPadding.p10),
                                                               child: Column(
                                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     "Expiry Type",
-                                                                    style: GoogleFonts.firaSans(
-                                                                      fontSize: FontSize.s12,
-                                                                      fontWeight: FontWeight.w700,
-                                                                      color: ColorManager.mediumgrey,
-                                                                      decoration: TextDecoration.none,
-                                                                    ),
+                                                                    style: RadioButtonHeadStyle.customTextStyle(context),
                                                                   ),
                                                                   CustomRadioListTile(
-                                                                    value: "Not Applicable",
-                                                                    groupValue: selectedExpiryType,
+                                                                    value:AppConfig.notApplicable,
+                                                                    groupValue:
+                                                                    selectedExpiryType,
                                                                     onChanged: (value) {
                                                                       setState(() {
                                                                         selectedExpiryType = value;
                                                                       });
                                                                     },
-                                                                    title: "Not Applicable",
+                                                                    title: AppConfig.notApplicable,
                                                                   ),
                                                                   CustomRadioListTile(
-                                                                    value: 'Scheduled',
-                                                                    groupValue: selectedExpiryType,
+                                                                    value: AppConfig.scheduled,
+                                                                    groupValue:
+                                                                    selectedExpiryType,
                                                                     onChanged: (value) {
                                                                       setState(() {
                                                                         selectedExpiryType = value;
                                                                       });
                                                                     },
-                                                                    title: 'Scheduled',
+                                                                    title: AppConfig.scheduled,
                                                                   ),
                                                                   CustomRadioListTile(
-                                                                    value: 'Issuer Expiry',
-                                                                    groupValue: selectedExpiryType,
+                                                                    value: AppConfig.issuer,
+                                                                    groupValue:
+                                                                    selectedExpiryType,
                                                                     onChanged: (value) {
                                                                       setState(() {
                                                                         selectedExpiryType = value;
                                                                       });
                                                                     },
-                                                                    title: 'Issuer Expiry',
+                                                                    title: AppConfig.issuer,
                                                                   ),
                                                                 ],
                                                               ),
                                                             ),
-                                                            child2: Visibility(
-                                                              visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                                                            child3: Visibility(
+                                                              visible: selectedExpiryType == AppConfig.scheduled,
                                                               child: Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.only(left: 2),
-                                                                    child: Text(
-                                                                      "Expiry Date",
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        decoration: TextDecoration.none,
-                                                                      ),
-                                                                    ),
+                                                                  SizedBox(
+                                                                    height: AppSize.s10,
                                                                   ),
-                                                                  SizedBox(height: 5,),
-                                                                  FormField<String>(
-                                                                    builder: (FormFieldState<String> field) {
-                                                                      return SizedBox (
-                                                                        width: 354,
-                                                                        height: 30,
-                                                                        child:   TextFormField(
-                                                                          controller: calenderController,
+                                                                  Row(
+                                                                    children: [
+                                                                      Container(
+                                                                        height: AppSize.s30,
+                                                                        width: AppSize.s50,
+                                                                        child: TextFormField(
+                                                                          controller: daysController, // Use the controller initialized with "1"
                                                                           cursorColor: ColorManager.black,
-                                                                          style: GoogleFonts.firaSans(
-                                                                            fontSize: FontSize.s12,
-                                                                            fontWeight: FontWeight.w700,
-                                                                            color: ColorManager.mediumgrey,
-                                                                            //decoration: TextDecoration.none,
-                                                                          ),
+                                                                          cursorWidth: 1,
+                                                                          style: DocDefination.customTextStyle(context),
                                                                           decoration: InputDecoration(
                                                                             enabledBorder: OutlineInputBorder(
-                                                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                            ),
+                                                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 2),
+                                                                              borderRadius: BorderRadius.circular(8),),
                                                                             focusedBorder: OutlineInputBorder(
-                                                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 2),
                                                                               borderRadius: BorderRadius.circular(8),
                                                                             ),
-                                                                            hintText: 'mm-dd-yyyy',
-                                                                            hintStyle: GoogleFonts.firaSans(
-                                                                              fontSize: FontSize.s12,
-                                                                              fontWeight: FontWeight.w700,
-                                                                              color: ColorManager.mediumgrey,
-                                                                              //decoration: TextDecoration.none,
-                                                                            ),
-                                                                            border: OutlineInputBorder(
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                              borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                                                                            ),
-                                                                            contentPadding:
-                                                                            EdgeInsets.symmetric(horizontal: 16),
-                                                                            suffixIcon: Icon(Icons.calendar_month_outlined,
-                                                                                color: ColorManager.blueprime),
-                                                                            errorText: field.errorText,
+                                                                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                                                           ),
-                                                                          onTap: () async {
-                                                                            DateTime? pickedDate = await showDatePicker(
-                                                                              context: context,
-                                                                              initialDate: DateTime.now(),
-                                                                              firstDate: DateTime(2000),
-                                                                              lastDate: DateTime(3101),
-                                                                            );
-                                                                            if (pickedDate != null) {
-                                                                              calenderController.text =
-                                                                                  DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                            }
-                                                                          },
-                                                                          validator: (value) {
-                                                                            if (value == null || value.isEmpty) {
-                                                                              return 'please select birth date';
-                                                                            }
-                                                                            return null;
-                                                                          },
+                                                                          keyboardType:
+                                                                          TextInputType.number,
+                                                                          inputFormatters: [
+                                                                            FilteringTextInputFormatter.digitsOnly, // This ensures only digits are accepted
+                                                                          ],
                                                                         ),
-                                                                      );
-                                                                    },
+                                                                      ),
+                                                                      SizedBox(width: AppSize.s10),
+                                                                      Container(
+                                                                        height: AppSize.s30,
+                                                                        width: AppSize.s80,
+                                                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                                                        decoration: BoxDecoration(
+                                                                          border: Border.all(color: ColorManager.fmediumgrey),
+                                                                          borderRadius: BorderRadius.circular(8),
+                                                                        ),
+                                                                        child: DropdownButtonFormField<String>(
+                                                                          value:
+                                                                          selectedYear, // Initial value (you should define this variable)
+                                                                          items: [
+                                                                            DropdownMenuItem(
+                                                                              value: AppConfig.year,
+                                                                              child: Text(
+                                                                                AppConfig.year,
+                                                                                style: DocDefination.customTextStyle(context)
+                                                                              ),
+                                                                            ),
+                                                                            DropdownMenuItem(
+                                                                              value: AppConfig.month,
+                                                                              child: Text(
+                                                                                AppConfig.month,
+                                                                                style: DocDefination.customTextStyle(context)
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                          onChanged: (value) {
+                                                                            setState(() {
+                                                                              selectedYear = value;
+                                                                            });
+                                                                          },
+                                                                          decoration: InputDecoration(
+                                                                            enabledBorder: InputBorder.none,
+                                                                            focusedBorder: InputBorder.none,
+                                                                            hintText: AppConfig.year,
+                                                                            hintStyle: DocDefination.customTextStyle(context),
+                                                                            contentPadding: EdgeInsets.only(bottom: 20),
+                                                                          ),
+                                                                          icon: Icon(
+                                                                            Icons.arrow_drop_down,
+                                                                            color: ColorManager.black,
+                                                                            size: 16,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ],
                                                               ),
@@ -585,25 +455,17 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                               _isLoading = true;
                                                             });
                                                             try {
-                                                              await deleteDocument(
-                                                                  context,
-                                                                  snapshot.data![index].docId);
-                                                              getORGDoc(context,widget.docId,widget.subDocId,1,15
-                                                              ).then((data) {
-                                                                _policiesandprocedureController.add(data);
-                                                              }).catchError((error) {
-                                                                // Handle error
-                                                              });
+                                                              await deleteNewOrgDoc(context, snapshot.data![index].orgDocumentSetupid);
                                                             } finally {
                                                               setState(() {
                                                                 _isLoading = false;
                                                               });
                                                               Navigator.pop(context);
                                                             }
-            
+
                                                           });
                                                         },
-            
+
                                                       ));
                                                 }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                           ],
@@ -639,28 +501,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                           });
                         },
                       )
-            
-                      // PaginationControlsWidget(
-                      //   currentPage: currentPage,
-                      //   items: items,
-                      //   itemsPerPage: itemsPerPage,
-                      //   onPreviousPagePressed: () {
-                      //     setState(() {
-                      //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                      //     });
-                      //   },
-                      //   onPageNumberPressed: (pageNumber) {
-                      //     setState(() {
-                      //       currentPage = pageNumber;
-                      //     });
-                      //   },
-                      //   onNextPagePressed: () {
-                      //     setState(() {
-                      //       int totalPages = (items.length / itemsPerPage).ceil();
-                      //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                      //     });
-                      //   },
-                      // ),
                     ],
                   );
                 }
@@ -670,6 +510,89 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
           ),
         ],
       );
-
   }
 }
+
+// child2: Visibility(
+//   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Padding(
+//         padding: const EdgeInsets.only(left: 2),
+//         child: Text(
+//           "Expiry Date",
+//           style: GoogleFonts.firaSans(
+//             fontSize: FontSize.s12,
+//             fontWeight: FontWeight.w700,
+//             color: ColorManager.mediumgrey,
+//             decoration: TextDecoration.none,
+//           ),
+//         ),
+//       ),
+//       SizedBox(height: 5,),
+//       FormField<String>(
+//         builder: (FormFieldState<String> field) {
+//           return SizedBox (
+//             width: 354,
+//             height: 30,
+//             child:   TextFormField(
+//               controller: calenderController,
+//               cursorColor: ColorManager.black,
+//               style: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s12,
+//                 fontWeight: FontWeight.w700,
+//                 color: ColorManager.mediumgrey,
+//                 //decoration: TextDecoration.none,
+//               ),
+//               decoration: InputDecoration(
+//                 enabledBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 focusedBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 hintText: 'mm-dd-yyyy',
+//                 hintStyle: GoogleFonts.firaSans(
+//                   fontSize: FontSize.s12,
+//                   fontWeight: FontWeight.w700,
+//                   color: ColorManager.mediumgrey,
+//                   //decoration: TextDecoration.none,
+//                 ),
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(8),
+//                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+//                 ),
+//                 contentPadding:
+//                 EdgeInsets.symmetric(horizontal: 16),
+//                 suffixIcon: Icon(Icons.calendar_month_outlined,
+//                     color: ColorManager.blueprime),
+//                 errorText: field.errorText,
+//               ),
+//               onTap: () async {
+//                 DateTime? pickedDate = await showDatePicker(
+//                   context: context,
+//                   initialDate: DateTime.now(),
+//                   firstDate: DateTime(2000),
+//                   lastDate: DateTime(3101),
+//                 );
+//                 if (pickedDate != null) {
+//                   calenderController.text =
+//                       DateFormat('MM-dd-yyyy').format(pickedDate);
+//                 }
+//               },
+//               validator: (value) {
+//                 if (value == null || value.isEmpty) {
+//                   return 'please select birth date';
+//                 }
+//                 return null;
+//               },
+//             ),
+//           );
+//         },
+//       ),
+//     ],
+//   ),
+// ),

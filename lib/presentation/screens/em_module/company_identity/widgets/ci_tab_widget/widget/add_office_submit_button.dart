@@ -26,12 +26,30 @@ class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController addressController;
   final TextEditingController emailController;
+  final TextEditingController stateController;
+  final TextEditingController countryController;
   final TextEditingController mobNumController;
   final TextEditingController secNumController;
   final TextEditingController OptionalController;
+  //final Widget checkBoxHeadOffice;
+  final Widget checkBoxServices;
+  final Widget pickLocationWidget;
   final Future<void> Function() onPressed;
   final GlobalKey<FormState> formKey;
-  AddOfficeSumbitButton({super.key, required this.nameController, required this.addressController, required this.emailController, required this.mobNumController, required this.secNumController, required this.OptionalController, required this.onPressed, required this.formKey});
+  AddOfficeSumbitButton({super.key,
+    required this.pickLocationWidget,
+    required this.nameController,
+    required this.addressController,
+    required this.emailController,
+    required this.mobNumController,
+    required this.secNumController,
+    required this.OptionalController,
+    required this.onPressed,
+    required this.formKey,
+    required this.stateController,
+    required this.countryController,
+    // required this.checkBoxHeadOffice,
+    required this.checkBoxServices});
 
   @override
   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
@@ -39,43 +57,7 @@ class AddOfficeSumbitButton extends StatefulWidget {
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   bool isLoading = false;
-  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
-  double? _latitude;
-  double? _longitude;
- void _pickLocation() async {
-   final pickedLocation = await Navigator.of(context).push<LatLng>(
-     MaterialPageRoute(
-       builder: (context) => MapScreen(
-         initialLocation: _selectedLocation,
-         onLocationPicked: (location) {
-           // Print debug information to ensure this is being called
-           print('Picked location inside MapScreen: $location');
-           setState(() {
-             _latitude = location.latitude;
-             _longitude = location.longitude;
-          _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-             //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-           });
-         },
-       ),
-     ),
-   );
 
-   if (pickedLocation != null) {
-     // Print debug information to ensure this is being reached
-     print('Picked location from Navigator: $pickedLocation');
-     setState(() {
-       _selectedLocation = pickedLocation;
-       _latitude = pickedLocation.latitude;
-       _longitude = pickedLocation.longitude;
-       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-       //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-     });
-   } else {
-     print('No location was picked.');
-   }
- }
   List<String> _suggestions = [];
   @override
   void initState() {
@@ -107,8 +89,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s390,
-        height: AppSize.s511,
+        width: AppSize.s833,
+        height: AppSize.s500,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -118,7 +100,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
             Container(
               height: AppSize.s40,
               width: AppSize.s390,
-              padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: ColorManager.bluebottom,
                 borderRadius: BorderRadius.only(
@@ -130,155 +111,169 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 40),
                     child: Text(
                       'Add New Office',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close, color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close, color: Colors.white),
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p20,
                 horizontal: AppPadding.p15,
               ),
               child: Form(
                 key: widget.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
-                    SMTextFConst(
-                      controller: widget.nameController,
-                      keyboardType: TextInputType.text,
-                      text: AppStringEM.name,
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return "Please Enter name";
-                      //   }
-                      //   if (!value.contains(RegExp(r'[0-9]'))) {
-                      //     return 'Please Enter valid name';
-                      //   }
-                      //   return "";
-                      // },
-                    ),
-                    const SizedBox(height: AppSize.s9),
-                    SMTextFConst(
-                      controller: widget.addressController,
-                      keyboardType:
-                      TextInputType.streetAddress,
-                      text: AppString.officeaddress,
-                    ),
-                    if (_suggestions.isNotEmpty)
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 4,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _suggestions.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(_suggestions[index],style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),),
-                              onTap: () {
-                                widget.addressController.text = _suggestions[index];
-                                setState(() {
-                                  _suggestions.clear();
-                                });
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    const SizedBox(height: AppSize.s9),
-
-                    DemailSMTextFConst(
-                      controller: widget.emailController,
-                      keyboardType:
-                      TextInputType.emailAddress,
-                      text: AppString.email,
-                    ),
-
-                    const SizedBox(height: AppSize.s9),
-                    SMTextFConstPhone(
-                      controller: widget.mobNumController,
-                      keyboardType: TextInputType.number,
-                      text: 'Primary Phone',
-                    ),
-                    const SizedBox(height: AppSize.s9),
-                    SMTextFConstPhone(
-                      controller: widget.secNumController,
-                      keyboardType: TextInputType.number,
-                      text: 'Secondary Phone',
-                    ),
-                    const SizedBox(height: AppSize.s9),
-                    SMTextFConstPhone(
-                      controller: widget.OptionalController,
-                      keyboardType: TextInputType.number,
-                      text: 'Alternative Phone',
-                    ),
-                    const SizedBox(height: AppSize.s9),
-
-                    Row(
+                    Stack(
                       children: [
-                        TextButton(
-                          onPressed: _pickLocation,
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.transparent),
-                          child: Text(
-                            'Pick Location',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.bluelight,
-                              //decoration: TextDecoration.none,
+                        Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                            FirstSMTextFConst(
+                              controller: widget.nameController,
+                              keyboardType: TextInputType.text,
+                              text: AppStringEM.name,
+                              // validator: (value) {
+                              //   if (value!.isEmpty) {
+                              //     return "Please Enter name";
+                              //   }
+                              //   if (!value.contains(RegExp(r'[0-9]'))) {
+                              //     return 'Please Enter valid name';
+                              //   }
+                              //   return "";
+                              // },
                             ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: ColorManager.granitegray,
-                          size: AppSize.s18,
-                        ),
-                        Text(
-                          _location,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.granitegray,
-                          ),
-                        ),
-
-                      ],
+                            const SizedBox(height: AppSize.s9),
+                            DemailSMTextFConst(
+                              controller: widget.emailController,
+                              keyboardType:
+                              TextInputType.emailAddress,
+                              text: AppString.email,
+                            ),
+                            const SizedBox(height: AppSize.s9),
+                            FirstSMTextFConst(
+                              controller: widget.countryController,
+                              keyboardType: TextInputType.text,
+                              text: 'Country',
+                            ),
+                            const SizedBox(height: AppSize.s9),
+                            SMTextFConstPhone(
+                              controller: widget.secNumController,
+                              keyboardType: TextInputType.number,
+                              text: 'Secondary Phone',
+                            ),
+                            const SizedBox(height: AppSize.s9),
+                            Text('Services',style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                              decoration: TextDecoration.none,
+                            )),
+                            widget.checkBoxServices,
+                          ],),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                            SMTextFConst(
+                              controller: widget.addressController,
+                              keyboardType:
+                              TextInputType.streetAddress,
+                              text: AppString.officeaddress,
+                            ),
+                            // widget.checkBoxHeadOffice,
+                            const SizedBox(height: AppSize.s9),
+                            FirstSMTextFConst(
+                              controller: widget.stateController,
+                              keyboardType: TextInputType.text,
+                              text: 'State',
+                            ),
+                            const SizedBox(height: AppSize.s9),
+                            SMTextFConstPhone(
+                              controller: widget.mobNumController,
+                              keyboardType: TextInputType.number,
+                              text: 'Primary Phone',
+                            ),
+                            const SizedBox(height: AppSize.s9),
+                            SMTextFConstPhone(
+                              controller: widget.OptionalController,
+                              keyboardType: TextInputType.number,
+                              text: 'Alternative Phone',
+                            ),
+                            const SizedBox(height: AppSize.s9),
+                            widget.pickLocationWidget,
+                          ],)
+                        ]
+                      ),
+                        if (_suggestions.isNotEmpty)
+                          Positioned(
+                            top: 50,
+                            right: 50,
+                            child: Container(
+                              height:100,
+                              width:320,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: _suggestions.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(_suggestions[index],style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w700,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                    onTap: () {
+                                      widget.addressController.text = _suggestions[index];
+                                      widget.addressController.removeListener(_onCountyNameChanged);
+                                      setState(() {
+                                        _suggestions.clear();
+                                      });
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),]
                     ),
-
                   ],
                 ),
               ),
@@ -313,19 +308,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       setState(() {
                         isLoading = false;
                       });
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          Future.delayed(Duration(seconds: 3), () {
-                            if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                          return AddSuccessPopup(
-                            message: 'Added Successfully',);
-                        },
-                      );
+                      widget.stateController.clear();
+                      widget.countryController.clear();
                       widget.nameController.clear();
                       widget.mobNumController.clear();
                       widget.addressController.clear();

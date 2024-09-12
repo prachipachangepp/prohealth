@@ -1,5 +1,6 @@
 ///Get
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/sm_data/Intake_deta/notes_data/intake_misc_note_data.dart';
@@ -58,6 +59,7 @@ Future<ApiData> addNotesMiscPost(
     required String expDate}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
+
     var data = {
       "patientId": patientId,
       "docTypeId": docTypeId,
@@ -68,9 +70,18 @@ Future<ApiData> addNotesMiscPost(
       "expDate": expDate
     };
     print(' Post Intake Notes Misc $data');
+
     var response = await Api(context)
-        .post(path: NotesRepository.addMiscNote(), data: data);
-    print('Compliance Add ::::$response ');
+        .post(path: NotesRepository.addMiscNote(), data: {
+      "patientId": patientId,
+      "docTypeId": docTypeId,
+      "docType": docType,
+      "docUrl": docUrl,
+      "name": docName,
+      "createdAt":  "2024-08-16T09:39:48.030Z",
+      "expDate":  "2024-08-16T09:39:48.030Z",
+    });
+    print('Intake Misc Notes Add ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Misc addded ");
       return ApiData(
@@ -79,6 +90,7 @@ Future<ApiData> addNotesMiscPost(
           message: response.statusMessage!);
     } else {
       print("Error 1");
+      print('Intake Misc Notes not added ::::$response ');
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
@@ -87,6 +99,7 @@ Future<ApiData> addNotesMiscPost(
   } catch (e) {
     print("Error $e");
     print("Error 2");
+    // print('Intake Misc Notes Add ::::$response');
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
@@ -121,7 +134,7 @@ Future<ApiData> deleteMiscNoteAPI(BuildContext context, int miscNoteId) async {
 ///patch
 
 
-Future<ApiData>NotesMiscPatch (
+Future<ApiData> NotesMiscPatch(
     BuildContext context,
     int miscNoteId,
     int patientId,
@@ -173,9 +186,94 @@ Future<ApiData>NotesMiscPatch (
   }
 }
 
+///upload base 64
+Future<ApiData> uploadDocumentsMiscNotes({
+  required BuildContext context,
+  required dynamic documentFile,
+  required int miscNoteId,
+
+//   "miscNoteId": 0,
+//   "patientId": 0,
+//   "docTypeId": 0,
+//   "docType": "string",
+//   "docUrl": "string",
+//   "name": "string",
+//   "createdAt": "2024-09-05T19:22:36.138Z",
+//   "expDate": "2024-09-05T19:22:36.138Z"
+// }
+
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: NotesRepository.postUploadMN(
+          miscNoteId: miscNoteId
+      ),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Misc Notes Documents uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 
 
 
+
+
+
+
+
+/// document type get miscellaneous
+
+Future<List<MiscNotesDocTypeModal>> getMisNotesDoc(
+    BuildContext context,
+   ) async {
+  List<MiscNotesDocTypeModal> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+      path: NotesRepository.getDocTypeMisNotes(),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+          MiscNotesDocTypeModal(
+              doctTypeId: item['document_type_id'] ?? 0,
+              documentType: item['document_type'] ?? '',
+          ),
+        );
+      }
+      print("Misc Notes response:::::${itemsList}");
+    } else {
+      print('Failed to fetch Misc Notes');
+      return itemsList;
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error fetching Misc Notes: $e");
+    return itemsList;
+  }
+}
 
 
 // Future<ApiData> NotesMiscPatch(

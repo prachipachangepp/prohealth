@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -503,7 +503,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     child: Text(AppString.srNo,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: AppSize.s12,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.white)
                         // style: RegisterTableHead.customTextStyle(context),
@@ -517,7 +517,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                       child: Text(AppString.employmentType,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                              fontSize: 12,
+                              fontSize: AppSize.s12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white)
                           // style: RegisterTableHead.customTextStyle(context),
@@ -531,7 +531,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     child: Center(
                       child: Text("Abbreviation",
                           style: GoogleFonts.firaSans(
-                              fontSize: 12,
+                              fontSize: AppSize.s12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white)
                           // style: RegisterTableHead.customTextStyle(context),
@@ -539,31 +539,27 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     ),
                   ),
                 ),
-                // Expanded(
-                //     child: SizedBox(width: AppSize.s16,
-                //     )),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 80.0),
                     child: Center(
                         child: Text("Color",
                             style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: AppSize.s12,
                                 fontWeight: FontWeight.w700,
                                 color: ColorManager.white)
                             // style: RegisterTableHead.customTextStyle(context),
                             )),
                   ),
                 ),
-                // Center(child:
-                // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
+                //
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 100.0),
                     child: Center(
                         child: Text(AppString.actions,
                             style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: AppSize.s12,
                                 fontWeight: FontWeight.w700,
                                 color: ColorManager.white)
                             // style: RegisterTableHead.customTextStyle(context),
@@ -594,55 +590,17 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                              "No available employee type !!",
+                              ErrorMessageString.noEmpType,
                               style: CustomTextStylesCommon.commonStyle(
                                 fontWeight: FontWeightManager.medium,
                                 fontSize: FontSize.s12,
                                 color: ColorManager.mediumgrey,
                               ),
                             )
-                          // Row(
-                          //   children: [
-                          //     snapshot.data!.isEmpty == AppConfig.clinicalId
-                          //         ? Text(
-                          //       "No available Clinical !!",
-                          //       style: CustomTextStylesCommon.commonStyle(
-                          //         fontWeight: FontWeightManager.medium,
-                          //         fontSize: FontSize.s12,
-                          //         color: ColorManager.mediumgrey,
-                          //       ),
-                          //     )
-                          //         : snapshot.data!.isEmpty == AppConfig.salesId
-                          //         ? Text(
-                          //       "No available Sales!!",
-                          //       style: CustomTextStylesCommon.commonStyle(
-                          //         fontWeight: FontWeightManager.medium,
-                          //         fontSize: FontSize.s12,
-                          //         color: ColorManager.mediumgrey,
-                          //       ),
-                          //     )
-                          //         : Text(
-                          //       "No available Administration !!",
-                          //       style: CustomTextStylesCommon.commonStyle(
-                          //         fontWeight: FontWeightManager.medium,
-                          //         fontSize: FontSize.s12,
-                          //         color: ColorManager.mediumgrey,
-                          //       ),
-                          //     )
-                          //
-                          //   ],
-                          // )
-
                     );
                   }
                   if (snapshot.hasData) {
 
-                    // List<HRAllData> sortedData = List.from(snapshot.data!);
-                    // sortedData.sort((a, b) {
-                    //   DateTime aCreatedAt = a.createdAt ?? DateTime(0);
-                    //   DateTime bCreatedAt = b.createdAt ?? DateTime(0);
-                    //   return bCreatedAt.compareTo(aCreatedAt);
-                    // });
                     List<HRAllData> sortedData = snapshot.data!;
                     sortedData.sort((a, b) => b.employeeTypesId.compareTo(a.employeeTypesId));
 
@@ -663,22 +621,19 @@ class _HRTabScreensState extends State<HRTabScreens> {
                               int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                               String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               HRAllData hrdoc = paginatedData[index];
-
+                              print('Color code ${snapshot.data![index].color}');
                               return Column(
                                 children: [
                                   SizedBox(height: AppSize.s5),
                                   Container(
-                                    padding:
-                                        EdgeInsets.only(bottom: AppPadding.p5),
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 60),
+                                    padding: EdgeInsets.only(bottom: AppPadding.p5),
+                                    margin: EdgeInsets.symmetric(horizontal: 60),
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: ColorManager.grey
-                                              .withOpacity(0.5),
+                                          color: ColorManager.grey.withOpacity(0.5),
                                           spreadRadius: 1,
                                           blurRadius: 4,
                                           offset: Offset(0, 2),
@@ -728,7 +683,6 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                           child: Center(
                                               child: Text(
                                             hrdoc.abbrivation!,
-
                                             style: GoogleFonts.firaSans(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w700,
@@ -743,16 +697,11 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                         Expanded(
                                           flex: 1,
                                           child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                30,
+                                            width: MediaQuery.of(context).size.width / 30,
                                             height: AppSize.s22,
                                             decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color:
-                                                  hrdoc.color!.toColorMaybeNull,
+                                              borderRadius: BorderRadius.circular(8),
+                                              color: hrdoc.color!.toColorMaybeNull,
                                             ),
                                           ),
                                         ),
@@ -773,11 +722,9 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                       showDialog(
                                                           context: context,
                                                           builder: (context) {
-                                                            return FutureBuilder<
-                                                                    HRGetEmpId>(
+                                                            return FutureBuilder<HRGetEmpId>(
                                                                 future: HrGetById(context, hrdoc.employeeTypesId),
-                                                                builder: (context,
-                                                                    snapshot) {
+                                                                builder: (context, snapshot) {
                                                                   if (snapshot.connectionState == ConnectionState.waiting) {
                                                                     return Center(
                                                                         child: CircularProgressIndicator(
@@ -785,17 +732,16 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                           .blueprime,
                                                                     ));
                                                                   }
+                                                                  print('Color prefill ${snapshot.data!.color}');
                                                                   var type = hrdoc.toString();
                                                                   var shorthand = hrdoc.toString();
                                                                   var hexColorData = snapshot.data!.color!.replaceAll("#", "").toString();
                                                                   //hexColorData = i.color.replaceAll("#","");
-                                                                  Color
-                                                                      hexColor =
-                                                                      Color(int.parse('0xFF$hexColorData'));
-                                                                  print(
-                                                                      'Hex Color ::::${hexColor}');
+                                                                  Color hexColor = Color(int.parse('0xFF$hexColorData'));
+                                                                  print('Hex Color ::::${hexColor}');
                                                                   hrcontainerColors[index] = hexColor;
                                                                   var splitHexColor = hexColor.toString().substring(10, 16);
+                                                                  String colortemp = "#${splitHexColor}";
                                                                   typeController = TextEditingController(text: hrdoc.empType.toString());
                                                                   shorthandController = TextEditingController(text: hrdoc.abbrivation.toString());
                                                                   return EditPopupWidget(
@@ -803,13 +749,15 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                     shorthandController: shorthandController,
                                                                     containerColor: hrcontainerColors[index],
                                                                     onSavePressed: () async {
+                                                                      print('Selected color ${snapshot.data!.color }');
                                                                       await AllFromHrPatch(
                                                                           context,
                                                                           snapshot.data!.empTypeId,
                                                                           snapshot.data!.deptId,
                                                                           type == typeController.text ? type.toString() : typeController.text,
                                                                           shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
-                                                                          splitHexColor == hrcontainerColors[index] ? splitHexColor : color);
+                                                                          colortemp == snapshot.data!.color ? colortemp : colortemp
+                                                                      );
                                                                       getAllHrDeptWise(context, widget.deptId).then((data) {
                                                                         _hrAllcontroller.add(data);
                                                                       }).catchError((error) {});
@@ -818,23 +766,17 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       shorthandController.clear();
                                                                       seletedType = "Clinical";
                                                                     },
-                                                                    onColorChanged: (Color seletedColor) {
-                                                                      setState(
-                                                                          () {
-                                                                        hrcontainerColors[index] =
-                                                                            seletedColor;
-                                                                        print(
-                                                                            "Color ${seletedColor}");
-                                                                        color = seletedColor
-                                                                            .toString()
-                                                                            .substring(10,
-                                                                                16);
-                                                                        _saveColor(
-                                                                            index,
-                                                                            seletedColor);
+                                                                    onColorChanged: (Color seletedColor,) {
+                                                                      setState(() {
+                                                                        hrcontainerColors[index] = seletedColor;
+                                                                        print("Color ${seletedColor}");
+                                                                        color = seletedColor.toString().substring(10, 16);
+                                                                        colortemp = "#${color}";
+                                                                        _saveColor(index, seletedColor);
                                                                       });
                                                                     },
                                                                     title: 'Edit Employee Type',
+
                                                                     child: Container(
                                                                       width: 354,
                                                                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
@@ -879,78 +821,6 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                    // FutureBuilder<List<HRHeadBar>>(
-                                                                    //     future: companyHRHeadApi(
-                                                                    //         context,
-                                                                    //         widget
-                                                                    //             .deptId),
-                                                                    //     builder:
-                                                                    //         (context,
-                                                                    //             snapshot) {
-                                                                    //       if (snapshot.connectionState ==
-                                                                    //           ConnectionState.waiting) {
-                                                                    //         return Container(
-                                                                    //           width: 300,
-                                                                    //           child: Text(
-                                                                    //             'Loading...',
-                                                                    //             style: CustomTextStylesCommon.commonStyle(
-                                                                    //               fontWeight: FontWeightManager.medium,
-                                                                    //               fontSize: FontSize.s12,
-                                                                    //               color: ColorManager.mediumgrey,
-                                                                    //             ),
-                                                                    //           ),
-                                                                    //         );
-                                                                    //       }
-                                                                    //       if (snapshot
-                                                                    //           .data!
-                                                                    //           .isEmpty) {
-                                                                    //         return Center(
-                                                                    //           child: Text(
-                                                                    //             AppString.dataNotFound,
-                                                                    //             style: CustomTextStylesCommon.commonStyle(
-                                                                    //               fontWeight: FontWeightManager.medium,
-                                                                    //               fontSize: FontSize.s12,
-                                                                    //               color: ColorManager.mediumgrey,
-                                                                    //             ),
-                                                                    //           ),
-                                                                    //         );
-                                                                    //       }
-                                                                    //       if (snapshot
-                                                                    //           .hasData) {
-                                                                    //         List
-                                                                    //             dropDown =
-                                                                    //             [];
-                                                                    //         int docType =
-                                                                    //             0;
-                                                                    //         List<DropdownMenuItem<String>>
-                                                                    //             dropDownMenuItems =
-                                                                    //             [];
-                                                                    //         for (var i
-                                                                    //             in snapshot.data!) {
-                                                                    //           dropDownMenuItems.add(
-                                                                    //             DropdownMenuItem<String>(
-                                                                    //               child: Text(i.deptName),
-                                                                    //               value: i.deptName,
-                                                                    //             ),
-                                                                    //           );
-                                                                    //         }
-                                                                    //         return CICCDropdown(
-                                                                    //             initialValue: dropDownMenuItems[0].value,
-                                                                    //             onChange: (val) {
-                                                                    //               for (var a in snapshot.data!) {
-                                                                    //                 if (a.deptName == val) {
-                                                                    //                   docType = a.deptId;
-                                                                    //                   doceEditMetaId = docType;
-                                                                    //                 }
-                                                                    //               }
-                                                                    //               print(":::${docType}");
-                                                                    //               print(":::<>${doceEditMetaId}");
-                                                                    //             },
-                                                                    //             items: dropDownMenuItems);
-                                                                    //       } else {
-                                                                    //         return SizedBox();
-                                                                    //       }
-                                                                    //     }),
                                                                   );
                                                                 });
                                                           });
@@ -982,34 +852,20 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       context);
                                                                 },
                                                                 onDelete: () {
-                                                                  setState(
-                                                                      () async {
-                                                                    await allfromHrDelete(
-                                                                        context,
-                                                                        hrdoc
-                                                                            .employeeTypesId);
-                                                                    getAllHrDeptWise(
-                                                                            context,
-                                                                            widget
-                                                                                .deptId)
-                                                                        .then(
-                                                                            (data) {
-                                                                      _hrAllcontroller
-                                                                          .add(
-                                                                              data);
-                                                                    }).catchError(
-                                                                            (error) {
+                                                                  setState(() async {
+                                                                    await allfromHrDelete(context, hrdoc.employeeTypesId);
+                                                                    getAllHrDeptWise(context, widget.deptId).then(
+                                                                            (data) {_hrAllcontroller.add(data);
+                                                                    }).catchError((error) {
                                                                       // Handle error
                                                                     });
-                                                                    Navigator.pop(
-                                                                        context);
+                                                                    Navigator.pop(context);
                                                                   });
                                                                 }));
                                                   },
                                                   icon: Icon(
                                                     size: 18,
-                                                    Icons
-                                                        .delete_outline_outlined,
+                                                    Icons.delete_outline_outlined,
                                                     color: Color(0xffF6928A),
                                                   ),
                                                 ),

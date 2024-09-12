@@ -18,7 +18,28 @@ class CreateDataScheduler {
       required this.endTime,
       required this.details});
 }
-////////
+
+/// Calender prefill data
+class CreatePrefillDataScheduler {
+  final int? schedulerCreateId;
+  final int? patientId;
+  final int? clinicianId;
+  final String? visitType;
+  final String? assignDate;
+  final String? startTime;
+  final String? endTime;
+  final String? details;
+
+  CreatePrefillDataScheduler(
+      {required this.schedulerCreateId,
+        required this.patientId,
+        required this.clinicianId,
+        required this.visitType,
+        required this.assignDate,
+        required this.startTime,
+        required this.endTime,
+        required this.details});
+}
 class StateData {
   final int stateId;
   final String name;

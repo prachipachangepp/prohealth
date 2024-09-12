@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf/pdf.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -131,7 +132,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                         child: Text(
-                      "No available vendors !!",
+                     ErrorMessageString.noVendor,
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

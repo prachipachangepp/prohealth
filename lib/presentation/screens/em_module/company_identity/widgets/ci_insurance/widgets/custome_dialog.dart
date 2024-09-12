@@ -98,7 +98,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SMTextFConst(
+                  FirstSMTextFConst(
                     controller: widget.namecontroller,
                     keyboardType: TextInputType.text,
                     text: 'Vendor Name',
@@ -116,12 +116,7 @@ class _CustomPopupState extends State<CustomPopup> {
                   onPressed: () {
                     widget.onPressed();
                     Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(message: widget.successpopuptext,);
-                      },
-                    );
+
                   },
                 ),
               ),

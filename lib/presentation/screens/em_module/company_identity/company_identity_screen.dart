@@ -50,27 +50,28 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     index: 0,
                     grpIndex: _selectedIndex,
                     heading: "Company Identity"),
+                SizedBox(width: 10,),
+                // UpperMenuButtons(
+                //     onTap: (int index) {
+                //       _selectButton(index);
+                //     },
+                //     index: 1,
+                //     grpIndex: _selectedIndex,
+                //     heading: "Visits"),
                 UpperMenuButtons(
                     onTap: (int index) {
                       _selectButton(index);
                     },
                     index: 1,
                     grpIndex: _selectedIndex,
-                    heading: "Visits"),
-                UpperMenuButtons(
-                    onTap: (int index) {
-                      _selectButton(index);
-                    },
-                    index: 2,
-                    grpIndex: _selectedIndex,
                     heading: "Document Definitions"),
-                UpperMenuButtons(
-                    onTap: (int index) {
-                      _selectButton(index);
-                    },
-                    index: 3,
-                    grpIndex: _selectedIndex,
-                    heading: "Role Manager"),
+                // UpperMenuButtons(
+                //     onTap: (int index) {
+                //       _selectButton(index);
+                //     },
+                //     index: 3,
+                //     grpIndex: _selectedIndex,
+                //     heading: "Role Manager"),
               ],
             ),
           ),
@@ -87,24 +88,19 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               children: [
                 CompanyIdentity(),
                 // Page 1
-                CiVisitScreen(),
+                // CiVisitScreen(),
                 // Page 2
                 CiOrgDocument
-                  (
-                  officeId: widget.officeId ?? 'Office 01',
+                  (officeId: widget.officeId ?? 'Office 01',
                   companyId: widget.companyId,),
                 // Page 3
-                CiRoleManager()
+                // CiRoleManager()
               ],
             ),
           ),
-
-          ///Company Identity screen data code
-          ///API integarted code do not delete
         ]));
   }
 }
-
 ///
 
 class NonScrollablePageView extends StatelessWidget {

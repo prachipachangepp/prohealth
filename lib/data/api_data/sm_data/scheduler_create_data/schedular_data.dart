@@ -73,8 +73,11 @@ class Calendar {
   final String startTime;
   final String endTime;
   final String details;
+  final String patientFirstName;
+  final String patientLastName;
+  final String patientAddress;
 
-  Calendar({
+  Calendar({required this.patientFirstName, required this.patientLastName, required this.patientAddress,
     required this.schedulerCreateId,
     required this.patientId,
     required this.clinicianId,

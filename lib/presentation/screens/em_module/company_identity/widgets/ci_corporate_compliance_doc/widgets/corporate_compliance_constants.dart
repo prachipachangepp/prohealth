@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 
@@ -244,7 +245,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
             decoration: BoxDecoration(
               border: Border.all(
                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Row(
               children: [
@@ -582,6 +583,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   }
 }
 
+
 /// add popu
 class AddOrgDocButton extends StatefulWidget {
   final TextEditingController idDocController;
@@ -595,6 +597,7 @@ class AddOrgDocButton extends StatefulWidget {
   final Widget? radioButton;
   final Visibility? child2;
   final bool? loadingDuration;
+  final String? selectedSubDocType;
   AddOrgDocButton(
       {super.key,
       required this.idDocController,
@@ -607,7 +610,7 @@ class AddOrgDocButton extends StatefulWidget {
       this.loadingDuration,
       required this.title,
       this.child2,
-      this.height});
+      this.height, this.selectedSubDocType});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -617,7 +620,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   bool _isFormValid = true;
 
   // Error messages for each text field
-  //String? _idDocError;
+  String? _idDocError;
   String? _nameDocError;
 
   String? _validateTextField(String value, String fieldName) {
@@ -625,17 +628,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       _isFormValid = false;
       return "Please Enter $fieldName";
     }
-    if (value[0] != value[0].toUpperCase()) {
-      _isFormValid = false;
-      return "$fieldName must start with a capital letter";
-    }
+    // if (value.isEmpty) {
+    //   _isFormValid = false;
+    //   return "$fieldName must start with a capital letter";
+    // }
     return null;
   }
 
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      //_idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
+       _idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
       _nameDocError = _validateTextField(widget.nameDocController.text, 'Name of the Document');
     });
   }
@@ -646,7 +649,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height ?? AppSize.s550,
+        height: widget.height ?? AppSize.s598,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -709,17 +712,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                   // if (_idDocError != null)
-                   //  Padding(
-                   //    padding: const EdgeInsets.only(top: 2.0),
-                   //    child: Text(
-                   //      _idDocError!,
-                   //      style: TextStyle(
-                   //        color: Colors.red,
-                   //        fontSize: FontSize.s12,
-                   //      ),
-                   //    ),
-                   //  ),
+                   if (_idDocError != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2.0),
+                      child: Text(
+                        _idDocError!,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                    ),
                   SizedBox(height: AppSize.s13),
 
                   /// Name of the Document
@@ -819,6 +822,187 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+
+class dummeyTextField extends StatefulWidget {
+  final String labelText;
+  final String? initialValue;
+  final TextEditingController? controller;
+  final Icon? suffixIcon;
+  final FormFieldValidator<String>? validator;
+  final double? width;
+  final double? height;
+
+  const dummeyTextField({
+    Key? key,
+    required this.labelText,
+    this.initialValue,
+    this.controller,
+    this.suffixIcon, this.validator, this.width, this.height,
+  }) : super(key: key);
+
+  @override
+  _dummeyTextFieldState createState() => _dummeyTextFieldState();
+}
+
+class _dummeyTextFieldState extends State<dummeyTextField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: widget.width,
+        height:widget.height,
+        child: TextFormField(
+          textCapitalization: TextCapitalization.sentences,
+          controller: _controller,
+          style: GoogleFonts.firaSans(
+            fontSize: FontSize.s12,
+            fontWeight: FontWeightManager.regular,
+            color: ColorManager.black,
+          ),
+          cursorColor: ColorManager.black,
+
+          decoration: InputDecoration(
+
+            labelText: widget.labelText,
+            labelStyle: GoogleFonts.firaSans(
+              fontSize: FontSize.s10,
+              color: ColorManager.greylight,
+            ),
+            border: const OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+            ),
+            suffixIcon: widget.suffixIcon != null
+                ? GestureDetector(
+              onTap: () async {
+                // Open the date picker when the calendar icon is tapped
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2101),
+                );
+
+                if (pickedDate != null) {
+                  // Format the date and set it into the text field
+                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                  _controller.text = formattedDate;
+                }
+              },
+              child: widget.suffixIcon,
+            )
+                : null,
+            // Do not show any icon if suffixIcon is null
+          ),
+          validator: widget.validator,
+        )
+    );
+  }
+}
+
+
+
+
+///circuler border
+
+class CdummeyTextField extends StatefulWidget {
+  final String labelText;
+  final String? initialValue;
+  final TextEditingController? controller;
+  final Icon? suffixIcon;
+  final FormFieldValidator<String>? validator;
+  final double? width;
+  final double? height;
+
+  const CdummeyTextField({
+    Key? key,
+    required this.labelText,
+    this.initialValue,
+    this.controller,
+    this.suffixIcon, this.validator, this.width, this.height,
+  }) : super(key: key);
+
+  @override
+  _CdummeyTextFieldState createState() => _CdummeyTextFieldState();
+}
+
+class _CdummeyTextFieldState extends State<CdummeyTextField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: widget.width,
+        height:widget.height,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.sentences,
+            controller: _controller,
+            style: GoogleFonts.firaSans(
+              fontSize: FontSize.s12,
+              fontWeight: FontWeightManager.regular,
+              color: ColorManager.black,
+            ),
+            cursorColor: ColorManager.black,
+
+            decoration: InputDecoration(
+
+              labelText: widget.labelText,
+              labelStyle: GoogleFonts.firaSans(
+                fontSize: FontSize.s10,
+                color: ColorManager.greylight,
+              ),
+              border: const OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+              ),
+              suffixIcon: widget.suffixIcon != null
+                  ? GestureDetector(
+                onTap: () async {
+                  // Open the date picker when the calendar icon is tapped
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2101),
+                  );
+
+                  if (pickedDate != null) {
+                    // Format the date and set it into the text field
+                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                    _controller.text = formattedDate;
+                  }
+                },
+                child: widget.suffixIcon,
+              )
+                  : null,
+              // Do not show any icon if suffixIcon is null
+            ),
+            validator: widget.validator,
+          ),
+        )
     );
   }
 }

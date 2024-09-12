@@ -113,11 +113,112 @@ Future<ApiData> SchedulerCreate({
   }
 }
 
-////
-///get api
+/// Patch schedule
+Future<ApiData> updateScheduleCalender({
+  required BuildContext context,
+  required int schedulerCreateId,
+  required int patientId,
+  required int clinicianId,
+  required String visitType,
+  required String assignDate,
+  required String startTime,
+  required String endTime,
+  required String details,
+}) async {
+  try {
+    var response = await Api(context).patch(
+      path: SchedulerSMRepo.updateSchedule(schedulerCreateId: schedulerCreateId),
+      data: {
+        "patientId": patientId,
+        "clinicianId": clinicianId,
+        "visitType": visitType,
+        "assignDate": assignDate,
+        "startTime": startTime,
+        "endTime": endTime,
+        "details": details
+      },
+    );
+    print(response);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Scheduler Updated");
+      var patientIdresponse = response.data;
 
-Future<List<CreateDataScheduler>> getScheduler(
-    BuildContext context, int patientId) async {
+      // orgDocumentGet(context);
+
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!,
+          );
+    } else {
+      print("Error 1");
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0), // Rounded corners
+            ),
+            child: Container(
+              height: 270,
+              width: 300,
+              padding: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                color: Colors.white, // Background color
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    Icons.cancel_outlined,
+                    color: Colors.red,
+                    size: 80.0,
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    "Failed, Please Try Again !",
+                    style: GoogleFonts.firaSans(
+                        fontSize: 16.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CustomButton(
+                          height: 30,
+                          width: 130,
+                          text: 'Back',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    // Show error dialog
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///get api
+Future<List<CreateDataScheduler>> getScheduler({
+    required BuildContext context, required int patientId}) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -161,6 +262,34 @@ Future<List<CreateDataScheduler>> getScheduler(
   }
 }
 
+/// get calender prefill
+Future<CreatePrefillDataScheduler> getPreFillCalenderData({
+  required BuildContext context, required int schedulerCreateId}) async {
+  var itemsData;
+  try {
+    final response = await Api(context)
+        .get(path: SchedulerSMRepo.getPreFillSchedule(schedulerId: schedulerCreateId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        itemsData = CreatePrefillDataScheduler(
+          schedulerCreateId: response.data['schedulerCreateId'],
+          patientId: response.data['patientId'],
+          clinicianId: response.data['clinicianId'],
+          visitType: response.data['visitType'],
+          assignDate: response.data['assignDate'],
+          startTime: response.data['startTime'],
+          endTime: response.data['endTime'],
+          details: response.data['details'],
+        );
+    } else {
+      print("Scheduler Prefilled");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
 /// Calender
 Future<SchedularData> getSchedularByClinitian({
   required BuildContext context,
@@ -190,28 +319,28 @@ Future<SchedularData> getSchedularByClinitian({
       // Parse the response data into SchedularData model
       itemData = SchedularData(
         zone: responseData['Zone'] ?? '',
-        zoneId: responseData['ZoneId'],
+        zoneId: responseData['ZoneId']??0,
         correntLocation: responseData['correntLocation'] ?? '',
         expertise: responseData['expertise'] ?? '',
-        fullname: responseData['fullname'] ?? '',
+        fullname: responseData['clinicianfullname'] ?? '',
         status: responseData['status'] ?? '',
-        totalPatients: responseData['totalPatients'],
+        totalPatients: responseData['totalPatients']??0,
         compliance:Compliance(
           license: responseData['Compliance']['License'] ?? '',
-          missedVisit: responseData['Compliance']['MissedVisit'],
-          qaisisForms: responseData['Compliance']['QAISISForms'] ?? "",
+          missedVisit: responseData['Compliance']['MissedVisit']??0,
+          qaisisForms: responseData['Compliance']['QAISISForms'] ?? 0,
         ),
         summary: Summary(
-          earning: responseData['Summary']['Earning'],
+          earning: responseData['Summary']['Earning']??0,
           travel: responseData['Summary']['Travel'] ?? '',
           totalTravel: responseData['Summary']['TotalTravel'] ?? '',
-          visit: responseData['Summary']['Visit'],
-          totalQAISIS: responseData['Summary']['TotalQAISIS'],
-          reAssigned: responseData['Summary']['ReAssigned'],
-          rescheduled: responseData['Summary']['Rescheduled'],
-          totalEarning: responseData['Summary']['TotalEarning'],
-          totalReAssigned: responseData['Summary']['TotalReAssigned'],
-          grandTotalQAISIS: responseData['Summary']['GrandTotalQAISIS'],
+          visit: responseData['Summary']['Visit']??0,
+          totalQAISIS: responseData['Summary']['TotalQAISIS']??0,
+          reAssigned: responseData['Summary']['ReAssigned']??0,
+          rescheduled: responseData['Summary']['Rescheduled']??0,
+          totalEarning: responseData['Summary']['TotalEarning']??0,
+          totalReAssigned: responseData['Summary']['TotalReAssigned']??0,
+          grandTotalQAISIS: responseData['Summary']['GrandTotalQAISIS']??0,
         ),
         calender: (responseData['Calender'] as List<dynamic>?)
             ?.map((item) {
@@ -219,14 +348,17 @@ Future<SchedularData> getSchedularByClinitian({
               // String convertedStartTimeDate = convertIsoToDayMonthYear(item['startTime']);
               // String convertedEndTimeDate = convertIsoToDayMonthYear(item['endTime']);
          return Calendar(
-            schedulerCreateId: item['schedulerCreateId'],
-            patientId: item['patientId'],
-            clinicianId: item['clinicianId'],
+            schedulerCreateId: item['schedulerCreateId']??0,
+            patientId: item['patientId']??0,
+            clinicianId: item['clinicianId']??0,
             visitType: item['visitType'] ?? '',
             assignDate: item['assignDate'] ?? '',
             startTime: item['startTime'] ?? '',
             endTime: item['endTime'] ?? '',
             details: item['details'] ?? '',
+           patientFirstName: item['patientFirstName']??"",
+           patientLastName: item['patientLastName']??"",
+           patientAddress: item['patientAddress']??"",
           );
         } )
             .toList() ??

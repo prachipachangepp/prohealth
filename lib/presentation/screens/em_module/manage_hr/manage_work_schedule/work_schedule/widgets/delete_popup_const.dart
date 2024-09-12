@@ -144,6 +144,135 @@ class _DeletePopupState extends State<DeletePopup> {
     );
   }
 }
+
+/// Do not allow delete
+class NotAllowDeletePopup extends StatefulWidget {
+  final VoidCallback onCancel;
+  final VoidCallback onDelete;
+  final bool? loadingDuration;
+  final String title;
+  NotAllowDeletePopup({super.key, required this.onCancel,
+    required this.onDelete, this.loadingDuration, required this.title});
+
+  @override
+  State<NotAllowDeletePopup> createState() => _NotAllowDeletePopup();
+
+
+}
+//
+class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: AppSize.s400,
+        height: AppSize.s181,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              height: 35,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: AppSize.s20,),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p20,
+                horizontal: AppPadding.p20,
+              ),
+              child: Row(
+                children: [
+                  Text('Not allow to delete county.',
+                    style:CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.semiBold,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: AppPadding.p24),
+                      child:  SizedBox(
+                        width: 100,
+                        child: ElevatedButton(
+                          onPressed: widget.onCancel,
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: ColorManager.bluebottom,
+                                width: 1,
+                              ),
+                            ),),
+                          child: Text('Cancel',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.bluebottom,
+                              )),),
+                      )
+                  ),
+                  SizedBox(width: 20,),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+                    child: CustomElevatedButton(
+                      width: AppSize.s105,
+                      height: AppSize.s30,
+                      text: "OK",
+                      onPressed: () {
+                        widget.onDelete();
+                        //Navigator.pop(context);
+                      },
+                    ),
+                  ),]
+            ),
+            //
+          ],
+        ),
+      ),
+    );
+  }
+}
 ///
 class ReusableLoadingButton extends StatefulWidget {
   final String text;
@@ -181,7 +310,7 @@ class _ReusableLoadingButtonState extends State<ReusableLoadingButton> {
       _isLoading = true;
     });
 
-    widget.onPressed?.call();
+    widget.onPressed.call();
     Future.delayed(Duration(seconds: widget.loadingDuration), () {
       setState(() {
         _isLoading = false;

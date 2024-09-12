@@ -123,7 +123,8 @@ Future<ApiData> addComplianceDocumentPost({
   }
 }
 
-Future<List<PatientDataComplianceDoc>> getpatientDataComplianceDoc(BuildContext context,
+Future<List<PatientDataComplianceDoc>>
+getpatientDataComplianceDoc(BuildContext context,
 
     ) async {
   List<PatientDataComplianceDoc> itemsList = [];

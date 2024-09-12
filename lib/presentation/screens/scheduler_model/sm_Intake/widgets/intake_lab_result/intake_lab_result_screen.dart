@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -10,15 +11,18 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/lab_report/lab_report_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/widget/lab_result_add_pop_up.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/widget/compliance_add_popup.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/patient_data/patient_data_compliance.dart';
+import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/sm_data/patient_data/patient_data_compliance.dart';
 import '../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../widgets/constant_widgets/button_constant.dart';
@@ -45,6 +49,20 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
   int docTypeId = 0;
   bool _isLoading = false;
   String? expiryType;
+  dynamic filePath;
+  String? documentTypeName;
+  String fileName ='';
+  Future<void> _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      setState(() {
+        filePath = result.files.first.bytes;
+        fileName = result.files.first.name;
+        print('File path ${filePath}');
+        print('File name ${fileName}');
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -73,286 +91,63 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                         text: AppString.add_new,
                         icon: Icons.add,
                         onPressed: () async {
+                          print("patientId${widget.patientId}");
                           String? selectedDocType;
                           String? selectedExpiryType = expiryType;
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return StatefulBuilder(builder:
-                                  (BuildContext context,
-                                      void Function(void Function()) setState) {
-                                return ComplianceAddPopUp(
-                                  calenderController: calenderController,
-                                  idDocController: docIdController,
-
-                                  nameDocController: namecontroller,
-                                  onPressed: () async {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    String expiryTypeToSend =
-                                        selectedExpiryType == "Not Applicable"
-                                            ? "--"
-                                            : calenderController.text;
-                                    try {
-                                      await addLabReport(
-                                        context: context,
-                                        patientId: widget.patientId,
-                                        docTypeId: 1,
-                                        docType: docTypecontroller.text,
-                                        name: namecontroller.text,
-                                        docUrl: "url",
-                                        createdAt: "2024-08-16T09:39:48.030Z",
-                                        expDate: "2024-08-16T09:39:48.030Z",
-                                        // // patientId: widget.patientId,
-                                        // patientId: 1,
-                                        // docTypeId: docTypeId,
-                                        // // docTypeId: 24,
-                                        // docName: docNamecontroller.text,
-                                        // docUrl: 'url',
-                                        // expDate: "2024-08-16T09:39:48.030Z",
-                                      );
-                                      print("DocName${namecontroller.text}");
-                                      GetLabReport(context, 1);
-                                      Navigator.pop(context);
-                                      setState(() {
-                                        expiryType = '';
-                                        calenderController.clear();
-                                        docIdController.clear();
-                                        namecontroller.clear();
-                                      });
-                                    } finally {
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
+                              return ComplianceAddPopUp(
+                                fileName: fileName,
+                                filePath: filePath,
+                                calenderController: calenderController,
+                                idDocController: docIdController,
+                                nameDocController: namecontroller,
+                                onPressed: () async {
+                                  print('File path on pressed ${filePath}');
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  String expiryTypeToSend =
+                                  selectedExpiryType == "Not Applicable"
+                                      ? "--"
+                                      : calenderController.text;
+                                  try {
+                                    ApiData response =  await addLabReport(
+                                      context: context,
+                                      patientId: widget.patientId,
+                                      docTypeId: 1,
+                                      docType: namecontroller.text,
+                                      name: namecontroller.text,
+                                      docUrl: "url",
+                                      createdAt: DateTime.now(),
+                                      expDate: "2024-08-16T09:39:48.030Z",
+                                    );
+                                    if(response.statusCode == 200 ||response.statusCode == 201 ){
+                                      await uploadDocumentsLabReport(context: context,
+                                          documentFile: filePath,
+                                          labReportId: response.labReportId!);
                                     }
-                                  },
-                                  child: FutureBuilder<List<PatientDataComplianceDoc>>(
-                                    future:
-                                    getpatientDataComplianceDoc(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Container(
-                                          width: 350,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            AppString.dataNotFound,
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                              fontWeight:
-                                              FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>>
-                                        dropDownMenuItems = snapshot.data!
-                                            .map((doc) =>
-                                            DropdownMenuItem<String>(
-                                              value: doc.docType,
-                                              child: Text(doc.docType!),
-                                            ))
-                                            .toList();
-                                        return CICCDropdown(
-                                          initialValue: selectedDocType ??
-                                              dropDownMenuItems[0].value,
-                                          onChange: (val) {
-                                            setState(() {
-                                              selectedDocType = val;
-                                              for (var doc in snapshot.data!) {
-                                                if (doc.docType == val) {
-                                                  docTypeId = doc.docTypeId!;
-                                                }
-                                              }
-                                              getComplianceByPatientId(
-                                                  context,
-                                                  1
-                                              ).then((data) {
-                                                _compliancePatientDataController
-                                                    .add(data!);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                            });
-                                          },
-                                          items: dropDownMenuItems,
-                                        );
-                                      } else {
-                                        return SizedBox();
-                                      }
-                                    },
-                                  ),
-                                  radioButton: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Expiry Type",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
-                                      CustomRadioListTile(
-                                        value: "Not Applicable",
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: "Not Applicable",
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Scheduled',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Scheduled',
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Issuer Expiry',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Issuer Expiry',
-                                      ),
-                                    ],
-                                  ),
-                                  child2: Visibility(
-                                    visible: selectedExpiryType ==
-                                            "Scheduled" ||
-                                        selectedExpiryType == "Issuer Expiry",
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Expiry Date",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                        FormField<String>(
-                                          builder:
-                                              (FormFieldState<String> field) {
-                                            return SizedBox(
-                                              width: 354,
-                                              height: 30,
-                                              child: TextFormField(
-                                                controller: calenderController,
-                                                cursorColor: ColorManager.black,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                  //decoration: TextDecoration.none,
-                                                ),
-                                                decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: ColorManager
-                                                            .fmediumgrey,
-                                                        width: 1),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: ColorManager
-                                                            .fmediumgrey,
-                                                        width: 1),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                  hintText: 'mm-dd-yyyy',
-                                                  hintStyle:
-                                                      GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        ColorManager.mediumgrey,
-                                                    //decoration: TextDecoration.none,
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    borderSide: BorderSide(
-                                                        width: 1,
-                                                        color: ColorManager
-                                                            .fmediumgrey),
-                                                  ),
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          horizontal: 16),
-                                                  suffixIcon: Icon(
-                                                      Icons
-                                                          .calendar_month_outlined,
-                                                      color: ColorManager
-                                                          .blueprime),
-                                                  errorText: field.errorText,
-                                                ),
-                                                onTap: () async {
-                                                  DateTime? pickedDate =
-                                                      await showDatePicker(
-                                                    context: context,
-                                                    initialDate: DateTime.now(),
-                                                    firstDate: DateTime(2000),
-                                                    lastDate: DateTime(3101),
-                                                  );
-                                                  if (pickedDate != null) {
-                                                    calenderController.text =
-                                                        DateFormat('MM-dd-yyyy')
-                                                            .format(pickedDate);
-                                                  }
-                                                },
-                                                validator: (value) {
-                                                  if (value == null ||
-                                                      value.isEmpty) {
-                                                    return 'please select birth date';
-                                                  }
-                                                  return null;
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  title: 'Add New Lab Report',
-                                );
-                              });
+                                    print("DocName${namecontroller.text}");
+                                    //GetLabReport(context, 1);
+                                    Navigator.pop(context);
+                                    setState(() {
+                                      expiryType = '';
+                                      fileName ='';
+                                      calenderController.clear();
+                                      docIdController.clear();
+                                      namecontroller.clear();
+                                    });
+                                  } finally {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  }
+                                },
+                                title: 'Add New Lab Report',
+                                patientId: widget.patientId,
+
+                              );
                             },
                           );
                         }),
@@ -417,6 +212,38 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                   itemCount: snapshot.data!.length,
                                   itemBuilder:
                                       (BuildContext context, index) {
+                                        var labResult = snapshot.data![index];
+                                        var fileUrl = labResult.docUrl;
+                                        final fileExtension = fileUrl!.split('/').last;
+
+                                        Widget fileWidget;
+
+                                        if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                                          fileWidget = Image.network(
+                                            fileUrl,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return Icon(
+                                                Icons.broken_image,
+                                                size: 45,
+                                                color: ColorManager.faintGrey,
+                                              );
+                                            },
+                                          );
+                                        }
+                                        else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                                          fileWidget = Icon(
+                                            Icons.description,
+                                            size: 45,
+                                            color: ColorManager.faintGrey,
+                                          );
+                                        } else {
+                                          fileWidget = Icon(
+                                            Icons.insert_drive_file,
+                                            size: 45,
+                                            color: ColorManager.faintGrey,
+                                          );
+                                        }
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0, horizontal: 40),
@@ -597,15 +424,29 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                       //             .size
                                                       //             .width /
                                                       //         120),
+                                                      // IconButton(
+                                                      //   icon: Icon(
+                                                      //     Icons
+                                                      //         .file_download_outlined,
+                                                      //     size: 20,
+                                                      //     color: ColorManager
+                                                      //         .granitegray,
+                                                      //   ),
+                                                      //   onPressed: () {},
+                                                      // ),
                                                       IconButton(
+                                                        onPressed: () {
+                                                          print("FileExtension:${fileExtension}");
+                                                          DowloadFile().downloadPdfFromBase64(
+                                                              fileExtension,"labResult.pdf");
+                                                          downloadFile(fileUrl);
+                                                          // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
+                                                        },
                                                         icon: Icon(
-                                                          Icons
-                                                              .file_download_outlined,
-                                                          size: 20,
-                                                          color: ColorManager
-                                                              .granitegray,
+                                                          Icons.save_alt_outlined,
+                                                          color: Color(0xff1696C8),
                                                         ),
-                                                        onPressed: () {},
+                                                        iconSize: 20,
                                                       ),
                                                       SizedBox(
                                                           width: MediaQuery.of(

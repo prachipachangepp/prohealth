@@ -260,9 +260,11 @@ class HRManageTextFieldEmail extends StatefulWidget {
   final TextStyle labelStyle;
   final double labelFontSize;
   final Icon? suffixIcon;
+  final Widget? suffix;
   final IconData? prefixIcon;
   final FocusNode? focusNode;
   final String? errorText;
+
   final String? Function(String?)? validator;
   // final bool Function(String)? validator;
   final ValueChanged<String>? onChanged;
@@ -276,7 +278,7 @@ class HRManageTextFieldEmail extends StatefulWidget {
     this.onChange, this.readOnly, this.width, this.height,
     required this.cursorHeight, required this.labelText,
     required this.labelStyle, required this.labelFontSize, this.suffixIcon,
-    this.prefixIcon, this.focusNode, this.errorText, this.onChanged, this.validator,
+    this.prefixIcon, this.focusNode, this.errorText, this.onChanged, this.validator, this.suffix,
     // this.validator,
   }) : super(key: key);
 
@@ -304,7 +306,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style:  GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500, color: ColorManager.mediumgrey,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -329,13 +331,20 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
+
             labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize,color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
               child: widget.suffixIcon,
             ),
+            suffix: Padding(
+              padding: const EdgeInsets.only(left: AppPadding.p20),
+
+              child: widget.suffix,
+            ),
           ),
+
         )
         ,
       ),
@@ -366,9 +375,11 @@ class HRManageTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   // final bool Function(String)? validator;
   final ValueChanged<String>? onChanged;
+  bool? enabled;
 
   HRManageTextField({
     Key? key,
+    this.enabled,
     required this.controller,
     required this.keyboardType,
     required this.text,
@@ -401,10 +412,11 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(
+          enabled: widget.enabled == null ? true : false,
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(fontSize: 10,),
+          style: GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500 , color: ColorManager.mediumgrey,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -490,7 +502,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style:GoogleFonts.firaSans(fontWeight: FontWeightManager.regular, fontSize: 10),
+                style:GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500, color: ColorManager.mediumgrey,),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -533,7 +545,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
 
 
 
-
+///
 class PatientCustomDropDown extends StatefulWidget {
   final String? value;
   final List<String> items;

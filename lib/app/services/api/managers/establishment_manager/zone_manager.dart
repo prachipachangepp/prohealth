@@ -398,8 +398,8 @@ Future<CountyPrefillGet> countyPrefillGet(
 
       itemsList = CountyPrefillGet(
           countyName: response.data['countyName'],
-          state: response.data['state'],
-          country: response.data['Country'],
+          state: response.data['state'] ?? "",
+          country: response.data['Country'] ?? "",
           sucess: true,
           message: response.statusMessage,
           // zoneName: response.data['zoneName'],
@@ -512,10 +512,9 @@ Future<ZipCodeGetPrefill> getZipcodeSetupPrefill(
           longitude: response.data['longitude'],
           landmark: response.data['landmark'],
           officeId: response.data['officeId'],
-          sucess: true,
-          message: response.statusMessage,
-          zoneName: response.data['zone'] ?? "--",
-          countyName: response.data['county'] ?? "--");
+          // zoneName: response.data['zone'] ?? "--",
+          // countyName: response.data['county'] ?? "--"
+      );
 
       // print("Org Document response:::::${itemsList}");
     } else {

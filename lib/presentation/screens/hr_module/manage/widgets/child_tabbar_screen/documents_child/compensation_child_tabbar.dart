@@ -69,7 +69,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                             // expiryType: compensationExpiryType,
                             labelName: 'Add Compensation',
                             AcknowledgementnameController:
-                            compensitionAddNameController, onSavePressed: () {  },
+                            compensitionAddNameController,
+                            onSavePressed: () {  },
                             employeeId: widget.employeeId,
                             documentMetaId: 11,
                             documentSetupId: 36,
@@ -118,13 +119,13 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       var compaensation = snapshot.data![index];
-
                       var fileUrl = compaensation.DocumentUrl;
                       final fileExtension = fileUrl.split('/').last;
 
                       Widget fileWidget;
 
-                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension))
+                      {
                         fileWidget = Image.network(
                           fileUrl,
                           fit: BoxFit.cover,
@@ -271,8 +272,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation.pdf");
                                         downloadFile(fileUrl);
                                         // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-
-
                                       },
                                       icon: Icon(
                                         Icons.save_alt_outlined,

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -95,7 +96,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      "No available contracts !!",
+                      ErrorMessageString.noContract,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,
@@ -287,6 +288,9 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                    }else{
 
                                                                    }
+                                                                    contractNameController.clear();
+                                                                    contractIdController.clear();
+                                                                    calenderController.clear();
                                                                   });
                                                                     } finally {
                                                                       setState(() {

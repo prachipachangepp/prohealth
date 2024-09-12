@@ -5,10 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -117,19 +120,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Text(''),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'City Name',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Center(
+                //     child: Text(
+                //       'City Name',
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.w700,
+                //         color: Colors.white,
+                //         decoration: TextDecoration.none,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   child: Center(
                     child: Text('Zip Code',textAlign: TextAlign.start,
@@ -154,19 +157,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                         )),
                   ),
                 ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'Landmark',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Center(
+                //     child: Text(
+                //       'Landmark',
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.w700,
+                //         color: Colors.white,
+                //         decoration: TextDecoration.none,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -207,7 +210,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    "No available zipcodes !!",
+                    ErrorMessageString.noZipcode,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -255,19 +258,19 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   padding: const EdgeInsets.symmetric(horizontal: 15),
                                   child: Row(
                                     children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          textAlign: TextAlign.center,
-                                          zipcode.city.toString(),
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Text(
+                                      //     textAlign: TextAlign.center,
+                                      //     zipcode.city.toString(),
+                                      //     style: GoogleFonts.firaSans(
+                                      //       fontSize: 10,
+                                      //       fontWeight: FontWeight.w500,
+                                      //       color: ColorManager.mediumgrey,
+                                      //       decoration: TextDecoration.none,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       // Text(''),
                                       Expanded(
                                         flex: 2,
@@ -306,25 +309,29 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          textAlign: TextAlign.center,
-                                          zipcode.landmark.toString(),
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   flex: 2,
+                                      //   child: Text(
+                                      //     textAlign: TextAlign.center,
+                                      //     zipcode.landmark.toString(),
+                                      //     style: GoogleFonts.firaSans(
+                                      //       fontSize: 10,
+                                      //       fontWeight: FontWeight.w500,
+                                      //       color: ColorManager.mediumgrey,
+                                      //       decoration: TextDecoration.none,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       Expanded(
                                         flex: 2,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            IconButton(onPressed: (){
+                                            IconButton(
+                                                splashColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                onPressed: (){
                                               showDialog(context: context, builder: (context){
                                                 return FutureBuilder<ZipCodeGetPrefill>(
                                                   future: getZipcodeSetupPrefill(context, zipcode.zipcodeSetupId!),
@@ -332,44 +339,65 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                       return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
                                                     }
-                                                    var countyName = snapshotPrefill.data!.countyName;
-                                                    var cityName = snapshotPrefill.data!.city;
+                                                    // var countyName = snapshotPrefill.data!.countyName;
+                                                    // var cityName = snapshotPrefill.data!.city;
                                                     var zipCode = snapshotPrefill.data!.zipcode;
-                                                    var landmark = snapshotPrefill.data!.landmark;
+                                                    // var landmark = snapshotPrefill.data!.landmark;
                                                     var zoinId = snapshotPrefill.data!.zoneId;
                                                     docZoneId = zoinId!;
                                                     var countyPreId = snapshotPrefill.data!.countyID;
                                                     countyId = countyPreId!;
-                                                    landmarkController = TextEditingController(text:snapshotPrefill.data!.landmark.toString());
-                                                    countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
-                                                    cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
+                                                    // landmarkController = TextEditingController(text:snapshotPrefill.data!.landmark.toString());
+                                                    // countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
+                                                    // cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
-                                                    return EditZipCodePopup(title: 'Edit Zip Code',
-                                                      countynameController: countynameController,
-                                                      cityNameController: cityController,
+                                                    return EditZipCodePopup(
+                                                      title: 'Edit Zip Code',
+                                                      // countynameController: countynameController,
                                                       zipcodeController: zipcodeController,
                                                       child1: FutureBuilder<List<AllCountyGetList>>(
                                                           future: getCountyZoneList(context),
                                                           builder: (context,snapshotZone) {
                                                             if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                              return Shimmer.fromColors(
-                                                                  baseColor: Colors.grey[300]!,
-                                                                  highlightColor: Colors.grey[100]!,
-                                                                  child: Container(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                  )
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: const Text(
+                                                                  "",
+                                                                  //AppString.dataNotFound,
+                                                                ),
                                                               );
                                                             }
                                                             if (snapshotZone.data!.isEmpty) {
-                                                              return Center(
-                                                                child: Text(
-                                                                  AppString.dataNotFound,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: Align(
+                                                                  alignment: Alignment.centerLeft,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                                    child: Text(
+                                                                      ErrorMessageString.noCountyAdded,
+                                                                      // AppString.dataNotFound,
+                                                                      style: CustomTextStylesCommon
+                                                                          .commonStyle(
+                                                                        fontWeight:
+                                                                        FontWeightManager.medium,
+                                                                        fontSize: FontSize.s12,
+                                                                        color:
+                                                                        ColorManager.mediumgrey,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -386,6 +414,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                                   ),
                                                                 );
                                                               }
+                                                              // if (countyName == null) {
+                                                              //   countyName = 'Select County';
+                                                              // }
                                                               return CICCDropdown(
                                                                   initialValue: dropDownTypesList[0].value,
                                                                   onChange: (val){
@@ -409,24 +440,45 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                           future: PayRateZoneDropdown(context),
                                                           builder: (context,snapshotZone) {
                                                             if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                              return Shimmer.fromColors(
-                                                                  baseColor: Colors.grey[300]!,
-                                                                  highlightColor: Colors.grey[100]!,
-                                                                  child: Container(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                  )
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: const Text(
+                                                                  "",
+                                                                  //AppString.dataNotFound,
+                                                                ),
                                                               );
                                                             }
                                                             if (snapshotZone.data!.isEmpty) {
-                                                              return Center(
-                                                                child: Text(
-                                                                  AppString.dataNotFound,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: Align(
+                                                                  alignment: Alignment.centerLeft,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                                    child: Text(
+                                                                      ErrorMessageString.noZoneAdded,
+                                                                      //  AppString.dataNotFound,
+                                                                      style: CustomTextStylesCommon
+                                                                          .commonStyle(
+                                                                        fontWeight:
+                                                                        FontWeightManager.medium,
+                                                                        fontSize: FontSize.s12,
+                                                                        color:
+                                                                        ColorManager.mediumgrey,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -464,45 +516,48 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                       ),
                                                       // onPickLocation: _pickLocation,
                                                       onSavePressed: () async{
-                                                      await updateZipCodeSetup(context,
+                                                     var response = await updateZipCodeSetup(context,
                                                           zipcode.zipcodeSetupId!,
                                                           zoinId == docZoneId ? zoinId : docZoneId,
                                                           countyPreId == countyId ? countyPreId : countyId,
                                                           widget.officeId,
-                                                         cityName ==  cityController.text ? cityName.toString() :cityController.text,
+                                                         "",
                                                          zipCode == zipcodeController.text ? zipCode.toString() : zipcodeController.text,
                                                           _selectedLocation.latitude.toString(),
                                                           _selectedLocation.longitude.toString(),
                                                           // "37.0902°",
                                                           // "95.7129°",
-                                                          landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
+                                                          "");
                                                       getZipcodeSetup(context, widget.officeId,1, 20).then((data){
                                                         _zipcodeController.add(data);
                                                       }).catchError((error){
-
                                                       });
                                                       Navigator.pop(context);
                                                       },
-                                                      mapController: mapController, landmarkController: landmarkController,);
+                                                      );
                                                   }
                                                 );
                                               });
                                             },
                                                 icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                            IconButton(onPressed: (){
-                                              showDialog(context: context, builder: (context) => DeletePopup(
-                                                  title: 'Delete Zipcode',
-                                                  onCancel: (){
-                                                Navigator.pop(context);
-                                              }, onDelete: () async{
-                                                await deleteZipCodeSetup(context, zipcode.zipcodeSetupId!);
-                                                getZipcodeSetup(context, widget.officeId, 1, 20).then((data){
-                                                  _zipcodeController.add(data);
-                                                }).catchError((error){
-                                                });
-                                                Navigator.pop(context);
-                                              }));
-                                            }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                            // IconButton(
+                                            //     splashColor: Colors.transparent,
+                                            //     hoverColor: Colors.transparent,
+                                            //     highlightColor: Colors.transparent,
+                                            //     onPressed: (){
+                                            //   showDialog(context: context, builder: (context) => DeletePopup(
+                                            //       title: 'Delete Zipcode',
+                                            //       onCancel: (){
+                                            //     Navigator.pop(context);
+                                            //   }, onDelete: () async{
+                                            //     await deleteZipCodeSetup(context, zipcode.zipcodeSetupId!);
+                                            //     getZipcodeSetup(context, widget.officeId, 1, 20).then((data){
+                                            //       _zipcodeController.add(data);
+                                            //     }).catchError((error){
+                                            //     });
+                                            //     Navigator.pop(context);
+                                            //   }));
+                                            // }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                           ],
                                         ),
                                       )

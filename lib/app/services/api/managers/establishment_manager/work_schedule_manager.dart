@@ -184,6 +184,7 @@ Future<List<DefineHolidayData>> holidaysListGet(BuildContext context) async {
 
   List<DefineHolidayData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.holidaysGet());
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -195,7 +196,7 @@ Future<List<DefineHolidayData>> holidaysListGet(BuildContext context) async {
             date: formattedDate,
             holidayName: item['holidayName'],
             holidayId: item['holidayId'],
-            companyId: item['companyId']));
+            companyId: companyId));
       }
       print("Response::::::${itemsData}");
       itemsData.sort((a, b) {
@@ -229,6 +230,7 @@ Future<DefinePrefillHolidayData> holidaysPrefillGet(BuildContext context,int hol
 
   var itemsData;
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.holidaysPrefillGet(holidayId: holidayId));
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -240,7 +242,7 @@ Future<DefinePrefillHolidayData> holidaysPrefillGet(BuildContext context,int hol
             date: formattedDate,
             holidayName: response.data['holidayName'],
             holidayId: response.data['holidayId'],
-            companyId: response.data['companyId']);
+            companyId: companyId);
 
       print("Response::::::${itemsData}");
     } else {
@@ -254,14 +256,15 @@ Future<DefinePrefillHolidayData> holidaysPrefillGet(BuildContext context,int hol
 
 /// Add Holidays POST
 Future<ApiData> addHolidaysPost(BuildContext context, String holidayName,
-    String date, int year, int compantId) async {
+    String date, int year) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
         .post(path: EstablishmentManagerRepository.addHolidaysPost(), data: {
       'date': "${date}T00:00:00Z",
       'holidayName': holidayName,
       'year': year,
-      'CompanyId': compantId
+      'CompanyId': companyId
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Holidays Added");

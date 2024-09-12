@@ -3,6 +3,9 @@ class NotesRepository{
   static String byPatientsId = "/ByPatientId";
   static String add = "/add";
   static String patch ="/intake-misc-note";
+  static String postUploadLabReport ="/intake-lab-report/UploadReportbase64/";
+  static String getTypeDocMN ="/misc-document-type";
+  static String uploadDocMN ="/intake-misc-note/UploadNotesbase64/";
 
 
 
@@ -27,5 +30,15 @@ class NotesRepository{
     return "$patch/$miscNoteId";
   }
 
+  static String uploadDocPostLabReport({required int labReportId}){
+    return "$postUploadLabReport$labReportId";
+  }
 
+  static String getDocTypeMisNotes(){
+    return "$getTypeDocMN";
+  }
+
+  static String postUploadMN({required int miscNoteId}){
+    return "$uploadDocMN$miscNoteId";
+}
 }

@@ -60,7 +60,7 @@ class AppString {
   static const String open = "Opened";
   static const String fname = "First Name";
   static const String lname = "Last Name";
-  static const String zone = "Zone:";
+  static const String zone = "Zone";
   static const String role = "Role";
   static const String typeClinician = "Type of Clinician";
   static const String reportingOffice = "Reporting Office:";

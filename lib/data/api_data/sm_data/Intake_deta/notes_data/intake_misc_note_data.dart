@@ -19,3 +19,10 @@ class  IntakeNotesMiscData{
     required this.expDate,
   });
 }
+
+class MiscNotesDocTypeModal{
+  final int doctTypeId;
+  final String documentType;
+
+  MiscNotesDocTypeModal({required this.doctTypeId, required this.documentType});
+}

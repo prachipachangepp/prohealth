@@ -59,7 +59,7 @@ class WorkSchedule extends StatefulWidget {
 
 class _WorkScheduleState extends State<WorkSchedule> {
   final List<String> _categories = [
-    'Define Work Weeks',
+    'Shift & Batches',
     'Define Holidays',
   ];
 
@@ -150,7 +150,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
             flex: 10,
             child: Stack(
               children: [
-            widget.selectedIndex == 1 ? Offstage():Container(height: MediaQuery.of(context).size.height/3,
+            widget.selectedIndex == 1 ? Offstage():Container(
+              //height: MediaQuery.of(context).size.height/3,
                   decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
                       boxShadow: [ BoxShadow(
@@ -161,7 +162,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                       ),]
                   ),),
                 Padding(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,right: MediaQuery.of(context).size.width / 45,
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,
+                  right: MediaQuery.of(context).size.width / 45,
                 ),
                 child: PageView(
                     controller: widget.managePageController,

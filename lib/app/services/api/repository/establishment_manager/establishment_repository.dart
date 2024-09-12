@@ -55,9 +55,22 @@ class EstablishmentManagerRepository {
   static String newPayrates = "/payrates";
   static String newPayratesdelete = "/payrates";
   static String addCompanyPost = "/Company/Insert";
+  static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
+  static String orgdocadd = "/org-office-document";
+  static String orgdocEndPoind = "/org-office-document";
+  static String officedocbase = "/org-office-document/attach-documentbase64";
 
-  //static String add ="/add";
+  ///new org
+  static String orgDocSetup ="/org-document-setup";
+  static String bydoctypeSubtype ="/ByDocumentTypeAndSubTypePageWise";
 
+  // static String getCCList ="/org-document-setup/ByDocumentTypeAndSubTypePageWise/";
+  static String getCCList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
+
+  static String addofficeservices = "/company-office-service/add";
+
+  ///new office doc
+  static String getCCVCPPList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
 
   static String companyAll() {
     return "$company";
@@ -89,6 +102,10 @@ class EstablishmentManagerRepository {
     return "$companyOffice/$add";
   }
 
+  static String addNewOfficeServices() {
+    return "$addofficeservices";
+  }
+
   ///identity get all
   static String companyOfficeGet({required int pageNo, required int rowsNo }) {
     return "$identity/$companyList/$pageNo/$rowsNo";
@@ -113,6 +130,10 @@ class EstablishmentManagerRepository {
 
   static String companyOfficeServiceGet() {
     return "$companyOfficeService";
+  }
+
+  static String companyOfficeServiceGetByCompanyId({required int companyId}) {
+    return "$companyOfficeService/${companyId}";
   }
 
   ///insurance-vendor/add
@@ -316,7 +337,6 @@ class EstablishmentManagerRepository {
 
   ///employee doc list
   static String getEmployeeDocSetUpMetaId({
-    /// required int metaDocId
     required int pageNo, required int rowsNo,
     required int employeeDocTypeMetaDataId
   }) {
@@ -464,7 +484,56 @@ class EstablishmentManagerRepository {
     return "$newPayrates";
   }
 
+  static String addDocOrg() {
+    return "$orgdocadd/$add";
+  }
+  static String patchDocOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
+  }
+  static String deleteDocOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
+  }
+
+  static String uploadedocOffice({required int orgOfficeDocumentId }){
+    return "$officedocbase/$orgOfficeDocumentId";
+}
+
+
+  static String getdocPayratesdropdown({ required int DocumentTypeId, required int DocumentSubTypeId } ) {
+    return "$docgetDD/$DocumentTypeId/$DocumentSubTypeId";
+  }
+
+
   static String deleteeditprefillPayRates({required int payRatesId}) {
     return "$newPayratesdelete/$payRatesId";
+  }
+
+
+  ///new org doc
+  static String newOrgDocGet() {
+    return "$orgDocSetup";
+  }
+
+
+  ///org-document-setup/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
+  static String newOrgDocGetTypeWise({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}) {
+    return "$orgDocSetup/$bydoctypeSubtype/$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+  ///org-document-setup/{orgDocumentSetupid}
+  static String updatePrefillPatchNewOrgDoc({required int orgDocumentSetupid}) {
+    return "$orgDocSetup/$orgDocumentSetupid";
+  }
+  ///
+  static String addNewDocumentPost() {
+    return "$orgDocSetup/$add";
+  }
+  ///new office doc
+  ///org-office-document/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
+  static String getListMCorporateCompliance({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}){
+    return "$getCCVCPPList$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  }
+
+  static String prefillDocOfficeOrg({required int orgDocID}) {
+    return "$orgdocEndPoind/$orgDocID";
   }
 }

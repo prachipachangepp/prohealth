@@ -42,6 +42,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
   final Widget childLanguage;
   final Widget childCountry;
   final Widget childMaritalStatus;
+  final Widget childStatus;
 
   IntakePatientsDatatInfo(
       {super.key,
@@ -68,7 +69,8 @@ class IntakePatientsDatatInfo extends StatefulWidget {
       required this.childReligion,
       required this.childRace,
       required this.childLanguage,
-      required this.childMaritalStatus, required this.childCountry});
+
+      required this.childMaritalStatus, required this.childCountry, required this.childStatus});
 
   @override
   State<IntakePatientsDatatInfo> createState() => _PatientInfoState();
@@ -86,6 +88,28 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
   String? selectedLanguage;
   String? selectedReligion;
   String? selectedMaritalStatus;
+  String? dateOfDeath;
+  @override
+  void initState() {
+    super.initState();
+
+    // Add a listener to the controller
+    widget.ctlrDateOfDeath.addListener(() {
+      String value = widget.ctlrDateOfDeath.text;
+
+      if (value.isEmpty) {
+        dateOfDeath = null;  // Set to null if empty
+      } else {
+        dateOfDeath = value;  // Store the value otherwise
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.ctlrDateOfDeath.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,17 +169,19 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   labelText: 'Medical Record',
                                   initialValue: '#632654')),
                           SizedBox(width: AppSize.s35),
+
                           Flexible(
-                              child: SchedularDropdown(
-                            labelText: AppString.status,
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedStatus = newValue;
-                                print(selectedStatus);
-                              });
-                            },
-                          )),
+                             child: widget.childStatus,
+                          //     child: SchedularDropdown(
+                          //   labelText: AppString.status,
+                          //   items: ['Option 1', 'Option 2', 'Option 3'],
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       selectedStatus = newValue;
+                          //       print(selectedStatus);
+                          //     });
+                          //   },
+                          ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -325,12 +351,48 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Flexible(
                             child: widget.childMaritalStatus ),
                           SizedBox(width: AppSize.s35),
+
                           Flexible(
-                              child: SchedularTextField(
-                                  controller: widget.ctlrDateOfDeath,
-                                  labelText: AppString.date_of_death,
-                                  suffixIcon:
-                                      Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,))),
+                            child: SchedularTextField(
+                              controller: widget.ctlrDateOfDeath,
+                              labelText: AppString.date_of_death,
+                              suffixIcon: Icon(
+                                Icons.calendar_month_outlined,
+                                color: ColorManager.blueprime,
+                              ),
+                              onChanged: (value) {
+                                /// If the TextField is empty, set dateOfDeath to null
+                                dateOfDeath = value.isEmpty ? null : value;
+                              },
+                            ),
+                          ),
+
+                          // Flexible(
+                          //   child: SchedularTextField(
+                          //     controller: widget.ctlrDateOfDeath,
+                          //     labelText: AppString.date_of_death,
+                          //     suffixIcon: Icon(
+                          //       Icons.calendar_month_outlined,
+                          //       color: ColorManager.blueprime,
+                          //     ),
+                          //     onChanged: (value) {
+                          //       /// If the TextField is empty, set dateOfDeath to null
+                          //       if (value.isEmpty) {
+                          //         dateOfDeath = null;
+                          //       } else {
+                          //         /// Otherwise, store the date value
+                          //         dateOfDeath = value;
+                          //       }
+                          //     },
+                          //   ),
+                          // ),
+                          // Flexible(
+                          //     child: SchedularTextField(
+                          //         controller: widget.ctlrDateOfDeath,
+                          //         labelText: AppString.date_of_death,
+                          //         suffixIcon:
+                          //             Icon(Icons.calendar_month_outlined,
+                          //               color: ColorManager.blueprime,))),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child:
