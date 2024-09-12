@@ -344,9 +344,54 @@ Future<List<TypeofDocpopup>> getTypeofDoc(
 }
 
 /// get API list in manage Corporate compliance prajwal
+// Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
+//     BuildContext context,
+//     // String officeId,
+//     int DocumentTypeId,
+//     int DocumentSubTypeId,
+//     int pageNbr,
+//     int NbrofRows
+//     ) async {
+//   List<MCorporateComplianceModal> itemsList = [];
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.getListMCorporateCompliance(
+//             DocumentTypeId: DocumentTypeId,
+//             DocumentSubTypeId: DocumentSubTypeId, pageNbr: pageNbr, NbrofRows: NbrofRows));
+//     print(" Prachi Corporate Compliance response:::::${response.data}");
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//
+//       print("1");
+//       for (var item in response.data) {
+//         itemsList.add(
+//             MCorporateComplianceModal(
+//                 orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
+//                 orgDocumentSetupid: item['orgDocumentSetupid']  ?? 0,
+//                 idOfDocument: item['idOfDocument'] ?? '',
+//                 doc_created_at: item['doc_created_at'] ?? '',
+//                 expiry_date: item['expiry_date'] ?? '',
+//                 docurl: item['url'] ?? '',
+//                 companyId: companyId,
+//                 officeId: item['office_id'] ?? '',
+//             )
+//         );
+//       }
+//       // print('${response.data['DocumentList']}');
+//       print(" Manage Corporate Compliance Get :::::${itemsList}");
+//     } else {
+//       print(' Manage Compliance Data Added');
+//       return itemsList;
+//     }
+//     // print("Org response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error for add $e");
+//     return itemsList;
+//   }
+// }
 Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
     BuildContext context,
-    // String officeId,
     int DocumentTypeId,
     int DocumentSubTypeId,
     int pageNbr,
@@ -359,31 +404,30 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
         path: EstablishmentManagerRepository.getListMCorporateCompliance(
             DocumentTypeId: DocumentTypeId,
             DocumentSubTypeId: DocumentSubTypeId, pageNbr: pageNbr, NbrofRows: NbrofRows));
+
     print(" Prachi Corporate Compliance response:::::${response.data}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-
-      print("1");
       for (var item in response.data) {
         itemsList.add(
-            MCorporateComplianceModal(
-                orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
-                orgDocumentSetupid: item['orgDocumentSetupid']  ?? 0,
-                idOfDocument: item['idOfDocument'] ?? '',
-                doc_created_at: item['doc_created_at'] ?? '',
-                expiry_date: item['expiry_date'] ?? '',
-                docurl: item['url'] ?? '',
-                companyId: companyId,
-                officeId: item['office_id'] ?? '',
-            )
+          MCorporateComplianceModal(
+            orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
+            orgDocumentSetupid: item['orgDocumentSetupid'] ?? 0,
+            idOfDocument: item['idOfDocument'] ?? '',
+            doc_created_at: item['doc_created_at'] ?? '',
+            expiry_date: item['expiry_date'] ?? '',
+            docurl: item['url'] ?? '',
+            companyId: companyId,
+            officeId: item['office_id'] ?? '',
+            docName: item['doc_name'] ?? '',
+            docHistory: item['docHistory'] ?? [], // Parse docHistory here
+          ),
         );
       }
-      // print('${response.data['DocumentList']}');
       print(" Manage Corporate Compliance Get :::::${itemsList}");
     } else {
       print(' Manage Compliance Data Added');
       return itemsList;
     }
-    // print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error for add $e");

@@ -285,7 +285,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        "ID : ${policiesdata.docName}",
                                                         style: GoogleFonts
                                                             .firaSans(
                                                           fontSize: 10,
@@ -317,7 +317,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           showDialog(
                                                             context: context,
                                                             builder: (context) => ManageHistoryPopup(
-                                                              docHistory: [],// policiesdata.docHistory,
+                                                              docHistory: policiesdata.docHistory,
                                                             ),
                                                           );
                                                         },
