@@ -155,8 +155,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 child:Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<List<HRClinical>>(
-                                            future: companyAllHrClinicApi(context),
+                                        FutureBuilder<List<HRAllData>>(
+                                            future: getAllHrDeptWise(context, 1),
                                             builder: (context, snapshot) {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.waiting) {
@@ -292,13 +292,23 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       );
                                     }
                                     if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                      return Center(
-                                        child: Text(
-                                          ErrorMessageString.noserviceAdded,
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeightManager.medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
+                                      return Container(
+                                        width:354,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                          child: Text(
+                                            ErrorMessageString.noserviceAdded,
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -678,13 +688,23 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             );
                                                                           }
                                                                           if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                                                            return Center(
-                                                                              child: Text(
-                                                                                ErrorMessageString.noserviceAdded,
-                                                                                style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight: FontWeightManager.medium,
-                                                                                  fontSize: FontSize.s12,
-                                                                                  color: ColorManager.mediumgrey,
+                                                                            return Container(
+                                                                              width:354,
+                                                                              height: 30,
+                                                                              decoration: BoxDecoration(
+                                                                                border: Border.all(
+                                                                                    color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                                borderRadius: BorderRadius.circular(5),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                                                                child: Text(
+                                                                                  ErrorMessageString.noserviceAdded,
+                                                                                  style: CustomTextStylesCommon.commonStyle(
+                                                                                    fontWeight: FontWeightManager.medium,
+                                                                                    fontSize: FontSize.s12,
+                                                                                    color: ColorManager.mediumgrey,
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             );
@@ -730,8 +750,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                       child: Column(
                                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                                         children: [
-                                                                          FutureBuilder<List<HRClinical>>(
-                                                                            future: companyAllHrClinicApi(context),
+                                                                          FutureBuilder<List<HRAllData>>(
+                                                                            future: getAllHrDeptWise(context, 1),
                                                                             builder: (context, snapshot) {
                                                                               if (snapshot.connectionState == ConnectionState.waiting) {
                                                                                 return Shimmer.fromColors(

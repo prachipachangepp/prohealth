@@ -19,12 +19,12 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
       print(":::::LIST${response.data}");
       itemsData = PayRatePrefillFinanceData(
           payratesId: response.data['payratesId'] ?? 0,
-          ZoneId: response.data['ZoneId'] ?? 0,
           rate: response.data['rate'] ?? 0,
-          perMile: response.data['perMile'] ?? 0,
           typeOfVisitId: response.data['typeOfVisitId'] ?? "--",
-          serviceTypeId: response.data['serviceTypeId'] ?? 0,
-        companyId: companyId
+          companyId: response.data['companyId'],
+          serviceId: response.data['serviceId'],
+          outOfZoneRate: response.data['outOfZoneRate'],
+          outOfZoneperMile: response.data['outOfZoneperMile']
          );
     } else {
       print("Api Pay rates Data Error");
@@ -38,13 +38,14 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
 
 /// Update pay rates
 Future<ApiData> updatePayRatesSetupPost(
-    BuildContext context,
-    int payratesId,
-    int ZoneId,
-    int rate,
-    String typeOfVisitId,
-    int perMile,
-    int serviceTypeId,
+{
+    required BuildContext context,
+    required int payratesId,
+    required int rate,
+    required String typeOfVisitId,
+    required int outOfZoneperMile,
+   required int outOfZoneRate,
+    required String serviceId,}
        ) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -52,13 +53,12 @@ Future<ApiData> updatePayRatesSetupPost(
         path: EstablishmentManagerRepository.deleteeditprefillPayRates(
             payRatesId: payratesId),
         data: {
-          'payratesId': payratesId,
-          'ZoneId': ZoneId,
-          'rate': rate,
-          'typeOfVisitId': typeOfVisitId,
-          'perMile': perMile,
-          'serviceTypeId': serviceTypeId,
-          'companyId': companyId
+          "typeOfVisitId": typeOfVisitId,
+          "rate": rate,
+          "serviceId": serviceId,
+          "companyId": companyId,
+          "outOfZoneRate": outOfZoneRate,
+          "outOfZoneperMile": outOfZoneperMile
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Pay Rates updates");
@@ -199,13 +199,12 @@ Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
         itemsList.add(
           PayRatesGet(
             payratesId: item['payratesId'],
-            ZoneId: item['ZoneId']?? 0,
             rate: item['rate'],
             typeOfVisitId: item['typeOfVisitId'],
-            ZoneName: item['ZoneName'] ?? "--",
-            perMile: item['perMile'],
-            serviceTypeId: item['serviceTypeId'],
             companyId: companyId,
+            serviceID: item['serviceId'],
+            outOfZoneRate: item['outOfZoneRate'],
+            outOfZonePerMile: item['outOfZoneperMile'],
           ),
         );
       }

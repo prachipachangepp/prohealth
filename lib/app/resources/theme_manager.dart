@@ -245,7 +245,7 @@ class CodeVerficationText {
     return GoogleFonts.firaSans(
       color: ColorManager.darkgrey,
      // fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width / 110,
+      fontSize: FontSize.s14,
       fontWeight: FontWeightManager.semiBold,
     );
   }
