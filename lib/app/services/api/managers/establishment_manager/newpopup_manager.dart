@@ -473,7 +473,7 @@ Future<ApiData> addOrgDocPPPost({
           "expiry_date": expiryDate == null ? null :"${expiryDate}T00:00:00Z",
           "doc_created_at": docCreated,
           "company_id": companyId,
-          // "url": '',
+         "url": url,
           "office_id": officeId,//expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
         });
     print('New manage Doc Post::::$response ');
