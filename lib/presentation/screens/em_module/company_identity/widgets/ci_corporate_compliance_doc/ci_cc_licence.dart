@@ -268,7 +268,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory:  manageCCLicence.docHistory,
                                                           ),
                                                         );
                                                       },
@@ -360,40 +360,40 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                       }
                                                                     },
 
-                                                                     // child: Container(
-                                                                     //   width: 354,
-                                                                     //   padding: EdgeInsets.symmetric(
-                                                                     //       vertical: 3, horizontal: 12),
-                                                                     //   decoration: BoxDecoration(
-                                                                     //     color: ColorManager.white,
-                                                                     //     borderRadius: BorderRadius.circular(8),
-                                                                     //     border: Border.all(
-                                                                     //         color: ColorManager.fmediumgrey,
-                                                                     //         width: 1),
-                                                                     //   ),
-                                                                     //   child: Row(
-                                                                     //     mainAxisAlignment:
-                                                                     //     MainAxisAlignment.spaceBetween,
-                                                                     //     children: [
-                                                                     //       Text(
-                                                                     //         selectedSubDocType,
-                                                                     //         style: CustomTextStylesCommon
-                                                                     //             .commonStyle(
-                                                                     //           fontWeight:
-                                                                     //           FontWeightManager.medium,
-                                                                     //           fontSize: FontSize.s12,
-                                                                     //           color: ColorManager.mediumgrey,
-                                                                     //         ),
-                                                                     //       ),
-                                                                     //       Icon(
-                                                                     //         Icons.arrow_drop_down,
-                                                                     //         color: Colors.transparent,
-                                                                     //       ),
-                                                                     //     ],
-                                                                     //   ),
-                                                                     // ),
+                                                                     child: Container(
+                                                                       width: 354,
+                                                                       padding: EdgeInsets.symmetric(
+                                                                           vertical: 3, horizontal: 12),
+                                                                       decoration: BoxDecoration(
+                                                                         color: ColorManager.white,
+                                                                         borderRadius: BorderRadius.circular(8),
+                                                                         border: Border.all(
+                                                                             color: ColorManager.fmediumgrey,
+                                                                             width: 1),
+                                                                       ),
+                                                                       child: Row(
+                                                                         mainAxisAlignment:
+                                                                         MainAxisAlignment.spaceBetween,
+                                                                         children: [
+                                                                           Text(
+                                                                             manageCCLicence.docName!,
+                                                                             style: CustomTextStylesCommon
+                                                                                 .commonStyle(
+                                                                               fontWeight:
+                                                                               FontWeightManager.medium,
+                                                                               fontSize: FontSize.s12,
+                                                                               color: ColorManager.mediumgrey,
+                                                                             ),
+                                                                           ),
+                                                                           Icon(
+                                                                             Icons.arrow_drop_down,
+                                                                             color: Colors.transparent,
+                                                                           ),
+                                                                         ],
+                                                                       ),
+                                                                     ),
 
-                                                                    /////
+                                                                    ///
                                                                     child: FutureBuilder<List<TypeofDocpopup>>(
                                                                       future: getTypeofDoc(context, widget.docId, widget.subDocId),
                                                                       builder: (context, snapshot) {

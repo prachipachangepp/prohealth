@@ -210,7 +210,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory:  balReport.docHistory,
                                                           ),
                                                         );
                                                       },

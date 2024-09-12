@@ -227,7 +227,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory: manageCCADR.docHistory,
                                                           ),
                                                         );
                                                       },
@@ -278,7 +278,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               var calender = snapshotPrefill.data!.expiry_date;
                                                               calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
 
-                                                              fileName = snapshotPrefill.data!.url;
+                                                              //fileName = snapshotPrefill.data!.url;
 
 
                                                               return StatefulBuilder(

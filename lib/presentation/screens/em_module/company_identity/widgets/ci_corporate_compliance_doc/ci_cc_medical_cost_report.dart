@@ -600,7 +600,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory:  MedicalCostReport.docHistory,
                                                           ),
                                                         );
                                                       },

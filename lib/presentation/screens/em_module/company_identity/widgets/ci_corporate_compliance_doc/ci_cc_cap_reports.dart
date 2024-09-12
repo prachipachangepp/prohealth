@@ -615,7 +615,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory:  CapReports.docHistory,
                                                           ),
                                                         );
                                                       },
