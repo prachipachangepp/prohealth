@@ -958,25 +958,12 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p18,
-                horizontal: AppPadding.p18,
+                horizontal: AppPadding.p25,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // SMTextFConst(
-                  //   enable: false,
-                  //   // readOnly: true,
-                  //   controller: widget.idOfDocController,
-                  //   keyboardType: TextInputType.text,
-                  //   text: AppString.id_of_the_document,
-                  // ),
-                  // SizedBox(height: AppSize.s12),
-                  // SMTextFConst(
-                  //   controller: widget.nameDocController,
-                  //   keyboardType: TextInputType.text,
-                  //   text: AppString.name_of_the_document,
-                  // ),
                   SizedBox(height: AppSize.s12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1237,14 +1224,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       //   },
                       // ),
                       SizedBox(height: AppSize.s5),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: AppPadding.p20,
-                          right: AppPadding.p20,
 
-                        ),
-                        // child: widget.child3,
-                      ),
                       SizedBox(height:AppSize.s12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -1265,7 +1245,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       Container(
                         height: AppSize.s30,
                         width: AppSize.s354,
-                        // margin: EdgeInsets.symmetric(horizontal: 5),
+                        padding: EdgeInsets.only(left: AppPadding.p10),
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: ColorManager.containerBorderGrey,
@@ -1312,87 +1292,11 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           },
                         ),
                       ),
-                      // Container(
-                      //   height: AppSize.s30,
-                      //   width: AppSize.s354,
-                      //   // margin: EdgeInsets.symmetric(horizontal: 5),
-                      //   decoration: BoxDecoration(
-                      //     // color: Colors.greenAccent,
-                      //     border: Border.all(
-                      //       color: ColorManager.containerBorderGrey,
-                      //       width: 1,
-                      //     ),
-                      //     borderRadius: BorderRadius.circular(4),
-                      //   ),
-                      //   child: StatefulBuilder(
-                      //     builder: (BuildContext context,
-                      //         void Function(void Function()) setState) {
-                      //       return Padding(
-                      //         padding: const EdgeInsets.all(0),
-                      //         child: Row(
-                      //           mainAxisAlignment:
-                      //           MainAxisAlignment.spaceBetween,
-                      //           children: [
-                      //             Text(
-                      //               fileName,
-                      //               style: GoogleFonts.firaSans(
-                      //                 fontSize: FontSize.s12,
-                      //                 fontWeight: FontWeightManager.regular,
-                      //                 color: ColorManager.lightgreyheading,
-                      //               ),
-                      //             ),
-                      //             IconButton(
-                      //               padding: EdgeInsets.all(4),
-                      //               onPressed: _pickFile,
-                      //               icon: Icon(
-                      //                 Icons.file_upload_outlined,
-                      //                 color: ColorManager.black,
-                      //                 size: 17,
-                      //               ),
-                      //               splashColor: Colors.transparent,
-                      //               highlightColor: Colors.transparent,
-                      //               hoverColor: Colors.transparent,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
                     ],
                   ),
-                  //       SizedBox(height: AppSize.s5),
-                  //       if (widget.child1 != null) ...[
-                  //         Text(
-                  //           AppString.sub_type_of_the_document,
-                  //           style: GoogleFonts.firaSans(
-                  //             fontSize: FontSize.s12,
-                  //             fontWeight: FontWeightManager.bold,
-                  //             color: ColorManager.mediumgrey,
-                  //             decoration: TextDecoration.none,
-                  //           ),
-                  //         ),
-                  //         SizedBox(height: AppSize.s5),
-                  //       ],
-                  //       widget.child1 ?? Offstage(),
                 ],
               ),
             ),
-            // SizedBox(height: AppSize.s5),
-            // ///radio
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
-            //   child: widget.radioButton,
-            // ),
-            // SizedBox(height: AppSize.s10),
-            //
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //     left: AppPadding.p20,
-            //     right: AppPadding.p20,
-            //   ),
-            //   child: widget.child2,
-            // ),
             SizedBox(height: AppSize.s20),
 
             ///button
@@ -1465,6 +1369,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
     );
   }
 }
+
+
 
 ///manage policy post
 class PoliciesProcedureAddPopUp extends StatefulWidget {

@@ -161,9 +161,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             docCreated: DateTime.now().toIso8601String()+"Z",
                                             url: "",
                                             officeId: widget.officeId);
-                                        print(expiryDateToSend);
-                                        print(DateTime.now().toIso8601String());
-                                        print(widget.officeId);
+                                        // print(expiryDateToSend);
+                                        // print(DateTime.now().toIso8601String());
+                                        // print(widget.officeId);
                                         expiryDateController.clear();
 
                                         if (response.statusCode == 200 || response.statusCode == 201) {
