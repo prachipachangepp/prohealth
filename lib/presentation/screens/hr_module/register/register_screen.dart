@@ -478,7 +478,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   underline: const SizedBox(),
 
                   items: <String>[
-                    'Sort',
+                    'Select',
                     'Opened',
                     'Notopen',
                     'Partial',

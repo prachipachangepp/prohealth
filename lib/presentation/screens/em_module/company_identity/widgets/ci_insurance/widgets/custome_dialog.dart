@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+
 import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
-import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatefulWidget {
   final TextEditingController namecontroller;
@@ -18,18 +16,22 @@ class CustomPopup extends StatefulWidget {
   // final TextEditingController? workPhoneController;
   // final Widget? childZone;
   // final Widget? childCity;
-   final VoidCallback onPressed;
-   final String title;
-   final String buttontxt;
-   final String successpopuptext;
-   CustomPopup({Key? key,
-     required this.onPressed,
-     required this.title, required this.namecontroller, required this.buttontxt, required this.successpopuptext,
-     // this.addressController,
-     // this.emailController, this.workemailController,
-     // this.phoneController, this.workPhoneController,
-     // this.childZone, this.childCity
-   }) : super(key: key);
+  final VoidCallback onPressed;
+  final String title;
+  final String buttontxt;
+  final String successpopuptext;
+  CustomPopup({
+    Key? key,
+    required this.onPressed,
+    required this.title,
+    required this.namecontroller,
+    required this.buttontxt,
+    required this.successpopuptext,
+    // this.addressController,
+    // this.emailController, this.workemailController,
+    // this.phoneController, this.workPhoneController,
+    // this.childZone, this.childCity
+  }) : super(key: key);
 
   @override
   State<CustomPopup> createState() => _CustomPopupState();
@@ -42,7 +44,7 @@ class _CustomPopupState extends State<CustomPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s200,
+        height: AppSize.s220,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -71,8 +73,7 @@ class _CustomPopupState extends State<CustomPopup> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 13,
-                        fontWeight:
-                        FontWeightManager.semiBold,
+                        fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -82,8 +83,10 @@ class _CustomPopupState extends State<CustomPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,
-                      color: ColorManager.white,),
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ],
               ),
@@ -107,7 +110,8 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24,top: AppPadding.p24),
+              padding: const EdgeInsets.only(
+                  bottom: AppPadding.p24, top: AppPadding.p24),
               child: Center(
                 child: CustomElevatedButton(
                   width: AppSize.s105,
@@ -116,7 +120,6 @@ class _CustomPopupState extends State<CustomPopup> {
                   onPressed: () {
                     widget.onPressed();
                     Navigator.pop(context);
-
                   },
                 ),
               ),

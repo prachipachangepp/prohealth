@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -9,65 +8,64 @@ import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 ///user get user by company  API
-Future<List<UserModal>> getUser(BuildContext context,) async {
+Future<List<UserModal>> getUser(
+  BuildContext context,
+) async {
   List<UserModal> itemsList = [];
   try {
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.userGetByCompanyId(companyId: companyId));
+        path: EstablishmentManagerRepository.userGetByCompanyId(
+            companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("user data");
       for (var item in response.data) {
-        itemsList.add(
-         UserModal(
-             userId: item['userId'] ?? 1,
-             firstName: item['firstName'] ?? "",
-             lastName: item['lastName'] == null ? "--" : item['lastName'] ?? "",
-             role: item['role'] ?? "",
-             department: item['department'] ?? "Administration",
-             departmentId: item['departmentId'] ?? 1,
-             email: item['email'] ?? "",
-             companyId: companyId,// item['company_id']  ,
-             phoneNbr: item['phoneNbr'] ?? "",
-             link: item['link'] ?? "",
-             employeeEnrollId: item['employeeEnrollId'] ?? 0,
-             employeeId : item['employeeId'] ?? 0,
-             position : item['position'] ?? "",
-             speciality : item['speciality'] ?? "",
-             clinicianTypeId : item['clinicianTypeId'] ?? 0,
-             reportingOfficeId : item['reportingOfficeId'] ?? "",
-             cityId : item['cityId'] ?? 0,
-             countryId : item['countryId'] ?? 0,
-             countyId : item['countyId'] ?? 0,
-             zoneId : item['zoneId'] ?? 0,
-             employment : item['employment'] ?? "",
-             service : item['service'] ?? "",
-             status : item['status'] ?? "",
-             templateId : item['templateId']  ?? 1,
-             // password: ''
+        itemsList.add(UserModal(
+          userId: item['userId'] ?? 1,
+          firstName: item['firstName'] ?? "",
+          lastName: item['lastName'] == null ? "--" : item['lastName'] ?? "",
+          role: item['role'] ?? "",
+          department: item['department'] ?? "Administration",
+          departmentId: item['departmentId'] ?? 1,
+          email: item['email'] ?? "",
+          companyId: companyId, // item['company_id']  ,
+          phoneNbr: item['phoneNbr'] ?? "",
+          link: item['link'] ?? "",
+          employeeEnrollId: item['employeeEnrollId'] ?? 0,
+          employeeId: item['employeeId'] ?? 0,
+          position: item['position'] ?? "",
+          speciality: item['speciality'] ?? "",
+          clinicianTypeId: item['clinicianTypeId'] ?? 0,
+          reportingOfficeId: item['reportingOfficeId'] ?? "",
+          cityId: item['cityId'] ?? 0,
+          countryId: item['countryId'] ?? 0,
+          countyId: item['countyId'] ?? 0,
+          zoneId: item['zoneId'] ?? 0,
+          employment: item['employment'] ?? "",
+          service: item['service'] ?? "",
+          status: item['status'] ?? "",
+          templateId: item['templateId'] ?? 1,
+          // password: ''
 
-           ///
-           //   userId: item['userId'],
-           //   firstName: item['firstName'],
-           //   lastName: item['lastName'] == null ? "--" : item['lastName'],
-           //   role: item['role'],
-           //   companyId: item['company_id'],
-           //   email: item['email'],
-           //   password: item['this.password'],
-             sucess: true,
-             message: response.statusMessage!,
-
-         )
-
-        );
+          ///
+          //   userId: item['userId'],
+          //   firstName: item['firstName'],
+          //   lastName: item['lastName'] == null ? "--" : item['lastName'],
+          //   role: item['role'],
+          //   companyId: item['company_id'],
+          //   email: item['email'],
+          //   password: item['this.password'],
+          sucess: true,
+          message: response.statusMessage!,
+        ));
         itemsList.sort((a, b) => a.userId.compareTo(b.userId));
       }
-       print("Users By Company Id:::::${itemsList}");
+      print("Users By Company Id:::::${itemsList}");
     } else {
       print('Users By Company Id User Data Error');
       return itemsList;
     }
-     print("Org response:::::${response}");
+    print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
@@ -76,7 +74,8 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
 }
 
 /// Get all prefill user
-Future<UserModalPrefill> getUserPrefill(BuildContext context, int userId) async {
+Future<UserModalPrefill> getUserPrefill(
+    BuildContext context, int userId) async {
   var itemsList;
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -87,12 +86,14 @@ Future<UserModalPrefill> getUserPrefill(BuildContext context, int userId) async 
         userId: response.data['userId'],
         firstName: response.data['firstName'],
         lastName: response.data['lastName'] ?? "--",
-        deptId: response.data['departmentId'],
+        deptId: response.data['departmentId'] ?? 1,
         department: (response.data['department'] is List)
-            ? response.data['department'].join(", ") // Convert list to comma-separated string
-            : response.data['department'], // If it's already a string
-        companyId: companyId,// response.data['company_id'],
-        password: response.data['password'], // Still including but not using in UI
+            ? response.data['department'].join(", ") ??
+                "" // Convert list to comma-separated string
+            : response.data['department'] ?? "", // If it's already a string
+        companyId: companyId, // response.data['company_id'],
+        password:
+            response.data['password'], // Still including but not using in UI
         email: response.data['email'],
         sucess: true,
         message: response.statusMessage!,
@@ -145,23 +146,18 @@ Future<UserModalPrefill> getUserPrefill(BuildContext context, int userId) async 
 // }
 
 /// Create user
-Future<ApiData> createUserPost(
-    BuildContext context,
-    String firstName,
-    String lastName,
-    int departmentId,
-    String email,
-    String password
-    ) async {
+Future<ApiData> createUserPost(BuildContext context, String firstName,
+    String lastName, int departmentId, String email, String password) async {
   try {
     final companyId = await TokenManager.getCompanyId();
-    var response = await Api(context).post(path: EstablishmentManagerRepository.createUserPost(), data: {
-      'firstName':firstName,
-      'lastName':lastName,
-      'departmentId':departmentId,
-      'email':email,
-      'company_id':companyId,
-      'password':password
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.createUserPost(), data: {
+      'firstName': firstName,
+      'lastName': lastName,
+      'departmentId': departmentId,
+      'email': email,
+      'company_id': companyId,
+      'password': password
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New User Added");
@@ -257,26 +253,32 @@ void _showPopup(BuildContext context, String title, String message) {
     print("Popup closed");
   });
 }
+
 /// update user patch edit
-Future<void> updateUserPatch(
-    BuildContext context, int userId, String firstName, String lastName,
-    int deptId, String email, String? password) async {
+Future<void> updateUserPatch({
+  required BuildContext context,
+  required int userId,
+  required String firstName,
+  required String lastName,
+  required int deptId,
+  required String email,
+}) async {
   try {
     final data = {
-      "userId": userId,
       "firstName": firstName,
       "lastName": lastName,
-      "deptId": deptId,
+      "departmentId": deptId,
       "email": email,
-      // Only include password if it has a value
-      if (password != null && password.isNotEmpty) "password": password
     };
+
+    print("Data ::" + data.toString());
 
     final response = await Api(context).patch(
       path: EstablishmentManagerRepository.userUpdatePatch(userId: userId),
       data: data,
     );
 
+    print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("User updated successfully");
     } else {
@@ -286,7 +288,6 @@ Future<void> updateUserPatch(
     print("Error: $e");
   }
 }
-
 
 ///
 // Future<ApiData> updateUserPatch(
@@ -331,11 +332,12 @@ Future<void> updateUserPatch(
 
 /// Delete user
 Future<ApiData> deleteUser(
-    BuildContext context,
-    int userId,
-    ) async {
+  BuildContext context,
+  int userId,
+) async {
   try {
-    var response = await Api(context).delete(path: EstablishmentManagerRepository.userDelete(userId: userId));
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.userDelete(userId: userId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("User Deleted");
       return ApiData(

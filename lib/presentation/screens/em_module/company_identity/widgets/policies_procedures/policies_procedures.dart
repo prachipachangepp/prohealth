@@ -39,7 +39,6 @@ class CiPoliciesAndProcedures extends StatefulWidget {
   State<CiPoliciesAndProcedures> createState() =>
       _CiPoliciesAndProceduresState();
 }
-
 class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   TextEditingController nameOfDocController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();

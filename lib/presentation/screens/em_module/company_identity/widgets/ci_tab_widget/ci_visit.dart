@@ -646,6 +646,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                         selectedEditChips.clear();
                                                                         docNamecontroller.clear();
                                                                       },
+                                                                      enable:false,
                                                                       nameOfDocumentController: docNamecontroller,
                                                                       idOfDocumentController: docIdController,
                                                                       onSavePressed: () async {

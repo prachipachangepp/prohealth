@@ -14,6 +14,7 @@ class AddVisitPopup extends StatefulWidget {
   final TextEditingController idOfDocumentController;
   final Future<void> Function() onSavePressed;
   final Widget child;
+  final bool? enable;
   //final Widget child1;
   final String title;
   final Widget dropdownServices;
@@ -21,6 +22,7 @@ class AddVisitPopup extends StatefulWidget {
 
   const AddVisitPopup({
     super.key,
+    this.enable,
     required this.nameOfDocumentController,
     required this.idOfDocumentController,
     required this.onSavePressed,
@@ -125,6 +127,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FirstSMTextFConst(
+                          enable: widget.enable,
                           controller: widget.nameOfDocumentController,
                           keyboardType: TextInputType.text,
                           text: 'Type of Visit',
