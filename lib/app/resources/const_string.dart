@@ -103,6 +103,7 @@ class AppString {
   static const String banking = "Banking";
   static const String healthRecord = "Health Record";
   static const String acknowledgement = "Acknowledgement";
+  static const String formStatus = "Form Status";
   static const String ackCandidate = "Candidate Release Authorization Form";
   static const String ackConfidential = "Confidentiality Statement";
   static const String ackonCall = "On call";

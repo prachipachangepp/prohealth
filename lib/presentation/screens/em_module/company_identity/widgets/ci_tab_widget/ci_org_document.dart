@@ -350,9 +350,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                           int docType = snapshot.data![0].docID;
 
                                           for (var i in snapshot.data!) {
-                                            if (i.docID ==
-                                                AppConfig
-                                                    .corporateAndCompliance) {
+                                            if (i.docID == AppConfig.corporateAndCompliance) {
                                               selectedDocType = i.docType;
                                               docType = i.docID;
                                               break;
