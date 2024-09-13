@@ -75,26 +75,26 @@ class AppString {
   static const String palliative = "Palliative Care";
   static const String selectIndex = "Selected index";
   static const String security_code = "Security Code";
-  static const String phone_number ="Phone Number";
+  static const String phone_number = "Phone Number";
   static const String verify_user = "Verify User";
   static const String upload_signature = "Upload Signature";
   static const String draw = "Draw";
   static const String delete = "Delete";
-  static const String upload ="Upload";
-  static const String cancel ="Cancel";
-  static const String reset ="Reset";
-  static const String enter_otp ="Enter OTP";
-  static const String save ="Save";
+  static const String upload = "Upload";
+  static const String cancel = "Cancel";
+  static const String reset = "Reset";
+  static const String enter_otp = "Enter OTP";
+  static const String save = "Save";
   static const String submit = "Submit";
 
-  static const String references ="References";
-  static const String add_education ="Add Education";
-  static const String title_position ="Title/Position";
-  static const String company_organization ="Company/ Organization";
-  static const String mobile_number ="Mobile Number";
-  static const String length_of_association ="Length of Association";
-  static const String how_do_you_know_this_person = "How do you know this person ?";
-
+  static const String references = "References";
+  static const String add_education = "Add Education";
+  static const String title_position = "Title/Position";
+  static const String company_organization = "Company/ Organization";
+  static const String mobile_number = "Mobile Number";
+  static const String length_of_association = "Length of Association";
+  static const String how_do_you_know_this_person =
+      "How do you know this person ?";
 
   ///Onboarding
   static const String onboarding = "Onboarding";
@@ -177,15 +177,6 @@ class AppString {
   static const String resend = "Resend";
   static const String poweredby = "Powered By";
 
-
-
-
-
-
-
-
-
-
   static const String licenses = "Licenses";
   static const String profiled = "Profiled";
   static const String phoneCmt = "PhoneCmt";
@@ -196,62 +187,42 @@ class AppString {
   static const String aboutToExpireLicense = "About To Expire License";
   static const String expiredLicense = "Expired License";
 
-
   //intake & schedular
 
-  static String state ="State";
-  static String zip_code ="Zip Code";
-  static String primary_phone_number="Primary Phone Number";
-  static String secondary_phone_number="Secondary Phone Number";
-  static String date_of_death ="Date of Death";
-  static String date_of_birth ="Date of Birth";
-  static String suffix ="Suffix";
-  static String prefix ="Prefix";
-  static String location ="Location";
-  static String type ="Type";
-  static String upload_document ="Upload Document";
-  static String fax ="Fax";
-  static String yes ="Yes";
-  static String no ="No";
-  static String other ="other";
-  static String type_of_the_document ="Type of the Document";
-  static String sub_type_of_the_document ="Sub Type of the Document";
-  static String name_of_the_document ="Name of the Document";
+  static String state = "State";
+  static String zip_code = "Zip Code";
+  static String primary_phone_number = "Primary Phone Number";
+  static String secondary_phone_number = "Secondary Phone Number";
+  static String date_of_death = "Date of Death";
+  static String date_of_birth = "Date of Birth";
+  static String suffix = "Suffix";
+  static String prefix = "Prefix";
+  static String location = "Location";
+  static String type = "Type";
+  static String upload_document = "Upload Document";
+  static String fax = "Fax";
+  static String yes = "Yes";
+  static String no = "No";
+  static String other = "other";
+  static String type_of_the_document = "Type of the Document";
+  static String sub_type_of_the_document = "Sub Type of the Document";
+  static String name_of_the_document = "Name of the Document";
   static String id_of_the_document = "ID of the Document";
-  static String expiry_date ="Expiry Date";
-  static String expiry_type ="Expiry Type";
+  static String expiry_date = "Expiry Date";
+  static String expiry_type = "Expiry Type";
 
-  static String add_new ="Add New";
-  static String street ="street";
-  static String create ="Create";
-  static String contact ="Contact";
-  static String category ="Category";
-  static String suite_Apt ="Suite/ Apt.";
-  static String comments ="Comments";
-  static String specialisation ="Specialisation";
-  static String status_completed ="Status Completed";
-  static String scheduled ="Scheduled";
-  static String protocol ="Protocol";
-  static String unknown ="Unknown";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  static String add_new = "Add New";
+  static String street = "street";
+  static String create = "Create";
+  static String contact = "Contact";
+  static String category = "Category";
+  static String suite_Apt = "Suite/ Apt.";
+  static String comments = "Comments";
+  static String specialisation = "Specialisation";
+  static String status_completed = "Status Completed";
+  static String scheduled = "Scheduled";
+  static String protocol = "Protocol";
+  static String unknown = "Unknown";
 
   ///verify
   static const String incorrectOtp = 'Incorrect OTP. Please try again.';
@@ -296,7 +267,6 @@ class AppString {
       'Only Three Times you can change the password';
   static const String cannotchangepass = 'You Cannot change the password today';
 
-
   /// em hr administration
   static const String addemployeetype = 'Add Employee Type';
   static const String employeetype = 'Employee Type';
@@ -306,16 +276,16 @@ class AppString {
   static const String eligibleClinician = "Eligible Clinicians";
   static const String notapplicable = "Not Applicable";
   static const String expiry = "Expiry";
+  static const String close = "Close";
   static const String clinician = "Clinicians";
   static const String sales = "Sales";
-  static const String roles= "Roles";
-  static const String ruleroles= "Rule Roles";
+  static const String roles = "Roles";
+  static const String ruleroles = "Rule Roles";
   static const String administration = "Administration";
-  static const String reminderthershold= "Reminder Threshold";
+  static const String reminderthershold = "Reminder Threshold";
 
   /// Api 404 Error
- static const String dataNotFound= "No Data!";
-
+  static const String dataNotFound = "No Data!";
 }
 
 ///mobile screen constant
@@ -323,6 +293,6 @@ class AppString {
 class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
-  ///
 
+  ///
 }

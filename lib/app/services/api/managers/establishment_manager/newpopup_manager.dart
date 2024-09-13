@@ -292,7 +292,6 @@
 // }
 ///
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -302,7 +301,6 @@ import '../../../token/token_manager.dart';
 import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
-
 /// get Type of document Manage(CC,VC,PP) Add Popup document type dropdown api prajwal
 Future<List<TypeofDocpopup>> getTypeofDoc(
     BuildContext context, int DocumentTypeId, int DocumentSubTypeId) async {
@@ -311,8 +309,9 @@ Future<List<TypeofDocpopup>> getTypeofDoc(
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getdocPayratesdropdown(
-          DocumentTypeId: DocumentTypeId,
-          DocumentSubTypeId: DocumentSubTypeId,));
+      DocumentTypeId: DocumentTypeId,
+      DocumentSubTypeId: DocumentSubTypeId,
+    ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
@@ -395,17 +394,17 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
     int DocumentTypeId,
     int DocumentSubTypeId,
     int pageNbr,
-    int NbrofRows
-    ) async {
+    int NbrofRows) async {
   List<MCorporateComplianceModal> itemsList = [];
   try {
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getListMCorporateCompliance(
             DocumentTypeId: DocumentTypeId,
-            DocumentSubTypeId: DocumentSubTypeId, pageNbr: pageNbr, NbrofRows: NbrofRows));
+            DocumentSubTypeId: DocumentSubTypeId,
+            pageNbr: pageNbr,
+            NbrofRows: NbrofRows));
 
-    print(" Prachi Corporate Compliance response:::::${response.data}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsList.add(
@@ -423,9 +422,9 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
           ),
         );
       }
-      print(" Manage Corporate Compliance Get :::::${itemsList}");
+      // print(" Manage Corporate Compliance Get :::::${itemsList}");
     } else {
-      print(' Manage Compliance Data Added');
+      print(' Manage Compliance Data Not Added');
       return itemsList;
     }
     return itemsList;
@@ -444,7 +443,6 @@ Future<ApiData> addOrgDocPPPost({
   required String docCreated,
   required String url,
   required String officeId,
-
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -455,7 +453,8 @@ Future<ApiData> addOrgDocPPPost({
       "doc_created_at": docCreated,
       "company_id": companyId,
       "url": url,
-      "office_id": officeId,//expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
+      "office_id":
+          officeId, //expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
     };
 
     // if (expiryDate != null && expiryDate.isNotEmpty) {
@@ -465,22 +464,13 @@ Future<ApiData> addOrgDocPPPost({
     // }
 
     print('New manage Corporate Doc $data');
-    var response = await Api(context).post(
-        path: EstablishmentManagerRepository.addDocOrg(),
-        data: {
-          "orgDocumentSetupid": orgDocumentSetupid,
-          "idOfDocument": idOfDocument,
-          "expiry_date": expiryDate == null ? null :"${expiryDate}T00:00:00Z",
-          "doc_created_at": docCreated,
-          "company_id": companyId,
-         "url": url,
-          "office_id": officeId,//expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
-        });
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.addDocOrg(), data: data);
     print('New manage Doc Post::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New manage Corporate Doc addded ");
       var responseData = response.data;
-      var docOfficeID =responseData["orgOfficeDocumentId"];
+      var docOfficeID = responseData["orgOfficeDocumentId"];
       print("Post Manage CCVCPP  addded ");
       return ApiData(
           orgOfficeDocumentId: docOfficeID,
@@ -502,7 +492,6 @@ Future<ApiData> addOrgDocPPPost({
   }
 }
 
-
 ///upload base 64 Add DocType(CC,VC, PP) Also use this in Edit prajwal
 Future<ApiData> uploadDocumentsoffice({
   required BuildContext context,
@@ -511,7 +500,7 @@ Future<ApiData> uploadDocumentsoffice({
 }) async {
   try {
     String documents =
-    await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+        await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     print("File :::${documents}");
     var response = await Api(context).post(
       path: EstablishmentManagerRepository.uploadedocOffice(
@@ -540,9 +529,6 @@ Future<ApiData> uploadDocumentsoffice({
   }
 }
 
-
-
-
 /// Made by shubham_dev patch
 Future<ApiData> updateOrgDoc({
   required BuildContext context,
@@ -562,7 +548,7 @@ Future<ApiData> updateOrgDoc({
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
       // "expiry_date": formattedExpiryDate,
-      "expiry_date": null,
+      "expiry_date": expiryDate,
       "doc_created_at": docCreatedat,
       "company_id": companyId,
       "url": url,
@@ -570,13 +556,14 @@ Future<ApiData> updateOrgDoc({
     };
     print('patch Manage CCVCPP Doc $data');
 
-    var response = await Api(context)
-        .patch(path: EstablishmentManagerRepository.patchDocOrg(orgDocID: orgDocId), data: data);
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.patchDocOrg(orgDocID: orgDocId),
+        data: data);
     print('Patch Manage CCVCPP ::::$response ');
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       var responseData = response.data;
-      var docOfficeID =responseData["orgOfficeDocumentId"];
+      var docOfficeID = responseData["orgOfficeDocumentId"];
       print("Patch CCVCPP  Updated ");
       return ApiData(
           orgOfficeDocumentId: docOfficeID,
@@ -598,7 +585,6 @@ Future<ApiData> updateOrgDoc({
   }
 }
 
-
 /// GET prefill cc vc pp document prajwal
 Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
     BuildContext context, int orgDocId) async {
@@ -612,17 +598,18 @@ Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
       // print("Document type Response:::::${itemsList}");
       itemsList = MCorporateCompliancePreFillModal(
         documentSetupId: response.data['orgDocumentSetupid'],
-        idOfDocument: response.data['idOfDocument']??"",
+        idOfDocument: response.data['idOfDocument'] ?? "",
         expiry_date: response.data['expiry_date'] ?? "",
         doc_created_at: response.data['doc_created_at'] ?? "",
         companyId: companyId,
         url: response.data['url'] ?? "",
         officeId: response.data['office_id'],
-        threshould: response.data['threshold']??0,
-        expType: response.data['expiry_type']??"",
-        docName: response.data['doc_name']??'',
+        threshould: response.data['threshold'] ?? 0,
+        expType: response.data['expiry_type'] ?? "",
+        docName: response.data['doc_name'] ?? '',
         docSubTypeId: response.data['document_subtype_id'],
         docTypeId: response.data['document_type_id'],
+        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
       );
     } else {
       print('Api Error');
@@ -636,15 +623,14 @@ Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
   }
 }
 
-
 ///shubham delete org document(CC VV PP)
 Future<ApiData> deleteOrgDoc({
   required BuildContext context,
   required int orgDocId,
 }) async {
   try {
-    var response = await Api(context)
-        .delete(path: EstablishmentManagerRepository.deleteDocOrg(orgDocID: orgDocId));
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.deleteDocOrg(orgDocID: orgDocId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('Document deleted');
       // var responseData = response.data;
@@ -669,7 +655,6 @@ Future<ApiData> deleteOrgDoc({
   }
 }
 
-
 class dd extends StatelessWidget {
   const dd({super.key});
 
@@ -678,4 +663,3 @@ class dd extends StatelessWidget {
     return const Placeholder();
   }
 }
-
