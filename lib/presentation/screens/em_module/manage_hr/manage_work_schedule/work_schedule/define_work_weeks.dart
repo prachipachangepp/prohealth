@@ -513,42 +513,98 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                     }
                                                                                         }
                                                                                     ),
-                                                                              Container(
-                                                                                  height: mediaQuery.height / 26,
-                                                                                  width: mediaQuery.width / 55,
-                                                                                  decoration: BoxDecoration(border: Border.all(
-                                                                                      color: ColorManager.faintOrange),
-                                                                                      borderRadius: BorderRadius.circular(5), color: ColorManager.white),
-                                                                                  child: InkWell(
-                                                                                    onTap: () {
-                                                                                      showDialog(
-                                                                                          context: context,
-                                                                                          builder: (BuildContext context) {
-                                                                                            return AddBatchPopup(
-                                                                                              controller1: startTimeController,
-                                                                                              controller2: endTimeController,
-                                                                                              onPressed: () async{
-                                                                                                await addShiftBatch(context, snapshotShift.data![index].shiftName,
-                                                                                                    snapshotShift
-                                                                                                        .data![index].weekDays, startTimeController.text, endTimeController.text);
-                                                                                                setState((){
-                                                                                                  shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
-                                                                                                });
-                                                                                                startTimeController.clear();
-                                                                                                endTimeController.clear();
-                                                                                                //Navigator.pop(context);
-                                                                                              }, title: 'Add Batche',
-                                                                                            );
-                                                                                          });
-                                                                                    },
-                                                                                    child: Icon(
-                                                                                      Icons.add,
-                                                                                      color: ColorManager.faintOrange,
-                                                                                      size: mediaQuery.width / 80,
-                                                                                    ),
-                                                                                  ))
-                                                                                                                                                        ],
-                                                                                                                                                      ),
+                                                                              Row(
+                                                                                children: [
+                                                                                  Container(
+                                                                                      height: mediaQuery.height / 26,
+                                                                                      width: mediaQuery.width / 55,
+                                                                                      decoration: BoxDecoration(border: Border.all(
+                                                                                          color: ColorManager.faintOrange),
+                                                                                          borderRadius: BorderRadius.circular(5), color: ColorManager.white),
+                                                                                      child: InkWell(
+                                                                                        onTap: () {
+                                                                                          showDialog(
+                                                                                              context: context,
+                                                                                              builder: (BuildContext context) {
+                                                                                                return AddBatchPopup(
+                                                                                                  controller1: startTimeController,
+                                                                                                  controller2: endTimeController,
+                                                                                                  onPressed: () async{
+                                                                                                    await addShiftBatch(context, snapshotShift.data![index].shiftName,
+                                                                                                        snapshotShift
+                                                                                                            .data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                                    setState((){
+                                                                                                      shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
+                                                                                                    });
+                                                                                                    startTimeController.clear();
+                                                                                                    endTimeController.clear();
+                                                                                                    //Navigator.pop(context);
+                                                                                                  }, title: 'Add Batche',
+                                                                                                );
+                                                                                              });
+                                                                                        },
+                                                                                        child: Icon(
+                                                                                          Icons.add,
+                                                                                          color: ColorManager.faintOrange,
+                                                                                          size: mediaQuery.width / 80,
+                                                                                        ),
+                                                                                      )),
+                                                                                  SizedBox(width:5),
+                                                                                  Container(
+                                                                                      height: mediaQuery.height / 26,
+                                                                                      width: mediaQuery.width / 55,
+                                                                                      decoration: BoxDecoration(border: Border.all(
+                                                                                          color: ColorManager.faintOrange),
+                                                                                          borderRadius: BorderRadius.circular(5), color: ColorManager.white),
+                                                                                      child: InkWell(
+                                                                                        onTap: () {
+                                                                                          showDialog(
+                                                                                              context:
+                                                                                              context,
+                                                                                              builder:
+                                                                                                  (BuildContext
+                                                                                              context) {
+                                                                                                return StatefulBuilder(
+                                                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                                                    return DeletePopup(
+                                                                                                        title: 'Delete Work Shift',
+                                                                                                        onCancel:
+                                                                                                            () {
+                                                                                                          Navigator.pop(context);
+                                                                                                        },
+                                                                                                        onDelete:
+                                                                                                            () async{
+                                                                                                          setState(() {
+                                                                                                            _isLoading = true;
+                                                                                                          });
+                                                                                                          try {
+                                                                                                            await deleteWorkWeekSiftSchedule(context: context, workWeekShiftId: snapshotShift.data![index].weekShiftScheduleId!);
+                                                                                                            setState(() {
+                                                                                                               workWeekShiftScheduleGet(
+                                                                                                                  context,
+                                                                                                                  //snapshot.data![index].companyId,
+                                                                                                                  data.weekDays);
+                                                                                                              Navigator.pop(context);
+                                                                                                            });
+
+                                                                                                          } finally {
+                                                                                                            setState(() {
+                                                                                                              _isLoading = false;
+                                                                                                            });
+                                                                                                          }
+                                                                                                        });
+                                                                                                  },
+                                                                                                );
+                                                                                              });
+                                                                                        },
+                                                                                        child: Icon(
+                                                                                          Icons.delete_outline,
+                                                                                          color: ColorManager.faintOrange,
+                                                                                          size: mediaQuery.width / 80,
+                                                                                        ),
+                                                                                      ))
+                                                                                ],
+                                                                              )]),
                                                                             ),
                                                                       ),
                                                                     ),

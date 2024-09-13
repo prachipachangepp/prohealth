@@ -189,157 +189,93 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return CustomDialog(
-                            title: "Create User ",
-                            userIdController: userIdController,
-                            lastNameController: lastNameController,
-                            emailController: emailController,
-                            firstNameController: firstNameController,
-                            roleController: roleController,
-                            passwordController: passwordController,
-                            companyIdController: companyIdController,
-                            onSubmit: () async {
-                              await createUserPost(
-                                  context,
-                                  // userIdController.text,
-                                  firstNameController.text,
-                                  lastNameController.text,
-                                  selectedDeptId!,// roleController.text,
-                                  emailController.text,
-                                 // 1, // int.parse(companyIdController.text),
-                                  passwordController.text);
-                              getUser(context).then((data) {
-                                _companyUsersList.add(data);
-                              }).catchError((error) {});
-                              Navigator.pop(context);
-                              firstNameController.clear();
-                              lastNameController.clear();
-                              roleController.clear();
-                              emailController.clear();
-                              companyIdController.clear();
-                              passwordController.clear();
-                            },
-                            child: FutureBuilder<List<HRHeadBar>>(
-                              future: companyHRHeadApi(context, deptId),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Container(
-                                    alignment: Alignment.center,
-                                    child: loadingText, // Display a loading indicator
-                                  );
-                                }
-                                if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      ErrorMessageString.noroleAdded,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  // Extract dropdown items from snapshot
-                                  List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
-                                  String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
-                                  int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
-
-                                  if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
-                                    selectedDeptName = firstDeptName;
-                                    selectedDeptId = firstDeptId;
-                                  }
-
-                                  return HRManageDropdown(
-                                    controller: TextEditingController(text: selectedDeptName ?? ''),
-                                    labelText: "Select Department",
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                         return FutureBuilder<List<HRHeadBar>>(
+                            future: companyHRHeadApi(context, deptId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    color: ColorManager.blueprime,
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    ErrorMessageString.noroleAdded,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s12,
                                       color: ColorManager.mediumgrey,
                                     ),
-                                    labelFontSize: 12,
-                                    items: dropDownServiceList,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        selectedDeptName = val;
-                                        // Find the corresponding department ID from the snapshot
-                                        selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
-                                      });
-                                    },
-                                  );
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                // Extract dropdown items from snapshot
+                                List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
+                                String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
+                                int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
+
+                                if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
+                                  selectedDeptName = firstDeptName;
+                                  selectedDeptId = firstDeptId;
                                 }
-                                return const SizedBox(); // Return an empty widget in case of no data
-                              },
-                            ),
-                            // FutureBuilder<List<HRHeadBar>>(
-                            //   future: companyHRHeadApi(context, deptId),
-                            //   builder: (context, snapshot) {
-                            //     if (snapshot.connectionState ==
-                            //         ConnectionState.waiting) {
-                            //       return Container(
-                            //         // width: 180,
-                            //         // height: 30,
-                            //         alignment: Alignment.center,
-                            //         child: loadingText,
-                            //       );
-                            //     }
-                            //     if (snapshot.hasData && snapshot.data!.isEmpty) {
-                            //       return Center(
-                            //         child: Text(
-                            //           ErrorMessageString.noroleAdded,
-                            //           style: CustomTextStylesCommon.commonStyle(
-                            //             fontWeight: FontWeightManager.medium,
-                            //             fontSize: FontSize.s12,
-                            //             color: ColorManager.mediumgrey,
-                            //           ),
-                            //         ),
-                            //       );
-                            //     }
-                            //     if (snapshot.hasData) {
-                            //       List<DropdownMenuItem<String>>
-                            //       dropDownServiceList = [];
-                            //       for (var dept in snapshot.data!) {
-                            //         dropDownServiceList.add(
-                            //           DropdownMenuItem<String>(
-                            //             value: dept.deptName,
-                            //             child: Text(dept.deptName ?? ''),
-                            //           ),
-                            //         );
-                            //       }
-                            //       if (dropDownServiceList.isNotEmpty) {
-                            //         firstDeptId = snapshot.data![0].deptId;
-                            //       }
-                            //
-                            //       if (selectedDeptName == null &&
-                            //           dropDownServiceList.isNotEmpty) {
-                            //         selectedDeptName =
-                            //             dropDownServiceList[0].value;
-                            //         selectedDeptId = firstDeptId;
-                            //       }
-                            //
-                            //       return CICCDropdown(
-                            //         width: 300,
-                            //         initialValue: selectedDeptName,
-                            //         onChange: (val) {
-                            //           setState(() {
-                            //             selectedDeptName = val;
-                            //             for (var dept in snapshot.data!) {
-                            //               if (dept.deptName == val) {
-                            //                 selectedDeptId =
-                            //                     dept.deptId;
-                            //               }
-                            //             }
-                            //           });
-                            //         },
-                            //         items: dropDownServiceList,
-                            //       );
-                            //     }
-                            //     return const SizedBox();
-                            //   },
-                            // ),
+
+                                return CustomDialog(
+                                    title: "Create User ",
+                                    userIdController: userIdController,
+                                    lastNameController: lastNameController,
+                                    emailController: emailController,
+                                    firstNameController: firstNameController,
+                                    roleController: roleController,
+                                    passwordController: passwordController,
+                                    companyIdController: companyIdController,
+                                    onSubmit: () async {
+                                      await createUserPost(
+                                          context,
+                                          // userIdController.text,
+                                          firstNameController.text,
+                                          lastNameController.text,
+                                          selectedDeptId!,// roleController.text,
+                                          emailController.text,
+                                          // 1, // int.parse(companyIdController.text),
+                                          passwordController.text);
+                                      getUser(context).then((data) {
+                                        _companyUsersList.add(data);
+                                      }).catchError((error) {});
+                                      Navigator.pop(context);
+                                      firstNameController.clear();
+                                      lastNameController.clear();
+                                      roleController.clear();
+                                      emailController.clear();
+                                      companyIdController.clear();
+                                      passwordController.clear();
+                                    },
+                                    child: HRManageDropdown(
+                                      controller: TextEditingController(text: selectedDeptName ?? ''),
+                                      labelText: "Select Department",
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: dropDownServiceList,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          selectedDeptName = val;
+                                          // Find the corresponding department ID from the snapshot
+                                          selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                        });
+                                      },
+                                    ),
+                                );
+                              }
+                              return const SizedBox(); // Return an empty widget in case of no data
+                            },
                           );
+
                         },
                       );
                     },
@@ -667,11 +603,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async{
+                                                    List<HRHeadBar> hRHeadBar = await companyHRHeadApi(context, deptId);
+                                                    List<String> dropDownServiceList = hRHeadBar.map((dept) => dept.deptName).toList();
+                                                    String? firstDeptName = hRHeadBar.isNotEmpty ? hRHeadBar[0].deptName??"" :" ";
+                                                    int? firstDeptId = hRHeadBar.isNotEmpty ? hRHeadBar[0].deptId?? 0 : 0;
                                                     showDialog(
                                                       context: context,
                                                       builder:
                                                           (BuildContext context) {
+
                                                         return FutureBuilder<UserModalPrefill>(
                                                           future: getUserPrefill(context, user.userId),
                                                           builder: (context, snapshotPrefill) {
@@ -718,13 +659,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 companyIdController.clear();
                                                               },
                                                               // passwordController: passwordController,
-                                                              child: FutureBuilder<List<HRHeadBar>>(
+                                                              child:
+                                                              FutureBuilder<List<HRHeadBar>>(
                                                                 future: companyHRHeadApi(context, deptId),
                                                                 builder: (context, snapshot) {
                                                                   if (snapshot.connectionState == ConnectionState.waiting) {
                                                                     return Container(
-                                                                      alignment: Alignment.center,
-                                                                      child: loadingText, // Display a loading indicator
+                                                                      width: 320,
+                                                                      height: 40, 
+                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(2),
+                                                                      border: Border.all(color: Colors.black)),// Display a loading indicator
                                                                     );
                                                                   }
                                                                   if (snapshot.hasData && snapshot.data!.isEmpty) {
@@ -740,11 +684,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     );
                                                                   }
                                                                   if (snapshot.hasData) {
-                                                                    List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
-                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName??"" :" ";
-                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId?? 0 : 0;
-
-                                                                    if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
+                                                                    if (selectedDeptName == null) {
                                                                       selectedDeptName = firstDeptName;
                                                                       selectedDeptId = firstDeptId;
                                                                     }
@@ -759,6 +699,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       labelFontSize: 12,
                                                                       items: dropDownServiceList,
                                                                       onChanged: (val) {
+
                                                                         setState(() {
                                                                           selectedDeptName = val;
                                                                           selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;

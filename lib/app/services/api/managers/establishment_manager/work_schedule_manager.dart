@@ -111,6 +111,7 @@ Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(WorkWeekShiftScheduleData(
+          weekShiftScheduleId: item['WorkWeekShiftScheduleId'],
           weekDays: item['weekDay'],
           shiftName: item['shiftName'],
           officeStartTime: item['officeStartTime'],
@@ -149,6 +150,32 @@ Future<ApiData> addWorkWeekShiftPost(
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Week Shift Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// Delete work week shift
+Future<ApiData> deleteWorkWeekSiftSchedule({required BuildContext context,required int workWeekShiftId}) async {
+  try {
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.deleteWorkWeekShict(workWeekShiftId: workWeekShiftId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Shift Deleted");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

@@ -313,6 +313,9 @@ class EstablishmentManagerRepository {
   static String modifyShiftBatches({required int shiftBatchScheduleId}) {
     return "$workWeekShiftSchedule/batch/$shiftBatchScheduleId";
   }
+  static String deleteWorkWeekShict({required int workWeekShiftId}) {
+    return "$workWeekShiftSchedule/$workWeekShiftId";
+  }
 
   // Holidays
   static String holidaysGet() {
@@ -334,6 +337,8 @@ class EstablishmentManagerRepository {
   static String updateHolidaysPatch({required int holidayId}) {
     return "$holidays/$holidayId";
   }
+
+
 
   ///employee doc list
   static String getEmployeeDocSetUpMetaId({
