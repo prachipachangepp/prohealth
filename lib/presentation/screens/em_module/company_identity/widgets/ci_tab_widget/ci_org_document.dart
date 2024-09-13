@@ -31,7 +31,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController calenderController = TextEditingController();
   TextEditingController daysController = TextEditingController(text: "1");
   final StreamController<List<IdentityDocumentIdData>> _identityDataController =
-      StreamController<List<IdentityDocumentIdData>>.broadcast();
+  StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 0;
   void _selectButton(int index) {
@@ -155,88 +155,88 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   children: [
                     Expanded(
                         child: InkWell(
-                      onTap: () {
-                        _selectButton(0);
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 210,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 0
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            AppString.corporateAndComplianceDocuments,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                          onTap: () {
+                            _selectButton(0);
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 210,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 0
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                AppString.corporateAndComplianceDocuments,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: _selectedIndex == 0
+                                      ? ColorManager.mediumgrey
+                                      : ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                     Expanded(
                         child: InkWell(
-                      onTap: () {
-                        _selectButton(1);
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 210,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 1
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            AppString.vendorContracts,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                          onTap: () {
+                            _selectButton(1);
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 210,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 1
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                AppString.vendorContracts,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: _selectedIndex == 1
+                                      ? ColorManager.mediumgrey
+                                      : ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                     Expanded(
                         child: InkWell(
-                      onTap: () {
-                        _selectButton(2);
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 210,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 2
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            AppString.policiesAndProcedures,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                          onTap: () {
+                            _selectButton(2);
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 210,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 2
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                AppString.policiesAndProcedures,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: _selectedIndex == 2
+                                      ? ColorManager.mediumgrey
+                                      : ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                   ],
                 ),
               ),
@@ -244,139 +244,133 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
 
             ///button
             _selectedIndex == 0
-
-                ///Corporate
+            ///Corporate
                 ? Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      height: 30,
-                      width: 150,
-                      child: CustomIconButton(
-                        icon: Icons.add,
-                        text: "Add Doctype",
-                        onPressed: () async {
-                          String? selectedExpiryType = expiryType;
-                          calenderController.clear();
-                          docIdController.clear();
-                          docNamecontroller.clear();
-                          selectedExpiryType = "";
-                          selectedSubDocTypeValue = "";
-                          selectedYear = AppConfig.year;
-                          daysController.text = "1";
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return AddNewOrgDocButton(
-                                    title: "Add Corporate & Compliance",
-                                    selectedSubDocType: selectedSubDocType,
-                                    docTypeText:
-                                        getDocTypeText(docTypeMetaIdCC),
-                                    docTypeId: docTypeMetaIdCC,
-                                    subDocTypeId: selectedSubDocId,
-                                    subDocTypeText:
-                                        getSubDocTypeText(selectedSubDocId),
-                                  );
-                                },
+              alignment: Alignment.bottomRight,
+              child: Container(
+                height: 30,
+                width: 150,
+                child: CustomIconButton(
+                  icon: Icons.add,
+                  text: "Add Doctype",
+                  onPressed: () async {
+                    String? selectedExpiryType = expiryType;
+                    calenderController.clear();
+                    docIdController.clear();
+                    docNamecontroller.clear();
+                    selectedExpiryType = "";
+                    selectedSubDocTypeValue = "";
+                    selectedYear = AppConfig.year;
+                    daysController.text = "1";
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            return AddNewOrgDocButton(
+                              title: "Add Corporate & Compliance",
+                              selectedSubDocType: selectedSubDocType,
+                              docTypeText:  getDocTypeText(docTypeMetaIdCC),
+                              docTypeId: docTypeMetaIdCC,
+                              subDocTypeId: selectedSubDocId,
+                              subDocTypeText: getSubDocTypeText(selectedSubDocId),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            )
+                : _selectedIndex == 1
+            ///vendor
+                ? Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                height: 30,
+                width: 150,
+                child: CustomIconButton(
+                  icon: Icons.add,
+                  text: "Add Doctype",
+                  onPressed: () async {
+                    String? selectedExpiryType = expiryType;
+                    calenderController.clear();
+                    docIdController.clear();
+                    docNamecontroller.clear();
+                    selectedExpiryType = "";
+                    selectedSubDocTypeValue = "";
+                    selectedYear = AppConfig.year;
+                    daysController.text = "1";
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function())
+                              setState) {
+                            return AddNewOrgDocButton(
+                              title: "Add Vendor Contract",
+                              selectedSubDocType: selectedSubDocType,
+                              docTypeText: getDocTypeText(docTypeMetaIdVC),
+                              docTypeId: docTypeMetaIdVC,
+                              subDocTypeId: selectedSubDocIdVC,
+                              subDocTypeText: getSubDocTypeText(
+                                  selectedSubDocIdVC),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            )
+
+            ///Policies
+                : Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: 30,
+                  width: 150,
+                  child: CustomIconButton(
+                    icon: Icons.add,
+                    text: "Add Doctype",
+                    onPressed: () async {
+                      String? selectedDocType;
+                      String? selectedSubDocType;
+                      String? selectedExpiryType = expiryType;
+                      calenderController.clear();
+                      docIdController.clear();
+                      docNamecontroller.clear();
+                      selectedExpiryType = "";
+                      selectedDocTypeValue = "";
+                      selectedSubDocTypeValue = "";
+                      daysController.clear();
+                      selectedYear = AppConfig.year;
+                      daysController.text = "1";
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return StatefulBuilder(
+                            builder: (BuildContext context,
+                                void Function(void Function())
+                                setState) {
+                              return AddNewOrgDocButton(
+                                title: 'Add Policies & Procedures',
+                                docTypeText: getDocTypeText(docTypeMetaIdPP),
+                                docTypeId: docTypeMetaIdPP,
+                                subDocTypeId: 0,
+                                subDocTypeText: '',
                               );
                             },
                           );
                         },
-                      ),
-                    ),
-                  )
-                : _selectedIndex == 1
-
-                    ///vendor
-                    ? Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          height: 30,
-                          width: 150,
-                          child: CustomIconButton(
-                            icon: Icons.add,
-                            text: "Add Doctype",
-                            onPressed: () async {
-                              String? selectedExpiryType = expiryType;
-                              calenderController.clear();
-                              docIdController.clear();
-                              docNamecontroller.clear();
-                              selectedExpiryType = "";
-                              selectedSubDocTypeValue = "";
-                              selectedYear = AppConfig.year;
-                              daysController.text = "1";
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context,
-                                        void Function(void Function())
-                                            setState) {
-                                      return AddNewOrgDocButton(
-                                        title: "Add Vendor Contract",
-                                        selectedSubDocType: selectedSubDocType,
-                                        docTypeText:
-                                            getDocTypeText(docTypeMetaIdVC),
-                                        docTypeId: docTypeMetaIdVC,
-                                        subDocTypeId: selectedSubDocIdVC,
-                                        subDocTypeText: getSubDocTypeText(
-                                            selectedSubDocIdVC),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      )
-
-                    ///Policies
-                    : Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          height: 30,
-                          width: 150,
-                          child: CustomIconButton(
-                            icon: Icons.add,
-                            text: "Add Doctype",
-                            onPressed: () async {
-                              String? selectedDocType;
-                              String? selectedSubDocType;
-                              String? selectedExpiryType = expiryType;
-                              calenderController.clear();
-                              docIdController.clear();
-                              docNamecontroller.clear();
-                              selectedExpiryType = "";
-                              selectedDocTypeValue = "";
-                              selectedSubDocTypeValue = "";
-                              daysController.clear();
-                              selectedYear = AppConfig.year;
-                              daysController.text = "1";
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context,
-                                        void Function(void Function())
-                                            setState) {
-                                      return AddNewOrgDocButton(
-                                        title: 'Add Policies & Procedures',
-                                        docTypeText:
-                                            getDocTypeText(docTypeMetaIdPP),
-                                        docTypeId: docTypeMetaIdPP,
-                                        subDocTypeId: 0,
-                                        subDocTypeText: '',
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ))
+                      );
+                    },
+                  ),
+                ))
           ],
         ),
         SizedBox(
@@ -387,21 +381,21 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
             children: [
               _selectedIndex != 5
                   ? Container(
-                      // height: MediaQuery.of(context).size.height / 3.5,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFF2F9FC),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.faintGrey,
-                              blurRadius: 2,
-                              spreadRadius: -2,
-                              offset: Offset(0, -4),
-                            ),
-                          ]),
-                    )
+                // height: MediaQuery.of(context).size.height / 3.5,
+                decoration: BoxDecoration(
+                    color: Color(0xFFF2F9FC),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorManager.faintGrey,
+                        blurRadius: 2,
+                        spreadRadius: -2,
+                        offset: Offset(0, -4),
+                      ),
+                    ]),
+              )
                   : Offstage(),
               NonScrollablePageView(
                 controller: _tabPageController,
@@ -416,13 +410,13 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                     docID: AppConfig.corporateAndCompliance,
                     selectedSubDocType: selectedSubDocType,
                     onSubDocIdSelected:
-                        _updateSelectedSubDocId, //officeId: widget.officeId,
+                    _updateSelectedSubDocId, //officeId: widget.officeId,
                   ),
                   CIVendorContract(
                     docId: AppConfig.vendorContracts,
                     onSubDocIdSelected: _updateSelectedSubDocIdVC,
                     selectedSubDocType:
-                        selectedSubDocType, //officeId: widget.officeId
+                    selectedSubDocType, //officeId: widget.officeId
                   ),
                   CIPoliciesProcedure(
                     docId: AppConfig.policiesAndProcedure,
