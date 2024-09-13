@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_zone.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/ci_zone_zipcode.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/location_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:shimmer/shimmer.dart';
@@ -80,10 +81,10 @@ class _CiOrgDocumentState extends State<CiZone> {
   String? selectedZipCodeCounty;
   String? selectedZipCodeZone;
   LatLng _selectedLocation =
-      const LatLng(37.7749, -122.4194); // Default location
+       LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected';
   final StreamController<List<AllCountyZoneGet>> _zoneController =
-      StreamController<List<AllCountyZoneGet>>();
+      StreamController<List<AllCountyZoneGet>>.broadcast();
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
@@ -108,7 +109,7 @@ class _CiOrgDocumentState extends State<CiZone> {
               print("Selected LatLong :: $latlong");
 
               // Update the location in the UI directly
-              //_updateLocation(latlong);
+              _updateLocation(latlong);
             });
           },
         ),
@@ -122,7 +123,13 @@ class _CiOrgDocumentState extends State<CiZone> {
         _longitude = pickedLocation.longitude;
       });
     }
-  } // Default text
+  }
+  void _updateLocation(String latlong) {
+    setState(() {
+      _location = latlong;
+      print("Updated Location: $_location"); // Check this log to see if the value updates
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -505,6 +512,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     zipcodeController: zipcodeController,
                                     onPickLocation: _pickLocation,
                                     onSavePressed: () async {
+                                      setState(() {
+                                        String latlong = _selectedLocation.latitude.toString();
+                                      });
                                       var response = await addZipCodeSetup(
                                           context,
                                           docZoneId,

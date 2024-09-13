@@ -90,7 +90,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s833,
-        height: AppSize.s500,
+        height: AppSize.s530,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -202,6 +202,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              const SizedBox(height: AppSize.s7),
                             SMTextFConst(
                               controller: widget.addressController,
                               keyboardType:
@@ -221,13 +222,13 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                               keyboardType: TextInputType.number,
                               text: 'Primary Phone',
                             ),
-                            const SizedBox(height: AppSize.s9),
+                            const SizedBox(height: AppSize.s10),
                             SMTextFConstPhone(
                               controller: widget.OptionalController,
                               keyboardType: TextInputType.number,
                               text: 'Alternative Phone',
                             ),
-                            const SizedBox(height: AppSize.s9),
+                            const SizedBox(height: AppSize.s10),
                             widget.pickLocationWidget,
                           ],)
                         ]
