@@ -372,51 +372,48 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                       ],
                                                                     ),
                                                                   ),
-                                                                  radioButton: Padding(
-                                                                    padding: const EdgeInsets.only(left: AppPadding.p10),
-                                                                    child: Column(
-                                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "Expiry Type",
-                                                                          style: RadioButtonHeadStyle.customTextStyle(context),
-                                                                        ),
-                                                                        CustomRadioListTile(
-                                                                          value:AppConfig.notApplicable,
-                                                                          groupValue:
-                                                                          selectedExpiryType,
-                                                                          onChanged: (value) {
-                                                                            setState(() {
-                                                                              selectedExpiryType = value;
-                                                                            });
-                                                                          },
-                                                                          title: AppConfig.notApplicable,
-                                                                        ),
-                                                                        CustomRadioListTile(
-                                                                          value: AppConfig.scheduled,
-                                                                          groupValue:
-                                                                          selectedExpiryType,
-                                                                          onChanged: (value) {
-                                                                            setState(() {
-                                                                              selectedExpiryType = value;
-                                                                            });
-                                                                          },
-                                                                          title: AppConfig.scheduled,
-                                                                        ),
-                                                                        CustomRadioListTile(
-                                                                          value: AppConfig.issuer,
-                                                                          groupValue:
-                                                                          selectedExpiryType,
-                                                                          onChanged: (value) {
-                                                                            setState(() {
-                                                                              selectedExpiryType = value;
-                                                                            });
-                                                                          },
-                                                                          title: AppConfig.issuer,
-                                                                        ),
-                                                                      ],
-                                                                    ),
+                                                                  radioButton: Column(
+                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      Text(
+                                                                        "Expiry Type",
+                                                                        style: RadioButtonHeadStyle.customTextStyle(context),
+                                                                      ),
+                                                                      CustomRadioListTile(
+                                                                        value:AppConfig.notApplicable,
+                                                                        groupValue:
+                                                                        selectedExpiryType,
+                                                                        onChanged: (value) {
+                                                                          setState(() {
+                                                                            selectedExpiryType = value;
+                                                                          });
+                                                                        },
+                                                                        title: AppConfig.notApplicable,
+                                                                      ),
+                                                                      CustomRadioListTile(
+                                                                        value: AppConfig.scheduled,
+                                                                        groupValue:
+                                                                        selectedExpiryType,
+                                                                        onChanged: (value) {
+                                                                          setState(() {
+                                                                            selectedExpiryType = value;
+                                                                          });
+                                                                        },
+                                                                        title: AppConfig.scheduled,
+                                                                      ),
+                                                                      CustomRadioListTile(
+                                                                        value: AppConfig.issuer,
+                                                                        groupValue:
+                                                                        selectedExpiryType,
+                                                                        onChanged: (value) {
+                                                                          setState(() {
+                                                                            selectedExpiryType = value;
+                                                                          });
+                                                                        },
+                                                                        title: AppConfig.issuer,
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                   child2: Visibility(
                                                                     visible: selectedExpiryType == AppConfig.scheduled,
@@ -531,7 +528,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                         builder: (context) =>
                                                             DeletePopup(
                                                                 title:
-                                                                    'Delete Health Doc',
+                                                                    'Delete Document',
                                                                 onCancel: () {
                                                                   Navigator.pop(
                                                                       context);

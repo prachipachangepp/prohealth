@@ -11,6 +11,7 @@ Future<List<HRHeadBar>> companyHRHeadApi(BuildContext context, int deptId) async
   try {
     final response = await Api(context)
         .get(path: AllFromHrRepository.getHrType());
+    print('Prachi ::::::::;;;;${deptId}');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data) {

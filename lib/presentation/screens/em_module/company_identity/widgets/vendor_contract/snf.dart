@@ -101,7 +101,7 @@ class _CiSnfState extends State<CiSnf> {
                   getListMCorporateCompliancefetch(
                           context,
                           AppConfig.vendorContracts,
-                          AppConfig.subDocId9MD,
+                          AppConfig.subDocId7SNF,
                           1,
                           20)
                       .then((data) {
@@ -233,7 +233,7 @@ class _CiSnfState extends State<CiSnf> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          snfData.expiry_date
+                                                          snfData.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,

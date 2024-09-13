@@ -413,7 +413,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 480,
+              height: 420,
               width: 360,
               decoration: BoxDecoration(
                 color: Colors.white,

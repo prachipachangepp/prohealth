@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/expired_license_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_clipoval_const.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -176,27 +177,22 @@ class _ProfileBarState extends State<ProfileBar> {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              // FutureBuilder(
-                              //  future: decodeMEthod(widget.searchByEmployeeIdProfileData!.imgurl),
-                              //  builder: (context, snapshot){
-                              //    if(snapshot.connectionState == ConnectionState.waiting){
-                              //      return SizedBox();
-                              //    }
-                              //    return SizedBox(
-                              //      height: 50,
-                              //      width: 50,
-                              //      child: Base64ImageWidget(
-                              //          base64String: base64Decode),
-                              //    );
-                              //  }),
-                              //
+                              widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                  widget.searchByEmployeeIdProfileData!.imgurl == null ?
                               Icon(
                                 Icons.person,
                                 color: ColorManager.white,
                                 size: AppSize.s50,
+                              ) :
+                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".png") ||
+                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".jpg")||
+                                  widget.searchByEmployeeIdProfileData!.imgurl.contains(".webp")?
+                              Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
+                                  height: AppSize.s50, width: AppSize.s50):Icon(
+                                Icons.person,
+                                color: ColorManager.white,
+                                size: AppSize.s50,
                               ),
-                              // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
-                              //     height: AppSize.s50, width: AppSize.s50),
                               // you can replace
                               SizedBox(
                                 height: AppSize.s53,
@@ -245,9 +241,20 @@ class _ProfileBarState extends State<ProfileBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ///text john scott
-                      Text(
-                        "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst} ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
-                        style: ThemeManagerBlack.customTextStyle(context),
+                      Row(
+                        children: [
+                          Text(
+                            "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst}"
+                                " ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
+                            style: ThemeManagerBlack.customTextStyle(context),
+                          ),
+                          IconButton(onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>  ProfileBarEditor()),
+                            );
+                          }, icon: Icon(Icons.edit, size: 18, ))
+                        ],
                       ),
                       SizedBox(
                         height: AppSize.s2,

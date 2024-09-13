@@ -243,7 +243,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.docName}",
+                                                        "ID : ${policiesdata.idOfDocument}",
                                                         style: GoogleFonts
                                                             .firaSans(
                                                           fontSize: 10,
@@ -261,7 +261,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                       ),
                                                       Text(
                                                         policiesdata
-                                                            .orgDocumentSetupid
+                                                            .docName
                                                             .toString(),
                                                         textAlign:
                                                             TextAlign.center,

@@ -208,15 +208,15 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                           ),
                                           Row(
                                             children: [
-                                              IconButton(
-                                                splashColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,onPressed: () {  }, icon: Icon(
-                                                Icons.save_alt_outlined,
-                                                size: 18,
-                                                color:
-                                                ColorManager.blueprime,
-                                              ),),
+                                              // IconButton(
+                                              //   splashColor: Colors.transparent,
+                                              //   highlightColor: Colors.transparent,
+                                              //   hoverColor: Colors.transparent,onPressed: () {  }, icon: Icon(
+                                              //   Icons.save_alt_outlined,
+                                              //   size: 18,
+                                              //   color:
+                                              //   ColorManager.blueprime,
+                                              // ),),
                                               IconButton(
                                                 onPressed: () {
                                                   String? selectedExpiryType =

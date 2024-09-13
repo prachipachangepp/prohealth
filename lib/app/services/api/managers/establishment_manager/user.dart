@@ -87,10 +87,10 @@ Future<UserModalPrefill> getUserPrefill(BuildContext context, int userId) async 
         userId: response.data['userId'],
         firstName: response.data['firstName'],
         lastName: response.data['lastName'] ?? "--",
-        deptId: response.data['departmentId'],
+        deptId: response.data['departmentId']??1,
         department: (response.data['department'] is List)
-            ? response.data['department'].join(", ") // Convert list to comma-separated string
-            : response.data['department'], // If it's already a string
+            ? response.data['department'].join(", ") ??""// Convert list to comma-separated string
+            : response.data['department'] ?? "", // If it's already a string
         companyId: companyId,// response.data['company_id'],
         password: response.data['password'], // Still including but not using in UI
         email: response.data['email'],
@@ -260,12 +260,13 @@ void _showPopup(BuildContext context, String title, String message) {
 /// update user patch edit
 Future<void> updateUserPatch(
     BuildContext context, int userId, String firstName, String lastName,
-    int deptId, String email, String? password) async {
+    int deptId, String email, String? password, String department) async {
   try {
     final data = {
       "userId": userId,
       "firstName": firstName,
       "lastName": lastName,
+      "department": department,
       "deptId": deptId,
       "email": email,
       // Only include password if it has a value
