@@ -218,7 +218,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          balReport.expiry_date
+                                                          balReport.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,

@@ -233,7 +233,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          CapReports.expiry_date
+                                                          CapReports.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,

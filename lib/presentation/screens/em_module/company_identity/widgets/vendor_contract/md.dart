@@ -234,7 +234,7 @@ class _CiMdState extends State<CiMd> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          mdData.expiry_date
+                                                          mdData.docName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:
