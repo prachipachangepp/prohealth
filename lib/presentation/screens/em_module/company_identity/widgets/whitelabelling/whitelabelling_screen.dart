@@ -882,7 +882,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           height: 320,
-                          width: 1000,
+                          width: 1100,
                           // color: ColorManager.red,
                           child: FutureBuilder<WhiteLabellingCompanyDetailModal>(
                               future:
