@@ -81,7 +81,7 @@ class DialogueTemplate extends StatelessWidget {
                 children: body,
               ),
             ),
-            SizedBox(height: AppSize.s20),
+            SizedBox(height: AppSize.s15),
 
             ///button
             Padding(

@@ -73,17 +73,18 @@ class AppStringEM{
   static const String expiryType= "Expiry Type";
   static const String loading= 'Loading...';
   static const String misc= "MISC";
+
   static const String licenses = "Licenses";
   static const String ard = "ADR";
   static const String mcr = "Medical Cost Reports";
   static const String capReport = "CAP Reports";
   static const String qbr = "Quarterly Balance Reports";
 
-  static const String leases = "Licenses";
-  static const String ard = "ADR";
-  static const String mcr = "Medical Cost Reports";
-  static const String capReport = "CAP Reports";
-  static const String qbr = "Quarterly Balance Reports";
+  static const String leases = "Leases";
+  static const String snf = "SNF";
+  static const String dme = "DME";
+  static const String md = "MD";
+
 
 }
 
