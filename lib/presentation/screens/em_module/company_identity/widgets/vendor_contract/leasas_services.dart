@@ -237,7 +237,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          leasesData.expiry_date
+                                                          leasesData.docName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:

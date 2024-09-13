@@ -235,7 +235,7 @@ class _CiMiscState extends State<CiMisc> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          miscData.expiry_date
+                                                          miscData.docName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:

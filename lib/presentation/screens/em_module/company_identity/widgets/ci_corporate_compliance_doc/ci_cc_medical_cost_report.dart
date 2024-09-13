@@ -222,7 +222,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         ),
                                                         Text(
                                                           MedicalCostReport
-                                                              .expiry_date
+                                                              .docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
