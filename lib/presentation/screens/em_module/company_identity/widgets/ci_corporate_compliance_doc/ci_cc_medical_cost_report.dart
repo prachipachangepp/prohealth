@@ -659,7 +659,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         DowloadFile()
                                                             .downloadPdfFromBase64(
                                                                 fileExtension,
-                                                                "Licenses.pdf");
+                                                                "Medical Cost Report.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(

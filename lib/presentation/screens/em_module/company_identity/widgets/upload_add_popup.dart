@@ -161,7 +161,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                             for (var doc in widget.dataList) {
                               if (doc.docname == val) {
                                 docTypeId = doc.orgDocumentSetupid!;
-                                documentTypeName = doc.docname;
+
+
+                                documentTypeName = doc.idOfDocument;
 
                                 // Show expiry date field only if expirytype is "issuer expiry"
                                 if (doc.expirytype == AppConfig.issuer) {
