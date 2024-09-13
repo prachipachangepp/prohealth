@@ -233,7 +233,7 @@ class _CiSnfState extends State<CiSnf> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          snfData.expiry_date
+                                                          snfData.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
