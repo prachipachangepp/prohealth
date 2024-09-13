@@ -7,7 +7,6 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/listview_const.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 
 import '../../../../../../app/constants/app_config.dart';
@@ -158,176 +157,176 @@ class _CICCLicenseState extends State<CICCLicense> {
                                     serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal manageCCLicence =
                                     paginatedData[index];
-                               // return  ListViewStyle(
-                               //
-                               //   idname:"ID : ${manageCCLicence.idOfDocument.toString()}",
-                               //
-                               //
-                               //   subidname: manageCCLicence.docName.toString(),
-                               //
-                               //
-                               //   onHistoryPressed: (){
-                               //     showDialog(
-                               //       context: context,
-                               //       builder: (context) =>
-                               //           ManageHistoryPopup(
-                               //             docHistory:
-                               //             manageCCLicence
-                               //                 .docHistory,
-                               //           ),
-                               //     );
-                               //   },
-                               //
-                               //
-                               //
-                               //   onDownloadePressed: () {
-                               //    DowloadFile()
-                               //        .downloadPdfFromBase64(
-                               //        fileExtension,
-                               //        "Licenses.pdf");
-                               //    downloadFile(fileUrl);
-                               //  },
-                               //
-                               //
-                               //
-                               //   onEditPressed: () {
-                               //       String?
-                               //       selectedExpiryType =
-                               //           expiryType;
-                               //       showDialog(
-                               //         context: context,
-                               //         builder: (context) {
-                               //           return FutureBuilder<
-                               //               MCorporateCompliancePreFillModal>(
-                               //             future: getPrefillNewOrgOfficeDocument(
-                               //                 context,
-                               //                 manageCCLicence
-                               //                     .orgOfficeDocumentId),
-                               //             builder: (context,
-                               //                 snapshotPrefill) {
-                               //               if (snapshotPrefill
-                               //                   .connectionState ==
-                               //                   ConnectionState
-                               //                       .waiting) {
-                               //                 return Center(
-                               //                   child:
-                               //                   CircularProgressIndicator(
-                               //                     color: ColorManager
-                               //                         .blueprime,
-                               //                   ),
-                               //                 );
-                               //               }
-                               //
-                               //               var calender =
-                               //                   snapshotPrefill
-                               //                       .data!
-                               //                       .expiry_date;
-                               //               calenderController =
-                               //                   TextEditingController(
-                               //                     text: snapshotPrefill
-                               //                         .data!
-                               //                         .expiry_date,
-                               //                   );
-                               //
-                               //               // fileName = snapshotPrefill.data!.url;
-                               //
-                               //               return StatefulBuilder(
-                               //                 builder: (BuildContext
-                               //                 context,
-                               //                     void Function(
-                               //                         void Function())
-                               //                     setState) {
-                               //                   return VCScreenPopupEditConst(
-                               //                     title:
-                               //                     'Edit Licenses',
-                               //                     loadingDuration:
-                               //                     _isLoading,
-                               //                     officeId:
-                               //                     widget
-                               //                         .officeId,
-                               //                     docTypeMetaIdCC:
-                               //                     widget
-                               //                         .docId,
-                               //                     selectedSubDocId:
-                               //                     widget
-                               //                         .subDocId,
-                               //                     //orgDocId: manageCCADR.orgOfficeDocumentId,
-                               //                     orgDocId: snapshotPrefill
-                               //                         .data!
-                               //                         .orgOfficeDocumentId,
-                               //                     orgDocumentSetupid: snapshotPrefill
-                               //                         .data!
-                               //                         .documentSetupId,
-                               //                     docName: snapshotPrefill
-                               //                         .data!
-                               //                         .docName,
-                               //                     selectedExpiryType: snapshotPrefill
-                               //                         .data!
-                               //                         .expType,
-                               //                     expiryDate: snapshotPrefill
-                               //                         .data!
-                               //                         .expiry_date,
-                               //                     url: snapshotPrefill
-                               //                         .data!
-                               //                         .url,
-                               //                   );
-                               //                 },
-                               //               );
-                               //             },
-                               //           );
-                               //         },
-                               //       );
-                               //     },
-                               //
-                               //
-                               //   onDeletePressed: (){
-                               //    showDialog(
-                               //         context: context,
-                               //         builder: (context) =>
-                               //             StatefulBuilder(
-                               //               builder: (BuildContext
-                               //               context,
-                               //                   void Function(void Function())
-                               //                   setState) {
-                               //                 return DeletePopup(
-                               //                     title:
-                               //                     'Delete license',
-                               //                     loadingDuration:
-                               //                     _isLoading,
-                               //                     onCancel:
-                               //                         () {
-                               //                       Navigator.pop(context);
-                               //                     },
-                               //                     onDelete:
-                               //                         () async {
-                               //                       setState(() {
-                               //                         _isLoading = true;
-                               //                       });
-                               //                       try {
-                               //                         await deleteOrgDoc(
-                               //                           context: context,
-                               //                           orgDocId: manageCCLicence.orgOfficeDocumentId,
-                               //                         );
-                               //                         // await deleteManageCorporate(context, manageCCLicence.docId);
-                               //                         setState(() async {
-                               //                           await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20).then((data) {
-                               //                             lisenceController.add(data);
-                               //                           }).catchError((error) {
-                               //                             // Handle error
-                               //                           });
-                               //                           Navigator.pop(context);
-                               //                         });
-                               //                       } finally {
-                               //                         setState(() {
-                               //                           _isLoading = false;
-                               //                         });
-                               //                       }
-                               //                     });
-                               //               },
-                               //             ));
-                               //   },);
+                                // return  ListViewStyle(
+                                //
+                                //   idname:"ID : ${manageCCLicence.idOfDocument.toString()}",
+                                //
+                                //
+                                //   subidname: manageCCLicence.docName.toString(),
+                                //
+                                //
+                                //   onHistoryPressed: (){
+                                //     showDialog(
+                                //       context: context,
+                                //       builder: (context) =>
+                                //           ManageHistoryPopup(
+                                //             docHistory:
+                                //             manageCCLicence
+                                //                 .docHistory,
+                                //           ),
+                                //     );
+                                //   },
+                                //
+                                //
+                                //
+                                //   onDownloadePressed: () {
+                                //    DowloadFile()
+                                //        .downloadPdfFromBase64(
+                                //        fileExtension,
+                                //        "Licenses.pdf");
+                                //    downloadFile(fileUrl);
+                                //  },
+                                //
+                                //
+                                //
+                                //   onEditPressed: () {
+                                //       String?
+                                //       selectedExpiryType =
+                                //           expiryType;
+                                //       showDialog(
+                                //         context: context,
+                                //         builder: (context) {
+                                //           return FutureBuilder<
+                                //               MCorporateCompliancePreFillModal>(
+                                //             future: getPrefillNewOrgOfficeDocument(
+                                //                 context,
+                                //                 manageCCLicence
+                                //                     .orgOfficeDocumentId),
+                                //             builder: (context,
+                                //                 snapshotPrefill) {
+                                //               if (snapshotPrefill
+                                //                   .connectionState ==
+                                //                   ConnectionState
+                                //                       .waiting) {
+                                //                 return Center(
+                                //                   child:
+                                //                   CircularProgressIndicator(
+                                //                     color: ColorManager
+                                //                         .blueprime,
+                                //                   ),
+                                //                 );
+                                //               }
+                                //
+                                //               var calender =
+                                //                   snapshotPrefill
+                                //                       .data!
+                                //                       .expiry_date;
+                                //               calenderController =
+                                //                   TextEditingController(
+                                //                     text: snapshotPrefill
+                                //                         .data!
+                                //                         .expiry_date,
+                                //                   );
+                                //
+                                //               // fileName = snapshotPrefill.data!.url;
+                                //
+                                //               return StatefulBuilder(
+                                //                 builder: (BuildContext
+                                //                 context,
+                                //                     void Function(
+                                //                         void Function())
+                                //                     setState) {
+                                //                   return VCScreenPopupEditConst(
+                                //                     title:
+                                //                     'Edit Licenses',
+                                //                     loadingDuration:
+                                //                     _isLoading,
+                                //                     officeId:
+                                //                     widget
+                                //                         .officeId,
+                                //                     docTypeMetaIdCC:
+                                //                     widget
+                                //                         .docId,
+                                //                     selectedSubDocId:
+                                //                     widget
+                                //                         .subDocId,
+                                //                     //orgDocId: manageCCADR.orgOfficeDocumentId,
+                                //                     orgDocId: snapshotPrefill
+                                //                         .data!
+                                //                         .orgOfficeDocumentId,
+                                //                     orgDocumentSetupid: snapshotPrefill
+                                //                         .data!
+                                //                         .documentSetupId,
+                                //                     docName: snapshotPrefill
+                                //                         .data!
+                                //                         .docName,
+                                //                     selectedExpiryType: snapshotPrefill
+                                //                         .data!
+                                //                         .expType,
+                                //                     expiryDate: snapshotPrefill
+                                //                         .data!
+                                //                         .expiry_date,
+                                //                     url: snapshotPrefill
+                                //                         .data!
+                                //                         .url,
+                                //                   );
+                                //                 },
+                                //               );
+                                //             },
+                                //           );
+                                //         },
+                                //       );
+                                //     },
+                                //
+                                //
+                                //   onDeletePressed: (){
+                                //    showDialog(
+                                //         context: context,
+                                //         builder: (context) =>
+                                //             StatefulBuilder(
+                                //               builder: (BuildContext
+                                //               context,
+                                //                   void Function(void Function())
+                                //                   setState) {
+                                //                 return DeletePopup(
+                                //                     title:
+                                //                     'Delete license',
+                                //                     loadingDuration:
+                                //                     _isLoading,
+                                //                     onCancel:
+                                //                         () {
+                                //                       Navigator.pop(context);
+                                //                     },
+                                //                     onDelete:
+                                //                         () async {
+                                //                       setState(() {
+                                //                         _isLoading = true;
+                                //                       });
+                                //                       try {
+                                //                         await deleteOrgDoc(
+                                //                           context: context,
+                                //                           orgDocId: manageCCLicence.orgOfficeDocumentId,
+                                //                         );
+                                //                         // await deleteManageCorporate(context, manageCCLicence.docId);
+                                //                         setState(() async {
+                                //                           await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20).then((data) {
+                                //                             lisenceController.add(data);
+                                //                           }).catchError((error) {
+                                //                             // Handle error
+                                //                           });
+                                //                           Navigator.pop(context);
+                                //                         });
+                                //                       } finally {
+                                //                         setState(() {
+                                //                           _isLoading = false;
+                                //                         });
+                                //                       }
+                                //                     });
+                                //               },
+                                //             ));
+                                //   },);
 
-                                 return   Column(
+                                return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // SizedBox(height: 5),
@@ -576,7 +575,6 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
-
                                                     IconButton(
                                                         splashColor:
                                                             Colors.transparent,
@@ -636,7 +634,6 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                           color:
                                                               ColorManager.red,
                                                         )),
-
                                                   ],
                                                 ),
                                               ],
@@ -681,8 +678,3 @@ class _CICCLicenseState extends State<CICCLicense> {
     );
   }
 }
-
-
-
-
-
