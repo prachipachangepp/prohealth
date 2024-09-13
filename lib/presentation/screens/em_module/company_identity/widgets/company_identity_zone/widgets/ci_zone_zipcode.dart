@@ -24,6 +24,7 @@ import '../../../../../../../data/api_data/establishment_data/ci_manage_button/m
 import '../../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'location_screen.dart';
 
 class CiZoneZipcode extends StatefulWidget {
   final int companyID;
@@ -514,7 +515,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                             return const SizedBox();
                                                           }
                                                       ),
-                                                      // onPickLocation: _pickLocation,
+                                                      onPickLocation: _pickLocation,
                                                       onSavePressed: () async{
                                                      var response = await updateZipCodeSetup(context,
                                                           zipcode.zipcodeSetupId!,

@@ -449,6 +449,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         onPressed: () {
                           payRatesController.clear();
                           perMilesController.clear();
+                          fixedPayRatesController.clear();
                           // if (selectedServiceId == null) {
                           //   // If no service selected, use the ID of the first service
                           //   setState(() {
@@ -929,10 +930,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           outOfZoneRate: fixPayRates == int.parse(fixedPayRatesController.text)?fixPayRates!:int.parse(fixedPayRatesController.text),
                                                                           serviceId: snapshotPrefill.data!.serviceId);
 
-                                                                      // payRatesController
-                                                                      //     .clear();
-                                                                      // perMilesController
-                                                                      //     .clear();
+                                                                      payRatesController
+                                                                          .clear();
+                                                                      perMilesController
+                                                                          .clear();
+                                                                      fixedPayRatesController.clear();
                                                                     },
                                                                   );
                                                                 });

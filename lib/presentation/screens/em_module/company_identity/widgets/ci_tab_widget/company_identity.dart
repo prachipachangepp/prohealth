@@ -25,6 +25,7 @@ import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
+import '../company_identity_zone/widgets/location_screen.dart';
 import '../company_identity_zone/widgets/zone_widgets_constants.dart';
 
 
@@ -126,6 +127,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         ),
       ),
     );
+    print("Picked location ${pickedLocation}");
 
     if (pickedLocation != null) {
       // Print debug information to ensure this is being reached
@@ -309,6 +311,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 ],
                               ),
                               onPressed: () async{
+                                print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
                                 ApiData response = await
                                 addNewOffice( context:context,
                                   name: nameController.text,
@@ -326,19 +329,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 );
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode ==201){
+                                  print('Services List ${selectedServices}');
                                   await addNewOfficeServices(context: context, officeId: response.officeId!, serviceList: selectedServices);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      Future.delayed(Duration(seconds: 3), () {
-                                        if (Navigator.of(context).canPop()) {
-                                          Navigator.of(context).pop();
-                                        }
-                                      });
-                                      return AddSuccessPopup(
-                                        message: 'Added Successfully',);
-                                    },
-                                  );
                                 }
                                 companyOfficeListGet(context, 1, 30).then((data) {
                                   _companyIdentityController

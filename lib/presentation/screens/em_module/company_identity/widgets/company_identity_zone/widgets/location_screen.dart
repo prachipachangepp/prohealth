@@ -37,8 +37,8 @@ class _MapScreenState extends State<MapScreen> {
 
   void _confirmSelection() {
     widget.onLocationPicked(_selectedLocation);
-    print("Picked Location ${_selectedLocation}");
-    Navigator.of(context).pop();
+    print("Picked Location: $_selectedLocation");
+    Navigator.of(context).pop(_selectedLocation);
   }
 
   @override
