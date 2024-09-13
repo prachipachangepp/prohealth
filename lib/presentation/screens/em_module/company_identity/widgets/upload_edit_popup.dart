@@ -96,20 +96,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
       width: AppSize.s420,
       height: widget.height == null ? AppSize.s360 : widget.height!,
       body: [
-        // SMTextFConst(
-        //   enable: false,
-        //   // readOnly: true,
-        //   controller: widget.idOfDocController,
-        //   keyboardType: TextInputType.text,
-        //   text: AppString.id_of_the_document,
-        // ),
-        // SizedBox(height: AppSize.s12),
-        // SMTextFConst(
-        //   controller: widget.nameDocController,
-        //   keyboardType: TextInputType.text,
-        //   text: AppString.name_of_the_document,
-        // ),
-        SizedBox(height: AppSize.s12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -149,25 +135,23 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 ],
               ),
             ),
-            SizedBox(height: AppSize.s12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  AppString.upload_document,
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.textPrimaryColor,
-                  ),
-                ),
-              ],
+          ],
+        ),
+        SizedBox(height: AppSize.s12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppString.upload_document,
+              style: GoogleFonts.firaSans(
+                fontSize: FontSize.s12,
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.textPrimaryColor,
+              ),
             ),
-
             SizedBox(height: AppSize.s5),
 
             /// upload  doc
-            // widget.uploadField!,
             Container(
               height: AppSize.s30,
               width: AppSize.s354,
@@ -187,12 +171,14 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          fileName,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.lightgreyheading,
+                        Expanded(
+                          child: Text(
+                            fileName,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.medium,
+                              color: ColorManager.lightgreyheading,
+                            ),
                           ),
                         ),
                         IconButton(
@@ -213,99 +199,98 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 },
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Visibility(
-              visible: showExpiryDateField,
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Visibility(
+          visible: showExpiryDateField,
 
-              /// Conditionally display expiry date field
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 2),
-                    child: Text(
-                      "Expiry Date",
+          /// Conditionally display expiry date field
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Text(
+                  "Expiry Date",
+                  style: GoogleFonts.firaSans(
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.mediumgrey,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              FormField<String>(
+                builder: (FormFieldState<String> field) {
+                  return SizedBox(
+                    width: 354,
+                    height: 30,
+                    child: TextFormField(
+                      controller: expiryDateController,
+                      cursorColor: ColorManager.black,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeightManager.medium,
                         color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FormField<String>(
-                    builder: (FormFieldState<String> field) {
-                      return SizedBox(
-                        width: 354,
-                        height: 30,
-                        child: TextFormField(
-                          controller: expiryDateController,
-                          cursorColor: ColorManager.black,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                          ),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ColorManager.fmediumgrey, width: 1),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: ColorManager.fmediumgrey, width: 1),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            hintText: 'MM-DD-YYYY',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.medium,
-                              color: ColorManager.mediumgrey,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
-                              borderSide: BorderSide(
-                                  width: 1, color: ColorManager.fmediumgrey),
-                            ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,
-                                color: ColorManager.blueprime),
-                            errorText: field.errorText,
-                          ),
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: datePicked,
-                              firstDate: DateTime(1901),
-                              lastDate: DateTime(3101),
-                            );
-                            if (pickedDate != null) {
-                              datePicked = pickedDate;
-                              expiryDateController.text =
-                                  DateFormat('MM-dd-yyyy').format(pickedDate);
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please select date';
-                            }
-                            return null;
-                          },
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: ColorManager.fmediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(6),
                         ),
-                      );
-                    },
-                  ),
-                ],
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: ColorManager.fmediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        hintText: 'MM-DD-YYYY',
+                        hintStyle: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.medium,
+                          color: ColorManager.mediumgrey,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(
+                              width: 1, color: ColorManager.fmediumgrey),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                        suffixIcon: Icon(Icons.calendar_month_outlined,
+                            color: ColorManager.blueprime),
+                        errorText: field.errorText,
+                      ),
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: datePicked,
+                          firstDate: DateTime(1901),
+                          lastDate: DateTime(3101),
+                        );
+                        if (pickedDate != null) {
+                          datePicked = pickedDate;
+                          expiryDateController.text =
+                              DateFormat('MM-dd-yyyy').format(pickedDate);
+                        }
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'please select date';
+                        }
+                        return null;
+                      },
+                    ),
+                  );
+                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
       bottomButtons: loading

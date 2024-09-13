@@ -41,13 +41,13 @@ class DialogueTemplate extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
               ),
-              padding: EdgeInsets.symmetric(vertical: 2),
+              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 25),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Text(
                       title,
                       style: GoogleFonts.firaSans(
@@ -76,7 +76,7 @@ class DialogueTemplate extends StatelessWidget {
                 horizontal: AppPadding.p18,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: body,
               ),
