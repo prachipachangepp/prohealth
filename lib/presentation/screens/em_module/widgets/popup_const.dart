@@ -108,7 +108,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 Container(
                   height: 40,
                   width: 440,
-                  padding: EdgeInsets.all(5),
+                  //padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: ColorManager.bluebottom,
                     borderRadius: BorderRadius.only(
@@ -133,13 +133,16 @@ class _CustomDialogState extends State<CustomDialog> {
                             ),
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.close,
-                            color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 30.0),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],
@@ -224,54 +227,7 @@ class _CustomDialogState extends State<CustomDialog> {
     );
   }
 }
-// Padding(
-//   padding: const EdgeInsets.only(bottom: 8.0),
-//   child: HRManageTextField(
-//     controller: widget.userIdController,
-//     keyboardType: TextInputType.phone,
-//     text: "User ID",
-//     cursorHeight: 12,
-//     labelText: "User ID",
-//     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//     labelFontSize: 12,
-//     errorText: 'User ID is required',
-//   ),
-// ),
-// HRManageDropdown(
-//   controller: widget.roleController,
-//   labelText: 'Role',
-//   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//   labelFontSize: 12,
-//   items: ['Admin', 'Sales', 'Clinician'],
-// ),
-// Padding(
-//   padding: const EdgeInsets.only(bottom: 8.0),
-//   child: HRManageTextFieldEmail(
-//     controller: widget.passwordController,
-//     suffixIcon: Icon(Icons.copy,size: 14,),
-//     keyboardType: TextInputType.text,
-//     text: "Password",
-//     cursorHeight: 12,
-//     labelText: "Password",       //  _password,
-//     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//     labelFontSize: 12,
-//     errorText: 'Password is required',
-//   ),
-// ),
-// Padding(
-//   padding: const EdgeInsets.only(bottom: 8.0),
-//   child: HRManageTextField(
-//     readOnly: true,
-//     controller: widget.companyIdController,
-//     keyboardType: TextInputType.phone,
-//     text: "Company ID",
-//     cursorHeight: 12,
-//     labelText: "Company ID",
-//     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//     labelFontSize: 12,
-//     //errorText: 'Company ID is required',
-//   ),
-// ),
+
 class CustomTextFieldWithIcon extends StatefulWidget {
   final TextEditingController controller;
   final Icon? suffixIcon;
@@ -436,7 +392,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       Container(
                         height: 40,
                         width: 440,
-                        padding: EdgeInsets.all(5),
+                        //padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: ColorManager.bluebottom,
                           borderRadius: BorderRadius.only(
@@ -459,13 +415,16 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                                 ),
                               ),
                             ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                Icons.close,
-                                color: Colors.white,
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 5.0),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ],
