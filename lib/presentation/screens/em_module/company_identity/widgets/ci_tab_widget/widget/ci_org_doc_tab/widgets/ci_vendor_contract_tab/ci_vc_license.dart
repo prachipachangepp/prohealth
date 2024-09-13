@@ -202,7 +202,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                                             threshhold: snapshotPrefill.data!.threshold,
                                                             expiryDate: snapshotPrefill.data!.expiryDate,
                                                             expiryReminder: snapshotPrefill.data!.expiryReminder,
-                                                            docTypeText: AppString.corporateAndComplianceDocuments,
+                                                            docTypeText: AppString.vendorContracts,
                                                             subDocTypeText: AppStringEM.leases,
                                                           );
                                                         },
