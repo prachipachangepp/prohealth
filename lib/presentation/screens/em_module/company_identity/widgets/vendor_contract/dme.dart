@@ -2,43 +2,34 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/vendor_add_popup_const.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../app/constants/app_config.dart';
-import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
-import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../ci_corporate_compliance_doc/widgets/newpopup.dart';
-import 'widgets/ci_vendor_contract_edit_popup_const.dart';
+import '../upload_edit_popup.dart';
 
 class CiDme extends StatefulWidget {
   final int docId;
   final int subDocId;
   final int companyID;
   final String officeId;
-  const CiDme({super.key, required this.companyID, required this.officeId, required this.docId, required this.subDocId});
+  const CiDme(
+      {super.key,
+      required this.companyID,
+      required this.officeId,
+      required this.docId,
+      required this.subDocId});
 
   @override
   State<CiDme> createState() => _CiDmeState();
@@ -51,13 +42,15 @@ class _CiDmeState extends State<CiDme> {
   TextEditingController idOfDocController = TextEditingController();
   int docTypeMetaIdVC = AppConfig.vendorContracts;
   int docTypeMetaIdVCdme = AppConfig.subDocId8DME;
-  final StreamController<List<MCorporateComplianceModal>> vendorDMEController = StreamController<List<MCorporateComplianceModal>>();
-  final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
+  final StreamController<List<MCorporateComplianceModal>> vendorDMEController =
+      StreamController<List<MCorporateComplianceModal>>();
+  final StreamController<List<IdentityDocumentIdData>> _identityDataController =
+      StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
-  int docTypeMetaId =0;
-  int docSubTypeMetaId =0;
+  int docTypeMetaId = 0;
+  int docSubTypeMetaId = 0;
   String? expiryType;
   bool _isLoading = false;
 
@@ -88,7 +81,6 @@ class _CiDmeState extends State<CiDme> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -100,30 +92,32 @@ class _CiDmeState extends State<CiDme> {
             height: 5,
           ),
           Expanded(
-            child:
-            StreamBuilder<List<MCorporateComplianceModal>>(
-              // future:
-              // getListMCorporateCompliancefetch(context,
-              //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-              // ),
+            child: StreamBuilder<List<MCorporateComplianceModal>>(
+                // future:
+                // getListMCorporateCompliancefetch(context,
+                //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
+                // ),
                 stream: vendorDMEController.stream,
                 builder: (context, snapshot) {
-                  getListMCorporateCompliancefetch(context,
-                      AppConfig.vendorContracts, AppConfig.subDocId8DME, 1, 20
-                  )
+                  getListMCorporateCompliancefetch(
+                          context,
+                          AppConfig.vendorContracts,
+                          AppConfig.subDocId8DME,
+                          1,
+                          20)
                       .then((data) {
                     vendorDMEController.add(data);
                   }).catchError((error) {
                     // Handle error
                   });
-            // StreamBuilder<List<ManageCCDoc>>(
-            //     stream : vendorDMEController.stream,
-            //     builder: (context, snapshot) {
-            //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-            //         vendorDMEController.add(data);
-            //       }).catchError((error) {
-            //         // Handle error
-            //       });
+                  // StreamBuilder<List<ManageCCDoc>>(
+                  //     stream : vendorDMEController.stream,
+                  //     builder: (context, snapshot) {
+                  //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
+                  //         vendorDMEController.add(data);
+                  //       }).catchError((error) {
+                  //         // Handle error
+                  //       });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -147,7 +141,11 @@ class _CiDmeState extends State<CiDme> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<MCorporateComplianceModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                    List<MCorporateComplianceModal> paginatedData = snapshot
+                        .data!
+                        .skip((currentPage - 1) * itemsPerPage)
+                        .take(itemsPerPage)
+                        .toList();
 
                     return Column(
                       children: [
@@ -156,13 +154,17 @@ class _CiDmeState extends State<CiDme> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                int serialNumber = index +
+                                    1 +
+                                    (currentPage - 1) * itemsPerPage;
+                                String formattedSerialNumber =
+                                    serialNumber.toString().padLeft(2, '0');
                                 var vcDME = snapshot.data![index];
                                 var fileUrl = vcDME.docurl;
                                 final fileExtension = fileUrl.split('/').last;
 
-                                MCorporateComplianceModal dmeData = paginatedData[index];
+                                MCorporateComplianceModal dmeData =
+                                    paginatedData[index];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -172,10 +174,12 @@ class _CiDmeState extends State<CiDme> {
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(4),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xff000000).withOpacity(0.25),
+                                                color: Color(0xff000000)
+                                                    .withOpacity(0.25),
                                                 spreadRadius: 0,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 2),
@@ -184,10 +188,12 @@ class _CiDmeState extends State<CiDme> {
                                           ),
                                           height: 50,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15),
                                             child: Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
@@ -201,28 +207,47 @@ class _CiDmeState extends State<CiDme> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(width: 50,),
+                                                    SizedBox(
+                                                      width: 50,
+                                                    ),
                                                     Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${ dmeData.idOfDocument.toString()}",
+                                                          "ID : ${dmeData.idOfDocument.toString()}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts.firaSans(
+                                                          style: GoogleFonts
+                                                              .firaSans(
                                                             fontSize: 10,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: Color(0xff686464),
-                                                            decoration: TextDecoration.none,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Color(
+                                                                0xff686464),
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .none,
                                                           ),
                                                         ),
                                                         Text(
-                                                          dmeData.expiry_date.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts.firaSans(
+                                                          dmeData.expiry_date
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: GoogleFonts
+                                                              .firaSans(
                                                             fontSize: 10,
-                                                            fontWeight: FontWeight.bold,
-                                                            color: Color(0xff686464),
-                                                            decoration: TextDecoration.none,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color(
+                                                                0xff686464),
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .none,
                                                           ),
                                                         ),
                                                       ],
@@ -230,249 +255,144 @@ class _CiDmeState extends State<CiDme> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
-                                                          builder: (context) => ManageHistoryPopup(
-                                                            docHistory:  dmeData.docHistory,
+                                                          builder: (context) =>
+                                                              ManageHistoryPopup(
+                                                            docHistory: dmeData
+                                                                .docHistory,
                                                           ),
                                                         );
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
                                                         size: 18,
-                                                        color: ColorManager.bluebottom,
+                                                        color: ColorManager
+                                                            .bluebottom,
                                                       ),
                                                       splashColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       highlightColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       hoverColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                     ),
-                                                    IconButton(onPressed: (){
-                                                      print("FileExtension:${fileExtension}");
-                                                      DowloadFile().downloadPdfFromBase64(fileExtension,"DME.pdf");
-                                                      downloadFile(fileUrl);
-                                                    },
-                                                        icon: Icon(Icons.save_alt_outlined,  size: 18,
-                                                            color: ColorManager.blueprime
-                                                        ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        print(
+                                                            "FileExtension:${fileExtension}");
+                                                        DowloadFile()
+                                                            .downloadPdfFromBase64(
+                                                                fileExtension,
+                                                                "DME.pdf");
+                                                        downloadFile(fileUrl);
+                                                      },
+                                                      icon: Icon(
+                                                          Icons
+                                                              .save_alt_outlined,
+                                                          size: 18,
+                                                          color: ColorManager
+                                                              .blueprime),
                                                       splashColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       highlightColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       hoverColor:
-                                                      Colors.transparent,),
+                                                          Colors.transparent,
+                                                    ),
 
                                                     IconButton(
                                                       onPressed: () {
-                                                        String?selectedExpiryType = expiryType;
+                                                        String?
+                                                            selectedExpiryType =
+                                                            expiryType;
                                                         showDialog(
-                                                          context: context, builder: (context) {
-                                                          return FutureBuilder<MCorporateCompliancePreFillModal>(
-                                                            future: getPrefillNewOrgOfficeDocument(context, dmeData.orgOfficeDocumentId),
-                                                            builder: (context, snapshotPrefill) {
-                                                              if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                                return Center(
-                                                                  child: CircularProgressIndicator(
-                                                                    color: ColorManager
-                                                                        .blueprime,
-                                                                  ),
-                                                                );
-                                                              }
-
-                                                              var calender = snapshotPrefill.data!.expiry_date;
-                                                              calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
-
-                                                              // fileName = snapshotPrefill.data!.url;
-
-
-                                                              return StatefulBuilder(
-                                                                builder: (BuildContext
-                                                                context,
-                                                                    void Function(void Function())
-                                                                    setState) {
-                                                                  return VCScreenPopupEditConst(
-                                                                    title:
-                                                                    'Edit DME',
-                                                                    loadingDuration: _isLoading,
-                                                                    onSavePressed:
-                                                                        (file) async {
-                                                                      setState(() {_isLoading = true;});
-                                                                      try {
-                                                                        String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                            ? "Not Applicable"
-                                                                            : calenderController.text;
-                                                                        var response = await updateOrgDoc(context: context,
-                                                                          orgDocId: dmeData.orgOfficeDocumentId,
-                                                                          orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
-                                                                          idOfDocument: '',
-                                                                          expiryDate: expiryTypeToSend,
-                                                                          docCreatedat: DateTime.now().toIso8601String()+"Z",
-                                                                          url: "",
-                                                                          officeid: widget.officeId,);
-
-                                                                        if (response.statusCode == 200 || response.statusCode == 201) {
-                                                                          await uploadDocumentsoffice(
-                                                                              context: context,
-                                                                              documentFile: file,
-                                                                              orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                                                                        }
-                                                                      } finally {
-                                                                        setState(() {
-                                                                          _isLoading = false;
-                                                                        });
-                                                                        Navigator.pop(context);
-                                                                      }
-                                                                    },
-
-                                                                    child: Container(
-                                                                      width: 354,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          vertical: 3, horizontal: 12),
-                                                                      decoration: BoxDecoration(
-                                                                        color: ColorManager.white,
-                                                                        borderRadius: BorderRadius.circular(4),
-                                                                        border: Border.all(
-                                                                            color: ColorManager.fmediumgrey,
-                                                                            width: 1),
-                                                                      ),
-                                                                      child: Row(
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Text(
-                                                                            dmeData.docName!,
-                                                                            style: CustomTextStylesCommon
-                                                                                .commonStyle(
-                                                                              fontWeight:
-                                                                              FontWeightManager.medium,
-                                                                              fontSize: FontSize.s12,
-                                                                              color: ColorManager.mediumgrey,
-                                                                            ),
-                                                                          ),
-                                                                          Icon(
-                                                                            Icons.arrow_drop_down,
-                                                                            color: Colors.transparent,
-                                                                          ),
-                                                                        ],
-                                                                      ),
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return FutureBuilder<
+                                                                MCorporateCompliancePreFillModal>(
+                                                              future: getPrefillNewOrgOfficeDocument(
+                                                                  context,
+                                                                  dmeData
+                                                                      .orgOfficeDocumentId),
+                                                              builder: (context,
+                                                                  snapshotPrefill) {
+                                                                if (snapshotPrefill
+                                                                        .connectionState ==
+                                                                    ConnectionState
+                                                                        .waiting) {
+                                                                  return Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                      color: ColorManager
+                                                                          .blueprime,
                                                                     ),
-
-                                                                    /////
-                                                                    // child: FutureBuilder<List<TypeofDocpopup>>(
-                                                                    //   future: getTypeofDoc(context, widget.docId, widget.subDocId),
-                                                                    //   builder: (context, snapshot) {
-                                                                    //     if (snapshot.connectionState ==
-                                                                    //         ConnectionState.waiting) {
-                                                                    //       return Container(
-                                                                    //         width: 350,
-                                                                    //         height: 30,
-                                                                    //         decoration: BoxDecoration(
-                                                                    //           borderRadius: BorderRadius.circular(8),
-                                                                    //         ),
-                                                                    //       );
-                                                                    //     }
-                                                                    //     if (snapshot.data!.isEmpty) {
-                                                                    //       return Center(
-                                                                    //         child: Text(
-                                                                    //           AppString.dataNotFound,
-                                                                    //           style: CustomTextStylesCommon.commonStyle(
-                                                                    //             fontWeight: FontWeightManager.medium,
-                                                                    //             fontSize: FontSize.s12,
-                                                                    //             color: ColorManager.mediumgrey,
-                                                                    //           ),
-                                                                    //         ),
-                                                                    //       );
-                                                                    //     }
-                                                                    //     if (snapshot.hasData) {
-                                                                    //       List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                                                                    //           .map((doc) => DropdownMenuItem<String>(
-                                                                    //         value: doc.docname,
-                                                                    //         child: Text(doc.docname!),
-                                                                    //       ))
-                                                                    //           .toList();
-                                                                    //       return CICCDropdown(
-                                                                    //         initialValue: "Select",
-                                                                    //         onChange: (val) {
-                                                                    //           //   setState(() {
-                                                                    //           // selectedDocType = val;
-                                                                    //           for (var doc in snapshot.data!) {
-                                                                    //             if (doc.docname == val) {
-                                                                    //               docTypeId = doc.documenttypeid!;
-                                                                    //             }
-                                                                    //           }
-                                                                    //           // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
-                                                                    //           //   _compliancePatientDataController
-                                                                    //           //       .add(data!);
-                                                                    //           // }).catchError((error) {
-                                                                    //           //   // Handle error
-                                                                    //           // });
-                                                                    //           // });
-                                                                    //         },
-                                                                    //         items: dropDownMenuItems,
-                                                                    //       );
-                                                                    //     } else {
-                                                                    //       return SizedBox();
-                                                                    //     }
-                                                                    //   },
-                                                                    // ),
-                                                                    // uploadField: Container(
-                                                                    //   height: AppSize.s30,
-                                                                    //   width: AppSize.s354,
-                                                                    //   // margin: EdgeInsets.symmetric(horizontal: 5),
-                                                                    //   decoration: BoxDecoration(
-                                                                    //     border: Border.all(
-                                                                    //       color: ColorManager.containerBorderGrey,
-                                                                    //       width: 1,
-                                                                    //     ),
-                                                                    //     borderRadius: BorderRadius.circular(4),
-                                                                    //   ),
-                                                                    //   child: StatefulBuilder(
-                                                                    //     builder: (BuildContext context,
-                                                                    //         void Function(void Function()) setState) {
-                                                                    //       return Padding(
-                                                                    //         padding: const EdgeInsets.all(0),
-                                                                    //         child: Row(
-                                                                    //           mainAxisAlignment:
-                                                                    //           MainAxisAlignment.spaceBetween,
-                                                                    //           children: [
-                                                                    //             Text(
-                                                                    //               fileName,
-                                                                    //               style: GoogleFonts.firaSans(
-                                                                    //                 fontSize: FontSize.s12,
-                                                                    //                 fontWeight: FontWeightManager.regular,
-                                                                    //                 color: ColorManager.lightgreyheading,
-                                                                    //               ),
-                                                                    //             ),
-                                                                    //             IconButton(
-                                                                    //               padding: EdgeInsets.all(4),
-                                                                    //               onPressed: _pickFile,
-                                                                    //               icon: Icon(
-                                                                    //                 Icons.file_upload_outlined,
-                                                                    //                 color: ColorManager.black,
-                                                                    //                 size: 17,
-                                                                    //               ),
-                                                                    //               splashColor: Colors.transparent,
-                                                                    //               highlightColor: Colors.transparent,
-                                                                    //               hoverColor: Colors.transparent,
-                                                                    //             ),
-                                                                    //           ],
-                                                                    //         ),
-                                                                    //       );
-                                                                    //     },
-                                                                    //   ),
-                                                                    // ),
                                                                   );
-                                                                },
-                                                              );
-                                                            },
-                                                          );
-                                                        },
+                                                                }
+
+                                                                var calender =
+                                                                    snapshotPrefill
+                                                                        .data!
+                                                                        .expiry_date;
+                                                                calenderController =
+                                                                    TextEditingController(
+                                                                  text: snapshotPrefill
+                                                                      .data!
+                                                                      .expiry_date,
+                                                                );
+
+                                                                // fileName = snapshotPrefill.data!.url;
+
+                                                                return StatefulBuilder(
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      void Function(
+                                                                              void Function())
+                                                                          setState) {
+                                                                    return VCScreenPopupEditConst(
+                                                                      url: snapshotPrefill
+                                                                          .data!
+                                                                          .url,
+                                                                      expiryDate: snapshotPrefill
+                                                                          .data!
+                                                                          .expiry_date,
+                                                                      title:
+                                                                          'Edit DME',
+                                                                      loadingDuration:
+                                                                          _isLoading,
+                                                                      officeId:
+                                                                          widget
+                                                                              .officeId,
+                                                                      docTypeMetaIdCC:
+                                                                          widget
+                                                                              .docId,
+                                                                      selectedSubDocId:
+                                                                          widget
+                                                                              .subDocId,
+                                                                      //orgDocId: manageCCADR.orgOfficeDocumentId,
+                                                                      orgDocId: snapshotPrefill
+                                                                          .data!
+                                                                          .orgOfficeDocumentId,
+                                                                      orgDocumentSetupid: snapshotPrefill
+                                                                          .data!
+                                                                          .documentSetupId,
+                                                                      docName: snapshotPrefill
+                                                                          .data!
+                                                                          .docName,
+                                                                      selectedExpiryType: snapshotPrefill
+                                                                          .data!
+                                                                          .expType,
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
+                                                            );
+                                                          },
                                                         );
                                                       },
                                                       icon: Icon(
@@ -482,36 +402,34 @@ class _CiDmeState extends State<CiDme> {
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       highlightColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                       hoverColor:
-                                                      Colors.transparent,
+                                                          Colors.transparent,
                                                     ),
-
-
 
                                                     IconButton(
                                                         splashColor:
-                                                        Colors.transparent,
+                                                            Colors.transparent,
                                                         highlightColor:
-                                                        Colors.transparent,
+                                                            Colors.transparent,
                                                         hoverColor:
-                                                        Colors.transparent,
+                                                            Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
                                                               builder: (context) =>
                                                                   StatefulBuilder(
                                                                     builder: (BuildContext
-                                                                    context,
+                                                                            context,
                                                                         void Function(void Function())
-                                                                        setState) {
+                                                                            setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                          'Delete DME',
+                                                                              'Delete DME',
                                                                           loadingDuration:
-                                                                          _isLoading,
+                                                                              _isLoading,
                                                                           onCancel:
                                                                               () {
                                                                             Navigator.pop(context);
@@ -522,13 +440,13 @@ class _CiDmeState extends State<CiDme> {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
-                                                                              await deleteOrgDoc(context: context, orgDocId: dmeData.orgOfficeDocumentId ,);
+                                                                              await deleteOrgDoc(
+                                                                                context: context,
+                                                                                orgDocId: dmeData.orgOfficeDocumentId,
+                                                                              );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                getListMCorporateCompliancefetch(context,
-                                                                                    AppConfig.vendorContracts, AppConfig.subDocId8DME, 1, 20
-                                                                                )
-                                                                                    .then((data) {
+                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, AppConfig.subDocId8DME, 1, 20).then((data) {
                                                                                   vendorDMEController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error
@@ -548,7 +466,7 @@ class _CiDmeState extends State<CiDme> {
                                                           Icons.delete_outline,
                                                           size: 18,
                                                           color:
-                                                          ColorManager.red,
+                                                              ColorManager.red,
                                                         )),
 
                                                     // IconButton(
@@ -994,7 +912,8 @@ class _CiDmeState extends State<CiDme> {
                           itemsPerPage: itemsPerPage,
                           onPreviousPagePressed: () {
                             setState(() {
-                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                              currentPage =
+                                  currentPage > 1 ? currentPage - 1 : 1;
                             });
                           },
                           onPageNumberPressed: (pageNumber) {
@@ -1004,7 +923,9 @@ class _CiDmeState extends State<CiDme> {
                           },
                           onNextPagePressed: () {
                             setState(() {
-                              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                              currentPage = currentPage < totalPages
+                                  ? currentPage + 1
+                                  : totalPages;
                             });
                           },
                         ),
@@ -1012,14 +933,13 @@ class _CiDmeState extends State<CiDme> {
                     );
                   }
                   return Offstage();
-                }
-            ),
+                }),
           ),
-        ],),
+        ],
+      ),
     );
   }
 }
-
 
 class gg extends StatelessWidget {
   const gg({super.key});

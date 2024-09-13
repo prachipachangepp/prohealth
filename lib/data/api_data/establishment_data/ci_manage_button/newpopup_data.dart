@@ -11,19 +11,19 @@ class TypeofDocpopup {
   final String idOfDocument;
   final bool? hasIssuerExpiry;
 
-  TypeofDocpopup(
-      {required this.orgDocumentSetupid,
-        required this.documenttypeid,
-        required this.documentsubtypeid,
-        required this.docname,
-        required this.expirytype,
-        required this.threshold,
-        required this.expirydate,
-        required this.expiryreminder,
-        required this.companyid,
-        required this.idOfDocument,
-        this.hasIssuerExpiry,
-      });
+  TypeofDocpopup({
+    required this.orgDocumentSetupid,
+    required this.documenttypeid,
+    required this.documentsubtypeid,
+    required this.docname,
+    required this.expirytype,
+    required this.threshold,
+    required this.expirydate,
+    required this.expiryreminder,
+    required this.companyid,
+    required this.idOfDocument,
+    this.hasIssuerExpiry,
+  });
 }
 
 ///get
@@ -70,11 +70,10 @@ class MCorporateComplianceModal {
     required this.docurl,
     required this.companyId,
     required this.officeId,
-     this.docName,
+    this.docName,
     required this.docHistory, // Initialize it here
   });
 }
-
 
 ///prefill
 class MCorporateCompliancePreFillModal {
@@ -90,19 +89,20 @@ class MCorporateCompliancePreFillModal {
   final String docName;
   final int docSubTypeId;
   final int docTypeId;
+  final int orgOfficeDocumentId;
 
-  MCorporateCompliancePreFillModal({
-    required this.documentSetupId,
-    required this.threshould,
-    required this.expType,
-    required this.docName,
-    required this.docSubTypeId,
-    required this.docTypeId,
-    required this.idOfDocument,
-    required this.doc_created_at,
-    required this.expiry_date,
-    required this.url,
-    required this.companyId,
-    required this.officeId
-  });
+  MCorporateCompliancePreFillModal(
+      {required this.orgOfficeDocumentId,
+      required this.documentSetupId,
+      required this.threshould,
+      required this.expType,
+      required this.docName,
+      required this.docSubTypeId,
+      required this.docTypeId,
+      required this.idOfDocument,
+      required this.doc_created_at,
+      required this.expiry_date,
+      required this.url,
+      required this.companyId,
+      required this.officeId});
 }
