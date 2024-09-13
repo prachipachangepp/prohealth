@@ -474,6 +474,18 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
     } else if (widget.expiryType == AppConfig.issuer) {
       selectedExpiryType = AppConfig.issuer;
     }
+
+    if (selectedExpiryType == AppConfig.scheduled && widget.threshhold != null) {
+      int threshold = widget.threshhold!;
+
+      if (threshold >= 365) {
+        daysController.text = (threshold ~/ 365).toString(); // Set years
+        selectedYear = AppConfig.year;
+      } else {
+        daysController.text = (threshold ~/ 30).toString(); // Set months
+        selectedYear = AppConfig.month;
+      }
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -601,30 +613,30 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                   children: [
                     CustomRadioListTile(
                       value: AppConfig.notApplicable,
-                      groupValue: selectedExpiryType, // Prefilled value
+                      groupValue: selectedExpiryType,
                       onChanged: (value) {
                         setState(() {
-                          selectedExpiryType = value!; // Update selected value
+                          selectedExpiryType = value!;
                         });
                       },
                       title: AppConfig.notApplicable,
                     ),
                     CustomRadioListTile(
                       value: AppConfig.scheduled,
-                      groupValue: selectedExpiryType, // Prefilled value
+                      groupValue: selectedExpiryType,
                       onChanged: (value) {
                         setState(() {
-                          selectedExpiryType = value!; // Update selected value
+                          selectedExpiryType = value!;
                         });
                       },
                       title: AppConfig.scheduled,
                     ),
                     CustomRadioListTile(
                       value: AppConfig.issuer,
-                      groupValue: selectedExpiryType, // Prefilled value
+                      groupValue: selectedExpiryType,
                       onChanged: (value) {
                         setState(() {
-                          selectedExpiryType = value!; // Update selected value
+                          selectedExpiryType = value!;
                         });
                       },
                       title: AppConfig.issuer,
@@ -652,7 +664,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                             //color: ColorManager.red,
                             child: TextFormField(
                               controller:
-                              daysController, // Use the controller initialized with "1"
+                              daysController,
                               cursorColor: ColorManager.black,
                               cursorWidth: 1,
                               style: GoogleFonts.firaSans(
@@ -722,8 +734,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                               ],
                               onChanged: (value) {
                                 setState(() {
-                                  selectedYear =
-                                      value; // Update the selected option (Year/Month)
+                                  selectedYear = value;
                                 });
                               },
                               decoration: InputDecoration(
@@ -791,6 +802,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
               expiryDateToSend = null;
             }
             try {
+              ///docname
               String finalDocName = nameDocController.text.isNotEmpty
                   ? nameDocController.text
                   : widget.docName;
