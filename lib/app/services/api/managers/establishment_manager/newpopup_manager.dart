@@ -313,6 +313,7 @@ Future<List<TypeofDocpopup>> getTypeofDoc(
       DocumentSubTypeId: DocumentSubTypeId,
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
+
       // print("Org Document response:::::${itemsList}");
       print("1");
       for (var item in response.data) {
@@ -448,7 +449,7 @@ Future<ApiData> addOrgDocPPPost({
     final companyId = await TokenManager.getCompanyId();
     var data = {
       "orgDocumentSetupid": orgDocumentSetupid,
-      "idOfDocument": idOfDocument,
+     "idOfDocument": idOfDocument,
       "expiry_date": expiryDate,
       "doc_created_at": docCreated,
       "company_id": companyId,
@@ -470,6 +471,7 @@ Future<ApiData> addOrgDocPPPost({
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New manage Corporate Doc addded ");
       var responseData = response.data;
+
       var docOfficeID = responseData["orgOfficeDocumentId"];
       print("Post Manage CCVCPP  addded ");
       return ApiData(
@@ -546,7 +548,7 @@ Future<ApiData> updateOrgDoc({
 
     var data = {
       "orgDocumentSetupid": orgDocumentSetupid,
-      "idOfDocument": idOfDocument,
+      // "idOfDocument": idOfDocument,
       // "expiry_date": formattedExpiryDate,
       "expiry_date": expiryDate,
       "doc_created_at": docCreatedat,

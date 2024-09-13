@@ -276,7 +276,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         DowloadFile()
                                                             .downloadPdfFromBase64(
                                                             fileExtension,
-                                                            "Licenses.pdf");
+                                                            "Quarterly Balance Report.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
