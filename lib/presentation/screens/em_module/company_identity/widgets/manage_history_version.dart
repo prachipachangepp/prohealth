@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -207,19 +208,12 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Version ${index + 1}: ${historyItem['doc_name'] ?? 'N/A'}",
+                          "Modified on:  ${historyItem['doc_modified_at'] != null
+                              ? "${DateFormat('yyyy-MM-dd').format(DateTime.parse(historyItem['doc_modified_at']))} at ${DateFormat('HH:mm').format(DateTime.parse(historyItem['doc_modified_at']))}"
+                              : 'N/A'}",
                           style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.semiBold,
+                            fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
-                            color: ColorManager.mediumgrey,
-                          ),
-                        ),
-                        SizedBox(height: AppSize.s5),
-                        Text(
-                          "Modified on: ${historyItem['doc_created_at'] ?? 'N/A'}",
-                          style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.regular,
-                            fontSize: FontSize.s10,
                             color: ColorManager.mediumgrey,
                           ),
                         ),

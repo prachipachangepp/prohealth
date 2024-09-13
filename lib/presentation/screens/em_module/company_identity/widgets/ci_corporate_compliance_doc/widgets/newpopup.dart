@@ -21,14 +21,14 @@ class VCScreenPopupEditConst extends StatefulWidget {
   final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback? onSavePressed;
+  final OnUpload onSavePressed;
   final double? height;
   final Widget? uploadField;
   VCScreenPopupEditConst({
     super.key,
     required this.child,
     required this.title,
-    this.onSavePressed,
+    required this.onSavePressed,
     this.height,
     this.loadingDuration,
     this.uploadField,
@@ -159,7 +159,57 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
                       SizedBox(height: AppSize.s5),
                       /// upload  doc
-                      widget.uploadField!,
+                     // widget.uploadField!,
+                      Container(
+                        height: AppSize.s30,
+                        width: AppSize.s354,
+                        padding: EdgeInsets.only(left: AppPadding.p15),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.containerBorderGrey,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function())
+                              setState) {
+                            return Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    fileName,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight:
+                                      FontWeightManager.regular,
+                                      color: ColorManager
+                                          .lightgreyheading,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    padding: EdgeInsets.all(4),
+                                    onPressed: _pickFile,
+                                    icon: Icon(
+                                      Icons.file_upload_outlined,
+                                      color: ColorManager.black,
+                                      size: 17,
+                                    ),
+                                    splashColor: Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
 
                     ],
                   ),
@@ -195,7 +245,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             //   ),
             //   child: widget.child2,
             // ),
-            SizedBox(height: AppSize.s20),
+             SizedBox(height: AppSize.s20),
 
             ///button
             Padding(
@@ -203,20 +253,20 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(
-                  height: AppSize.s25,
-                  width: AppSize.s25,
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                )
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
                     : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.save, //submit
-                  onPressed: () {
-                    widget.onSavePressed!();
-                  },
-                ),
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.save, //submit
+                        onPressed: () {
+                          widget.onSavePressed!(filePath);
+                        },
+                      ),
               ),
             ),
           ],
@@ -231,17 +281,22 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
 
 ////add
+typedef void OnUpload (dynamic val);
+
 
 class VCScreenPopupADDConst extends StatefulWidget {
-  final Widget child;
+
+   final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback onPressed;
+  final OnUpload onPressed;
   final double? height;
   final Widget? uploadField;
   dynamic filePath;
   String? fileName;
   // final Visibility? child3;
+  final Function(int) onDocTypeSelected;
+  final Function(String?) onExpiryDateSelected;
 
   VCScreenPopupADDConst({
     super.key,
@@ -252,12 +307,19 @@ class VCScreenPopupADDConst extends StatefulWidget {
     this.loadingDuration,
     this.uploadField,
     this.fileName,this.filePath,
+    required this.onDocTypeSelected,
+    required this.onExpiryDateSelected,
     // this.child3,
   });
+
+
+
 
   @override
   State<VCScreenPopupADDConst> createState() => _VCScreenPopupADDConstState();
 }
+
+
 
 class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
   int docTypeId = 0;
@@ -276,6 +338,8 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
     _url = "";
     showExpiryDateField;// Reset _url when the popup is initialized
   }
+
+
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -336,6 +400,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                 ],
               ),
             ),
+            SizedBox(height: AppSize.s20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
@@ -352,6 +417,250 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   ),
                   SizedBox(height: AppSize.s5),
                   widget.child,
+                  // FutureBuilder<List<TypeofDocpopup>>(
+                  //   future: getTypeofDoc(context,
+                  //       docTypeMetaIdCC, selectedSubDocId) ,
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState ==
+                  //         ConnectionState.waiting) {
+                  //       return Container(
+                  //         width: 350,
+                  //         height: 30,
+                  //         decoration: BoxDecoration(
+                  //           borderRadius:
+                  //           BorderRadius.circular(8),
+                  //         ),
+                  //       );
+                  //     }
+                  //
+                  //     if (!snapshot.hasData ||
+                  //         snapshot.data!.isEmpty) {
+                  //       return Center(
+                  //         child: Text(
+                  //           AppString.dataNotFound,
+                  //           style: CustomTextStylesCommon
+                  //               .commonStyle(
+                  //             fontWeight:
+                  //             FontWeightManager.medium,
+                  //             fontSize: FontSize.s12,
+                  //             color: ColorManager.mediumgrey,
+                  //           ),
+                  //         ),
+                  //       );
+                  //     }
+                  //
+                  //     if (snapshot.hasData) {
+                  //       List<DropdownMenuItem<String>>
+                  //       dropDownMenuItems = snapshot.data!
+                  //           .map((doc) =>
+                  //           DropdownMenuItem<String>(
+                  //             value: doc.docname,
+                  //             child: Text(doc.docname!),
+                  //           ))
+                  //           .toList();
+                  //
+                  //       return
+                  //         // StatefulBuilder(
+                  //         //   builder: (context, setState) {
+                  //         //     return Column(
+                  //         //       children: [
+                  //         //         CICCDropdown(
+                  //         //           initialValue: "Select",
+                  //         //           onChange: (val) {
+                  //         //             setState(() {
+                  //         //               for (var doc in snapshot.data!) {
+                  //         //                 if (doc.docname == val) {
+                  //         //                   docTypeId = doc.orgDocumentSetupid!;
+                  //         //
+                  //         //                   // Show expiry date field only if expirytype is "issuer expiry"
+                  //         //                   showExpiryDateField = doc.expirytype == AppConfig.issuer;
+                  //         //                 }
+                  //         //               }
+                  //         //             });
+                  //         //           },
+                  //         //           items: dropDownMenuItems,
+                  //         //         ),
+                  //         //         Visibility(
+                  //         //           visible: showExpiryDateField, // Conditionally display expiry date field
+                  //         //           child: Padding(
+                  //         //             padding: const EdgeInsets.only(top: 8.0),
+                  //         //             child: Container(
+                  //         //               height: 30, // Set height to 30
+                  //         //               width: 175, // Set width to 175
+                  //         //               child: TextField(
+                  //         //                 controller: expiryDateController,
+                  //         //                 readOnly: true,
+                  //         //                 decoration: InputDecoration(
+                  //         //                   labelText: "Expiry Date",
+                  //         //                   labelStyle: TextStyle(fontSize: 14), // Adjust label font size
+                  //         //                   suffixIcon: IconButton(
+                  //         //                     icon: Icon(Icons.calendar_today, size: 16), // Adjust icon size
+                  //         //                     onPressed: () async {
+                  //         //                       DateTime? pickedDate = await showDatePicker(
+                  //         //                         context: context,
+                  //         //                         initialDate: DateTime.now(),
+                  //         //                         firstDate: DateTime(2000),
+                  //         //                         lastDate: DateTime(2101),
+                  //         //                       );
+                  //         //                       if (pickedDate != null) {
+                  //         //                         setState(() {
+                  //         //                           expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                  //         //                         });
+                  //         //                       }
+                  //         //                     },
+                  //         //                   ),
+                  //         //                   border: OutlineInputBorder(),
+                  //         //                   contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust padding
+                  //         //                   hintText: 'YYYY-MM-DD',
+                  //         //                 ),
+                  //         //               ),
+                  //         //             ),
+                  //         //           ),
+                  //         //         ),
+                  //         //       ],
+                  //         //     );
+                  //         //   },
+                  //         // );
+                  //         ///
+                  //         StatefulBuilder(
+                  //           builder: (context, setState) {
+                  //             return Column(
+                  //               children: [
+                  //                 CICCDropdown(
+                  //                   initialValue: "Select",
+                  //                   onChange: (val) {
+                  //                     setState(() {
+                  //                       // Always reset the expiry field visibility to false initially
+                  //                       showExpiryDateField = false;
+                  //                       // Loop through the documents and check the selected value
+                  //                       for (var doc in snapshot.data!) {
+                  //                         if (doc.docname ==
+                  //                             val) {
+                  //                           docTypeId = doc.orgDocumentSetupid!;
+                  //
+                  //                           // Show expiry date field only if expirytype is "issuer expiry"
+                  //                           if (doc.expirytype ==
+                  //                               AppConfig
+                  //                                   .issuer) {
+                  //                             showExpiryDateField =
+                  //                             true;
+                  //                           }
+                  //                         }
+                  //                       }
+                  //                     });
+                  //                   },
+                  //                   items: dropDownMenuItems,
+                  //                 ),
+                  //                 Visibility(
+                  //                   visible: showExpiryDateField,
+                  //
+                  //                   /// Conditionally display expiry date field
+                  //                   child: Padding(
+                  //                     padding:
+                  //                     const EdgeInsets.only(
+                  //                         top: 8.0),
+                  //                     child: Container(
+                  //                       height: 30,
+                  //                       width: 352,
+                  //                       child: TextField(
+                  //                         controller:
+                  //                         expiryDateController,
+                  //                         style: GoogleFonts
+                  //                             .firaSans(
+                  //                           fontSize:
+                  //                           FontSize.s12,
+                  //                           fontWeight:
+                  //                           FontWeightManager
+                  //                               .bold,
+                  //                           color: ColorManager
+                  //                               .mediumgrey,
+                  //                         ),
+                  //                         readOnly: true,
+                  //                         decoration:
+                  //                         InputDecoration(
+                  //                           labelText:
+                  //                           "Expiry Date",
+                  //                           labelStyle:
+                  //                           GoogleFonts
+                  //                               .firaSans(
+                  //                             fontSize:
+                  //                             FontSize.s12,
+                  //                             fontWeight:
+                  //                             FontWeightManager
+                  //                                 .semiBold,
+                  //                             color: ColorManager
+                  //                                 .mediumgrey,
+                  //                           ),
+                  //                           suffixIcon:
+                  //                           IconButton(
+                  //                             icon: Icon(
+                  //                                 Icons
+                  //                                     .calendar_today,
+                  //                                 size: 16),
+                  //                             onPressed:
+                  //                                 () async {
+                  //                               DateTime?
+                  //                               pickedDate =
+                  //                               await showDatePicker(
+                  //                                 context:
+                  //                                 context,
+                  //                                 initialDate:
+                  //                                 DateTime
+                  //                                     .now(),
+                  //                                 firstDate:
+                  //                                 DateTime(
+                  //                                     2000),
+                  //                                 lastDate:
+                  //                                 DateTime(
+                  //                                     2101),
+                  //                               );
+                  //                               if (pickedDate !=
+                  //                                   null) {
+                  //                                 setState(() {
+                  //                                   expiryDateController
+                  //                                       .text = DateFormat(
+                  //                                       'yyyy-MM-dd')
+                  //                                       .format(
+                  //                                       pickedDate);
+                  //                                 });
+                  //                               }
+                  //                             },
+                  //                           ),
+                  //                           border: OutlineInputBorder(
+                  //                               borderSide: BorderSide(
+                  //                                   color: ColorManager
+                  //                                       .fmediumgrey)),
+                  //                           contentPadding:
+                  //                           EdgeInsets.symmetric(
+                  //                               vertical: 8.0,
+                  //                               horizontal:
+                  //                               10.0), // Adjust padding
+                  //                           hintText:
+                  //                           'YYYY-MM-DD',
+                  //                           hintStyle: GoogleFonts
+                  //                               .firaSans(
+                  //                             fontSize:
+                  //                             FontSize.s12,
+                  //                             fontWeight:
+                  //                             FontWeightManager
+                  //                                 .bold,
+                  //                             color: ColorManager
+                  //                                 .mediumgrey,
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             );
+                  //           },
+                  //         );
+                  //     } else {
+                  //       return SizedBox();
+                  //     }
+                  //   },
+                  // ),
                   SizedBox(height: AppSize.s5),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -381,7 +690,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   Container(
                     height: AppSize.s30,
                     width: AppSize.s354,
-                    // margin: EdgeInsets.symmetric(horizontal: 5),
+                    padding: EdgeInsets.only(left: AppPadding.p15),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.containerBorderGrey,
@@ -428,71 +737,10 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                       },
                     ),
                   ),
-                  // Container(
-                  //   height: AppSize.s30,
-                  //   width: AppSize.s354,
-                  //   // margin: EdgeInsets.symmetric(horizontal: 5),
-                  //   decoration: BoxDecoration(
-                  //     // color: Colors.greenAccent,
-                  //     border: Border.all(
-                  //       color: ColorManager.containerBorderGrey,
-                  //       width: 1,
-                  //     ),
-                  //     borderRadius: BorderRadius.circular(4),
-                  //   ),
-                  //   child: StatefulBuilder(
-                  //     builder: (BuildContext context,
-                  //         void Function(void Function()) setState) {
-                  //       return Padding(
-                  //         padding: const EdgeInsets.all(0),
-                  //         child: Row(
-                  //           mainAxisAlignment:
-                  //           MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             Text(
-                  //               fileName,
-                  //               style: GoogleFonts.firaSans(
-                  //                 fontSize: FontSize.s12,
-                  //                 fontWeight: FontWeightManager.regular,
-                  //                 color: ColorManager.lightgreyheading,
-                  //               ),
-                  //             ),
-                  //             IconButton(
-                  //               padding: EdgeInsets.all(4),
-                  //               onPressed: _pickFile,
-                  //               icon: Icon(
-                  //                 Icons.file_upload_outlined,
-                  //                 color: ColorManager.black,
-                  //                 size: 17,
-                  //               ),
-                  //               splashColor: Colors.transparent,
-                  //               highlightColor: Colors.transparent,
-                  //               hoverColor: Colors.transparent,
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
+
                 ],
               ),
             ),
-            // SizedBox(height: AppSize.s5),
-            // ///radio
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
-            //   child: widget.radioButton,
-            // ),
-            // SizedBox(height: AppSize.s10),
-            //
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //     left: AppPadding.p20,
-            //     right: AppPadding.p20,
-            //   ),
-            //   child: widget.child2,
-            // ),
             SizedBox(height: AppSize.s20),
 
             ///button
@@ -512,49 +760,8 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    // //  print('File path on pressed ${filePath}');
-                    // setState(() {
-                    // _isLoading = true;
-                    // });
-                    // // String expiryTypeToSend =
-                    // // selectedExpiryType == "Not Applicable"
-                    // // ? "Not Applicable"
-                    // //     : calenderController.text;
-                    // try {
-                    // ApiData response =
-                    // await addOrgDocPPPost(
-                    // context: context,
-                    // orgDocumentSetupid: null,
-                    // idOfDocument: docTypeMetaId,
-                    // expiryDate: "2024-08-16T09:39:48.030Z",
-                    // docCreatedat: "2024-08-16T09:39:48.030Z",
-                    // companyid: widget.companyID,
-                    // url: "url",
-                    // officeid: widget.officeId,);
-                    // if (response.statusCode ==200 || response.statusCode==201){
-                    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    // }
-                    //
-                    // // await addManageCCVCPPPost(
-                    // //   context: context,
-                    // //   name: docNamecontroller.text,
-                    // // docTypeID: docTypeMetaId,
-                    // //   docSubTypeID: docSubTypeMetaId,
-                    // //   expiryType: selectedExpiryType.toString(),
-                    // //   expiryDate: calenderController.text,//expiryTypeToSend,
-                    // //   expiryReminder: selectedExpiryType.toString(),
-                    // //   officeId: widget.officeId,
-                    // //   idOfDoc: docIdController.text
-                    // // );
-                    // // Navigator.pop(context);
-                    // } finally {
-                    // setState(() {
-                    // _isLoading = false;
-                    // });
-                    // }
-                    // },
 
-                    widget.onPressed!();
+                    widget.onPressed!(filePath);
                   },
                 ),
               ),
@@ -569,7 +776,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
 
 
 class UploadDocumentAddPopup extends StatefulWidget {
-  final Widget child;
+   final Widget child;
   final String title;
   bool? loadingDuration;
   final VoidCallback onPressed;
@@ -578,15 +785,15 @@ class UploadDocumentAddPopup extends StatefulWidget {
   dynamic filePath;
   String? fileName;
   // final Visibility? child3;
-  UploadDocumentAddPopup({
-    required this.child,
+ UploadDocumentAddPopup({
+     required this.child,
     required this.title,
     required this.onPressed,
-    this.loadingDuration,
+   this.loadingDuration,
     this.height,
-    this.uploadField,
+     this.uploadField,
     // this.child3
-  });
+ });
 
   @override
   State<UploadDocumentAddPopup> createState() => _UploadDocumentAddPopupState();
@@ -710,7 +917,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   Container(
                     height: AppSize.s30,
                     width: AppSize.s354,
-                    padding: EdgeInsets.only(left: AppPadding.p10),
+                    padding: EdgeInsets.only(left: AppPadding.p15),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.containerBorderGrey,
@@ -779,48 +986,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    // //  print('File path on pressed ${filePath}');
-                    // setState(() {
-                    // _isLoading = true;
-                    // });
-                    // // String expiryTypeToSend =
-                    // // selectedExpiryType == "Not Applicable"
-                    // // ? "Not Applicable"
-                    // //     : calenderController.text;
-                    // try {
-                    // ApiData response =
-                    // await addOrgDocPPPost(
-                    // context: context,
-                    // orgDocumentSetupid: null,
-                    // idOfDocument: docTypeMetaId,
-                    // expiryDate: "2024-08-16T09:39:48.030Z",
-                    // docCreatedat: "2024-08-16T09:39:48.030Z",
-                    // companyid: widget.companyID,
-                    // url: "url",
-                    // officeid: widget.officeId,);
-                    // if (response.statusCode ==200 || response.statusCode==201){
-                    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    // }
-                    //
-                    // // await addManageCCVCPPPost(
-                    // //   context: context,
-                    // //   name: docNamecontroller.text,
-                    // // docTypeID: docTypeMetaId,
-                    // //   docSubTypeID: docSubTypeMetaId,
-                    // //   expiryType: selectedExpiryType.toString(),
-                    // //   expiryDate: calenderController.text,//expiryTypeToSend,
-                    // //   expiryReminder: selectedExpiryType.toString(),
-                    // //   officeId: widget.officeId,
-                    // //   idOfDoc: docIdController.text
-                    // // );
-                    // // Navigator.pop(context);
-                    // } finally {
-                    // setState(() {
-                    // _isLoading = false;
-                    // });
-                    // }
-                    // },
-
                     widget.onPressed!();
                   },
                 ),
@@ -842,22 +1007,23 @@ class PoliciesProcedureAddPopUp extends StatefulWidget {
   final VoidCallback onPressed;
   final double? height;
   final Widget? uploadField;
+  final Widget child;
   dynamic filePath;
   String? fileName;
   final Function(int) onDocTypeSelected;
   final Function(String?) onExpiryDateSelected;
-  PoliciesProcedureAddPopUp({
+   PoliciesProcedureAddPopUp({
     super.key,
-    // required this.child,
+    required this.child,
     required this.title,
     required this.onPressed,
     this.height,
     this.loadingDuration,
     this.uploadField,
     this.fileName,this.filePath,
-    required this.onDocTypeSelected,
-    required this.onExpiryDateSelected,
-  });
+     required this.onDocTypeSelected,
+     required this.onExpiryDateSelected,
+});
 
   @override
   State<PoliciesProcedureAddPopUp> createState() => _PoliciesProcedureAddPopUpState();
@@ -958,159 +1124,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                     ),
                   ),
                   SizedBox(height: AppSize.s5),
-                  FutureBuilder<List<TypeofDocpopup>>(
-                    future: getTypeofDoc(context, docTypeMetaIdPP, selectedSubDocId) ,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container(
-                          width: 350,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.circular(8),
-                          ),
-                        );
-                      }
-
-                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(
-                          child: Text(
-                            AppString.dataNotFound,
-                            style: CustomTextStylesCommon
-                                .commonStyle(
-                              fontWeight:
-                              FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey,
-                            ),
-                          ),
-                        );
-                      }
-
-                      if (snapshot.hasData) {
-                        List<DropdownMenuItem<String>>dropDownMenuItems = snapshot.data!
-                            .map((doc) =>
-                            DropdownMenuItem<String>(
-                              value: doc.docname,
-                              child: Text(doc.docname!),
-                            ))
-                            .toList();
-
-                        return StatefulBuilder(
-                          builder: (context, setState) {
-                            return Column(
-                              children: [
-                                CICCDropdown(
-                                  initialValue: "Select",
-                                  onChange: (val) {
-                                    setState(() {
-                                      showExpiryDateField = false;
-                                      for (var doc in snapshot.data!) {
-                                        if (doc.docname == val) {
-                                          docTypeId = doc.orgDocumentSetupid!;
-                                          widget.onDocTypeSelected(docTypeId);
-                                          print(doc.orgDocumentSetupid);
-
-                                          // Show expiry date field only if expirytype is "issuer expiry"
-                                          if (doc.expirytype == AppConfig.issuer) {
-                                            showExpiryDateField = true;
-                                          }
-                                        }
-                                      }
-                                    });
-                                  },
-                                  items: dropDownMenuItems,
-                                ),
-                                SizedBox(height: 10,),
-                                Visibility(
-                                  visible: showExpiryDateField,
-                                  /// Conditionally display expiry date field
-                                  child:   Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 2),
-                                        child: Text(
-                                          "Expiry Date",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      FormField<String>(
-                                        builder: (FormFieldState<String> field) {
-                                          return SizedBox(
-                                            width: 354,
-                                            height: 30,
-                                            child: TextFormField(
-                                              controller: expiryDateController,
-                                              cursorColor: ColorManager.black,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                              decoration: InputDecoration(
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                  borderRadius: BorderRadius.circular(6),
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                  borderRadius: BorderRadius.circular(6),
-                                                ),
-                                                hintText: 'mm-dd-yyyy',
-                                                hintStyle: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(6),
-                                                  borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
-                                                ),
-                                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                                suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                                                errorText: field.errorText,
-                                              ),
-                                              onTap: () async {
-                                                DateTime? pickedDate = await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime(1901),
-                                                  lastDate: DateTime(3101),
-                                                );
-                                                if (pickedDate != null) {
-                                                  expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                }
-                                              },
-                                              validator: (value) {
-                                                if (value == null || value.isEmpty) {
-                                                  return 'please select date';
-                                                }
-                                                return null;
-                                              },
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        return SizedBox();
-                      }
-                    },
-                  ),
+                  widget.child,
                   SizedBox(height: AppSize.s5),
                   SizedBox(height:AppSize.s12),
                   Row(
@@ -1132,7 +1146,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                   Container(
                     height: AppSize.s30,
                     width: AppSize.s354,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                     padding: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.containerBorderGrey,
