@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/const_string.dart';
@@ -96,63 +97,41 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
       width: AppSize.s420,
       height: widget.height == null ? AppSize.s360 : widget.height!,
       body: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppString.type_of_the_document,
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeightManager.bold,
-                color: ColorManager.mediumgrey,
-                //decoration: TextDecoration.none,
-              ),
+        HeaderContentConst(
+          heading: AppString.type_of_the_document,
+          content: Container(
+            width: 354,
+            padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: ColorManager.fmediumgrey, width: 1),
             ),
-            SizedBox(height: AppSize.s5),
-            Container(
-              width: 354,
-              padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-              decoration: BoxDecoration(
-                color: ColorManager.white,
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.docName,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
-                    ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.docName,
+                  style: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeightManager.medium,
+                    fontSize: FontSize.s12,
+                    color: ColorManager.mediumgrey,
                   ),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.transparent,
-                  ),
-                ],
-              ),
+                ),
+                Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.transparent,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
         SizedBox(height: AppSize.s12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppString.upload_document,
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeightManager.bold,
-                color: ColorManager.textPrimaryColor,
-              ),
-            ),
-            SizedBox(height: AppSize.s5),
 
-            /// upload  doc
-            Container(
+        /// upload  doc
+        HeaderContentConst(
+            heading: AppString.upload_document,
+            content: Container(
               height: AppSize.s30,
               width: AppSize.s354,
               padding: EdgeInsets.only(left: AppPadding.p15),
@@ -198,9 +177,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   );
                 },
               ),
-            ),
-          ],
-        ),
+            )),
+
         SizedBox(
           height: 10,
         ),
@@ -208,88 +186,71 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
           visible: showExpiryDateField,
 
           /// Conditionally display expiry date field
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 2),
-                child: Text(
-                  "Expiry Date",
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              FormField<String>(
-                builder: (FormFieldState<String> field) {
-                  return SizedBox(
-                    width: 354,
-                    height: 30,
-                    child: TextFormField(
-                      controller: expiryDateController,
-                      cursorColor: ColorManager.black,
-                      style: GoogleFonts.firaSans(
+          child: HeaderContentConst(
+            heading: AppString.expiry_date,
+            content: FormField<String>(
+              builder: (FormFieldState<String> field) {
+                return SizedBox(
+                  width: 354,
+                  height: 30,
+                  child: TextFormField(
+                    controller: expiryDateController,
+                    cursorColor: ColorManager.black,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.medium,
+                      color: ColorManager.mediumgrey,
+                    ),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: ColorManager.fmediumgrey, width: 1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: ColorManager.fmediumgrey, width: 1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      hintText: 'MM-DD-YYYY',
+                      hintStyle: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.medium,
                         color: ColorManager.mediumgrey,
                       ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ColorManager.fmediumgrey, width: 1),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ColorManager.fmediumgrey, width: 1),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        hintText: 'MM-DD-YYYY',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.medium,
-                          color: ColorManager.mediumgrey,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(
-                              width: 1, color: ColorManager.fmediumgrey),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                        suffixIcon: Icon(Icons.calendar_month_outlined,
-                            color: ColorManager.blueprime),
-                        errorText: field.errorText,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6),
+                        borderSide: BorderSide(
+                            width: 1, color: ColorManager.fmediumgrey),
                       ),
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: datePicked,
-                          firstDate: DateTime(1901),
-                          lastDate: DateTime(3101),
-                        );
-                        if (pickedDate != null) {
-                          datePicked = pickedDate;
-                          expiryDateController.text =
-                              DateFormat('MM-dd-yyyy').format(pickedDate);
-                        }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'please select date';
-                        }
-                        return null;
-                      },
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      suffixIcon: Icon(Icons.calendar_month_outlined,
+                          color: ColorManager.blueprime),
+                      errorText: field.errorText,
                     ),
-                  );
-                },
-              ),
-            ],
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: datePicked,
+                        firstDate: DateTime(1901),
+                        lastDate: DateTime(3101),
+                      );
+                      if (pickedDate != null) {
+                        datePicked = pickedDate;
+                        expiryDateController.text =
+                            DateFormat('MM-dd-yyyy').format(pickedDate);
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'please select date';
+                      }
+                      return null;
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ],

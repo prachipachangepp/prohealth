@@ -312,12 +312,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                fileName,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.medium,
-                                  color: ColorManager.mediumgrey,
+                              Expanded(
+                                child: Text(
+                                  fileName,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.medium,
+                                    color: ColorManager.mediumgrey,
+                                  ),
                                 ),
                               ),
                               IconButton(
