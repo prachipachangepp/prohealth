@@ -177,27 +177,22 @@ class _ProfileBarState extends State<ProfileBar> {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              // FutureBuilder(
-                              //  future: decodeMEthod(widget.searchByEmployeeIdProfileData!.imgurl),
-                              //  builder: (context, snapshot){
-                              //    if(snapshot.connectionState == ConnectionState.waiting){
-                              //      return SizedBox();
-                              //    }
-                              //    return SizedBox(
-                              //      height: 50,
-                              //      width: 50,
-                              //      child: Base64ImageWidget(
-                              //          base64String: base64Decode),
-                              //    );
-                              //  }),
-                              //
+                              widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                  widget.searchByEmployeeIdProfileData!.imgurl == null ?
                               Icon(
                                 Icons.person,
                                 color: ColorManager.white,
                                 size: AppSize.s50,
+                              ) :
+                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".png") ||
+                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".jpg")||
+                                  widget.searchByEmployeeIdProfileData!.imgurl.contains(".webp")?
+                              Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
+                                  height: AppSize.s50, width: AppSize.s50):Icon(
+                                Icons.person,
+                                color: ColorManager.white,
+                                size: AppSize.s50,
                               ),
-                              // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
-                              //     height: AppSize.s50, width: AppSize.s50),
                               // you can replace
                               SizedBox(
                                 height: AppSize.s53,
