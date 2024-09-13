@@ -813,7 +813,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                 docSubTypeID: widget.subDocTypeId,
                 docName: finalDocName,//name == docNameController.text ? name.toString() : docNameController.text,
                 expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : widget.expiryType!,
-                threshold: widget.threshhold!,
+                threshold: threshold,
                 expiryDate: null,//widget.expiryDate,
                 expiryReminder:  selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : widget.expiryType!,
                 idOfDoc: widget.idOfDoc,
