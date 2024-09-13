@@ -272,8 +272,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   return AddNewOrgDocButton(
                                     title: "Add Corporate & Compliance",
                                     selectedSubDocType: selectedSubDocType,
-                                    docTypeText: getDocTypeText(docID),
-                                    docTypeId: docID,
+                                    docTypeText:
+                                        getDocTypeText(docTypeMetaIdCC),
+                                    docTypeId: docTypeMetaIdCC,
                                     subDocTypeId: selectedSubDocId,
                                     subDocTypeText:
                                         getSubDocTypeText(selectedSubDocId),
