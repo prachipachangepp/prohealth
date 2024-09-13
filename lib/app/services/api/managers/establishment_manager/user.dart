@@ -260,12 +260,13 @@ void _showPopup(BuildContext context, String title, String message) {
 /// update user patch edit
 Future<void> updateUserPatch(
     BuildContext context, int userId, String firstName, String lastName,
-    int deptId, String email, String? password) async {
+    int deptId, String email, String? password, String department) async {
   try {
     final data = {
       "userId": userId,
       "firstName": firstName,
       "lastName": lastName,
+      "department": department,
       "deptId": deptId,
       "email": email,
       // Only include password if it has a value

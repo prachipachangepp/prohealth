@@ -148,10 +148,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       currentPage = pageNumber;
     });
   }
-  var deptId = 0;
+  var deptId = 1;
   int? firstDeptId;
   String? selectedDeptName;
   int? selectedDeptId;
+  // String? selectedDeptName;
+  // int? selectedDeptId;
   @override
 
   ///old
@@ -437,20 +439,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 color: ColorManager.white),
                           ),
                         ),
-                        // Expanded(
-                        //   flex: 2,
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.only(right: 30.0),
-                        //     child: Text(
-                        //       "Company ID",
-                        //       textAlign: TextAlign.center,
-                        //       style: GoogleFonts.firaSans(
-                        //           fontSize: FontSize.s12,
-                        //           fontWeight: FontWeightManager.bold,
-                        //           color: ColorManager.white),
-                        //     ),
-                        //   ),
-                        // ),
                         Expanded(
                           flex: 2,
                           child: Padding(
@@ -672,7 +660,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       context: context,
                                                       builder:
                                                           (BuildContext context) {
-                                                        return FutureBuilder<UserModalPrefill>(
+                                                        return
+                                                            ///
+                                                          FutureBuilder<UserModalPrefill>(
                                                           future: getUserPrefill(context, user.userId),
                                                           builder: (context, snapshotPrefill) {
                                                             if (snapshotPrefill.connectionState == ConnectionState.waiting) {
@@ -701,7 +691,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   lastNameController.text,
                                                                   selectedDeptId ?? snapshotPrefill.data!.deptId,
                                                                   emailController.text,
-                                                                  null,
+                                                                  null ,
+                                                                    selectedDeptName.toString(),
                                                                     );
                                                                 // print('password:::::::::::${passwordController.text}');
                                                                 // print('Dept id:::::::::::${selectedDeptId}');
@@ -718,6 +709,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 companyIdController.clear();
                                                               },
                                                               // passwordController: passwordController,
+                                                              ///Role
                                                               child: FutureBuilder<List<HRHeadBar>>(
                                                                 future: companyHRHeadApi(context, deptId),
                                                                 builder: (context, snapshot) {
@@ -747,6 +739,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
                                                                       selectedDeptName = firstDeptName;
                                                                       selectedDeptId = firstDeptId;
+
                                                                     }
                                                                     return HRManageDropdown(
                                                                       controller: TextEditingController(text: selectedDeptName ?? ''),
@@ -759,9 +752,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       labelFontSize: 12,
                                                                       items: dropDownServiceList,
                                                                       onChanged: (val) {
+                                                                        for(var a in snapshot.data!) {
+                                                                          if(a.deptName == val){
+                                                                            selectedDeptName = val;
+                                                                            selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                                                          }
+                                                                        }
                                                                         setState(() {
-                                                                          selectedDeptName = val;
-                                                                          selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                                                          print("deptID :::::::${selectedDeptId}");
                                                                         });
                                                                       },
                                                                     );
