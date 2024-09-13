@@ -70,8 +70,20 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
     });
   }
 
-  String? selectedYear;
+  String? selectedYear = AppConfig.year;
   bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.subDocTypeId == AppConfig.subDocId10MISC) {
+      setState(() {
+        selectedExpiryType = AppConfig.scheduled;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +190,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
 
         /// Radio Button Section
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Row(
             children: [
               HeaderContentConst(
@@ -187,7 +199,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    widget.subDocTypeId == AppConfig.misc
+                    widget.subDocTypeId == AppConfig.subDocId10MISC
                         ? Offstage()
                         : CustomRadioListTile(
                             value: AppConfig.notApplicable,
@@ -209,7 +221,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                       },
                       title: AppConfig.scheduled,
                     ),
-                    widget.subDocTypeId == AppConfig.misc
+                    widget.subDocTypeId == AppConfig.subDocId10MISC
                         ? Offstage()
                         : CustomRadioListTile(
                             value: AppConfig.issuer,
@@ -460,7 +472,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
     });
   }
 
-  String? selectedYear;
+  String? selectedYear = AppConfig.year;
   bool loading = false;
 
   @override
@@ -611,7 +623,9 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomRadioListTile(
+                    widget.subDocTypeId == AppConfig.subDocId10MISC
+                        ? Offstage()
+                        : CustomRadioListTile(
                       value: AppConfig.notApplicable,
                       groupValue: selectedExpiryType,
                       onChanged: (value) {
@@ -631,7 +645,9 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                       },
                       title: AppConfig.scheduled,
                     ),
-                    CustomRadioListTile(
+                    widget.subDocTypeId == AppConfig.subDocId10MISC
+                        ? Offstage()
+                        : CustomRadioListTile(
                       value: AppConfig.issuer,
                       groupValue: selectedExpiryType,
                       onChanged: (value) {

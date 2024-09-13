@@ -244,7 +244,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
 
             ///button
             _selectedIndex == 0
-
             ///Corporate
                 ? Align(
               alignment: Alignment.bottomRight,
@@ -272,11 +271,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             return AddNewOrgDocButton(
                               title: "Add Corporate & Compliance",
                               selectedSubDocType: selectedSubDocType,
-                              docTypeText: getDocTypeText(docID),
-                              docTypeId: docID,
+                              docTypeText:  getDocTypeText(docTypeMetaIdCC),
+                              docTypeId: docTypeMetaIdCC,
                               subDocTypeId: selectedSubDocId,
-                              subDocTypeText:
-                              getSubDocTypeText(selectedSubDocId),
+                              subDocTypeText: getSubDocTypeText(selectedSubDocId),
                             );
                           },
                         );
@@ -287,7 +285,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               ),
             )
                 : _selectedIndex == 1
-
             ///vendor
                 ? Align(
               alignment: Alignment.bottomRight,
@@ -316,8 +313,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             return AddNewOrgDocButton(
                               title: "Add Vendor Contract",
                               selectedSubDocType: selectedSubDocType,
-                              docTypeText:
-                              getDocTypeText(docTypeMetaIdVC),
+                              docTypeText: getDocTypeText(docTypeMetaIdVC),
                               docTypeId: docTypeMetaIdVC,
                               subDocTypeId: selectedSubDocIdVC,
                               subDocTypeText: getSubDocTypeText(

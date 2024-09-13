@@ -120,7 +120,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                     children: [
                       CustomIconButtonConst(
                         width: 170,
-                        text: 'Add Document',
+                        text: 'Add Doctype',
                         onPressed: () async {
                           idDocController.clear();
                           nameDocController.clear();
