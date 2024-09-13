@@ -362,82 +362,84 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         //     return const SizedBox();
                         //   },
                         // ),
-                        FutureBuilder<List<HRAllData>>(
-                          future: getAllHrDeptWise(context, AppConfig.clinicalId),
-                          builder: (context, snapshotZone) {
-                            if (snapshotZone.connectionState ==
-                                ConnectionState.waiting) {
-                              return Container(
-                                width: 350,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              );
-                            }
-                            if (snapshotZone.data!.isEmpty) {
-                              return Container(
-                                height: 30,
-                                width: 354,
-                                child: Center(
-                                  child: Text(
-                                    ErrorMessageString.noserviceAdded,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                            if (snapshotZone.hasData) {
-                              List<DropdownMenuItem<String>> dropDownTypesList = [];
-                              int docType = 0;
-
-                              for (var i in snapshotZone.data!) {
-                                dropDownTypesList.add(
-                                  DropdownMenuItem<String>(
-                                    value: i.abbrivation,
-                                    child: Text(i.abbrivation!),
-                                  ),
-                                );
-                              }
-
-                              if (abbNameVal == 'Select County') {
-                                empTypeId = snapshotZone.data![0].employeeTypesId;
-                              }
-
-                              return StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return CICCDropdown(
-                                    initialValue: abbNameVal,
-                                    onChange: (val) {
-                                      setState(() {
-                                        abbNameVal = val!;
-
-                                        for (var a in snapshotZone.data!) {
-                                          if (a.abbrivation == val) {
-                                            docType = a.employeeTypesId;
-                                            empTypeId = docType;
-                                            //_selectButton(1);
-                                            break;
-                                          }
-                                        }
-                                      });
-                                    },
-                                    items: dropDownTypesList,
-                                  );
-                                },
-                              );
-                            }
-                            return const SizedBox();
-                          },
-                        )
+                        ///
+                        // FutureBuilder<List<HRAllData>>(
+                        //   future: getAllHrDeptWise(context, AppConfig.clinicalId),
+                        //   builder: (context, snapshotZone) {
+                        //     if (snapshotZone.connectionState ==
+                        //         ConnectionState.waiting) {
+                        //       return Container(
+                        //         width: 350,
+                        //         height: 30,
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(8),
+                        //         ),
+                        //       );
+                        //     }
+                        //     if (snapshotZone.data!.isEmpty) {
+                        //       return Container(
+                        //         height: 30,
+                        //         width: 354,
+                        //         child: Center(
+                        //           child: Text(
+                        //             ErrorMessageString.noserviceAdded,
+                        //             style: CustomTextStylesCommon.commonStyle(
+                        //               fontWeight: FontWeightManager.medium,
+                        //               fontSize: FontSize.s12,
+                        //               color: ColorManager.mediumgrey,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }
+                        //     if (snapshotZone.hasData) {
+                        //       List<DropdownMenuItem<String>> dropDownTypesList = [];
+                        //       int docType = 0;
+                        //
+                        //       for (var i in snapshotZone.data!) {
+                        //         dropDownTypesList.add(
+                        //           DropdownMenuItem<String>(
+                        //             value: i.abbrivation,
+                        //             child: Text(i.abbrivation!),
+                        //           ),
+                        //         );
+                        //       }
+                        //
+                        //       if (abbNameVal == 'Select County') {
+                        //         empTypeId = snapshotZone.data![0].employeeTypesId;
+                        //       }
+                        //
+                        //       return StatefulBuilder(
+                        //         builder: (BuildContext context,
+                        //             void Function(void Function()) setState) {
+                        //           return CICCDropdown(
+                        //             initialValue: abbNameVal,
+                        //             onChange: (val) {
+                        //               setState(() {
+                        //                 abbNameVal = val!;
+                        //
+                        //                 for (var a in snapshotZone.data!) {
+                        //                   if (a.abbrivation == val) {
+                        //                     docType = a.employeeTypesId;
+                        //                     empTypeId = docType;
+                        //                     //_selectButton(1);
+                        //                     break;
+                        //                   }
+                        //                 }
+                        //               });
+                        //             },
+                        //             items: dropDownTypesList,
+                        //           );
+                        //         },
+                        //       );
+                        //     }
+                        //     return const SizedBox();
+                        //   },
+                        // )
                       ],
                     ),
                     // SizedBox(width: 10,),
+                    ///
                     Container(
                       width: 130,
                       height: 32,
