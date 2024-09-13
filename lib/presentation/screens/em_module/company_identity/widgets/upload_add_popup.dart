@@ -2,8 +2,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
 
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
@@ -85,212 +83,330 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(
-      width: AppSize.s420,
-      height: widget.height == null ? AppSize.s360 : widget.height!,
-      body: [
-        HeaderContentConst(
-          heading: AppString.type_of_the_document,
-          content: CICCDropdown(
-            initialValue: "Select",
-            onChange: (val) {
-              setState(() {
-                // Always reset the expiry field visibility to false initially
-                showExpiryDateField = false;
-
-                // Loop through the documents and check the selected value
-                for (var doc in widget.dataList) {
-                  if (doc.docname == val) {
-                    docTypeId = doc.orgDocumentSetupid!;
-                    documentTypeName = doc.docname;
-
-                    // Show expiry date field only if expirytype is "issuer expiry"
-                    if (doc.expirytype == AppConfig.issuer) {
-                      showExpiryDateField = true;
-                    }
-                  }
-                }
-              });
-            },
-            items: dropDownMenuItems,
-          ),
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: AppSize.s420,
+        height: widget.height == null ? AppSize.s350 : widget.height,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
         ),
-        Visibility(
-          visible: showExpiryDateField,
-
-          /// Conditionally display expiry date field
-          child: HeaderContentConst(
-            heading: AppString.expiry_date,
-            content: FormField<String>(
-              builder: (FormFieldState<String> field) {
-                return SizedBox(
-                  width: 354,
-                  height: 30,
-                  child: TextFormField(
-                    controller: expiryDateController,
-                    cursorColor: ColorManager.black,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              height: AppSize.s35,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: AppSize.s12),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    AppString.type_of_the_document,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeightManager.bold,
                       color: ColorManager.mediumgrey,
+                      //decoration: TextDecoration.none,
                     ),
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: ColorManager.fmediumgrey, width: 1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: ColorManager.fmediumgrey, width: 1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      hintText: 'MM-DD-YYYY',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
-                        color: ColorManager.mediumgrey,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide(
-                            width: 1, color: ColorManager.fmediumgrey),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                      suffixIcon: Icon(Icons.calendar_month_outlined,
-                          color: ColorManager.blueprime),
-                      errorText: field.errorText,
-                    ),
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1901),
-                        lastDate: DateTime(3101),
-                      );
-                      if (pickedDate != null) {
-                        datePicked = pickedDate;
-                        expiryDateController.text =
-                            DateFormat('MM-dd-yyyy').format(pickedDate);
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please select date';
-                      }
-                      return null;
-                    },
                   ),
-                );
-              },
-            ),
-          ),
-        ),
-
-        /// upload  doc
-        HeaderContentConst(
-          heading: AppString.upload_document,
-          content: Container(
-            height: AppSize.s30,
-            width: AppSize.s354,
-            padding: EdgeInsets.only(left: AppPadding.p15),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ColorManager.containerBorderGrey,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: StatefulBuilder(
-              builder: (BuildContext context,
-                  void Function(void Function()) setState) {
-                return Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  SizedBox(height: AppSize.s5),
+                  Column(
                     children: [
-                      Expanded(
-                        child: Text(
-                          fileName,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                          ),
-                        ),
+                      CICCDropdown(
+                        initialValue: "Select",
+                        onChange: (val) {
+                          setState(() {
+                            // Always reset the expiry field visibility to false initially
+                            showExpiryDateField = false;
+
+                            // Loop through the documents and check the selected value
+                            for (var doc in widget.dataList) {
+                              if (doc.docname == val) {
+                                docTypeId = doc.orgDocumentSetupid!;
+
+
+                                documentTypeName = doc.idOfDocument;
+
+                                // Show expiry date field only if expirytype is "issuer expiry"
+                                if (doc.expirytype == AppConfig.issuer) {
+                                  showExpiryDateField = true;
+                                }
+                              }
+                            }
+                          });
+                        },
+                        items: dropDownMenuItems,
                       ),
-                      IconButton(
-                        padding: EdgeInsets.all(4),
-                        onPressed: _pickFile,
-                        icon: Icon(
-                          Icons.file_upload_outlined,
-                          color: ColorManager.black,
-                          size: 17,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Visibility(
+                        visible: showExpiryDateField,
+
+                        /// Conditionally display expiry date field
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2),
+                              child: Text(
+                                "Expiry Date",
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.mediumgrey,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            FormField<String>(
+                              builder: (FormFieldState<String> field) {
+                                return SizedBox(
+                                  width: 354,
+                                  height: 30,
+                                  child: TextFormField(
+                                    controller: expiryDateController,
+                                    cursorColor: ColorManager.black,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.medium,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ColorManager.fmediumgrey,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ColorManager.fmediumgrey,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      hintText: 'MM-DD-YYYY',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                        borderSide: BorderSide(
+                                            width: 1,
+                                            color: ColorManager.fmediumgrey),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 16),
+                                      suffixIcon: Icon(
+                                          Icons.calendar_month_outlined,
+                                          color: ColorManager.blueprime),
+                                      errorText: field.errorText,
+                                    ),
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1901),
+                                        lastDate: DateTime(3101),
+                                      );
+                                      if (pickedDate != null) {
+                                        datePicked = pickedDate;
+                                        expiryDateController.text =
+                                            DateFormat('MM-dd-yyyy')
+                                                .format(pickedDate);
+                                      }
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'please select date';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
                       ),
                     ],
                   ),
-                );
-              },
-            ),
-          ),
-        )
-      ],
-      bottomButtons: load
-          ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
+                  SizedBox(height: AppSize.s5),
+
+                  SizedBox(height: AppSize.s12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.upload_document,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.textPrimaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: AppSize.s5),
+
+                  /// upload  doc
+                  Container(
+                    height: AppSize.s30,
+                    width: AppSize.s354,
+                    padding: EdgeInsets.only(left: AppPadding.p15),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: ColorManager.containerBorderGrey,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: StatefulBuilder(
+                      builder: (BuildContext context,
+                          void Function(void Function()) setState) {
+                        return Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                fileName,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.medium,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                              IconButton(
+                                padding: EdgeInsets.all(4),
+                                onPressed: _pickFile,
+                                icon: Icon(
+                                  Icons.file_upload_outlined,
+                                  color: ColorManager.black,
+                                  size: 17,
+                                ),
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            )
-          : CustomElevatedButton(
-              width: AppSize.s105,
-              height: AppSize.s30,
-              text: AppStringEM.add, //submit
-              onPressed: () async {
-                setState(() {
-                  load = true;
-                });
-                try {
-                  String? expiryDate;
-                  if (expiryDateController.text.isEmpty) {
-                    expiryDate = null;
-                  } else {
-                    expiryDate = datePicked!.toIso8601String() + "Z";
-                  }
-                  ApiData response = await addOrgDocPPPost(
-                    context: context,
-                    orgDocumentSetupid: docTypeId,
-                    idOfDocument: documentTypeName,
-                    expiryDate: expiryDate,
-                    docCreated: DateTime.now().toIso8601String() + "Z",
-                    url: "url",
-                    officeId: widget.officeId,
-                  );
-                  expiryDateController.clear();
-                  if (response.statusCode == 200 ||
-                      response.statusCode == 201) {
-                    await uploadDocumentsoffice(
-                        context: context,
-                        documentFile: filePath,
-                        orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    setState(() {
-                      load = false;
-                    });
-                  }
-                } finally {
-                  setState(() {
-                    Navigator.pop(context);
-                    load = false;
-                  });
-                }
-              },
             ),
-      title: widget.title,
+            SizedBox(height: AppSize.s20),
+
+            ///button
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+              child: Center(
+                child: load
+                    ? SizedBox(
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
+                    : CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.add, //submit
+                        onPressed: () async {
+                          setState(() {
+                            load = true;
+                          });
+                          try {
+                            String? expiryDate;
+                            if (expiryDateController.text.isEmpty) {
+                              expiryDate = null;
+                            } else {
+                              expiryDate = datePicked!.toIso8601String() + "Z";
+                            }
+                            ApiData response = await addOrgDocPPPost(
+                              context: context,
+                              orgDocumentSetupid: docTypeId,
+                              idOfDocument: documentTypeName,
+                              expiryDate: expiryDate,
+                              docCreated:
+                                  DateTime.now().toIso8601String() + "Z",
+                              url: "url",
+                              officeId: widget.officeId,
+                            );
+                            expiryDateController.clear();
+                            if (response.statusCode == 200 ||
+                                response.statusCode == 201) {
+                              await uploadDocumentsoffice(
+                                  context: context,
+                                  documentFile: filePath,
+                                  orgOfficeDocumentId:
+                                      response.orgOfficeDocumentId!);
+                              setState(() {
+                                load = false;
+                              });
+                            }
+                          } finally {
+                            setState(() {
+                              Navigator.pop(context);
+                              load = false;
+                            });
+                          }
+                        },
+                      ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
