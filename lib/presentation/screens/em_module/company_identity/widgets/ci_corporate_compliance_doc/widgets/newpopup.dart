@@ -402,7 +402,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
             ),
             SizedBox(height: AppSize.s20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -779,7 +779,7 @@ class UploadDocumentAddPopup extends StatefulWidget {
    final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback onPressed;
+  final OnUpload onPressed;
   final double? height;
   final Widget? uploadField;
   dynamic filePath;
@@ -880,7 +880,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             ),
             SizedBox(height: AppSize.s12),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 30),
+              padding:  EdgeInsets.symmetric(horizontal: 30,vertical: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -986,7 +986,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    widget.onPressed!();
+                    widget.onPressed!(filePath);
                   },
                 ),
               ),
@@ -1004,7 +1004,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
 class PoliciesProcedureAddPopUp extends StatefulWidget {
   final String title;
   bool? loadingDuration;
-  final VoidCallback onPressed;
+  final OnUpload onPressed;
   final double? height;
   final Widget? uploadField;
   final Widget child;
@@ -1110,7 +1110,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
             ),
             SizedBox(height: AppSize.s20),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 30),
+              padding:  EdgeInsets.symmetric(horizontal: 30,vertical: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -1215,7 +1215,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    widget.onPressed();
+                    widget.onPressed(filePath);
                   },
                 ),
               ),

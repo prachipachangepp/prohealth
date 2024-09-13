@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/newpopup.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
@@ -341,22 +342,37 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                           orgDocId: manageCCLicence.orgOfficeDocumentId,
                                                                           orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
                                                                           idOfDocument: snapshotPrefill.data!.docName,
-                                                                          expiryDate: expiryTypeToSend,
-                                                                          docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                          expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                          docCreatedat: snapshotPrefill.data!.doc_created_at,
                                                                           url: snapshotPrefill.data!.url,
                                                                           officeid: widget.officeId,);
-
+                                                                        Navigator.pop(context);
                                                                         if (response.statusCode == 200 || response.statusCode == 201) {
-                                                                          await uploadDocumentsoffice(
+                                                                        var responseUpdate =  await uploadDocumentsoffice(
                                                                               context: context,
                                                                               documentFile: file,
                                                                               orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                                                        // if(responseUpdate.statusCode == 200 && responseUpdate.statusCode == 201){
+                                                                        //    showDialog(
+                                                                        //     context: context,
+                                                                        //     builder: (BuildContext context) {
+                                                                        //       Future.delayed(Duration(seconds: 3), () {
+                                                                        //         if (Navigator.of(context).canPop()) {
+                                                                        //           Navigator.of(context).pop();
+                                                                        //         }
+                                                                        //       });
+                                                                        //       return AddSuccessPopup(message: 'Document Updated Successfully',);
+                                                                        //     },
+                                                                        //   );
+                                                                        //
+                                                                        // }
+
                                                                         }
                                                                       } finally {
                                                                         setState(() {
                                                                           _isLoading = false;
                                                                         });
-                                                                        Navigator.pop(context);
+
                                                                       }
                                                                     },
 
@@ -392,65 +408,6 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                          ],
                                                                        ),
                                                                      ),
-
-                                                                    ///
-                                                                    // child: FutureBuilder<List<TypeofDocpopup>>(
-                                                                    //   future: getTypeofDoc(context, widget.docId, widget.subDocId),
-                                                                    //   builder: (context, snapshot) {
-                                                                    //     if (snapshot.connectionState ==
-                                                                    //         ConnectionState.waiting) {
-                                                                    //       return Container(
-                                                                    //         width: 350,
-                                                                    //         height: 30,
-                                                                    //         decoration: BoxDecoration(
-                                                                    //           borderRadius: BorderRadius.circular(8),
-                                                                    //         ),
-                                                                    //       );
-                                                                    //     }
-                                                                    //     if (snapshot.data!.isEmpty) {
-                                                                    //       return Center(
-                                                                    //         child: Text(
-                                                                    //           AppString.dataNotFound,
-                                                                    //           style: CustomTextStylesCommon.commonStyle(
-                                                                    //             fontWeight: FontWeightManager.medium,
-                                                                    //             fontSize: FontSize.s12,
-                                                                    //             color: ColorManager.mediumgrey,
-                                                                    //           ),
-                                                                    //         ),
-                                                                    //       );
-                                                                    //     }
-                                                                    //     if (snapshot.hasData) {
-                                                                    //       List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                                                                    //           .map((doc) => DropdownMenuItem<String>(
-                                                                    //         value: doc.docname,
-                                                                    //         child: Text(doc.docname!),
-                                                                    //       ))
-                                                                    //           .toList();
-                                                                    //       return CICCDropdown(
-                                                                    //         initialValue: "Select",
-                                                                    //         onChange: (val) {
-                                                                    //           //   setState(() {
-                                                                    //           // selectedDocType = val;
-                                                                    //           for (var doc in snapshot.data!) {
-                                                                    //             if (doc.docname == val) {
-                                                                    //               docTypeId = doc.documenttypeid!;
-                                                                    //             }
-                                                                    //           }
-                                                                    //           // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
-                                                                    //           //   _compliancePatientDataController
-                                                                    //           //       .add(data!);
-                                                                    //           // }).catchError((error) {
-                                                                    //           //   // Handle error
-                                                                    //           // });
-                                                                    //           // });
-                                                                    //         },
-                                                                    //         items: dropDownMenuItems,
-                                                                    //       );
-                                                                    //     } else {
-                                                                    //       return SizedBox();
-                                                                    //     }
-                                                                    //   },
-                                                                    // ),
                                                                     uploadField: Container(
                                                                       height: AppSize.s30,
                                                                       width: AppSize.s354,

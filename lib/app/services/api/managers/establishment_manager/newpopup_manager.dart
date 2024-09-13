@@ -562,7 +562,7 @@ Future<ApiData> updateOrgDoc({
       "orgDocumentSetupid": orgDocumentSetupid,
       "idOfDocument": idOfDocument,
       // "expiry_date": formattedExpiryDate,
-      "expiry_date": null,
+      "expiry_date": expiryDate == null ? null :expiryDate,
       "doc_created_at": docCreatedat,
       "company_id": companyId,
       "url": url,

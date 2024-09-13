@@ -675,8 +675,8 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                           orgDocId: MedicalCostReport.orgOfficeDocumentId,
                                                                           orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
                                                                           idOfDocument: snapshotPrefill.data!.docName,
-                                                                          expiryDate: expiryTypeToSend,
-                                                                          docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                          expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                          docCreatedat: snapshotPrefill.data!.doc_created_at,
                                                                           url: snapshotPrefill.data!.url,
                                                                           officeid: widget.officeId,);
 

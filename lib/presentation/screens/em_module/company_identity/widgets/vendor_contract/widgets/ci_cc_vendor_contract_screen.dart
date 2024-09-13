@@ -571,7 +571,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                                                   lastDate: DateTime(3101),
                                                                 );
                                                                 if (pickedDate != null) {
-                                                                  expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                  expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                                                 }
                                                               },
                                                               validator: (value) {

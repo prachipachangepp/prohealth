@@ -103,7 +103,7 @@ class _CiSnfState extends State<CiSnf> {
                 stream: vendorSnfController.stream,
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(context,
-                      AppConfig.vendorContracts, AppConfig.subDocId9MD, 1, 20
+                      AppConfig.vendorContracts, AppConfig.subDocId7SNF, 1, 20
                   )
                       .then((data) {
                     vendorSnfController.add(data);

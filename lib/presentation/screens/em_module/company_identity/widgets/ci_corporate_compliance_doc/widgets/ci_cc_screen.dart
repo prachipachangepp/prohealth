@@ -363,9 +363,10 @@ class _CiCorporateComplianceScreenState
                             return StatefulBuilder(
                               builder: (BuildContext context,
                                   void Function(void Function()) setState) {
+                                String? docNameId;
                                 return UploadDocumentAddPopup(
                                   loadingDuration: _isLoading,
-                                  onPressed: () async {
+                                  onPressed: (file) async {
                                     //  print('File path on pressed ${filePath}');
                                     setState(() {
                                       _isLoading = true;
@@ -381,7 +382,7 @@ class _CiCorporateComplianceScreenState
                                       ApiData response = await addOrgDocPPPost(
                                         context: context,
                                         orgDocumentSetupid: docTypeId,
-                                        idOfDocument: "",
+                                        idOfDocument: docNameId!,
                                         expiryDate: expiryDate,
                                         docCreated: DateTime.now().toIso8601String()+"Z",
                                         url: "url",
@@ -392,7 +393,7 @@ class _CiCorporateComplianceScreenState
                                           response.statusCode == 201) {
                                         await uploadDocumentsoffice(
                                             context: context,
-                                            documentFile: filePath,
+                                            documentFile: file,
                                             orgOfficeDocumentId:
                                                 response.orgOfficeDocumentId!);
                                       }
@@ -462,6 +463,7 @@ class _CiCorporateComplianceScreenState
                                                       for (var doc in snapshot.data!) {
                                                         if (doc.docname == val) {
                                                           docTypeId = doc.orgDocumentSetupid!;
+                                                          docNameId = doc.docname;
 
                                                           // Show expiry date field only if expirytype is "issuer expiry"
                                                           if (doc.expirytype == AppConfig.issuer) {showExpiryDateField =
@@ -539,7 +541,7 @@ class _CiCorporateComplianceScreenState
                                                                   lastDate: DateTime(3101),
                                                                 );
                                                                 if (pickedDate != null) {
-                                                                  expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                  expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                                                 }
                                                               },
                                                               validator: (value) {

@@ -300,9 +300,9 @@ class _CICCADRState extends State<CICCADR> {
                                                                         var response = await updateOrgDoc(context: context,
                                                                           orgDocId: manageCCADR.orgOfficeDocumentId,
                                                                           orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
-                                                                          idOfDocument: '',
-                                                                          expiryDate: expiryTypeToSend,
-                                                                          docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                          idOfDocument: snapshotPrefill.data!.docName,
+                                                                          expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                          docCreatedat: snapshotPrefill.data!.doc_created_at,
                                                                           url: "",
                                                                           officeid: widget.officeId,);
 

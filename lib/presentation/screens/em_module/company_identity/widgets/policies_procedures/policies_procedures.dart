@@ -128,6 +128,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     void Function(void Function()) setState) {
                                   String? selectedExpiryDate;
                                   String? expiryDateToSend;
+                                  String? documentId;
                                   return PoliciesProcedureAddPopUp(
                                     loadingDuration: _isLoading,
                                     onDocTypeSelected: (int docTypeId) {
@@ -143,7 +144,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         print('selected EXP Date : ${selectedExpiryDate}');
                                       });
                                     },
-                                    onPressed: () async {
+                                    onPressed: (file) async {
                                       setState(() {
                                         _isLoading = true;
                                       });
@@ -159,7 +160,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         ApiData response = await addOrgDocPPPost(
                                             context: context,
                                             orgDocumentSetupid: docTypeId,
-                                            idOfDocument: "",
+                                            idOfDocument: documentId!,
                                             expiryDate: expiryDateToSend,
                                             docCreated: DateTime.now().toIso8601String()+"Z",
                                             url: "",
@@ -233,6 +234,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         for (var doc in snapshot.data!) {
                                                           if (doc.docname == val) {
                                                             docTypeId = doc.orgDocumentSetupid!;
+                                                            documentId = doc.docname;
                                                           //  widget.onDocTypeSelected(docTypeId);
                                                             print(doc.orgDocumentSetupid);
 
@@ -311,7 +313,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                     lastDate: DateTime(3101),
                                                                   );
                                                                   if (pickedDate != null) {
-                                                                    expiryDateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                    expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                                                   }
                                                                 },
                                                                 validator: (value) {
@@ -541,7 +543,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                             orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
                                                                             idOfDocument: snapshotPrefill.data!.docName,
                                                                             expiryDate: expiryTypeToSend,
-                                                                            docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                            docCreatedat: snapshotPrefill.data!.doc_created_at,
                                                                             url: snapshotPrefill.data!.url,
                                                                             officeid: widget.officeId,);
 
