@@ -210,6 +210,10 @@ class AppString {
   static String id_of_the_document = "ID of the Document";
   static String expiry_date = "Expiry Date";
   static String expiry_type = "Expiry Type";
+  static String corporateAndComplianceDocuments =
+      "Corporate & Compliance Documents";
+  static String vendorContracts = "Vendor Contracts";
+  static String policiesAndProcedures = "Policies & Procedures";
 
   static String add_new = "Add New";
   static String street = "street";

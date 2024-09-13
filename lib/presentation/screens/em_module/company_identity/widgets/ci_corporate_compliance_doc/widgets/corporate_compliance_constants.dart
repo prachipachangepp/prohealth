@@ -178,7 +178,9 @@ class CICCDropdown extends StatefulWidget {
     required this.items,
     this.width,
     this.initialValue,
-    this.onChange, String? hintText, this.isEnabled,
+    this.onChange,
+    String? hintText,
+    this.isEnabled,
   }) : super(key: key);
 
   @override
@@ -261,7 +263,10 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                     ),
                   ),
                 ),
-                Icon(Icons.arrow_drop_down),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Icon(Icons.arrow_drop_down),
+                ),
               ],
             ),
           ),
@@ -270,6 +275,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     );
   }
 }
+
 /////////////////////////////////////////
 ///prajwal
 class CICCDropDownExcel extends StatefulWidget {
@@ -284,7 +290,9 @@ class CICCDropDownExcel extends StatefulWidget {
     required this.items,
     this.width,
     this.initialValue,
-    this.onChange, String? hintText, this.isEnabled,
+    this.onChange,
+    String? hintText,
+    this.isEnabled,
   }) : super(key: key);
 
   @override
@@ -303,7 +311,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
 
   void _showCustomDropdown() async {
     final RenderBox renderBox =
-    _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+        _dropdownKey.currentContext!.findRenderObject() as RenderBox;
     final offset = renderBox.localToGlobal(Offset.zero);
     final size = renderBox.size;
 
@@ -380,18 +388,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
   }
 }
 
-
-
-
-
-
 //////////////////////////////////////////////////
-
-
-
-
-
-
 
 ///edit popup
 class CCScreenEditPopup extends StatefulWidget {
@@ -538,6 +535,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
@@ -583,7 +581,6 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   }
 }
 
-
 /// add popu
 class AddOrgDocButton extends StatefulWidget {
   final TextEditingController idDocController;
@@ -610,7 +607,8 @@ class AddOrgDocButton extends StatefulWidget {
       this.loadingDuration,
       required this.title,
       this.child2,
-      this.height, this.selectedSubDocType});
+      this.height,
+      this.selectedSubDocType});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -638,8 +636,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-       _idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
-      _nameDocError = _validateTextField(widget.nameDocController.text, 'Name of the Document');
+      _idDocError =
+          _validateTextField(widget.idDocController.text, 'ID of the Document');
+      _nameDocError = _validateTextField(
+          widget.nameDocController.text, 'Name of the Document');
     });
   }
 
@@ -712,7 +712,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                   if (_idDocError != null)
+                  if (_idDocError != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
@@ -763,7 +763,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   SizedBox(height: AppSize.s13),
 
                   /// Sub Type of the Document
-                 if (widget.child1 != null) ...[
+                  if (widget.child1 != null) ...[
                     Text(
                       AppString.sub_type_of_the_document,
                       style: GoogleFonts.firaSans(
@@ -826,8 +826,6 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   }
 }
 
-
-
 class dummeyTextField extends StatefulWidget {
   final String labelText;
   final String? initialValue;
@@ -842,7 +840,10 @@ class dummeyTextField extends StatefulWidget {
     required this.labelText,
     this.initialValue,
     this.controller,
-    this.suffixIcon, this.validator, this.width, this.height,
+    this.suffixIcon,
+    this.validator,
+    this.width,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -855,14 +856,15 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.initialValue);
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: widget.width,
-        height:widget.height,
+        height: widget.height,
         child: TextFormField(
           textCapitalization: TextCapitalization.sentences,
           controller: _controller,
@@ -872,9 +874,7 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
             color: ColorManager.black,
           ),
           cursorColor: ColorManager.black,
-
           decoration: InputDecoration(
-
             labelText: widget.labelText,
             labelStyle: GoogleFonts.firaSans(
               fontSize: FontSize.s10,
@@ -886,34 +886,31 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
             ),
             suffixIcon: widget.suffixIcon != null
                 ? GestureDetector(
-              onTap: () async {
-                // Open the date picker when the calendar icon is tapped
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime(2101),
-                );
+                    onTap: () async {
+                      // Open the date picker when the calendar icon is tapped
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2101),
+                      );
 
-                if (pickedDate != null) {
-                  // Format the date and set it into the text field
-                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                  _controller.text = formattedDate;
-                }
-              },
-              child: widget.suffixIcon,
-            )
+                      if (pickedDate != null) {
+                        // Format the date and set it into the text field
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        _controller.text = formattedDate;
+                      }
+                    },
+                    child: widget.suffixIcon,
+                  )
                 : null,
             // Do not show any icon if suffixIcon is null
           ),
           validator: widget.validator,
-        )
-    );
+        ));
   }
 }
-
-
-
 
 ///circuler border
 
@@ -931,7 +928,10 @@ class CdummeyTextField extends StatefulWidget {
     required this.labelText,
     this.initialValue,
     this.controller,
-    this.suffixIcon, this.validator, this.width, this.height,
+    this.suffixIcon,
+    this.validator,
+    this.width,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -944,14 +944,15 @@ class _CdummeyTextFieldState extends State<CdummeyTextField> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.initialValue);
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: widget.width,
-        height:widget.height,
+        height: widget.height,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
@@ -966,9 +967,7 @@ class _CdummeyTextFieldState extends State<CdummeyTextField> {
               color: ColorManager.black,
             ),
             cursorColor: ColorManager.black,
-
             decoration: InputDecoration(
-
               labelText: widget.labelText,
               labelStyle: GoogleFonts.firaSans(
                 fontSize: FontSize.s10,
@@ -980,29 +979,29 @@ class _CdummeyTextFieldState extends State<CdummeyTextField> {
               ),
               suffixIcon: widget.suffixIcon != null
                   ? GestureDetector(
-                onTap: () async {
-                  // Open the date picker when the calendar icon is tapped
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(2101),
-                  );
+                      onTap: () async {
+                        // Open the date picker when the calendar icon is tapped
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2101),
+                        );
 
-                  if (pickedDate != null) {
-                    // Format the date and set it into the text field
-                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                    _controller.text = formattedDate;
-                  }
-                },
-                child: widget.suffixIcon,
-              )
+                        if (pickedDate != null) {
+                          // Format the date and set it into the text field
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          _controller.text = formattedDate;
+                        }
+                      },
+                      child: widget.suffixIcon,
+                    )
                   : null,
               // Do not show any icon if suffixIcon is null
             ),
             validator: widget.validator,
           ),
-        )
-    );
+        ));
   }
 }

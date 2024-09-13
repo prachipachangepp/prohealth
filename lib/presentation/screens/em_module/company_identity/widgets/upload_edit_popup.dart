@@ -126,7 +126,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             ),
           ),
         ),
-        SizedBox(height: AppSize.s12),
 
         /// upload  doc
         HeaderContentConst(
@@ -178,10 +177,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 },
               ),
             )),
-
-        SizedBox(
-          height: 10,
-        ),
         Visibility(
           visible: showExpiryDateField,
 
