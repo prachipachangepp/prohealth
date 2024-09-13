@@ -222,7 +222,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         ),
                                                         Text(
                                                           MedicalCostReport
-                                                              .expiry_date
+                                                              .docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -659,7 +659,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         DowloadFile()
                                                             .downloadPdfFromBase64(
                                                                 fileExtension,
-                                                                "Licenses.pdf");
+                                                                "Medical Cost Report.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
@@ -883,11 +883,4 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
   }
 }
 
-class iii extends StatelessWidget {
-  const iii({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

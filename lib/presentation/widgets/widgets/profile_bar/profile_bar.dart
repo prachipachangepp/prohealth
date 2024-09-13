@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/expired_license_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_clipoval_const.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -240,9 +241,20 @@ class _ProfileBarState extends State<ProfileBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ///text john scott
-                      Text(
-                        "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst} ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
-                        style: ThemeManagerBlack.customTextStyle(context),
+                      Row(
+                        children: [
+                          Text(
+                            "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst}"
+                                " ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
+                            style: ThemeManagerBlack.customTextStyle(context),
+                          ),
+                          IconButton(onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>  ProfileBarEditor()),
+                            );
+                          }, icon: Icon(Icons.edit, size: 18, ))
+                        ],
                       ),
                       SizedBox(
                         height: AppSize.s2,

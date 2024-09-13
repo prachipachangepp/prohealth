@@ -11,9 +11,11 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../upload_edit_popup.dart';
 
@@ -135,7 +137,11 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                           child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
+
                               itemBuilder: (context, index) {
+                                var ccMCR = snapshot.data![index];
+                                var fileUrl = ccMCR.docurl;
+                                final fileExtension = fileUrl.split('/').last;
                                 int serialNumber = index +
                                     1 +
                                     (currentPage - 1) * itemsPerPage;
@@ -212,7 +218,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          balReport.expiry_date
+                                                          balReport.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -254,6 +260,37 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         color: ColorManager
                                                             .bluebottom,
                                                       ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
+
+                                                    ),
+
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        print(
+                                                            "FileExtension:${fileExtension}");
+                                                        DowloadFile()
+                                                            .downloadPdfFromBase64(
+                                                            fileExtension,
+                                                            "Quarterly Balance Report.pdf");
+                                                        downloadFile(fileUrl);
+                                                      },
+                                                      icon: Icon(
+                                                          Icons
+                                                              .save_alt_outlined,
+                                                          size: 18,
+                                                          color: ColorManager
+                                                              .blueprime),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
                                                     ),
 
                                                     IconButton(
@@ -844,11 +881,3 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
   }
 }
 
-class hhh extends StatelessWidget {
-  const hhh({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

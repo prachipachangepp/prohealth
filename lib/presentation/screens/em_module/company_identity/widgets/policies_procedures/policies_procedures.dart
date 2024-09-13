@@ -39,7 +39,6 @@ class CiPoliciesAndProcedures extends StatefulWidget {
   State<CiPoliciesAndProcedures> createState() =>
       _CiPoliciesAndProceduresState();
 }
-
 class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   TextEditingController nameOfDocController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
@@ -244,7 +243,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.docName}",
+                                                        "ID : ${policiesdata.idOfDocument}",
                                                         style: GoogleFonts
                                                             .firaSans(
                                                           fontSize: 10,
@@ -262,7 +261,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                       ),
                                                       Text(
                                                         policiesdata
-                                                            .orgDocumentSetupid
+                                                            .docName
                                                             .toString(),
                                                         textAlign:
                                                             TextAlign.center,
@@ -382,35 +381,18 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                         void Function(void Function())
                                                                             setState) {
                                                                       return VCScreenPopupEditConst(
-                                                                        url: snapshotPrefill
-                                                                            .data!
-                                                                            .url,
-                                                                        expiryDate: snapshotPrefill
-                                                                            .data!
-                                                                            .expiry_date,
-                                                                        title:
-                                                                            'Edit Policies And Procedure',
-                                                                        loadingDuration:
-                                                                            _isLoading,
-                                                                        officeId:
-                                                                            widget.officeId,
-                                                                        docTypeMetaIdCC:
-                                                                            widget.docID,
-                                                                        selectedSubDocId:
-                                                                            widget.subDocID,
+                                                                        url: snapshotPrefill.data!.url,
+                                                                        expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                        title: 'Edit Policies And Procedure',
+                                                                        loadingDuration: _isLoading,
+                                                                        officeId: widget.officeId,
+                                                                        docTypeMetaIdCC: widget.docID,
+                                                                        selectedSubDocId: widget.subDocID,
                                                                         //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                                        orgDocId: snapshotPrefill
-                                                                            .data!
-                                                                            .orgOfficeDocumentId,
-                                                                        orgDocumentSetupid: snapshotPrefill
-                                                                            .data!
-                                                                            .documentSetupId,
-                                                                        docName: snapshotPrefill
-                                                                            .data!
-                                                                            .docName,
-                                                                        selectedExpiryType: snapshotPrefill
-                                                                            .data!
-                                                                            .expType,
+                                                                        orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                        orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                        docName: snapshotPrefill.data!.docName,
+                                                                        selectedExpiryType: snapshotPrefill.data!.expType,
                                                                       );
                                                                     },
                                                                   );

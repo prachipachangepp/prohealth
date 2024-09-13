@@ -103,6 +103,7 @@ class AppString {
   static const String banking = "Banking";
   static const String healthRecord = "Health Record";
   static const String acknowledgement = "Acknowledgement";
+  static const String formStatus = "Form Status";
   static const String ackCandidate = "Candidate Release Authorization Form";
   static const String ackConfidential = "Confidentiality Statement";
   static const String ackonCall = "On call";
@@ -210,6 +211,10 @@ class AppString {
   static String id_of_the_document = "ID of the Document";
   static String expiry_date = "Expiry Date";
   static String expiry_type = "Expiry Type";
+  static String corporateAndComplianceDocuments =
+      "Corporate & Compliance Documents";
+  static String vendorContracts = "Vendor Contracts";
+  static String policiesAndProcedures = "Policies & Procedures";
 
   static String add_new = "Add New";
   static String street = "street";
