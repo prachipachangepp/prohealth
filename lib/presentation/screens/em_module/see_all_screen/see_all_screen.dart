@@ -193,7 +193,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return CustomDialog(
-                            title: "Create User ",
+                            title: "Create User",
                             userIdController: userIdController,
                             lastNameController: lastNameController,
                             emailController: emailController,
@@ -272,7 +272,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     labelText: "Select Department",
                                     labelStyle: GoogleFonts.firaSans(
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeightManager.medium,
                                       color: ColorManager.mediumgrey,
                                     ),
                                     labelFontSize: 12,
@@ -703,11 +703,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       context: context,
                                                       builder: (BuildContext
                                                           context) {
-                                                        return
-
-                                                            ///
-                                                            FutureBuilder<
-                                                                UserModalPrefill>(
+                                                        return FutureBuilder<
+                                                            UserModalPrefill>(
                                                           future:
                                                               getUserPrefill(
                                                                   context,
@@ -774,24 +771,24 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               onSubmit:
                                                                   () async {
                                                                 await updateUserPatch(
-                                                                  context,
-                                                                  user.userId,
-                                                                  firstNameController
-                                                                      .text,
-                                                                  lastNameController
-                                                                      .text,
-                                                                  selectedDeptId ??
+                                                                  context:
+                                                                      context,
+                                                                  userId: user
+                                                                      .userId,
+                                                                  firstName:
+                                                                      firstNameController
+                                                                          .text,
+                                                                  lastName:
+                                                                      lastNameController
+                                                                          .text,
+                                                                  deptId: selectedDeptId ??
                                                                       snapshotPrefill
                                                                           .data!
                                                                           .deptId,
-                                                                  emailController
-                                                                      .text,
-                                                                  null,
-                                                                  selectedDeptName
-                                                                      .toString(),
+                                                                  email:
+                                                                      emailController
+                                                                          .text,
                                                                 );
-                                                                // print('password:::::::::::${passwordController.text}');
-                                                                // print('Dept id:::::::::::${selectedDeptId}');
                                                                 getUser(context)
                                                                     .then(
                                                                         (data) {
