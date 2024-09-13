@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +30,7 @@ import '../../../../../../app/services/api/managers/establishment_manager/newpop
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import '../ci_corporate_compliance_doc/widgets/newpopup.dart';
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiLeasesAndServices extends StatefulWidget {
@@ -85,6 +87,23 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
     }).catchError((error) {
       // Handle error
     });
+  }
+
+  int docTypeId = 0;
+  String? documentTypeName;
+  dynamic filePath;
+  String? selectedDocType;
+  String fileName = '';
+  Future<void> _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      setState(() {
+        filePath = result.files.first.bytes;
+        fileName = result.files.first.name;
+        print('File path ${filePath}');
+        print('File name ${fileName}');
+      });
+    }
   }
 
   @override
@@ -190,14 +209,14 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    InkWell(
-                                                      onTap: () {},
-                                                      child: Image.asset(
-                                                        'images/eye.png',
-                                                        height: AppSize.s15,
-                                                        width: AppSize.s22,
-                                                      ),
-                                                    ),
+                                                    // InkWell(
+                                                    //   onTap: () {},
+                                                    //   child: Image.asset(
+                                                    //     'images/eye.png',
+                                                    //     height: AppSize.s15,
+                                                    //     width: AppSize.s22,
+                                                    //   ),
+                                                    // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(
                                                         width: AppSize.s10),
@@ -255,7 +274,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory:  leasesData.docHistory,
                                                           ),
                                                         );
                                                       },
@@ -264,6 +283,12 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         size: 18,
                                                         color: ColorManager.bluebottom,
                                                       ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
                                                     ),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
@@ -272,7 +297,133 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                     },
                                                         icon: Icon(Icons.save_alt_outlined,  size: 18,
                                                             color: ColorManager.blueprime
-                                                        )),
+                                                        ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,),
+
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        String?selectedExpiryType = expiryType;
+                                                        showDialog(
+                                                          context: context, builder: (context) {
+                                                          return FutureBuilder<MCorporateCompliancePreFillModal>(
+                                                            future: getPrefillNewOrgOfficeDocument(context, leasesData.orgOfficeDocumentId),
+                                                            builder: (context, snapshotPrefill) {
+                                                              if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                return Center(
+                                                                  child: CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                  ),
+                                                                );
+                                                              }
+
+                                                              var calender = snapshotPrefill.data!.expiry_date;
+                                                              calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
+
+                                                              // fileName = snapshotPrefill.data!.url;
+
+
+                                                              return StatefulBuilder(
+                                                                builder: (BuildContext
+                                                                context,
+                                                                    void Function(void Function())
+                                                                    setState) {
+                                                                  return VCScreenPopupEditConst(
+                                                                    title:
+                                                                    'Edit Leases & Services',
+                                                                    loadingDuration: _isLoading,
+                                                                    onSavePressed:
+                                                                        (file) async {
+                                                                      setState(() {_isLoading = true;});
+                                                                      try {
+                                                                        String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                                            ? "Not Applicable"
+                                                                            : calenderController.text;
+                                                                        var response = await updateOrgDoc(context: context,
+                                                                          orgDocId: leasesData.orgOfficeDocumentId,
+                                                                          orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                          idOfDocument:snapshotPrefill.data!.docName ,
+                                                                          expiryDate: expiryTypeToSend,
+                                                                          docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                          url: snapshotPrefill.data!.url,
+                                                                          officeid: widget.officeId,);
+                                                                        print(":::::::=>${file}:::");
+
+                                                                        if (response.statusCode == 200 || response.statusCode == 201) {
+                                                                          await uploadDocumentsoffice(
+                                                                              context: context,
+                                                                              documentFile: file,
+                                                                              orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                                                        }
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    },
+
+                                                                    child: Container(
+                                                                      width: 354,
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          vertical: 3, horizontal: 12),
+                                                                      decoration: BoxDecoration(
+                                                                        color: ColorManager.white,
+                                                                        borderRadius: BorderRadius.circular(4),
+                                                                        border: Border.all(
+                                                                            color: ColorManager.fmediumgrey,
+                                                                            width: 1),
+                                                                      ),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                        MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            leasesData.docName!,
+                                                                            style: CustomTextStylesCommon
+                                                                                .commonStyle(
+                                                                              fontWeight:
+                                                                              FontWeightManager.medium,
+                                                                              fontSize: FontSize.s12,
+                                                                              color: ColorManager.mediumgrey,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.arrow_drop_down,
+                                                                            color: Colors.transparent,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+
+
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: 18,
+                                                        color: ColorManager
+                                                            .bluebottom,
+                                                      ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
+                                                    ),
+
                                                     IconButton(
                                                         splashColor:
                                                         Colors.transparent,

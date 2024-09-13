@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/newpop
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/newpopup.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
@@ -61,6 +63,7 @@ class _CICCLicenseState extends State<CICCLicense> {
   final int itemsPerPage = 10;
   final int totalPages = 5;
 
+
   void onPageNumberPressed(int pageNumber) {
     setState(() {
       currentPage = pageNumber;
@@ -80,6 +83,22 @@ class _CICCLicenseState extends State<CICCLicense> {
     print("prachi:::::: ${widget.officeId}");
   }
 
+  int docTypeId = 0;
+  String? documentTypeName;
+  dynamic filePath;
+  String? selectedDocType;
+  String fileName = '';
+  Future<void> _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      setState(() {
+        filePath = result.files.first.bytes;
+        fileName = result.files.first.name;
+        print('File path ${filePath}');
+        print('File name ${fileName}');
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -180,19 +199,19 @@ class _CICCLicenseState extends State<CICCLicense> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    InkWell(
-                                                      onTap: () {},
-                                                      child: Image.asset(
-                                                        'images/eye.png',
-                                                        height: AppSize.s15,
-                                                        width: AppSize.s22,
-                                                      ),
-                                                    ),
+                                                    // InkWell(
+                                                    //   onTap: () {},
+                                                    //   child: Image.asset(
+                                                    //     'images/eye.png',
+                                                    //     height: AppSize.s15,
+                                                    //     width: AppSize.s22,
+                                                    //   ),
+                                                    // ),
                                                     //IconButton(onPressed: (){},
                                                     // icon: Icon(Icons.remove_red_eye_outlined,
                                                     // size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(
-                                                        width: AppSize.s30),
+                                                        width: AppSize.s50),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -249,7 +268,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => ManageHistoryPopup(
-                                                            docHistory: [],// policiesdata.docHistory,
+                                                            docHistory:  manageCCLicence.docHistory,
                                                           ),
                                                         );
                                                       },
@@ -258,6 +277,12 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         size: 18,
                                                         color: ColorManager.bluebottom,
                                                       ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
                                                     ),
                                                     IconButton(onPressed: (){
                                                       print("FileExtension:${fileExtension}");
@@ -266,7 +291,234 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     },
                                                         icon: Icon(Icons.save_alt_outlined,  size: 18,
                                                             color: ColorManager.blueprime
-                                                        )),
+                                                        ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        String?selectedExpiryType = expiryType;
+                                                        showDialog(
+                                                          context: context, builder: (context) {
+                                                          return FutureBuilder<MCorporateCompliancePreFillModal>(
+                                                            future: getPrefillNewOrgOfficeDocument(context, manageCCLicence.orgOfficeDocumentId),
+                                                            builder: (context, snapshotPrefill) {
+                                                              if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                return Center(
+                                                                  child: CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                  ),
+                                                                );
+                                                              }
+
+                                                              var calender = snapshotPrefill.data!.expiry_date;
+                                                              calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,);
+
+                                                              // fileName = snapshotPrefill.data!.url;
+
+
+                                                              return StatefulBuilder(
+                                                                builder: (BuildContext
+                                                                context,
+                                                                    void Function(void Function())
+                                                                    setState) {
+                                                                  return VCScreenPopupEditConst(
+                                                                    title:
+                                                                    'Edit Licences',
+                                                                    loadingDuration: _isLoading,
+                                                                    onSavePressed:
+                                                                        (file) async {
+                                                                      setState(() {_isLoading = true;});
+                                                                      try {
+                                                                        String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                                                            ? "Not Applicable"
+                                                                            : calenderController.text;
+                                                                        var response = await updateOrgDoc(context: context,
+                                                                          orgDocId: manageCCLicence.orgOfficeDocumentId,
+                                                                          orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                          idOfDocument: snapshotPrefill.data!.docName,
+                                                                          expiryDate: expiryTypeToSend,
+                                                                          docCreatedat: DateTime.now().toIso8601String()+"Z",
+                                                                          url: snapshotPrefill.data!.url,
+                                                                          officeid: widget.officeId,);
+
+                                                                        if (response.statusCode == 200 || response.statusCode == 201) {
+                                                                          await uploadDocumentsoffice(
+                                                                              context: context,
+                                                                              documentFile: file,
+                                                                              orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                                                                        }
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    },
+
+                                                                     child: Container(
+                                                                       width: 354,
+                                                                       padding: EdgeInsets.symmetric(
+                                                                           vertical: 3, horizontal: 12),
+                                                                       decoration: BoxDecoration(
+                                                                         color: ColorManager.white,
+                                                                         borderRadius: BorderRadius.circular(4),
+                                                                         border: Border.all(
+                                                                             color: ColorManager.fmediumgrey,
+                                                                             width: 1),
+                                                                       ),
+                                                                       child: Row(
+                                                                         mainAxisAlignment:
+                                                                         MainAxisAlignment.spaceBetween,
+                                                                         children: [
+                                                                           Text(
+                                                                             manageCCLicence.docName!,
+                                                                             style: CustomTextStylesCommon
+                                                                                 .commonStyle(
+                                                                               fontWeight:
+                                                                               FontWeightManager.medium,
+                                                                               fontSize: FontSize.s12,
+                                                                               color: ColorManager.mediumgrey,
+                                                                             ),
+                                                                           ),
+                                                                           Icon(
+                                                                             Icons.arrow_drop_down,
+                                                                             color: Colors.transparent,
+                                                                           ),
+                                                                         ],
+                                                                       ),
+                                                                     ),
+
+                                                                    ///
+                                                                    // child: FutureBuilder<List<TypeofDocpopup>>(
+                                                                    //   future: getTypeofDoc(context, widget.docId, widget.subDocId),
+                                                                    //   builder: (context, snapshot) {
+                                                                    //     if (snapshot.connectionState ==
+                                                                    //         ConnectionState.waiting) {
+                                                                    //       return Container(
+                                                                    //         width: 350,
+                                                                    //         height: 30,
+                                                                    //         decoration: BoxDecoration(
+                                                                    //           borderRadius: BorderRadius.circular(8),
+                                                                    //         ),
+                                                                    //       );
+                                                                    //     }
+                                                                    //     if (snapshot.data!.isEmpty) {
+                                                                    //       return Center(
+                                                                    //         child: Text(
+                                                                    //           AppString.dataNotFound,
+                                                                    //           style: CustomTextStylesCommon.commonStyle(
+                                                                    //             fontWeight: FontWeightManager.medium,
+                                                                    //             fontSize: FontSize.s12,
+                                                                    //             color: ColorManager.mediumgrey,
+                                                                    //           ),
+                                                                    //         ),
+                                                                    //       );
+                                                                    //     }
+                                                                    //     if (snapshot.hasData) {
+                                                                    //       List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                                                    //           .map((doc) => DropdownMenuItem<String>(
+                                                                    //         value: doc.docname,
+                                                                    //         child: Text(doc.docname!),
+                                                                    //       ))
+                                                                    //           .toList();
+                                                                    //       return CICCDropdown(
+                                                                    //         initialValue: "Select",
+                                                                    //         onChange: (val) {
+                                                                    //           //   setState(() {
+                                                                    //           // selectedDocType = val;
+                                                                    //           for (var doc in snapshot.data!) {
+                                                                    //             if (doc.docname == val) {
+                                                                    //               docTypeId = doc.documenttypeid!;
+                                                                    //             }
+                                                                    //           }
+                                                                    //           // getTypeofDoc(context ,widget.docId,widget.subDocId).then((data) {
+                                                                    //           //   _compliancePatientDataController
+                                                                    //           //       .add(data!);
+                                                                    //           // }).catchError((error) {
+                                                                    //           //   // Handle error
+                                                                    //           // });
+                                                                    //           // });
+                                                                    //         },
+                                                                    //         items: dropDownMenuItems,
+                                                                    //       );
+                                                                    //     } else {
+                                                                    //       return SizedBox();
+                                                                    //     }
+                                                                    //   },
+                                                                    // ),
+                                                                    uploadField: Container(
+                                                                      height: AppSize.s30,
+                                                                      width: AppSize.s354,
+                                                                      // margin: EdgeInsets.symmetric(horizontal: 5),
+                                                                      decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                          color: ColorManager.containerBorderGrey,
+                                                                          width: 1,
+                                                                        ),
+                                                                        borderRadius: BorderRadius.circular(4),
+                                                                      ),
+                                                                      child: StatefulBuilder(
+                                                                        builder: (BuildContext context,
+                                                                            void Function(void Function()) setState) {
+                                                                          return Padding(
+                                                                            padding: const EdgeInsets.all(0),
+                                                                            child: Row(
+                                                                              mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                Text(
+                                                                                  fileName,
+                                                                                  style: GoogleFonts.firaSans(
+                                                                                    fontSize: FontSize.s12,
+                                                                                    fontWeight: FontWeightManager.regular,
+                                                                                    color: ColorManager.lightgreyheading,
+                                                                                  ),
+                                                                                ),
+                                                                                IconButton(
+                                                                                  padding: EdgeInsets.all(4),
+                                                                                  onPressed: _pickFile,
+                                                                                  icon: Icon(
+                                                                                    Icons.file_upload_outlined,
+                                                                                    color: ColorManager.black,
+                                                                                    size: 17,
+                                                                                  ),
+                                                                                  splashColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: 18,
+                                                        color: ColorManager
+                                                            .bluebottom,
+                                                      ),
+                                                      splashColor:
+                                                      Colors.transparent,
+                                                      highlightColor:
+                                                      Colors.transparent,
+                                                      hoverColor:
+                                                      Colors.transparent,
+                                                    ),
+
                                                     IconButton(
                                                         splashColor:
                                                         Colors.transparent,
@@ -868,5 +1120,15 @@ class _CICCLicenseState extends State<CICCLicense> {
         ],
       ),
     );
+  }
+}
+
+
+class nn extends StatelessWidget {
+  const nn({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

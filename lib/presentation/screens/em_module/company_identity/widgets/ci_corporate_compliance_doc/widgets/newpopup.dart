@@ -21,14 +21,14 @@ class VCScreenPopupEditConst extends StatefulWidget {
   final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback? onSavePressed;
+  final OnUpload onSavePressed;
   final double? height;
   final Widget? uploadField;
   VCScreenPopupEditConst({
     super.key,
     required this.child,
     required this.title,
-    this.onSavePressed,
+    required this.onSavePressed,
     this.height,
     this.loadingDuration,
     this.uploadField,
@@ -159,7 +159,57 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
                       SizedBox(height: AppSize.s5),
                       /// upload  doc
-                      widget.uploadField!,
+                     // widget.uploadField!,
+                      Container(
+                        height: AppSize.s30,
+                        width: AppSize.s354,
+                        padding: EdgeInsets.only(left: AppPadding.p15),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.containerBorderGrey,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function())
+                              setState) {
+                            return Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    fileName,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight:
+                                      FontWeightManager.regular,
+                                      color: ColorManager
+                                          .lightgreyheading,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    padding: EdgeInsets.all(4),
+                                    onPressed: _pickFile,
+                                    icon: Icon(
+                                      Icons.file_upload_outlined,
+                                      color: ColorManager.black,
+                                      size: 17,
+                                    ),
+                                    splashColor: Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
 
                     ],
                   ),
@@ -214,7 +264,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         height: AppSize.s30,
                         text: AppStringEM.save, //submit
                         onPressed: () {
-                          widget.onSavePressed!();
+                          widget.onSavePressed!(filePath);
                         },
                       ),
               ),
@@ -231,17 +281,22 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
 
 ////add
+typedef void OnUpload (dynamic val);
+
 
 class VCScreenPopupADDConst extends StatefulWidget {
+
    final Widget child;
   final String title;
   bool? loadingDuration;
-  final VoidCallback onPressed;
+  final OnUpload onPressed;
   final double? height;
   final Widget? uploadField;
   dynamic filePath;
   String? fileName;
   // final Visibility? child3;
+  final Function(int) onDocTypeSelected;
+  final Function(String?) onExpiryDateSelected;
 
   VCScreenPopupADDConst({
     super.key,
@@ -252,12 +307,19 @@ class VCScreenPopupADDConst extends StatefulWidget {
     this.loadingDuration,
     this.uploadField,
     this.fileName,this.filePath,
+    required this.onDocTypeSelected,
+    required this.onExpiryDateSelected,
     // this.child3,
   });
+
+
+
 
   @override
   State<VCScreenPopupADDConst> createState() => _VCScreenPopupADDConstState();
 }
+
+
 
 class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
   int docTypeId = 0;
@@ -276,6 +338,8 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
     _url = "";
     showExpiryDateField;// Reset _url when the popup is initialized
   }
+
+
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -626,7 +690,7 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   Container(
                     height: AppSize.s30,
                     width: AppSize.s354,
-                    // margin: EdgeInsets.symmetric(horizontal: 5),
+                    padding: EdgeInsets.only(left: AppPadding.p15),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.containerBorderGrey,
@@ -673,71 +737,10 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                       },
                     ),
                   ),
-                  // Container(
-                  //   height: AppSize.s30,
-                  //   width: AppSize.s354,
-                  //   // margin: EdgeInsets.symmetric(horizontal: 5),
-                  //   decoration: BoxDecoration(
-                  //     // color: Colors.greenAccent,
-                  //     border: Border.all(
-                  //       color: ColorManager.containerBorderGrey,
-                  //       width: 1,
-                  //     ),
-                  //     borderRadius: BorderRadius.circular(4),
-                  //   ),
-                  //   child: StatefulBuilder(
-                  //     builder: (BuildContext context,
-                  //         void Function(void Function()) setState) {
-                  //       return Padding(
-                  //         padding: const EdgeInsets.all(0),
-                  //         child: Row(
-                  //           mainAxisAlignment:
-                  //           MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             Text(
-                  //               fileName,
-                  //               style: GoogleFonts.firaSans(
-                  //                 fontSize: FontSize.s12,
-                  //                 fontWeight: FontWeightManager.regular,
-                  //                 color: ColorManager.lightgreyheading,
-                  //               ),
-                  //             ),
-                  //             IconButton(
-                  //               padding: EdgeInsets.all(4),
-                  //               onPressed: _pickFile,
-                  //               icon: Icon(
-                  //                 Icons.file_upload_outlined,
-                  //                 color: ColorManager.black,
-                  //                 size: 17,
-                  //               ),
-                  //               splashColor: Colors.transparent,
-                  //               highlightColor: Colors.transparent,
-                  //               hoverColor: Colors.transparent,
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
+
                 ],
               ),
             ),
-            // SizedBox(height: AppSize.s5),
-            // ///radio
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
-            //   child: widget.radioButton,
-            // ),
-            // SizedBox(height: AppSize.s10),
-            //
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //     left: AppPadding.p20,
-            //     right: AppPadding.p20,
-            //   ),
-            //   child: widget.child2,
-            // ),
             SizedBox(height: AppSize.s20),
 
             ///button
@@ -757,49 +760,8 @@ class _VCScreenPopupADDConstState extends State<VCScreenPopupADDConst> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    // //  print('File path on pressed ${filePath}');
-                    // setState(() {
-                    // _isLoading = true;
-                    // });
-                    // // String expiryTypeToSend =
-                    // // selectedExpiryType == "Not Applicable"
-                    // // ? "Not Applicable"
-                    // //     : calenderController.text;
-                    // try {
-                    // ApiData response =
-                    // await addOrgDocPPPost(
-                    // context: context,
-                    // orgDocumentSetupid: null,
-                    // idOfDocument: docTypeMetaId,
-                    // expiryDate: "2024-08-16T09:39:48.030Z",
-                    // docCreatedat: "2024-08-16T09:39:48.030Z",
-                    // companyid: widget.companyID,
-                    // url: "url",
-                    // officeid: widget.officeId,);
-                    // if (response.statusCode ==200 || response.statusCode==201){
-                    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    // }
-                    //
-                    // // await addManageCCVCPPPost(
-                    // //   context: context,
-                    // //   name: docNamecontroller.text,
-                    // // docTypeID: docTypeMetaId,
-                    // //   docSubTypeID: docSubTypeMetaId,
-                    // //   expiryType: selectedExpiryType.toString(),
-                    // //   expiryDate: calenderController.text,//expiryTypeToSend,
-                    // //   expiryReminder: selectedExpiryType.toString(),
-                    // //   officeId: widget.officeId,
-                    // //   idOfDoc: docIdController.text
-                    // // );
-                    // // Navigator.pop(context);
-                    // } finally {
-                    // setState(() {
-                    // _isLoading = false;
-                    // });
-                    // }
-                    // },
 
-                    widget.onPressed!();
+                    widget.onPressed!(filePath);
                   },
                 ),
               ),
@@ -955,7 +917,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   Container(
                     height: AppSize.s30,
                     width: AppSize.s354,
-                    padding: EdgeInsets.only(left: AppPadding.p10),
+                    padding: EdgeInsets.only(left: AppPadding.p15),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.containerBorderGrey,
@@ -1024,48 +986,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   height: AppSize.s30,
                   text: AppStringEM.add, //submit
                   onPressed: () async{
-                    // //  print('File path on pressed ${filePath}');
-                    // setState(() {
-                    // _isLoading = true;
-                    // });
-                    // // String expiryTypeToSend =
-                    // // selectedExpiryType == "Not Applicable"
-                    // // ? "Not Applicable"
-                    // //     : calenderController.text;
-                    // try {
-                    // ApiData response =
-                    // await addOrgDocPPPost(
-                    // context: context,
-                    // orgDocumentSetupid: null,
-                    // idOfDocument: docTypeMetaId,
-                    // expiryDate: "2024-08-16T09:39:48.030Z",
-                    // docCreatedat: "2024-08-16T09:39:48.030Z",
-                    // companyid: widget.companyID,
-                    // url: "url",
-                    // officeid: widget.officeId,);
-                    // if (response.statusCode ==200 || response.statusCode==201){
-                    // await uploadDocumentsoffice(context: context, documentFile: filepath!, orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    // }
-                    //
-                    // // await addManageCCVCPPPost(
-                    // //   context: context,
-                    // //   name: docNamecontroller.text,
-                    // // docTypeID: docTypeMetaId,
-                    // //   docSubTypeID: docSubTypeMetaId,
-                    // //   expiryType: selectedExpiryType.toString(),
-                    // //   expiryDate: calenderController.text,//expiryTypeToSend,
-                    // //   expiryReminder: selectedExpiryType.toString(),
-                    // //   officeId: widget.officeId,
-                    // //   idOfDoc: docIdController.text
-                    // // );
-                    // // Navigator.pop(context);
-                    // } finally {
-                    // setState(() {
-                    // _isLoading = false;
-                    // });
-                    // }
-                    // },
-
                     widget.onPressed!();
                   },
                 ),

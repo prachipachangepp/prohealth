@@ -473,13 +473,17 @@ Future<ApiData> addOrgDocPPPost({
           "expiry_date": expiryDate == null ? null :"${expiryDate}T00:00:00Z",
           "doc_created_at": docCreated,
           "company_id": companyId,
-          // "url": '',
+         "url": url,
           "office_id": officeId,//expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
         });
     print('New manage Doc Post::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New manage Corporate Doc addded ");
+      var responseData = response.data;
+      var docOfficeID =responseData["orgOfficeDocumentId"];
+      print("Post Manage CCVCPP  addded ");
       return ApiData(
+          orgOfficeDocumentId: docOfficeID,
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
@@ -575,6 +579,7 @@ Future<ApiData> updateOrgDoc({
       var docOfficeID =responseData["orgOfficeDocumentId"];
       print("Patch CCVCPP  Updated ");
       return ApiData(
+          orgOfficeDocumentId: docOfficeID,
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
@@ -664,4 +669,13 @@ Future<ApiData> deleteOrgDoc({
   }
 }
 
+
+class dd extends StatelessWidget {
+  const dd({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
 

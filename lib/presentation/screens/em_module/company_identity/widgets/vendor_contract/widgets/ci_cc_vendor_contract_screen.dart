@@ -358,16 +358,33 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     docIdController.clear();
                     docNamecontroller.clear();
                     selectedExpiryType = "";
+                    int? selectedDocTypeId;
                     showDialog(
                         context: context,
                         builder: (context) {
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
+                              String? selectedExpiryDate;
+                              String? expiryDateToSend;
                               String? documentID;
                               return VCScreenPopupADDConst(
                                 loadingDuration: _isLoading,
-                                onPressed: () async {
+
+                                onDocTypeSelected: (int docTypeId) {
+                                  setState(() {
+                                    selectedDocTypeId = docTypeId; // Update the selected docTypeId
+                                  });
+                                },
+                                onExpiryDateSelected: (String? expiryDate) {
+                                  setState(() {
+                                    print('EXP Date : ${expiryDate}');
+
+                                    selectedExpiryDate = expiryDate;
+                                    print('selected EXP Date : ${selectedExpiryDate}');
+                                  });
+                                },
+                                onPressed: (file) async {
                                   //  print('File path on pressed ${filePath}');
                                   setState(() {
                                     _isLoading = true;
@@ -393,11 +410,14 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       officeId: widget.officeId,
                                     );
                                     expiryDateController.clear();
+                                    print(":::::::=>${response.orgOfficeDocumentId}");
+
                                     if (response.statusCode == 200 ||
                                         response.statusCode == 201) {
+
                                       await uploadDocumentsoffice(
                                           context: context,
-                                          documentFile: filePath,
+                                          documentFile: file,
                                           orgOfficeDocumentId:
                                           response.orgOfficeDocumentId!);
                                     }
@@ -636,5 +656,16 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
         )
       ],
     );
+  }
+}
+
+
+
+class ddd extends StatelessWidget {
+  const ddd({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
