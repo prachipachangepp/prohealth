@@ -780,6 +780,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       decoration: BoxDecoration(
                           border: Border.all(
                             color: ColorManager.blueprime,
+                            // color: Colors.green,
                           ),
                           borderRadius:
                           BorderRadius.all(Radius.circular(20))),
@@ -876,17 +877,20 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                           decoration: BoxDecoration(
                               border: Border.all(
                                 color: ColorManager.blueprime,
+                                // color: Colors.orange
                               ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           height: 320,
+                          width: 1000,
                           // color: ColorManager.red,
                           child: FutureBuilder<WhiteLabellingCompanyDetailModal>(
                               future:
                                   getWhiteLabellingData(context),
                               builder: (context, snapshot) {
                                 if(snapshot.connectionState == ConnectionState.waiting){
-                                  return SizedBox();
+                                  return Center(
+                                      child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
