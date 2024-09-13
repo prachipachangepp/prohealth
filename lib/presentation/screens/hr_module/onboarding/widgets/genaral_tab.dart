@@ -93,7 +93,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: containerWidth,
-                                    height: AppSize.s150,
+                                    height: AppSize.s170,
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(20),

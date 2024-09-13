@@ -232,22 +232,26 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 selectedServiceId = firstServiceId;
                               }
 
-                              return CICCDropdown(
-                                width: 300,
-                                initialValue: selectedServiceName,
-                                onChange: (val) {
-                                  setState(() {
-                                    selectedServiceName = val;
-                                    for (var service in snapshot.data!) {
-                                      if (service.serviceName == val) {
-                                        selectedServiceId =
-                                            service.officeServiceId;
-                                        serviceId = service.serviceId;
-                                      }
-                                    }
-                                  });
+                              return StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return  CICCDropdown(
+                                    width: 300,
+                                    initialValue: selectedServiceName,
+                                    onChange: (val) {
+                                      setState(() {
+                                        selectedServiceName = val;
+                                        for (var service in snapshot.data!) {
+                                          if (service.serviceName == val) {
+                                            selectedServiceId =
+                                                service.officeServiceId;
+                                            serviceId = service.serviceId;
+                                          }
+                                        }
+                                      });
+                                    },
+                                    items: dropDownServiceList,
+                                  );
                                 },
-                                items: dropDownServiceList,
                               );
                             }
                             return const SizedBox();
@@ -751,21 +755,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                 ),
                                               ),
                                             ),
-                                            // Expanded(
-                                            //   child: Center(
-                                            //     child: Text(
-                                            //       finance.serviceID ?? "--",
-                                            //       style: GoogleFonts.firaSans(
-                                            //         fontSize: 10,
-                                            //         fontWeight: FontWeight.w500,
-                                            //         color:
-                                            //             const Color(0xff686464),
-                                            //         decoration:
-                                            //             TextDecoration.none,
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // ),
                                             Expanded(
                                               child: Center(
                                                 child: Row(
