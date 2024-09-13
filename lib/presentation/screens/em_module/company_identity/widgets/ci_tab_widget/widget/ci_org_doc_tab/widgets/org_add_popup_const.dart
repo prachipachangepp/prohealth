@@ -788,7 +788,6 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
 
             int threshold = 0;
             String? expiryDateToSend = "";
-            selectedYear = AppConfig.year;
             if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
               int enteredValue = int.parse(daysController.text);
               if (selectedYear == AppConfig.year) {
