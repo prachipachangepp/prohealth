@@ -187,7 +187,6 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                   ),
                 ),
               ),
-
         /// Radio Button Section
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
