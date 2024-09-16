@@ -149,8 +149,8 @@ class EstablishmentManagerRepository {
 
   ///insurance-vendor/{insuranceVendorId}
   static String companyOfficeVendorPatchDelete(
-      {required int insuranceVendorId}) {
-    return "$insuranceVendorsContractPatch/$insuranceVendorId";
+      {required int insuranceVendorContracId}) {
+    return "$insuranceVendorsContractPatch/$insuranceVendorContracId";
   }
   static String companyVendorPatchDelete(
       {required int insuranceVendorId}) {

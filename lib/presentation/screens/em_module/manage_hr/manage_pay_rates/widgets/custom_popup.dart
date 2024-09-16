@@ -53,6 +53,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
         Navigator.pop(context);
         widget.payRatesController.clear();
         widget.perMilesController.clear();
+        widget.fixPayRatesController.clear();
       });
     } else {
       setState(() {

@@ -185,6 +185,7 @@ Future<ApiData> addVendorContract(
     int insuranceVendorId,
     String contractName,
     String expiryType,
+    int threshold,
     String officeId,
     String contractId,
     String expiryDate,
@@ -197,6 +198,7 @@ Future<ApiData> addVendorContract(
           "insuranceVendorId": insuranceVendorId,
           "contractName": contractName,
           "expiry_type": expiryType,
+          "threshold": threshold,
           "companyId": companyId,
           "officeId": officeId,
           "contractId": contractId,
@@ -244,6 +246,7 @@ Future<List<ManageInsuranceContractData>> companyContractGetByVendorId(BuildCont
             contractName: item['contractName'],
             contractId: item['contractId'],
             expiryType: item['expiry_type'],
+            threshold: item['threshold'] ?? 0,
             officeId: item['officeId'],
             expiryDate: item['expiry_date'] ?? "",
             expiryReminder: item['expiry_reminder'] ?? "",
@@ -309,6 +312,7 @@ Future<ManageContractPrefill> getPrefillContract(
         expiryType: response.data['expiry_type'] ?? "",
         expiryDate: response.data['expiry_date'] ?? "",
         expiryReminder: response.data['expiry_reminder'] ?? "",
+        threshold: response.data['threshold'] ?? 0
       );
     } else {
       print('Api Error');
@@ -325,7 +329,9 @@ Future<ManageContractPrefill> getPrefillContract(
 ///patch contract
 Future<ApiData> patchCompanyContract(
     BuildContext context,
+    int insuranceVendorContracId ,
     int insuranceVendorId,
+    int threshold,
     String officeId,
     String contractName,
     String expirType,
@@ -336,18 +342,20 @@ Future<ApiData> patchCompanyContract(
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(
-            insuranceVendorId: insuranceVendorId),
+            insuranceVendorContracId: insuranceVendorContracId ),
         data: {
+          "insuranceVendorId": insuranceVendorId,
           "contractName": contractName,
           "officeId": officeId,
           "companyId": companyId,
+          "threshold": threshold,
           "expiry_type": expirType,
           "contractId": contractId,
           "expiry_date": expiryDate,
         });
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("contract Updated");
+      print("contract Updated:::::::${response.data}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

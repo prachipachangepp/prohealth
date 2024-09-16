@@ -712,22 +712,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           ),
                           const SizedBox(height: AppSize.s10),
                           Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                width: 2,
-                                color: ColorManager.black.withOpacity(0.2),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: ColorManager.black.withOpacity(0.15),
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                              color: Colors.white,
-                            ),
+                            color: Colors.white,
                             child: Column(
                               children: serviceRows,
                             ),

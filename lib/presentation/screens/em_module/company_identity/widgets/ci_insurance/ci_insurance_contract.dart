@@ -231,29 +231,21 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                 ),
                                                               );
                                                             }
-                                                            var contractPrefName = snapshotPrefill.data!.contractName;
-                                                            contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
-
-                                                            var contractIDPrefName = snapshotPrefill.data!.contractId;
-                                                            contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
-
-                                                            var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
-                                                            calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
-
-                                                            var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
-                                                            expiryType = snapshotPrefill.data!.expiryType;
 
                                                             return StatefulBuilder(
                                                               builder: (BuildContext
-                                                              context,
-                                                                  void Function(
-                                                                      void Function())
-                                                                  setState) {
+                                                              context, void Function(void Function())setState) {
                                                                 return ContractEditDialog(
                                                                   title:
                                                                   'Edit Contract',
-                                                                  contractNmaeController: snapshotPrefill.data!.contractName!,
-                                                                  contractIdController: snapshotPrefill.data!.contractId!, selectedVendorId: snapshotPrefill.data!.insuranceVendorId, officeid: snapshotPrefill.data!.officeId,
+                                                                  insuranceVendorContracId: snapshotPrefill.data!.insuranceVendorContracId,
+                                                                  selectedVendorId: snapshotPrefill.data!.insuranceVendorId,
+                                                                  contractName: snapshotPrefill.data!.contractName!,
+                                                                  contractId: snapshotPrefill.data!.contractId!,
+                                                                  officeid: snapshotPrefill.data!.officeId,
+                                                                  expiryType: snapshotPrefill.data!.expiryType,
+                                                                  expiryDate: snapshotPrefill.data!.expiryDate,
+                                                                  threshhold: snapshotPrefill.data!.threshold,
 
 
                                                                 );

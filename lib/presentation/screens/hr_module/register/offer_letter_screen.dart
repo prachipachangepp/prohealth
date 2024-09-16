@@ -154,10 +154,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
   List<GlobalKey<_DynamciContainerState>> containerKeys = [];
 
-
-
-
-
   void addContainer() {
     setState(() {
       containerKeys.add(GlobalKey<_DynamciContainerState>());
@@ -169,22 +165,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
       containerKeys.remove(key);
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-  ///
-
-
-
-
 
   AppLinks? _appLinks;
 
@@ -260,7 +240,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 60),
-              ///blue container
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -362,9 +342,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               key: key,
               index: index + 1,
               onRemove: () => removecontainer(key),
-
               );
-
               }).toList(),
               ),
 
@@ -1311,15 +1289,10 @@ class _DynamciContainerState extends State<DynamciContainer> {
   final StreamController<List<ZipcodeByCountyIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdData>>.broadcast();
 
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return   Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100),
+      padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 15),
       child: Container(
         width: double.infinity, //1030
         height: 330, //MediaQuery.of(context).size.height / 2,
@@ -1596,7 +1569,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                           ),
                           tabs: const [
                             Tab(text: 'Zip Codes'),
-                            Tab(text: 'Cities'),
+                           // Tab(text: 'Cities'),
                           ],
                         ),
                       ),
@@ -1667,65 +1640,65 @@ class _DynamciContainerState extends State<DynamciContainer> {
 
                               ),
                               // Tab 2 content: Cities
-                              StreamBuilder<List<ZipcodeByCountyIdData>>(
-                                stream: _countyStreamController.stream,
-                                builder: (BuildContext context,snapshot) {
-                                  getZipcodeByCountyId(context: context, countyId:selectedCountyId).then((data) {
-                                    _countyStreamController.add(data);
-                                  }).catchError((error) {
-                                    // Handle error
-                                  });
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return SizedBox();
-                                  }
-                                  if(selectedCountyId == 0){
-                                    return Center(child: Text('Select county',style:
-                                    GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
-                                  }
-                                  if(snapshot.data!.isEmpty){
-                                    return Center(child: Text('No Data Found!',style:
-                                    GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
-                                  }
-                                  return Row(
-                                    children: [
-                                      StatefulBuilder(
-                                        builder: (BuildContext context, void Function(void Function()) setState) {
-                                          return Container(
-                                            width:200,
-                                            height:300,
-                                            child: ListView.builder(
-                                              itemCount: snapshot.data!.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                String cityName = snapshot.data![index].city;
-                                                bool isChecked = checkedCityName[cityName] ?? false;
-                                                return  CheckBoxTileConst(text: cityName, value: isChecked, onChanged: (bool? val) {setState(() {
-                                                  print('Clicked');
-                                                  checkedCityName[cityName] = val ?? false;
-                                                  if (val == true) {
-                                                    selectedCityName.add(cityName);
-                                                  } else {
-                                                    selectedCityName.remove(cityName);
-                                                  }
-                                                  // Update the string representation
-                                                  selectedCityString = selectedCityName.join(', ');
-                                                  print(selectedCityString);
-                                                });  });
-                                              },
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      // Expanded(
-                                      //   child: ListView(
-                                      //     children: _buildCheckboxes()
-                                      //         .sublist(5, 10),
-                                      //   ),
-                                      // ),
-                                    ],
-                                  );
-                                },
-
-                              ),
+                              // StreamBuilder<List<ZipcodeByCountyIdData>>(
+                              //   stream: _countyStreamController.stream,
+                              //   builder: (BuildContext context,snapshot) {
+                              //     getZipcodeByCountyId(context: context, countyId:selectedCountyId).then((data) {
+                              //       _countyStreamController.add(data);
+                              //     }).catchError((error) {
+                              //       // Handle error
+                              //     });
+                              //     if(snapshot.connectionState == ConnectionState.waiting){
+                              //       return SizedBox();
+                              //     }
+                              //     if(selectedCountyId == 0){
+                              //       return Center(child: Text('Select county',style:
+                              //       GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                              //     }
+                              //     if(snapshot.data!.isEmpty){
+                              //       return Center(child: Text('No Data Found!',style:
+                              //       GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                              //     }
+                              //     return Row(
+                              //       children: [
+                              //         StatefulBuilder(
+                              //           builder: (BuildContext context, void Function(void Function()) setState) {
+                              //             return Container(
+                              //               width:200,
+                              //               height:300,
+                              //               child: ListView.builder(
+                              //                 itemCount: snapshot.data!.length,
+                              //                 itemBuilder: (BuildContext context, int index) {
+                              //                   String cityName = snapshot.data![index].city;
+                              //                   bool isChecked = checkedCityName[cityName] ?? false;
+                              //                   return  CheckBoxTileConst(text: cityName, value: isChecked, onChanged: (bool? val) {setState(() {
+                              //                     print('Clicked');
+                              //                     checkedCityName[cityName] = val ?? false;
+                              //                     if (val == true) {
+                              //                       selectedCityName.add(cityName);
+                              //                     } else {
+                              //                       selectedCityName.remove(cityName);
+                              //                     }
+                              //                     // Update the string representation
+                              //                     selectedCityString = selectedCityName.join(', ');
+                              //                     print(selectedCityString);
+                              //                   });  });
+                              //                 },
+                              //               ),
+                              //             );
+                              //           },
+                              //         ),
+                              //         // Expanded(
+                              //         //   child: ListView(
+                              //         //     children: _buildCheckboxes()
+                              //         //         .sublist(5, 10),
+                              //         //   ),
+                              //         // ),
+                              //       ],
+                              //     );
+                              //   },
+                              //
+                              // ),
                             ],
                           ),
                         ),
