@@ -329,6 +329,7 @@ Future<ManageContractPrefill> getPrefillContract(
 ///patch contract
 Future<ApiData> patchCompanyContract(
     BuildContext context,
+    int insuranceVendorContracId ,
     int insuranceVendorId,
     int threshold,
     String officeId,
@@ -341,8 +342,9 @@ Future<ApiData> patchCompanyContract(
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(
-            insuranceVendorId: insuranceVendorId),
+            insuranceVendorContracId: insuranceVendorContracId ),
         data: {
+          "insuranceVendorId": insuranceVendorId,
           "contractName": contractName,
           "officeId": officeId,
           "companyId": companyId,
@@ -353,7 +355,7 @@ Future<ApiData> patchCompanyContract(
         });
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("contract Updated");
+      print("contract Updated:::::::${response.data}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

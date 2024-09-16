@@ -134,11 +134,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                     ),
                   ),
                 ),
-              // SizedBox(height: AppSize.s8),
-              //   widget.radiobutton,
-              // SizedBox(height: AppSize.s8),
-              // widget.child2,
 
+              SizedBox(height: AppSize.s8),
               Row(
                 children: [
                   HeaderContentConst(
@@ -185,115 +182,109 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                     padding: const EdgeInsets.only(
                       left: AppPadding.p20,
                       right: AppPadding.p20,
+                      bottom: AppPadding.p15
                     ),
                     child: Visibility(
                       visible: selectedExpiryType == AppConfig.scheduled,
-                      child: Column(
+                      child: Row(
                         children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 50,
-                                //color: ColorManager.red,
-                                child: TextFormField(
-                                  controller:
-                                      daysController, // Use the controller initialized with "1"
-                                  cursorColor: ColorManager.black,
-                                  cursorWidth: 1,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.medium,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: ColorManager.fmediumgrey,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: ColorManager.fmediumgrey,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter
-                                        .digitsOnly, // This ensures only digits are accepted
-                                  ],
-                                ),
+                          Container(
+                            height: 30,
+                            width: 50,
+                            //color: ColorManager.red,
+                            child: TextFormField(
+                              controller:
+                                  daysController, // Use the controller initialized with "1"
+                              cursorColor: ColorManager.black,
+                              cursorWidth: 1,
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
                               ),
-                              SizedBox(width: 10),
-                              Container(
-                                height: 30,
-                                width: 80,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorManager.fmediumgrey),
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager.fmediumgrey,
+                                      width: 2),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: DropdownButtonFormField<String>(
-                                  value:
-                                      selectedYear, // Initial value (you should define this variable)
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: AppConfig.year,
-                                      child: Text(
-                                        AppConfig.year,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s10,
-                                          fontWeight: FontWeightManager.medium,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: AppConfig.month,
-                                      child: Text(
-                                        AppConfig.month,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s10,
-                                          fontWeight: FontWeightManager.medium,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedYear =
-                                          value; // Update the selected option (Year/Month)
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: AppConfig.year,
-                                    hintStyle: GoogleFonts.firaSans(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager.fmediumgrey,
+                                      width: 2),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10),
+                              ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter
+                                    .digitsOnly, // This ensures only digits are accepted
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            height: 30,
+                            width: 80,
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: ColorManager.fmediumgrey),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: DropdownButtonFormField<String>(
+                              value:
+                                  selectedYear, // Initial value (you should define this variable)
+                              items: [
+                                DropdownMenuItem(
+                                  value: AppConfig.year,
+                                  child: Text(
+                                    AppConfig.year,
+                                    style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
                                       fontWeight: FontWeightManager.medium,
                                       color: ColorManager.mediumgrey,
                                     ),
-                                    contentPadding: EdgeInsets.only(bottom: 20),
-                                  ),
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: ColorManager.black,
-                                    size: 16,
                                   ),
                                 ),
+                                DropdownMenuItem(
+                                  value: AppConfig.month,
+                                  child: Text(
+                                    AppConfig.month,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s10,
+                                      fontWeight: FontWeightManager.medium,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedYear =
+                                      value; // Update the selected option (Year/Month)
+                                });
+                              },
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: AppConfig.year,
+                                hintStyle: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s10,
+                                  fontWeight: FontWeightManager.medium,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                                contentPadding: EdgeInsets.only(bottom: 20),
                               ),
-                            ],
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: ColorManager.black,
+                                size: 16,
+                              ),
+                            ),
                           ),
                         ],
                       ),

@@ -21,7 +21,6 @@ class UploadDocumentAddPopup extends StatefulWidget {
   final String title;
   bool? loadingDuration;
   final String officeId;
-
   final int docTypeMetaIdCC;
   final List<TypeofDocpopup> dataList;
   final int selectedSubDocId;
