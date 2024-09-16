@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/Contract_edit_dialog.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
@@ -210,104 +211,67 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                             children: [
 
                                          /////////////////////////////
-                                         //      IconButton(
-                                         //        onPressed: () {
-                                         //          String? selectedExpiryType =
-                                         //              expiryType;
-                                         //          showDialog(
-                                         //            context: context,
-                                         //            builder:
-                                         //                (BuildContext context) {
-                                         //              return FutureBuilder<ManageContractPrefill>(
-                                         //                  future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
-                                         //                  builder: (context, snapshotPrefill) {
-                                         //                    if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                         //                      return Center(
-                                         //                        child:
-                                         //                        CircularProgressIndicator(
-                                         //                          color: ColorManager
-                                         //                              .blueprime,
-                                         //                        ),
-                                         //                      );
-                                         //                    }
-                                         //                    var contractPrefName = snapshotPrefill.data!.contractName;
-                                         //                    contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
-                                         //
-                                         //                    var contractIDPrefName = snapshotPrefill.data!.contractId;
-                                         //                    contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
-                                         //
-                                         //                    var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
-                                         //                    calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
-                                         //
-                                         //                    var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
-                                         //                    expiryType = snapshotPrefill.data!.expiryType;
-                                         //
-                                         //                    return StatefulBuilder(
-                                         //                      builder: (BuildContext
-                                         //                      context,
-                                         //                          void Function(
-                                         //                              void Function())
-                                         //                          setState) {
-                                         //                        return ContractAddDialog(
-                                         //                          title:
-                                         //                          'Edit Contract',
-                                         //                          contractNmaeController: contractNameController,
-                                         //                          contractIdController: contractIdController,
-                                         //                          onSubmitPressed:
-                                         //                          () async{
-                                         //                          setState(() {
-                                         //                            _isLoading = true;
-                                         //                          });
-                                         //                          try {
-                                         //                            //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                         //                          setState(() async {
-                                         //                            print('Contract vendor Id ${snapshot
-                                         //                                .data![
-                                         //                            index].insuranceVendorContracId}');
-                                         //                           var response =  await patchCompanyContract(
-                                         //                                context, snapshot.data![index].insuranceVendorContracId,
-                                         //                                widget.officeId,
-                                         //                                contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
-                                         //                               contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
-                                         //                                contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
-                                         //                           contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
-                                         //                           if(response.statusCode == 200 || response.statusCode == 201){
-                                         //                             showDialog(
-                                         //                               context: context,
-                                         //                               builder: (BuildContext context) {
-                                         //                                 return AddSuccessPopup(message: 'Edited Successfully',);
-                                         //                               },
-                                         //                             );
-                                         //                           }else{
-                                         //
-                                         //                           }
-                                         //                            contractNameController.clear();
-                                         //                            contractIdController.clear();
-                                         //                            calenderController.clear();
-                                         //                          });
-                                         //                            } finally {
-                                         //                              setState(() {
-                                         //                                _isLoading = false;
-                                         //                              });
-                                         //                            }
-                                         //                          },
-                                         //
-                                         //                        );
-                                         //                      },
-                                         //                    );
-                                         //                  });
-                                         //            },
-                                         //          );
-                                         //        },
-                                         //        icon: Icon(
-                                         //          Icons.edit_outlined,
-                                         //          size: 18,
-                                         //          color: ColorManager.blueprime,
-                                         //        ),
-                                         //        splashColor: Colors.transparent,
-                                         //        highlightColor: Colors.transparent,
-                                         //        hoverColor: Colors.transparent,
-                                         //      ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  String? selectedExpiryType =
+                                                      expiryType;
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return FutureBuilder<ManageContractPrefill>(
+                                                          future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
+                                                          builder: (context, snapshotPrefill) {
+                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                              return Center(
+                                                                child:
+                                                                CircularProgressIndicator(
+                                                                  color: ColorManager
+                                                                      .blueprime,
+                                                                ),
+                                                              );
+                                                            }
+                                                            var contractPrefName = snapshotPrefill.data!.contractName;
+                                                            contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
+
+                                                            var contractIDPrefName = snapshotPrefill.data!.contractId;
+                                                            contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
+
+                                                            var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
+                                                            calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
+
+                                                            var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
+                                                            expiryType = snapshotPrefill.data!.expiryType;
+
+                                                            return StatefulBuilder(
+                                                              builder: (BuildContext
+                                                              context,
+                                                                  void Function(
+                                                                      void Function())
+                                                                  setState) {
+                                                                return ContractEditDialog(
+                                                                  title:
+                                                                  'Edit Contract',
+                                                                  contractNmaeController: snapshotPrefill.data!.contractName!,
+                                                                  contractIdController: snapshotPrefill.data!.contractId!, selectedVendorId: snapshotPrefill.data!.insuranceVendorId, officeid: snapshotPrefill.data!.officeId,
+
+
+                                                                );
+                                                              },
+                                                            );
+                                                          });
+                                                    },
+                                                  );
+                                                },
+                                                icon: Icon(
+                                                  Icons.edit_outlined,
+                                                  size: 18,
+                                                  color: ColorManager.blueprime,
+                                                ),
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                              ),
                                               IconButton(
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,

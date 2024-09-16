@@ -17,23 +17,25 @@ import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/header_content_const.dart';
 import '../../whitelabelling/success_popup.dart';
 
-class ContractAddDialog extends StatefulWidget {
+class ContractEditDialog extends StatefulWidget {
   final String title;
   final int selectedVendorId;
   final String officeid;
+  final String contractNmaeController;
+  final String contractIdController;
 
-  ContractAddDialog({
+  ContractEditDialog({
     Key? key,
     required this.title,
     required this.selectedVendorId,
-    required this.officeid,
+    required this.officeid, required this.contractNmaeController, required this.contractIdController,
   }) : super(key: key);
 
   @override
-  State<ContractAddDialog> createState() => _ContractAddDialogState();
+  State<ContractEditDialog> createState() => _ContractEditDialogState();
 }
 
-class _ContractAddDialogState extends State<ContractAddDialog> {
+class _ContractEditDialogState extends State<ContractEditDialog> {
   TextEditingController birthdayController = TextEditingController();
 
   TextEditingController contractNmaeController = TextEditingController();
@@ -201,7 +203,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                 //color: ColorManager.red,
                                 child: TextFormField(
                                   controller:
-                                      daysController, // Use the controller initialized with "1"
+                                  daysController, // Use the controller initialized with "1"
                                   cursorColor: ColorManager.black,
                                   cursorWidth: 1,
                                   style: GoogleFonts.firaSans(
@@ -223,7 +225,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                    EdgeInsets.symmetric(horizontal: 10),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -244,7 +246,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                 ),
                                 child: DropdownButtonFormField<String>(
                                   value:
-                                      selectedYear, // Initial value (you should define this variable)
+                                  selectedYear, // Initial value (you should define this variable)
                                   items: [
                                     DropdownMenuItem(
                                       value: AppConfig.year,
@@ -343,7 +345,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                   width: 1, color: ColorManager.fmediumgrey),
                             ),
                             contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
+                            EdgeInsets.symmetric(horizontal: 16),
                             suffixIcon: Icon(Icons.calendar_month_outlined,
                                 color: ColorManager.blueprime),
                             errorText: field.errorText,
@@ -379,54 +381,55 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
       ],
       bottomButtons: loading == true
           ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              ),
-            )
+        height: AppSize.s25,
+        width: AppSize.s25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ),
+      )
           : CustomElevatedButton(
-              width: AppSize.s105,
-              height: AppSize.s30,
-              text: AppStringEM.submit,
-              onPressed: () async {
-                _validateForm(); // Validate the form on button press
-                if (_isFormValid) {
-                  setState(() {
-                    loading = true;
-                  });
-                  int threshold = 0;
-                  if (selectedExpiryType == AppConfig.scheduled &&
-                      daysController.text.isNotEmpty) {
-                    int enteredValue = int.parse(daysController.text);
-                    if (selectedYear == AppConfig.year) {
-                      threshold = enteredValue * 365;
-                    } else if (selectedYear == AppConfig.month) {
-                      threshold = enteredValue * 30;
-                    }
-                  }
-                  try {
-                    String? expiryDate;
-                    expiryDate = expiryDateController == AppConfig.issuer
-                        ? datePicked!.toIso8601String() + "Z"
-                        : null;
-                    await addVendorContract(
-                        context,
-                        widget.selectedVendorId,
-                        contractNmaeController.text,
-                        selectedExpiryType!.toString(),
-                        threshold,
-                        widget.officeid,
-                        contractIdController.text,
-                        expiryDateController.text);
-                    Navigator.pop(context);
-                  } finally {
-                    setState(() {
-                      loading = false;
-                    });
-                  }
-                }
-              }),
+          width: AppSize.s105,
+          height: AppSize.s30,
+          text: AppStringEM.submit,
+          onPressed: () async {
+    // setState(() {
+    // isLoading = true;
+    // });
+    // try {
+    // //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+    // setState(() async {
+    // // print('Contract vendor Id ${snapshot
+    // //     .data![
+    // // index].insuranceVendorContracId}');
+    // var response =  await patchCompanyContract(
+    //
+    // context, snapshot.data![index].insuranceVendorContracId,
+    // widget.officeId,
+    // contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
+    // contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
+    // contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
+    // contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
+    // if(response.statusCode == 200 || response.statusCode == 201){
+    // showDialog(
+    // context: context,
+    // builder: (BuildContext context) {
+    // return AddSuccessPopup(message: 'Edited Successfully',);
+    // },
+    // );
+    // }else{
+    //
+    // }
+    // contractNameController.clear();
+    // contractIdController.clear();
+    // calenderController.clear();
+    // });
+    // } finally {
+    // setState(() {
+    // isLoading = false;
+    // });
+    // }
+   // },
+          }),
       title: widget.title,
     );
   }
