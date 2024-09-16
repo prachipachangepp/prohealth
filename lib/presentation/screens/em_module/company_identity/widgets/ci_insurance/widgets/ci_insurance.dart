@@ -281,142 +281,25 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                     return StatefulBuilder(
                                       builder: (BuildContext context, void Function(void Function()) setState) {
                                         return ContractAddDialog(
-                                          contractNmaeController: contractNameController,
-                                          radiobutton:Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Expiry Type',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                              // CustomRadioListTile(
-                                              //   value: "Not Applicable",
-                                              //   groupValue: selectedExpiryType,
-                                              //   onChanged: (value) {
-                                              //     setState(() {
-                                              //       selectedExpiryType = value!;
-                                              //     });
-                                              //   },
-                                              //   title: "Not Applicable",
-                                              // ),
-                                              CustomRadioListTile(
-                                                value: 'Scheduled',
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value!;
-                                                  });
-                                                },
-                                                title: 'Scheduled',
-                                              ),
-                                              CustomRadioListTile(
-                                                value: 'Issuer Expiry',
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value!;
-                                                  });
-                                                },
-                                                title: 'Issuer Expiry',
-                                              ),
-                                            ],
-                                          ),
-                                          child2: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Expiry Date",
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                              SizedBox(height: AppSize.s5,),
-                                              FormField<String>(
-                                                builder: (FormFieldState<String> field) {
-                                                  return SizedBox (
-                                                    width: 354,
-                                                    height: 30,
-                                                    child:   TextFormField(
-                                                      controller: calenderController,
-                                                      cursorColor: ColorManager.black,
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: ColorManager.mediumgrey,
-                                                        //decoration: TextDecoration.none,
-                                                      ),
-                                                      decoration: InputDecoration(
-                                                        enabledBorder: OutlineInputBorder(
-                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        ),
-                                                        focusedBorder: OutlineInputBorder(
-                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        ),
-                                                        hintText: 'mm-dd-yyyy',
-                                                        hintStyle: GoogleFonts.firaSans(
-                                                          fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorManager.mediumgrey,
-                                                          //decoration: TextDecoration.none,
-                                                        ),
-                                                        border: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                                                        ),
-                                                        contentPadding:
-                                                        EdgeInsets.symmetric(horizontal: 16),
-                                                        suffixIcon: Icon(Icons.calendar_month_outlined,
-                                                            color: ColorManager.blueprime),
-                                                        errorText: field.errorText,
-                                                      ),
-                                                      onTap: () async {
-                                                        DateTime? pickedDate = await showDatePicker(
-                                                          context: context,
-                                                          initialDate: DateTime.now(),
-                                                          firstDate: DateTime(2000),
-                                                          lastDate: DateTime(3101),
-                                                        );
-                                                        if (pickedDate != null) {
-                                                          calenderController.text =
-                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                        }
-                                                      },
-                                                      validator: (value) {
-                                                        if (value == null || value.isEmpty) {
-                                                          return 'please select birth date';
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                          onSubmitPressed: () async {
-                                            //if (selectedVendorId == 0) {
-                                            await addVendorContract(
-                                              context,
-                                              selectedVendorId,
-                                              contractNameController.text,
-                                              selectedExpiryType!,
-                                              widget.officeId,
-                                              contractIdController.text,
-                                              calenderController.text
-                                            );
-                                          },
-                                          contractIdController:
-                                          contractIdController,
+
+                                            selectedVendorId :selectedVendorId,
+                                          officeid:widget.officeId,
+
+
+
+                                          // onSubmitPressed: () async {
+                                          //   //if (selectedVendorId == 0) {
+                                          //   await addVendorContract(
+                                          //     context,
+                                          //     selectedVendorId,
+                                          //     contractNameController.text,
+                                          //     selectedExpiryType!,
+                                          //     widget.officeId,
+                                          //     contractIdController.text,
+                                          //     calenderController.text
+                                          //   );
+                                          // },
+
                                           title: 'Add Contract',
                                         );
                                       },
