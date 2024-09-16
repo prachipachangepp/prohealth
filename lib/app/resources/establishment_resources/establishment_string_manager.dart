@@ -83,7 +83,7 @@ class AppStringEM{
   static const String leases = "Leases";
   static const String snf = "SNF";
   static const String dme = "DME";
-  static const String md = "CAP Reports";
+  static const String md = "MD";
  // static const String qbr = "Quarterly Balance Reports";
 
 }

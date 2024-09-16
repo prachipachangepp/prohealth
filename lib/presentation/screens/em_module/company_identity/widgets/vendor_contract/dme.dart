@@ -110,14 +110,7 @@ class _CiDmeState extends State<CiDme> {
                   }).catchError((error) {
                     // Handle error
                   });
-                  // StreamBuilder<List<ManageCCDoc>>(
-                  //     stream : vendorDMEController.stream,
-                  //     builder: (context, snapshot) {
-                  //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                  //         vendorDMEController.add(data);
-                  //       }).catchError((error) {
-                  //         // Handle error
-                  //       });
+
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(

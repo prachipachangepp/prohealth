@@ -431,21 +431,21 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         ),
                       ),
                       SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          readOnly: true,
-                          enabled: false,
-                          controller: widget.userIdController,
-                          keyboardType: TextInputType.phone,
-                          text: "User ID",
-                          cursorHeight: 12,
-                          labelText: "User ID",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                          labelFontSize: 12,
-                          errorText: 'User ID is required',
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: HRManageTextField(
+                      //     readOnly: true,
+                      //     enabled: false,
+                      //     controller: widget.userIdController,
+                      //     keyboardType: TextInputType.phone,
+                      //     text: "User ID",
+                      //     cursorHeight: 12,
+                      //     labelText: "User ID",
+                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                      //     labelFontSize: 12,
+                      //     errorText: 'User ID is required',
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: HRManageTextField(
@@ -506,7 +506,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       //     errorText: 'Password is required',
                       //   ),
                       // ),
-                      SizedBox(height: 24.0),
+                      SizedBox(height: 35),
                       ReusableLoadingButton(
                         text: 'Submit',
                         onPressed: (){

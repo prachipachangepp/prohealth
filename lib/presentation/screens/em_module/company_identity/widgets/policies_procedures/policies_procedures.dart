@@ -114,8 +114,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                             context: context,
                             builder: (context) {
                               return FutureBuilder<List<TypeofDocpopup>>(
-                                  future: getTypeofDoc(context, docTypeMetaIdPP,
-                                      selectedSubDocId),
+                                  future: getTypeofDoc(context, docTypeMetaIdPP, selectedSubDocId),
                                   builder: (contex, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -243,7 +242,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        "ID : ${policiesdata.orgDocumentSetupid}",
                                                         style: GoogleFonts
                                                             .firaSans(
                                                           fontSize: 10,
@@ -260,9 +259,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         height: AppSize.s5,
                                                       ),
                                                       Text(
-                                                        policiesdata
-                                                            .docName
-                                                            .toString(),
+                                                        policiesdata.docName.toString(),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: GoogleFonts
