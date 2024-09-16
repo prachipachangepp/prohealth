@@ -219,7 +219,7 @@ class _CiDmeState extends State<CiDme> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${dmeData.idOfDocument.toString()}",
+                                                          "ID : ${dmeData.orgDocumentSetupid.toString()}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

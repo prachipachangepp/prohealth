@@ -216,7 +216,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${CapReports.idOfDocument.toString()}",
+                                                          "ID : ${CapReports.orgDocumentSetupid.toString()}",
                                                           //CapReports.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

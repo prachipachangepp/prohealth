@@ -219,7 +219,7 @@ class _CiMdState extends State<CiMd> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${mdData.idOfDocument.toString()}",
+                                                          "ID : ${mdData.orgDocumentSetupid.toString()}",
                                                           // mdData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

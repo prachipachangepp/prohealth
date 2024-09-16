@@ -220,7 +220,7 @@ class _CiMiscState extends State<CiMisc> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${miscData.idOfDocument.toString()}",
+                                                          "ID : ${miscData.orgDocumentSetupid.toString()}",
                                                           // miscData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

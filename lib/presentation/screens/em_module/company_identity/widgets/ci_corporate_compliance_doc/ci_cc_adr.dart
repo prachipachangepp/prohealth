@@ -215,7 +215,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${manageCCADR.idOfDocument.toString()}",
+                                                          "ID : ${manageCCADR.orgDocumentSetupid.toString()}",
                                                           // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

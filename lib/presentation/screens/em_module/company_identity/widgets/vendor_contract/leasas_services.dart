@@ -222,7 +222,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${leasesData.idOfDocument.toString()}",
+                                                          "ID : ${leasesData.orgDocumentSetupid.toString()}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

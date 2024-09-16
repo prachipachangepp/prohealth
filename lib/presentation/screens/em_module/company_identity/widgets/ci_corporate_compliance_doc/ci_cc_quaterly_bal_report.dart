@@ -203,7 +203,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${balReport.idOfDocument.toString()}",
+                                                          "ID : ${balReport.orgDocumentSetupid.toString()}",
                                                           //balReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(

@@ -206,7 +206,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${MedicalCostReport.idOfDocument.toString()}",
+                                                          "ID : ${MedicalCostReport.orgDocumentSetupid.toString()}",
                                                           // MedicalCostReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(
