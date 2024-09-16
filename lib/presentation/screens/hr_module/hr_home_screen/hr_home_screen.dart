@@ -1,12 +1,9 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 
-import '../../../widgets/responsive_screen.dart';
-
 class HRHomeScreen extends StatelessWidget {
-   // static const String routeName = "/hr home";
+  static const String routeName = RouteStrings.hrDesktop;
   HRHomeScreen({super.key});
 
   @override
@@ -17,14 +14,12 @@ class HRHomeScreen extends StatelessWidget {
           return HomeScreenHRM();
         } else {
           return Material(
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                              "Tablet"
-                          ),
-                        ),
-                      ),
-                    );
+            child: Container(
+              child: Center(
+                child: Text("Tablet"),
+              ),
+            ),
+          );
         }
       },
     );
@@ -52,5 +47,4 @@ class HRHomeScreen extends StatelessWidget {
   //         ),
   //       ),);
   // }
-
 }

@@ -11,6 +11,7 @@ class EstablishmentManagerRepository {
   static String document = "/document";
   static String addDocument = "/document/addDocument";
   static String companyOfficeService = "/company-office-service";
+  static String companServiceMetaData = "/service-metadata";
   static String identity = "/identity";
   static String companyList = "/companyList";
   static String officeDetails = "officeDetailWithServiceByCompany";
@@ -134,6 +135,9 @@ class EstablishmentManagerRepository {
 
   static String companyOfficeServiceGetByCompanyId({required int companyId}) {
     return "$companyOfficeService/${companyId}";
+  }
+  static String companyServiceMetaDataGet() {
+    return "$companServiceMetaData";
   }
 
   ///insurance-vendor/add

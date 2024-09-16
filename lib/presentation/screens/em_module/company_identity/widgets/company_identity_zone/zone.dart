@@ -142,8 +142,8 @@ class _CiOrgDocumentState extends State<CiZone> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _selectedIndex == 1
-                  ? FutureBuilder<List<AllCountyGetList>>(
-                      future: getCountyZoneList(context),
+                  ? FutureBuilder<List<OfficeWiseCountyData>>(
+                      future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
                       builder: (context, snapshotZone) {
                         if (snapshotZone.connectionState ==
                             ConnectionState.waiting) {

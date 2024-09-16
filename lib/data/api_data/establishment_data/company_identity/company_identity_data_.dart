@@ -106,3 +106,27 @@ class CompanyIdentityModel {
 //     required this.address,
 //   });
 // }
+
+/// Services add
+class ServiceList {
+  String serviceId;
+  String npiNumber;
+  String medicareProviderId;
+  String hcoNumId;
+
+  ServiceList({
+    required this.serviceId,
+    required this.npiNumber,
+    required this.medicareProviderId,
+    required this.hcoNumId,
+  });
+  // Convert ServiceList object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'service_id': serviceId,
+      'npi_number': npiNumber,
+      'medicare_provider_id': medicareProviderId,
+      'hco_num_id': hcoNumId,
+    };
+  }
+}

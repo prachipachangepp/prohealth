@@ -282,14 +282,14 @@ Future<List<CompanyOfficeListData>> getCompanyOfficeList(
 Future<ApiData> addNewOfficeServices(
     {required BuildContext context,
       required String officeId,
-      required List<String> serviceList
+      required List<ServiceList> serviceList
       }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var data = {
       "company_id": companyId,
       "office_id": officeId,
-      "ServiceList": serviceList
+      "ServiceList": serviceList.map((item) => item.toJson()).toList(),
     };
     print("All inserted office services ${data}");
     var response = await Api(context)
@@ -297,7 +297,7 @@ Future<ApiData> addNewOfficeServices(
     {
       "company_id": companyId,
       "office_id": officeId,
-      "ServiceList": serviceList
+      "ServiceList": serviceList.map((item) => item.toJson()).toList(),
     });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {

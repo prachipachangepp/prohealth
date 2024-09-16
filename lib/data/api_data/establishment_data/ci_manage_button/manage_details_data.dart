@@ -172,3 +172,17 @@ class ServicesData {
       required this.medicareId,
       required this.hcoNumber});
 }
+
+/// Get services meta data
+class ServicesMetaData {
+  final int serviceMetaDataId;
+  final String serviceName;
+  final String serviceId;
+
+  ServicesMetaData(
+      {
+        required this.serviceName,
+        required this.serviceId,
+        required this.serviceMetaDataId,
+        });
+}

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/resources/screen_route_name.dart';
 import 'em_desktop_screen.dart';
 
 class ResponsiveScreenEM extends StatelessWidget {
-  const ResponsiveScreenEM({super.key});
+  static const String routeName = RouteStrings.emDesktop;
+  ResponsiveScreenEM({super.key});
 
   @override
   Widget build(BuildContext context) {
