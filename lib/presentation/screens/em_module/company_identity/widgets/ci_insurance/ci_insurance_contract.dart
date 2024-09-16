@@ -217,259 +217,105 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                               //   color:
                                               //   ColorManager.blueprime,
                                               // ),),
-                                              IconButton(
-                                                onPressed: () {
-                                                  String? selectedExpiryType =
-                                                      expiryType;
-                                                  showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return FutureBuilder<ManageContractPrefill>(
-                                                          future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
-                                                          builder: (context, snapshotPrefill) {
-                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                              return Center(
-                                                                child:
-                                                                CircularProgressIndicator(
-                                                                  color: ColorManager
-                                                                      .blueprime,
-                                                                ),
-                                                              );
-                                                            }
-                                                            var contractPrefName = snapshotPrefill.data!.contractName;
-                                                            contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
-
-                                                            var contractIDPrefName = snapshotPrefill.data!.contractId;
-                                                            contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
-
-                                                            var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
-                                                            calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
-
-                                                            var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
-                                                            expiryType = snapshotPrefill.data!.expiryType;
-
-                                                            return StatefulBuilder(
-                                                              builder: (BuildContext
-                                                              context,
-                                                                  void Function(
-                                                                      void Function())
-                                                                  setState) {
-                                                                return ContractAddDialog(
-                                                                  title:
-                                                                  'Edit Contract',
-                                                                  contractNmaeController: contractNameController,
-                                                                  contractIdController: contractIdController,
-                                                                  onSubmitPressed:
-                                                                  () async{
-                                                                  setState(() {
-                                                                    _isLoading = true;
-                                                                  });
-                                                                  try {
-                                                                    //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                                                  setState(() async {
-                                                                    print('Contract vendor Id ${snapshot
-                                                                        .data![
-                                                                    index].insuranceVendorContracId}');
-                                                                   var response =  await patchCompanyContract(
-                                                                        context, snapshot.data![index].insuranceVendorContracId,
-                                                                        widget.officeId,
-                                                                        contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
-                                                                       contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
-                                                                        contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
-                                                                   contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
-                                                                   if(response.statusCode == 200 || response.statusCode == 201){
-                                                                     showDialog(
-                                                                       context: context,
-                                                                       builder: (BuildContext context) {
-                                                                         return AddSuccessPopup(message: 'Edited Successfully',);
-                                                                       },
-                                                                     );
-                                                                   }else{
-
-                                                                   }
-                                                                    contractNameController.clear();
-                                                                    contractIdController.clear();
-                                                                    calenderController.clear();
-                                                                  });
-                                                                    } finally {
-                                                                      setState(() {
-                                                                        _isLoading = false;
-                                                                      });
-                                                                    }
-                                                                  },
-                                                                  radiobutton: Padding(
-                                                                    padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                        10.0),
-                                                                    child: Column(
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "Expiry Type",
-                                                                          style: GoogleFonts
-                                                                              .firaSans(
-                                                                            fontSize:
-                                                                            FontSize.s12,
-                                                                            fontWeight:
-                                                                            FontWeight.w700,
-                                                                            color:
-                                                                            ColorManager.mediumgrey,
-                                                                            decoration:
-                                                                            TextDecoration.none,
-                                                                          ),
-                                                                        ),
-                                                                        // CustomRadioListTile(
-                                                                        //   value:
-                                                                        //   "Not Applicable",
-                                                                        //   groupValue:
-                                                                        //   selectedExpiryType,
-                                                                        //   onChanged:
-                                                                        //       (value) {
-                                                                        //     setState(
-                                                                        //             () {
-                                                                        //           selectedExpiryType =
-                                                                        //               value;
-                                                                        //         });
-                                                                        //   },
-                                                                        //   title:
-                                                                        //   "Not Applicable",
-                                                                        // ),
-                                                                        CustomRadioListTile(
-                                                                          value:
-                                                                          'Scheduled',
-                                                                          groupValue:
-                                                                          selectedExpiryType,
-                                                                          onChanged:
-                                                                              (value) {
-                                                                            setState(
-                                                                                    () {
-                                                                                  selectedExpiryType =
-                                                                                      value;
-                                                                                });
-                                                                          },
-                                                                          title:
-                                                                          'Scheduled',
-                                                                        ),
-                                                                        CustomRadioListTile(
-                                                                          value:
-                                                                          'Issuer Expiry',
-                                                                          groupValue:
-                                                                          selectedExpiryType,
-                                                                          onChanged:
-                                                                              (value) {
-                                                                            setState(
-                                                                                    () {
-                                                                                  selectedExpiryType =
-                                                                                      value;
-                                                                                });
-                                                                          },
-                                                                          title:
-                                                                          'Issuer Expiry',
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  child2: Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Expiry Date",
-                                                                        style: GoogleFonts.firaSans(
-                                                                          fontSize: FontSize.s12,
-                                                                          fontWeight: FontWeight.w700,
-                                                                          color: ColorManager.mediumgrey,
-                                                                          decoration: TextDecoration.none,
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(height: AppSize.s5,),
-                                                                      FormField<String>(
-                                                                        builder: (FormFieldState<String> field) {
-                                                                          return SizedBox (
-                                                                            width: 354,
-                                                                            height: 30,
-                                                                            child:   TextFormField(
-                                                                              controller: calenderController,
-                                                                              cursorColor: ColorManager.black,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: FontSize.s12,
-                                                                                fontWeight: FontWeight.w700,
-                                                                                color: ColorManager.mediumgrey,
-                                                                                //decoration: TextDecoration.none,
-                                                                              ),
-                                                                              decoration: InputDecoration(
-                                                                                enabledBorder: OutlineInputBorder(
-                                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                                  borderRadius: BorderRadius.circular(8),
-                                                                                ),
-                                                                                focusedBorder: OutlineInputBorder(
-                                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                                  borderRadius: BorderRadius.circular(8),
-                                                                                ),
-                                                                                hintText: 'mm-dd-yyyy',
-                                                                                hintStyle: GoogleFonts.firaSans(
-                                                                                  fontSize: FontSize.s12,
-                                                                                  fontWeight: FontWeight.w700,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                  //decoration: TextDecoration.none,
-                                                                                ),
-                                                                                border: OutlineInputBorder(
-                                                                                  borderRadius: BorderRadius.circular(8),
-                                                                                  borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                                                                                ),
-                                                                                contentPadding:
-                                                                                EdgeInsets.symmetric(horizontal: 16),
-                                                                                suffixIcon: Icon(Icons.calendar_month_outlined,
-                                                                                    color: ColorManager.blueprime),
-                                                                                errorText: field.errorText,
-                                                                              ),
-                                                                              onTap: () async {
-                                                                                DateTime? pickedDate = await showDatePicker(
-                                                                                  context: context,
-                                                                                  initialDate: DateTime.now(),
-                                                                                  firstDate: DateTime(2000),
-                                                                                  lastDate: DateTime(3101),
-                                                                                );
-                                                                                if (pickedDate != null) {
-                                                                                  calenderController.text =
-                                                                                      DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                                }
-                                                                              },
-                                                                              validator: (value) {
-                                                                                if (value == null || value.isEmpty) {
-                                                                                  return 'please select birth date';
-                                                                                }
-                                                                                return null;
-                                                                              },
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              },
-                                                            );
-                                                          });
-                                                    },
-                                                  );
-                                                },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 18,
-                                                  color: ColorManager.blueprime,
-                                                ),
-                                                splashColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                              ),
+                                         ///////////////////////////////
+                                              // IconButton(
+                                              //   onPressed: () {
+                                              //     String? selectedExpiryType =
+                                              //         expiryType;
+                                              //     showDialog(
+                                              //       context: context,
+                                              //       builder:
+                                              //           (BuildContext context) {
+                                              //         return FutureBuilder<ManageContractPrefill>(
+                                              //             future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
+                                              //             builder: (context, snapshotPrefill) {
+                                              //               if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                              //                 return Center(
+                                              //                   child:
+                                              //                   CircularProgressIndicator(
+                                              //                     color: ColorManager
+                                              //                         .blueprime,
+                                              //                   ),
+                                              //                 );
+                                              //               }
+                                              //               var contractPrefName = snapshotPrefill.data!.contractName;
+                                              //               contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
+                                              //
+                                              //               var contractIDPrefName = snapshotPrefill.data!.contractId;
+                                              //               contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
+                                              //
+                                              //               var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
+                                              //               calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
+                                              //
+                                              //               var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
+                                              //               expiryType = snapshotPrefill.data!.expiryType;
+                                              //
+                                              //               return StatefulBuilder(
+                                              //                 builder: (BuildContext
+                                              //                 context,
+                                              //                     void Function(
+                                              //                         void Function())
+                                              //                     setState) {
+                                              //                   // return ContractAddDialog(
+                                              //                   //   title:
+                                              //                   //   'Edit Contract',
+                                              //                   //   contractNmaeController: contractNameController,
+                                              //                   //   contractIdController: contractIdController,
+                                              //                   //   onSubmitPressed:
+                                              //                   //   () async{
+                                              //                   //   setState(() {
+                                              //                   //     _isLoading = true;
+                                              //                   //   });
+                                              //                   //   try {
+                                              //                   //     //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                              //                   //   setState(() async {
+                                              //                   //     print('Contract vendor Id ${snapshot
+                                              //                   //         .data![
+                                              //                   //     index].insuranceVendorContracId}');
+                                              //                   //    var response =  await patchCompanyContract(
+                                              //                   //         context, snapshot.data![index].insuranceVendorContracId,
+                                              //                   //         widget.officeId,
+                                              //                   //         contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
+                                              //                   //        contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
+                                              //                   //         contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
+                                              //                   //    contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
+                                              //                   //    if(response.statusCode == 200 || response.statusCode == 201){
+                                              //                   //      showDialog(
+                                              //                   //        context: context,
+                                              //                   //        builder: (BuildContext context) {
+                                              //                   //          return AddSuccessPopup(message: 'Edited Successfully',);
+                                              //                   //        },
+                                              //                   //      );
+                                              //                   //    }else{
+                                              //                   //
+                                              //                   //    }
+                                              //                   //     contractNameController.clear();
+                                              //                   //     contractIdController.clear();
+                                              //                   //     calenderController.clear();
+                                              //                   //   });
+                                              //                   //     } finally {
+                                              //                   //       setState(() {
+                                              //                   //         _isLoading = false;
+                                              //                   //       });
+                                              //                   //     }
+                                              //                   //   },
+                                              //                   //
+                                              //                   // );
+                                              //                 },
+                                              //               );
+                                              //             });
+                                              //       },
+                                              //     );
+                                              //   },
+                                              //   icon: Icon(
+                                              //     Icons.edit_outlined,
+                                              //     size: 18,
+                                              //     color: ColorManager.blueprime,
+                                              //   ),
+                                              //   splashColor: Colors.transparent,
+                                              //   highlightColor: Colors.transparent,
+                                              //   hoverColor: Colors.transparent,
+                                              // ),
                                               IconButton(
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,

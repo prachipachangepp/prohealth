@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -7,82 +9,99 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
+import '../../../../../../../app/constants/app_config.dart';
+import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../widgets/dialogue_template.dart';
+import '../../../../widgets/header_content_const.dart';
 import '../../whitelabelling/success_popup.dart';
 
 class ContractAddDialog extends StatefulWidget {
-  final TextEditingController contractNmaeController;
-  final TextEditingController contractIdController;
-  final VoidCallback onSubmitPressed;
+
+
   final String title;
-  final Widget radiobutton;
-  Widget? child1;
-  final Widget child2;
+  final int selectedVendorId;
+  final String officeid;
+
 
   ContractAddDialog({Key? key,
-    required this.contractNmaeController,
-    required this.onSubmitPressed,
-    required this.contractIdController,
-    required this.title, required this.radiobutton, required this.child2,}) : super(key: key);
+
+
+
+    required this.title,  required this.selectedVendorId, required this.officeid,}) : super(key: key);
+
+
 
   @override
   State<ContractAddDialog> createState() => _ContractAddDialogState();
 }
 class _ContractAddDialogState extends State<ContractAddDialog> {
   TextEditingController birthdayController = TextEditingController();
+
+
+  TextEditingController contractNmaeController = TextEditingController();
+  TextEditingController contractIdController = TextEditingController();
+  TextEditingController expiryDateController = TextEditingController();
+  TextEditingController daysController = TextEditingController(text: "1");
+
+  bool loading = false;
+  bool _isFormValid = true;
+  String selectedExpiryType = "";
+
+  // Error messages for each text field
+  String? _idDocError;
+  String? _nameDocError;
+  String? selectedYear = AppConfig.year;
+  bool showExpiryDateField = false;
+
+
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    return null;
+  }
+
+
+  // @override
+  // void initState() {
+  //   if (expiryDateController == AppConfig.issuer) {
+  //     DateTime dateTime =
+  //     DateTime.parse(expiryDate ?? DateTime.now().toString());
+  //     showExpiryDateField = true;
+  //     datePicked = dateTime;
+  //     expiryDateController = TextEditingController(
+  //         text: DateFormat('MM-dd-yyyy').format(dateTime!));
+  //   }
+  //   // fileName = widget.docName;
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
+
+  DateTime? datePicked;
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _idDocError =
+          _validateTextField(contractIdController.text, 'ID of the Contract');
+      _nameDocError =
+          _validateTextField(contractNmaeController.text, 'Name of the Contract');
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: AppSize.s400,
-        height: AppSize.s390,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
+    return DialogueTemplate(
 
-          children: [
-            Container(
-              height: 40,
-              width: AppSize.s400,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      widget.title,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 13,
-                        fontWeight:
-                        FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close,
-                      color: ColorManager.white,),
-                  ),
-                ],
-              ),
-            ),
+        width: AppSize.s420,
+        height: AppSize.s500,
+
+
+
+          body: [
+
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p8,
@@ -93,42 +112,334 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FirstSMTextFConst(
-                    controller: widget.contractNmaeController,
+                    controller: contractNmaeController,
                     keyboardType: TextInputType.text,
                     text: 'Contract Name',
                   ),
+                  if (_nameDocError != null) // Display error if any
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        _nameDocError!,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                    ),
+
+
                   SizedBox(height: AppSize.s8),
                   SMTextFConst(
-                    controller: widget.contractIdController,
+                    controller: contractIdController,
                     keyboardType: TextInputType.text,
                     text: 'Contract ID',
                   ),
-                  SizedBox(height: AppSize.s8),
-                    widget.radiobutton,
-                  SizedBox(height: AppSize.s8),
-                  widget.child2,
+                  if (_idDocError != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2.0),
+                      child: Text(
+                        _idDocError!,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                    ),
+                  // SizedBox(height: AppSize.s8),
+                  //   widget.radiobutton,
+                  // SizedBox(height: AppSize.s8),
+                  // widget.child2,
+
+                  Row(
+                    children: [
+                      HeaderContentConst(
+                        heading: AppString.expiry_type,
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // CustomRadioListTile(
+                            //   value: AppConfig.notApplicable,
+                            //   groupValue: selectedExpiryType,
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       selectedExpiryType = value!;
+                            //     });
+                            //   },
+                            //   title: AppConfig.notApplicable,
+                            // ),
+                            CustomRadioListTile(
+                              value: AppConfig.scheduled,
+                              groupValue: selectedExpiryType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedExpiryType = value!;
+                                });
+                              },
+                              title: AppConfig.scheduled,
+                            ),
+
+                                CustomRadioListTile(
+                              value: AppConfig.issuer,
+                              groupValue: selectedExpiryType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedExpiryType = value!;
+                                });
+                              },
+                              title: AppConfig.issuer,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppPadding.p20,
+                          right: AppPadding.p20,
+                        ),
+                        child: Visibility(
+                          visible: selectedExpiryType == AppConfig.scheduled,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 30,
+                                    width: 50,
+                                    //color: ColorManager.red,
+                                    child: TextFormField(
+                                      controller:
+                                      daysController, // Use the controller initialized with "1"
+                                      cursorColor: ColorManager.black,
+                                      cursorWidth: 1,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager.fmediumgrey,
+                                              width: 2),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager.fmediumgrey,
+                                              width: 2),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter
+                                            .digitsOnly, // This ensures only digits are accepted
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Container(
+                                    height: 30,
+                                    width: 80,
+                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                    decoration: BoxDecoration(
+                                      border:
+                                      Border.all(color: ColorManager.fmediumgrey),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: DropdownButtonFormField<String>(
+                                      value:
+                                      selectedYear, // Initial value (you should define this variable)
+                                      items: [
+                                        DropdownMenuItem(
+                                          value: AppConfig.year,
+                                          child: Text(
+                                            AppConfig.year,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s10,
+                                              fontWeight: FontWeightManager.medium,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: AppConfig.month,
+                                          child: Text(
+                                            AppConfig.month,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s10,
+                                              fontWeight: FontWeightManager.medium,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedYear =
+                                              value; // Update the selected option (Year/Month)
+                                        });
+                                      },
+                                      decoration: InputDecoration(
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        hintText: AppConfig.year,
+                                        hintStyle: GoogleFonts.firaSans(
+                                          fontSize: FontSize.s10,
+                                          fontWeight: FontWeightManager.medium,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                        contentPadding: EdgeInsets.only(bottom: 20),
+                                      ),
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.black,
+                                        size: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+
+
+                    ],
+                  ),
+                  Visibility(
+                    visible:selectedExpiryType == AppConfig.issuer,
+
+                    /// Conditionally display expiry date field
+                    child: HeaderContentConst(
+                      heading: AppString.expiry_date,
+                      content: FormField<String>(
+                        builder: (FormFieldState<String> field) {
+                          return SizedBox(
+                            width: 354,
+                            height: 30,
+                            child: TextFormField(
+                              controller: expiryDateController,
+                              cursorColor: ColorManager.black,
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                              ),
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager.fmediumgrey, width: 1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager.fmediumgrey, width: 1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                hintText: 'MM-DD-YYYY',
+                                hintStyle: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.medium,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                  borderSide: BorderSide(
+                                      width: 1, color: ColorManager.fmediumgrey),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                suffixIcon: Icon(Icons.calendar_month_outlined,
+                                    color: ColorManager.blueprime),
+                                errorText: field.errorText,
+                              ),
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate:datePicked,
+                                  firstDate: DateTime(1901),
+                                  lastDate: DateTime(3101),
+                                );
+                                if (pickedDate != null) {
+                                  datePicked = pickedDate;
+                                  expiryDateController.text =
+                                      DateFormat('MM-dd-yyyy').format(pickedDate);
+                                }
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'please select date';
+                                }
+                                return null;
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
 
                 ],
               ),
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
-              child: Center(
-                child: CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.submit,
-                  onPressed: () {
-                    widget.onSubmitPressed();
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ),
+
           ],
-        ),
+
+      bottomButtons:loading == true
+
+    ? SizedBox(
+    height: AppSize.s25,
+      width: AppSize.s25,
+      child: CircularProgressIndicator(
+        color: ColorManager.blueprime,
       ),
+    ):
+    CustomElevatedButton(
+    width: AppSize.s105,
+    height: AppSize.s30,
+    text: AppStringEM.submit,
+    onPressed: ()async {
+
+    _validateForm(); // Validate the form on button press
+    if (_isFormValid) {
+    setState(() {
+    loading = true;
+    });
+    try {
+      String? expiryDate;
+      expiryDate = expiryDateController == AppConfig.issuer
+          ? datePicked!.toIso8601String() + "Z"
+          : null;
+      await addVendorContract(
+      context,
+      widget.selectedVendorId,
+          contractNmaeController.text,
+      selectedExpiryType!.toString(),
+      widget.officeid,
+      contractIdController.text,
+      //daysController.text
+         expiryDateController.text
+      );
+    Navigator.pop(context);
+    }finally {
+      setState(() {
+        loading = false;
+      });
+    }
+    }
+  }
+    ), title: widget.title,
+
     );
   }
+
 }
