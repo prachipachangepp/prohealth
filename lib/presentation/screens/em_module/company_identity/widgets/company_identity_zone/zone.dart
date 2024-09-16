@@ -533,8 +533,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     },
                                     mapController: mapController,
                                     locationController: locationController,
-                                    child1: StreamBuilder<
-                                            List<AllCountyZoneGet>>(
+                                    ///zone
+                                    child1: StreamBuilder<List<AllCountyZoneGet>>(
                                         stream: _zoneController.stream,
                                         builder: (context, snapshotZone) {
                                           getZoneByCounty(
@@ -645,8 +645,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           }
                                           return const SizedBox();
                                         }),
-                                    child: FutureBuilder<
-                                            List<AllCountyGetList>>(
+                                    ///county
+                                    child: FutureBuilder<List<AllCountyGetList>>(
                                         future: getCountyZoneList(context),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
@@ -725,8 +725,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                               );
                                             }
                                             if (selectedZipCodeCounty == null) {
-                                              selectedZipCodeCounty =
-                                                  'Select County';
+                                              selectedZipCodeCounty = 'Select County';
                                             }
                                             return CICCDropdown(
                                                 initialValue:
