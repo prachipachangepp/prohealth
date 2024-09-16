@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/routes_manager.dart';
-import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../presentation/screens/home_module/home_screen.dart';
+import '../presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 
 class App extends StatefulWidget {
   final bool signedIn;
@@ -30,7 +33,7 @@ class _App extends State<App> {
     await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => SplashScreen()),
     );
-      _hasShownSplash = true;
+    _hasShownSplash = true;
   }
 
   @override
@@ -46,35 +49,48 @@ class _App extends State<App> {
 
           primary: const Color(0xff50B5E5),
           //secondary: const Color(0xff50B5E5),
-
         ),
         useMaterial3: false,
-       // primarySwatch: Ma,
+        // primarySwatch: Ma,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: _hasShownSplash ? '/' :widget.signedIn == true?HomeScreen.routeName:LoginScreen.routeName,
+      initialRoute: _hasShownSplash
+          ? '/'
+          : widget.signedIn == true
+              ? HomeScreen.routeName
+              : LoginScreen.routeName,
       routes: RoutesManager().getRoutes(token: widget.signedIn),
       onGenerateRoute: (settings) {
-        switch (settings.name) {
+        final routeProvider =
+            Provider.of<RouteProvider>(context, listen: false);
+        final route = routeProvider.currentRoute;
+
+        print("current Route :" + route.toString());
+
+        switch (route) {
           case '/':
             if (widget.signedIn == false) {
               return MaterialPageRoute(
                 builder: (context) => SplashScreen(
-                  onFinish: () => Navigator.of(context).pushReplacementNamed(LoginScreen.routeName),
+                  onFinish: () => Navigator.of(context)
+                      .pushReplacementNamed(LoginScreen.routeName),
                 ),
               );
             }
+
           case '/onBordingWelcome':
             return MaterialPageRoute(
               builder: (context) => SplashScreen(
-                onFinish: () => Navigator.of(context).pushReplacementNamed(OnBoardingWelcome.routeName),
+                onFinish: () => Navigator.of(context)
+                    .pushReplacementNamed(OnBoardingWelcome.routeName),
               ),
             );
           default:
             _hasShownSplash = true;
             return MaterialPageRoute(
               builder: (context) => SplashScreen(
-                onFinish: () => Navigator.of(context).pushReplacementNamed(settings.name!),
+                onFinish: () =>
+                    Navigator.of(context).pushReplacementNamed(route),
               ),
             );
         }
@@ -127,7 +143,10 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset('images/splash_logo.png',fit: BoxFit.contain,),
+        child: Image.asset(
+          'images/splash_logo.png',
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }

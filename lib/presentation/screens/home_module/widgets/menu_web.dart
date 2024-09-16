@@ -1,32 +1,29 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/provider/navigation_provider.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
-import '../../em_module/responsive_screen_em.dart';
 import '../../scheduler_model/widgets/responsive_screen_sm.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'dart:async';
+
 class HomeScreenWeb extends StatefulWidget {
-
-
-
   const HomeScreenWeb({super.key});
 
   @override
@@ -43,6 +40,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
     //getLocation();
     // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
+
   String? _ipAddress;
   String? _location;
 
@@ -52,13 +50,15 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
   Future<void> _fetchIPAddress() async {
     try {
       // Fetch the IP address first
-      final ipResponse = await http.get(Uri.parse('https://api.ipify.org?format=json'));
+      final ipResponse =
+          await http.get(Uri.parse('https://api.ipify.org?format=json'));
       if (ipResponse.statusCode == 200) {
         final ipData = jsonDecode(ipResponse.body);
         _ipAddress = ipData['ip'];
 
         // Use the IP address to fetch city and country information
-        final locationResponse = await http.get(Uri.parse('http://ip-api.com/json/$_ipAddress'));
+        final locationResponse =
+            await http.get(Uri.parse('http://ip-api.com/json/$_ipAddress'));
         if (locationResponse.statusCode == 200) {
           final locationData = jsonDecode(locationResponse.body);
 
@@ -87,6 +87,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
       });
     }
   }
+
   Future<String> getStateFromLatLng(double latitude, double longitude) async {
     try {
       // Initialize the GoogleGeocodingApi with the API key
@@ -116,9 +117,6 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
     }
   }
 
-
-
-
   Future<String> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -143,16 +141,14 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
 
     // Get the current position
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high
-    );
+        desiredAccuracy: LocationAccuracy.high);
 
     print('Current location: ${position.latitude}, ${position.longitude}');
 
     // Get the address from the current position
     print('Position : ${position}');
-    return await getStateFromLatLng(position.latitude,position.longitude);
+    return await getStateFromLatLng(position.latitude, position.longitude);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +211,8 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                       borderRadius: const BorderRadius.all(Radius.circular(25)),
                     ),
                     child: ScrollConfiguration(
-                      behavior: const ScrollBehavior().copyWith(overscroll: false),
+                      behavior:
+                          const ScrollBehavior().copyWith(overscroll: false),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Container(
@@ -240,10 +237,12 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                       ),
                                     ),
                                     IconButton(
-                                        onPressed: () async{
-                                           TokenManager.removeAccessToken();
-                                           Navigator.pushNamedAndRemoveUntil(context,
-                                               LoginScreen.routeName,(route) => false);
+                                        onPressed: () async {
+                                          TokenManager.removeAccessToken();
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              LoginScreen.routeName,
+                                              (route) => false);
                                           // Navigator.pushNamedAndRemoveUntil(
                                           //     context, '/', (route) => false);
                                         },
@@ -256,13 +255,14 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Administration',
                                         textAlign: TextAlign.center,
-                                        style:
-                                            MenuScreenHeadStyle.menuHead(context),
+                                        style: MenuScreenHeadStyle.menuHead(
+                                            context),
                                       ),
                                       // SizedBox(
                                       //   height: 10,
@@ -282,11 +282,14 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                           InkWell(
                                               onTap: () {
                                                 documentTypeGet(context);
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ResponsiveScreenEM()));
+                                                Provider.of<RouteProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .setRoute(
+                                                        RouteStrings.emDesktop);
+                                                // Navigate to the detail page
+                                                Navigator.pushNamed(context,
+                                                    RouteStrings.emDesktop);
                                               },
                                               child: const ResponsiveContainer(
                                                 'Establishment Manager',
@@ -300,13 +303,15 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                           ),
                                           InkWell(
                                               onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            // HomeScreenHRM()
-                                                            HRHomeScreen()
-                                                    ));
+                                                Provider.of<RouteProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .setRoute(
+                                                        RouteStrings.hrDesktop);
+
+                                                // Navigate to the detail page
+                                                Navigator.pushNamed(context,
+                                                    RouteStrings.hrDesktop);
                                               },
                                               child: const ResponsiveContainer(
                                                 'Human Resource Manager',
@@ -319,15 +324,16 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                               Expanded(
                                   flex: 2,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         'Business',
                                         textAlign: TextAlign.center,
-                                        style:
-                                            MenuScreenHeadStyle.menuHead(context),
+                                        style: MenuScreenHeadStyle.menuHead(
+                                            context),
                                       ),
                                       Row(
                                         children: [
@@ -352,15 +358,16 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                               Expanded(
                                   flex: 4,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         'Patient Related',
                                         textAlign: TextAlign.center,
-                                        style:
-                                            MenuScreenHeadStyle.menuHead(context),
+                                        style: MenuScreenHeadStyle.menuHead(
+                                            context),
                                       ),
                                       Row(
                                         children: [
@@ -426,62 +433,65 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: const EdgeInsets.only(left: AppSize.s15,right: AppSize.s15,bottom: AppSize.s15),
+              padding: const EdgeInsets.only(
+                  left: AppSize.s15, right: AppSize.s15, bottom: AppSize.s15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('--',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                      ),
+                  Text(
+                    '--',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
-                   Row(
+                  Row(
                     children: [
-                      _city != null ? Text(
-                        '${_country} (${_city})',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                          decoration: TextDecoration.none,
-                        ),
-                      ) : Text(
-                        'No location data',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
+                      _city != null
+                          ? Text(
+                              '${_country} (${_city})',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                                decoration: TextDecoration.none,
+                              ),
+                            )
+                          : Text(
+                              'No location data',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
                       SizedBox(
                         width: 50,
                       ),
 
                       _isFetchingIp
                           ? Text(
-                        'Loading IP...',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey,
-                          decoration: TextDecoration.none,
-                        ),
-                      )
+                              'Loading IP...',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
+                                decoration: TextDecoration.none,
+                              ),
+                            )
                           : Text(
-                        _ipAddress ?? 'No IP',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-
+                              _ipAddress ?? 'No IP',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
 
                       // Text(
                       //   '198.168.1.231',
