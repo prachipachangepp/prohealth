@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:provider/provider.dart';
+
 import 'app/app.dart';
 import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';
-
-
 
 Future<void> main() async {
   bool token = await checkToken();
@@ -17,6 +17,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => ContainerProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RouteProvider(),
         ),
       ],
       child: App(
@@ -39,7 +42,5 @@ Future<bool> checkToken() async {
     return false;
   } else {
     return true;
-
   }
 }
-
