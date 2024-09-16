@@ -308,18 +308,24 @@ class _HrWidgetState extends State<HrWidget> {
                               child: FutureBuilder<List<HRHeadBar>>(
                                   future: companyHRHeadApi(context,deptId),
                                   builder: (context,snapshot) {
+                                    // List<DropdownMenuItem<String>> dropDownMenuItems = [];
                                     if(snapshot.connectionState == ConnectionState.waiting){
-                                      return Container(
-                                        width: 300,
-                                        child: Text(
-                                          'Loading...',
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeightManager.medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                      );
+                                      return
+                                        CICCDropdown(
+                                          initialValue: 'Select',
+                                            items: []);
+
+                                      //   Container(
+                                      //   width: 300,
+                                      //   child: Text(
+                                      //     'Loading...',
+                                      //     style: CustomTextStylesCommon.commonStyle(
+                                      //       fontWeight: FontWeightManager.medium,
+                                      //       fontSize: FontSize.s12,
+                                      //       color: ColorManager.mediumgrey,
+                                      //     ),
+                                      //   ),
+                                      // );
                                     }
                                     if (snapshot.data!.isEmpty) {
                                       return Center(

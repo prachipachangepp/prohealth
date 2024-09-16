@@ -78,7 +78,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
       currentPage = pageNumber;
     });
   }
-//////
+///
 
   @override
   Widget build(BuildContext context) {

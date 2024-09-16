@@ -22,6 +22,7 @@ class SMTextFConst extends StatefulWidget {
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
   final double? width;
+  final List<TextInputFormatter>? inputFormated;
 
   SMTextFConst({
     Key? key,
@@ -36,7 +37,7 @@ class SMTextFConst extends StatefulWidget {
     this.enable,
     this.validator,
     this.prefixWidget,
-    this.width,
+    this.width, this.inputFormated,
   }) : super(key: key);
 
   @override
@@ -101,6 +102,12 @@ class _SMTextFConstState extends State<SMTextFConst> {
             //validator: widget.validator,
             onTap: widget.onChange,
             validator: widget.validator,
+            inputFormatters: widget.inputFormated == null
+                ? [
+              CapitalizeFirstLetterFormatter(),
+            ]
+                : widget.inputFormated,
+
             // onTap: widget.onChange,
           ),
         ),
@@ -564,7 +571,8 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                     ? [
                         CapitalizeFirstLetterFormatter(),
                       ]
-                    : widget.inputFormated),
+                    : widget.inputFormated
+            ),
           ),
         ],
       ),

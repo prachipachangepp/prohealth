@@ -57,20 +57,55 @@ class AddOfficeSumbitButton extends StatefulWidget {
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   bool isLoading = false;
+  // bool isLoading = false;
+  bool isButtonEnabled = false;
+
 
   List<String> _suggestions = [];
   @override
   void initState() {
     super.initState();
     widget.addressController.addListener(_onCountyNameChanged);
+    widget.nameController.addListener(_onTextFieldChanged);
+    widget.addressController.addListener(_onTextFieldChanged);
+    widget.emailController.addListener(_onTextFieldChanged);
+    widget.stateController.addListener(_onTextFieldChanged);
+    widget.countryController.addListener(_onTextFieldChanged);
+    widget.mobNumController.addListener(_onTextFieldChanged);
+    widget.secNumController.addListener(_onTextFieldChanged);
+    widget.OptionalController.addListener(_onTextFieldChanged);
   }
 
   @override
   void dispose() {
     widget.addressController.removeListener(_onCountyNameChanged);
+    widget.nameController.removeListener(_onTextFieldChanged);
+    widget.addressController.removeListener(_onTextFieldChanged);
+    widget.emailController.removeListener(_onTextFieldChanged);
+    widget.stateController.removeListener(_onTextFieldChanged);
+    widget.countryController.removeListener(_onTextFieldChanged);
+    widget.mobNumController.removeListener(_onTextFieldChanged);
+    widget.secNumController.removeListener(_onTextFieldChanged);
+    widget.OptionalController.removeListener(_onTextFieldChanged);
+
     super.dispose();
   }
- void _onCountyNameChanged() async {
+  void _onTextFieldChanged() {
+    setState(() {
+      isButtonEnabled = _areFieldsFilled();
+    });
+  }
+  bool _areFieldsFilled() {
+    return widget.nameController.text.isNotEmpty &&
+        widget.addressController.text.isNotEmpty &&
+        widget.emailController.text.isNotEmpty &&
+        widget.stateController.text.isNotEmpty &&
+        widget.countryController.text.isNotEmpty &&
+        widget.mobNumController.text.isNotEmpty &&
+        widget.secNumController.text.isNotEmpty;
+  }
+
+  void _onCountyNameChanged() async {
    if (widget.addressController.text.isEmpty) {
      setState(() {
        _suggestions = [];
