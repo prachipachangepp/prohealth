@@ -159,18 +159,18 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 padding:
                                                 const EdgeInsets.symmetric(
                                                     horizontal: 10),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    // Implement the view action
-                                                  },
-                                                  child: Image.asset(
-                                                    'images/eye.png',
-                                                    height: 15,
-                                                    width: 22,
-                                                  ),
-                                                ),
+                                                // child: InkWell(
+                                                //   onTap: () {
+                                                //     // Implement the view action
+                                                //   },
+                                                //   child: Image.asset(
+                                                //     'images/eye.png',
+                                                //     height: 15,
+                                                //     width: 22,
+                                                //   ),
+                                                // ),
                                               ),
-                                              SizedBox(width: 20),
+                                              SizedBox(width: 50),
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -208,114 +208,106 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                           ),
                                           Row(
                                             children: [
-                                              // IconButton(
-                                              //   splashColor: Colors.transparent,
-                                              //   highlightColor: Colors.transparent,
-                                              //   hoverColor: Colors.transparent,onPressed: () {  }, icon: Icon(
-                                              //   Icons.save_alt_outlined,
-                                              //   size: 18,
-                                              //   color:
-                                              //   ColorManager.blueprime,
-                                              // ),),
+
                                          ///////////////////////////////
-                                              // IconButton(
-                                              //   onPressed: () {
-                                              //     String? selectedExpiryType =
-                                              //         expiryType;
-                                              //     showDialog(
-                                              //       context: context,
-                                              //       builder:
-                                              //           (BuildContext context) {
-                                              //         return FutureBuilder<ManageContractPrefill>(
-                                              //             future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
-                                              //             builder: (context, snapshotPrefill) {
-                                              //               if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                              //                 return Center(
-                                              //                   child:
-                                              //                   CircularProgressIndicator(
-                                              //                     color: ColorManager
-                                              //                         .blueprime,
-                                              //                   ),
-                                              //                 );
-                                              //               }
-                                              //               var contractPrefName = snapshotPrefill.data!.contractName;
-                                              //               contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
-                                              //
-                                              //               var contractIDPrefName = snapshotPrefill.data!.contractId;
-                                              //               contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
-                                              //
-                                              //               var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
-                                              //               calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
-                                              //
-                                              //               var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
-                                              //               expiryType = snapshotPrefill.data!.expiryType;
-                                              //
-                                              //               return StatefulBuilder(
-                                              //                 builder: (BuildContext
-                                              //                 context,
-                                              //                     void Function(
-                                              //                         void Function())
-                                              //                     setState) {
-                                              //                   // return ContractAddDialog(
-                                              //                   //   title:
-                                              //                   //   'Edit Contract',
-                                              //                   //   contractNmaeController: contractNameController,
-                                              //                   //   contractIdController: contractIdController,
-                                              //                   //   onSubmitPressed:
-                                              //                   //   () async{
-                                              //                   //   setState(() {
-                                              //                   //     _isLoading = true;
-                                              //                   //   });
-                                              //                   //   try {
-                                              //                   //     //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                              //                   //   setState(() async {
-                                              //                   //     print('Contract vendor Id ${snapshot
-                                              //                   //         .data![
-                                              //                   //     index].insuranceVendorContracId}');
-                                              //                   //    var response =  await patchCompanyContract(
-                                              //                   //         context, snapshot.data![index].insuranceVendorContracId,
-                                              //                   //         widget.officeId,
-                                              //                   //         contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
-                                              //                   //        contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
-                                              //                   //         contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
-                                              //                   //    contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
-                                              //                   //    if(response.statusCode == 200 || response.statusCode == 201){
-                                              //                   //      showDialog(
-                                              //                   //        context: context,
-                                              //                   //        builder: (BuildContext context) {
-                                              //                   //          return AddSuccessPopup(message: 'Edited Successfully',);
-                                              //                   //        },
-                                              //                   //      );
-                                              //                   //    }else{
-                                              //                   //
-                                              //                   //    }
-                                              //                   //     contractNameController.clear();
-                                              //                   //     contractIdController.clear();
-                                              //                   //     calenderController.clear();
-                                              //                   //   });
-                                              //                   //     } finally {
-                                              //                   //       setState(() {
-                                              //                   //         _isLoading = false;
-                                              //                   //       });
-                                              //                   //     }
-                                              //                   //   },
-                                              //                   //
-                                              //                   // );
-                                              //                 },
-                                              //               );
-                                              //             });
-                                              //       },
-                                              //     );
-                                              //   },
-                                              //   icon: Icon(
-                                              //     Icons.edit_outlined,
-                                              //     size: 18,
-                                              //     color: ColorManager.blueprime,
-                                              //   ),
-                                              //   splashColor: Colors.transparent,
-                                              //   highlightColor: Colors.transparent,
-                                              //   hoverColor: Colors.transparent,
-                                              // ),
+                                         //      IconButton(
+                                         //        onPressed: () {
+                                         //          String? selectedExpiryType =
+                                         //              expiryType;
+                                         //          showDialog(
+                                         //            context: context,
+                                         //            builder:
+                                         //                (BuildContext context) {
+                                         //              return FutureBuilder<ManageContractPrefill>(
+                                         //                  future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
+                                         //                  builder: (context, snapshotPrefill) {
+                                         //                    if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                         //                      return Center(
+                                         //                        child:
+                                         //                        CircularProgressIndicator(
+                                         //                          color: ColorManager
+                                         //                              .blueprime,
+                                         //                        ),
+                                         //                      );
+                                         //                    }
+                                         //                    var contractPrefName = snapshotPrefill.data!.contractName;
+                                         //                    contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
+                                         //
+                                         //                    var contractIDPrefName = snapshotPrefill.data!.contractId;
+                                         //                    contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
+                                         //
+                                         //                    var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
+                                         //                    calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
+                                         //
+                                         //                    var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
+                                         //                    expiryType = snapshotPrefill.data!.expiryType;
+                                         //
+                                         //                    return StatefulBuilder(
+                                         //                      builder: (BuildContext
+                                         //                      context,
+                                         //                          void Function(
+                                         //                              void Function())
+                                         //                          setState) {
+                                         //                        return ContractAddDialog(
+                                         //                          title:
+                                         //                          'Edit Contract',
+                                         //                          contractNmaeController: contractNameController,
+                                         //                          contractIdController: contractIdController,
+                                         //                          onSubmitPressed:
+                                         //                          () async{
+                                         //                          setState(() {
+                                         //                            _isLoading = true;
+                                         //                          });
+                                         //                          try {
+                                         //                            //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                         //                          setState(() async {
+                                         //                            print('Contract vendor Id ${snapshot
+                                         //                                .data![
+                                         //                            index].insuranceVendorContracId}');
+                                         //                           var response =  await patchCompanyContract(
+                                         //                                context, snapshot.data![index].insuranceVendorContracId,
+                                         //                                widget.officeId,
+                                         //                                contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
+                                         //                               contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
+                                         //                                contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
+                                         //                           contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
+                                         //                           if(response.statusCode == 200 || response.statusCode == 201){
+                                         //                             showDialog(
+                                         //                               context: context,
+                                         //                               builder: (BuildContext context) {
+                                         //                                 return AddSuccessPopup(message: 'Edited Successfully',);
+                                         //                               },
+                                         //                             );
+                                         //                           }else{
+                                         //
+                                         //                           }
+                                         //                            contractNameController.clear();
+                                         //                            contractIdController.clear();
+                                         //                            calenderController.clear();
+                                         //                          });
+                                         //                            } finally {
+                                         //                              setState(() {
+                                         //                                _isLoading = false;
+                                         //                              });
+                                         //                            }
+                                         //                          },
+                                         //
+                                         //                        );
+                                         //                      },
+                                         //                    );
+                                         //                  });
+                                         //            },
+                                         //          );
+                                         //        },
+                                         //        icon: Icon(
+                                         //          Icons.edit_outlined,
+                                         //          size: 18,
+                                         //          color: ColorManager.blueprime,
+                                         //        ),
+                                         //        splashColor: Colors.transparent,
+                                         //        highlightColor: Colors.transparent,
+                                         //        hoverColor: Colors.transparent,
+                                         //      ),
                                               IconButton(
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,

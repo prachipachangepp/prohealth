@@ -721,13 +721,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                         .blueprime),
                                                               );
                                                             }
-                                                            userIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                            .data!
-                                                                            .userId
-                                                                            .toString() ??
-                                                                        "0");
+                                                            // userIdController =
+                                                            //     TextEditingController(
+                                                            //         text: snapshotPrefill
+                                                            //                 .data!
+                                                            //                 .userId
+                                                            //                 .toString() ??
+                                                            //             "0");
                                                             firstNameController =
                                                                 TextEditingController(
                                                                     text: snapshotPrefill
