@@ -196,11 +196,15 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           ),
                                           AppClickableWidget(
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const HomeScreen()));
+                                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                                "/home", // The target route name you want to go back to
+                                                ModalRoute.withName("/home"), // Condition to pop until the target route
+                                              );
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) =>
+                                              //             const HomeScreen()));
                                             },
                                             onHover: (bool val) {},
                                             child: Icon(

@@ -25,6 +25,7 @@ class AllFromHrRepository{
 class AllZoneRepository{
   static String zone = "/zone";
   static String county = "/county";
+  static String countyOfficeIWse = "/county/FindAllByOfficeId";
   static String zoneCounty = "/zone-county";
   static String add = "/add";
   static String zipcodesetup = "/zipcode-setup";
@@ -71,6 +72,9 @@ class AllZoneRepository{
   }
   static String countyListGet(){
     return "$county";
+  }
+  static String countyListGetOfficeIdWise({required String OfficeId}){
+    return "$countyOfficeIWse/$OfficeId";
   }
   static String addCounty(){
     return "$county$add";

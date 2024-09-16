@@ -69,13 +69,19 @@ class _App extends State<App> {
 
         switch (route) {
           case '/':
-            if (widget.signedIn == false) {
+            if (settings.name != "/") {
               return MaterialPageRoute(
                 builder: (context) => SplashScreen(
                   onFinish: () => Navigator.of(context)
-                      .pushReplacementNamed(LoginScreen.routeName),
+                      .pushReplacementNamed(route),
                 ),
               );
+            }else if(widget.signedIn == false){
+               return MaterialPageRoute(
+              builder: (context) => SplashScreen(
+                onFinish: () => Navigator.of(context).pushReplacementNamed(LoginScreen.routeName),
+              ),
+            );
             }
 
           case '/onBordingWelcome':

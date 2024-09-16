@@ -151,7 +151,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         length, (_) => characters.codeUnitAt(random.nextInt(characters.length))));
   }
   String? generatedString;
-  List<String> selectedServices = [];
+  List<ServiceList> selectedServices = [];
   @override
   Widget build(BuildContext context) {
 
@@ -222,8 +222,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   return Container(
                                     height:100,
                                     width: 300,
-                                    child: FutureBuilder<List<ServicesData>>(
-                                        future: getAllServicesData(context),
+                                    child: FutureBuilder<List<ServicesMetaData>>(
+                                        future: getServicesMetaData(context),
                                         builder: (context,snapshot) {
                                           if(snapshot.connectionState == ConnectionState.waiting){
                                             return SizedBox();
@@ -256,7 +256,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                 onChanged: (value) {
                                                                   setState(() {
                                                                     if (value == true) {
-                                                                      selectedServices.add(serviceID);
+                                                                      selectedServices.add(
+                                                                          ServiceList(
+                                                                          serviceId: serviceID,
+                                                                          npiNumber: "",
+                                                                          medicareProviderId: "",
+                                                                          hcoNumId: ""));
                                                                     } else {
                                                                       selectedServices.remove(serviceID);
                                                                     }
@@ -330,7 +335,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode ==201){
                                   print('Services List ${selectedServices}');
-                                  await addNewOfficeServices(context: context, officeId: response.officeId!, serviceList: selectedServices);
+                                  await addNewOfficeServices(context: context, officeId: response.officeId!,
+                                      serviceList: selectedServices);
                                 }
                                 companyOfficeListGet(context, 1, 30).then((data) {
                                   _companyIdentityController

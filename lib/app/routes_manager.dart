@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/hr_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/responsive_screen_em.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/dashboard_main_button_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_pass_verification/forget_pass_verification.dart';
@@ -88,6 +91,15 @@ class RoutesManager {
       HRHomeScreen.routeName: (context) {
         return HRHomeScreen();
       },
+      // CompanyIdentityScreen.routeName: (context) {
+      //   return const CompanyIdentityScreen();
+      // },
+      // DashboardMainButtonScreen.routeName: (context) {
+      //   return const DashboardMainButtonScreen();
+      // },
+      // HrScreen.routeName: (context) {
+      //   return  HrScreen();
+      // },
     };
   }
 }

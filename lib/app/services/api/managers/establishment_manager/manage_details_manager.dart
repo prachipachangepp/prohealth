@@ -93,7 +93,8 @@ import '../../repository/establishment_manager/establishment_repository.dart';
 //     return itemList;
 //   }
 // }
-Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId) async {
+Future<ManageDetails?> companyDetailGetAll(
+    BuildContext context, String officeId) async {
   try {
     final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
@@ -111,14 +112,14 @@ Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId
       if (response.data['serviceList'] != null) {
         for (var items in response.data['serviceList']) {
           detailService.add(DetailsServiceData(
-            officeServiceId: items['Office_service_id'],
+            officeServiceId: items['Office_service_id']??0,
             companyId: items['company_id'],
             officeId: items['office_id'],
             serviceName: items['service_name'],
             serviceId: items['service_id'],
-            npiNum: items['npi_number'],
-            medicareNum: items['medicare_provider_id'],
-            hcoNum: items['hco_num_id'],
+            npiNum: items['npi_number']??"",
+            medicareNum: items['medicare_provider_id']??"",
+            hcoNum: items['hco_num_id']??"",
             lat: items['lat'] ?? "",
             long: items['lng'] ?? "",
             city: items['city'] ?? "",
@@ -234,24 +235,44 @@ Future<List<GetManageDetailsHeadData>> getManageCorporateComp(
 }
 
 ///company-office patch
-Future<ApiData> patchCompanyOffice(BuildContext context, int company_Office_id,
-    String office_id,String primary_phone,String secondary_phone, String primary_fax,
-    String secondary_fax, String alternative_phone, String email,String name,String address) async {
-  try{
+Future<ApiData> patchCompanyOffice(
+    BuildContext context,
+    int company_Office_id,
+    String office_id,
+    String primary_phone,
+    String secondary_phone,
+    String primary_fax,
+    String secondary_fax,
+    String alternative_phone,
+    String email,
+    String name,
+    String address,
+    String latitude,
+    String longitude,
+    String city,
+    String state,
+    String country) async {
+  try {
     var companyId = await TokenManager.getCompanyId();
-    var response = await Api(context).patch(path: EstablishmentManagerRepository.companyOfficepatch(company_Office_id: company_Office_id),
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.companyOfficepatch(
+            company_Office_id: company_Office_id),
         data: {
-            "company_id": companyId,
-            "office_id": office_id,
-            "primary_phone": primary_phone,
-            "secondary_phone": secondary_phone,
-            "primary_fax": primary_fax,
-            "secondary_fax": secondary_fax,
-            "alternative_phone": alternative_phone,
-            "email": email,
-            "name": name,
-            "address": address
-
+          "company_id": companyId,
+          "office_id": office_id,
+          "primary_phone": primary_phone,
+          "secondary_phone": secondary_phone,
+          "primary_fax": primary_fax,
+          "secondary_fax": secondary_fax,
+          "alternative_phone": alternative_phone,
+          "email": email,
+          "name": name,
+          "address": address,
+          "lat": latitude,
+          "lng": longitude,
+          "city": city,
+          "state": state,
+          "country": country,
         });
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -267,8 +288,7 @@ Future<ApiData> patchCompanyOffice(BuildContext context, int company_Office_id,
           success: false,
           message: response.data['message']);
     }
-  }
-  catch (e) {
+  } catch (e) {
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
@@ -276,12 +296,21 @@ Future<ApiData> patchCompanyOffice(BuildContext context, int company_Office_id,
 }
 
 ///company office service patch
-Future<ApiData> patchCompanyOfficeService(BuildContext context, int OfficeServiceId,
-    String office_id,String service_name,String service_id, String npi_number,
-    String medicare_provider_id, String hco_num_id,) async {
-  try{
+Future<ApiData> patchCompanyOfficeService(
+  BuildContext context,
+  int OfficeServiceId,
+  String office_id,
+  String service_name,
+  String service_id,
+  String npi_number,
+  String medicare_provider_id,
+  String hco_num_id,
+) async {
+  try {
     var companyId = await TokenManager.getCompanyId();
-    var response = await Api(context).patch(path: EstablishmentManagerRepository.companyofficeservicepatch(Office_service_id: OfficeServiceId),
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.companyofficeservicepatch(
+            Office_service_id: OfficeServiceId),
         data: {
           "company_id": companyId,
           "office_id": office_id,
@@ -305,8 +334,7 @@ Future<ApiData> patchCompanyOfficeService(BuildContext context, int OfficeServic
           success: false,
           message: response.data['message']);
     }
-  }
-  catch (e) {
+  } catch (e) {
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
@@ -315,13 +343,14 @@ Future<ApiData> patchCompanyOfficeService(BuildContext context, int OfficeServic
 
 /// Get services
 Future<List<ServicesData>> getAllServicesData(
-    BuildContext context,
-    ) async {
+  BuildContext context,
+) async {
   List<ServicesData> itemsList = [];
   try {
     final companyID = await TokenManager.getCompanyId();
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(companyId: companyID));
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyId(
+            companyId: companyID));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
@@ -335,7 +364,41 @@ Future<List<ServicesData>> getAllServicesData(
               serviceId: item['service_id'],
               npiNumber: item['npi_number'],
               medicareId: item['medicare_provider_id'],
-              hcoNumber: item['hco_num_id']
+              hcoNumber: item['hco_num_id']),
+        );
+      }
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('Ci Policies Pr Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+/// Get services meta data
+Future<List<ServicesMetaData>> getServicesMetaData(
+    BuildContext context,
+    ) async {
+  List<ServicesMetaData> itemsList = [];
+  try {
+    final companyID = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyServiceMetaDataGet());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for (var item in response.data) {
+        itemsList.add(
+          ServicesMetaData(
+              serviceMetaDataId: item['serviceMetadataId'],
+              serviceName: item['service_name'],
+              serviceId: item['service_id'],
               ),
         );
       }

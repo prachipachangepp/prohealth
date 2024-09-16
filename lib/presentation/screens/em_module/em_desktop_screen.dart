@@ -3,10 +3,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/routes_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/dashboard_main_button_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../widgets/app_bar/app_bar.dart';
@@ -27,7 +32,6 @@ class EMDesktopScreen extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
   final VoidCallback? onItem2Selected;
   String selectedOption = 'Select';
-
   bool showSelectOption = true;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
@@ -36,7 +40,6 @@ class EMDesktopScreen extends StatelessWidget {
     this.onChanged,
     this.onItem2Selected,
   });
-
   void navigateToPage2() {
     if (_pageController.page != 2) {
       _pageController.animateToPage(
@@ -46,16 +49,41 @@ class EMDesktopScreen extends StatelessWidget {
       );
     }
   }
+  void navigateToPage(BuildContext context, String routeName) {
+    Provider.of<RouteProvider>(
+        context,
+        listen: false)
+        .setRoute(
+        routeName);
+    //Navigator.pushNamed(context, routeName);
+    switch (routeName) {
+      case RouteStrings.emCompanyIdentity:
+        _pageController.animateToPage(1,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.ease);
+        break;
+      // case RoutesManager.companyIdentityRoute:
+      //   _pageController.jumpToPage(1);
+      //   break;
+      default:
+        break;
+    }
+  }
+  // final List<String> routeNames = [
+  //   DashboardMainButtonScreen.routeName,
+  //   CompanyIdentityScreen.routeName,
+  //   HrScreen.routeName
+  // ];
 
   @override
   Widget build(BuildContext context) {
+    // RoutesManager routesManager = RoutesManager();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
         Column(
           children: [
             const ApplicationAppBar(headingText: "Establishment Manager"),
-
             ///2nd  buttons
             Container(
               margin: const EdgeInsets.symmetric(
@@ -72,6 +100,11 @@ class EMDesktopScreen extends StatelessWidget {
                           width: 100,
                           onPressed: () {
                             //companyAll(context);
+                            // Provider.of<RouteProvider>(
+                            //     context,
+                            //     listen: false)
+                            //     .setRoute(
+                            //     RouteStrings.emMainDashboard);
                             myController.selectButton(0);
                             _pageController.animateToPage(0,
                                 duration: Duration(milliseconds: 500),
@@ -94,6 +127,11 @@ class EMDesktopScreen extends StatelessWidget {
                               context,
                             );
                             // companyDetailsApi(context,5);
+                            // Provider.of<RouteProvider>(
+                            //     context,
+                            //     listen: false)
+                            //     .setRoute(
+                            //     RouteStrings.emCompanyIdentity);
                             myController.selectButton(1);
                             _pageController.animateToPage(1,
                                 duration: Duration(milliseconds: 500),
@@ -295,6 +333,11 @@ class EMDesktopScreen extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   if (myController.selectedIndex.value != 2) {
+                                    // Provider.of<RouteProvider>(
+                                    //     context,
+                                    //     listen: false)
+                                    //     .setRoute(
+                                    //     RouteStrings.emHrAdminScreen);
                                     myController.selectButton(2);
                                     _pageController.animateToPage(
                                       2,
@@ -448,12 +491,9 @@ class EMDesktopScreen extends StatelessWidget {
               child: PageView(
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
-                children: [
-                  Container(
-                      child: Image.asset(
-                    'images/EMDASHBOARD.jpg',
-                    fit: BoxFit.contain,
-                  )),
+                children:
+                [
+                  DashboardMainButtonScreen(),
                   CompanyIdentityScreen(),
                   HrScreen(),
                   ManageWorkSchedule(),
@@ -463,6 +503,18 @@ class EMDesktopScreen extends StatelessWidget {
                   CiRoleManager(),
                   CiVisitScreen(),
                 ],
+                // routeNames.map((route) {
+                //   return Navigator(
+                //     onGenerateRoute: (settings) {
+                //       // Use the getRoutes function to retrieve pages
+                //       return MaterialPageRoute(
+                //         builder: (context) =>
+                //             routesManager.getRoutes(token: true)[route]!(context),
+                //       );
+                //     },
+                //   );
+                // }).toList(),
+
               ),
             ),
             BottomBarRow()
