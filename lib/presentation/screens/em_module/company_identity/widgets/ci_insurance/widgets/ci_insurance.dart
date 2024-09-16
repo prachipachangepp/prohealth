@@ -281,7 +281,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                     return StatefulBuilder(
                                       builder: (BuildContext context, void Function(void Function()) setState) {
                                         return ContractAddDialog(
-
                                             selectedVendorId :selectedVendorId,
                                           officeid:widget.officeId,
 

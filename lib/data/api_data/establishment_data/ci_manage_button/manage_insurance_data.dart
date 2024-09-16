@@ -46,9 +46,10 @@ class ManageInsuranceContractData{
   final String officeId;
   final String expiryDate;
   final String expiryReminder;
+  final int threshold;
   final bool? sucess;
   final String? message;
-  ManageInsuranceContractData({
+  ManageInsuranceContractData( {
     required this.insuranceVendorContracId,
     required this.insuranceVendorId,
     required this.contractName,
@@ -58,6 +59,7 @@ class ManageInsuranceContractData{
     required this.officeId,
     required this.expiryDate,
     required this.expiryReminder,
+    required this.threshold,
     this.sucess, this.message,});
 }
 
@@ -72,6 +74,7 @@ class ManageContractPrefill{
   final String? expiryType;
   final String? expiryDate;
   final String? expiryReminder;
+  final int? threshold;
   ManageContractPrefill({
     required this.insuranceVendorContracId,
     required this.insuranceVendorId,
@@ -79,5 +82,6 @@ class ManageContractPrefill{
     required this.officeId,
     this.contractName, this.contractId,
     this.expiryType, this.expiryDate,
+    this.threshold,
     this.expiryReminder,});
 }

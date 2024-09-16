@@ -395,6 +395,16 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                   setState(() {
                     loading = true;
                   });
+                  int threshold = 0;
+                  if (selectedExpiryType == AppConfig.scheduled &&
+                      daysController.text.isNotEmpty) {
+                    int enteredValue = int.parse(daysController.text);
+                    if (selectedYear == AppConfig.year) {
+                      threshold = enteredValue * 365;
+                    } else if (selectedYear == AppConfig.month) {
+                      threshold = enteredValue * 30;
+                    }
+                  }
                   try {
                     String? expiryDate;
                     expiryDate = expiryDateController == AppConfig.issuer
@@ -405,9 +415,9 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                         widget.selectedVendorId,
                         contractNmaeController.text,
                         selectedExpiryType!.toString(),
+                        threshold,
                         widget.officeid,
                         contractIdController.text,
-                        //daysController.text
                         expiryDateController.text);
                     Navigator.pop(context);
                   } finally {
