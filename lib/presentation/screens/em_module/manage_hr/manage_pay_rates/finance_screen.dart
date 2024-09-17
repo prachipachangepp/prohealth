@@ -47,8 +47,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController perMilesController = TextEditingController();
   TextEditingController fixedPayRatesController = TextEditingController();
   TextEditingController dummyCtrl = TextEditingController();
-  final StreamController<List<PayRatesGet>> _payRatesController =
-      StreamController<List<PayRatesGet>>();
+  final StreamController<List<PayRatesGetByServiceId>> _payRatesController =
+      StreamController<List<PayRatesGetByServiceId>>();
 
   String? _selectedZone;
   int currentPage = 1;
@@ -67,14 +67,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
   String? abbrivtionName;
   int? employeeTypeId;
   int? firstEmployeeTypeId;
-  String abbNameVal = 'Select';
+  String abbNameVal ='';
 
   @override
   void initState() {
     super.initState();
     _loadPayRatesData();
-
-
   }
 
   // List<PayRatesGet> allData = [];
@@ -111,7 +109,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   //           .toList();
   //   _payRatesController.add(filteredData);
   // }
-  String? serviceId;
+  String serviceId = "";
 
 
   @override
@@ -185,7 +183,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             }
                             if (snapshot.hasData && snapshot.data!.isEmpty) {
                               return Container(
-                                width:354,
+                                width:350,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -222,8 +220,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 firstServiceId =
                                     snapshot.data![0].officeServiceId;
                               }
-                              serviceId =
-                                  snapshot.data![0].serviceId;
+                              // serviceId =
+                              //     snapshot.data![0].serviceId;
 
                               if (selectedServiceName == null &&
                                   dropDownServiceList.isNotEmpty) {
@@ -231,6 +229,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     dropDownServiceList[0].value;
                                 selectedServiceId = firstServiceId;
                               }
+                              serviceId = snapshot.data![0].serviceId;
 
                               return StatefulBuilder(
                                 builder: (BuildContext context, void Function(void Function()) setState) {
@@ -364,21 +363,24 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         // ),
                         FutureBuilder<List<HRAllData>>(
                           future: getAllHrDeptWise(context, AppConfig.clinicalId),
-                          builder: (context, snapshotZone) {
-                            if (snapshotZone.connectionState ==
+                          builder: (context, snapshotAbbreavition) {
+                            if (snapshotAbbreavition.connectionState ==
                                 ConnectionState.waiting) {
-                              return Container(
-                                width: 350,
+                              return dummeyTextField(
+                                width: 300,
                                 height: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
+                                controller: dummyCtrl,
+                                labelText: 'Select',
+                                suffixIcon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: ColorManager.black,
                                 ),
                               );
                             }
-                            if (snapshotZone.data!.isEmpty) {
+                            if (snapshotAbbreavition.data!.isEmpty) {
                               return Container(
                                 height: 30,
-                                width: 354,
+                                width: 300,
                                 child: Center(
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
@@ -391,11 +393,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 ),
                               );
                             }
-                            if (snapshotZone.hasData) {
+                            if (snapshotAbbreavition.hasData) {
                               List<DropdownMenuItem<String>> dropDownTypesList = [];
                               int docType = 0;
 
-                              for (var i in snapshotZone.data!) {
+                              for (var i in snapshotAbbreavition.data!) {
                                 dropDownTypesList.add(
                                   DropdownMenuItem<String>(
                                     value: i.abbrivation,
@@ -403,26 +405,22 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   ),
                                 );
                               }
-
-                              if (abbNameVal == 'Select County') {
-                                empTypeId = snapshotZone.data![0].employeeTypesId;
-                              }
-
+                              abbNameVal = snapshotAbbreavition.data![0].abbrivation!;
+                              empTypeId = snapshotAbbreavition.data![0].employeeTypesId;
                               return StatefulBuilder(
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
                                   return CICCDropdown(
+                                    width: 300,
                                     initialValue: abbNameVal,
                                     onChange: (val) {
                                       setState(() {
                                         abbNameVal = val!;
-
-                                        for (var a in snapshotZone.data!) {
+                                        for (var a in snapshotAbbreavition.data!) {
                                           if (a.abbrivation == val) {
                                             docType = a.employeeTypesId;
                                             empTypeId = docType;
                                             //_selectButton(1);
-                                            break;
                                           }
                                         }
                                       });
@@ -477,18 +475,19 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
                                       await addPayrates(
                                         context,
+                                        empTypeId,
                                         rate,
                                         typeOfVisitId,
                                         perMile,
                                         serviceTypeId,
                                           fixedRate
                                       );
-                                      setState(() {
-                                        companyPayratesGet(context)
-                                            .then((data) {
-                                          _payRatesController.add(data);
-                                        }).catchError((error) {});
-                                      });
+                                      // setState(() {
+                                      //   companyPayratesGet(context)
+                                      //       .then((data) {
+                                      //     _payRatesController.add(data);
+                                      //   }).catchError((error) {});
+                                      // });
                                       // payRatesController.clear();
                                       // perMilesController.clear();
                                     } catch (e) {
@@ -545,6 +544,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           for (var a in snapshot.data!) {
                                             if (a.visitType == val) {
                                               docAddVisitTypeId = a.visitType;
+                                              print('empId ${a.visitId}');
                                             }
                                           }
                                         },
@@ -639,11 +639,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
             /// List
             Expanded(
-              child: StreamBuilder<List<PayRatesGet>>(
+              child: StreamBuilder<List<PayRatesGetByServiceId>>(
                 stream: _payRatesController.stream,
                 //companyPayratesGet(context);
                 builder: (context, snapshot) {
-                  companyPayratesGet(context).then((data) {
+                  companyPayratesGetByServiceAndEmployeeId(context:context,serviceId: serviceId!,empId:empTypeId).then((data) {
                     _payRatesController.add(data);
                   }).catchError((error) {});
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -669,7 +669,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<PayRatesGet> paginatedData = snapshot.data!
+                    List<PayRatesGetByServiceId> paginatedData = snapshot.data!
                         .skip((currentPage - 1) * itemsPerPage)
                         .take(itemsPerPage)
                         .toList();
@@ -686,7 +686,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     (currentPage - 1) * itemsPerPage;
                                 String formattedSerialNumber =
                                     serialNumber.toString().padLeft(2, '0');
-                                PayRatesGet finance = paginatedData[index];
+                                PayRatesGetByServiceId finance = paginatedData[index];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -982,9 +982,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                               setState(() {
                                                                                 _isLoading = false;
                                                                               });
-                                                                              companyPayratesGet(context).then((data) {
-                                                                                _payRatesController.add(data);
-                                                                              }).catchError((error) {});
+                                                                              // companyPayratesGet(context).then((data) {
+                                                                              //   _payRatesController.add(data);
+                                                                              // }).catchError((error) {});
                                                                               Navigator.pop(context);
                                                                             }
                                                                           });

@@ -94,3 +94,22 @@ class PayRatesGet {
     required this.companyId
   });
 }
+
+///payrate get by serviceId and employeeId
+class PayRatesGetByServiceId {
+  final int payratesId;
+  final int rate;
+  final String typeOfVisitId;
+  final String serviceID;
+  final int companyId;
+  final int outOfZoneRate;
+  final int outOfZonePerMile;
+
+  PayRatesGetByServiceId({
+    required this.serviceID, required this.outOfZoneRate, required this.outOfZonePerMile,
+    required this.payratesId,
+    required this.rate,
+    required this.typeOfVisitId,
+    required this.companyId
+  });
+}
