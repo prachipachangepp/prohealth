@@ -10,40 +10,37 @@ import '../../api.dart';
 class EmployeeDocumentRepository{
   static String employeedocSetup = "/employee-document-type-setup";
   ///patch api
-  static String patchEmpDocSetUp({
-    required int employeeDoctypeSetupId
-}){
+  static String patchEmpDocSetUp({required int employeeDoctypeSetupId}){
     return "$employeedocSetup/$employeeDoctypeSetupId";
   }
 }
-Future<ApiData> editEmployeeDocTypeSetupId(
-    BuildContext context,
-    String docName,
-    String expiry,
-    String reminderThreshold,
-    String idOfDocument,
-    String expiryType,
-    int employeeDoctypeSetupId,
-    int employeeDocTypeMetaDataId,
-    int threshold,
+Future<ApiData> editEmployeeDocTypeSetupId({ required BuildContext context,
+  required int employeeDoctypeSetupId,
+  required String docName,
 
+
+
+  required int threshold,
+}
     ) async {
   try {
-    var companyId = await TokenManager.getCompanyId();
-    var response = await Api(context).patch(path:
+    final companyId = await TokenManager.getCompanyId();
+    Map data = {
+      "DocumentName": docName,
+
+
+
+      "threshold": threshold,
+    };
+    print("::::::=>${data}");
+      var response = await Api(context).patch(path:
     EmployeeDocumentRepository.patchEmpDocSetUp(
         employeeDoctypeSetupId: employeeDoctypeSetupId
       // empId : employeeTypeId,
-    ), data: {
-      "DocumentName": docName,
-      "Expiry": expiry,
-      "companyId":companyId,
-      "ReminderThreshold": reminderThreshold,
-      "EmployeeDocumentTypeMetaDataId": employeeDocTypeMetaDataId,
-      "idOfDocument": idOfDocument ?? "--",
-      "expiry_type": expiryType,
-      "threshold": threshold,
-    });
+    ),
+        data:data
+
+    );
     print('Patch Emp doc ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee Doc type Updated");

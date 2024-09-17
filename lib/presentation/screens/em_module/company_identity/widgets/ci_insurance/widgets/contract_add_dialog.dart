@@ -93,8 +93,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: AppPadding.p8,
-            horizontal: AppPadding.p20,
+            // vertical: AppPadding.p8,
+            horizontal: AppPadding.p10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

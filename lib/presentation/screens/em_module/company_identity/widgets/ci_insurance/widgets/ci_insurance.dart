@@ -47,6 +47,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
   int _selectedIndex = 0;
   int selectedVendorId = 0;
   String? selectedVendorName;
@@ -87,30 +88,27 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                   builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting &&
                         selectedValue == null) {
-                      return Container(
-                        width: 300,
-                        child: Text(
-                          "Loading...... ",
-                          style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s12,
-                            color: ColorManager.mediumgrey,
-                          ),
+                      return dummeyTextField(
+                        width: 354,
+                        height: 30,
+                        controller: dummyCtrl,
+                        labelText: 'Select',
+                        suffixIcon: Icon(
+                          Icons.arrow_drop_down,
+                          color: ColorManager.black,
                         ),
                       );
                     }
 
                     if (snapshotZone.hasError || snapshotZone.data == null) {
-                      return Container(
-                        height: 30,
+                      return dummeyTextField(
                         width: 354,
-                        child: Text(
-                          "Loading data.... ",
-                          style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s12,
-                            color: ColorManager.mediumgrey,
-                          ),
+                        height: 30,
+                        controller: dummyCtrl,
+                        labelText: 'Select',
+                        suffixIcon: Icon(
+                          Icons.arrow_drop_down,
+                          color: ColorManager.black,
                         ),
                       );
                     }
@@ -134,7 +132,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       }
 
                       return CICCDropdown(
-                        initialValue: selectedValue,
+                        initialValue: "Select",
                         onChange: (val) {
                           setState(() {
                             selectedValue = val;

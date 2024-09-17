@@ -156,7 +156,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          capData.docName.toString().capitalizeFirst!,
+                                          capData.docName.toString(),
                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),

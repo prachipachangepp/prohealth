@@ -175,8 +175,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               child: Text(
                                             employeedoc.idOfDocument,
                                             // snapshot.data![index].name.toString(),
-                                            style: DocDefineTableData
-                                                .customTextStyle(context),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
@@ -184,16 +183,15 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           child: Center(
                                               child: Text(
                                             employeedoc.docName,
-                                            style: DocDefineTableData
-                                                .customTextStyle(context),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                           )),
                                         ),
                                         Expanded(
                                           child: Center(
                                               child: Text(
                                             employeedoc.reminderThreshold,
-                                            style: DocDefineTableData
-                                                .customTextStyle(context),
+
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                           )),
                                         ),
 
@@ -204,7 +202,11 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                IconButton(
+
+
+
+
+                              IconButton(
                                                   onPressed: () async {
                                                     String? selectedExpiryType =
                                                         expiryType;
@@ -315,32 +317,17 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                 return EmpDocEditPopup(
                                                                   title:
                                                                       'Edit Document',
-                                                                  expiryType:
-                                                                      expiryType,
-                                                                  idOfDocController:
-                                                                      idOfDocController,
-                                                                  enable: true,
-                                                                  nameDocController:
-                                                                      docNamecontroller,
-                                                                  calenderController:
-                                                                      dateController,
-                                                                  empmetaID:
-                                                                      snapshotPrefill
-                                                                          .data!
-                                                                          .employeeDocTypeMetaId,
-                                                                  empsetupId:
-                                                                      snapshotPrefill
-                                                                          .data!
-                                                                          .employeeDocTypesetupId,
-                                                                  docname:
-                                                                      snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
 
-                                                                  empdoctype: snapshotPrefill
-                                                                              .data!
-                                                                              .employeeDocTypeMetaId ==
-                                                                          AppConfig
+                                                                  expiryType:expiryType,
+                                                                  idOfDocController: idOfDocController,
+                                                                  enable: true,
+                                                                  nameDocController: docNamecontroller,
+                                                                  calenderController: dateController,
+
+                                                                  empsetupId: snapshotPrefill.data!.employeeDocTypesetupId,
+                                                                  docname:snapshotPrefill.data!.docName,
+
+                                                                  empdoctype: snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig
                                                                               .healthDocId
                                                                       ? 'Health'
                                                                       : snapshotPrefill.data!.employeeDocTypeMetaId ==
@@ -354,47 +341,9 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                                       ? 'Acknowledgement'
                                                                                       : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.compensationDocId
                                                                                           ? 'Compensation'
-                                                                                          : 'Performance',
+                                                                                          : 'Performance', employeeDocTypeMetaDataId: docMetaId,
 
-                                                                  // onSavePredded:
-                                                                  //     () async {
-                                                                  //       setState(() {
-                                                                  //         _isLoading = true;
-                                                                  //       });
-                                                                  //       try {
-                                                                  //         // String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                  //         //     ? "Not Applicable"
-                                                                  //         //     : dateController.text;
-                                                                  //         int threshold = 0;
-                                                                  //         String? expiryDateToSend = "";
-                                                                  //         if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
-                                                                  //           int enteredValue = int.parse(daysController.text);
-                                                                  //           if (selectedYear == AppConfig.year) {
-                                                                  //             threshold = enteredValue * 365;
-                                                                  //           } else if (selectedYear == AppConfig.month) {
-                                                                  //             threshold = enteredValue * 30;
-                                                                  //           }
-                                                                  //           expiryDateToSend = dateController.text;
-                                                                  //         } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
-                                                                  //           threshold = 0;
-                                                                  //           expiryDateToSend = null;
-                                                                  //         }
-                                                                  //   await editEmployeeDocTypeSetupId(context,
-                                                                  //       docName == docNamecontroller.text ? docName.toString() : docNamecontroller.text,
-                                                                  //       "",
-                                                                  //       selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                  //       idOfDocController.text,
-                                                                  //       selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                  //       employeedoc.employeeDocTypesetupId,
-                                                                  //       snapshotPrefill.data!.employeeDocTypeMetaId,
-                                                                  //       threshold);
-                                                                  // } finally {
-                                                                  // setState(() {
-                                                                  // _isLoading = false;
-                                                                  // });
-                                                                  // Navigator.pop(context);
-                                                                  // }
-                                                                  // },
+
                                                                 );
                                                               },
                                                             );
@@ -507,3 +456,63 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
     );
   }
 }
+
+String _getDocumentType(int empDocTypeMetaId) {
+  switch (empDocTypeMetaId) {
+    case AppConfig.healthDocId:
+      return 'Health';
+    case AppConfig.certificationDocId:
+      return 'Certifications';
+    case AppConfig.employmentDocId:
+      return 'Employment';
+    case AppConfig.clinicalVerificationDocId:
+      return 'Clinical Verification';
+    case AppConfig.acknowledgementDocId:
+      return 'Acknowledgement';
+    case AppConfig.compensationDocId:
+      return 'Compensation';
+    default:
+      return 'Performance';
+  }
+}
+
+
+// onSavePredded:
+//     () async {
+//       setState(() {
+//         _isLoading = true;
+//       });
+//       try {
+//         // String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+//         //     ? "Not Applicable"
+//         //     : dateController.text;
+//         int threshold = 0;
+//         String? expiryDateToSend = "";
+//         if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+//           int enteredValue = int.parse(daysController.text);
+//           if (selectedYear == AppConfig.year) {
+//             threshold = enteredValue * 365;
+//           } else if (selectedYear == AppConfig.month) {
+//             threshold = enteredValue * 30;
+//           }
+//           expiryDateToSend = dateController.text;
+//         } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
+//           threshold = 0;
+//           expiryDateToSend = null;
+//         }
+//   await editEmployeeDocTypeSetupId(context,
+//       docName == docNamecontroller.text ? docName.toString() : docNamecontroller.text,
+//       "",
+//       selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+//       idOfDocController.text,
+//       selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+//       employeedoc.employeeDocTypesetupId,
+//       snapshotPrefill.data!.employeeDocTypeMetaId,
+//       threshold);
+// } finally {
+// setState(() {
+// _isLoading = false;
+// });
+// Navigator.pop(context);
+// }
+// },

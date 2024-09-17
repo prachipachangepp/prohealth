@@ -15,6 +15,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+
 
 class CertificationEmpDoc extends StatefulWidget {
   final  metaDocID;
@@ -191,43 +193,47 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                   Center(
                                       child: Text(
                                         formattedSerialNumber,
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xff686464)
-                                          // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                        style:  DocumentTypeDataStyle.customTextStyle(context),
+                                        // style: GoogleFonts.firaSans(
+                                        //     fontSize: 10,
+                                        //     fontWeight: FontWeight.w700,
+                                        //     color: Color(0xff686464)
+                                        //   // color: isSelected ? Colors.white : Colors.black,
+                                        // ),
                                         textAlign: TextAlign.start,
                                       )),
                                   Center(
                                       child: Text(
                                         snapshot.data![index].docName.toString(),
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xff686464)
-                                          // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                        style:  DocumentTypeDataStyle.customTextStyle(context),
+                                        // style: GoogleFonts.firaSans(
+                                        //     fontSize: 10,
+                                        //     fontWeight: FontWeight.w700,
+                                        //     color: Color(0xff686464)
+                                        //   // color: isSelected ? Colors.white : Colors.black,
+                                        // ),
                                       )),
                                   Center(
                                       child: Text(
                                         snapshot.data![index].expiry.toString(),
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xff686464)
-                                          // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                        style:  DocumentTypeDataStyle.customTextStyle(context),
+                                        // style: GoogleFonts.firaSans(
+                                        //     fontSize: 10,
+                                        //     fontWeight: FontWeight.w700,
+                                        //     color: Color(0xff686464)
+                                        //   // color: isSelected ? Colors.white : Colors.black,
+                                        // ),
                                       )),
                                   Center(
                                       child: Text(
                                         snapshot.data![index].reminderThreshold.toString(),
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xff686464)
-                                          // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                        style:  DocumentTypeDataStyle.customTextStyle(context),
+                                        // style: GoogleFonts.firaSans(
+                                        //     fontSize: 10,
+                                        //     fontWeight: FontWeight.w700,
+                                        //     color: Color(0xff686464)
+                                        //   // color: isSelected ? Colors.white : Colors.black,
+                                        // ),
                                       )),
                                   Center(
                                     child: Row(

@@ -153,7 +153,8 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                         child: Center(
                                           child: Text(
                                             formattedSerialNumber,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            //style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           ),
                                         ),
@@ -162,7 +163,8 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                         child: Center(
                                           child: Text(
                                             lisenceData.idOfDocument,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                           // style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
@@ -170,16 +172,18 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            lisenceData.docName.toString().capitalizeFirst!,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            lisenceData.docName.toString(),
+                                            //style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            lisenceData.expiryReminder.toString().capitalizeFirst!,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            lisenceData.expiryReminder.toString(),
+                                           // style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),

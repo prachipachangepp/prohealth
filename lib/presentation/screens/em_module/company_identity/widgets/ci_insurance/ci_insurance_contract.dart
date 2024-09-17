@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/Contract_edit_dialog.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
@@ -181,27 +182,14 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   Text(
                                                    "ID: ${contract.contractId}",
                                                     textAlign: TextAlign.center,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: Color(0xff686464),
-                                                      decoration:
-                                                      TextDecoration.none,
-                                                    ),
+                                                    style:  DocumentTypeDataStyle.customTextStyle(context),
                                                   ),
                                                   SizedBox(height: AppSize.s5,),
                                                   Text(
                                                     contract.contractName
-                                                        .toString()
-                                                        .capitalizeFirst!,
+                                                        .toString(),
                                                     textAlign: TextAlign.center,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Color(0xff686464),
-                                                      decoration:
-                                                      TextDecoration.none,
-                                                    ),
+                                                    style:  DocumentTypeDataStyle.customTextStyle(context),
                                                   ),
                                                 ],
                                               ),

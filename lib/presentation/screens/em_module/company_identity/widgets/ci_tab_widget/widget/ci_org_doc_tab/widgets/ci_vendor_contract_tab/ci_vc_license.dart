@@ -141,6 +141,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                         child: Center(
                                             child: Text(
                                               formattedSerialNumber,
+                                            //  style:  DocumentTypeDataStyle.customTextStyle(context),
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.start,
                                             )),
@@ -156,14 +157,14 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              civcdata.docName.toString().capitalizeFirst!,
+                                              civcdata.docName.toString(),
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              civcdata.expiryReminder.toString().capitalizeFirst!,
+                                              civcdata.expiryReminder.toString(),
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
