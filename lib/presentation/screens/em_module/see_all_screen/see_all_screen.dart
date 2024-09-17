@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart'
 import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
 
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
@@ -386,7 +387,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 100.0),
+                            padding: const EdgeInsets.only(left: 90),
                             child: const Text(
                               AppString.srNo,
                               style: TextStyle(
@@ -400,7 +401,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 65.0),
+                            padding: const EdgeInsets.only(left: 60.0),
                             child: Text(
                               "User ID",
                               style: GoogleFonts.firaSans(
@@ -560,12 +561,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             flex: 1,
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
+                                              // style: GoogleFonts.firaSans(
+                                              //   fontSize: FontSize.s10,
+                                              //   fontWeight:
+                                              //       FontWeightManager.bold,
+                                              //   color: ColorManager.granitegray,
+                                              // ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -574,12 +576,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
+                                              // style: GoogleFonts.firaSans(
+                                              //   fontSize: FontSize.s10,
+                                              //   fontWeight:
+                                              //       FontWeightManager.bold,
+                                              //   color: ColorManager.granitegray,
+                                              // ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
@@ -587,12 +590,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.firstName,
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
+                                              // style: GoogleFonts.firaSans(
+                                              //   fontSize: FontSize.s10,
+                                              //   fontWeight:
+                                              //       FontWeightManager.bold,
+                                              //   color: ColorManager.granitegray,
+                                              // ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
@@ -603,13 +607,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.lastName,
                                                 textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight:
-                                                      FontWeightManager.bold,
-                                                  color:
-                                                      ColorManager.granitegray,
-                                                ),
+                                                // style: GoogleFonts.firaSans(
+                                                //   fontSize: FontSize.s10,
+                                                //   fontWeight:
+                                                //       FontWeightManager.bold,
+                                                //   color:
+                                                //       ColorManager.granitegray,
+                                                // ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                           ),
@@ -621,13 +626,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.role,
                                                 textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight:
-                                                      FontWeightManager.bold,
-                                                  color:
-                                                      ColorManager.granitegray,
-                                                ),
+                                                // style: GoogleFonts.firaSans(
+                                                //   fontSize: FontSize.s10,
+                                                //   fontWeight:
+                                                //       FontWeightManager.bold,
+                                                //   color:
+                                                //       ColorManager.granitegray,
+                                                // ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                           ),
@@ -639,13 +645,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight:
-                                                      FontWeightManager.bold,
-                                                  color:
-                                                      ColorManager.granitegray,
-                                                ),
+                                                // style: GoogleFonts.firaSans(
+                                                //   fontSize: FontSize.s10,
+                                                //   fontWeight:
+                                                //       FontWeightManager.bold,
+                                                //   color:
+                                                //       ColorManager.granitegray,
+                                                // ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                           ),
