@@ -206,23 +206,13 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                       child: Text(
                                         snapshot.data![index].docName.toString(),
                                         style:  DocumentTypeDataStyle.customTextStyle(context),
-                                        // style: GoogleFonts.firaSans(
-                                        //     fontSize: 10,
-                                        //     fontWeight: FontWeight.w700,
-                                        //     color: Color(0xff686464)
-                                        //   // color: isSelected ? Colors.white : Colors.black,
-                                        // ),
+
                                       )),
                                   Center(
                                       child: Text(
                                         snapshot.data![index].expiry.toString(),
                                         style:  DocumentTypeDataStyle.customTextStyle(context),
-                                        // style: GoogleFonts.firaSans(
-                                        //     fontSize: 10,
-                                        //     fontWeight: FontWeight.w700,
-                                        //     color: Color(0xff686464)
-                                        //   // color: isSelected ? Colors.white : Colors.black,
-                                        // ),
+
                                       )),
                                   Center(
                                       child: Text(
