@@ -126,7 +126,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   child: Text(
                     ErrorMessageString.noCounties,
                     style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey,
                     ),

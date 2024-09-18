@@ -297,7 +297,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),

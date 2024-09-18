@@ -55,7 +55,7 @@ class _DeletePopupState extends State<DeletePopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -80,7 +80,7 @@ class _DeletePopupState extends State<DeletePopup> {
                 children: [
                   Text('Do you really want to delete?',
                     style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey
                   ),
@@ -192,7 +192,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -217,7 +217,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                 children: [
                   Text('Not allow to delete county.',
                     style:CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey
                     ),

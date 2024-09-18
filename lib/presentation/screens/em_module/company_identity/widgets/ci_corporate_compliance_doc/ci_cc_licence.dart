@@ -124,7 +124,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                       child: Text(
                         ErrorMessageString.noLicenses,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

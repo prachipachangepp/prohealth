@@ -126,7 +126,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                 Text(
                   widget.contractId,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                     fontSize: FontSize.s12,
                     color: ColorManager.mediumgrey,
                   ),
@@ -211,7 +211,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                             cursorWidth: 1,
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                               color: ColorManager.mediumgrey,
                             ),
                             decoration: InputDecoration(
@@ -254,7 +254,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                                   AppConfig.year,
                                   style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.medium,
+                                    fontWeight: FontWeight.w500,
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ),
@@ -265,7 +265,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                                   AppConfig.month,
                                   style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.medium,
+                                    fontWeight: FontWeight.w500,
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ),
@@ -283,7 +283,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                               hintText: AppConfig.year,
                               hintStyle: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                               ),
                               contentPadding: EdgeInsets.only(bottom: 20),
@@ -319,7 +319,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                     cursorColor: ColorManager.black,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       color: ColorManager.mediumgrey,
                     ),
                     decoration: InputDecoration(
@@ -336,7 +336,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                       hintText: 'MM-DD-YYYY',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         color: ColorManager.mediumgrey,
                       ),
                       border: OutlineInputBorder(

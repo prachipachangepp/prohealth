@@ -54,7 +54,7 @@ class _ErrorPopUpState extends State<ErrorPopUp> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s13,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -82,7 +82,7 @@ class _ErrorPopUpState extends State<ErrorPopUp> {
                     widget.text,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       color: ColorManager.mediumgrey,
                       //decoration: TextDecoration.none,
                     ),

@@ -101,7 +101,7 @@ class HomeScreenMobile extends StatelessWidget {
                                           color: ColorManager.mediumgrey,
                                           fontSize: FontSize.s16,
                                           fontWeight:
-                                          FontWeightManager.semiBold,
+                                          FontWeight.w600,
                                         ),
                                       ),
                                     ],
@@ -295,7 +295,7 @@ class HomeScreenMobile extends StatelessWidget {
                   style: GoogleFonts.firaSans(
                     color: ColorManager.black,
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 SizedBox(

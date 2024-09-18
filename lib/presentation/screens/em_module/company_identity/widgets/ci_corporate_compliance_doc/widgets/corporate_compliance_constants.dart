@@ -65,7 +65,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -111,7 +111,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                         AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
@@ -130,7 +130,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                         AppString.sub_type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,
                         ),
@@ -211,7 +211,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
       items: widget.items.map((DropdownMenuItem<String> item) {
         return PopupMenuItem<String>(
           textStyle: CustomTextStylesCommon.commonStyle(
-            fontWeight: FontWeightManager.medium,
+            fontWeight: FontWeight.w500,
             fontSize: FontSize.s12,
             color: ColorManager.mediumgrey,
           ),
@@ -318,7 +318,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
       items: widget.items.map((DropdownMenuItem<String> item) {
         return PopupMenuItem<String>(
           textStyle: CustomTextStylesCommon.commonStyle(
-            fontWeight: FontWeightManager.medium,
+            fontWeight: FontWeight.w500,
             fontSize: FontSize.s12,
             color: ColorManager.mediumgrey,
           ),
@@ -365,7 +365,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
                     _selectedValue ?? '',
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       color: ColorManager.mediumgrey,
                       decoration: TextDecoration.none,
                     ),
@@ -456,7 +456,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s13,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -504,7 +504,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                         AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
@@ -519,7 +519,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                       AppString.sub_type_of_the_document,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight:FontWeight.w700,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
@@ -672,7 +672,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s13,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -748,7 +748,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight:FontWeight.w700,
                           color: ColorManager.mediumgrey,
                         ),
                       ),
@@ -764,7 +764,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                       AppString.sub_type_of_the_document,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
@@ -866,7 +866,7 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
           controller: _controller,
           style: GoogleFonts.firaSans(
             fontSize: FontSize.s12,
-            fontWeight: FontWeightManager.regular,
+            fontWeight: FontWeight.w400,
             color: ColorManager.black,
           ),
           cursorColor: ColorManager.black,
@@ -959,7 +959,7 @@ class _CdummeyTextFieldState extends State<CdummeyTextField> {
             controller: _controller,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s12,
-              fontWeight: FontWeightManager.regular,
+              fontWeight: FontWeight.w400,
               color: ColorManager.black,
             ),
             cursorColor: ColorManager.black,

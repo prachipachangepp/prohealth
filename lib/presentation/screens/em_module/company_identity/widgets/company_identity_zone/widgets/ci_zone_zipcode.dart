@@ -194,7 +194,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                   child: Text(
                     ErrorMessageString.noZipcode,
                     style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight:FontWeight.w500,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey,
                     ),
@@ -363,7 +363,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                                       style: CustomTextStylesCommon
                                                                           .commonStyle(
                                                                         fontWeight:
-                                                                        FontWeightManager.medium,
+                                                                        FontWeight.w500,
                                                                         fontSize: FontSize.s12,
                                                                         color:
                                                                         ColorManager.mediumgrey,
@@ -444,7 +444,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                                       style: CustomTextStylesCommon
                                                                           .commonStyle(
                                                                         fontWeight:
-                                                                        FontWeightManager.medium,
+                                                                        FontWeight.w500,
                                                                         fontSize: FontSize.s12,
                                                                         color:
                                                                         ColorManager.mediumgrey,

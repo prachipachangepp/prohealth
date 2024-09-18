@@ -54,7 +54,7 @@ class CIRoleContainerConstant extends StatelessWidget {
                   style: GoogleFonts.firaSans(
                     color: ColorManager.mediumgrey,
                     fontSize: 12,
-                    fontWeight: FontWeightManager.extrabold,
+                    fontWeight:FontWeight.w800,
                   ),
                 ),
               ),

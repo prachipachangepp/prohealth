@@ -113,7 +113,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 Text(
                   widget.docName,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                     fontSize: FontSize.s12,
                     color: ColorManager.mediumgrey,
                   ),
@@ -154,7 +154,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                             fileName,
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                               color: ColorManager.lightgreyheading,
                             ),
                           ),
@@ -193,7 +193,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     cursorColor: ColorManager.black,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       color: ColorManager.mediumgrey,
                     ),
                     decoration: InputDecoration(
@@ -210,7 +210,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       hintText: 'MM-DD-YYYY',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         color: ColorManager.mediumgrey,
                       ),
                       border: OutlineInputBorder(

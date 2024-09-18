@@ -832,7 +832,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                         style: CustomTextStylesCommon
                                                                             .commonStyle(
                                                                           fontWeight:
-                                                                              FontWeightManager.medium,
+                                                                          FontWeight.w500,
                                                                           fontSize:
                                                                               FontSize.s12,
                                                                           color:

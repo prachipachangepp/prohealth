@@ -164,7 +164,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                               child: Text(
                                 ErrorMessageString.noCounties,
                                 style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: FontSize.s12,
                                   color: ColorManager.mediumgrey,
                                 ),
@@ -421,8 +421,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                         CustomTextStylesCommon
                                                             .commonStyle(
                                                       fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
+                                                      FontWeight.w500,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager
                                                           .mediumgrey,
@@ -577,8 +576,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                         CustomTextStylesCommon
                                                             .commonStyle(
                                                       fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
+                                                      FontWeight.w500,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager
                                                           .mediumgrey,
@@ -681,8 +679,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                         CustomTextStylesCommon
                                                             .commonStyle(
                                                       fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
+                                                      FontWeight.w500,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager
                                                           .mediumgrey,

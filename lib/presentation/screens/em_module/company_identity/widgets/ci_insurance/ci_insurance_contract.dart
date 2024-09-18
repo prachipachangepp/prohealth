@@ -88,7 +88,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     child: Text(
                       'Failed to load data',
                       style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         fontSize: FontSize.s12,
                         color: ColorManager.red,
                       ),
@@ -100,7 +100,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     child: Text(
                       ErrorMessageString.noContract,
                       style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey,
                       ),

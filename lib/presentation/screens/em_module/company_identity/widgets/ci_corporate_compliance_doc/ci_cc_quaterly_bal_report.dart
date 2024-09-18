@@ -118,7 +118,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                       child: Text(
                         ErrorMessageString.noQBR,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

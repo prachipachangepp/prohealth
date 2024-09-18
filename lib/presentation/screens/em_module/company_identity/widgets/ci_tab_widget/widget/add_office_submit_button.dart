@@ -117,7 +117,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),

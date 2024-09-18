@@ -73,7 +73,7 @@ class _CustomPopupState extends State<CustomPopup> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 13,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
