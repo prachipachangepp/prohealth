@@ -288,6 +288,9 @@ class AppString {
   static const String ruleroles = "Rule Roles";
   static const String administration = "Administration";
   static const String reminderthershold = "Reminder Threshold";
+  static const String editProfile = "Edit Profile";
+  static const String photo = "Upload Photo";
+  static const String dept = "Department";
 
   /// Api 404 Error
   static const String dataNotFound = "No Data!";
@@ -298,6 +301,4 @@ class AppString {
 class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
-
-  ///
 }

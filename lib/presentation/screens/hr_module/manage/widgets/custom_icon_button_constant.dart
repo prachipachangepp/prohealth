@@ -197,7 +197,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultTextStyle = GoogleFonts.firaSans(
       color: textColor,
-      fontSize: MediaQuery.of(context).size.width / 90,
+      fontSize: MediaQuery.of(context).size.width / 98,
       fontWeight: FontWeightManager.bold,
     );
     final mergedTextStyle = defaultTextStyle.merge(style);

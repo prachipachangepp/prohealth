@@ -12,9 +12,14 @@ import '../../../screens/hr_module/register/register_screen.dart';
 import 'controller.dart';
 ///not in use
 class MyAppBar extends StatelessWidget {
+
   final HRController hrController = Get.put(HRController());
+
+
+
   final CustomButtonController customController =
       Get.put(CustomButtonController());
+  final PageController _pageManageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class MyAppBar extends StatelessWidget {
       ],
       tabViews: [
         DashBoardScreen(),
-        ManageScreen(),
+        ManageScreen(pageManageController: _pageManageController,),
         AddEmployeeHomeScreen(),
         RegisterScreen(),
         NewOnboardScreen(),

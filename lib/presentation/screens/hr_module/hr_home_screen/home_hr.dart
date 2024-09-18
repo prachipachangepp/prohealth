@@ -33,6 +33,7 @@ import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.d
 import 'package:shimmer/shimmer.dart';
 
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
+import '../../../widgets/widgets/profile_bar/widget/profilebar_editor.dart';
 
 class HomeHrScreen extends StatefulWidget {
   const HomeHrScreen({super.key});
@@ -43,6 +44,7 @@ class HomeHrScreen extends StatefulWidget {
 
 class _HomeHrScreenState extends State<HomeHrScreen> {
   PageController _pageController = PageController();
+  PageController _pageManageController = PageController();
   final EMController smController = Get.put(EMController());
   late final String? dropdownValue;
   late final ValueChanged<String?>? onChanged;
@@ -251,6 +253,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   bool isZoneSelected = false;
   bool isSelectedBox = false;
   //bool isDropdownLicenseStatus = false;
+  final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -782,10 +785,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           searchByEmployeeIdProfileData:
                           searchByEmployeeIdProfileData,
                           employeeId: empID,
+                          pageManageController: _pageManageController,
                         ),
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
+                        EditScreen(isEditModeNotifier: _isEditMode,onCancel: () {
+                          // Handle cancel, go back to manage view
+                          _isEditMode.value = false; // Reset the edit mode
+                        },),
                       //  SeeAllHrScreen()
                       ],
                     );

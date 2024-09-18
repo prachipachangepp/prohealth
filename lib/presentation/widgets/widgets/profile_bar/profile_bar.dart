@@ -20,9 +20,14 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
 import 'package:http/http.dart' as http;
 
+
+ typedef EditCallback = void Function();
+
 class ProfileBar extends StatefulWidget {
-  const ProfileBar({super.key, this.searchByEmployeeIdProfileData});
+  const ProfileBar({super.key, this.searchByEmployeeIdProfileData,
+    required this.onEditPressed,});
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
+  final VoidCallback onEditPressed;
 
   @override
   State<ProfileBar> createState() => _ProfileBarState();
@@ -248,12 +253,10 @@ class _ProfileBarState extends State<ProfileBar> {
                                 " ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
                             style: ThemeManagerBlack.customTextStyle(context),
                           ),
-                          IconButton(onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>  ProfileBarEditor()),
-                            );
-                          }, icon: Icon(Icons.edit, size: 18, ))
+                          IconButton(
+                            onPressed: widget.onEditPressed,
+                            icon: Icon(Icons.edit, size: 18),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -262,6 +265,7 @@ class _ProfileBarState extends State<ProfileBar> {
                       Container(
                         height: MediaQuery.of(context).size.height / 40,
                         width: MediaQuery.of(context).size.width / 10,
+                        ///edit button
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
