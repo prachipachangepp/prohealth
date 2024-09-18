@@ -20,7 +20,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
@@ -57,6 +56,7 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController zoneController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController zoneNumberController = TextEditingController();
+  TextEditingController countyNameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
   int _selectedIndex = 0;
@@ -128,7 +128,8 @@ class _CiOrgDocumentState extends State<CiZone> {
   void _updateLocation(String latlong) {
     setState(() {
       _location = latlong;
-      print("Updated Location: $_location"); // Check this log to see if the value updates
+      print("Updated Location: $_location");
+      locationController = TextEditingController(text:_location);// Check this log to see if the value updates
     });
   }
 
@@ -164,7 +165,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                               child: Text(
                                 ErrorMessageString.noCounties,
                                 style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,
                                   color: ColorManager.mediumgrey,
                                 ),
@@ -187,6 +188,7 @@ class _CiOrgDocumentState extends State<CiZone> {
 
                           if (coyntyNameVal == 'Select County') {
                             countySortId = snapshotZone.data![0].countyId;
+                            countynameController = TextEditingController(text: coyntyNameVal);
                           }
 
                           return StatefulBuilder(
@@ -197,11 +199,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 onChange: (val) {
                                   setState(() {
                                     coyntyNameVal = val!;
-
                                     for (var a in snapshotZone.data!) {
                                       if (a.countyName == val) {
                                         docType = a.countyId;
                                         countySortId = docType;
+                                        countynameController = TextEditingController(text: a.countyName);
                                         _selectButton(1);
                                         break;
                                       }
@@ -241,16 +243,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                             children: [
                               Text(
                                 AppString.county,
-                                  style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                                // style: GoogleFonts.firaSans(
-                                //   fontSize: 12,
-                                //   fontWeight: _selectedIndex == 0
-                                //       ? FontWeightManager.bold
-                                //       : FontWeightManager.regular,
-                                //   color: _selectedIndex == 0
-                                //       ? ColorManager.blueprime
-                                //       : ColorManager.mediumgrey,
-                                // ),
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: _selectedIndex == 0
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: _selectedIndex == 0
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
+                                ),
                               ),
                               _selectedIndex == 0
                                   ? Divider(
@@ -274,7 +275,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                             children: [
                               Text(
                                 AppString.zone,
-                                  style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: _selectedIndex == 1
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: _selectedIndex == 1
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
+                                ),
                               ),
                               _selectedIndex == 1
                                   ? Divider(
@@ -298,7 +307,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                             children: [
                               Text(
                                 AppString.zip_code,
-                                  style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: _selectedIndex == 2
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: _selectedIndex == 2
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
+                                ),
                               ),
                               _selectedIndex == 2
                                   ? Divider(
@@ -358,10 +375,13 @@ class _CiOrgDocumentState extends State<CiZone> {
                           text: AppStringEM.add,
                           onPressed: () {
                             zoneNumberController.clear();
+                            print('County Name ${countynameController.text}');
+                            print('County id ${countySortId}');
                             showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AddZonePopup(
+                                    countyNameController: countynameController,
                                     buttonTitle: AppStringEM.add,
                                     zoneNumberController: zoneNumberController,
                                     title: 'Add Zone',
@@ -369,7 +389,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       await addZoneCountyData(
                                           context,
                                           zoneNumberController.text,
-                                          countyId,
+                                          countySortId,
                                           widget.officeId);
                                     },
                                     child: FutureBuilder<
@@ -421,7 +441,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                         CustomTextStylesCommon
                                                             .commonStyle(
                                                       fontWeight:
-                                                      FontWeight.w500,
+                                                          FontWeightManager
+                                                              .medium,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager
                                                           .mediumgrey,
@@ -518,8 +539,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     },
                                     mapController: mapController,
                                     locationController: locationController,
-                                    ///zone
-                                    child1: StreamBuilder<List<AllCountyZoneGet>>(
+                                    child1: StreamBuilder<
+                                            List<AllCountyZoneGet>>(
                                         stream: _zoneController.stream,
                                         builder: (context, snapshotZone) {
                                           getZoneByCounty(
@@ -576,7 +597,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                         CustomTextStylesCommon
                                                             .commonStyle(
                                                       fontWeight:
-                                                      FontWeight.w500,
+                                                          FontWeightManager
+                                                              .medium,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager
                                                           .mediumgrey,
@@ -629,9 +651,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           }
                                           return const SizedBox();
                                         }),
-                                    ///county
-                                    child: FutureBuilder<List<AllCountyGetList>>(
-                                        future: getCountyZoneList(context),
+                                    child: FutureBuilder<
+                                            List<OfficeWiseCountyData>>(
+                                        future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
                                               ConnectionState.waiting) {
@@ -679,7 +701,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                         CustomTextStylesCommon
                                                             .commonStyle(
                                                       fontWeight:
-                                                      FontWeight.w500,
+                                                          FontWeightManager
+                                                              .medium,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager
                                                           .mediumgrey,
@@ -708,7 +731,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                               );
                                             }
                                             if (selectedZipCodeCounty == null) {
-                                              selectedZipCodeCounty = 'Select County';
+                                              selectedZipCodeCounty =
+                                                  'Select County';
                                             }
                                             return CICCDropdown(
                                                 initialValue:

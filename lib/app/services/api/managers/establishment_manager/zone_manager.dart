@@ -723,6 +723,42 @@ Future<List<ZipcodeByCountyIdData>> getZipcodeByCountyId(
   }
 }
 
+/// Get zipCode by countyId & zoneId
+Future<List<ZipcodeByCountyIdAndZoneIdData>> getZipcodeByCountyIdAndZoneId(
+    {required BuildContext context, required int countyId,required int zoneId}) async {
+  List<ZipcodeByCountyIdAndZoneIdData> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: AllZoneRepository.zipcodeByCountyIdAndZoneId(
+            zoneId: zoneId, countyId: countyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(ZipcodeByCountyIdAndZoneIdData(
+            zipcodeSetupId: item['zipcodeSetupId'],
+            zoneId: item['zoneId'],
+            countyId: item['countyId'],
+            city: item['city'],
+            zipCode: item['zipcode'],
+            latitude: item['latitude'],
+            longitude: item['longitude'],
+            landMark: item['landmark'],
+            companyId: item['companyId'],
+            officeId: item['officeId']));
+      }
+      print("Zipcode by CountyId response:::::${itemsList}");
+    } else {
+      print('Zipcode by CountyId Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
 
 /// Country get drop down
 Future<List<CountryGetData>> getCountry(

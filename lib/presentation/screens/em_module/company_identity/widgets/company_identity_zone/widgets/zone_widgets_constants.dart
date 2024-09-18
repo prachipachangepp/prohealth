@@ -138,7 +138,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         widget.title,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
                         ),
@@ -394,7 +394,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         widget.title,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight:FontWeight.w600,
+                          fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
                         ),
@@ -429,7 +429,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             'County Name',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey,
                               //decoration: TextDecoration.none,
                             ),
@@ -446,7 +446,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             AppString.zone,
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey,
                               //decoration: TextDecoration.none,
                             ),
@@ -479,7 +479,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                               'Pick Location',
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeightManager.bold,
                                 color: ColorManager.bluelight,
                                 //decoration: TextDecoration.none,
                               ),
@@ -675,7 +675,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         widget.title,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
                         ),
@@ -710,7 +710,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             'County Name',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey,
                               //decoration: TextDecoration.none,
                             ),
@@ -727,7 +727,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             AppString.zone,
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight:FontWeight.w700,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey,
                               //decoration: TextDecoration.none,
                             ),
@@ -761,7 +761,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                               'Pick Location',
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeightManager.bold,
                                 color: ColorManager.bluelight,
                                 //decoration: TextDecoration.none,
                               ),
@@ -923,6 +923,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
 ///zone
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;
+  final TextEditingController countyNameController;
   final Future<void> Function() onSavePressed;
   final Widget? child;
   final String title;
@@ -932,7 +933,7 @@ class AddZonePopup extends StatefulWidget {
       required this.zoneNumberController,
       this.child,
       required this.title,
-      required this.onSavePressed, required this.buttonTitle});
+      required this.onSavePressed, required this.buttonTitle, required this.countyNameController});
 
   @override
   State<AddZonePopup> createState() => _AddZonePopupState();
@@ -998,7 +999,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                         widget.title,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
                         ),
@@ -1047,17 +1048,22 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppString.county,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            //decoration: TextDecoration.none,
-                          ),
+                        FirstSMTextFConst(
+                          controller: widget.countyNameController,
+                          keyboardType: TextInputType.text,
+                          text: AppString.county,
                         ),
-                        SizedBox(height: AppSize.s5),
-                        widget.child!,
+                        // Text(
+                        //   AppString.county,
+                        //   style: GoogleFonts.firaSans(
+                        //     fontSize: FontSize.s12,
+                        //     fontWeight: FontWeightManager.bold,
+                        //     color: ColorManager.mediumgrey,
+                        //     //decoration: TextDecoration.none,
+                        //   ),
+                        // ),
+                        // SizedBox(height: AppSize.s5),
+                        // widget.child!,
                         if (countyError != null)
                           Padding(
                             padding: const EdgeInsets.only(top: 5.0),

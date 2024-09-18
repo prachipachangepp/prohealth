@@ -277,6 +277,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                 .zoneName
                                                                                 .toString());
                                                                     return AddZonePopup(
+                                                                      countyNameController: TextEditingController(text: snapshotPrefill.data!.countyId.toString()),
                                                                       buttonTitle: AppStringEM.save,
                                                                       zoneNumberController:
                                                                           zoneNumberController,
@@ -318,6 +319,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                             .clear();
                                                                         countyId = 0;
                                                                       },
+
                                                                       child: FutureBuilder<
                                                                           List<AllCountyGetList>>(
                                                                           future: getCountyZoneList(

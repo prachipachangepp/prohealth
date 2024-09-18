@@ -264,6 +264,31 @@ class ZipcodeByCountyIdData {
     required this.officeId,
   });
 }
+class ZipcodeByCountyIdAndZoneIdData {
+  final int zipcodeSetupId;
+  final int zoneId;
+  final int countyId;
+  final String city;
+  final String zipCode;
+  final String latitude;
+  final String longitude;
+  final String landMark;
+  final int companyId;
+  final String officeId;
+
+  ZipcodeByCountyIdAndZoneIdData({
+    required this.zipcodeSetupId,
+    required this.zoneId,
+    required this.countyId,
+    required this.city,
+    required this.zipCode,
+    required this.latitude,
+    required this.longitude,
+    required this.landMark,
+    required this.companyId,
+    required this.officeId,
+  });
+}
 class CountryGetData{
   final int countryId;
   final String name;
