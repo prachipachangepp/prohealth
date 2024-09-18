@@ -159,7 +159,7 @@ class EditPopupString{
   static const String editDocument = 'Edit Document';
   static const String editholiday = 'Edit Holiday';
 
-  static const String editPolicy = 'Edit Policies Procedure';
+  static const String editPolicy = 'Edit Policies & Procedure';
   static const String editLicenses = 'Edit Licenses';
   static const String editAdr = 'Edit ADR';
   static const String editMCR = 'Edit Medical Cost Reports';
@@ -179,7 +179,7 @@ class DeletePopupString{
   static const String deleteworkShift = 'Delete Work Shift';
   static const String deleteworkWeek = 'Delete Work Weeks';
   ///corporate & policies
-  static const String deletePolicy = 'Delete Policies Procedure';
+  static const String deletePolicy = 'Delete Policies & Procedure';
   static const String deleteLicenses = 'Delete Licenses';
   static const String deleteAdr = 'Delete ADR';
   static const String deleteMCR = 'Delete Medical Cost Reports';

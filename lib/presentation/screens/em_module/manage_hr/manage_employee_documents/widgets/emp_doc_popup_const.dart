@@ -426,212 +426,209 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       width: AppSize.s400,
       height: AppSize.s400,
       body: [
-        Padding(
-          padding: const EdgeInsets.only(left: 4.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SMTextFConst(
-                enable: widget.enable ?? true,
-                controller: idOfDocController,
-                keyboardType: TextInputType.text,
-                text: 'ID of the Document',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SMTextFConst(
+              enable: widget.enable ?? true,
+              controller: idOfDocController,
+              keyboardType: TextInputType.text,
+              text: 'ID of the Document',
+            ),
+            if (_idError != null)
+              Text(
+                _idError!,
+                style: TextStyle(color: Colors.red, fontSize: 10),
               ),
-              if (_idError != null)
-                Text(
-                  _idError!,
-                  style: TextStyle(color: Colors.red, fontSize: 10),
-                ),
-              SizedBox(height: AppSize.s8),
-              FirstSMTextFConst(
-                controller: nameDocController,
-                keyboardType: TextInputType.text,
-                text: 'Name of the Document',
+            SizedBox(height: AppSize.s8),
+            FirstSMTextFConst(
+              controller: nameDocController,
+              keyboardType: TextInputType.text,
+              text: 'Name of the Document',
+            ),
+            if (_nameError != null)
+              Text(
+                _nameError!,
+                style: TextStyle(color: Colors.red, fontSize: 12),
               ),
-              if (_nameError != null)
-                Text(
-                  _nameError!,
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+            SizedBox(height: AppSize.s8),
+            HeaderContentConst(
+              heading: AppString.type_of_the_document,
+              content: Container(
+                width: 354,
+                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: ColorManager.fmediumgrey, width: 1),
                 ),
-              SizedBox(height: AppSize.s8),
-              HeaderContentConst(
-                heading: AppString.type_of_the_document,
-                content: Container(
-                  width: 354,
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.empdoctype,
-                        style: DocumentTypeDataStyle.customTextStyle(context)
-                      ),
-                      Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.transparent,
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.empdoctype,
+                      style: DocumentTypeDataStyle.customTextStyle(context)
+                    ),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.transparent,
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 5),
-              // Row(
-              //   children: [
-              //     HeaderContentConst(
-              //       heading: AppString.expiry_type,
-              //       content: Column(
-              //         mainAxisAlignment: MainAxisAlignment.start,
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           CustomRadioListTile(
-              //             value: AppConfig.notApplicable,
-              //             groupValue: selectedExpiryType,
-              //             onChanged: (value) {
-              //               setState(() {
-              //                 selectedExpiryType = value!;
-              //               });
-              //             },
-              //             title: AppConfig.notApplicable,
-              //           ),
-              //           CustomRadioListTile(
-              //             value: AppConfig.scheduled,
-              //             groupValue: selectedExpiryType,
-              //             onChanged: (value) {
-              //               setState(() {
-              //                 selectedExpiryType = value!;
-              //               });
-              //             },
-              //             title: AppConfig.scheduled,
-              //           ),
-              //           CustomRadioListTile(
-              //             value: AppConfig.issuer,
-              //             groupValue: selectedExpiryType,
-              //             onChanged: (value) {
-              //               setState(() {
-              //                 selectedExpiryType = value!;
-              //               });
-              //             },
-              //             title: AppConfig.issuer,
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.only(left: AppPadding.p20, right: AppPadding.p20),
-              //       child: Visibility(
-              //         visible: selectedExpiryType == AppConfig.scheduled,
-              //         child: Column(
-              //           children: [
-              //             SizedBox(height: 10),
-              //             Row(
-              //               children: [
-              //                 Container(
-              //                   height: 30,
-              //                   width: 50,
-              //                   child: TextFormField(
-              //                     controller: daysController,
-              //                     cursorColor: ColorManager.black,
-              //                     cursorWidth: 1,
-              //                     style: GoogleFonts.firaSans(
-              //                       fontSize: FontSize.s10,
-              //                       fontWeight: FontWeightManager.medium,
-              //                       color: ColorManager.mediumgrey,
-              //                     ),
-              //                     decoration: InputDecoration(
-              //                       enabledBorder: OutlineInputBorder(
-              //                         borderSide: BorderSide(
-              //                             color: ColorManager.fmediumgrey,
-              //                             width: 2),
-              //                         borderRadius: BorderRadius.circular(8),
-              //                       ),
-              //                       focusedBorder: OutlineInputBorder(
-              //                         borderSide: BorderSide(
-              //                             color: ColorManager.fmediumgrey,
-              //                             width: 2),
-              //                         borderRadius: BorderRadius.circular(8),
-              //                       ),
-              //                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
-              //                     ),
-              //                     keyboardType: TextInputType.number,
-              //                     inputFormatters: [
-              //                       FilteringTextInputFormatter.digitsOnly,
-              //                     ],
-              //                   ),
-              //                 ),
-              //                 SizedBox(width: 10),
-              //                 Container(
-              //                   height: 30,
-              //                   width: 80,
-              //                   padding: EdgeInsets.symmetric(horizontal: 5),
-              //                   decoration: BoxDecoration(
-              //                     border: Border.all(color: ColorManager.fmediumgrey),
-              //                     borderRadius: BorderRadius.circular(8),
-              //                   ),
-              //                   child: DropdownButtonFormField<String>(
-              //                     value: selectedYear,
-              //                     items: [
-              //                       DropdownMenuItem(
-              //                         value: AppConfig.year,
-              //                         child: Text(
-              //                           AppConfig.year,
-              //                           style: GoogleFonts.firaSans(
-              //                             fontSize: FontSize.s10,
-              //                             fontWeight: FontWeightManager.medium,
-              //                             color: ColorManager.mediumgrey,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                       DropdownMenuItem(
-              //                         value: AppConfig.month,
-              //                         child: Text(
-              //                           AppConfig.month,
-              //                           style: GoogleFonts.firaSans(
-              //                             fontSize: FontSize.s10,
-              //                             fontWeight: FontWeightManager.medium,
-              //                             color: ColorManager.mediumgrey,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                     ],
-              //                     onChanged: (value) {
-              //                       setState(() {
-              //                         selectedYear = value;
-              //                       });
-              //                     },
-              //                     decoration: InputDecoration(
-              //                       enabledBorder: InputBorder.none,
-              //                       focusedBorder: InputBorder.none,
-              //                       hintText: AppConfig.year,
-              //                       hintStyle: GoogleFonts.firaSans(
-              //                         fontSize: FontSize.s10,
-              //                         fontWeight: FontWeightManager.medium,
-              //                         color: ColorManager.mediumgrey,
-              //                       ),
-              //                       contentPadding: EdgeInsets.only(bottom: 20),
-              //                     ),
-              //                     icon: Icon(
-              //                       Icons.arrow_drop_down,
-              //                       color: ColorManager.black,
-              //                       size: 16,
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-            ],
-          ),
+            ),
+            SizedBox(height: 5),
+            // Row(
+            //   children: [
+            //     HeaderContentConst(
+            //       heading: AppString.expiry_type,
+            //       content: Column(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           CustomRadioListTile(
+            //             value: AppConfig.notApplicable,
+            //             groupValue: selectedExpiryType,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 selectedExpiryType = value!;
+            //               });
+            //             },
+            //             title: AppConfig.notApplicable,
+            //           ),
+            //           CustomRadioListTile(
+            //             value: AppConfig.scheduled,
+            //             groupValue: selectedExpiryType,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 selectedExpiryType = value!;
+            //               });
+            //             },
+            //             title: AppConfig.scheduled,
+            //           ),
+            //           CustomRadioListTile(
+            //             value: AppConfig.issuer,
+            //             groupValue: selectedExpiryType,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 selectedExpiryType = value!;
+            //               });
+            //             },
+            //             title: AppConfig.issuer,
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: AppPadding.p20, right: AppPadding.p20),
+            //       child: Visibility(
+            //         visible: selectedExpiryType == AppConfig.scheduled,
+            //         child: Column(
+            //           children: [
+            //             SizedBox(height: 10),
+            //             Row(
+            //               children: [
+            //                 Container(
+            //                   height: 30,
+            //                   width: 50,
+            //                   child: TextFormField(
+            //                     controller: daysController,
+            //                     cursorColor: ColorManager.black,
+            //                     cursorWidth: 1,
+            //                     style: GoogleFonts.firaSans(
+            //                       fontSize: FontSize.s10,
+            //                       fontWeight: FontWeightManager.medium,
+            //                       color: ColorManager.mediumgrey,
+            //                     ),
+            //                     decoration: InputDecoration(
+            //                       enabledBorder: OutlineInputBorder(
+            //                         borderSide: BorderSide(
+            //                             color: ColorManager.fmediumgrey,
+            //                             width: 2),
+            //                         borderRadius: BorderRadius.circular(8),
+            //                       ),
+            //                       focusedBorder: OutlineInputBorder(
+            //                         borderSide: BorderSide(
+            //                             color: ColorManager.fmediumgrey,
+            //                             width: 2),
+            //                         borderRadius: BorderRadius.circular(8),
+            //                       ),
+            //                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            //                     ),
+            //                     keyboardType: TextInputType.number,
+            //                     inputFormatters: [
+            //                       FilteringTextInputFormatter.digitsOnly,
+            //                     ],
+            //                   ),
+            //                 ),
+            //                 SizedBox(width: 10),
+            //                 Container(
+            //                   height: 30,
+            //                   width: 80,
+            //                   padding: EdgeInsets.symmetric(horizontal: 5),
+            //                   decoration: BoxDecoration(
+            //                     border: Border.all(color: ColorManager.fmediumgrey),
+            //                     borderRadius: BorderRadius.circular(8),
+            //                   ),
+            //                   child: DropdownButtonFormField<String>(
+            //                     value: selectedYear,
+            //                     items: [
+            //                       DropdownMenuItem(
+            //                         value: AppConfig.year,
+            //                         child: Text(
+            //                           AppConfig.year,
+            //                           style: GoogleFonts.firaSans(
+            //                             fontSize: FontSize.s10,
+            //                             fontWeight: FontWeightManager.medium,
+            //                             color: ColorManager.mediumgrey,
+            //                           ),
+            //                         ),
+            //                       ),
+            //                       DropdownMenuItem(
+            //                         value: AppConfig.month,
+            //                         child: Text(
+            //                           AppConfig.month,
+            //                           style: GoogleFonts.firaSans(
+            //                             fontSize: FontSize.s10,
+            //                             fontWeight: FontWeightManager.medium,
+            //                             color: ColorManager.mediumgrey,
+            //                           ),
+            //                         ),
+            //                       ),
+            //                     ],
+            //                     onChanged: (value) {
+            //                       setState(() {
+            //                         selectedYear = value;
+            //                       });
+            //                     },
+            //                     decoration: InputDecoration(
+            //                       enabledBorder: InputBorder.none,
+            //                       focusedBorder: InputBorder.none,
+            //                       hintText: AppConfig.year,
+            //                       hintStyle: GoogleFonts.firaSans(
+            //                         fontSize: FontSize.s10,
+            //                         fontWeight: FontWeightManager.medium,
+            //                         color: ColorManager.mediumgrey,
+            //                       ),
+            //                       contentPadding: EdgeInsets.only(bottom: 20),
+            //                     ),
+            //                     icon: Icon(
+            //                       Icons.arrow_drop_down,
+            //                       color: ColorManager.black,
+            //                       size: 16,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+          ],
         ),
       ],
       bottomButtons: _isLoading

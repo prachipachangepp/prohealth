@@ -11,7 +11,7 @@ class TableHeadingConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.s30,
-      margin: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
       decoration: BoxDecoration(
         color: ColorManager.fmediumgrey,
         borderRadius: BorderRadius.circular(12),
