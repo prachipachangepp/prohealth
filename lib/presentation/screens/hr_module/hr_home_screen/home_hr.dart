@@ -794,7 +794,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           isEditModeNotifier: _isEditMode,
                           onCancel: () {
                             // Reset the edit mode value
-                            _isEditMode.value = false;
+                             _isEditMode.value = false;
+
                             // Optionally handle other cancel logic here
                           },
                           employeeId: employeeId,

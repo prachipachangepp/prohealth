@@ -72,7 +72,6 @@ class ManageScreen extends StatelessWidget {
               ? ProfileEditScreen(
             isEditModeNotifier: _isEditMode,
             onCancel: () {
-
               _isEditMode.value = false;
             }, employeeId: employeeId,
           )
@@ -83,6 +82,7 @@ class ManageScreen extends StatelessWidget {
               ProfileBar(
                 searchByEmployeeIdProfileData:
                 searchByEmployeeIdProfileData!,
+
                 onEditPressed: () {
                   _isEditMode.value = true;
                 },

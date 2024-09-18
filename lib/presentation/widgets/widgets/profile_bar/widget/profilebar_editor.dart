@@ -498,16 +498,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   userId: profileData.userId,
                                   firstName: nameController.text,
                                   lastName: profileData.lastName,
-                                  departmentId: profileData.departmentId,
-                                  employeeTypeId: profileData.employeeTypeId,
+                                  departmentId: int.parse(deptController.text),
+                                  employeeTypeId: int.parse(empTypeController.text),
                                   expertise: 'Expert',
                                   cityId: profileData.cityId,
                                   countryId: profileData.countryId,
                                   countyId: 1,
-                                  zoneId: profileData.zoneId,
+                                  zoneId: int.parse(zoneController.text),
                                   SSNNbr: ssNController.text,
                                   primaryPhoneNbr: phoneNController.text,
-                                  secondryPhoneNbr: '',
+                                  secondryPhoneNbr: profileData.secondryPhoneNbr,
                                   workPhoneNbr: workPhoneController.text,
                                   regOfficId: profileData.regOfficId,
                                   personalEmail: personalEmailController.text,
@@ -543,7 +543,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   rating: profileData.rating,
                                   signatureURL: profileData.signatureURL,
                                 );
-                               // print('Employee data saved successfully');
+                                nameController.clear();
+                                deptController.clear();
+                                empTypeController.clear();
+                                addressController.clear();
+                                ageController.clear();
+                               ssNController.clear();
+                               phoneNController.clear();
+                               workPhoneController.clear();
+                               personalEmailController.clear();
+                               workEmailController.clear();
+                               countyController.clear();
+                               serviceController.clear();
+                               zoneController.clear();
                               } catch (e) {
                                 print(e);
                               }
@@ -554,7 +566,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             height: 27,
                             width: 90,
                             text: 'Cancel',
-                              onPressed: widget.onCancel
+                              // onPressed: widget.onCancel
+                            onPressed: () {
+                              // Call the onCancel callback
+                              widget.onCancel();
+
+                              // Navigate to ManageScreen
+                              // pageController.jumpToPage(1); // Navigate to the ManageScreen
+                            },
                             )
                           // CustomButton(
                           //   height: 27,
