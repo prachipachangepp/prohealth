@@ -540,9 +540,44 @@ Future<void> getEmployeeEdit({
     print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employees updated successfully");
+      // Show success popup
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Success'),
+            content: Text('Employee updated successfully!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     } else {
       print("Failed to update Employees: ${response.statusCode}");
+
       print("Error details: ${response.data}");
+
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Error'),
+              content: Text('An error occurred. Please try again.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text('Try Again'),
+                ),
+              ],
+            );});
     }
   } catch (e) {
     print("Error: $e");
