@@ -149,7 +149,7 @@ class _CICorporateCompilianceDocumentState
                     child: Column(
                       children: [
                         Text(
-                          'ADR',
+                            AppStringEM.ard,
                           style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
                         ),
                         _selectedIndex == 1
@@ -175,7 +175,7 @@ class _CICorporateCompilianceDocumentState
                     child: Column(
                       children: [
                         Text(
-                          "Medical Cost Reports",
+                            AppStringEM.mcr,
                           style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
                         ),
                         _selectedIndex == 2
@@ -201,7 +201,7 @@ class _CICorporateCompilianceDocumentState
                     child: Column(
                       children: [
                         Text(
-                          "CAP Reports",
+                            AppStringEM.capReport,
                           style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
                         ),
                         _selectedIndex == 3
@@ -227,7 +227,7 @@ class _CICorporateCompilianceDocumentState
                     child: Column(
                       children: [
                         Text(
-                          "Quarterly Balance Reports",
+                            AppStringEM.qbr,
                           style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
                         ),
                         _selectedIndex == 4
