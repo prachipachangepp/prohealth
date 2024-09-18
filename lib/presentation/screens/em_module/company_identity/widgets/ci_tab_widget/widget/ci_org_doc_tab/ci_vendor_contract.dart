@@ -15,6 +15,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vc_misc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vd_md.dart';
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../company_identity_screen.dart';
@@ -72,15 +74,15 @@ class _CIVendorContractState extends State<CIVendorContract> {
   String getSubDocTypeForIndex(int index) {
     switch (index) {
       case 0:
-        return "Leases & Services";
+        return AppStringEM.leases;
       case 1:
-        return "SNF";
+        return AppStringEM.snf;
       case 2:
-        return "DME";
+        return AppStringEM.dme;
       case 3:
-        return "MD";
+        return AppStringEM.md;
       case 4:
-        return "MISC";
+        return AppStringEM.misc;
       default:
         return "";
     }
@@ -127,17 +129,9 @@ class _CIVendorContractState extends State<CIVendorContract> {
                       child: Column(
                         children: [
                           Text(
-                            "Leases & Services",
+                           AppStringEM.leases,
                             // textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: _selectedIndex == 0
-                                  ? FontWeightManager.bold
-                                  : FontWeightManager.regular,
-                              color: _selectedIndex == 0
-                                  ? ColorManager.blueprime
-                                  : ColorManager.mediumgrey,
-                            ),
+                            style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
                           ),
                           _selectedIndex == 0
                               ? Divider(
@@ -163,17 +157,9 @@ class _CIVendorContractState extends State<CIVendorContract> {
                       child: Column(
                         children: [
                           Text(
-                            "SNF",
+                              AppStringEM.snf,
                             // textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: _selectedIndex == 1
-                                  ? FontWeightManager.bold
-                                  : FontWeightManager.regular,
-                              color: _selectedIndex == 1
-                                  ? ColorManager.blueprime
-                                  : ColorManager.mediumgrey,
-                            ),
+                            style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
                           ),
                           _selectedIndex == 1
                               ? Divider(
@@ -199,17 +185,9 @@ class _CIVendorContractState extends State<CIVendorContract> {
                       child: Column(
                         children: [
                           Text(
-                            "DME",
+                              AppStringEM.dme,
                             // textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: _selectedIndex == 2
-                                  ? FontWeightManager.bold
-                                  : FontWeightManager.regular,
-                              color: _selectedIndex == 2
-                                  ? ColorManager.blueprime
-                                  : ColorManager.mediumgrey,
-                            ),
+                            style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
                           ),
                           _selectedIndex == 2
                               ? Divider(
@@ -235,17 +213,9 @@ class _CIVendorContractState extends State<CIVendorContract> {
                       child: Column(
                         children: [
                           Text(
-                            "MD",
+                              AppStringEM.md,
                             // textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: _selectedIndex == 3
-                                  ? FontWeightManager.bold
-                                  : FontWeightManager.regular,
-                              color: _selectedIndex == 3
-                                  ? ColorManager.blueprime
-                                  : ColorManager.mediumgrey,
-                            ),
+                            style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
                           ),
                           _selectedIndex == 3
                               ? Divider(
@@ -271,17 +241,9 @@ class _CIVendorContractState extends State<CIVendorContract> {
                       child: Column(
                         children: [
                           Text(
-                            "MISC",
+                              AppStringEM.misc,
                             // textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: _selectedIndex == 4
-                                  ? FontWeightManager.bold
-                                  : FontWeightManager.regular,
-                              color: _selectedIndex == 4
-                                  ? ColorManager.blueprime
-                                  : ColorManager.mediumgrey,
-                            ),
+                            style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
                           ),
                           _selectedIndex == 4
                               ? Divider(

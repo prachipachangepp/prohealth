@@ -215,14 +215,14 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                             });
                                           },
                                               icon: Icon(Icons.edit_outlined,
-                                                size:18,color: ColorManager.bluebottom,)),
+                                                size:IconSize.I18,color: IconColorManager.bluebottom,)),
                                           IconButton(
                                               onPressed: (){
                                                 showDialog(context: context,
                                                     builder: (context) => StatefulBuilder(
                                                       builder: (BuildContext context, void Function(void Function()) setState) {
                                                         return  DeletePopup(
-                                                            title: 'Delete CAP Report',
+                                                            title: DeletePopupString.deleteCap,
                                                             loadingDuration: _isLoading,
                                                             onCancel: (){
                                                               Navigator.pop(context);
@@ -250,7 +250,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                       },
 
                                                     ));
-                                              }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                              }, icon: Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                         ],
                                       ),
                                     ),

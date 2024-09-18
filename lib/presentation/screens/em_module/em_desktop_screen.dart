@@ -496,7 +496,7 @@ class EMDesktopScreen extends StatelessWidget {
                   DashboardMainButtonScreen(),
                   CompanyIdentityScreen(),
                   HrScreen(),
-                  ManageWorkSchedule(),
+                  WorkSchedule(),
                   ManageEmployDocument(),
                   FinanceScreen(),
                   SeeAllScreen(),

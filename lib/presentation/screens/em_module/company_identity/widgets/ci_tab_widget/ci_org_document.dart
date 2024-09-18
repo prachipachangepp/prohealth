@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
@@ -13,6 +14,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
@@ -83,25 +85,25 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   String getSubDocTypeText(int subDocId) {
     switch (subDocId) {
       case AppConfig.subDocId1Licenses:
-        return "Licenses";
+        return  AppStringEM.licenses;
       case AppConfig.subDocId2Adr:
-        return "ADR";
+        return AppStringEM.ard;
       case AppConfig.subDocId3CICCMedicalCR:
-        return "Medical Cost Reports";
+        return AppStringEM.mcr;
       case AppConfig.subDocId4CapReport:
-        return "CAP Reports";
+        return AppStringEM.capReport;
       case AppConfig.subDocId5BalReport:
-        return "Quarterly Balance Reports";
+        return AppStringEM.qbr;
       case AppConfig.subDocId6Leases:
-        return "Leases & Services";
+        return AppStringEM.leases;
       case AppConfig.subDocId7SNF:
-        return "SNF";
+        return AppStringEM.snf;
       case AppConfig.subDocId8DME:
-        return "DME";
+        return AppStringEM.dme;
       case AppConfig.subDocId9MD:
-        return "MD";
+        return AppStringEM.md;
       case AppConfig.subDocId10MISC:
-        return "MISC";
+        return AppStringEM.misc;
       default:
         return "Unknown Document Type";
     }
@@ -170,13 +172,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             child: Center(
                               child: Text(
                                 AppString.corporateAndComplianceDocuments,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedIndex == 0
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white,
-                                ),
+                                style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
                               ),
                             ),
                           ),
@@ -198,13 +194,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             child: Center(
                               child: Text(
                                 AppString.vendorContracts,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedIndex == 1
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white,
-                                ),
+                                style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
                               ),
                             ),
                           ),
@@ -226,13 +216,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             child: Center(
                               child: Text(
                                 AppString.policiesAndProcedures,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedIndex == 2
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white,
-                                ),
+                                style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
                               ),
                             ),
                           ),
@@ -252,7 +236,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 width: 150,
                 child: CustomIconButton(
                   icon: Icons.add,
-                  text: "Add Doctype",
+                  text: AddPopupString.addDocType,
                   onPressed: () async {
                     String? selectedExpiryType = expiryType;
                     calenderController.clear();
@@ -269,7 +253,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                           builder: (BuildContext context,
                               void Function(void Function()) setState) {
                             return AddNewOrgDocButton(
-                              title: "Add Corporate & Compliance",
+                              title: AddPopupString.addCorporate,
                               selectedSubDocType: selectedSubDocType,
                               docTypeText:  getDocTypeText(docTypeMetaIdCC),
                               docTypeId: docTypeMetaIdCC,
@@ -293,7 +277,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 width: 150,
                 child: CustomIconButton(
                   icon: Icons.add,
-                  text: "Add Doctype",
+                  text: AddPopupString.addDocType,
                   onPressed: () async {
                     String? selectedExpiryType = expiryType;
                     calenderController.clear();
@@ -311,7 +295,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               void Function(void Function())
                               setState) {
                             return AddNewOrgDocButton(
-                              title: "Add Vendor Contract",
+                              title: AddPopupString.addVendor,
                               selectedSubDocType: selectedSubDocType,
                               docTypeText: getDocTypeText(docTypeMetaIdVC),
                               docTypeId: docTypeMetaIdVC,
@@ -336,7 +320,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   width: 150,
                   child: CustomIconButton(
                     icon: Icons.add,
-                    text: "Add Doctype",
+                    text: AddPopupString.addDocType,
                     onPressed: () async {
                       String? selectedDocType;
                       String? selectedSubDocType;
@@ -358,7 +342,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                 void Function(void Function())
                                 setState) {
                               return AddNewOrgDocButton(
-                                title: 'Add Policies & Procedures',
+                                title: AddPopupString.addPolicy,
                                 docTypeText: getDocTypeText(docTypeMetaIdPP),
                                 docTypeId: docTypeMetaIdPP,
                                 subDocTypeId: 0,

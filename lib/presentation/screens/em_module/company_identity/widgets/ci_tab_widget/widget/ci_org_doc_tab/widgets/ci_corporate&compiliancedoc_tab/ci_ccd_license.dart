@@ -224,45 +224,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                             expiryReminder: snapshotPrefill.data!.expiryReminder,
                                                             docTypeText: AppString.corporateAndComplianceDocuments,
                                                             subDocTypeText: AppString.license,
-                                                            // onSavePressed: () async {
-                                                            //   setState(() {
-                                                            //     _isLoading = true;
-                                                            //   });
-                                                            //
-                                                            //   try {
-                                                            //     int threshold = 0;
-                                                            //     String? expiryDateToSend = "";
-                                                            //     if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
-                                                            //       int enteredValue = int.parse(daysController.text);
-                                                            //       if (selectedYear == AppConfig.year) {
-                                                            //         threshold = enteredValue * 365;
-                                                            //       } else if (selectedYear == AppConfig.month) {
-                                                            //         threshold = enteredValue * 30;
-                                                            //       }
-                                                            //       expiryDateToSend = calenderController.text;
-                                                            //     } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
-                                                            //       threshold = 0;
-                                                            //       expiryDateToSend = null;
-                                                            //     }
-                                                            //     await updateNewOrgDocumentPatch(
-                                                            //       context: context,
-                                                            //       orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
-                                                            //       docTypeID: AppConfig.policiesAndProcedure,
-                                                            //       docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                            //       docName: name == docNameController.text ? name.toString() : docNameController.text,
-                                                            //       expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                            //       threshold: threshold,
-                                                            //       expiryDate: null,
-                                                            //       expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                            //       idOfDoc: idOfDoc,
-                                                            //     );
-                                                            //   } finally {
-                                                            //     setState(() {
-                                                            //       _isLoading = false;
-                                                            //     });
-                                                            //     Navigator.pop(context);
-                                                            //   }
-                                                            // },
                                                           );
                                                         },
                                                       );
@@ -271,7 +232,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                               });
                                             },
                                                 icon: Icon(Icons.edit_outlined,
-                                                  size:18,color: ColorManager.bluebottom,)),
+                                                  size:IconSize.I18,color: IconColorManager.bluebottom,)),
                                             IconButton(
                                                 onPressed: () {
                                                   showDialog(context: context,
@@ -281,7 +242,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                                 BuildContext context,
                                                                 void Function(void Function()) setState) {
                                                               return DeletePopup(
-                                                                  title: 'Delete Licenses',
+                                                                  title: DeletePopupString.deleteLicenses,
                                                                   loadingDuration: _isLoading,
                                                                   onCancel: () {
                                                                     Navigator
@@ -324,8 +285,8 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                           ));
                                                 },
                                                 icon: Icon(Icons.delete_outline,
-                                                  size: 18,
-                                                  color: ColorManager.red,)),
+                                                  size: IconSize.I18,
+                                                  color: IconColorManager.red,)),
                                           ],
                                         ),
                                       ),

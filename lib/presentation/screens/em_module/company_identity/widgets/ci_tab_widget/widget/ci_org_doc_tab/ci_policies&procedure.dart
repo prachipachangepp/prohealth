@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
@@ -202,45 +199,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                             expiryReminder: snapshotPrefill.data!.expiryReminder,
                                                             docTypeText: AppString.policiesAndProcedures,
                                                             subDocTypeText: '',
-                                                            // onSavePressed: () async {
-                                                            //   setState(() {
-                                                            //     _isLoading = true;
-                                                            //   });
-                                                            //
-                                                            //   try {
-                                                            //     int threshold = 0;
-                                                            //     String? expiryDateToSend = "";
-                                                            //     if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
-                                                            //       int enteredValue = int.parse(daysController.text);
-                                                            //       if (selectedYear == AppConfig.year) {
-                                                            //         threshold = enteredValue * 365;
-                                                            //       } else if (selectedYear == AppConfig.month) {
-                                                            //         threshold = enteredValue * 30;
-                                                            //       }
-                                                            //       expiryDateToSend = calenderController.text;
-                                                            //     } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
-                                                            //       threshold = 0;
-                                                            //       expiryDateToSend = null;
-                                                            //     }
-                                                            //     await updateNewOrgDocumentPatch(
-                                                            //       context: context,
-                                                            //       orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
-                                                            //       docTypeID: AppConfig.policiesAndProcedure,
-                                                            //       docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId,
-                                                            //       docName: name == docNameController.text ? name.toString() : docNameController.text,
-                                                            //       expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                            //       threshold: threshold,
-                                                            //       expiryDate: null,
-                                                            //       expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                            //       idOfDoc: idOfDoc,
-                                                            //     );
-                                                            //   } finally {
-                                                            //     setState(() {
-                                                            //       _isLoading = false;
-                                                            //     });
-                                                            //     Navigator.pop(context);
-                                                            //   }
-                                                            // },
                                                           );
                                                         },
                                                       );
@@ -249,14 +207,14 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                               });
                                             },
                                                 icon: Icon(Icons.edit_outlined,
-                                                  size:18,color: ColorManager.bluebottom,)),
+                                                  size:IconSize.I18,color: IconColorManager.bluebottom,)),
                                             IconButton(
                                                 onPressed: (){
                                                   showDialog(context: context,
                                                       builder: (context) => StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return  DeletePopup(
-                                                              title: 'Delete Policies Procedure',
+                                                              title: DeletePopupString.deletePolicy,
                                                               loadingDuration: _isLoading,
                                                               onCancel: (){
                                                                 Navigator.pop(context);
@@ -277,7 +235,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                         },
 
                                                       ));
-                                                }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                }, icon: Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                           ],
                                         ),
                                       ),

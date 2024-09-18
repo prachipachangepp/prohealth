@@ -11,11 +11,12 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/emp_documents/health.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/health.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 
 class ManageEmployDocument extends StatefulWidget {
@@ -236,13 +237,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Health',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 0
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style:  BlueBgTabbar.customTextStyle(0, _selectedIndex),
                         ),
                       ),
                       onTap: () {
@@ -263,13 +258,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Certifications',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 1
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
                         ),
                       ),
                       onTap: () {
@@ -290,13 +279,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Employment',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 2
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style:  BlueBgTabbar.customTextStyle(2, _selectedIndex),
                         ),
                       ),
                       onTap: () {
@@ -317,13 +300,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Clinical Verification',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 3
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style:  BlueBgTabbar.customTextStyle(3, _selectedIndex),
                         ),
                       ),
                       onTap: () {
@@ -344,13 +321,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Acknowledgement',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 4
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style:  BlueBgTabbar.customTextStyle(4, _selectedIndex),
                         ),
                       ),
                       onTap: () {
@@ -371,13 +342,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Compensation',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 5
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style:  BlueBgTabbar.customTextStyle(5, _selectedIndex),
                         ),
                       ),
                       onTap: () {
@@ -398,13 +363,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         child: Text(
                           'Performance',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.semiBold,
-                            color: _selectedIndex == 6
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          style:  BlueBgTabbar.customTextStyle(6, _selectedIndex),
                         ),
                       ),
                       onTap: () {

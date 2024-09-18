@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 ///normal textfield
 
@@ -95,10 +96,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
               contentPadding:
                   EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
-            style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeightManager.medium,
-                fontSize: FontSize.s12,
-                color: ColorManager.mediumgrey),
+            style: DocumentTypeDataStyle.customTextStyle(context),
             //validator: widget.validator,
             onTap: widget.onChange,
             validator: widget.validator,
@@ -561,10 +559,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                   contentPadding: EdgeInsets.only(
                       bottom: AppPadding.p18, left: AppPadding.p15),
                 ),
-                style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey),
+                style: DocumentTypeDataStyle.customTextStyle(context),
                 //validator: widget.validator,
                 onTap: widget.onChange,
                 inputFormatters: widget.inputFormated == null
@@ -682,10 +677,7 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
               contentPadding:
                   EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
-            style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeightManager.medium,
-                fontSize: FontSize.s12,
-                color: ColorManager.mediumgrey),
+            style: DocumentTypeDataStyle.customTextStyle(context),
 
             inputFormatters: [UppercaseTextFormatter()],
             //validator: widget.validator,
@@ -788,10 +780,7 @@ class EditTextField extends StatelessWidget {
               contentPadding:
                   EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
-            style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeightManager.medium,
-                fontSize: FontSize.s12,
-                color: ColorManager.mediumgrey),
+            style: DocumentTypeDataStyle.customTextStyle(context),
             onTap: onChange,
           ),
         ),

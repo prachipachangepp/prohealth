@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,26 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import 'all_hr_screens/hr_administrative.dart';
-import 'all_hr_screens/hr_clinical.dart';
-import 'all_hr_screens/hr_sales.dart';
 import 'manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HrScreen extends StatefulWidget {
@@ -179,15 +173,16 @@ class _HrWidgetState extends State<HrWidget> {
                                               : Colors.transparent,
                                         ),
                                         child: Text(
-                                          'Clinical',
+                                          AppStringEM.clinical,
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: _selectedIndex == 0
-                                                ? ColorManager.mediumgrey
-                                                : ColorManager.white,
-                                          ),
+                                          style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
+                                          // GoogleFonts.firaSans(
+                                          //   fontSize: 12,
+                                          //   fontWeight: FontWeightManager.semiBold,
+                                          //   color: _selectedIndex == 0
+                                          //       ? ColorManager.mediumgrey
+                                          //       : ColorManager.white,
+                                          // ),
                                         ),
                                       ),
                                       onTap: () {
@@ -208,15 +203,9 @@ class _HrWidgetState extends State<HrWidget> {
                                               : Colors.transparent,
                                         ),
                                         child: Text(
-                                          'Sales',
+                                          AppStringEM.sales,
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: _selectedIndex == 1
-                                                ? ColorManager.mediumgrey
-                                                : ColorManager.white,
-                                          ),
+                                          style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
                                         ),
                                       ),
                                       onTap: () {
@@ -237,15 +226,9 @@ class _HrWidgetState extends State<HrWidget> {
                                               : Colors.transparent,
                                         ),
                                         child: Text(
-                                          'Administration',
+                                          AppStringEM.administration,
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: _selectedIndex == 2
-                                                ? ColorManager.mediumgrey
-                                                : ColorManager.white,
-                                          ),
+                                          style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
                                         ),
                                       ),
                                       onTap: () {
@@ -311,34 +294,20 @@ class _HrWidgetState extends State<HrWidget> {
                               child: FutureBuilder<List<HRHeadBar>>(
                                   future: companyHRHeadApi(context,deptId),
                                   builder: (context,snapshot) {
-                                    // List<DropdownMenuItem<String>> dropDownMenuItems = [];
                                     if(snapshot.connectionState == ConnectionState.waiting){
-                                      return
-                                        CICCDropdown(
-                                          initialValue: 'Select',
-                                            items: []);
-
-                                      //   Container(
-                                      //   width: 300,
-                                      //   child: Text(
-                                      //     'Loading...',
-                                      //     style: CustomTextStylesCommon.commonStyle(
-                                      //       fontWeight: FontWeightManager.medium,
-                                      //       fontSize: FontSize.s12,
-                                      //       color: ColorManager.mediumgrey,
-                                      //     ),
-                                      //   ),
-                                      // );
+                                      return Container(
+                                        width: 300,
+                                        child: Text(
+                                          'Loading...',
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                        ),
+                                      );
                                     }
                                     if (snapshot.data!.isEmpty) {
                                       return Center(
                                         child: Text(
                                           AppString.dataNotFound,
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeightManager.medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
-                                          ),
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       );
                                     }
@@ -386,18 +355,9 @@ class _HrWidgetState extends State<HrWidget> {
                 controller: _hrPageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  // Container(color: Colors.red,child: Text('Clinical'),),
-                  // Container(color: Colors.greenAccent,child: Text('sales'),),
-                  // Container(color: Colors.purple,child: Text('Admin'),),
-                  // HrClinicalScreen(deptId: deptId,),
                   HRTabScreens(deptId: AppConfig.clinicalId),
                   HRTabScreens(deptId: AppConfig.salesId),
                   HRTabScreens(deptId: AppConfig.AdministrationId),
-                  // HrClinicalScreen(deptId: deptId,),
-                  // HrSalesScreen(deptId: AppConfig.salesId,),
-                  // HrSalesScreen(deptId: deptId,),
-                  // HrAdministrativeScreen(deptId: deptId,),
-                  // HrAdministrativeScreen(deptId: AppConfig.AdministrationId,),
                 ],
               ),
             ),
@@ -509,7 +469,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10.0),
-                    child: Text(AppString.srNo,
+                    child: Text(AppStringEM.srno,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
                             fontSize: AppSize.s12,
@@ -523,7 +483,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: Center(
-                      child: Text(AppString.employmentType,
+                      child: Text(AppStringEM.employee,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                               fontSize: AppSize.s12,
@@ -538,7 +498,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 80.0),
                     child: Center(
-                      child: Text("Abbreviation",
+                      child: Text(AppStringEM.abbrevation,
                           style: GoogleFonts.firaSans(
                               fontSize: AppSize.s12,
                               fontWeight: FontWeight.w700,
@@ -552,7 +512,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 80.0),
                     child: Center(
-                        child: Text("Color",
+                        child: Text(AppStringEM.color,
                             style: GoogleFonts.firaSans(
                                 fontSize: AppSize.s12,
                                 fontWeight: FontWeight.w700,
@@ -566,7 +526,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 100.0),
                     child: Center(
-                        child: Text(AppString.actions,
+                        child: Text(AppStringEM.action,
                             style: GoogleFonts.firaSans(
                                 fontSize: AppSize.s12,
                                 fontWeight: FontWeight.w700,
