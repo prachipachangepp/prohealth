@@ -56,6 +56,7 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController zoneController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController zoneNumberController = TextEditingController();
+  TextEditingController countyNameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
   int _selectedIndex = 0;
@@ -127,7 +128,8 @@ class _CiOrgDocumentState extends State<CiZone> {
   void _updateLocation(String latlong) {
     setState(() {
       _location = latlong;
-      print("Updated Location: $_location"); // Check this log to see if the value updates
+      print("Updated Location: $_location");
+      locationController = TextEditingController(text:_location);// Check this log to see if the value updates
     });
   }
 
@@ -186,6 +188,7 @@ class _CiOrgDocumentState extends State<CiZone> {
 
                           if (coyntyNameVal == 'Select County') {
                             countySortId = snapshotZone.data![0].countyId;
+                            countynameController = TextEditingController(text: coyntyNameVal);
                           }
 
                           return StatefulBuilder(
@@ -196,11 +199,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 onChange: (val) {
                                   setState(() {
                                     coyntyNameVal = val!;
-
                                     for (var a in snapshotZone.data!) {
                                       if (a.countyName == val) {
                                         docType = a.countyId;
                                         countySortId = docType;
+                                        countynameController = TextEditingController(text: a.countyName);
                                         _selectButton(1);
                                         break;
                                       }
@@ -372,10 +375,13 @@ class _CiOrgDocumentState extends State<CiZone> {
                           text: AppStringEM.add,
                           onPressed: () {
                             zoneNumberController.clear();
+                            print('County Name ${countynameController.text}');
+                            print('County id ${countySortId}');
                             showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AddZonePopup(
+                                    countyNameController: countynameController,
                                     buttonTitle: AppStringEM.add,
                                     zoneNumberController: zoneNumberController,
                                     title: 'Add Zone',
@@ -383,7 +389,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       await addZoneCountyData(
                                           context,
                                           zoneNumberController.text,
-                                          countyId,
+                                          countySortId,
                                           widget.officeId);
                                     },
                                     child: FutureBuilder<
@@ -646,8 +652,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           return const SizedBox();
                                         }),
                                     child: FutureBuilder<
-                                            List<AllCountyGetList>>(
-                                        future: getCountyZoneList(context),
+                                            List<OfficeWiseCountyData>>(
+                                        future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
                                               ConnectionState.waiting) {

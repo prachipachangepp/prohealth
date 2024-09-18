@@ -923,6 +923,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
 ///zone
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;
+  final TextEditingController countyNameController;
   final Future<void> Function() onSavePressed;
   final Widget? child;
   final String title;
@@ -932,7 +933,7 @@ class AddZonePopup extends StatefulWidget {
       required this.zoneNumberController,
       this.child,
       required this.title,
-      required this.onSavePressed, required this.buttonTitle});
+      required this.onSavePressed, required this.buttonTitle, required this.countyNameController});
 
   @override
   State<AddZonePopup> createState() => _AddZonePopupState();
@@ -1047,17 +1048,22 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppString.county,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.mediumgrey,
-                            //decoration: TextDecoration.none,
-                          ),
+                        FirstSMTextFConst(
+                          controller: widget.countyNameController,
+                          keyboardType: TextInputType.text,
+                          text: AppString.county,
                         ),
-                        SizedBox(height: AppSize.s5),
-                        widget.child!,
+                        // Text(
+                        //   AppString.county,
+                        //   style: GoogleFonts.firaSans(
+                        //     fontSize: FontSize.s12,
+                        //     fontWeight: FontWeightManager.bold,
+                        //     color: ColorManager.mediumgrey,
+                        //     //decoration: TextDecoration.none,
+                        //   ),
+                        // ),
+                        // SizedBox(height: AppSize.s5),
+                        // widget.child!,
                         if (countyError != null)
                           Padding(
                             padding: const EdgeInsets.only(top: 5.0),
