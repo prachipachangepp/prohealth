@@ -40,6 +40,9 @@ class AppStringEM{
   ///all hr screen
   static const String cancel = 'Cancel';
   static const String delete = 'Delete';
+  static const String clinical = 'Clinical';
+  static const String sales = 'Sales';
+  static const String administration = 'Administration';
   ///hr screen
   static const String srno = 'Sr No.';
   static const String employee = 'Employee Type';
@@ -84,8 +87,13 @@ class AppStringEM{
   static const String snf = "SNF";
   static const String dme = "DME";
   static const String md = "MD";
- // static const String qbr = "Quarterly Balance Reports";
+  ///Role manager
+  static const String role = "Roles";
+  static const String roleRules = "Role Rules";
 
+  ///work schedule
+  static const String shiftbatch = "Shift & Batches";
+  static const String defineHoliday = "Define Holidays";
 }
 
 class ErrorMessageString{

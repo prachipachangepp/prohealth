@@ -7,6 +7,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_roles.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../company_identity_screen.dart';
 
 class CiRoleManager extends StatefulWidget {
@@ -71,16 +73,8 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                       ),
                       child: Center(
                         child: Text(
-                          "Roles",
-                          style:  GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: _selectedIndex == 0?
-                            FontWeightManager.bold
-                            :FontWeightManager.semiBold,
-                            color: _selectedIndex == 0
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          AppStringEM.role,
+                          style:  BlueBgTabbar.customTextStyle(0, _selectedIndex),
                         ),
                       ),
                     ),
@@ -98,16 +92,8 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                       ),
                       child: Center(
                         child: Text(
-                          "Role Rules",
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: _selectedIndex == 1?
-                            FontWeightManager.bold
-                                :FontWeightManager.semiBold,
-                            color: _selectedIndex == 1
-                                ? ColorManager.mediumgrey
-                                : ColorManager.white,
-                          ),
+                          AppStringEM.roleRules,
+                          style:  BlueBgTabbar.customTextStyle(1, _selectedIndex),
                         ),
                       ),
                     ),

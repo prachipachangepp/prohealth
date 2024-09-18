@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import 'work_schedule/define_holidays.dart';
 import 'work_schedule/define_work_weeks.dart';
 
@@ -58,10 +60,6 @@ class WorkSchedule extends StatefulWidget {
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
-  final List<String> _categories = [
-    'Shift & Batches',
-    'Define Holidays',
-  ];
 
   final PageController _managePageController = PageController();
   TextEditingController calenderController = TextEditingController();
@@ -101,44 +99,54 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 4.2,
+                    width: MediaQuery.of(context).size.width / 4.87,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
                       color: ColorManager.blueprime,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: _categories
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => InkWell(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () => _selectButton(0),
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.40,
-                            padding: EdgeInsets.symmetric(vertical: 6),
+                            width: 160,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: widget.selectedIndex == entry.key
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: _selectedIndex == 0
                                   ? Colors.white
-                                  : null,
+                                  : Colors.transparent,
                             ),
-                            child: Text(
-                              entry.value,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: AppSize.s12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: widget.selectedIndex == entry.key
-                                    ? ColorManager.mediumgrey
-                                    : Colors.white,
-                              )
+                            child: Center(
+                              child: Text(
+                                AppStringEM.shiftbatch,
+                                style:  BlueBgTabbar.customTextStyle(0, _selectedIndex),
+                              ),
                             ),
                           ),
-                          onTap: () => widget.selectButton(entry.key),
                         ),
-                      )
-                          .toList(),
+                        InkWell(
+                          onTap: () => _selectButton(1),
+                          child: Container(
+                            height: 30,
+                            width: 155,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: _selectedIndex == 1
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                AppStringEM.defineHoliday,
+                                style:  BlueBgTabbar.customTextStyle(1, _selectedIndex),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
                     ),
                   ),
                 ),

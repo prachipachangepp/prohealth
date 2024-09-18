@@ -13,6 +13,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
@@ -170,13 +171,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             child: Center(
                               child: Text(
                                 AppString.corporateAndComplianceDocuments,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedIndex == 0
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white,
-                                ),
+                                style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
                               ),
                             ),
                           ),
@@ -198,13 +193,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             child: Center(
                               child: Text(
                                 AppString.vendorContracts,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedIndex == 1
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white,
-                                ),
+                                style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
                               ),
                             ),
                           ),
@@ -226,13 +215,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             child: Center(
                               child: Text(
                                 AppString.policiesAndProcedures,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedIndex == 2
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white,
-                                ),
+                                style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
                               ),
                             ),
                           ),
