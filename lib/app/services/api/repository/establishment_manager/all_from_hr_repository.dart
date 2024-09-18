@@ -96,5 +96,9 @@ class AllZoneRepository{
   static String zipcodeByCountyId({required int companyId, required int countyId}){
     return "$zipcodesetup/GetByCounty/$companyId/$countyId";
   }
+  /// Zipcode by countyId and zoneId
+  static String zipcodeByCountyIdAndZoneId({required int zoneId, required int countyId}){
+    return "$zipcodesetup/GetByCountyZone/$zoneId/$countyId";
+  }
 
 }

@@ -61,7 +61,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   TextEditingController startDateController = TextEditingController();
   TextEditingController verbalAcceptanceController = TextEditingController();
   TextEditingController patientsController = TextEditingController();
-  final StreamController<List<ZipcodeByCountyIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdData>>.broadcast();
+  final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
 
   String selectedDropdownValue = 'Per day';
   String dropdownValue = 'Salaried';
@@ -594,7 +594,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     ),
                                     tabs: const [
                                       Tab(text: 'Zip Codes'),
-                                      Tab(text: 'Cities'),
+                                      // Tab(text: 'Cities'),
                                     ],
                                   ),
                                 ),
@@ -606,10 +606,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       physics:
                                       const NeverScrollableScrollPhysics(),
                                       children: [
-                                        StreamBuilder<List<ZipcodeByCountyIdData>>(
+                                        StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
                                           stream: _countyStreamController.stream,
                                           builder: (BuildContext context,snapshot) {
-                                            getZipcodeByCountyId(context: context, countyId:selectedCountyId).then((data) {
+                                            getZipcodeByCountyIdAndZoneId(context: context, countyId:selectedCountyId, zoneId: selectedZoneId).then((data) {
                                               _countyStreamController.add(data);
                                             }).catchError((error) {
                                               // Handle error
@@ -665,65 +665,65 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
                                         ),
                                         // Tab 2 content: Cities
-                                        StreamBuilder<List<ZipcodeByCountyIdData>>(
-                                          stream: _countyStreamController.stream,
-                                          builder: (BuildContext context,snapshot) {
-                                            getZipcodeByCountyId(context: context, countyId:selectedCountyId).then((data) {
-                                              _countyStreamController.add(data);
-                                            }).catchError((error) {
-                                              // Handle error
-                                            });
-                                            if(snapshot.connectionState == ConnectionState.waiting){
-                                              return SizedBox();
-                                            }
-                                            if(selectedCountyId == 0){
-                                              return Center(child: Text('Select county',style:
-                                              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
-                                            }
-                                            if(snapshot.data!.isEmpty){
-                                              return Center(child: Text('No Data Found!',style:
-                                              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
-                                            }
-                                            return Row(
-                                              children: [
-                                                StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    return Container(
-                                                      width:200,
-                                                      height:300,
-                                                      child: ListView.builder(
-                                                        itemCount: snapshot.data!.length,
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          String cityName = snapshot.data![index].city;
-                                                          bool isChecked = checkedCityName[cityName] ?? false;
-                                                          return  CheckBoxTileConst(text: cityName, value: isChecked, onChanged: (bool? val) {setState(() {
-                                                            print('Clicked');
-                                                            checkedCityName[cityName] = val ?? false;
-                                                            if (val == true) {
-                                                              selectedCityName.add(cityName);
-                                                            } else {
-                                                              selectedCityName.remove(cityName);
-                                                            }
-                                                            // Update the string representation
-                                                            selectedCityString = selectedCityName.join(', ');
-                                                            print(selectedCityString);
-                                                          });  });
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                                // Expanded(
-                                                //   child: ListView(
-                                                //     children: _buildCheckboxes()
-                                                //         .sublist(5, 10),
-                                                //   ),
-                                                // ),
-                                              ],
-                                            );
-                                          },
-
-                                        ),
+                                        // StreamBuilder<List<ZipcodeByCountyIdData>>(
+                                        //   stream: _countyStreamController.stream,
+                                        //   builder: (BuildContext context,snapshot) {
+                                        //     getZipcodeByCountyId(context: context, countyId:selectedCountyId).then((data) {
+                                        //       _countyStreamController.add(data);
+                                        //     }).catchError((error) {
+                                        //       // Handle error
+                                        //     });
+                                        //     if(snapshot.connectionState == ConnectionState.waiting){
+                                        //       return SizedBox();
+                                        //     }
+                                        //     if(selectedCountyId == 0){
+                                        //       return Center(child: Text('Select county',style:
+                                        //       GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                        //     }
+                                        //     if(snapshot.data!.isEmpty){
+                                        //       return Center(child: Text('No Data Found!',style:
+                                        //       GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                        //     }
+                                        //     return Row(
+                                        //       children: [
+                                        //         StatefulBuilder(
+                                        //           builder: (BuildContext context, void Function(void Function()) setState) {
+                                        //             return Container(
+                                        //               width:200,
+                                        //               height:300,
+                                        //               child: ListView.builder(
+                                        //                 itemCount: snapshot.data!.length,
+                                        //                 itemBuilder: (BuildContext context, int index) {
+                                        //                   String cityName = snapshot.data![index].city;
+                                        //                   bool isChecked = checkedCityName[cityName] ?? false;
+                                        //                   return  CheckBoxTileConst(text: cityName, value: isChecked, onChanged: (bool? val) {setState(() {
+                                        //                     print('Clicked');
+                                        //                     checkedCityName[cityName] = val ?? false;
+                                        //                     if (val == true) {
+                                        //                       selectedCityName.add(cityName);
+                                        //                     } else {
+                                        //                       selectedCityName.remove(cityName);
+                                        //                     }
+                                        //                     // Update the string representation
+                                        //                     selectedCityString = selectedCityName.join(', ');
+                                        //                     print(selectedCityString);
+                                        //                   });  });
+                                        //                 },
+                                        //               ),
+                                        //             );
+                                        //           },
+                                        //         ),
+                                        //         // Expanded(
+                                        //         //   child: ListView(
+                                        //         //     children: _buildCheckboxes()
+                                        //         //         .sublist(5, 10),
+                                        //         //   ),
+                                        //         // ),
+                                        //       ],
+                                        //     );
+                                        //   },
+                                        //
+                                        // ),
                                       ],
                                     ),
                                   ),
