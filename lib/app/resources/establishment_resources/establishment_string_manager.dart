@@ -153,16 +153,34 @@ class EditPopupString{
   static const String editMISC = 'Edit MISC';
 }
 class DeletePopupString{
-  static const String editPolicy = 'Edit Policies Procedure';
-  static const String editLicenses = 'Edit Licenses';
-  static const String editAdr = 'Edit ADR';
-  static const String editMCR = 'Edit Medical Cost Reports';
-  static const String editCap = 'Edit Cap Reports';
-  static const String editQBR = 'Edit Quarterly Balance Report';
+  static const String deletePolicy = 'Delete Policies Procedure';
+  static const String deleteLicenses = 'Delete Licenses';
+  static const String deleteAdr = 'Delete ADR';
+  static const String deleteMCR = 'Delete Medical Cost Reports';
+  static const String deleteCap = 'Delete Cap Reports';
+  static const String deleteQBR = 'Delete Quarterly Balance Report';
   ///vendor contract
-  static const String editLeases = 'Edit Leases & Services';
-  static const String editSNF = 'Edit SNF';
-  static const String editDME = 'Edit DME';
-  static const String editMD = 'Edit MD';
+  static const String deleteLeases = 'Delete Leases & Services';
+  static const String deleteSNF = 'Delete SNF';
+  static const String deleteDME = 'Delete DME';
+  static const String deleteMD = 'Delete MD';
+  static const String deleteMISC = 'Delete MISC';
+}
+
+class AddPopupString{
+  static const String addDocType = 'Add Doctype';
+  static const String addPolicy = 'Add Policies & Procedures';
+  static const String addCorporate = 'Add Corporate & Compliance';
+  static const String addVendor= 'Add Vendor Contract';
+  static const String addLicenses = 'Delete Licenses';
+  static const String addAdr = 'Delete ADR';
+  static const String addMCR = 'Delete Medical Cost Reports';
+  static const String addCap = 'Delete Cap Reports';
+  static const String addQBR = 'Delete Quarterly Balance Report';
+  ///vendor contract
+  static const String deleteLeases = 'Delete Leases & Services';
+  static const String deleteSNF = 'Delete SNF';
+  static const String deleteDME = 'Delete DME';
+  static const String deleteMD = 'Delete MD';
   static const String deleteMISC = 'Delete MISC';
 }

@@ -165,8 +165,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               child: Text(
                                             formattedSerialNumber,
                                             // snapshot.data![index].name.toString(),
-                                            style: DocDefineTableData
-                                                .customTextStyle(context),
+                                            style: DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),

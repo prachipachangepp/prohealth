@@ -69,3 +69,8 @@ extension HexColor on Color {
     return Color(int.parse(hexColorString, radix: 16));
   }
 }
+
+class IconColorManager{
+  static Color red = Color(0xffD93D3D);
+  static Color bluebottom = Color(0xFF1696C8);
+}

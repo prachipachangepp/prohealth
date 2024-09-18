@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
 
@@ -145,11 +146,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
               children: [
                 Text(
                   widget.docTypeText,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style: DocumentTypeDataStyle.customTextStyle(context),
                 ),
               ],
             ),
@@ -178,11 +175,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                     children: [
                       Text(
                         widget.subDocTypeText,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -190,7 +183,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
               ),
         /// Radio Button Section
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
               HeaderContentConst(
@@ -522,11 +515,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
               children: [
                 Text(
                   widget.idOfDoc,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style: DocumentTypeDataStyle.customTextStyle(context),
                 ),
               ],
             ),
@@ -568,11 +557,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
               children: [
                 Text(
                   widget.docTypeText,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style:  DocumentTypeDataStyle.customTextStyle(context),
                 ),
               ],
             ),
@@ -601,11 +586,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
               children: [
                 Text(
                   widget.subDocTypeText,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style:  DocumentTypeDataStyle.customTextStyle(context),
                 ),
               ],
             ),

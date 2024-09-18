@@ -72,15 +72,15 @@ class _CICorporateCompilianceDocumentState
   String getSubDocTypeForIndex(int index) {
     switch (index) {
       case 0:
-        return "Licenses";
+        return AppStringEM.licenses;
       case 1:
-        return "ADR";
+        return AppStringEM.ard;
       case 2:
-        return "Medical Cost Reports";
+        return AppStringEM.mcr;
       case 3:
-        return "Cap Reports";
+        return AppStringEM.capReport;
       case 4:
-        return "Quarterly Balance Reports";
+        return AppStringEM.qbr;
       default:
         return "";
     }

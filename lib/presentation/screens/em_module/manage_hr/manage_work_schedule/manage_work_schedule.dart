@@ -9,51 +9,8 @@ import '../../../../../app/resources/establishment_resources/establishment_strin
 import 'work_schedule/define_holidays.dart';
 import 'work_schedule/define_work_weeks.dart';
 
-
-class ManageWorkSchedule extends StatefulWidget {
-  const ManageWorkSchedule({super.key});
-
-  @override
-  State<ManageWorkSchedule> createState() => _ManageWorkScheduleState();
-}
-
-class _ManageWorkScheduleState extends State<ManageWorkSchedule> {
-  final PageController _managePageController = PageController();
-  int _selectedIndex = 0;
-
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _managePageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    return WorkSchedule(
-      managePageController: _managePageController,
-      selectedIndex: _selectedIndex,
-      selectButton: _selectButton,
-    );
-  }
-}
-
-
 class WorkSchedule extends StatefulWidget {
-  final PageController managePageController;
-  final int selectedIndex;
-  final Function(int) selectButton;
-
-  WorkSchedule({
-    Key? key,
-    required this.managePageController,
-    required this.selectedIndex,
-    required this.selectButton,
-  }) : super(key: key);
+  WorkSchedule({Key? key}) : super(key: key);
 
   @override
   State<WorkSchedule> createState() => _WorkScheduleState();
@@ -61,16 +18,15 @@ class WorkSchedule extends StatefulWidget {
 
 class _WorkScheduleState extends State<WorkSchedule> {
 
-  final PageController _managePageController = PageController();
   TextEditingController calenderController = TextEditingController();
-
+  final PageController _managePageController = PageController();
   int _selectedIndex = 0;
+
 
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
     });
-
     _managePageController.animateToPage(
       index,
       duration: Duration(milliseconds: 500),
@@ -158,7 +114,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
             flex: 10,
             child: Stack(
               children: [
-            widget.selectedIndex == 1 ? Offstage():Container(
+           _selectedIndex == 1 ? Offstage():Container(
               //height: MediaQuery.of(context).size.height/3,
                   decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
@@ -174,7 +130,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   right: MediaQuery.of(context).size.width / 45,
                 ),
                 child: PageView(
-                    controller: widget.managePageController,
+                    controller: _managePageController,
                     physics: NeverScrollableScrollPhysics(),
                     children: [
                       DefineWorkWeek(),

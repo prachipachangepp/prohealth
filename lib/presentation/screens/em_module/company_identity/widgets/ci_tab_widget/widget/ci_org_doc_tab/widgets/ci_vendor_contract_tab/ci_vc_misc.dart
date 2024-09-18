@@ -219,7 +219,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                               });
                                             },
                                                 icon: Icon(Icons.edit_outlined,
-                                                  size:18,color: ColorManager.bluebottom,)),
+                                                  size:IconSize.I18,color: IconColorManager.bluebottom,)),
                                             IconButton(
                                                 onPressed: (){
                                                   showDialog(context: context,
@@ -254,7 +254,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                         },
 
                                                       ));
-                                                }, icon: Icon(Icons.delete_outline,size:IconSize.I18,color: ColorManager.red,)),
+                                                }, icon: Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                           ],
                                         ),
                                       ),
