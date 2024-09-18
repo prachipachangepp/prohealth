@@ -225,7 +225,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 ),
               ),
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/20),
+            //SizedBox(width: MediaQuery.of(context).size.width/25),
 
             ///button
             _selectedIndex == 0

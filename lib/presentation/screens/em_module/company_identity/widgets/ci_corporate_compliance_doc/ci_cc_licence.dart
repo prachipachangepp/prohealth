@@ -204,8 +204,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //IconButton(onPressed: (){},
                                                     // icon: Icon(Icons.remove_red_eye_outlined,
                                                     // size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s50),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -216,7 +215,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       children: [
                                                         Text(
                                                           // "ID : ${manageCCLicence.idOfDoc.toString()}",
-                                                          "ID : ${manageCCLicence.idOfDocument.toString()}",
+                                                          "ID : ${manageCCLicence.orgDocumentSetupid}",
                                                           textAlign:
                                                               TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),

@@ -220,7 +220,7 @@ class _CiSnfState extends State<CiSnf> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${snfData.idOfDocument.toString()}",
+                                                          "ID : ${snfData.orgDocumentSetupid}",
                                                           //snfData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),

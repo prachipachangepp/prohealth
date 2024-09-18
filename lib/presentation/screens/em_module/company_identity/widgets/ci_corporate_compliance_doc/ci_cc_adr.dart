@@ -205,8 +205,7 @@ class _CICCADRState extends State<CICCADR> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s50),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -216,7 +215,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${manageCCADR.idOfDocument.toString()}",
+                                                          "ID : ${manageCCADR.orgDocumentSetupid}",
                                                           // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),

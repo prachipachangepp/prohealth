@@ -212,8 +212,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s10),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -223,7 +222,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${leasesData.idOfDocument.toString()}",
+                                                          "ID : ${leasesData.orgDocumentSetupid}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),

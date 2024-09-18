@@ -202,9 +202,7 @@ class _CiDmeState extends State<CiDme> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                      width: 50,
-                                                    ),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -214,7 +212,7 @@ class _CiDmeState extends State<CiDme> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${dmeData.idOfDocument.toString()}",
+                                                          "ID : ${dmeData.orgDocumentSetupid}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           // style: GoogleFonts
                                                           //     .firaSans(

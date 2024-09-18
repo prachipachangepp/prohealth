@@ -210,9 +210,7 @@ class _CiMiscState extends State<CiMisc> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                      width: 50,
-                                                    ),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -222,7 +220,7 @@ class _CiMiscState extends State<CiMisc> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${miscData.idOfDocument.toString()}",
+                                                          "ID : ${miscData.orgDocumentSetupid}",
                                                           // miscData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),

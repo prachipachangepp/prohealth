@@ -196,9 +196,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                      width: 50,
-                                                    ),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -208,7 +206,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${MedicalCostReport.idOfDocument}",
+                                                          "ID : ${MedicalCostReport.orgDocumentSetupid}",
                                                           // MedicalCostReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),

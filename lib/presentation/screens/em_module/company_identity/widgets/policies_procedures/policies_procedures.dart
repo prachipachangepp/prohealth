@@ -243,7 +243,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        "ID : ${policiesdata.orgDocumentSetupid}",
                                                         style:  DocumentTypeDataStyle.customTextStyle(context),
                                                       ),
                                                       SizedBox(
