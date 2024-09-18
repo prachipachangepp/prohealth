@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
@@ -171,7 +172,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   text: 'White Labelling',
                   style: GoogleFonts.firaSans(
                     fontSize: AppSize.s12,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                     color: ColorManager.white,
                   ),
                   width: 120,
@@ -235,7 +236,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               child: Text('No services available',
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: FontSize.s10,
-                                                  fontWeight: FontWeightManager.medium,
+                                                  fontWeight: FontWeight.w400,
                                                   color: ColorManager.mediumgrey,
                                                   //decoration: TextDecoration.none,
                                                 ),),
@@ -298,7 +299,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       'Pick Location',
                                       style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
-                                        fontWeight: FontWeightManager.bold,
+                                        fontWeight: FontWeight.w600,
                                         color: ColorManager.bluelight,
                                         //decoration: TextDecoration.none,
                                       ),
@@ -387,11 +388,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       "Sr No.",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: 12,
+                      //   fontWeight: FontWeight.w700,
+                      //   color: ColorManager.white,
+                      // ),
                     ),
                   ),
                 ),
@@ -399,11 +401,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       "Office Name",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: 12,
+                      //   fontWeight: FontWeight.w700,
+                      //   color: ColorManager.white,
+                      // ),
                     ),
                   ),
                 ),
@@ -411,11 +414,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       "Address",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: 12,
+                      //   fontWeight: FontWeight.w700,
+                      //   color: ColorManager.white,
+                      // ),
                     ),
                   ),
                 ),
@@ -423,11 +427,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       "Actions",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: 12,
+                      //   fontWeight: FontWeight.w700,
+                      //   color: ColorManager.white,
+                      // ),
                     ),
                   ),
                 ),
@@ -506,11 +511,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight:Radius.circular(4))),
                                                   child:Center(
                                                       child:Text('Head Office',
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: ColorManager.white,
-                                                  ),))
+                                                        style:AllHRTableHeading.customTextStyle(context),))
                                                 ),
                                               ):Offstage(),
                                               Row(
@@ -601,11 +602,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                   child: Center(
                                                     child: Text(
                                                       formattedSerialNumber,
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 10,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: const Color(0xff686464),
-                                                      ),
+                                                        style: DocumentTypeDataStyle.customTextStyle(context)
+                                                      // style: GoogleFonts.firaSans(
+                                                      //   fontSize: 10,
+                                                      //   fontWeight: FontWeight.w700,
+                                                      //   color: const Color(0xff686464),
+                                                      // ),
                                                     ),
                                                   ),
                                                 ),
@@ -613,11 +615,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                   child: Center(
                                                     child: Text(
                                                       paginatedData[index].officeName.toString(),
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 10,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: const Color(0xff686464),
-                                                      ),
+                                                        style: DocumentTypeDataStyle.customTextStyle(context)
                                                     ),
                                                   ),
                                                 ),
@@ -634,11 +632,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                         // SizedBox(width:15),
                                                         Text(
                                                           paginatedData[index].address.toString(),
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: const Color(0xff686464),
-                                                          ),
+                                                            style: DocumentTypeDataStyle.customTextStyle(context)
                                                         ),
                                                       ],
                                                     ),

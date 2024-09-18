@@ -243,11 +243,8 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     },
                                                   );
                                                 },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 18,
-                                                  color: ColorManager.blueprime,
-                                                ),
+                                                icon: Icon(Icons.edit_outlined,
+                                                  size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
@@ -291,12 +288,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                       context);
                                                                 }));
                                                   },
-                                                  icon: Icon(
-                                                    Icons.delete_outline,
-                                                    size: 18,
-                                                    color:
-                                                    ColorManager.faintOrange,
-                                                  )),
+                                                  icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
 
                                             ],
                                           ),

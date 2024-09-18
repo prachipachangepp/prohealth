@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -168,7 +169,7 @@ class _CiCorporateComplianceScreenState
                         child: Column(
                           children: [
                             Text(
-                              AppString.licenses,
+                                AppStringEM.licenses,
                               textAlign: TextAlign.center,
                                 style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
                               // style: GoogleFonts.firaSans(
@@ -205,7 +206,7 @@ class _CiCorporateComplianceScreenState
                         child: Column(
                           children: [
                             Text(
-                              'ADR',
+                              AppStringEM.ard,
                               textAlign: TextAlign.center,
                                 style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
                             ),
@@ -233,7 +234,7 @@ class _CiCorporateComplianceScreenState
                         child: Column(
                           children: [
                             Text(
-                              'Medical Cost Reports',
+                                AppStringEM.mcr,
                               textAlign: TextAlign.center,
                                 style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
                             ),
@@ -261,7 +262,7 @@ class _CiCorporateComplianceScreenState
                         child: Column(
                           children: [
                             Text(
-                              'CAP Reports',
+                                AppStringEM.capReport,
                               textAlign: TextAlign.center,
                                 style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
                             ),
@@ -289,7 +290,7 @@ class _CiCorporateComplianceScreenState
                         child: Column(
                           children: [
                             Text(
-                              'Quarterly Balance Reports',
+                                AppStringEM.qbr,
                               textAlign: TextAlign.center,
                                 style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
                             ),

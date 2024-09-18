@@ -249,7 +249,8 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                     }
                                                   );
                                                 });
-                                              }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                              }, icon: Icon(Icons.edit_outlined,
+                                                size:IconSize.I18,color: IconColorManager.bluebottom,),),
                                               // IconButton(
                                               //     splashColor: Colors.transparent,
                                               //     hoverColor: Colors.transparent,

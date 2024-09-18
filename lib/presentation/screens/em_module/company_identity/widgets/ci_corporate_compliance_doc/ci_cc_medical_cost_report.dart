@@ -13,6 +13,7 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -622,8 +623,8 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -643,12 +644,12 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                 "Medical Cost Report.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -713,7 +714,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit Medical Cost Report',
+                                                                      EditPopupString.editMCR,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -746,12 +747,8 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -778,7 +775,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                          DeletePopupString.deleteMCR ,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -813,12 +810,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                     },
                                                                   ));
                                                         },
-                                                        icon: Icon(
-                                                          Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
-                                                        )),
+                                                        icon: Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                                   ],
                                                 ),
                                               ],

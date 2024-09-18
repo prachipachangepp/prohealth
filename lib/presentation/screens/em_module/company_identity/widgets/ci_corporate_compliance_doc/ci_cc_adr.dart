@@ -437,9 +437,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          size:IconSize.I18,color: IconColorManager.red,
                                                         )),
                                                   ],
                                                 ),

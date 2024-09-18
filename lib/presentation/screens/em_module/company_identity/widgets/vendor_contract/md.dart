@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -251,10 +252,10 @@ class _CiMdState extends State<CiMd> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -274,12 +275,12 @@ class _CiMdState extends State<CiMd> {
                                                                 "MD.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -344,7 +345,7 @@ class _CiMdState extends State<CiMd> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit MD',
+                                                                      EditPopupString.editMD,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -377,12 +378,8 @@ class _CiMdState extends State<CiMd> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -409,7 +406,7 @@ class _CiMdState extends State<CiMd> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete MD',
+                                                                          DeletePopupString.deleteMD ,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -446,9 +443,7 @@ class _CiMdState extends State<CiMd> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          size:IconSize.I18,color: IconColorManager.red,
                                                         )),
                                                     // IconButton(
                                                     //   onPressed: () {
