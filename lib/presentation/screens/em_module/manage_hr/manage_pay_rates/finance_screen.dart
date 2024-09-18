@@ -7,9 +7,11 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -165,8 +167,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     ///disabled container
                     Row(
                       children: [
-                        FutureBuilder<List<ServiceData>>(
-                          future: PayRateServiceDropdown(context),
+                        FutureBuilder<List<ServicesMetaData>>(
+                          future:  getServicesMetaData(context),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -216,10 +218,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               }
 
                               // Store the service ID of the 0th position
-                              if (dropDownServiceList.isNotEmpty) {
-                                firstServiceId =
-                                    snapshot.data![0].officeServiceId;
-                              }
+                              // if (dropDownServiceList.isNotEmpty) {
+                              //   firstServiceId =
+                              //       snapshot.data![0].officeServiceId;
+                              // }
                               // serviceId =
                               //     snapshot.data![0].serviceId;
 
@@ -241,8 +243,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         selectedServiceName = val;
                                         for (var service in snapshot.data!) {
                                           if (service.serviceName == val) {
-                                            selectedServiceId =
-                                                service.officeServiceId;
+                                            // selectedServiceId =
+                                            //     service.officeServiceId;
                                             serviceId = service.serviceId;
                                           }
                                         }
@@ -470,7 +472,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       int rate = int.parse(payRatesController.text);
                                       String typeOfVisitId = docAddVisitTypeId.toString();
                                       int perMile = int.parse(perMilesController.text);
-                                      String serviceTypeId = serviceId!;
+                                      String serviceTypeId = serviceId;
                                       int fixedRate = int.parse(fixedPayRatesController.text);
 
                                       await addPayrates(
