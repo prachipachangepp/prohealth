@@ -248,10 +248,10 @@ class _CICCADRState extends State<CICCADR> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -274,9 +274,9 @@ class _CICCADRState extends State<CICCADR> {
                                                       icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -334,7 +334,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
                                                                       title:
-                                                                          'Edit ADR',
+                                                                          EditPopupString.editAdr,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -373,12 +373,8 @@ class _CICCADRState extends State<CICCADR> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -404,7 +400,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                              DeletePopupString.deleteAdr,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:

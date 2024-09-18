@@ -184,3 +184,16 @@ class AddPopupString{
   static const String deleteMD = 'Delete MD';
   static const String deleteMISC = 'Delete MISC';
 }
+
+
+class ManagaeButtonheading{
+
+  static const String details = 'Details';
+  static const String zones = 'Zones';
+  static const String cc = 'Corporate & Compliance';
+  static const String insurance = 'Insurance';
+  static const String vc = 'Vendor Contracts';
+  static const String pp = 'Policies & Procedures';
+  static const String templates = 'Templates';
+
+}

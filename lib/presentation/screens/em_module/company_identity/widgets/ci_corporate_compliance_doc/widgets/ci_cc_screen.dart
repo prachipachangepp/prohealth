@@ -12,6 +12,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -169,15 +170,16 @@ class _CiCorporateComplianceScreenState
                             Text(
                               AppString.licenses,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: _selectedIndex == 0
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 0
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
+                              // style: GoogleFonts.firaSans(
+                              //   fontSize: FontSize.s12,
+                              //   fontWeight: _selectedIndex == 0
+                              //       ? FontWeightManager.bold
+                              //       : FontWeightManager.regular,
+                              //   color: _selectedIndex == 0
+                              //       ? ColorManager.blueprime
+                              //       : ColorManager.mediumgrey,
+                              // ),
                             ),
                             _selectedIndex == 0
                                 ? Divider(
@@ -205,15 +207,7 @@ class _CiCorporateComplianceScreenState
                             Text(
                               'ADR',
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: _selectedIndex == 1
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 1
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
                             ),
                             _selectedIndex == 1
                                 ? Divider(
@@ -241,15 +235,7 @@ class _CiCorporateComplianceScreenState
                             Text(
                               'Medical Cost Reports',
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: _selectedIndex == 2
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 2
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
                             ),
                             _selectedIndex == 2
                                 ? Divider(
@@ -277,15 +263,7 @@ class _CiCorporateComplianceScreenState
                             Text(
                               'CAP Reports',
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: _selectedIndex == 3
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 3
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
                             ),
                             _selectedIndex == 3
                                 ? Divider(
@@ -313,15 +291,7 @@ class _CiCorporateComplianceScreenState
                             Text(
                               'Quarterly Balance Reports',
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: _selectedIndex == 4
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 4
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
                             ),
                             _selectedIndex == 4
                                 ? Divider(

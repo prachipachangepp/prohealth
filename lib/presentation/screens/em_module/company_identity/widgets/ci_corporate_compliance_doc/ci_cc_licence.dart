@@ -158,174 +158,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                     serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal manageCCLicence =
                                     paginatedData[index];
-                                // return  ListViewStyle(
-                                //
-                                //   idname:"ID : ${manageCCLicence.idOfDocument.toString()}",
-                                //
-                                //
-                                //   subidname: manageCCLicence.docName.toString(),
-                                //
-                                //
-                                //   onHistoryPressed: (){
-                                //     showDialog(
-                                //       context: context,
-                                //       builder: (context) =>
-                                //           ManageHistoryPopup(
-                                //             docHistory:
-                                //             manageCCLicence
-                                //                 .docHistory,
-                                //           ),
-                                //     );
-                                //   },
-                                //
-                                //
-                                //
-                                //   onDownloadePressed: () {
-                                //    DowloadFile()
-                                //        .downloadPdfFromBase64(
-                                //        fileExtension,
-                                //        "Licenses.pdf");
-                                //    downloadFile(fileUrl);
-                                //  },
-                                //
-                                //
-                                //
-                                //   onEditPressed: () {
-                                //       String?
-                                //       selectedExpiryType =
-                                //           expiryType;
-                                //       showDialog(
-                                //         context: context,
-                                //         builder: (context) {
-                                //           return FutureBuilder<
-                                //               MCorporateCompliancePreFillModal>(
-                                //             future: getPrefillNewOrgOfficeDocument(
-                                //                 context,
-                                //                 manageCCLicence
-                                //                     .orgOfficeDocumentId),
-                                //             builder: (context,
-                                //                 snapshotPrefill) {
-                                //               if (snapshotPrefill
-                                //                   .connectionState ==
-                                //                   ConnectionState
-                                //                       .waiting) {
-                                //                 return Center(
-                                //                   child:
-                                //                   CircularProgressIndicator(
-                                //                     color: ColorManager
-                                //                         .blueprime,
-                                //                   ),
-                                //                 );
-                                //               }
-                                //
-                                //               var calender =
-                                //                   snapshotPrefill
-                                //                       .data!
-                                //                       .expiry_date;
-                                //               calenderController =
-                                //                   TextEditingController(
-                                //                     text: snapshotPrefill
-                                //                         .data!
-                                //                         .expiry_date,
-                                //                   );
-                                //
-                                //               // fileName = snapshotPrefill.data!.url;
-                                //
-                                //               return StatefulBuilder(
-                                //                 builder: (BuildContext
-                                //                 context,
-                                //                     void Function(
-                                //                         void Function())
-                                //                     setState) {
-                                //                   return VCScreenPopupEditConst(
-                                //                     title:
-                                //                     'Edit Licenses',
-                                //                     loadingDuration:
-                                //                     _isLoading,
-                                //                     officeId:
-                                //                     widget
-                                //                         .officeId,
-                                //                     docTypeMetaIdCC:
-                                //                     widget
-                                //                         .docId,
-                                //                     selectedSubDocId:
-                                //                     widget
-                                //                         .subDocId,
-                                //                     //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                //                     orgDocId: snapshotPrefill
-                                //                         .data!
-                                //                         .orgOfficeDocumentId,
-                                //                     orgDocumentSetupid: snapshotPrefill
-                                //                         .data!
-                                //                         .documentSetupId,
-                                //                     docName: snapshotPrefill
-                                //                         .data!
-                                //                         .docName,
-                                //                     selectedExpiryType: snapshotPrefill
-                                //                         .data!
-                                //                         .expType,
-                                //                     expiryDate: snapshotPrefill
-                                //                         .data!
-                                //                         .expiry_date,
-                                //                     url: snapshotPrefill
-                                //                         .data!
-                                //                         .url,
-                                //                   );
-                                //                 },
-                                //               );
-                                //             },
-                                //           );
-                                //         },
-                                //       );
-                                //     },
-                                //
-                                //
-                                //   onDeletePressed: (){
-                                //    showDialog(
-                                //         context: context,
-                                //         builder: (context) =>
-                                //             StatefulBuilder(
-                                //               builder: (BuildContext
-                                //               context,
-                                //                   void Function(void Function())
-                                //                   setState) {
-                                //                 return DeletePopup(
-                                //                     title:
-                                //                     'Delete license',
-                                //                     loadingDuration:
-                                //                     _isLoading,
-                                //                     onCancel:
-                                //                         () {
-                                //                       Navigator.pop(context);
-                                //                     },
-                                //                     onDelete:
-                                //                         () async {
-                                //                       setState(() {
-                                //                         _isLoading = true;
-                                //                       });
-                                //                       try {
-                                //                         await deleteOrgDoc(
-                                //                           context: context,
-                                //                           orgDocId: manageCCLicence.orgOfficeDocumentId,
-                                //                         );
-                                //                         // await deleteManageCorporate(context, manageCCLicence.docId);
-                                //                         setState(() async {
-                                //                           await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20).then((data) {
-                                //                             lisenceController.add(data);
-                                //                           }).catchError((error) {
-                                //                             // Handle error
-                                //                           });
-                                //                           Navigator.pop(context);
-                                //                         });
-                                //                       } finally {
-                                //                         setState(() {
-                                //                           _isLoading = false;
-                                //                         });
-                                //                       }
-                                //                     });
-                                //               },
-                                //             ));
-                                //   },);
+
 
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -419,8 +252,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -441,9 +274,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -501,7 +334,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
                                                                       title:
-                                                                          'Edit Licenses',
+                                                                          EditPopupString.editLicenses,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -540,12 +373,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon:  Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -571,7 +400,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                          DeletePopupString.deleteLicenses,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -608,10 +437,11 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
+                                                          size: IconSize.I18,
                                                           color:
-                                                              ColorManager.red,
-                                                        )),
+                                                          IconColorManager.red,
+                                                        ),
+                                                    ),
                                                   ],
                                                 ),
                                               ],
