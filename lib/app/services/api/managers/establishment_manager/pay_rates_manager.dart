@@ -148,6 +148,7 @@ Future<List<ServiceData>> PayRateServiceDropdown(
 /// Add pay rates POST 22-8
 Future<ApiData> addPayrates(
     BuildContext context,
+    int empTypeId,
     int rate,
     String typeOfVisitId,
     int perMile,
@@ -159,6 +160,7 @@ Future<ApiData> addPayrates(
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.postPayrates(),
         data: {
+          "employeeTypeId":empTypeId,
           "rate": rate,
           "typeOfVisitId": typeOfVisitId,
           "serviceId": serviceTypeId,
@@ -198,6 +200,41 @@ Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
       for (var item in response.data) {
         itemsList.add(
           PayRatesGet(
+            payratesId: item['payratesId'],
+            rate: item['rate'],
+            typeOfVisitId: item['typeOfVisitId'],
+            companyId: companyId,
+            serviceID: item['serviceId'],
+            outOfZoneRate: item['outOfZoneRate'],
+            outOfZonePerMile: item['outOfZoneperMile'],
+          ),
+        );
+      }
+      print("Payrates data:::::${itemsList}");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+/// Get data by serviceID and employeeID
+Future<List<PayRatesGetByServiceId>> companyPayratesGetByServiceAndEmployeeId({required BuildContext context,required String serviceId, required int empId}) async {
+  List<PayRatesGetByServiceId> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getPayratesByServiceIdAnrEmpId(serviceID: serviceId, empId: empId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Payrates get by serviceId:::::${itemsList}");
+      for (var item in response.data) {
+        itemsList.add(
+          PayRatesGetByServiceId(
             payratesId: item['payratesId'],
             rate: item['rate'],
             typeOfVisitId: item['typeOfVisitId'],

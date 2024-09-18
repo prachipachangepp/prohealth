@@ -9,6 +9,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -23,6 +24,7 @@ import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HrScreen extends StatefulWidget {
+  static const String routeName = RouteStrings.emHrAdminScreen;
   @override
   _HrScreenState createState() => _HrScreenState();
 }
@@ -54,6 +56,7 @@ class _HrScreenState extends State<HrScreen> {
 
 ///
 class HrWidget extends StatefulWidget {
+
   final PageController hrPageController;
   final int selectedIndex;
   final Function(int) selectButton;

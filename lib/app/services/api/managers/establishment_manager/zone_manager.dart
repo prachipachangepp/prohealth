@@ -57,11 +57,11 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
             countyName: item['countyName'],
             state: item['state'],
             country: item['Country'],
-            zipcodes: item['zipcodes'],
+            zipcodes: item['zipcodes']??"",
             sucess: true,
             message: response.statusMessage,
-            zoneName: item['zoneName'],
-            zoinId: item['zoneId'],
+            zoneName: item['zoneName']??"",
+            zoinId: item['zoneId']??0,
             countyId: item['county_id']));
       }
       print("County response:::::${itemsList}");
@@ -163,6 +163,41 @@ Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
             sucess: true,
             message: response.statusMessage!,
             officeID: item['officeId'],
+            countyId: item['county_id'],
+            companyId: item['companyId'],
+            latitude: item['latitude'],
+            longitude: item['longitude']));
+      }
+      print("County response:::::${itemsList}");
+    } else {
+      print('County Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+/// County get office id wise
+Future<List<OfficeWiseCountyData>> getCountyListOfficeIdWise({required BuildContext context, required String OfficeId}) async {
+  List<OfficeWiseCountyData> itemsList = [];
+  try {
+    final response =
+    await Api(context).get(path: AllZoneRepository.countyListGetOfficeIdWise(OfficeId: OfficeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for (var item in response.data) {
+        itemsList.add(OfficeWiseCountyData(
+            countyName: item['countyName'],
+            state: item['state'],
+            country: item['Country'],
+            sucess: true,
+            message: response.statusMessage!,
+            officeId: item['officeId'],
             countyId: item['county_id'],
             companyId: item['companyId'],
             latitude: item['latitude'],

@@ -212,6 +212,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
       _suggestionsNotifier.value = [];
     }
   }
+  String latitude ='';
+  String longitude='';
 
   //   try {
   //     // Fetch suggestions based on the addressController's text
@@ -259,8 +261,12 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
             secFaxController.text = snapshot.data!.secondaryFax;
             stateNameController.text = snapshot.data!.stateName;
             countryNameController.text = snapshot.data!.countryName;
+            latitude = snapshot.data!.lat;
+            longitude = snapshot.data!.long;
+
 
             List<Widget> serviceRows = [];
+            print('Fetched lat lng ${latitude} + ${longitude}');
 
             for (int i = 0; i < snapshot.data!.serviceDetails!.length; i += 2) {
               List<Widget> rowChildren = [];
@@ -744,6 +750,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             emailController.text,
                             nameController.text,
                             addressController.text,
+                            latitude,
+                            longitude,
+                            "",
+                            stateNameController.text,
+                            countryNameController.text
                           );
                           showDialog(
                             context: context,

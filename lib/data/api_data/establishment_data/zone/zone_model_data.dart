@@ -129,6 +129,32 @@ class AllCountyGetList {
   });
 }
 
+/// County Office wise drrropdown List Data
+class OfficeWiseCountyData {
+  final String countyName;
+  final int countyId;
+  final int companyId;
+  final String state;
+  final String country;
+  final String latitude;
+  final String longitude;
+  final String officeId;
+  final bool sucess;
+  final String message;
+  OfficeWiseCountyData({
+    required this.officeId,
+    required this.countyId,
+    required this.companyId,
+    required this.latitude,
+    required this.longitude,
+    required this.countyName,
+    required this.state,
+    required this.country,
+    required this.sucess,
+    required this.message,
+  });
+}
+
 //
 // class AllCountyGet {
 //   final int? countyId;
