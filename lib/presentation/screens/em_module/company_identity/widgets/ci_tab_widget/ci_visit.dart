@@ -544,7 +544,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
-
                                           // Expanded(flex: 1, child: Container()),
                                           Expanded(
                                             child: Text(

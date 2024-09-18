@@ -10,6 +10,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/google
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
@@ -214,6 +215,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   }
   String latitude ='';
   String longitude='';
+  bool isChecked = false;
 
   //   try {
   //     // Fetch suggestions based on the addressController's text
@@ -342,30 +344,86 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                         topRight: Radius.circular(10),
                                       ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                            width: 300,
-                                            child: CheckboxTileDetails(
-                                              title: serviceDetail.serviceName,
-                                              initialValue: false,
-                                              onChanged: (value) {
-                                                // setState(() {
-                                                //   isHeadOffice = true;
-                                                //   print('HeadOffice ${isHeadOffice}');
-                                                // });
-                                              },
-                                            )),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 15),
-                                          child: IconButton(
-                                            onPressed: () {
-                                            },
-                                            icon: Icon(Icons.mode_edit_outline_outlined, size:20,color: Colors.white),
-                                          ),
-                                        ),
-                                      ],
+                                    child:
+                                    StatefulBuilder(
+                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                        return  Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding:  EdgeInsets.symmetric(horizontal: 10),
+                                              child: Container(
+                                                  width: 300,
+                                                  child: CheckboxTileDetails(
+                                                    title: serviceDetail.serviceName,
+                                                    initialValue: isChecked,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        isChecked = !isChecked;
+                                                      });
+                                                    },
+                                                  )),
+                                            ),
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  onPressed: () {
+                                                    showDialog(context: context, builder: (BuildContext context){
+                                                      return DialogueTemplate(
+                                                        width: AppSize.s420,
+                                                        height: 250,
+                                                        body: [
+                                                          FirstSMTextFConst(
+                                                            controller: hcoNumController,
+                                                            keyboardType: TextInputType.text,
+                                                            text: 'HCO Number',
+                                                          ),
+                                                        ],
+                                                        bottomButtons: CustomElevatedButton(
+                                                            width: AppSize.s105,
+                                                            height: AppSize.s30,
+                                                            text: AppStringEM.save, //submit
+                                                            onPressed: () async {
+                                                              await patchCompanyOfficeService(context,
+                                                                  serviceDetail.officeServiceId,
+                                                                  widget.officeId,
+                                                                  serviceDetail.serviceName,
+                                                                  serviceDetail.serviceId,
+                                                                  serviceDetail.npiNum,
+                                                                  serviceDetail.medicareNum,
+                                                                  hcoNumController.text);
+
+                                                                companyDetailGetAll(context, widget.officeId);
+
+                                                              Navigator.pop(context);
+                                                            }
+                                                        ),
+                                                        title: 'Edit Service',);
+                                                    });
+                                                  },
+                                                  icon: Icon(Icons.mode_edit_outline_outlined, size:20,color: Colors.white),
+                                                ),
+                                                SizedBox(width:5),
+                                                isChecked ?
+                                                IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  onPressed: () async{
+                                                    await deleteCompanyOfficeService(context,serviceDetail.officeServiceId);
+                                                      companyDetailGetAll(context, widget.officeId);
+
+                                                  },
+                                                  icon: Icon(Icons.delete_outline_outlined, size:20,color: Colors.white),
+                                                ):Offstage()
+                                              ],
+                                            )
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 10,),
@@ -649,8 +707,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             );
                           }
                       )
-
-
                       // Suggestion list appears above the container when not empty
                       // ValueListenableBuilder<List<String>>(
                       //   valueListenable: _suggestionsNotifier,

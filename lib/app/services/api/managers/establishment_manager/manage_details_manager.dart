@@ -341,6 +341,37 @@ Future<ApiData> patchCompanyOfficeService(
   }
 }
 
+///company office service delete
+Future<ApiData> deleteCompanyOfficeService(
+    BuildContext context,
+    int OfficeServiceId,
+    ) async {
+  try {
+    var companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.companyofficeservicepatch(
+            Office_service_id: OfficeServiceId));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Service deleted");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 /// Get services
 Future<List<ServicesData>> getAllServicesData(
   BuildContext context,
