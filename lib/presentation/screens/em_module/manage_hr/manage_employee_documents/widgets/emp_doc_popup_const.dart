@@ -13,6 +13,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import '../../../../../../app/services/api/repository/establishment_manager/employee_doc_repository.dart';
@@ -78,203 +79,206 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
       width: AppSize.s400,
       height: AppSize.s480,
       body: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SMTextFConst(
-              controller: idDocController,
-              keyboardType: TextInputType.text,
-              text: 'ID of the Document',
-            ),
-            if (_idError != null)
-              Text(
-                _idError!,
-                style: TextStyle(color: Colors.red, fontSize: 10),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SMTextFConst(
+                controller: idDocController,
+                keyboardType: TextInputType.text,
+                text: 'ID of the Document',
               ),
-            SizedBox(height: AppSize.s8),
-            FirstSMTextFConst(
-              controller: nameDocController,
-              keyboardType: TextInputType.text,
-              text: 'Name of the Document',
-            ),
-            if (_nameError != null)
-              Text(
-                _nameError!,
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ),
-            SizedBox(height: AppSize.s8),
-            // Text(
-            //   'Type of the Document',
-            //   style: GoogleFonts.firaSans(
-            //     fontSize: FontSize.s12,
-            //     fontWeight: FontWeight.w700,
-            //     color: ColorManager.mediumgrey,
-            //   ),
-            // ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                HeaderContentConst(
-                  heading: AppString.expiry_type,
-                  content: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomRadioListTile(
-                        value: AppConfig.notApplicable,
-                        groupValue: selectedExpiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedExpiryType = value!;
-                          });
-                        },
-                        title: AppConfig.notApplicable,
-                      ),
-                      CustomRadioListTile(
-                        value: AppConfig.scheduled,
-                        groupValue: selectedExpiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedExpiryType = value!;
-                          });
-                        },
-                        title: AppConfig.scheduled,
-                      ),
-                      CustomRadioListTile(
-                        value: AppConfig.issuer,
-                        groupValue: selectedExpiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedExpiryType = value!;
-                          });
-                        },
-                        title: AppConfig.issuer,
-                      ),
-                    ],
-                  ),
+              if (_idError != null)
+                Text(
+                  _idError!,
+                  style: TextStyle(color: Colors.red, fontSize: 10),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: AppPadding.p20,
-                    right: AppPadding.p20,
-                  ),
-                  child: Visibility(
-                    visible: selectedExpiryType == AppConfig.scheduled,
-                    child: Column(
+              SizedBox(height: AppSize.s8),
+              FirstSMTextFConst(
+                controller: nameDocController,
+                keyboardType: TextInputType.text,
+                text: 'Name of the Document',
+              ),
+              if (_nameError != null)
+                Text(
+                  _nameError!,
+                  style: TextStyle(color: Colors.red, fontSize: 12),
+                ),
+              SizedBox(height: AppSize.s8),
+              // Text(
+              //   'Type of the Document',
+              //   style: GoogleFonts.firaSans(
+              //     fontSize: FontSize.s12,
+              //     fontWeight: FontWeight.w700,
+              //     color: ColorManager.mediumgrey,
+              //   ),
+              // ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  HeaderContentConst(
+                    heading: AppString.expiry_type,
+                    content: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 10,
+                        CustomRadioListTile(
+                          value: AppConfig.notApplicable,
+                          groupValue: selectedExpiryType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedExpiryType = value!;
+                            });
+                          },
+                          title: AppConfig.notApplicable,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 30,
-                              width: 50,
-                              //color: ColorManager.red,
-                              child: TextFormField(
-                                controller:
-                                    daysController, // Use the controller initialized with "1"
-                                cursorColor: ColorManager.black,
-                                cursorWidth: 1,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.medium,
-                                  color: ColorManager.mediumgrey,
-                                ),
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ColorManager.fmediumgrey,
-                                        width: 2),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ColorManager.fmediumgrey,
-                                        width: 2),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10),
-                                ),
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter
-                                      .digitsOnly, // This ensures only digits are accepted
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Container(
-                              height: 30,
-                              width: 80,
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: ColorManager.fmediumgrey),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: DropdownButtonFormField<String>(
-                                value:
-                                    selectedYear, // Initial value (you should define this variable)
-                                items: [
-                                  DropdownMenuItem(
-                                    value: AppConfig.year,
-                                    child: Text(
-                                      AppConfig.year,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: AppConfig.month,
-                                    child: Text(
-                                      AppConfig.month,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedYear =
-                                        value; // Update the selected option (Year/Month)
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  hintText: AppConfig.year,
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.medium,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                  contentPadding: EdgeInsets.only(bottom: 20),
-                                ),
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: ColorManager.black,
-                                  size: 16,
-                                ),
-                              ),
-                            ),
-                          ],
+                        CustomRadioListTile(
+                          value: AppConfig.scheduled,
+                          groupValue: selectedExpiryType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedExpiryType = value!;
+                            });
+                          },
+                          title: AppConfig.scheduled,
+                        ),
+                        CustomRadioListTile(
+                          value: AppConfig.issuer,
+                          groupValue: selectedExpiryType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedExpiryType = value!;
+                            });
+                          },
+                          title: AppConfig.issuer,
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppPadding.p20,
+                      right: AppPadding.p20,
+                    ),
+                    child: Visibility(
+                      visible: selectedExpiryType == AppConfig.scheduled,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 50,
+                                //color: ColorManager.red,
+                                child: TextFormField(
+                                  controller:
+                                      daysController, // Use the controller initialized with "1"
+                                  cursorColor: ColorManager.black,
+                                  cursorWidth: 1,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorManager.fmediumgrey,
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorManager.fmediumgrey,
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter
+                                        .digitsOnly, // This ensures only digits are accepted
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                height: 30,
+                                width: 80,
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: ColorManager.fmediumgrey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  value:
+                                      selectedYear, // Initial value (you should define this variable)
+                                  items: [
+                                    DropdownMenuItem(
+                                      value: AppConfig.year,
+                                      child: Text(
+                                        AppConfig.year,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: FontSize.s10,
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: AppConfig.month,
+                                      child: Text(
+                                        AppConfig.month,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: FontSize.s10,
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedYear =
+                                          value; // Update the selected option (Year/Month)
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: AppConfig.year,
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                    contentPadding: EdgeInsets.only(bottom: 20),
+                                  ),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: ColorManager.black,
+                                    size: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
       bottomButtons: _isLoading
@@ -341,399 +345,6 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
 
 
 ///edit popup
-// class EmpDocEditPopup extends StatefulWidget {
-//   final TextEditingController idOfDocController;
-//   final TextEditingController nameDocController;
-//   final TextEditingController calenderController;
-//
-//   final bool? isSaving;
-//   String? expiryType;
-//   final String empdoctype;
-//   final bool? loadingDuration;
-//   final String title;
-//   bool? enable;
-//   final int empsetupId;
-//   final String docname;
-//
-//   EmpDocEditPopup({
-//     Key? key,
-//     this.enable,
-//     required this.idOfDocController,
-//     required this.nameDocController,
-//
-//
-//     required this.calenderController,
-//     this.expiryType,
-//
-//     this.isSaving,
-//     this.loadingDuration,
-//     required this.title,  required this.empsetupId,
-//     required this.docname, required this.empdoctype,
-//   }) : super(key: key);
-//
-//   @override
-//   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
-// }
-//
-// class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
-//   final DateTime _selectedDate = DateTime.now();
-//   bool _isLoading = false;
-//   String? _idError;
-//   String? _nameError;
-//
-//   TextEditingController idOfDocController = TextEditingController();
-//   TextEditingController nameDocController = TextEditingController();
-//   TextEditingController dateController = TextEditingController();
-//
-//
-//   String? _validateTextField(String value, String fieldName) {
-//     if (value.isEmpty) {
-//       _isFormValid = false;
-//       return "Please Enter $fieldName";
-//     }
-//     return null;
-//   }
-//   bool _isFormValid = true;
-//
-//   void _validateFields() {
-//     setState(() {
-//       _isFormValid = true;
-//       _idError = _validateTextField(
-//         idOfDocController.text, 'Please Enter ID of Document');
-//       _nameError = _validateTextField(
-//          nameDocController.text, 'Please Enter Name of thr Document ');
-//     });
-//   }
-//
-//   TextEditingController daysController = TextEditingController(text: "1");
-//   String selectedExpiryType = "";
-//   String? selectedYear = AppConfig.year;
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DialogueTemplate(
-//
-//         width: AppSize.s400,
-//         height: AppSize.s530,
-//             body: [
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                 children: [
-//                   SMTextFConst(
-//                     enable: widget.enable == false ? true : widget.enable,
-//                     controller: idOfDocController,
-//                     keyboardType: TextInputType.text,
-//                     text: 'ID of the Document',
-//                   ),
-//                   if (_idError != null)
-//                     Text(
-//                       _idError!,
-//                       style: TextStyle(color: Colors.red, fontSize: 10),
-//                     ),
-//                   SizedBox(height: AppSize.s8),
-//                   FirstSMTextFConst(
-//                     controller: nameDocController,
-//                     keyboardType: TextInputType.text,
-//                     text: 'Name of the Document',
-//                   ),
-//                   if (_nameError != null)
-//                     Text(
-//                       _nameError!,
-//                       style: TextStyle(color: Colors.red, fontSize: 12),
-//                     ),
-//                   SizedBox(height: AppSize.s8),
-//                   // Text(
-//                   //   'Type of the Document',
-//                   //   style: GoogleFonts.firaSans(
-//                   //     fontSize: FontSize.s12,
-//                   //     fontWeight: FontWeight.w700,
-//                   //     color: ColorManager.mediumgrey,
-//                   //   ),
-//                   // ),
-//                   HeaderContentConst(
-//                     heading: AppString.type_of_the_document,
-//                     content: Container(
-//                       width: 354,
-//                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-//                       decoration: BoxDecoration(
-//                         color: ColorManager.white,
-//                         borderRadius: BorderRadius.circular(4),
-//                         border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-//                       ),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Text(
-//                             widget.empdoctype,
-//                             style: CustomTextStylesCommon.commonStyle(
-//                               fontWeight: FontWeightManager.medium,
-//                               fontSize: FontSize.s12,
-//                               color: ColorManager.mediumgrey,
-//                             ),
-//                           ),
-//                           Icon(
-//                             Icons.arrow_drop_down,
-//                             color: Colors.transparent,
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//
-//                   SizedBox(height: 5),
-//                   Row(
-//                     children: [
-//                       HeaderContentConst(
-//                         heading: AppString.expiry_type,
-//                         content: Column(
-//                           mainAxisAlignment: MainAxisAlignment.start,
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             CustomRadioListTile(
-//                               value: AppConfig.notApplicable,
-//                               groupValue: selectedExpiryType,
-//                               onChanged: (value) {
-//                                 setState(() {
-//                                   selectedExpiryType = value!;
-//                                 });
-//                               },
-//                               title: AppConfig.notApplicable,
-//                             ),
-//                             CustomRadioListTile(
-//                               value: AppConfig.scheduled,
-//                               groupValue: selectedExpiryType,
-//                               onChanged: (value) {
-//                                 setState(() {
-//                                   selectedExpiryType = value!;
-//                                 });
-//                               },
-//                               title: AppConfig.scheduled,
-//                             ),
-//                             CustomRadioListTile(
-//                               value: AppConfig.issuer,
-//                               groupValue: selectedExpiryType,
-//                               onChanged: (value) {
-//                                 setState(() {
-//                                   selectedExpiryType = value!;
-//                                 });
-//                               },
-//                               title: AppConfig.issuer,
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.only(
-//                           left: AppPadding.p20,
-//                           right: AppPadding.p20,
-//                         ),
-//                         child: Visibility(
-//                           visible: selectedExpiryType == AppConfig.scheduled,
-//                           child: Column(
-//                             children: [
-//                               SizedBox(
-//                                 height: 10,
-//                               ),
-//                               Row(
-//                                 children: [
-//                                   Container(
-//                                     height: 30,
-//                                     width: 50,
-//                                     //color: ColorManager.red,
-//                                     child: TextFormField(
-//                                       controller:
-//                                       daysController, // Use the controller initialized with "1"
-//                                       cursorColor: ColorManager.black,
-//                                       cursorWidth: 1,
-//                                       style: GoogleFonts.firaSans(
-//                                         fontSize: FontSize.s10,
-//                                         fontWeight: FontWeightManager.medium,
-//                                         color: ColorManager.mediumgrey,
-//                                       ),
-//                                       decoration: InputDecoration(
-//                                         enabledBorder: OutlineInputBorder(
-//                                           borderSide: BorderSide(
-//                                               color: ColorManager.fmediumgrey,
-//                                               width: 2),
-//                                           borderRadius: BorderRadius.circular(8),
-//                                         ),
-//                                         focusedBorder: OutlineInputBorder(
-//                                           borderSide: BorderSide(
-//                                               color: ColorManager.fmediumgrey,
-//                                               width: 2),
-//                                           borderRadius: BorderRadius.circular(8),
-//                                         ),
-//                                         contentPadding:
-//                                         EdgeInsets.symmetric(horizontal: 10),
-//                                       ),
-//                                       keyboardType: TextInputType.number,
-//                                       inputFormatters: [
-//                                         FilteringTextInputFormatter
-//                                             .digitsOnly, // This ensures only digits are accepted
-//                                       ],
-//                                     ),
-//                                   ),
-//                                   SizedBox(width: 10),
-//                                   Container(
-//                                     height: 30,
-//                                     width: 80,
-//                                     padding: EdgeInsets.symmetric(horizontal: 5),
-//                                     decoration: BoxDecoration(
-//                                       border:
-//                                       Border.all(color: ColorManager.fmediumgrey),
-//                                       borderRadius: BorderRadius.circular(8),
-//                                     ),
-//                                     child: DropdownButtonFormField<String>(
-//                                       value:
-//                                       selectedYear, // Initial value (you should define this variable)
-//                                       items: [
-//                                         DropdownMenuItem(
-//                                           value: AppConfig.year,
-//                                           child: Text(
-//                                             AppConfig.year,
-//                                             style: GoogleFonts.firaSans(
-//                                               fontSize: FontSize.s10,
-//                                               fontWeight: FontWeightManager.medium,
-//                                               color: ColorManager.mediumgrey,
-//                                             ),
-//                                           ),
-//                                         ),
-//                                         DropdownMenuItem(
-//                                           value: AppConfig.month,
-//                                           child: Text(
-//                                             AppConfig.month,
-//                                             style: GoogleFonts.firaSans(
-//                                               fontSize: FontSize.s10,
-//                                               fontWeight: FontWeightManager.medium,
-//                                               color: ColorManager.mediumgrey,
-//                                             ),
-//                                           ),
-//                                         ),
-//                                       ],
-//                                       onChanged: (value) {
-//                                         setState(() {
-//                                           selectedYear =
-//                                               value; // Update the selected option (Year/Month)
-//                                         });
-//                                       },
-//                                       decoration: InputDecoration(
-//                                         enabledBorder: InputBorder.none,
-//                                         focusedBorder: InputBorder.none,
-//                                         hintText: AppConfig.year,
-//                                         hintStyle: GoogleFonts.firaSans(
-//                                           fontSize: FontSize.s10,
-//                                           fontWeight: FontWeightManager.medium,
-//                                           color: ColorManager.mediumgrey,
-//                                         ),
-//                                         contentPadding: EdgeInsets.only(bottom: 20),
-//                                       ),
-//                                       icon: Icon(
-//                                         Icons.arrow_drop_down,
-//                                         color: ColorManager.black,
-//                                         size: 16,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ],
-//             bottomButtons: _isLoading
-//                 ? SizedBox(
-//                     width: 25,
-//                     height: 25,
-//                     child: CircularProgressIndicator(
-//                       color: ColorManager.blueprime,
-//                     ),
-//                   )
-//                 : Center(
-//                     child: Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: CustomElevatedButton(
-//                         width: AppSize.s105,
-//                         height: AppSize.s30,
-//                         text: AppStringEM.save,
-//                         onPressed: () async {
-//                           () async {
-//                             setState(() {
-//                               _isLoading = true;
-//                             });
-//                             try {
-//                               String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-//                                   ? "Not Applicable"
-//                                   : dateController.text;
-//                               int threshold = 0;
-//                               String? expiryDateToSend = "";
-//                               if (selectedExpiryType == AppConfig.scheduled &&
-//                                   daysController.text.isNotEmpty) {
-//                                 int enteredValue = int.parse(
-//                                     daysController.text);
-//                                 if (selectedYear == AppConfig.year) {
-//                                   threshold = enteredValue * 365;
-//                                 } else if (selectedYear == AppConfig.month) {
-//                                   threshold = enteredValue * 30;
-//                                 }
-//                                 expiryDateToSend =widget.calenderController.text;
-//                               } else if (selectedExpiryType ==
-//                                   AppConfig.notApplicable ||
-//                                   selectedExpiryType == AppConfig.issuer) {
-//                                 threshold = 0;
-//                                 expiryDateToSend = null;
-//                               }
-//                               await editEmployeeDocTypeSetupId(
-//                                   context,
-//                                   widget.empsetupId,
-//                                   widget.docname,
-//                                   // docName == docNamecontroller.text ? docName.toString() : docNamecontroller.text,
-//                                   "",
-//                                   selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : widget.expiryType.toString(),
-//                                   widget.idOfDocController,
-//                                   idOfDocController.text,
-//
-//
-//                                    widget.empdoctype,
-//                                   selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : widget.expiryType.toString(),
-//                                   threshold
-//                               );
-//
-//                             } finally {
-//                               setState(() {
-//                                 _isLoading = false;
-//                               });
-//
-//                               Navigator.pop(context);
-//
-//                             }
-//                           };
-//                           Container(
-//                             width: 354,
-//                             padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-//                             decoration: BoxDecoration(
-//                               color: ColorManager.white,
-//                               borderRadius: BorderRadius.circular(8),
-//                               border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-//                             ),
-//                             child:Text(widget.empdoctype)
-//                           );
-//                         }),
-//                     ),
-//                   ),
-//           title: widget.title,
-//         );
-//   }
-// }
-
-
-
 class EmpDocEditPopup extends StatefulWidget {
   final TextEditingController idOfDocController;
   final TextEditingController nameDocController;
@@ -813,215 +424,214 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s530,
+      height: AppSize.s400,
       body: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SMTextFConst(
-              enable: widget.enable ?? true,
-              controller: idOfDocController,
-              keyboardType: TextInputType.text,
-              text: 'ID of the Document',
-            ),
-            if (_idError != null)
-              Text(
-                _idError!,
-                style: TextStyle(color: Colors.red, fontSize: 10),
+        Padding(
+          padding: const EdgeInsets.only(left: 4.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SMTextFConst(
+                enable: widget.enable ?? true,
+                controller: idOfDocController,
+                keyboardType: TextInputType.text,
+                text: 'ID of the Document',
               ),
-            SizedBox(height: AppSize.s8),
-            FirstSMTextFConst(
-              controller: nameDocController,
-              keyboardType: TextInputType.text,
-              text: 'Name of the Document',
-            ),
-            if (_nameError != null)
-              Text(
-                _nameError!,
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ),
-            SizedBox(height: AppSize.s8),
-            HeaderContentConst(
-              heading: AppString.type_of_the_document,
-              content: Container(
-                width: 354,
-                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+              if (_idError != null)
+                Text(
+                  _idError!,
+                  style: TextStyle(color: Colors.red, fontSize: 10),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.empdoctype,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
+              SizedBox(height: AppSize.s8),
+              FirstSMTextFConst(
+                controller: nameDocController,
+                keyboardType: TextInputType.text,
+                text: 'Name of the Document',
+              ),
+              if (_nameError != null)
+                Text(
+                  _nameError!,
+                  style: TextStyle(color: Colors.red, fontSize: 12),
+                ),
+              SizedBox(height: AppSize.s8),
+              HeaderContentConst(
+                heading: AppString.type_of_the_document,
+                content: Container(
+                  width: 354,
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.empdoctype,
+                        style: DocumentTypeDataStyle.customTextStyle(context)
                       ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.transparent,
-                    ),
-                  ],
+                      Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.transparent,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 5),
-            // Row(
-            //   children: [
-            //     HeaderContentConst(
-            //       heading: AppString.expiry_type,
-            //       content: Column(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           CustomRadioListTile(
-            //             value: AppConfig.notApplicable,
-            //             groupValue: selectedExpiryType,
-            //             onChanged: (value) {
-            //               setState(() {
-            //                 selectedExpiryType = value!;
-            //               });
-            //             },
-            //             title: AppConfig.notApplicable,
-            //           ),
-            //           CustomRadioListTile(
-            //             value: AppConfig.scheduled,
-            //             groupValue: selectedExpiryType,
-            //             onChanged: (value) {
-            //               setState(() {
-            //                 selectedExpiryType = value!;
-            //               });
-            //             },
-            //             title: AppConfig.scheduled,
-            //           ),
-            //           CustomRadioListTile(
-            //             value: AppConfig.issuer,
-            //             groupValue: selectedExpiryType,
-            //             onChanged: (value) {
-            //               setState(() {
-            //                 selectedExpiryType = value!;
-            //               });
-            //             },
-            //             title: AppConfig.issuer,
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     Padding(
-            //       padding: const EdgeInsets.only(left: AppPadding.p20, right: AppPadding.p20),
-            //       child: Visibility(
-            //         visible: selectedExpiryType == AppConfig.scheduled,
-            //         child: Column(
-            //           children: [
-            //             SizedBox(height: 10),
-            //             Row(
-            //               children: [
-            //                 Container(
-            //                   height: 30,
-            //                   width: 50,
-            //                   child: TextFormField(
-            //                     controller: daysController,
-            //                     cursorColor: ColorManager.black,
-            //                     cursorWidth: 1,
-            //                     style: GoogleFonts.firaSans(
-            //                       fontSize: FontSize.s10,
-            //                       fontWeight: FontWeightManager.medium,
-            //                       color: ColorManager.mediumgrey,
-            //                     ),
-            //                     decoration: InputDecoration(
-            //                       enabledBorder: OutlineInputBorder(
-            //                         borderSide: BorderSide(
-            //                             color: ColorManager.fmediumgrey,
-            //                             width: 2),
-            //                         borderRadius: BorderRadius.circular(8),
-            //                       ),
-            //                       focusedBorder: OutlineInputBorder(
-            //                         borderSide: BorderSide(
-            //                             color: ColorManager.fmediumgrey,
-            //                             width: 2),
-            //                         borderRadius: BorderRadius.circular(8),
-            //                       ),
-            //                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
-            //                     ),
-            //                     keyboardType: TextInputType.number,
-            //                     inputFormatters: [
-            //                       FilteringTextInputFormatter.digitsOnly,
-            //                     ],
-            //                   ),
-            //                 ),
-            //                 SizedBox(width: 10),
-            //                 Container(
-            //                   height: 30,
-            //                   width: 80,
-            //                   padding: EdgeInsets.symmetric(horizontal: 5),
-            //                   decoration: BoxDecoration(
-            //                     border: Border.all(color: ColorManager.fmediumgrey),
-            //                     borderRadius: BorderRadius.circular(8),
-            //                   ),
-            //                   child: DropdownButtonFormField<String>(
-            //                     value: selectedYear,
-            //                     items: [
-            //                       DropdownMenuItem(
-            //                         value: AppConfig.year,
-            //                         child: Text(
-            //                           AppConfig.year,
-            //                           style: GoogleFonts.firaSans(
-            //                             fontSize: FontSize.s10,
-            //                             fontWeight: FontWeightManager.medium,
-            //                             color: ColorManager.mediumgrey,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                       DropdownMenuItem(
-            //                         value: AppConfig.month,
-            //                         child: Text(
-            //                           AppConfig.month,
-            //                           style: GoogleFonts.firaSans(
-            //                             fontSize: FontSize.s10,
-            //                             fontWeight: FontWeightManager.medium,
-            //                             color: ColorManager.mediumgrey,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ],
-            //                     onChanged: (value) {
-            //                       setState(() {
-            //                         selectedYear = value;
-            //                       });
-            //                     },
-            //                     decoration: InputDecoration(
-            //                       enabledBorder: InputBorder.none,
-            //                       focusedBorder: InputBorder.none,
-            //                       hintText: AppConfig.year,
-            //                       hintStyle: GoogleFonts.firaSans(
-            //                         fontSize: FontSize.s10,
-            //                         fontWeight: FontWeightManager.medium,
-            //                         color: ColorManager.mediumgrey,
-            //                       ),
-            //                       contentPadding: EdgeInsets.only(bottom: 20),
-            //                     ),
-            //                     icon: Icon(
-            //                       Icons.arrow_drop_down,
-            //                       color: ColorManager.black,
-            //                       size: 16,
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-          ],
+              SizedBox(height: 5),
+              // Row(
+              //   children: [
+              //     HeaderContentConst(
+              //       heading: AppString.expiry_type,
+              //       content: Column(
+              //         mainAxisAlignment: MainAxisAlignment.start,
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           CustomRadioListTile(
+              //             value: AppConfig.notApplicable,
+              //             groupValue: selectedExpiryType,
+              //             onChanged: (value) {
+              //               setState(() {
+              //                 selectedExpiryType = value!;
+              //               });
+              //             },
+              //             title: AppConfig.notApplicable,
+              //           ),
+              //           CustomRadioListTile(
+              //             value: AppConfig.scheduled,
+              //             groupValue: selectedExpiryType,
+              //             onChanged: (value) {
+              //               setState(() {
+              //                 selectedExpiryType = value!;
+              //               });
+              //             },
+              //             title: AppConfig.scheduled,
+              //           ),
+              //           CustomRadioListTile(
+              //             value: AppConfig.issuer,
+              //             groupValue: selectedExpiryType,
+              //             onChanged: (value) {
+              //               setState(() {
+              //                 selectedExpiryType = value!;
+              //               });
+              //             },
+              //             title: AppConfig.issuer,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     Padding(
+              //       padding: const EdgeInsets.only(left: AppPadding.p20, right: AppPadding.p20),
+              //       child: Visibility(
+              //         visible: selectedExpiryType == AppConfig.scheduled,
+              //         child: Column(
+              //           children: [
+              //             SizedBox(height: 10),
+              //             Row(
+              //               children: [
+              //                 Container(
+              //                   height: 30,
+              //                   width: 50,
+              //                   child: TextFormField(
+              //                     controller: daysController,
+              //                     cursorColor: ColorManager.black,
+              //                     cursorWidth: 1,
+              //                     style: GoogleFonts.firaSans(
+              //                       fontSize: FontSize.s10,
+              //                       fontWeight: FontWeightManager.medium,
+              //                       color: ColorManager.mediumgrey,
+              //                     ),
+              //                     decoration: InputDecoration(
+              //                       enabledBorder: OutlineInputBorder(
+              //                         borderSide: BorderSide(
+              //                             color: ColorManager.fmediumgrey,
+              //                             width: 2),
+              //                         borderRadius: BorderRadius.circular(8),
+              //                       ),
+              //                       focusedBorder: OutlineInputBorder(
+              //                         borderSide: BorderSide(
+              //                             color: ColorManager.fmediumgrey,
+              //                             width: 2),
+              //                         borderRadius: BorderRadius.circular(8),
+              //                       ),
+              //                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              //                     ),
+              //                     keyboardType: TextInputType.number,
+              //                     inputFormatters: [
+              //                       FilteringTextInputFormatter.digitsOnly,
+              //                     ],
+              //                   ),
+              //                 ),
+              //                 SizedBox(width: 10),
+              //                 Container(
+              //                   height: 30,
+              //                   width: 80,
+              //                   padding: EdgeInsets.symmetric(horizontal: 5),
+              //                   decoration: BoxDecoration(
+              //                     border: Border.all(color: ColorManager.fmediumgrey),
+              //                     borderRadius: BorderRadius.circular(8),
+              //                   ),
+              //                   child: DropdownButtonFormField<String>(
+              //                     value: selectedYear,
+              //                     items: [
+              //                       DropdownMenuItem(
+              //                         value: AppConfig.year,
+              //                         child: Text(
+              //                           AppConfig.year,
+              //                           style: GoogleFonts.firaSans(
+              //                             fontSize: FontSize.s10,
+              //                             fontWeight: FontWeightManager.medium,
+              //                             color: ColorManager.mediumgrey,
+              //                           ),
+              //                         ),
+              //                       ),
+              //                       DropdownMenuItem(
+              //                         value: AppConfig.month,
+              //                         child: Text(
+              //                           AppConfig.month,
+              //                           style: GoogleFonts.firaSans(
+              //                             fontSize: FontSize.s10,
+              //                             fontWeight: FontWeightManager.medium,
+              //                             color: ColorManager.mediumgrey,
+              //                           ),
+              //                         ),
+              //                       ),
+              //                     ],
+              //                     onChanged: (value) {
+              //                       setState(() {
+              //                         selectedYear = value;
+              //                       });
+              //                     },
+              //                     decoration: InputDecoration(
+              //                       enabledBorder: InputBorder.none,
+              //                       focusedBorder: InputBorder.none,
+              //                       hintText: AppConfig.year,
+              //                       hintStyle: GoogleFonts.firaSans(
+              //                         fontSize: FontSize.s10,
+              //                         fontWeight: FontWeightManager.medium,
+              //                         color: ColorManager.mediumgrey,
+              //                       ),
+              //                       contentPadding: EdgeInsets.only(bottom: 20),
+              //                     ),
+              //                     icon: Icon(
+              //                       Icons.arrow_drop_down,
+              //                       color: ColorManager.black,
+              //                       size: 16,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
         ),
       ],
       bottomButtons: _isLoading

@@ -176,13 +176,6 @@ class _HrWidgetState extends State<HrWidget> {
                                           AppStringEM.clinical,
                                           textAlign: TextAlign.center,
                                           style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
-                                          // GoogleFonts.firaSans(
-                                          //   fontSize: 12,
-                                          //   fontWeight: FontWeightManager.semiBold,
-                                          //   color: _selectedIndex == 0
-                                          //       ? ColorManager.mediumgrey
-                                          //       : ColorManager.white,
-                                          // ),
                                         ),
                                       ),
                                       onTap: () {
@@ -271,7 +264,6 @@ class _HrWidgetState extends State<HrWidget> {
                                     // docMetaId,
                                     typeController.text,
                                     color,
-
                                     shorthandController.text
                                 );
                                 getAllHrDeptWise(context,deptId).then((data){
@@ -290,7 +282,7 @@ class _HrWidgetState extends State<HrWidget> {
                                 });
                               },
 
-                              title: 'Add Employee',
+                              title: AppStringEM.addEmp,
                               child: FutureBuilder<List<HRHeadBar>>(
                                   future: companyHRHeadApi(context,deptId),
                                   builder: (context,snapshot) {
@@ -471,12 +463,8 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     padding: const EdgeInsets.only(right: 10.0),
                     child: Text(AppStringEM.srno,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
-                            fontSize: AppSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white)
-                        // style: RegisterTableHead.customTextStyle(context),
-                        ),
+                        style:AllHRTableHeading.customTextStyle(context),
+                    )
                   ),
                 ),
                 Expanded(
@@ -485,11 +473,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     child: Center(
                       child: Text(AppStringEM.employee,
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                              fontSize: AppSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white)
-                          // style: RegisterTableHead.customTextStyle(context),
+                        style:AllHRTableHeading.customTextStyle(context),
                           ),
                     ),
                   ),
@@ -499,11 +483,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     padding: const EdgeInsets.only(right: 80.0),
                     child: Center(
                       child: Text(AppStringEM.abbrevation,
-                          style: GoogleFonts.firaSans(
-                              fontSize: AppSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white)
-                          // style: RegisterTableHead.customTextStyle(context),
+                        style:AllHRTableHeading.customTextStyle(context),
                           ),
                     ),
                   ),
@@ -513,11 +493,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     padding: const EdgeInsets.only(right: 80.0),
                     child: Center(
                         child: Text(AppStringEM.color,
-                            style: GoogleFonts.firaSans(
-                                fontSize: AppSize.s12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white)
-                            // style: RegisterTableHead.customTextStyle(context),
+                          style:AllHRTableHeading.customTextStyle(context),
                             )),
                   ),
                 ),
@@ -527,11 +503,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     padding: const EdgeInsets.only(right: 100.0),
                     child: Center(
                         child: Text(AppStringEM.action,
-                            style: GoogleFonts.firaSans(
-                                fontSize: AppSize.s12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white)
-                            // style: RegisterTableHead.customTextStyle(context),
+                          style:AllHRTableHeading.customTextStyle(context),
                             )),
                   ),
                 ),
@@ -560,11 +532,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     return Center(
                       child: Text(
                               ErrorMessageString.noEmpType,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                              ),
+                              style: DocumentTypeDataStyle.customTextStyle(context)
                             )
                     );
                   }
@@ -621,12 +589,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                               child: Text(
                                             formattedSerialNumber,
                                             // snapshot.data![index].name.toString(),
-                                            style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                                ),
+                                            style: DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
@@ -637,12 +600,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                           child: Center(
                                               child: Text(
                                             hrdoc.empType!,
-                                            style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                                ),
+                                            style: DocumentTypeDataStyle.customTextStyle(context)
                                           )),
                                         ),
 
@@ -652,12 +610,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                           child: Center(
                                               child: Text(
                                             hrdoc.abbrivation!,
-                                            style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                                ),
+                                            style: DocumentTypeDataStyle.customTextStyle(context)
                                           )),
                                         ),
 
@@ -744,8 +697,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                         _saveColor(index, seletedColor);
                                                                       });
                                                                     },
-                                                                    title: 'Edit Employee Type',
-
+                                                                    title: EditPopupString.editEmptype,
                                                                     child: Container(
                                                                       width: 354,
                                                                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
@@ -759,29 +711,17 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                         children: [
                                                                           snapshot.data!.deptId == AppConfig.clinicalId
                                                                               ? Text(
-                                                                            'Clinical',
-                                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                              fontWeight: FontWeightManager.medium,
-                                                                              fontSize: FontSize.s12,
-                                                                              color: ColorManager.mediumgrey,
-                                                                            ),
+                                                                            AppStringEM.clinical,
+                                                                            style: DocumentTypeDataStyle.customTextStyle(context)
                                                                           )
                                                                               : snapshot.data!.deptId == AppConfig.salesId
                                                                               ? Text(
-                                                                            "Sales",
-                                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                              fontWeight: FontWeightManager.medium,
-                                                                              fontSize: FontSize.s12,
-                                                                              color: ColorManager.mediumgrey,
-                                                                            ),
+                                                                            AppStringEM.sales,
+                                                                            style: DocumentTypeDataStyle.customTextStyle(context)
                                                                           )
                                                                               :  Text(
-                                                                            'Administration',
-                                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                              fontWeight: FontWeightManager.medium,
-                                                                              fontSize: FontSize.s12,
-                                                                              color: ColorManager.mediumgrey,
-                                                                            ),
+                                                                            AppStringEM.administration,
+                                                                            style: DocumentTypeDataStyle.customTextStyle(context)
                                                                           ),
                                                                           Icon(
                                                                             Icons.arrow_drop_down,
@@ -796,9 +736,8 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                     },
                                                     icon: Icon(
                                                       Icons.edit_outlined,
-                                                      size: 18,
-                                                      color: ColorManager
-                                                          .bluebottom,
+                                                      size: IconSize.I18,
+                                                      color: IconColorManager.bluebottom,
                                                     )),
                                                 SizedBox(
                                                   width: 3,
@@ -815,7 +754,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                         builder: (context) =>
                                                             DeletePopup(
                                                                 title:
-                                                                    'Delete Employee Type',
+                                                                    DeletePopupString.deleteEmpType,
                                                                 onCancel: () {
                                                                   Navigator.pop(
                                                                       context);
@@ -833,9 +772,9 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                 }));
                                                   },
                                                   icon: Icon(
-                                                    size: 18,
+                                                    size: IconSize.I18,
                                                     Icons.delete_outline_outlined,
-                                                    color: Color(0xffF6928A),
+                                                    color: IconColorManager.red,
                                                   ),
                                                 ),
                                               ],

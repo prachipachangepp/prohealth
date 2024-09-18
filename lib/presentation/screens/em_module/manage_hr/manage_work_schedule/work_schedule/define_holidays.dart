@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -74,13 +76,13 @@ class _DefineHolidaysState extends State<DefineHolidays> {
             child: CustomIconButtonConst(
                 width: 170,
                 icon: Icons.add,
-                text: "Add New Holiday", onPressed: (){
+                text: AddPopupString.addNewHoliday, onPressed: (){
                   holidayNameController.clear();
                   calenderController.clear();
               showDialog(context: context, builder: (BuildContext context){
                 return AddHolidayPopup(
                   btnTitle: "Add holiday",
-                  title: 'Add New Holiday',
+                  title: AddPopupString.addNewHoliday,
                   controller: holidayNameController,
                   onPressed: () async{
                   await addHolidaysPost(context,
@@ -100,7 +102,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
           Container(
             height: 30,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: ColorManager.fmediumgrey,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Padding(
@@ -112,53 +114,33 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   Expanded(
                     child: Center(
                       child: Text(
-                        'Sr No.',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        ),
+                          AppStringEM.srno,
+                        style: AllHRTableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
       //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                   Expanded(
                     child: Center(
-                      child: Text('Holiday Name',
+                      child: Text(AppStringEM.holidayName,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          )),
+                          style: AllHRTableHeading.customTextStyle(context)),
                     ),
                   ),
                   Expanded(
                     child: Center(
                       child: Text(
-                        'Date',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        ),
+                          AppStringEM.date,
+                        style:AllHRTableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
 
                   Expanded(
                     child: Center(
-                      child: Text('Actions',
+                      child: Text(AppStringEM.actions,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          )),
+                          style: AllHRTableHeading.customTextStyle(context)),
                     ),
                   ),
                 ],
@@ -183,11 +165,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   return Center(
                     child: Text(
                     ErrorMessageString.noHoliday,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style: DocumentTypeDataStyle.customTextStyle(context)
                     ),
                   );
                 }
@@ -239,12 +217,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                   child: Text(
                                                     formattedSerialNumber,
                                                     // formattedSerialNumber,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Color(0xff686464),
-                                                      decoration: TextDecoration.none,
-                                                    ),
+                                                    style: DocumentTypeDataStyle.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
@@ -254,12 +227,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                   child: Text(
                                                     defineData.holidayName,
                                                     textAlign: TextAlign.center,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Color(0xff686464),
-                                                      decoration: TextDecoration.none,
-                                                    ),
+                                                    style: DocumentTypeDataStyle.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
@@ -268,12 +236,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                   child: Text(
                                                     defineData.date.toString(),
                                                     textAlign: TextAlign.center,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Color(0xff686464),
-                                                      decoration: TextDecoration.none,
-                                                    ),
+                                                    style: DocumentTypeDataStyle.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
@@ -303,7 +266,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                     calenderController = TextEditingController(text: snapshotPrefill.data?.date);
                                                                     return AddHolidayPopup(
                                                                       btnTitle: "Save Changes",
-                                                                      title: 'Edit Holiday',
+                                                                      title: EditPopupString.editholiday,
                                                                       controller:
                                                                           holidayNameController,
                                                                       calenderDateController:
@@ -332,8 +295,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                         },
                                                         icon: Icon(
                                                           Icons.edit_outlined,
-                                                          size: 18,
-                                                          color: ColorManager.blueprime,
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager.bluebottom,
                                                         )),
                                                     IconButton(
                                                         splashColor: Colors.transparent,
@@ -346,7 +309,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                   StatefulBuilder(
                                                                     builder: (BuildContext context, void Function(void Function()) setState) {
                                                                       return DeletePopup(
-                                                                          title: 'Delete Holidays',
+                                                                          title: DeletePopupString.deleteholiday,
                                                                           loadingDuration: _isLoading,
                                                                           onCancel: () {
                                                                             Navigator.pop(
@@ -384,8 +347,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color: ColorManager.red,
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager.red,
                                                         )),
                                                   ],
                                                 ),

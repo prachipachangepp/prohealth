@@ -46,7 +46,7 @@ class ThemeManagerBold {
       //color: Color(0xFF686464),
       color: Colors.black,
       //fontWeight: FontWeight.w400,
-      fontWeight: FontWeightManager.medium,
+      fontWeight: FontWeight.w500,
     );
   }
 }
@@ -80,7 +80,7 @@ class ThemeManagerLightblue {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xff2B647F),
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -178,7 +178,7 @@ class ProfileBarConstText {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s10,
       color: ColorManager.mediumgrey,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -188,7 +188,7 @@ class ProfileBarLastColText {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s10,
       color: ColorManager.bluelight,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -198,7 +198,7 @@ class ProfileBarClipText {
     return GoogleFonts.firaSans(
       fontSize: MediaQuery.of(context).size.width / 140,
       color: ColorManager.white,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -224,7 +224,7 @@ class MenuScreenHeadStyle {
     return GoogleFonts.firaSans(
         color: ColorManager.darkgrey,
         fontSize: 14.0,
-        fontWeight: FontWeightManager.bold);
+        fontWeight: FontWeight.w700);
   }
 }
 
@@ -234,7 +234,7 @@ class EmailTextStyle {
     return GoogleFonts.firaSans(
       color: Color(0xff000000).withOpacity(0.3),
       fontSize: FontSize.s14,
-      fontWeight: FontWeightManager.lightbold,
+      fontWeight: FontWeight.w300,
     );
   }
 }
@@ -246,7 +246,7 @@ class CodeVerficationText {
       color: ColorManager.darkgrey,
      // fontSize: FontSize.s10,
       fontSize: FontSize.s14,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -257,7 +257,7 @@ class MobileMenuText {
     return GoogleFonts.firaSans(
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight:FontWeight.w600,
     );
   }
 }

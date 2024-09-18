@@ -4,6 +4,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 
@@ -67,7 +68,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
             padding: const EdgeInsets.only(left: AppPadding.p20),
             child: Text('Pick a Color',style: GoogleFonts.firaSans(
                 fontSize: FontSize.s14,
-                fontWeight: FontWeightManager.bold,
+                fontWeight:FontWeight.w700,
                 color: ColorManager.blueprime
               // color: isSelected ? Colors.white : Colors.black,
             ),),
@@ -136,12 +137,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context)
                     ),
                   ),
                   IconButton(

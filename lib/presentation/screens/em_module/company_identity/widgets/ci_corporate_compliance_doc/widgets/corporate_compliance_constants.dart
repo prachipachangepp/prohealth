@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -255,12 +256,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                 Expanded(
                   child: Text(
                     _selectedValue ?? '',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context)
                   ),
                 ),
                 Padding(

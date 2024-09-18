@@ -49,6 +49,7 @@ class AppStringEM{
   static const String abbrevation = 'Abbreviation';
   static const String color = 'Color';
   static const String action = 'Actions';
+  static const String addEmp = 'Add Employee';
 
   ///sm hr clinical
   static const String licensevocnurse = 'license Vocational Nurse';
@@ -83,7 +84,7 @@ class AppStringEM{
   static const String capReport = "CAP Reports";
   static const String qbr = "Quarterly Balance Reports";
 
-  static const String leases = "Leases";
+  static const String leases = "Leases & Services";
   static const String snf = "SNF";
   static const String dme = "DME";
   static const String md = "MD";
@@ -94,6 +95,21 @@ class AppStringEM{
   ///work schedule
   static const String shiftbatch = "Shift & Batches";
   static const String defineHoliday = "Define Holidays";
+  static const String holidayName = 'Holiday Name';
+  static const String date = 'Date';
+  static const String officeStartTime = 'Office Start Time';
+  static const String officeEndTime = 'Office End Time';
+  static const String endTime = 'Office End Time';
+  static const String startTime = 'Office End Time';
+
+  ///Emp doc
+  static const String health = "Health";
+  static const String certifications = "Certifications";
+  static const String employment = "Employment";
+  static const String clinicalVerify = "Clinical Verification";
+  static const String acknowledgement = "Acknowledgement";
+  static const String compensation = "Compensation";
+  static const String performance = "Performance";
 }
 
 class ErrorMessageString{
@@ -139,11 +155,15 @@ class ErrorMessageString{
 }
 ///edit
 class EditPopupString{
+  static const String editEmptype = 'Edit Employee Type';
+  static const String editDocument = 'Edit Document';
+  static const String editholiday = 'Edit Holiday';
+
   static const String editPolicy = 'Edit Policies Procedure';
   static const String editLicenses = 'Edit Licenses';
   static const String editAdr = 'Edit ADR';
   static const String editMCR = 'Edit Medical Cost Reports';
-  static const String editCap = 'Edit Cap Reports';
+  static const String editCap = 'Edit CAP Reports';
   static const String editQBR = 'Edit Quarterly Balance Report';
   ///vendor contract
   static const String editLeases = 'Edit Leases & Services';
@@ -153,6 +173,12 @@ class EditPopupString{
   static const String editMISC = 'Edit MISC';
 }
 class DeletePopupString{
+  static const String deleteEmpType = 'Delete Employee Type';
+  static const String deleteDocument =  'Delete Document';
+  static const String deleteholiday =   'Delete Holidays';
+  static const String deleteworkShift = 'Delete Work Shift';
+  static const String deleteworkWeek = 'Delete Work Weeks';
+  ///corporate & policies
   static const String deletePolicy = 'Delete Policies Procedure';
   static const String deleteLicenses = 'Delete Licenses';
   static const String deleteAdr = 'Delete ADR';
@@ -169,6 +195,7 @@ class DeletePopupString{
 
 class AddPopupString{
   static const String addDocType = 'Add Doctype';
+  static const String addNewHoliday = "Add New Holiday";
   static const String addPolicy = 'Add Policies & Procedures';
   static const String addCorporate = 'Add Corporate & Compliance';
   static const String addVendor= 'Add Vendor Contract';

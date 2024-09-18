@@ -119,7 +119,7 @@ class AppString {
   static const String genbdate = "09-234-0976";
   static const String education = "Education";
   static const String referance = "Referance";
-  static const String license = "License";
+  static const String license = "Licenses";
   static const String emp1 = "Employment #1";
   static const String emp2 = "Employment #2";
   static const String finalposition = "Final Position Title";

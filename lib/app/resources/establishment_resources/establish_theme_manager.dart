@@ -86,15 +86,16 @@ class AllHRTableData {
 
 
 ///document defination
-// class DocDefination {
-//   static TextStyle customTextStyle(BuildContext context) {
-//     return GoogleFonts.firaSans(
-//       fontSize: FontSize.s10,
-//       fontWeight: FontWeightManager.medium,
-//       color: ColorManager.mediumgrey,
-//     );
-//   }
-// }
+class DefineWorkWeekStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 
 // class RadioButtonHeadStyle {
 //   static TextStyle customTextStyle(BuildContext context) {

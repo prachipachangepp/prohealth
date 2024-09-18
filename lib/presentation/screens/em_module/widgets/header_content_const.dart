@@ -22,7 +22,7 @@ class HeaderContentConst extends StatelessWidget {
             heading,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s12,
-              fontWeight: FontWeightManager.bold,
+              fontWeight: FontWeight.w700,
               color: ColorManager.textPrimaryColor,
             ),
           ),
