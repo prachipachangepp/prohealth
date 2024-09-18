@@ -232,7 +232,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 14,
-                                        fontWeight: FontWeightManager.bold,
+                                        fontWeight: FontWeight.w700,
                                         color: ColorManager.darkgrey,
                                       ),
                                     ),
