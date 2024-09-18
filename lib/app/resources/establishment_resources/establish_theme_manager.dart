@@ -100,6 +100,7 @@ class DocumentTypeDataStyle {
     );
   }
 }
+
 ///document definition
 class DocDefineTableData {
   static TextStyle customTextStyle(BuildContext context) {
