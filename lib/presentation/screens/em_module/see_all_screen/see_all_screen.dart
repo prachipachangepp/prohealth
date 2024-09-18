@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart'
 import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
 
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
@@ -20,28 +21,7 @@ import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
-import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
-
-import '../../../../app/resources/color.dart';
-import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
-import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
-import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
-import '../../../widgets/establishment_text_const/text_widget_const.dart';
-import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
-import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 class SeeAllScreen extends StatefulWidget {
   const SeeAllScreen({super.key});
 
@@ -51,7 +31,7 @@ class SeeAllScreen extends StatefulWidget {
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
   final StreamController<List<CompanyModel>> _controller =
-  StreamController<List<CompanyModel>>();
+      StreamController<List<CompanyModel>>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController userIdController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -61,7 +41,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   TextEditingController companyIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final StreamController<List<UserModal>> _companyUsersList =
-  StreamController<List<UserModal>>();
+      StreamController<List<UserModal>>();
   final PageController _pageController = PageController();
 
   // late int currentPage;
@@ -174,7 +154,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   int? firstDeptId;
   String? selectedDeptName;
   int? selectedDeptId;
-
   // String? selectedDeptName;
   // int? selectedDeptId;
   @override
@@ -185,13 +164,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       backgroundColor: ColorManager.white,
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery
-                .of(context)
-                .size
-                .width / 24),
+            horizontal: MediaQuery.of(context).size.width / 24),
         child: Column(
           children: [
-
             ///Create User Button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -256,29 +231,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   return Container(
                                     alignment: Alignment.center,
                                     child:
-                                    HRManageDropdown(
-                                        controller:
-                                        TextEditingController(
-                                            text: selectedDeptName ??
-                                                ''),
-                                        labelText:
-                                        "Select Department",
-                                        labelStyle:
-                                        GoogleFonts
-                                            .firaSans(
-                                          fontSize:
-                                          12,
-                                          fontWeight:
-                                          FontWeight
-                                              .w500,
-                                          color: ColorManager
-                                              .mediumgrey,
-                                        ),
-                                        labelFontSize:
-                                        12,
-                                        items:
-                                        ['Clinical', 'Sales','Administration']
-                                    ) , // Display a loading indicator
+                                        loadingText, // Display a loading indicator
                                   );
                                 }
                                 if (snapshot.hasData &&
@@ -287,7 +240,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     child: Text(
                                       ErrorMessageString.noroleAdded,
                                       style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         fontSize: FontSize.s12,
                                         color: ColorManager.mediumgrey,
                                       ),
@@ -301,9 +254,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       .map((dept) => dept.deptName!)
                                       .toList();
                                   String? firstDeptName =
-                                  snapshot.data!.isNotEmpty
-                                      ? snapshot.data![0].deptName
-                                      : null;
+                                      snapshot.data!.isNotEmpty
+                                          ? snapshot.data![0].deptName
+                                          : null;
                                   int? firstDeptId = snapshot.data!.isNotEmpty
                                       ? snapshot.data![0].deptId
                                       : null;
@@ -320,7 +273,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     labelText: "Select Department",
                                     labelStyle: GoogleFonts.firaSans(
                                       fontSize: 12,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                     labelFontSize: 12,
@@ -340,6 +293,72 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 return const SizedBox(); // Return an empty widget in case of no data
                               },
                             ),
+                            // FutureBuilder<List<HRHeadBar>>(
+                            //   future: companyHRHeadApi(context, deptId),
+                            //   builder: (context, snapshot) {
+                            //     if (snapshot.connectionState ==
+                            //         ConnectionState.waiting) {
+                            //       return Container(
+                            //         // width: 180,
+                            //         // height: 30,
+                            //         alignment: Alignment.center,
+                            //         child: loadingText,
+                            //       );
+                            //     }
+                            //     if (snapshot.hasData && snapshot.data!.isEmpty) {
+                            //       return Center(
+                            //         child: Text(
+                            //           ErrorMessageString.noroleAdded,
+                            //           style: CustomTextStylesCommon.commonStyle(
+                            //             fontWeight: FontWeightManager.medium,
+                            //             fontSize: FontSize.s12,
+                            //             color: ColorManager.mediumgrey,
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }
+                            //     if (snapshot.hasData) {
+                            //       List<DropdownMenuItem<String>>
+                            //       dropDownServiceList = [];
+                            //       for (var dept in snapshot.data!) {
+                            //         dropDownServiceList.add(
+                            //           DropdownMenuItem<String>(
+                            //             value: dept.deptName,
+                            //             child: Text(dept.deptName ?? ''),
+                            //           ),
+                            //         );
+                            //       }
+                            //       if (dropDownServiceList.isNotEmpty) {
+                            //         firstDeptId = snapshot.data![0].deptId;
+                            //       }
+                            //
+                            //       if (selectedDeptName == null &&
+                            //           dropDownServiceList.isNotEmpty) {
+                            //         selectedDeptName =
+                            //             dropDownServiceList[0].value;
+                            //         selectedDeptId = firstDeptId;
+                            //       }
+                            //
+                            //       return CICCDropdown(
+                            //         width: 300,
+                            //         initialValue: selectedDeptName,
+                            //         onChange: (val) {
+                            //           setState(() {
+                            //             selectedDeptName = val;
+                            //             for (var dept in snapshot.data!) {
+                            //               if (dept.deptName == val) {
+                            //                 selectedDeptId =
+                            //                     dept.deptId;
+                            //               }
+                            //             }
+                            //           });
+                            //         },
+                            //         items: dropDownServiceList,
+                            //       );
+                            //     }
+                            //     return const SizedBox();
+                            //   },
+                            // ),
                           );
                         },
                       );
@@ -355,40 +374,33 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               children: [
                 Container(
                   height: AppSize.s30,
-                  // margin: EdgeInsets.symmetric(horizontal: 50),
+                  //margin: EdgeInsets.symmetric(horizontal: 50),
                   decoration: BoxDecoration(
                     color: ColorManager.fmediumgrey,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 100.0),
-                            child: const Text(
+                            padding: const EdgeInsets.only(left: 90),
+                            child:  Text(
                               AppString.srNo,
-                              style: TextStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: Colors.white,
-                              ),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 65.0),
+                            padding: const EdgeInsets.only(left: 60.0),
                             child: Text(
                               "User ID",
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -398,10 +410,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               AppString.fname,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -412,10 +421,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             child: Text(
                               AppString.lname,
                               textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -423,10 +429,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           flex: 2,
                           child: Text(
                             AppString.role,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.white),
+                            style:AllHRTableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
@@ -434,10 +437,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           child: Text(
                             AppString.email,
                             textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.white),
+                            style:AllHRTableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
@@ -447,11 +447,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             child: Text(
                               AppString.actions,
                               textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
-                            ),
+                              style:AllHRTableHeading.customTextStyle(context),)
                           ),
                         ),
                       ],
@@ -478,7 +474,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         ErrorMessageString.noUser, // "No Data!",
                         style: TextStyle(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
                       ),
@@ -503,14 +499,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               int serialNumber =
                                   index + 1 + (currentPage - 1) * itemsPerPage;
                               String formattedSerialNumber =
-                              serialNumber.toString().padLeft(2, '0');
+                                  serialNumber.toString().padLeft(2, '0');
                               UserModal user = paginatedData[index];
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(height: 5),
                                   Container(
-                                     margin: EdgeInsets.symmetric(horizontal: 30),
+                                    //margin: EdgeInsets.symmetric(horizontal: 50),
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
@@ -530,25 +526,25 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     height: AppSize.s56,
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width /
-                                              40),
+                                          horizontal: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              50),
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Expanded(
                                             flex: 1,
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
+                                              // style: GoogleFonts.firaSans(
+                                              //   fontSize: FontSize.s10,
+                                              //   fontWeight:
+                                              //       FontWeightManager.bold,
+                                              //   color: ColorManager.granitegray,
+                                              // ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -557,12 +553,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
+                                              // style: GoogleFonts.firaSans(
+                                              //   fontSize: FontSize.s10,
+                                              //   fontWeight:
+                                              //       FontWeightManager.bold,
+                                              //   color: ColorManager.granitegray,
+                                              // ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
@@ -570,12 +567,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.firstName,
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
+                                              // style: GoogleFonts.firaSans(
+                                              //   fontSize: FontSize.s10,
+                                              //   fontWeight:
+                                              //       FontWeightManager.bold,
+                                              //   color: ColorManager.granitegray,
+                                              // ),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
@@ -586,13 +584,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.lastName,
                                                 textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight:
-                                                  FontWeightManager.bold,
-                                                  color:
-                                                  ColorManager.granitegray,
-                                                ),
+                                                // style: GoogleFonts.firaSans(
+                                                //   fontSize: FontSize.s10,
+                                                //   fontWeight:
+                                                //       FontWeightManager.bold,
+                                                //   color:
+                                                //       ColorManager.granitegray,
+                                                // ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                           ),
@@ -604,13 +603,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.role,
                                                 textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight:
-                                                  FontWeightManager.bold,
-                                                  color:
-                                                  ColorManager.granitegray,
-                                                ),
+                                                // style: GoogleFonts.firaSans(
+                                                //   fontSize: FontSize.s10,
+                                                //   fontWeight:
+                                                //       FontWeightManager.bold,
+                                                //   color:
+                                                //       ColorManager.granitegray,
+                                                // ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                           ),
@@ -622,40 +622,51 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight:
-                                                  FontWeightManager.bold,
-                                                  color:
-                                                  ColorManager.granitegray,
-                                                ),
+                                                // style: GoogleFonts.firaSans(
+                                                //   fontSize: FontSize.s10,
+                                                //   fontWeight:
+                                                //       FontWeightManager.bold,
+                                                //   color:
+                                                //       ColorManager.granitegray,
+                                                // ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                           ),
+                                          // Expanded(
+                                          //   flex: 2,
+                                          //   child: Text(
+                                          //     user.companyId.toString(),
+                                          //     textAlign: TextAlign.center,
+                                          //     style: GoogleFonts.firaSans(
+                                          //       fontSize: FontSize.s10,
+                                          //       fontWeight:
+                                          //           FontWeightManager.bold,
+                                          //       color: ColorManager.granitegray,
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           Expanded(
                                             flex: 1,
                                             child: Row(
                                               children: [
-
                                                 /// Edit button
                                                 InkWell(
                                                   child: Container(
                                                     height:
-                                                    MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .height /
-                                                        30,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            30,
                                                     width:
-                                                    MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .width /
-                                                        25,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            25,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          10),
+                                                          BorderRadius.circular(
+                                                              10),
                                                       border: Border.all(
                                                           color: ColorManager
                                                               .bluebottom),
@@ -665,9 +676,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                         "Edit",
                                                         style: GoogleFonts
                                                             .firaSans(
-                                                            fontSize:
-                                                            FontSize
-                                                                .s10),
+                                                                fontSize:
+                                                                    FontSize
+                                                                        .s10),
                                                       ),
                                                     ),
                                                   ),
@@ -675,105 +686,157 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     showDialog(
                                                       context: context,
                                                       builder: (BuildContext
-                                                      context) {
-                                                        return FutureBuilder<UserModalPrefill>(
-                                                          future: getUserPrefill(context, user.userId),
-                                                          builder: (context, snapshotPrefill) {
-                                                            if (snapshotPrefill.connectionState ==
-                                                                ConnectionState.waiting) {
+                                                          context) {
+                                                        return FutureBuilder<
+                                                            UserModalPrefill>(
+                                                          future:
+                                                              getUserPrefill(
+                                                                  context,
+                                                                  user.userId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
                                                               return Center(
                                                                 child: CircularProgressIndicator(
                                                                     color: ColorManager
                                                                         .blueprime),
                                                               );
                                                             }
-                                                            userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString() ?? "0");
-                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName ?? " ");
-                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName ?? "");
-                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email ?? " ");
-                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString() ?? "0");
+                                                            // userIdController =
+                                                            //     TextEditingController(
+                                                            //         text: snapshotPrefill
+                                                            //                 .data!
+                                                            //                 .userId
+                                                            //                 .toString() ??
+                                                            //             "0");
+                                                            firstNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                            .data!
+                                                                            .firstName ??
+                                                                        " ");
+                                                            lastNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                            .data!
+                                                                            .lastName ??
+                                                                        "");
+                                                            emailController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                            .data!
+                                                                            .email ??
+                                                                        " ");
+                                                            companyIdController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                            .data!
+                                                                            .companyId
+                                                                            .toString() ??
+                                                                        "0");
                                                             return EditUserPopUp(
                                                               title:
-                                                              "Edit User ",
+                                                                  "Edit User ",
                                                               userIdController:
-                                                              userIdController,
+                                                                  userIdController,
                                                               lastNameController:
-                                                              lastNameController,
+                                                                  lastNameController,
                                                               emailController:
-                                                              emailController,
+                                                                  emailController,
                                                               firstNameController:
-                                                              firstNameController,
+                                                                  firstNameController,
                                                               roleController:
-                                                              roleController,
+                                                                  roleController,
                                                               companyIdController:
-                                                              companyIdController,
+                                                                  companyIdController,
                                                               onSubmit:
                                                                   () async {
                                                                 await updateUserPatch(
-                                                                  context: context,
-                                                                  userId: user.userId,
-                                                                  firstName: firstNameController.text,
-                                                                  lastName: lastNameController.text,
-                                                                  deptId: selectedDeptId ?? snapshotPrefill.data!.deptId,
-                                                                  email: emailController.text,
+                                                                  context:
+                                                                      context,
+                                                                  userId: user
+                                                                      .userId,
+                                                                  firstName:
+                                                                      firstNameController
+                                                                          .text,
+                                                                  lastName:
+                                                                      lastNameController
+                                                                          .text,
+                                                                  deptId: selectedDeptId ??
+                                                                      snapshotPrefill
+                                                                          .data!
+                                                                          .deptId,
+                                                                  email:
+                                                                      emailController
+                                                                          .text,
                                                                 );
-                                                                getUser(context).then((data) {_companyUsersList.add(data);
-                                                                }).catchError((error) {});
-                                                                Navigator.pop(context);
-                                                                firstNameController.clear();
-                                                                lastNameController.clear();
-                                                                roleController.clear();
-                                                                emailController.clear();
-                                                                companyIdController.clear();
+                                                                getUser(context)
+                                                                    .then(
+                                                                        (data) {
+                                                                  _companyUsersList
+                                                                      .add(
+                                                                          data);
+                                                                }).catchError(
+                                                                        (error) {
+                                                                  // Handle error
+                                                                });
+                                                                Navigator.pop(
+                                                                    context);
+                                                                firstNameController
+                                                                    .clear();
+                                                                lastNameController
+                                                                    .clear();
+                                                                roleController
+                                                                    .clear();
+                                                                emailController
+                                                                    .clear();
+                                                                companyIdController
+                                                                    .clear();
                                                               },
                                                               // passwordController: passwordController,
                                                               ///Role
                                                               child: FutureBuilder<
-                                                                  List<HRHeadBar>>(
-                                                                future: companyHRHeadApi(context, deptId),
-                                                                builder: (context, snapshot) {
-                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                  List<
+                                                                      HRHeadBar>>(
+                                                                future:
+                                                                    companyHRHeadApi(
+                                                                        context,
+                                                                        deptId),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  if (snapshot
+                                                                          .connectionState ==
+                                                                      ConnectionState
+                                                                          .waiting) {
                                                                     return Container(
-                                                                      alignment: Alignment.center,
-                                                                      child: HRManageDropdown(controller: TextEditingController(
-                                                                              text: selectedDeptName ?? ''),
-                                                                          labelText: "Select Department",
-                                                                          labelStyle: GoogleFonts.firaSans(
-                                                                            fontSize: 12,
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                            color: ColorManager
-                                                                                .mediumgrey,
-                                                                          ),
-                                                                          labelFontSize:
-                                                                          12,
-                                                                          items:
-                                                                          ['Clinical', 'Sales','Administration']
-                                                                      ), // Display a loading indicator
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child:
+                                                                          loadingText, // Display a loading indicator
                                                                     );
                                                                   }
                                                                   if (snapshot
-                                                                      .hasData &&
+                                                                          .hasData &&
                                                                       snapshot
                                                                           .data!
                                                                           .isEmpty) {
                                                                     return Center(
                                                                       child:
-                                                                      Text(
+                                                                          Text(
                                                                         ErrorMessageString
                                                                             .noroleAdded,
                                                                         style: CustomTextStylesCommon
                                                                             .commonStyle(
                                                                           fontWeight:
-                                                                          FontWeightManager
-                                                                              .medium,
+                                                                          FontWeight.w500,
                                                                           fontSize:
-                                                                          FontSize
-                                                                              .s12,
+                                                                              FontSize.s12,
                                                                           color:
-                                                                          ColorManager
-                                                                              .mediumgrey,
+                                                                              ColorManager.mediumgrey,
                                                                         ),
                                                                       ),
                                                                     );
@@ -781,33 +844,27 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   if (snapshot
                                                                       .hasData) {
                                                                     List<String>
-                                                                    dropDownServiceList =
-                                                                    snapshot
-                                                                        .data!
-                                                                        .map((
-                                                                        dept) =>
-                                                                    dept
-                                                                        .deptName)
-                                                                        .toList();
+                                                                        dropDownServiceList =
+                                                                        snapshot
+                                                                            .data!
+                                                                            .map((dept) =>
+                                                                                dept.deptName)
+                                                                            .toList();
                                                                     String? firstDeptName = snapshot
-                                                                        .data!
-                                                                        .isNotEmpty
-                                                                        ? snapshot
-                                                                        .data![0]
-                                                                        .deptName ??
-                                                                        ""
+                                                                            .data!
+                                                                            .isNotEmpty
+                                                                        ? snapshot.data![0].deptName ??
+                                                                            ""
                                                                         : " ";
                                                                     int? firstDeptId = snapshot
-                                                                        .data!
-                                                                        .isNotEmpty
-                                                                        ? snapshot
-                                                                        .data![0]
-                                                                        .deptId ??
-                                                                        0
+                                                                            .data!
+                                                                            .isNotEmpty
+                                                                        ? snapshot.data![0].deptId ??
+                                                                            0
                                                                         : 0;
 
                                                                     if (selectedDeptName ==
-                                                                        null &&
+                                                                            null &&
                                                                         dropDownServiceList
                                                                             .isNotEmpty) {
                                                                       selectedDeptName =
@@ -817,53 +874,41 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     }
                                                                     return HRManageDropdown(
                                                                       controller:
-                                                                      TextEditingController(
-                                                                          text: selectedDeptName ??
-                                                                              ''),
+                                                                          TextEditingController(
+                                                                              text: selectedDeptName ?? ''),
                                                                       labelText:
-                                                                      "Select Department",
+                                                                          "Select Department",
                                                                       labelStyle:
-                                                                      GoogleFonts
-                                                                          .firaSans(
+                                                                          GoogleFonts
+                                                                              .firaSans(
                                                                         fontSize:
-                                                                        12,
+                                                                            12,
                                                                         fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
+                                                                            FontWeight.w500,
                                                                         color: ColorManager
                                                                             .mediumgrey,
                                                                       ),
                                                                       labelFontSize:
-                                                                      12,
+                                                                          12,
                                                                       items:
-                                                                      dropDownServiceList,
+                                                                          dropDownServiceList,
                                                                       onChanged:
-                                                                          (
-                                                                          val) {
+                                                                          (val) {
                                                                         for (var a
-                                                                        in snapshot
-                                                                            .data!) {
-                                                                          if (a
-                                                                              .deptName ==
+                                                                            in snapshot.data!) {
+                                                                          if (a.deptName ==
                                                                               val) {
                                                                             selectedDeptName =
                                                                                 val;
                                                                             selectedDeptId =
-                                                                                snapshot
-                                                                                    .data!
-                                                                                    .firstWhere((
-                                                                                    dept) =>
-                                                                                dept
-                                                                                    .deptName ==
-                                                                                    val)
-                                                                                    .deptId;
+                                                                                snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
                                                                           }
                                                                         }
                                                                         setState(
-                                                                                () {
-                                                                              print(
-                                                                                  "deptID :::::::${selectedDeptId}");
-                                                                            });
+                                                                            () {
+                                                                          print(
+                                                                              "deptID :::::::${selectedDeptId}");
+                                                                        });
                                                                       },
                                                                     );
                                                                   }
@@ -886,52 +931,46 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       context: context,
                                                       builder: (context) =>
                                                           DeletePopup(
-                                                            title: 'Delete User',
-                                                            onCancel: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            onDelete: () {
-                                                              setState(() async {
-                                                                await deleteUser(
-                                                                    context,
-                                                                    user
-                                                                        .userId);
-                                                                getUser(context)
-                                                                    .then((
-                                                                    data) {
-                                                                  _companyUsersList
-                                                                      .add(
-                                                                      data);
-                                                                }).catchError(
-                                                                        (
-                                                                        error) {
-                                                                      // Handle error
-                                                                    });
-                                                                Navigator.pop(
-                                                                    context);
-                                                              });
-                                                            },
-                                                          ),
+                                                        title: 'Delete User',
+                                                        onCancel: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        onDelete: () {
+                                                          setState(() async {
+                                                            await deleteUser(
+                                                                context,
+                                                                user.userId);
+                                                            getUser(context)
+                                                                .then((data) {
+                                                              _companyUsersList
+                                                                  .add(data);
+                                                            }).catchError(
+                                                                    (error) {
+                                                              // Handle error
+                                                            });
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                        },
+                                                      ),
                                                     );
                                                   },
                                                   child: Container(
                                                     height:
-                                                    MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .height /
-                                                        30,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            30,
                                                     width:
-                                                    MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .width /
-                                                        25,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            25,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          10),
+                                                          BorderRadius.circular(
+                                                              10),
                                                       border: Border.all(
                                                           color: ColorManager
                                                               .bluebottom),
@@ -941,9 +980,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                         AppString.delete,
                                                         style: GoogleFonts
                                                             .firaSans(
-                                                            fontSize:
-                                                            FontSize
-                                                                .s10),
+                                                                fontSize:
+                                                                    FontSize
+                                                                        .s10),
                                                       ),
                                                     ),
                                                   ),
@@ -967,7 +1006,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           onPreviousPagePressed: () {
                             setState(() {
                               currentPage =
-                              currentPage > 1 ? currentPage - 1 : 1;
+                                  currentPage > 1 ? currentPage - 1 : 1;
                             });
                           },
                           onPageNumberPressed: (pageNumber) {

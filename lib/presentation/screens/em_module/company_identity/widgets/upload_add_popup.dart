@@ -130,7 +130,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     cursorColor: ColorManager.black,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       color: ColorManager.mediumgrey,
                     ),
                     decoration: InputDecoration(
@@ -147,7 +147,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       hintText: 'MM-DD-YYYY',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         color: ColorManager.mediumgrey,
                       ),
                       border: OutlineInputBorder(
@@ -213,7 +213,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           fileName,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeight.w500,
                             color: ColorManager.mediumgrey,
                           ),
                         ),

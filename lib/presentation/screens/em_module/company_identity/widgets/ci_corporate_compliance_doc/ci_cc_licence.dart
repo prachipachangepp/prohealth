@@ -124,7 +124,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                       child: Text(
                         ErrorMessageString.noLicenses,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -158,6 +158,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                     serialNumber.toString().padLeft(2, '0');
                                 MCorporateComplianceModal manageCCLicence =
                                     paginatedData[index];
+
+
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -202,8 +204,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //IconButton(onPressed: (){},
                                                     // icon: Icon(Icons.remove_red_eye_outlined,
                                                     // size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s50),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -214,8 +215,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       children: [
                                                         Text(
                                                           // "ID : ${manageCCLicence.idOfDoc.toString()}",
-                                                          "ID : ${manageCCLicence.orgDocumentSetupid.toString()}",
-
+                                                          "ID : ${manageCCLicence.orgDocumentSetupid}",
                                                           textAlign:
                                                               TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
@@ -251,8 +251,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -273,9 +273,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -333,7 +333,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
                                                                       title:
-                                                                          'Edit Licenses',
+                                                                          EditPopupString.editLicenses,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -372,12 +372,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon:  Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -403,7 +399,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                          DeletePopupString.deleteLicenses,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -440,10 +436,11 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
+                                                          size: IconSize.I18,
                                                           color:
-                                                              ColorManager.red,
-                                                        )),
+                                                          IconColorManager.red,
+                                                        ),
+                                                    ),
                                                   ],
                                                 ),
                                               ],

@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -131,7 +132,7 @@ class _CiSnfState extends State<CiSnf> {
                       child: Text(
                         ErrorMessageString.noSNF,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -219,7 +220,7 @@ class _CiSnfState extends State<CiSnf> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${snfData.orgDocumentSetupid.toString()}",
+                                                          "ID : ${snfData.orgDocumentSetupid}",
                                                           //snfData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -251,8 +252,8 @@ class _CiSnfState extends State<CiSnf> {
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -272,12 +273,12 @@ class _CiSnfState extends State<CiSnf> {
                                                                 "SNF.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon: Icon(
+                                                      icon:Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -342,7 +343,7 @@ class _CiSnfState extends State<CiSnf> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit SNF',
+                                                                      EditPopupString.editSNF ,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -375,12 +376,8 @@ class _CiSnfState extends State<CiSnf> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -407,7 +404,7 @@ class _CiSnfState extends State<CiSnf> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                          DeletePopupString.deleteSNF ,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -444,9 +441,7 @@ class _CiSnfState extends State<CiSnf> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          size:IconSize.I18,color: IconColorManager.red,
                                                         )),
                                                     // IconButton(
                                                     //   onPressed: () {

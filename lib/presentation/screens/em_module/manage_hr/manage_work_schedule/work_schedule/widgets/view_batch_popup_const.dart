@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -11,6 +12,8 @@ import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_we
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_batch_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class ViewBatchesPopup extends StatefulWidget {
   final String shiftName;
@@ -69,7 +72,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                             padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
                             child: Text("Batches",style: GoogleFonts.firaSans(
                               fontSize: FontSize.s16,
-                              fontWeight: FontWeightManager.bold,
+                              fontWeight: FontWeight.w700,
                               color: ColorManager.white,
                               decoration: TextDecoration.none,
                             ),),
@@ -98,11 +101,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                               child: Center(
                                 child: Text(
                                   "No available batches!",
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.mediumgrey,
-                                  ),
+                                  style: DocumentTypeDataStyle.customTextStyle(context)
                                 ),
                               ),
                             );
@@ -131,49 +130,30 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                           Expanded(
                                             child: Center(
                                               child: Text(
-                                                'Sr No.',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration.none,
-                                                ),
+                                                AppStringEM.srno,
+                                                style: AllHRTableHeading.customTextStyle(context)
                                               ),
                                             ),
                                           ),
                                           //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                                           Expanded(
                                             child: Center(
-                                              child: Text('Start Time',textAlign: TextAlign.start,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white,
-                                                    decoration: TextDecoration.none,
-                                                  )),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text('End Time',textAlign: TextAlign.start,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white,
-                                                    decoration: TextDecoration.none,
-                                                  )),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text('Actions',
+                                              child: Text( AppStringEM.startTime,
                                                   textAlign: TextAlign.start,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white,
-                                                    decoration: TextDecoration.none,
-                                                  )),
+                                                  style: AllHRTableHeading.customTextStyle(context)),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text( AppStringEM.endTime,textAlign: TextAlign.start,
+                                                  style: AllHRTableHeading.customTextStyle(context)),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text( AppStringEM.actions,
+                                                  textAlign: TextAlign.start,
+                                                  style: AllHRTableHeading.customTextStyle(context)),
                                             ),
                                           ),
                                         ],

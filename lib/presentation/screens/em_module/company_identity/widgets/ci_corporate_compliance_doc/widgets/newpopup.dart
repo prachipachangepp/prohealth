@@ -105,7 +105,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s13,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -133,7 +133,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                     AppString.type_of_the_document,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight:FontWeight.w700,
                       color: ColorManager.mediumgrey,
                       //decoration: TextDecoration.none,
                     ),
@@ -149,7 +149,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                         AppString.upload_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.textPrimaryColor,
                         ),
                       ),
@@ -182,7 +182,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                                 fileName,
                                 style: GoogleFonts.firaSans(
                                   fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.regular,
+                                  fontWeight: FontWeight.w400,
                                   color: ColorManager.lightgreyheading,
                                 ),
                               ),

@@ -13,6 +13,7 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagina
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -125,7 +126,7 @@ class _CiDmeState extends State<CiDme> {
                       child: Text(
                         ErrorMessageString.noDME,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -201,9 +202,7 @@ class _CiDmeState extends State<CiDme> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                      width: 50,
-                                                    ),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -213,7 +212,7 @@ class _CiDmeState extends State<CiDme> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${dmeData.orgDocumentSetupid.toString()}",
+                                                          "ID : ${dmeData.orgDocumentSetupid}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           // style: GoogleFonts
                                                           //     .firaSans(
@@ -265,10 +264,10 @@ class _CiDmeState extends State<CiDme> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -288,12 +287,12 @@ class _CiDmeState extends State<CiDme> {
                                                                 "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -358,7 +357,7 @@ class _CiDmeState extends State<CiDme> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit DME',
+                                                                      EditPopupString.editDME ,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -391,12 +390,8 @@ class _CiDmeState extends State<CiDme> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -423,7 +418,7 @@ class _CiDmeState extends State<CiDme> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete DME',
+                                                                          DeletePopupString.deleteDME  ,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -458,11 +453,9 @@ class _CiDmeState extends State<CiDme> {
                                                                     },
                                                                   ));
                                                         },
-                                                        icon: Icon(
+                                                        icon:  Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          size:IconSize.I18,color: IconColorManager.red,
                                                         )),
 
                                                     // IconButton(

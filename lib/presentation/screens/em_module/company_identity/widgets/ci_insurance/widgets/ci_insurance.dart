@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
@@ -176,15 +177,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                               children: [
                                 Text(
                                   "Vendor",
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: _selectedIndex == 0
-                                        ? FontWeightManager.bold
-                                        : FontWeightManager.regular,
-                                    color: _selectedIndex == 0
-                                        ? ColorManager.blueprime
-                                        : ColorManager.mediumgrey,
-                                  ),
+                                    style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
                                 ),
                                 _selectedIndex == 0
                                     ? Divider(
@@ -205,15 +198,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                               children: [
                                 Text(
                                   "Contract",
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: _selectedIndex == 1
-                                        ? FontWeightManager.bold
-                                        : FontWeightManager.regular,
-                                    color: _selectedIndex == 1
-                                        ? ColorManager.blueprime
-                                        : ColorManager.mediumgrey,
-                                  ),
+                                    style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
                                 ),
                                 _selectedIndex == 1
                                     ? Divider(

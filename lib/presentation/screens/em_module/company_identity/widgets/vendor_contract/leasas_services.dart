@@ -137,7 +137,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                       child: Text(
                         ErrorMessageString.noLeases,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -212,8 +212,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s10),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -223,7 +222,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${leasesData.orgDocumentSetupid.toString()}",
+                                                          "ID : ${leasesData.orgDocumentSetupid}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -255,10 +254,10 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -281,9 +280,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -348,7 +347,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit Leases & Services',
+                                                                      EditPopupString.editLeases,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -381,12 +380,8 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -413,7 +408,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                          DeletePopupString.deleteLeases,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -448,11 +443,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                     },
                                                                   ));
                                                         },
-                                                        icon: Icon(
+                                                        icon:  Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          size:IconSize.I18,color: IconColorManager.red,
                                                         )),
                                                     // IconButton(
                                                     //   onPressed: () {

@@ -167,7 +167,7 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                       "Version History",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -194,7 +194,7 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                   child: Text(
                     'No History Available',
                     style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight:FontWeight.w600,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey,
                     ),
@@ -212,7 +212,7 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                               ? "${DateFormat('yyyy-MM-dd').format(DateTime.parse(historyItem['doc_modified_at']))} at ${DateFormat('HH:mm').format(DateTime.parse(historyItem['doc_modified_at']))}"
                               : 'N/A'}",
                           style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeight.w500,
                             fontSize: FontSize.s12,
                             color: ColorManager.mediumgrey,
                           ),

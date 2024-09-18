@@ -130,7 +130,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                       child: Text(
                         ErrorMessageString.noCR,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -206,8 +206,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s50),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -217,7 +216,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${CapReports.orgDocumentSetupid.toString()}",
+                                                          "ID : ${CapReports.orgDocumentSetupid}",
                                                           //CapReports.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -251,8 +250,8 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -275,9 +274,9 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                       icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -342,7 +341,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit CAP Reports',
+                                                                      EditPopupString.editCap,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -375,12 +374,8 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon:  Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -407,7 +402,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                          DeletePopupString.deleteCap ,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -442,12 +437,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                     },
                                                                   ));
                                                         },
-                                                        icon: Icon(
-                                                          Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
-                                                        )),
+                                                        icon: Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                                   ],
                                                 ),
                                               ],

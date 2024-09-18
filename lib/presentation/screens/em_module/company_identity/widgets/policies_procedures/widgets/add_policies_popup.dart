@@ -53,7 +53,7 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -93,7 +93,7 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
                       Text('Type of the Document',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),

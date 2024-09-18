@@ -88,7 +88,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     child: Text(
                       'Failed to load data',
                       style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         fontSize: FontSize.s12,
                         color: ColorManager.red,
                       ),
@@ -100,7 +100,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     child: Text(
                       ErrorMessageString.noContract,
                       style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey,
                       ),
@@ -243,11 +243,8 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     },
                                                   );
                                                 },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 18,
-                                                  color: ColorManager.blueprime,
-                                                ),
+                                                icon: Icon(Icons.edit_outlined,
+                                                  size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
@@ -291,12 +288,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                       context);
                                                                 }));
                                                   },
-                                                  icon: Icon(
-                                                    Icons.delete_outline,
-                                                    size: 18,
-                                                    color:
-                                                    ColorManager.faintOrange,
-                                                  )),
+                                                  icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
 
                                             ],
                                           ),

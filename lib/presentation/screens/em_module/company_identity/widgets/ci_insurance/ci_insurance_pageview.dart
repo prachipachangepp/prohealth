@@ -62,8 +62,8 @@ class CiPageview extends StatelessWidget {
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: selectedIndex == entry.key
-                                ? FontWeightManager.bold
-                                : FontWeightManager.regular,
+                                ? FontWeight.w700
+                                : FontWeight.w400,
                             color:selectedIndex == entry.key
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,

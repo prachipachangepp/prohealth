@@ -52,7 +52,7 @@ class _CiVendorAddPopupState extends State<CiVendorAddPopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w500,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),

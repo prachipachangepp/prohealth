@@ -60,8 +60,8 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                           style:  GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 0?
-                            FontWeightManager.bold
-                                :FontWeightManager.semiBold,
+                            FontWeight.w700
+                                :FontWeight.w600,
                             color: _selectedIndex == 0
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,
@@ -85,8 +85,8 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                           style:  GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 1?
-                            FontWeightManager.bold
-                                :FontWeightManager.semiBold,
+                            FontWeight.w700
+                                :FontWeight.w600,
                             color: _selectedIndex == 1
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,
@@ -110,8 +110,8 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 2?
-                            FontWeightManager.bold
-                                :FontWeightManager.semiBold,
+                            FontWeight.w700
+                                :FontWeight.w600,
                             color: _selectedIndex == 2
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,

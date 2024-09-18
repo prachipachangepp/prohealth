@@ -199,7 +199,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                               cursorWidth: 1,
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                               ),
                               decoration: InputDecoration(
@@ -245,7 +245,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                     AppConfig.year,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),
@@ -256,7 +256,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                     AppConfig.month,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),
@@ -274,7 +274,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                 hintText: AppConfig.year,
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight:FontWeight.w500,
                                   color: ColorManager.mediumgrey,
                                 ),
                                 contentPadding: EdgeInsets.only(bottom: 20),
@@ -308,7 +308,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                           cursorColor: ColorManager.black,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeight.w500,
                             color: ColorManager.mediumgrey,
                           ),
                           decoration: InputDecoration(
@@ -325,7 +325,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                             hintText: 'MM-DD-YYYY',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                               color: ColorManager.mediumgrey,
                             ),
                             border: OutlineInputBorder(

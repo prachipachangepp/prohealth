@@ -2,6 +2,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
@@ -58,7 +59,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
             padding: const EdgeInsets.only(left: AppPadding.p20),
             child: Text('Pick a Color',style: GoogleFonts.firaSans(
                 fontSize: FontSize.s14,
-                fontWeight: FontWeightManager.bold,
+                fontWeight: FontWeight.w700,
                 color: ColorManager.blueprime
               // color: isSelected ? Colors.white : Colors.black,
             ),),
@@ -136,12 +137,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: AllHRTableHeading.customTextStyle(context)
                       ),
                     ),
                     IconButton(

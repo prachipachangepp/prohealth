@@ -131,7 +131,7 @@ class _CICCADRState extends State<CICCADR> {
                       child: Text(
                         ErrorMessageString.noADR,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -205,8 +205,7 @@ class _CICCADRState extends State<CICCADR> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                        width: AppSize.s50),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -216,7 +215,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${manageCCADR.orgDocumentSetupid.toString()}",
+                                                          "ID : ${manageCCADR.orgDocumentSetupid}",
                                                           // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -248,10 +247,10 @@ class _CICCADRState extends State<CICCADR> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -274,9 +273,9 @@ class _CICCADRState extends State<CICCADR> {
                                                       icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -334,7 +333,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
                                                                       title:
-                                                                          'Edit ADR',
+                                                                          EditPopupString.editAdr,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -373,12 +372,8 @@ class _CICCADRState extends State<CICCADR> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -404,7 +399,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete license',
+                                                                              DeletePopupString.deleteAdr,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -441,9 +436,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          size:IconSize.I18,color: IconColorManager.red,
                                                         )),
                                                   ],
                                                 ),

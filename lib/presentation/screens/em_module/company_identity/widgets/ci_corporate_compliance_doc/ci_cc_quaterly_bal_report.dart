@@ -12,6 +12,7 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -117,7 +118,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                       child: Text(
                         ErrorMessageString.noQBR,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -192,9 +193,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(
-                                                      width: 50,
-                                                    ),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -204,7 +203,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${balReport.idOfDocument}",
+                                                          "ID : ${balReport.orgDocumentSetupid}",
                                                           //balReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -235,10 +234,10 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon:Icon(
                                                         Icons.history,
-                                                        size: 18,
-                                                        color: ColorManager
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager
                                                             .bluebottom,
                                                       ),
                                                       splashColor:
@@ -260,12 +259,12 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                             "Quarterly Balance Report.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon: Icon(
+                                                      icon:  Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .blueprime),
+                                                          size: IconSize.I18,
+                                                          color: IconColorManager
+                                                              .bluebottom),
                                                       splashColor:
                                                       Colors.transparent,
                                                       highlightColor:
@@ -330,7 +329,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                                           .data!
                                                                           .expiry_date,
                                                                       title:
-                                                                          'Edit Quarterly Balance Report',
+                                                                      EditPopupString.editQBR ,
                                                                       loadingDuration:
                                                                           _isLoading,
                                                                       officeId:
@@ -363,12 +362,8 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                           },
                                                         );
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .bluebottom,
-                                                      ),
+                                                      icon: Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
                                                       highlightColor:
@@ -779,7 +774,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete Quarterly Report',
+                                                                          DeletePopupString.deleteQBR ,
                                                                           loadingDuration:
                                                                               _isLoading,
                                                                           onCancel:
@@ -815,7 +810,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                           Icons.delete_outline,
                                                           size: 18,
                                                           color:
-                                                              ColorManager.red,
+                                                          ColorManager.red,
                                                         )),
                                                   ],
                                                 ),

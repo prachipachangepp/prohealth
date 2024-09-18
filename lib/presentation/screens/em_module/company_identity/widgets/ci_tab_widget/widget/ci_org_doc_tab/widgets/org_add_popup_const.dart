@@ -91,7 +91,9 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height ?? AppSize.s560,
+      height: widget.subDocTypeId == AppConfig.subDocId10MISC
+          ? widget.height ?? AppSize.s522
+      :widget.height ??AppSize.s560,
       body: [
         /// ID of the Document
         SMTextFConst(
@@ -254,7 +256,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                               cursorWidth: 1,
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                               ),
                               decoration: InputDecoration(
@@ -300,7 +302,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                     AppConfig.year,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),
@@ -311,7 +313,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                     AppConfig.month,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),
@@ -329,7 +331,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                 hintText: AppConfig.year,
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight: FontWeight.w500,
                                   color: ColorManager.mediumgrey,
                                 ),
                                 contentPadding: EdgeInsets.only(bottom: 20),
@@ -666,7 +668,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                               cursorWidth: 1,
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                               ),
                               decoration: InputDecoration(
@@ -712,7 +714,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                                     AppConfig.year,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),
@@ -723,7 +725,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                                     AppConfig.month,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),
@@ -740,7 +742,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                                 hintText: AppConfig.year,
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight: FontWeight.w500,
                                   color: ColorManager.mediumgrey,
                                 ),
                                 contentPadding: EdgeInsets.only(bottom: 20),

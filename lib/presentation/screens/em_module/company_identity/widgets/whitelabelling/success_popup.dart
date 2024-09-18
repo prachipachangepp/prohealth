@@ -62,7 +62,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                     child: Text(
                       "Success",
                       style:CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           fontSize: FontSize.s14,
                           color: ColorManager.white
                       ),
@@ -91,7 +91,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                 width: AppSize.s210,
                 child: Text('Save Successfully \nThank You.',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey
                   ),),
@@ -160,7 +160,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                       "Success",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -182,7 +182,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                 width: AppSize.s210,
                 child: Text('Submitted Successfully \nThank You.',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
+                      fontWeight: FontWeight.w500,
                       fontSize: FontSize.s16,
                       color: ColorManager.mediumgrey
                   ),),
@@ -248,7 +248,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                       "Required",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -271,7 +271,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                 child: Center(
                   child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
                     style:GoogleFonts.firaSans(
-                        fontWeight: FontWeightManager.regular,
+                        fontWeight:FontWeight.w500,
                         fontSize: FontSize.s14,
                         color: ColorManager.mediumgrey
                     ),),
@@ -342,7 +342,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                       "Success",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -365,7 +365,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                 child: Center(
                   child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
                     style:GoogleFonts.firaSans(
-                        fontWeight: FontWeightManager.regular,
+                        fontWeight: FontWeight.w500,
                         fontSize: FontSize.s14,
                         color: ColorManager.mediumgrey
                     ),),
@@ -435,7 +435,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                       "Success",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -457,7 +457,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                 width: AppSize.s210,
                 child: Text('Save Successfully \nThank You.',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey
                   ),),

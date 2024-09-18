@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 
 typedef BackButtonCallBack = void Function(bool val);
@@ -94,7 +95,7 @@ class _ManageWidgetState extends State<ManageWidget> {
               ? Container(height: AppSize.s15)
               : Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p150, vertical: AppPadding.p20),
+                      horizontal: 130, vertical: AppPadding.p20),
                   child: Row(
                     children: [
                       Text(
@@ -124,7 +125,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       'Go Back',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                       ),
                     ),
@@ -157,15 +158,16 @@ class _ManageWidgetState extends State<ManageWidget> {
                             color: _selectedIndex == 0 ? Colors.white : null,
                           ),
                           child: Text(
-                            'Details',
+                              ManagaeButtonheading.details,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: AppSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 0
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(0, _selectedIndex)
+                            // style: GoogleFonts.firaSans(
+                            //   fontSize: AppSize.s12,
+                            //   fontWeight: FontWeightManager.semiBold,
+                            //   color: _selectedIndex == 0
+                            //       ? ColorManager.mediumgrey
+                            //       : ColorManager.white,
+                            // ),
                           ),
                         ),
                         onTap: () => _selectButton(0),
@@ -182,15 +184,10 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 : null,
                           ),
                           child: Text(
-                            'Zones',
+                              ManagaeButtonheading.zones,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 1
-                                  ? ColorManager.mediumgrey
-                                  : Colors.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(1, _selectedIndex)
+
                           ),
                         ),
                         onTap: () => _selectButton(1),
@@ -207,15 +204,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 : null,
                           ),
                           child: Text(
-                            'Corporate & Compliance',
+                              ManagaeButtonheading.cc,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 2
-                                  ? ColorManager.mediumgrey
-                                  : Colors.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(2, _selectedIndex)
                           ),
                         ),
                         onTap: () => _selectButton(2),
@@ -232,15 +223,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 : null,
                           ),
                           child: Text(
-                            'Insurance',
+                              ManagaeButtonheading.insurance,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 3
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(3, _selectedIndex)
                           ),
                         ),
                         onTap: () => _selectButton(3),
@@ -257,15 +242,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 : null,
                           ),
                           child: Text(
-                            'Vendor Contracts',
+                              ManagaeButtonheading.vc,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 4
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(4, _selectedIndex)
                           ),
                         ),
                         onTap: () => _selectButton(4),
@@ -282,15 +261,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 : null,
                           ),
                           child: Text(
-                            'Policies & Procedures',
+                              ManagaeButtonheading.pp,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 5
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(5, _selectedIndex)
                           ),
                         ),
                         onTap: () => _selectButton(5),
@@ -307,15 +280,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 : null,
                           ),
                           child: Text(
-                            'Templates',
+                              ManagaeButtonheading.templates,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.semiBold,
-                              color: _selectedIndex == 6
-                                  ? ColorManager.mediumgrey
-                                  : ColorManager.white,
-                            ),
+                              style: BlueBgTabbar.customTextStyle(6, _selectedIndex)
                           ),
                         ),
                         onTap: () => _selectButton(6),

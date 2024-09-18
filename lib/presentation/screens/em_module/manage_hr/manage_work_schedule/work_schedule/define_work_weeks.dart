@@ -19,6 +19,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+
 class DefineWorkWeek extends StatefulWidget {
   const DefineWorkWeek({super.key});
 
@@ -74,11 +76,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
               return Center(
                   child: Text(
                ErrorMessageString.noWorkWeek,
-                style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey),
-              ));
+                style: DefineWorkWeekStyle.customTextStyle(context)));
             }
             if (snapshot.hasData) {
               return SingleChildScrollView(
@@ -151,31 +149,17 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(left:AppPadding.p10),
+                                                padding: const EdgeInsets.only(left:AppPadding.p8),
                                                 child: Text(
-                                                  'Office Start Time',
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize:
-                                                        13,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: ColorManager.mediumgrey,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                  AppStringEM.officeStartTime,
+                                                  style: DefineWorkWeekStyle.customTextStyle(context)
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(right:AppPadding.p50),
+                                                padding: const EdgeInsets.only(right:AppPadding.p60),
                                                 child: Text(
-                                                  'Office End Time',
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize:
-                                                        13,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: ColorManager.mediumgrey,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                    AppStringEM.officeEndTime,
+                                                  style: DefineWorkWeekStyle.customTextStyle(context)
                                                 ),
                                               ),
                                             ],
@@ -214,25 +198,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 .circular(10)),
                                                     child: Center(
                                                       child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                         children: [
-                                                          Text(
-                                                              data
-                                                                  .officeStartTime,
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeightManager
-                                                                        .semiBold,
-                                                                color: ColorManager
-                                                                    .mediumgrey,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                              )),
+                                                          Text(data.officeStartTime,
+                                                              style: DefineWorkWeekStyle.customTextStyle(context)),
                                                           const Icon(
                                                             Icons
                                                                 .timer_outlined,
@@ -262,23 +231,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 .spaceEvenly,
                                                         children: [
                                                           Text(
-                                                              data
-                                                                  .officeEndTime,
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeightManager
-                                                                        .semiBold,
-                                                                color: ColorManager
-                                                                    .mediumgrey,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                              )),
+                                                              data.officeEndTime,
+                                                              style: DefineWorkWeekStyle.customTextStyle(context)),
                                                           const Icon(
-                                                              Icons
-                                                                  .timer_outlined,
+                                                              Icons.timer_outlined,
                                                               size: AppSize.s20)
                                                         ],
                                                       ),
@@ -311,7 +267,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                       (BuildContext
                                                                           context) {
                                                                     return DeletePopup(
-                                                                        title: 'Delete Work Weeks',
+                                                                        title: DeletePopupString.deleteworkWeek,
                                                                         onCancel:
                                                                             () {
                                                                           Navigator.pop(context);
@@ -393,14 +349,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                         return Center(
                                                             child: Text(
                                                         "No available shift!",
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                              fontWeight:
-                                                                  FontWeightManager
-                                                                      .medium,
-                                                              fontSize:
-                                                                  FontSize.s13,
-                                                              color: ColorManager
-                                                                  .mediumgrey),
+                                                          style: DefineWorkWeekStyle.customTextStyle(context)
                                                         ));
                                                       }
                                                       if (snapshotShift
@@ -446,7 +395,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                 snapshotShift.data![index].shiftName,
                                                                                 style: GoogleFonts.firaSans(
                                                                                   fontSize: 12,
-                                                                                  fontWeight: FontWeightManager.bold,
+                                                                                  fontWeight: FontWeight.w700,
                                                                                   color: ColorManager.mediumgrey,
                                                                                   decoration: TextDecoration.none,
                                                                                 ),
@@ -476,7 +425,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                     snapshot.data![index].officeStartTime,
                                                                                                     style: GoogleFonts.firaSans(
                                                                                                       fontSize: 12,
-                                                                                                      fontWeight: FontWeightManager.semiBold,
+                                                                                                      fontWeight: FontWeight.w600,
                                                                                                       color: ColorManager.mediumgrey,
                                                                                                       decoration: TextDecoration.none,
                                                                                                     ),
@@ -500,7 +449,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                               'View more',
                                                                                               style: GoogleFonts.firaSans(
                                                                                                 fontSize: 12,
-                                                                                                fontWeight: FontWeightManager.light,
+                                                                                                fontWeight:FontWeight.w300,
                                                                                                 color: ColorManager.faintgrey,
                                                                                                 decoration: TextDecoration.none,
                                                                                               ),
@@ -539,7 +488,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                     startTimeController.clear();
                                                                                                     endTimeController.clear();
                                                                                                     //Navigator.pop(context);
-                                                                                                  }, title: 'Add Batche',
+                                                                                                  }, title: 'Add Batch',
                                                                                                 );
                                                                                               });
                                                                                         },
@@ -567,26 +516,19 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 return StatefulBuilder(
                                                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                                                     return DeletePopup(
-                                                                                                        title: 'Delete Work Shift',
-                                                                                                        onCancel:
-                                                                                                            () {
-                                                                                                          Navigator.pop(context);
+                                                                                                        title: DeletePopupString.deleteworkShift,
+                                                                                                        onCancel: () {Navigator.pop(context);
                                                                                                         },
-                                                                                                        onDelete:
-                                                                                                            () async{
+                                                                                                        onDelete: () async{
                                                                                                           setState(() {
                                                                                                             _isLoading = true;
                                                                                                           });
                                                                                                           try {
                                                                                                             await deleteWorkWeekSiftSchedule(context: context, workWeekShiftId: snapshotShift.data![index].weekShiftScheduleId!);
                                                                                                             setState(() {
-                                                                                                               workWeekShiftScheduleGet(
-                                                                                                                  context,
-                                                                                                                  //snapshot.data![index].companyId,
-                                                                                                                  data.weekDays);
+                                                                                                               workWeekShiftScheduleGet(context, data.weekDays);
                                                                                                               Navigator.pop(context);
                                                                                                             });
-
                                                                                                           } finally {
                                                                                                             setState(() {
                                                                                                               _isLoading = false;
@@ -619,22 +561,15 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             ),
                                             const Spacer(),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8),
-                                              child: Align(
-                                                  alignment:
-                                                      Alignment.bottomRight,
-                                                  child:
-                                                      CustomeTransparentAddShift(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                                              child: Align(alignment: Alignment.bottomRight,
+                                                  child: CustomeTransparentAddShift(
                                                     text: 'Add Shift',
                                                     onPressed: () {
                                                       showDialog(context: context, builder: (BuildContext context){
                                                         return  AddShiftPopup(
-                                                          controller1:
-                                                          shiftStartTimeController,
-                                                          controller2:
-                                                          shiftEndTimeController,
+                                                          controller1: shiftStartTimeController,
+                                                          controller2: shiftEndTimeController,
                                                           onPressed: () async{
                                                             await addWorkWeekShiftPost(context,
                                                                 data.weekDays,
@@ -642,17 +577,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 shiftStartTimeController.text,
                                                                 shiftEndTimeController.text,
                                                                 );
-                                                            workWeekShiftScheduleGet(
-                                                                context,
-                                                                //snapshot.data![index].companyId,
-                                                                data.weekDays);
+                                                            workWeekShiftScheduleGet(context, data.weekDays);
                                                             workWeekScheduleGet(context).then((data) {
                                                               workWeekController.add(data);
                                                             }).catchError((error) {
                                                               // Handle error
                                                             });
                                                           },
-
                                                           shiftNameController:
                                                           shiftnameController,
                                                         );
@@ -674,19 +605,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                         }),
                       ),
                     ),
-                    // const SizedBox(
-                    //   height: AppSize.s40,
-                    // ),
-                    // Center(
-                    //   child: CustomElevatedButton(
-                    //     width: AppSize.s105,
-                    //     height: AppSize.s30,
-                    //     text: AppStringEM.save,
-                    //     onPressed: () {
-                    //       // Navigator.pop(context);
-                    //     },
-                    //   ),
-                    // ),
                   ],
                 ),
               );

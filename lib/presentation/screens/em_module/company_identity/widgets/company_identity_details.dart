@@ -406,7 +406,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                   },
                                                   icon: Icon(Icons.mode_edit_outline_outlined, size:20,color: Colors.white),
                                                 ),
-                                                SizedBox(width:5),
+                                               // SizedBox(width:2),
                                                 isChecked ?
                                                 IconButton(
                                                   splashColor: Colors.transparent,

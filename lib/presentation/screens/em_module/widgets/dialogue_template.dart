@@ -52,7 +52,7 @@ class DialogueTemplate extends StatelessWidget {
                       title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),

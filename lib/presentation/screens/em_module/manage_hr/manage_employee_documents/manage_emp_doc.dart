@@ -17,6 +17,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employ
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 
 class ManageEmployDocument extends StatefulWidget {
@@ -149,18 +150,18 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : AppConfig.performanceDocId;
 
                           String NewText = _selectedIndex == 0
-                              ? "Health"
+                              ? AppStringEM.health
                               : _selectedIndex == 1
-                              ? "Certification"
+                              ? AppStringEM.certifications
                               : _selectedIndex == 2
-                              ? "Employment"
+                              ? AppStringEM.employment
                               : _selectedIndex == 3
-                              ? "Clinical Verification"
+                              ? AppStringEM.clinicalVerify
                               : _selectedIndex == 4
-                              ? "Acknowledgement"
+                              ? AppStringEM.acknowledgement
                               : _selectedIndex == 5
-                              ? "Compensation"
-                              : "Performance";
+                              ? AppStringEM.compensation
+                              : AppStringEM.performance;
 
                           List<DropdownMenuItem<String>> dropDownMenuItems = [];
                           final docTypes = await getEmployeeDocTab(context);
@@ -185,7 +186,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                   return EmpDocADDPopup(
                                     title: 'Add Document',
                                    Subdocid:subDocId,
-
                                   );
                                 },
                               );
@@ -235,7 +235,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Health',
+                         AppStringEM.health,
                           textAlign: TextAlign.center,
                           style:  BlueBgTabbar.customTextStyle(0, _selectedIndex),
                         ),
@@ -256,7 +256,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Certifications',
+                          AppStringEM.certifications,
                           textAlign: TextAlign.center,
                           style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
                         ),
@@ -277,7 +277,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Employment',
+                          AppStringEM.employment,
                           textAlign: TextAlign.center,
                           style:  BlueBgTabbar.customTextStyle(2, _selectedIndex),
                         ),
@@ -298,7 +298,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Clinical Verification',
+                          AppStringEM.clinicalVerify,
                           textAlign: TextAlign.center,
                           style:  BlueBgTabbar.customTextStyle(3, _selectedIndex),
                         ),
@@ -319,7 +319,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Acknowledgement',
+                         AppStringEM.acknowledgement,
                           textAlign: TextAlign.center,
                           style:  BlueBgTabbar.customTextStyle(4, _selectedIndex),
                         ),
@@ -340,7 +340,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Compensation',
+                          AppStringEM.compensation,
                           textAlign: TextAlign.center,
                           style:  BlueBgTabbar.customTextStyle(5, _selectedIndex),
                         ),
@@ -361,7 +361,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Performance',
+                          AppStringEM.performance,
                           textAlign: TextAlign.center,
                           style:  BlueBgTabbar.customTextStyle(6, _selectedIndex),
                         ),

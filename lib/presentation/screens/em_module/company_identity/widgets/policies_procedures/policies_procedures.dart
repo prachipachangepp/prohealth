@@ -171,7 +171,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                         child: Text(
                           ErrorMessageString.noPolicyProcedure,
                           style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeight.w500,
                             fontSize: FontSize.s12,
                             color: ColorManager.mediumgrey,
                           ),
@@ -243,7 +243,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        "ID : ${policiesdata.orgDocumentSetupid}",
                                                         style:  DocumentTypeDataStyle.customTextStyle(context),
                                                       ),
                                                       SizedBox(
@@ -276,9 +276,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         },
                                                         icon: Icon(
                                                           Icons.history,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .bluebottom,
+                                                          size:IconSize.I18,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
                                                             Colors.transparent,
@@ -301,9 +299,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         icon: Icon(
                                                           Icons
                                                               .save_alt_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .bluebottom,
+                                                          size:IconSize.I18,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
                                                             Colors.transparent,
@@ -362,7 +358,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                       return VCScreenPopupEditConst(
                                                                         url: snapshotPrefill.data!.url,
                                                                         expiryDate: snapshotPrefill.data!.expiry_date,
-                                                                        title: 'Edit Policies And Procedure',
+                                                                        title: EditPopupString.editPolicy,
                                                                         loadingDuration: _isLoading,
                                                                         officeId: widget.officeId,
                                                                         docTypeMetaIdCC: widget.docID,
@@ -382,9 +378,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         },
                                                         icon: Icon(
                                                           Icons.edit_outlined,
-                                                          size: 18,
-                                                          color: ColorManager
-                                                              .bluebottom,
+                                                          size:IconSize.I18,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
                                                             Colors.transparent,
@@ -407,7 +401,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                 builder: (context) =>
                                                                     DeletePopup(
                                                                         title:
-                                                                            'Delete Policies Procedure',
+                                                                        DeletePopupString.deletePolicy,
                                                                         onCancel:
                                                                             () {
                                                                           Navigator.pop(
@@ -435,9 +429,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           icon: Icon(
                                                             Icons
                                                                 .delete_outline,
-                                                            size: 18,
-                                                            color: ColorManager
-                                                                .red,
+                                                            size:IconSize.I18,color: IconColorManager.red,
                                                           )),
                                                     ],
                                                   )

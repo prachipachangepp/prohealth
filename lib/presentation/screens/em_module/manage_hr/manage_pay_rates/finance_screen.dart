@@ -197,7 +197,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
                                     style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: FontSize.s12,
                                       color: ColorManager.mediumgrey,
                                     ),
@@ -387,7 +387,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
                                     style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: FontSize.s12,
                                       color: ColorManager.mediumgrey,
                                     ),
@@ -519,7 +519,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                            FontWeightManager.medium,
+                                            FontWeight.w500,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -576,7 +576,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                            FontWeightManager.medium,
+                                            FontWeight.w500,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -661,7 +661,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         ErrorMessageString.noPayRates,
                         //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight:FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -872,7 +872,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                               child: Text(
                                                                                 AppString.dataNotFound,
                                                                                 style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight: FontWeightManager.medium,
+                                                                                  fontWeight: FontWeight.w500,
                                                                                   fontSize: FontSize.s12,
                                                                                   color: ColorManager.mediumgrey,
                                                                                 ),
@@ -1071,7 +1071,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               "No available zone",
               style: GoogleFonts.firaSans(
                 fontSize: FontSize.s12,
-                fontWeight: FontWeightManager.bold,
+                fontWeight: FontWeight.w700,
                 color: ColorManager.blueprime,
                 decoration: TextDecoration.none,
               ),
@@ -1083,7 +1083,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
           return Text(
             ErrorMessageString.noZoneAdded,
             style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
+              fontWeight: FontWeight.w500,
               fontSize: FontSize.s12,
               color: ColorManager.mediumgrey,
             ),
@@ -1112,7 +1112,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 'Sort By',
                 style: GoogleFonts.firaSans(
                   fontSize: FontSize.s12,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                   color: ColorManager.blueprime,
                   decoration: TextDecoration.none,
                 ),
@@ -1139,7 +1139,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     zone.zoneName,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight:FontWeight.w500,
                       color: ColorManager.blueprime,
                       decoration: TextDecoration.none,
                     ),

@@ -92,7 +92,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -123,7 +123,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                         'Type of Visit',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
                         ),
                       ) : Offstage(),
@@ -139,7 +139,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       SizedBox(height: 20,),
                       Text("Out of Zone", style: GoogleFonts.firaSans(
                         fontSize: 12,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                       ),),
                       SizedBox(height: 20,),

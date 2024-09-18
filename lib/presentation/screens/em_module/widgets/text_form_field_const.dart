@@ -856,7 +856,7 @@ class EditTextFieldPhone extends StatelessWidget {
                   EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
             style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeightManager.medium,
+                fontWeight: FontWeight.w500,
                 fontSize: FontSize.s12,
                 color: ColorManager.mediumgrey),
             onTap: onChange,
