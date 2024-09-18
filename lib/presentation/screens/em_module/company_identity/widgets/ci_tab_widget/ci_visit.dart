@@ -179,7 +179,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     style: CustomTextStylesCommon
                                                         .commonStyle(
                                                       fontWeight:
-                                                      FontWeightManager.medium,
+                                                      FontWeight.w500,
                                                       fontSize: FontSize.s12,
                                                       color: ColorManager.mediumgrey,
                                                     ),
@@ -228,8 +228,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                     val,
                                                                     style: CustomTextStylesCommon.commonStyle(
                                                                         fontWeight:
-                                                                        FontWeightManager
-                                                                            .medium,
+                                                                        FontWeight.w500,
                                                                         fontSize:
                                                                         FontSize.s10,
                                                                         color: ColorManager
@@ -305,7 +304,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           child: Text(
                                             ErrorMessageString.noserviceAdded,
                                             style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
+                                              fontWeight:FontWeight.w500,
                                               fontSize: FontSize.s12,
                                               color: ColorManager.mediumgrey,
                                             ),
@@ -459,7 +458,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         ErrorMessageString.noVisit,
                         //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -617,7 +616,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             label: Text(
                                                                               i.eligibleClinician,
                                                                               style: CustomTextStylesCommon.commonStyle(
-                                                                                fontWeight: FontWeightManager.medium,
+                                                                                fontWeight:FontWeight.w500,
                                                                                 fontSize: FontSize.s10,
                                                                                 color: ColorManager.mediumgrey,
                                                                               ),
@@ -702,7 +701,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                 child: Text(
                                                                                   ErrorMessageString.noserviceAdded,
                                                                                   style: CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeightManager.medium,
+                                                                                    fontWeight: FontWeight.w500,
                                                                                     fontSize: FontSize.s12,
                                                                                     color: ColorManager.mediumgrey,
                                                                                   ),
@@ -773,7 +772,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                   child: Text(
                                                                                     AppString.dataNotFound,
                                                                                     style: CustomTextStylesCommon.commonStyle(
-                                                                                      fontWeight: FontWeightManager.medium,
+                                                                                      fontWeight: FontWeight.w500,
                                                                                       fontSize: FontSize.s12,
                                                                                       color: ColorManager.mediumgrey,
                                                                                     ),
@@ -816,7 +815,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                                 label: Text(
                                                                                                   val,
                                                                                                   style: CustomTextStylesCommon.commonStyle(
-                                                                                                    fontWeight: FontWeightManager.medium,
+                                                                                                    fontWeight: FontWeight.w500,
                                                                                                     fontSize: FontSize.s10,
                                                                                                     color: ColorManager.mediumgrey,
                                                                                                   ),

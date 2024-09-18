@@ -134,7 +134,7 @@ class _CiMiscState extends State<CiMisc> {
                       child: Text(
                         ErrorMessageString.noMISC,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

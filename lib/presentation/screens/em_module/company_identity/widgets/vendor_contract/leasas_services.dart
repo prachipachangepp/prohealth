@@ -137,7 +137,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                       child: Text(
                         ErrorMessageString.noLeases,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

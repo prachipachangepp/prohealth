@@ -83,7 +83,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       'Pick Department',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
@@ -109,7 +109,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                ErrorMessageString.noSDepartment,
                                // AppString.dataNotFound,
                                 style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: FontSize.s12,
                                   color: ColorManager.mediumgrey,
                                 ),
@@ -169,7 +169,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       'Pick Employee Type',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
@@ -195,7 +195,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                 ErrorMessageString.noClinicianRole,
                                 // AppString.dataNotFound,
                                 style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight:FontWeight.w500,
                                   fontSize: FontSize.s12,
                                   color: ColorManager.mediumgrey,
                                 ),
@@ -285,7 +285,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                         ErrorMessageString.noModules,
                        // AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight:FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

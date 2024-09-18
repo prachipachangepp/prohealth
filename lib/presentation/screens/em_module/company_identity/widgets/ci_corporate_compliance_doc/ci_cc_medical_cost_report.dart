@@ -121,7 +121,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                       child: Text(
                         ErrorMessageString.noMCR,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

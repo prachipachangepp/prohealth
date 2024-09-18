@@ -89,8 +89,8 @@ class _DocumentPageViewState extends State<DocumentPageView> {
                                               style: GoogleFonts.firaSans(
                                                 fontSize: FontSize.s12,
                                                 fontWeight: _selectedIndex == snapshot.data![index].subDocID
-                                                    ? FontWeightManager.bold
-                                                    : FontWeightManager.regular,
+                                                    ?FontWeight.w700
+                                                    : FontWeight.w400,
                                                 color:_selectedIndex == snapshot.data![index].subDocID
                                                     ? ColorManager.blueprime
                                                     : ColorManager.mediumgrey,

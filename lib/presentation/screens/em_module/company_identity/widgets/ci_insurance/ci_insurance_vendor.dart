@@ -121,7 +121,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                         child: Text(
                      ErrorMessageString.noVendor,
                       style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey),
                     ));

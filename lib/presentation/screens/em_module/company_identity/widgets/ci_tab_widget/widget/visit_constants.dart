@@ -95,7 +95,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s13,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),

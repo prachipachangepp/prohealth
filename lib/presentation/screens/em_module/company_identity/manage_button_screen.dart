@@ -125,7 +125,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       'Go Back',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                       ),
                     ),

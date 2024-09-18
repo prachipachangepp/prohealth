@@ -186,7 +186,7 @@ class _CIDetailsDropdownPopupState extends State<CIDetailsDropdownPopup> {
         style: GoogleFonts.firaSans(
           fontSize: FontSize.s12,
           color: ColorManager.white,
-          fontWeight: FontWeightManager.semiBold,
+          fontWeight: FontWeight.w600,
         ),
       ),
       backgroundColor: ColorManager.mediumgrey,

@@ -94,7 +94,7 @@ class HomeScreenTab extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 14,
-                                        fontWeight: FontWeightManager.bold,
+                                        fontWeight: FontWeight.w700,
                                         color: ColorManager.darkgrey,
                                       ),
                                     ),
@@ -310,7 +310,7 @@ class HomeScreenTab extends StatelessWidget {
               style: GoogleFonts.firaSans(
                 color: ColorManager.black,
                 fontSize: FontSize.s10,
-                fontWeight: FontWeightManager.regular,
+                fontWeight: FontWeight.w400,
               ),
             ),
             SizedBox(

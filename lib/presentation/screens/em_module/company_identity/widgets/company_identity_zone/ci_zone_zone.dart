@@ -138,7 +138,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   child: Text(
                     ErrorMessageString.noZones,
                     style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey,
                     ),
@@ -352,7 +352,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                       ErrorMessageString.noCountyAdded,
                                                                                   style:
                                                                                       CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeightManager.medium,
+                                                                                    fontWeight: FontWeight.w500,
                                                                                     fontSize: FontSize.s12,
                                                                                     color: ColorManager.mediumgrey,
                                                                                   ),

@@ -70,7 +70,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                     Text('Pick Employee Type',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.fmediumgrey,
                         decoration: TextDecoration.none,
                       ),),
@@ -216,7 +216,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                     child: Text(
                       AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey,
                       ),

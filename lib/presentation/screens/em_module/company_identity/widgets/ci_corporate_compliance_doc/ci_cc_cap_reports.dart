@@ -130,7 +130,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                       child: Text(
                         ErrorMessageString.noCR,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

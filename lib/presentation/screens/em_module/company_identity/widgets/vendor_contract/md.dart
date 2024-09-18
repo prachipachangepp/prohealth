@@ -134,7 +134,7 @@ class _CiMdState extends State<CiMd> {
                       child: Text(
                         ErrorMessageString.noMD,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight:FontWeight.w500,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),

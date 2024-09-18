@@ -163,7 +163,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       "Logos",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight:FontWeight.w600,
                         color: ColorManager.mediumgrey,
                       ),
                     ),
@@ -174,7 +174,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       "Details",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.mediumgrey,
                       ),
                     ),
@@ -186,7 +186,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       borderRadius: 12,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -262,7 +262,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         style: GoogleFonts.firaSans(
                                                           fontSize: 13,
                                                           fontWeight:
-                                                          FontWeightManager.semiBold,
+                                                          FontWeight.w600,
                                                           color: ColorManager.white,
                                                           decoration: TextDecoration.none,
                                                         ),
@@ -300,8 +300,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                 fontSize:
                                                                 FontSize.s12,
                                                                 fontWeight:
-                                                                FontWeightManager
-                                                                    .bold,
+                                                                FontWeight.w700,
                                                                 color:
                                                                 Color(0xff686464),
                                                               )),
@@ -489,8 +488,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                 fontSize:
                                                                 FontSize.s12,
                                                                 fontWeight:
-                                                                FontWeightManager
-                                                                    .bold,
+                                                                FontWeight.w700,
                                                                 color:
                                                                 Color(0xff686464),
                                                               )),
