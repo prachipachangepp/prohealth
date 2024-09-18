@@ -676,56 +676,22 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       context: context,
                                                       builder: (BuildContext
                                                       context) {
-                                                        return FutureBuilder<
-                                                            UserModalPrefill>(
-                                                          future:
-                                                          getUserPrefill(
-                                                              context,
-                                                              user.userId),
-                                                          builder: (context,
-                                                              snapshotPrefill) {
-                                                            if (snapshotPrefill
-                                                                .connectionState ==
-                                                                ConnectionState
-                                                                    .waiting) {
+                                                        return FutureBuilder<UserModalPrefill>(
+                                                          future: getUserPrefill(context, user.userId),
+                                                          builder: (context, snapshotPrefill) {
+                                                            if (snapshotPrefill.connectionState ==
+                                                                ConnectionState.waiting) {
                                                               return Center(
                                                                 child: CircularProgressIndicator(
                                                                     color: ColorManager
                                                                         .blueprime),
                                                               );
                                                             }
-                                                            userIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .userId
-                                                                        .toString() ??
-                                                                        "0");
-                                                            firstNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .firstName ??
-                                                                        " ");
-                                                            lastNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .lastName ??
-                                                                        "");
-                                                            emailController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .email ??
-                                                                        " ");
-                                                            companyIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .companyId
-                                                                        .toString() ??
-                                                                        "0");
+                                                            userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString() ?? "0");
+                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName ?? " ");
+                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName ?? "");
+                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email ?? " ");
+                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString() ?? "0");
                                                             return EditUserPopUp(
                                                               title:
                                                               "Edit User ",
@@ -744,82 +710,36 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               onSubmit:
                                                                   () async {
                                                                 await updateUserPatch(
-                                                                  context:
-                                                                  context,
-                                                                  userId: user
-                                                                      .userId,
-                                                                  firstName:
-                                                                  firstNameController
-                                                                      .text,
-                                                                  lastName:
-                                                                  lastNameController
-                                                                      .text,
-                                                                  deptId: selectedDeptId ??
-                                                                      snapshotPrefill
-                                                                          .data!
-                                                                          .deptId,
-                                                                  email:
-                                                                  emailController
-                                                                      .text,
+                                                                  context: context,
+                                                                  userId: user.userId,
+                                                                  firstName: firstNameController.text,
+                                                                  lastName: lastNameController.text,
+                                                                  deptId: selectedDeptId ?? snapshotPrefill.data!.deptId,
+                                                                  email: emailController.text,
                                                                 );
-                                                                getUser(context)
-                                                                    .then(
-                                                                        (data) {
-                                                                      _companyUsersList
-                                                                          .add(
-                                                                          data);
-                                                                    })
-                                                                    .catchError(
-                                                                        (
-                                                                        error) {
-                                                                      // Handle error
-                                                                    });
-                                                                Navigator.pop(
-                                                                    context);
-                                                                firstNameController
-                                                                    .clear();
-                                                                lastNameController
-                                                                    .clear();
-                                                                roleController
-                                                                    .clear();
-                                                                emailController
-                                                                    .clear();
-                                                                companyIdController
-                                                                    .clear();
+                                                                getUser(context).then((data) {_companyUsersList.add(data);
+                                                                }).catchError((error) {});
+                                                                Navigator.pop(context);
+                                                                firstNameController.clear();
+                                                                lastNameController.clear();
+                                                                roleController.clear();
+                                                                emailController.clear();
+                                                                companyIdController.clear();
                                                               },
                                                               // passwordController: passwordController,
                                                               ///Role
                                                               child: FutureBuilder<
-                                                                  List<
-                                                                      HRHeadBar>>(
-                                                                future:
-                                                                companyHRHeadApi(
-                                                                    context,
-                                                                    deptId),
-                                                                builder: (
-                                                                    context,
-                                                                    snapshot) {
-                                                                  if (snapshot
-                                                                      .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
+                                                                  List<HRHeadBar>>(
+                                                                future: companyHRHeadApi(context, deptId),
+                                                                builder: (context, snapshot) {
+                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
                                                                     return Container(
-                                                                      alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                      child:
-                                                                      HRManageDropdown(
-                                                                          controller:
-                                                                          TextEditingController(
-                                                                              text: selectedDeptName ??
-                                                                                  ''),
-                                                                          labelText:
-                                                                          "Select Department",
-                                                                          labelStyle:
-                                                                          GoogleFonts
-                                                                              .firaSans(
-                                                                            fontSize:
-                                                                            12,
+                                                                      alignment: Alignment.center,
+                                                                      child: HRManageDropdown(controller: TextEditingController(
+                                                                              text: selectedDeptName ?? ''),
+                                                                          labelText: "Select Department",
+                                                                          labelStyle: GoogleFonts.firaSans(
+                                                                            fontSize: 12,
                                                                             fontWeight:
                                                                             FontWeight
                                                                                 .w500,

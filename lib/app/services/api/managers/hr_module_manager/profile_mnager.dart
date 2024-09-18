@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/profile_repo.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
 /// Search by Text
 /// get api
@@ -42,60 +44,59 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
         // //String CheckDate = convertIsoToDayMonthYear(item['checkDate']);
         // String HireDate = convertIsoToDayMonthYear(item['dateofHire'] ?? '--');
         itemsData.add(SearchEmployeeProfileData(
-          employeeId: item['employeeId'] ?? 0,
-          code: item['code'] ?? '--',
-          userId: item['userId'] ?? 0,
-          firstName: item['firstName'] ?? '--',
-          lastName: item['lastName'] ?? '--',
-          departmentId: item['departmentId'] ?? 0,
-          employeeTypeId: item['employeeTypeId'] ?? 0,
-          expertise: item['expertise'] ?? '--',
-          cityId: item['cityId'] ?? 0,
-          countryId: item['countryId'] ?? 0,
-          zoneId: item['zoneId'] ?? 0,
-          SSNNbr: item['SSNNbr'] ?? '--',
-          primaryPhoneNbr: item['primaryPhoneNbr'] ?? '--',
-          secondryPhoneNbr: item['secondryPhoneNbr'] ?? '--',
-          workPhoneNbr: item['workPhoneNbr'] ?? '--',
-          regOfficId: item['regOfficId'] ?? '--',
-          personalEmail: item['personalEmail'] ?? '--',
-          workEmail: item['workEmail'] ?? '--',
-          address: item['address'] ?? '--',
-          dateOfBirth: item['dateOfBirth'] ?? "--",
-          emergencyContact: item['emergencyContact'] ?? '--',
-          employment: item['employment'] ?? '--',
-          covreage: item['covreage'] ?? '--',
-          gender: item['gender'] ?? '--',
-          status: item['status'] ?? '--',
-          service: item['service'] ?? '--',
-          imgurl: item['imgurl'] ?? '--',
-          resumeurl: item['resumeurl'] ?? '--',
-          onboardingStatus: item['onboardingStatus'] ?? '--',
-          createdAt: item['createdAt'] ?? "--",
-          companyId: item['companyId'] ?? 0,
-          terminationFlag: item['terminationFlag'] ?? false,
-          approved: item['approved'] ?? false,
-          dateofTermination: item['dateofTermination'] ?? "--",
-          dateofResignation: item['dateofResignation'] ?? "--",
-          rehirable: item['rehirable'] ?? "--",
-          finalAddress: item['finalAddress'] ?? '--',
-          type: item['type'] ?? '--',
-          reason: item['reason'] ?? '--',
-          finalPayCheck: item['finalPayCheck'] != null
-              ? item['finalPayCheck'].toDouble()
-              : 0.0,
-          checkDate: item['checkDate'] ?? '--',
-          grossPay:
-              item['grossPay'] != null ? item['grossPay'].toDouble() : 0.0,
-          netPay: item['netPay'] != null ? item['netPay'].toDouble() : 0.0,
-          methods: item['methods'] ?? '--',
-          materials: item['materials'] ?? '--',
-          dateofHire: item['dateofHire'] ?? "--",
-          position: item['position'] ?? '--',
-          driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
-          race: item['race'] ?? '--',
-            rating:item["rating"]??'--'
-        ));
+            employeeId: item['employeeId'] ?? 0,
+            code: item['code'] ?? '--',
+            userId: item['userId'] ?? 0,
+            firstName: item['firstName'] ?? '--',
+            lastName: item['lastName'] ?? '--',
+            departmentId: item['departmentId'] ?? 0,
+            employeeTypeId: item['employeeTypeId'] ?? 0,
+            expertise: item['expertise'] ?? '--',
+            cityId: item['cityId'] ?? 0,
+            countryId: item['countryId'] ?? 0,
+            zoneId: item['zoneId'] ?? 0,
+            SSNNbr: item['SSNNbr'] ?? '--',
+            primaryPhoneNbr: item['primaryPhoneNbr'] ?? '--',
+            secondryPhoneNbr: item['secondryPhoneNbr'] ?? '--',
+            workPhoneNbr: item['workPhoneNbr'] ?? '--',
+            regOfficId: item['regOfficId'] ?? '--',
+            personalEmail: item['personalEmail'] ?? '--',
+            workEmail: item['workEmail'] ?? '--',
+            address: item['address'] ?? '--',
+            dateOfBirth: item['dateOfBirth'] ?? "--",
+            emergencyContact: item['emergencyContact'] ?? '--',
+            employment: item['employment'] ?? '--',
+            covreage: item['covreage'] ?? '--',
+            gender: item['gender'] ?? '--',
+            status: item['status'] ?? '--',
+            service: item['service'] ?? '--',
+            imgurl: item['imgurl'] ?? '--',
+            resumeurl: item['resumeurl'] ?? '--',
+            onboardingStatus: item['onboardingStatus'] ?? '--',
+            createdAt: item['createdAt'] ?? "--",
+            companyId: item['companyId'] ?? 0,
+            terminationFlag: item['terminationFlag'] ?? false,
+            approved: item['approved'] ?? false,
+            dateofTermination: item['dateofTermination'] ?? "--",
+            dateofResignation: item['dateofResignation'] ?? "--",
+            rehirable: item['rehirable'] ?? "--",
+            finalAddress: item['finalAddress'] ?? '--',
+            type: item['type'] ?? '--',
+            reason: item['reason'] ?? '--',
+            finalPayCheck: item['finalPayCheck'] != null
+                ? item['finalPayCheck'].toDouble()
+                : 0.0,
+            checkDate: item['checkDate'] ?? '--',
+            grossPay:
+                item['grossPay'] != null ? item['grossPay'].toDouble() : 0.0,
+            netPay: item['netPay'] != null ? item['netPay'].toDouble() : 0.0,
+            methods: item['methods'] ?? '--',
+            materials: item['materials'] ?? '--',
+            dateofHire: item['dateofHire'] ?? "--",
+            position: item['position'] ?? '--',
+            driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
+            race: item['race'] ?? '--',
+            rating: item["rating"] ?? '--'));
       }
 
       print("search data by Text${itemsData}");
@@ -194,7 +195,8 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileById(
           dateofHire: HireDate,
           position: item['position'] ?? '--',
           driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
-          race: item['race'] ?? '--', rating: item['rating']??'--',
+          race: item['race'] ?? '--',
+          rating: item['rating'] ?? '--',
         ));
       }
       print("search data by Id");
@@ -233,9 +235,9 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
     print("Getting response");
     print("Search response ::: ${response}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-     String DOB = convertIsoToDayMonthYear(response.data['dateOfBirth']);
+      String DOB = convertIsoToDayMonthYear(response.data['dateOfBirth']);
       itemsData = SearchByEmployeeIdProfileData(
-        employeeId: response.data['employeeId']??0,
+        employeeId: response.data['employeeId'] ?? 0,
         code: response.data['code'] ?? '--',
         userId: response.data['userId'] ?? 0,
         firstName: response.data['firstName'] ?? '--',
@@ -340,3 +342,296 @@ Future<ProfilePercentage> getPercentage(
   }
 }
 
+///Patch API Employees
+// Future<ProfileEditorModal> getEmployeePrefill(
+//     BuildContext context, int employeeId) async {
+//   var itemsList;
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.employeePrefillGet(employeeId: employeeId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       itemsList = ProfileEditorModal(
+//           code: response.data['code'] ,
+//           userId: response.data['userId'],
+//           firstName: response.data['firstName'],
+//           lastName: response.data['lastName'],
+//           departmentId: response.data['departmentId'],
+//           employeeTypeId: response.data['employeeTypeId'],
+//           expertise: response.data['expertise'],
+//           cityId: response.data['cityId'],
+//           countryId: response.data['countryId'],
+//           countyId: response.data['countyId'],
+//           zoneId: response.data['zoneId'],
+//           SSNNbr: response.data['SSNNbr'],
+//           primaryPhoneNbr: response.data['primaryPhoneNbr'],
+//           secondryPhoneNbr: response.data['secondryPhoneNbr'],
+//           workPhoneNbr: response.data['workPhoneNbr'],
+//           regOfficId: response.data['regOfficId'],
+//           personalEmail: response.data['personalEmail'],
+//           workEmail: response.data['workEmail'],
+//           address: response.data['address'],
+//           dateOfBirth: response.data['dateOfBirth'],
+//           emergencyContact: response.data['emergencyContact'],
+//           covreage: response.data['covreage'],
+//           employment: response.data['employment'], gender: response.data['gender'],
+//           status: response.data['status'], service: response.data['service'],
+//           imgurl: response.data['imgurl'], resumeurl: response.data['resumeurl'],
+//           companyId: response.data['companyId'], onboardingStatus: response.data['onboardingStatus'],
+//           driverLicenceNbr: response.data['driverLicenceNbr'],
+//           dateofTermination: response.data['dateofTermination'],
+//           dateofResignation: response.data['dateofResignation'],
+//           dateofHire: response.data['dateofHire'], rehirable: response.data['rehirable'],
+//           position: response.data['position'],
+//           finalAddress: response.data['finalAddress'],
+//           type: response.data['type'], reason: response.data['reason'],
+//           finalPayCheck: response.data['finalPayCheck'],
+//           checkDate: response.data['checkDate'],
+//           grossPay: response.data['grossPay'],
+//           netPay: response.data['netPay'], methods: response.data['methods'],
+//           materials: response.data['materials'], race: response.data['race'], rating: response.data['rating'],
+//           signatureURL: response.data['signatureURL'],
+//          message: response.statusMessage!,
+//         success: '',
+//
+//         // userId: response.data['userId'],
+//         // firstName: response.data['firstName'],
+//         // lastName: response.data['lastName'] ?? "--",
+//         // deptId: response.data['departmentId'] ?? 1,
+//         // department: (response.data['department'] is List)
+//         //     ? response.data['department'].join(", ") ??
+//         //     "" // Convert list to comma-separated string
+//         //     : response.data['department'] ?? "", // If it's already a string
+//         // companyId: companyId, // response.data['company_id'],
+//         // password:
+//         // response.data['password'], // Still including but not using in UI
+//         // email: response.data['email'],
+//         //
+//       );
+//       print("Employee Prefilled by Get: $itemsList");
+//     } else {
+//       print('User Data Error');
+//     }
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
+
+Future<void> getEmployeeEdit({
+  required BuildContext context,
+  required int employeeId,
+  required String code,
+  required int userId,
+  required String firstName,
+  required String lastName,
+  required int departmentId,
+  required int employeeTypeId,
+  required String expertise,
+  required int cityId,
+  required int countryId,
+  required int countyId,
+  required int zoneId,
+  required String SSNNbr,
+  required String primaryPhoneNbr,
+  required String secondryPhoneNbr,
+  required String workPhoneNbr,
+  required String regOfficId,
+  required String personalEmail,
+  required String workEmail,
+  required String address,
+  required String dateOfBirth,
+  required String emergencyContact,
+  required String covreage,
+  required String employment,
+  required String gender,
+  required String status,
+  required String service,
+  required String imgurl,
+  required String resumeurl,
+  // required int companyId,
+  required String onboardingStatus,
+  required String driverLicenceNbr,
+  required String dateofTermination,
+  required String dateofResignation,
+  required String dateofHire,
+  required String rehirable,
+  required String position,
+  required String finalAddress,
+  required String type,
+  required String reason,
+  required int finalPayCheck,
+  required String checkDate,
+  required int grossPay,
+  required int netPay,
+  required String methods,
+  required String materials,
+  required String race,
+  required String rating,
+  required String signatureURL,
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+
+    if (companyId == null) {
+      print("Error: companyId is null");
+      return;
+    }
+
+    final data = {
+      'code' : code,
+      'userId' : userId,
+      'firstName' : firstName,
+      'lastName' : lastName,
+      'departmentId' : departmentId,
+      'employeeTypeId' : employeeTypeId,
+      'expertise' : expertise,
+      'cityId' : cityId,
+      'countryId' : countryId,
+      'countyId' : countyId,
+      'zoneId' : zoneId,
+      'SSNNbr' : SSNNbr,
+      'primaryPhoneNbr' : primaryPhoneNbr,
+      'secondryPhoneNbr' : secondryPhoneNbr,
+      'workPhoneNbr' : workPhoneNbr,
+      'regOfficId' : regOfficId,
+      'personalEmail' : personalEmail,
+      'workEmail' : workEmail,
+      'address' : address,
+      'dateOfBirth' : dateOfBirth,
+      'emergencyContact' : emergencyContact,
+      'covreage': covreage,
+      'employment' : employment,
+      'gender' : gender,
+      'status' : status,
+      'service' : service,
+      'imgurl' : imgurl,
+      'resumeurl' : resumeurl,
+      'companyId' : companyId,
+      'onboardingStatus' : onboardingStatus,
+      'driverLicenceNbr' : driverLicenceNbr,
+      'dateofTermination' : dateofTermination,
+      'dateofResignation' : dateofResignation,
+      'dateofHire' : dateofHire,
+      'rehirable' : rehirable,
+      'position' : position,
+      'finalAddress' : finalAddress,
+      'type' : type,
+      'reason': reason,
+      'finalPayCheck' : finalPayCheck,
+      'checkDate' : checkDate,
+      'grossPay' : grossPay,
+      'netPay' : netPay,
+      'methods' : methods,
+      'materials' : materials,
+      'race' : race,
+      'rating' : rating,
+      'signatureURL' : signatureURL,
+    };
+
+    print("Data payload being sent to API: $data");
+
+    final response = await Api(context).patch(
+      path: EstablishmentManagerRepository.employeeEditGet(employeeId: employeeId),
+      data: data,
+    );
+
+    print(response);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Employees updated successfully");
+    } else {
+      print("Failed to update Employees: ${response.statusCode}");
+      print("Error details: ${response.data}");
+    }
+  } catch (e) {
+    print("Error: $e");
+  }
+}
+
+
+/// get prefill API  Employees
+Future<ProfileEditorModal> getEmployeePrefill(
+    BuildContext context, int employeeId) async {
+  var itemsList;
+  final companyId = await TokenManager.getCompanyId();
+  try {
+
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.employeePrefillPatch(
+            employeeId: employeeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      itemsList = ProfileEditorModal(
+        employeeId: response.data['employeeId'] ?? 0,
+        code: response.data['code'] ?? '',
+        userId: response.data['userId'] ?? 0,
+        firstName: response.data['firstName'] ?? '',
+        lastName: response.data['lastName'] ?? '',
+        departmentId: response.data['departmentId'] ?? 0,
+        employeeTypeId: response.data['employeeTypeId'] ?? 0,
+
+        cityId: response.data['cityId'] ?? 0,
+        countryId: response.data['countryId'] ?? 0,
+
+        // countyId: response.data['countyId'],
+        zoneId: response.data['zoneId'] ?? 0,
+        SSNNbr: response.data['SSNNbr'] ?? '',
+        primaryPhoneNbr: response.data['primaryPhoneNbr'] ?? '',
+        secondryPhoneNbr: response.data['secondryPhoneNbr'] ?? '',
+        workPhoneNbr: response.data['workPhoneNbr'] ?? '',
+        regOfficId: response.data['regOfficId'] ?? '',
+        personalEmail: response.data['personalEmail'] ?? '',
+        workEmail: response.data['workEmail'] ?? '',
+
+        dateOfBirth: response.data['dateOfBirth'] ?? '',
+        emergencyContact: response.data['emergencyContact'] ?? '',
+        covreage: response.data['covreage'] ?? '',
+        employment: response.data['employment'] ?? '',
+        gender: response.data['gender'] ?? '',
+        status: response.data['status'] ?? '',
+        service: response.data['service'] ?? '',
+        imgurl: response.data['imgurl'] ?? '',
+        resumeurl: response.data['resumeurl'] ?? '',
+
+        onboardingStatus: response.data['onboardingStatus'] ?? '',
+        driverLicenceNbr: response.data['driverLicenceNbr'] ?? '',
+        createdAt: response.data['createdAt'] ?? '',
+        dateofTermination: response.data['dateofTermination'] ?? null,
+        dateofResignation: response.data['dateofResignation'] ?? null,
+        dateofHire: response.data['dateofHire'] ?? '',
+        rehirable: response.data['rehirable'] ?? '',
+        position: response.data['position'] ?? '',
+        finalAddress: response.data['finalAddress'] ?? '',
+        type: response.data['type'] ?? '',
+        reason: response.data['reason'] ?? '',
+        finalPayCheck: response.data['finalPayCheck'] ?? '',
+        checkDate: response.data['checkDate'] ?? '',
+        grossPay: response.data['grossPay'] ?? 0,
+        netPay: response.data['netPay'] ?? 0,
+        methods: response.data['methods'] ?? '',
+        materials: response.data['materials'] ?? '',
+        race: response.data['race'] ?? '',
+        signatureURL: response.data['signatureURL'] ?? '',
+        companyId: response.data['companyId'] ?? 0,
+        rating: response.data['rating'] ?? '',
+        city: response.data['city'] ?? '',
+        employeType: response.data['employeType'] ?? '',
+        department: response.data['department'] ?? '',
+        country: response.data['country'] ?? '',
+        county: response.data['county'] ?? '',
+        zone: response.data['zones'] ?? '',
+        profileScorePercentage: response.data['profileScorePercentage'] ?? 0,
+        message: response.statusMessage!,
+        success: '',
+      );
+      print('${response.data}');
+      print("User Prefilled by Get: $itemsList");
+    } else {
+      print('User Data Error');
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

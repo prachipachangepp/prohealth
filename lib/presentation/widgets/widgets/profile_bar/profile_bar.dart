@@ -24,8 +24,7 @@ import 'package:http/http.dart' as http;
  typedef EditCallback = void Function();
 
 class ProfileBar extends StatefulWidget {
-  const ProfileBar({super.key, this.searchByEmployeeIdProfileData,
-    required this.onEditPressed,});
+  const ProfileBar({super.key, this.searchByEmployeeIdProfileData,  required this.onEditPressed,});
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final VoidCallback onEditPressed;
 
@@ -254,7 +253,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             style: ThemeManagerBlack.customTextStyle(context),
                           ),
                           IconButton(
-                            onPressed: widget.onEditPressed,
+                            onPressed: widget.onEditPressed, // Use the passed callback here
                             icon: Icon(Icons.edit, size: 18),
                           ),
                         ],

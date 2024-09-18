@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
@@ -23,14 +24,15 @@ import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart'
 import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 
 class ManageScreen extends StatelessWidget {
-  final int? employeeId;
+  final int employeeId;
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final PageController pageManageController;
 
-  ManageScreen({super.key, this.searchByEmployeeIdProfileData, this.employeeId, required this.pageManageController, });
+  ManageScreen({super.key, this.searchByEmployeeIdProfileData, required this.employeeId, required this.pageManageController, });
 
   // bool _isEditMode = false;
   final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false);
+  ProfileEditorModal? _prefilledData;
   // final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false); // Use ValueNotifier to track edit mode
   @override
   Widget build(BuildContext context) {
@@ -67,12 +69,12 @@ class ManageScreen extends StatelessWidget {
         valueListenable: _isEditMode,
         builder: (context, isEditMode, child) {
           return isEditMode
-              ? EditScreen(
+              ? ProfileEditScreen(
             isEditModeNotifier: _isEditMode,
             onCancel: () {
-              // Handle cancel, go back to manage view
-              _isEditMode.value = false; // Reset the edit mode
-            },// Pass the notifier
+
+              _isEditMode.value = false;
+            }, employeeId: employeeId,
           )
               : ListView(
             scrollDirection: Axis.vertical,
@@ -82,7 +84,7 @@ class ManageScreen extends StatelessWidget {
                 searchByEmployeeIdProfileData:
                 searchByEmployeeIdProfileData!,
                 onEditPressed: () {
-                  _isEditMode.value = true; // Switch to edit mode
+                  _isEditMode.value = true;
                 },
               ),
 

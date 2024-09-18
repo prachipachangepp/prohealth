@@ -12,7 +12,7 @@ import '../../../screens/hr_module/register/register_screen.dart';
 import 'controller.dart';
 ///not in use
 class MyAppBar extends StatelessWidget {
-
+  final int employeeId ;
   final HRController hrController = Get.put(HRController());
 
 
@@ -20,6 +20,8 @@ class MyAppBar extends StatelessWidget {
   final CustomButtonController customController =
       Get.put(CustomButtonController());
   final PageController _pageManageController = PageController();
+
+   MyAppBar({super.key, required this.employeeId});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,9 @@ class MyAppBar extends StatelessWidget {
       ],
       tabViews: [
         DashBoardScreen(),
-        ManageScreen(pageManageController: _pageManageController,),
+        ManageScreen(
+          employeeId: employeeId,
+          pageManageController: _pageManageController,),
         AddEmployeeHomeScreen(),
         RegisterScreen(),
         NewOnboardScreen(),
