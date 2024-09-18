@@ -55,6 +55,7 @@ class EstablishmentManagerRepository {
   //static String addPayrates ="/payrates/add";
   static String newPayrates = "/payrates";
   static String newPayratesdelete = "/payrates";
+  static String payratesByServiceId = "/payrates/byServiceAndEmployeeType";
   static String addCompanyPost = "/Company/Insert";
   static String docgetDD = "/org-document-setup/ByDocumentTypeAndSubType";
   static String orgdocadd = "/org-office-document";
@@ -491,6 +492,9 @@ class EstablishmentManagerRepository {
 
   static String getPayrates() {
     return "$newPayrates";
+  }
+  static String getPayratesByServiceIdAnrEmpId({required String serviceID, required int empId}) {
+    return "$payratesByServiceId/${serviceID}/${empId}";
   }
 
   static String addDocOrg() {
