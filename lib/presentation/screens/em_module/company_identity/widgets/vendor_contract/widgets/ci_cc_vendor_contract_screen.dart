@@ -13,6 +13,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -166,17 +168,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         child: Column(
                           children: [
                             Text(
-                              'Leases & Services',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 0
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 0
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                AppStringEM.leases,
+                                 textAlign: TextAlign.center,
+                                style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
                             ),
                             _selectedIndex == 0
                                 ? Divider(
@@ -202,17 +196,10 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         child: Column(
                           children: [
                             Text(
-                              'SNF',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 1
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 1
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+    AppStringEM.snf,
+    textAlign: TextAlign.center,
+    style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+
                             ),
                             _selectedIndex == 1
                                 ? Divider(
@@ -238,17 +225,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         child: Column(
                           children: [
                             Text(
-                              'DME',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 2
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 2
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                AppStringEM.dme,
+                                 textAlign: TextAlign.center,
+                                style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
                             ),
                             _selectedIndex == 2
                                 ? Divider(
@@ -274,17 +253,10 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         child: Column(
                           children: [
                             Text(
-                              'MD',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 3
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 3
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+    AppStringEM.md,
+    textAlign: TextAlign.center,
+    style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
+
                             ),
                             _selectedIndex == 3
                                 ? Divider(
@@ -310,17 +282,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         child: Column(
                           children: [
                             Text(
-                              'MISC',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 4
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 4
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
+                                AppStringEM.misc,
+                                // textAlign: TextAlign.center,
+                                style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
                             ),
                             _selectedIndex == 4
                                 ? Divider(
@@ -436,11 +400,4 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
   }
 }
 
-class ddd extends StatelessWidget {
-  const ddd({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

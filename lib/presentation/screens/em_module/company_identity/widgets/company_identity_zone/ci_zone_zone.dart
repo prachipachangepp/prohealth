@@ -72,12 +72,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   child: Center(
                     child: Text(
                       'Zone Number',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
                     ),
                   ),
                 ),
@@ -85,23 +80,13 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                 Expanded(
                   child: Center(
                     child: Text('Zip Codes',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
+                      style:AllHRTableHeading.customTextStyle(context),),
                   ),
                 ),
                 Expanded(
                   child: Center(
                     child: Text('County',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
+                      style:AllHRTableHeading.customTextStyle(context),),
                   ),
                 ),
                 // Expanded(
@@ -120,12 +105,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   child: Center(
                     child: Text(
                       'Actions',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
                     ),
                   ),
                 ),
@@ -423,11 +403,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                   });
                                                             });
                                                       },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager.blueprime,
-                                                      )),
+                                                      icon:Icon(Icons.edit_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),),
                                                   // IconButton(
                                                   //     splashColor: Colors.transparent,
                                                   //     hoverColor: Colors.transparent,

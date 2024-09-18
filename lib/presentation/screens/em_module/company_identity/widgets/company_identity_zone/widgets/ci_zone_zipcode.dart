@@ -126,24 +126,14 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                 //   child: Center(
                 //     child: Text(
                 //       'City Name',
-                //       style: GoogleFonts.firaSans(
-                //         fontSize: 12,
-                //         fontWeight: FontWeight.w700,
-                //         color: Colors.white,
-                //         decoration: TextDecoration.none,
-                //       ),
+                //style:AllHRTableHeading.customTextStyle(context),
                 //     ),
                 //   ),
                 // ),
                 Expanded(
                   child: Center(
                     child: Text('Zip Code',textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
+                      style:AllHRTableHeading.customTextStyle(context),),
                   ),
                 ),
 
@@ -151,12 +141,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                   child: Center(
                     child: Text('Map',
                         textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
+                      style:AllHRTableHeading.customTextStyle(context),),
                   ),
                 ),
                 // Expanded(
@@ -176,12 +161,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                   child: Center(
                     child: Text(
                       'Actions',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:AllHRTableHeading.customTextStyle(context),
                     ),
                   ),
                 ),
@@ -530,7 +510,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                 );
                                               });
                                             },
-                                                icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                                icon: Icon(Icons.edit_outlined,
+                                                  size:IconSize.I18,color: IconColorManager.bluebottom,),),
                                             // IconButton(
                                             //     splashColor: Colors.transparent,
                                             //     hoverColor: Colors.transparent,

@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
@@ -76,36 +77,21 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                   // Text(''),
                   Text(
                     AppString.srNo,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
+                    style:AllHRTableHeading.customTextStyle(context),
                   ),
 //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                   Padding(
                     padding: const EdgeInsets.only(right: 25),
                     child: Text('Name    ',
                         textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
+                      style:AllHRTableHeading.customTextStyle(context),),
                   ),
 
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(AppString.actions,
                         textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
+                      style:AllHRTableHeading.customTextStyle(context),),
                   ),
                 ],
               ),
@@ -239,12 +225,8 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                 );
                                                                       });
                                                                       },
-                                                        icon: Icon(
-                                                          Icons.edit_outlined,
-                                                          color:
-                                                              ColorManager.blueprime,
-                                                          size: 18,
-                                                        )),
+                                                        icon: Icon(Icons.edit_outlined,
+                                                          size:IconSize.I18,color: IconColorManager.bluebottom,)),
                                                     IconButton(
                                                         onPressed: () {
                                                           showDialog(context: context,
@@ -280,11 +262,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
 
                                                               ));
                                                         },
-                                                        icon: Icon(
-                                                          Icons.delete_outline,
-                                                          color: ColorManager.red,
-                                                          size: 18,
-                                                        )),
+                                                        icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                                   ],
                                                 )
                                               ],

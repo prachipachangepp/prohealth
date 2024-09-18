@@ -240,7 +240,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     child: Text(
                                       ErrorMessageString.noroleAdded,
                                       style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         fontSize: FontSize.s12,
                                         color: ColorManager.mediumgrey,
                                       ),
@@ -273,7 +273,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     labelText: "Select Department",
                                     labelStyle: GoogleFonts.firaSans(
                                       fontSize: 12,
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                     labelFontSize: 12,
@@ -388,13 +388,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           flex: 2,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 90),
-                            child: const Text(
+                            child:  Text(
                               AppString.srNo,
-                              style: TextStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: Colors.white,
-                              ),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -404,10 +400,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             padding: const EdgeInsets.only(left: 60.0),
                             child: Text(
                               "User ID",
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -417,10 +410,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               AppString.fname,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -431,10 +421,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             child: Text(
                               AppString.lname,
                               textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
+                              style:AllHRTableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -442,10 +429,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           flex: 2,
                           child: Text(
                             AppString.role,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.white),
+                            style:AllHRTableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
@@ -453,10 +437,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           child: Text(
                             AppString.email,
                             textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.white),
+                            style:AllHRTableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
@@ -466,11 +447,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             child: Text(
                               AppString.actions,
                               textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
-                            ),
+                              style:AllHRTableHeading.customTextStyle(context),)
                           ),
                         ),
                       ],
@@ -497,7 +474,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         ErrorMessageString.noUser, // "No Data!",
                         style: TextStyle(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
                       ),
