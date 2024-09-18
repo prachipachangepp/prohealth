@@ -172,6 +172,7 @@ class EditPopupString{
   static const String editMD = 'Edit MD';
   static const String editMISC = 'Edit MISC';
 }
+
 class DeletePopupString{
   static const String deleteEmpType = 'Delete Employee Type';
   static const String deleteDocument =  'Delete Document';
