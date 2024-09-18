@@ -144,7 +144,8 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                         child: Center(
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                             // style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.start,
                                             )),
                                       ),
@@ -152,22 +153,25 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                         child: Center(
                                           child: Text(
                                             miscData.idOfDocument,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            //style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.docName.toString().capitalizeFirst!,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              miscData.docName.toString(),
+                                              //style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.expiryReminder.toString().capitalizeFirst!,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              miscData.expiryReminder.toString(),
+                                              //style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(

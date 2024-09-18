@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -203,36 +204,16 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${balReport.orgDocumentSetupid.toString()}",
+                                                          "ID : ${balReport.idOfDocument}",
                                                           //balReport.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           balReport.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),

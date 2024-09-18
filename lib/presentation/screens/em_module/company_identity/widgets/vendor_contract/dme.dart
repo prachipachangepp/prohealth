@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 import '../../../../../../app/constants/app_config.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
@@ -214,34 +215,36 @@ class _CiDmeState extends State<CiDme> {
                                                         Text(
                                                           "ID : ${dmeData.orgDocumentSetupid.toString()}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          // style: GoogleFonts
+                                                          //     .firaSans(
+                                                          //   fontSize: 10,
+                                                          //   fontWeight:
+                                                          //       FontWeight.w400,
+                                                          //   color: Color(
+                                                          //       0xff686464),
+                                                          //   decoration:
+                                                          //       TextDecoration
+                                                          //           .none,
+                                                          // ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           dmeData.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          // style: GoogleFonts
+                                                          //     .firaSans(
+                                                          //   fontSize: 10,
+                                                          //   fontWeight:
+                                                          //       FontWeight.bold,
+                                                          //   color: Color(
+                                                          //       0xff686464),
+                                                          //   decoration:
+                                                          //       TextDecoration
+                                                          //           .none,
+                                                          // ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),

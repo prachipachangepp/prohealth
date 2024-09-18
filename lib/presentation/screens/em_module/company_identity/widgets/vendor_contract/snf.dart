@@ -10,6 +10,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 
 import '../../../../../../app/constants/app_config.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
@@ -220,34 +221,14 @@ class _CiSnfState extends State<CiSnf> {
                                                         Text(
                                                           "ID : ${snfData.orgDocumentSetupid.toString()}",
                                                           //snfData.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           snfData.docName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),

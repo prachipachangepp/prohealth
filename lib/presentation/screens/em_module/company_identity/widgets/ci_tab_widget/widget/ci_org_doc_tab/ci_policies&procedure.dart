@@ -133,7 +133,8 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                         child: Center(
                                           child: Text(
                                             formattedSerialNumber,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                           // style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           ),
                                         ),
@@ -142,23 +143,26 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                         child: Center(
                                           child: Text(
                                             policiesdata.idOfDocument,
-                                            style: DocDefineTableData.customTextStyle(context)
+                                            //style: DocDefineTableData.customTextStyle(context)
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            policiesdata.docName.toString().capitalizeFirst!,
-                                            style: DocDefineTableData.customTextStyle(context)
+                                            policiesdata.docName.toString(),
+                                           // style: DocDefineTableData.customTextStyle(context)
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            policiesdata.expiryReminder.toString().capitalizeFirst!,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            policiesdata.expiryReminder.toString(),
+                                            //style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),

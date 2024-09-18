@@ -45,7 +45,7 @@ class _CheckboxTileState extends State<CheckboxTile> {
           },
         ),
         SizedBox(width: 10,),
-        Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s10,fontWeight: FontWeightManager.medium,color: Colors.black),),
+        Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: ColorManager.mediumgrey,),),
       ],
 
 

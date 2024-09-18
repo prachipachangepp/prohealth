@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -278,12 +279,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                         child: Text(
                                           textAlign: TextAlign.center,
                                           zipcode.zipcode.toString(),
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                       Expanded(
@@ -300,13 +296,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                           child: Text(
                                             textAlign: TextAlign.center,
                                             'View Map',
-                                            style: GoogleFonts.firaSans(
-                                              decorationStyle: TextDecorationStyle.dashed,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),

@@ -144,7 +144,8 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                         child: Center(
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              //style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.start,
                                             )),
                                       ),
@@ -152,22 +153,25 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                         child: Center(
                                           child: Text(
                                             snfdata.idOfDocument,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            //style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              snfdata.docName.toString().capitalizeFirst!,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              snfdata.docName.toString(),
+                                             // style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              snfdata.expiryReminder.toString().capitalizeFirst!,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              snfdata.expiryReminder.toString(),
+                                              //style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(

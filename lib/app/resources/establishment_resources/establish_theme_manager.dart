@@ -57,7 +57,7 @@ class RadioButtonHeadStyle {
     );
   }
 }
-
+///apply most of the places
 class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(

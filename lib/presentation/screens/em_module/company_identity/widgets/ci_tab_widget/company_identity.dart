@@ -191,6 +191,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
+    return StatefulBuilder(
+    builder: (BuildContext context, void Function(void Function()) setState) {
                             return AddOfficeSumbitButton(
                               nameController: nameController,
                               addressController: addressController,
@@ -252,6 +254,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                             child: Center(
                                                               child: CheckboxTile(
                                                                 title: snapshot.data![index].serviceName,
+
                                                                 initialValue: false,
                                                                 onChanged: (value) {
                                                                   setState(() {
@@ -268,6 +271,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                   });
                                                                   print("Service Id List ${selectedServices}");
                                                                 },
+
                                                               ),
                                                             ));
                                                       })]
@@ -332,6 +336,14 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   country: countryNameController.text,
                                   isHeadOffice: false,
                                 );
+                                nameController.clear();
+                                addressController.clear();
+                                emailController.clear();
+                                mobNumController.clear();
+                                secNumController.clear();
+                                stateNameController.clear();
+                                countryNameController.clear();
+
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode ==201){
                                   print('Services List ${selectedServices}');
@@ -343,6 +355,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       .add(data);
                                 }).catchError((error) {});
                               }, formKey: _formKey,);
+
+    },
+    );
+
                       },
                     );
                   },

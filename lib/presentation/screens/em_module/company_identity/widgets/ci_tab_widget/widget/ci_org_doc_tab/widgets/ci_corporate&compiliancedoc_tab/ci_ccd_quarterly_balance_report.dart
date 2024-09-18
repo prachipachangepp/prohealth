@@ -143,7 +143,8 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                       child: Center(
                                         child: Text(
                                           formattedSerialNumber,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                          //style: DocDefineTableData.customTextStyle(context),
                                           textAlign: TextAlign.start,
                                         ),
                                       ),
@@ -152,15 +153,17 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                       child: Center(
                                         child: Text(
                                           baldata.idOfDocument,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                          //style: DocDefineTableData.customTextStyle(context),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          baldata.docName.toString().capitalizeFirst!,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          baldata.docName.toString(),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                          //style: DocDefineTableData.customTextStyle(context),
                                         ),
                                       ),
                                     ),
@@ -168,8 +171,9 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                       child: Center(
                                         child: Text(
                                           baldata.expiryReminder
-                                              .toString().capitalizeFirst!,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                              .toString(),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                         // style: DocDefineTableData.customTextStyle(context),
                                         ),
                                       ),
                                     ),

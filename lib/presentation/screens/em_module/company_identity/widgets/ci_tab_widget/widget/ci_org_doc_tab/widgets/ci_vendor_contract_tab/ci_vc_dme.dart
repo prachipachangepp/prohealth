@@ -132,7 +132,8 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                                         child: Center(
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              //style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.start,
                                             )),
                                       ),
@@ -140,22 +141,25 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                                         child: Center(
                                           child: Text(
                                             MCRdata.idOfDocument,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                            //style: DocDefineTableData.customTextStyle(context),
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              MCRdata.docName.toString().capitalizeFirst!,
-                                              style:DocDefineTableData.customTextStyle(context),
+                                              MCRdata.docName.toString(),
+                                             // style:DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              MCRdata.expiryReminder.toString().capitalizeFirst!,
-                                              style: DocDefineTableData.customTextStyle(context),
+                                              MCRdata.expiryReminder.toString(),
+                                             // style: DocDefineTableData.customTextStyle(context),
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
                                             )),
                                       ),
                                       Expanded(

@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -217,19 +218,7 @@ class _CICCLicenseState extends State<CICCLicense> {
 
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize:
-                                                                FontSize.s10,
-                                                            fontWeight:
-                                                                FontWeightManager
-                                                                    .regular,
-                                                            color: ColorManager
-                                                                .granitegray,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           // manageCCLicence.docname.toString(),
@@ -238,18 +227,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize:
-                                                                FontSize.s10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: ColorManager
-                                                                .granitegray,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),

@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 import '../../../../../../app/constants/app_config.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -224,17 +225,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         Text(
                                                           "ID : ${leasesData.orgDocumentSetupid.toString()}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           leasesData.docName
@@ -242,17 +233,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .capitalizeFirst!,
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Color(
-                                                                0xff686464),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
