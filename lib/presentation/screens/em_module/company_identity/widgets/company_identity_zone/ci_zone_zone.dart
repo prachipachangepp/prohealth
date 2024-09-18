@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -210,12 +211,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 textAlign: TextAlign.center,
                                                 zone.zoneId
                                                     .toString(),
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                             // Text(''),
@@ -225,12 +221,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 textAlign: TextAlign.center,
                                                 zone.zipcodes
                                                     .toString(),
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                             Expanded(
@@ -239,12 +230,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 textAlign: TextAlign.center,
                                                 zone.countyName
                                                     .toString(),
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                ),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
                                             // Expanded(

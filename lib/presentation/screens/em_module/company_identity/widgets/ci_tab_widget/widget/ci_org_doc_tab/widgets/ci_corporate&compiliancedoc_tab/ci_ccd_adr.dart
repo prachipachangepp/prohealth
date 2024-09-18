@@ -140,7 +140,8 @@ class _CICcdADRState extends State<CICcdADR> {
                                       child: Center(
                                         child: Text(
                                           formattedSerialNumber,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          //style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                           textAlign: TextAlign.start,
                                         ),
                                       ),
@@ -149,23 +150,26 @@ class _CICcdADRState extends State<CICcdADR> {
                                       child: Center(
                                         child: Text(
                                           adrData.idOfDocument,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          //style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          adrData.docName.toString().capitalizeFirst!,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          adrData.docName.toString(),
+                                         // style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          adrData.expiryReminder.toString().capitalizeFirst!,
-                                          style:DocDefineTableData.customTextStyle(context),
+                                          adrData.expiryReminder.toString(),
+                                          //style:DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ),

@@ -178,7 +178,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                         child: Center(
                                           child: Text(
                                              formattedSerialNumber,
-                                            style: AllHRTableData.customTextStyle(context)
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
@@ -188,7 +188,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                           child: Text(
                                               county.countyName.toString(),
                                           textAlign:TextAlign.center,
-                                            style: AllHRTableData.customTextStyle(context)
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),
@@ -196,7 +196,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                         child: Center(
                                           child: Text(
                                               county.zoneName.toString(),
-                                            style: AllHRTableData.customTextStyle(context)
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ),

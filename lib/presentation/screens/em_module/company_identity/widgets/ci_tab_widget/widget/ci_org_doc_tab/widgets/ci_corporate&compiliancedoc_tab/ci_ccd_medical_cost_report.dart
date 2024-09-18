@@ -142,7 +142,8 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                       child: Center(
                                         child: Text(
                                           formattedSerialNumber,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                         // style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                           textAlign: TextAlign.start,
                                         ),
                                       ),
@@ -151,15 +152,17 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                       child: Center(
                                         child: Text(
                                           costData.idOfDocument,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                          //style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          costData.docName.toString().capitalizeFirst!,
-                                          style:DocDefineTableData.customTextStyle(context),
+                                          costData.docName.toString(),
+                                         // style:DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ),
@@ -167,8 +170,9 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                       child: Center(
                                         child: Text(
                                           costData.expiryReminder
-                                              .toString().capitalizeFirst!,
-                                          style: DocDefineTableData.customTextStyle(context),
+                                              .toString(),
+                                          //style: DocDefineTableData.customTextStyle(context),
+                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ),

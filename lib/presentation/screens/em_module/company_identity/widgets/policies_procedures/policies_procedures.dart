@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -242,18 +243,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.orgDocumentSetupid}",
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: const Color(
-                                                              0xff686464),
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
+                                                        "ID : ${policiesdata.idOfDocument}",
+                                                        style:  DocumentTypeDataStyle.customTextStyle(context),
                                                       ),
                                                       SizedBox(
                                                         height: AppSize.s5,
@@ -262,17 +253,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         policiesdata.docName.toString(),
                                                         textAlign:
                                                             TextAlign.center,
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: const Color(
-                                                              0xff686464),
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
+                                                        style:  DocumentTypeDataStyle.customTextStyle(context),
                                                       ),
                                                     ],
                                                   ),

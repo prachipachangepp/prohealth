@@ -39,16 +39,17 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
   TextEditingController docNamecontroller = TextEditingController();
   //TextEditingController docIdController = TextEditingController();
 
-  final StreamController<List<EmployeeDocumentModal>> _controller = StreamController<List<EmployeeDocumentModal>>();
+  final StreamController<List<EmployeeDocumentModal>> _controller =
+      StreamController<List<EmployeeDocumentModal>>();
   TextEditingController idOfDocController = TextEditingController();
   TextEditingController nameDocController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController daysController = TextEditingController(text: "1");
-  String? selectedYear= AppConfig.year;
+  String? selectedYear = AppConfig.year;
 
   @override
   void dispose() {
-   // idDocController.dispose();
+    // idDocController.dispose();
     nameDocController.dispose();
     dateController.dispose();
     super.dispose();
@@ -80,7 +81,9 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
       child: Column(
         children: [
           TableHeadingConst(),
-          SizedBox(height: AppSize.s10,),
+          SizedBox(
+            height: AppSize.s10,
+          ),
           Expanded(
             child: StreamBuilder<List<EmployeeDocumentModal>>(
                 stream: _controller.stream,
@@ -101,7 +104,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                       ErrorMessageString.noEmpDocc,
+                        ErrorMessageString.noEmpDocc,
                         //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
@@ -162,7 +165,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               child: Text(
                                             formattedSerialNumber,
                                             // snapshot.data![index].name.toString(),
-                                            style:  DocDefineTableData.customTextStyle(context),
+                                            style: DocDefineTableData
+                                                .customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
@@ -171,7 +175,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               child: Text(
                                             employeedoc.idOfDocument,
                                             // snapshot.data![index].name.toString(),
-                                            style:  DocDefineTableData.customTextStyle(context),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
@@ -179,14 +183,15 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           child: Center(
                                               child: Text(
                                             employeedoc.docName,
-                                            style:  DocDefineTableData.customTextStyle(context),
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                           )),
                                         ),
                                         Expanded(
                                           child: Center(
                                               child: Text(
                                             employeedoc.reminderThreshold,
-                                            style:  DocDefineTableData.customTextStyle(context),
+
+                                                style:  DocumentTypeDataStyle.customTextStyle(context),
                                           )),
                                         ),
 
@@ -194,313 +199,151 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                         Expanded(
                                           child: Center(
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                IconButton(
+
+
+
+
+                              IconButton(
                                                   onPressed: () async {
-                                                    String? selectedExpiryType = expiryType;
+                                                    String? selectedExpiryType =
+                                                        expiryType;
                                                     String? selectedDocType;
                                                     int docMetaId = 0;
-                                                    List<DropdownMenuItem<String>>dropDownMenuItems = [];
-                                                    final docTypes = await getEmployeeDocTab(context);
+                                                    List<
+                                                            DropdownMenuItem<
+                                                                String>>
+                                                        dropDownMenuItems = [];
+                                                    final docTypes =
+                                                        await getEmployeeDocTab(
+                                                            context);
                                                     if (docTypes.isNotEmpty) {
                                                       for (var i in docTypes) {
                                                         dropDownMenuItems.add(
-                                                          DropdownMenuItem<String>(
-                                                            child: Text(i.employeeDocType),
-                                                            value: i.employeeDocType,
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                            child: Text(i
+                                                                .employeeDocType),
+                                                            value: i
+                                                                .employeeDocType,
                                                           ),
                                                         );
                                                       }
-                                                      selectedDocType = dropDownMenuItems[0].value;
-                                                      docMetaId = docTypes[0].employeeDocMetaDataId;
+                                                      selectedDocType =
+                                                          dropDownMenuItems[0]
+                                                              .value;
+                                                      docMetaId = docTypes[0]
+                                                          .employeeDocMetaDataId;
                                                     }
 
                                                     showDialog(
                                                       context: context,
                                                       builder: (context) {
-                                                        return FutureBuilder<GetEmployeeSetupPrefillData>(
-                                                          future: getPrefillEmployeeDocTab(context,
-                                                              employeedoc.employeeDocTypesetupId),
-                                                          builder: (context, snapshotPrefill) {
-                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                        return FutureBuilder<
+                                                            GetEmployeeSetupPrefillData>(
+                                                          future: getPrefillEmployeeDocTab(
+                                                              context,
+                                                              employeedoc
+                                                                  .employeeDocTypesetupId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
                                                               return Center(
-                                                                  child: CircularProgressIndicator(color: ColorManager.blueprime));
+                                                                  child: CircularProgressIndicator(
+                                                                      color: ColorManager
+                                                                          .blueprime));
                                                             }
                                                             // var expiry = snapshotPrefill.data!.expiry;
                                                             // expiryType = expiry;
 
-                                                            var docName = snapshotPrefill.data?.docName.toString();
-                                                            docNamecontroller = TextEditingController(text: snapshotPrefill.data?.docName.toString());
+                                                            var docName =
+                                                                snapshotPrefill
+                                                                    .data
+                                                                    ?.docName
+                                                                    .toString();
+                                                            docNamecontroller =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data
+                                                                        ?.docName
+                                                                        .toString());
 
-                                                            var empSetupId = snapshotPrefill.data?.employeeDocTypesetupId;
-                                                            var calender = snapshotPrefill.data?.reminderThreshold.toString();
-                                                            var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
-                                                            var expiry = snapshotPrefill.data!.expiryType;
-                                                            String? selectedExpiryType = expiry;
+                                                            var empSetupId =
+                                                                snapshotPrefill
+                                                                    .data
+                                                                    ?.employeeDocTypesetupId;
+                                                            var calender =
+                                                                snapshotPrefill
+                                                                    .data
+                                                                    ?.reminderThreshold
+                                                                    .toString();
+                                                            var empDocType =
+                                                                snapshotPrefill
+                                                                    .data
+                                                                    ?.employeeDocTypesetupId;
+                                                            var expiry =
+                                                                snapshotPrefill
+                                                                    .data!
+                                                                    .expiryType;
+                                                            String?
+                                                                selectedExpiryType =
+                                                                expiry;
 
-
-                                                            idOfDocController = TextEditingController(text: snapshotPrefill.data?.idOfDocument.toString());
-                                                            dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
-
+                                                            idOfDocController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data
+                                                                        ?.idOfDocument
+                                                                        .toString());
+                                                            dateController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data
+                                                                        ?.reminderThreshold
+                                                                        .toString());
 
                                                             return StatefulBuilder(
-                                                              builder: (BuildContext context,
-                                                                  void Function(void Function())setState) {
+                                                              builder: (BuildContext
+                                                                      context,
+                                                                  void Function(
+                                                                          void
+                                                                              Function())
+                                                                      setState) {
                                                                 return EmpDocEditPopup(
-                                                                  title: 'Edit Document',
-                                                                  expiryType: expiryType,
+                                                                  title:
+                                                                      'Edit Document',
+
+                                                                  expiryType:expiryType,
                                                                   idOfDocController: idOfDocController,
                                                                   enable: true,
                                                                   nameDocController: docNamecontroller,
                                                                   calenderController: dateController,
-                                                                  onSavePredded:
-                                                                      () async {
-                                                                        setState(() {
-                                                                          _isLoading = true;
-                                                                        });
-                                                                        try {
-                                                                          // String expiryTypeToSend = selectedExpiryType == "Not Applicable"
-                                                                          //     ? "Not Applicable"
-                                                                          //     : dateController.text;
-                                                                          int threshold = 0;
-                                                                          String? expiryDateToSend = "";
-                                                                          if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
-                                                                            int enteredValue = int.parse(daysController.text);
-                                                                            if (selectedYear == AppConfig.year) {
-                                                                              threshold = enteredValue * 365;
-                                                                            } else if (selectedYear == AppConfig.month) {
-                                                                              threshold = enteredValue * 30;
-                                                                            }
-                                                                            expiryDateToSend = dateController.text;
-                                                                          } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
-                                                                            threshold = 0;
-                                                                            expiryDateToSend = null;
-                                                                          }
-                                                                    await editEmployeeDocTypeSetupId(context,
-                                                                        docName == docNamecontroller.text ? docName.toString() : docNamecontroller.text,
-                                                                        "",
-                                                                        selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                        idOfDocController.text,
-                                                                        selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
-                                                                        employeedoc.employeeDocTypesetupId,
-                                                                        snapshotPrefill.data!.employeeDocTypeMetaId,
-                                                                        threshold);
-                                                                  } finally {
-                                                                  setState(() {
-                                                                  _isLoading = false;
-                                                                  });
-                                                                  Navigator.pop(context);
-                                                                  }
-                                                                  },
-                                                                  child: Container(
-                                                                    width: 354,
-                                                                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
-                                                                    decoration: BoxDecoration(
-                                                                      color: ColorManager.white,
-                                                                      borderRadius: BorderRadius.circular(8),
-                                                                      border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                                    ),
-                                                                    child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                      children: [
-                                                                       snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.healthDocId
-                                                                           ? Text(
-                                                                        'Health',
-                                                                          style: CustomTextStylesCommon.commonStyle(
-                                                                            fontWeight: FontWeightManager.medium,
-                                                                            fontSize: FontSize.s12,
-                                                                            color: ColorManager.mediumgrey,
-                                                                          ),
-                                                                        )
-                                                                           : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.certificationDocId
-                                                                           ? Text(
-                                                                        "Certifications",
-                                                                         style: CustomTextStylesCommon.commonStyle(
-                                                                           fontWeight: FontWeightManager.medium,
-                                                                           fontSize: FontSize.s12,
-                                                                           color: ColorManager.mediumgrey,
-                                                                         ),
-                                                                       )
-                                                                           : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.employmentDocId
-                                                                           ? Text(
-                                                                         'Employment',
-                                                                         style: CustomTextStylesCommon.commonStyle(
-                                                                           fontWeight: FontWeightManager.medium,
-                                                                           fontSize: FontSize.s12,
-                                                                           color: ColorManager.mediumgrey,
-                                                                         ),
-                                                                       )
-                                                                           : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.clinicalVerificationDocId
-                                                                           ? Text(
-                                                                         "Clinical Verification",
-                                                                         style: CustomTextStylesCommon.commonStyle(
-                                                                           fontWeight: FontWeightManager.medium,
-                                                                           fontSize: FontSize.s12,
-                                                                           color: ColorManager.mediumgrey,
-                                                                         ),
-                                                                       )
-                                                                           : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.acknowledgementDocId
-                                                                           ? Text(
-                                                                         'Acknowledgement',
-                                                                         style: CustomTextStylesCommon.commonStyle(
-                                                                           fontWeight: FontWeightManager.medium,
-                                                                           fontSize: FontSize.s12,
-                                                                           color: ColorManager.mediumgrey,
-                                                                         ),
-                                                                       )
-                                                                           : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.compensationDocId
-                                                                           ? Text(
-                                                                         "Compensation",
-                                                                         style: CustomTextStylesCommon.commonStyle(
-                                                                           fontWeight: FontWeightManager.medium,
-                                                                           fontSize: FontSize.s12,
-                                                                           color: ColorManager.mediumgrey,
-                                                                         ),
-                                                                       )
-                                                                           : Text("Performance",
-                                                                         style: CustomTextStylesCommon.commonStyle(
-                                                                           fontWeight: FontWeightManager.medium,
-                                                                           fontSize: FontSize.s12,
-                                                                           color: ColorManager.mediumgrey,
-                                                                         ),
-                                                                       ),
-                                                                        Icon(
-                                                                          Icons.arrow_drop_down,
-                                                                          color: Colors.transparent,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  radioButton: Column(
-                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Expiry Type",
-                                                                        style: RadioButtonHeadStyle.customTextStyle(context),
-                                                                      ),
-                                                                      CustomRadioListTile(
-                                                                        value:AppConfig.notApplicable,
-                                                                        groupValue:
-                                                                        selectedExpiryType,
-                                                                        onChanged: (value) {
-                                                                          setState(() {
-                                                                            selectedExpiryType = value;
-                                                                          });
-                                                                        },
-                                                                        title: AppConfig.notApplicable,
-                                                                      ),
-                                                                      CustomRadioListTile(
-                                                                        value: AppConfig.scheduled,
-                                                                        groupValue:
-                                                                        selectedExpiryType,
-                                                                        onChanged: (value) {
-                                                                          setState(() {
-                                                                            selectedExpiryType = value;
-                                                                          });
-                                                                        },
-                                                                        title: AppConfig.scheduled,
-                                                                      ),
-                                                                      CustomRadioListTile(
-                                                                        value: AppConfig.issuer,
-                                                                        groupValue:
-                                                                        selectedExpiryType,
-                                                                        onChanged: (value) {
-                                                                          setState(() {
-                                                                            selectedExpiryType = value;
-                                                                          });
-                                                                        },
-                                                                        title: AppConfig.issuer,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  child2: Visibility(
-                                                                    visible: selectedExpiryType == AppConfig.scheduled,
-                                                                    child: Column(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          height: AppSize.s10,
-                                                                        ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Container(
-                                                                              height: AppSize.s30,
-                                                                              width: AppSize.s50,
-                                                                              child: TextFormField(
-                                                                                controller: daysController, // Use the controller initialized with "1"
-                                                                                cursorColor: ColorManager.black,
-                                                                                cursorWidth: 1,
-                                                                                style: DocDefination.customTextStyle(context),
-                                                                                decoration: InputDecoration(
-                                                                                  enabledBorder: OutlineInputBorder(
-                                                                                    borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 2),
-                                                                                    borderRadius: BorderRadius.circular(8),),
-                                                                                  focusedBorder: OutlineInputBorder(
-                                                                                    borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 2),
-                                                                                    borderRadius: BorderRadius.circular(8),
-                                                                                  ),
-                                                                                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                                                                                ),
-                                                                                keyboardType:
-                                                                                TextInputType.number,
-                                                                                inputFormatters: [
-                                                                                  FilteringTextInputFormatter.digitsOnly, // This ensures only digits are accepted
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                            SizedBox(width: AppSize.s10),
-                                                                            Container(
-                                                                              height: AppSize.s30,
-                                                                              width: AppSize.s80,
-                                                                              padding: EdgeInsets.symmetric(horizontal: 5),
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(color: ColorManager.fmediumgrey),
-                                                                                borderRadius: BorderRadius.circular(8),
-                                                                              ),
-                                                                              child: DropdownButtonFormField<String>(
-                                                                                value:
-                                                                                selectedYear, // Initial value (you should define this variable)
-                                                                                items: [
-                                                                                  DropdownMenuItem(
-                                                                                    value: AppConfig.year,
-                                                                                    child: Text(
-                                                                                        AppConfig.year,
-                                                                                        style: DocDefination.customTextStyle(context)
-                                                                                    ),
-                                                                                  ),
-                                                                                  DropdownMenuItem(
-                                                                                    value: AppConfig.month,
-                                                                                    child: Text(
-                                                                                        AppConfig.month,
-                                                                                        style: DocDefination.customTextStyle(context)
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                                onChanged: (value) {
-                                                                                  setState(() {
-                                                                                    selectedYear = value;
-                                                                                  });
-                                                                                },
-                                                                                decoration: InputDecoration(
-                                                                                  enabledBorder: InputBorder.none,
-                                                                                  focusedBorder: InputBorder.none,
-                                                                                  hintText: AppConfig.year,
-                                                                                  hintStyle: DocDefination.customTextStyle(context),
-                                                                                  contentPadding: EdgeInsets.only(bottom: 20),
-                                                                                ),
-                                                                                icon: Icon(
-                                                                                  Icons.arrow_drop_down,
-                                                                                  color: ColorManager.black,
-                                                                                  size: 16,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
+
+                                                                  empsetupId: snapshotPrefill.data!.employeeDocTypesetupId,
+                                                                  docname:snapshotPrefill.data!.docName,
+
+                                                                  empdoctype: snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig
+                                                                              .healthDocId
+                                                                      ? 'Health'
+                                                                      : snapshotPrefill.data!.employeeDocTypeMetaId ==
+                                                                              AppConfig.certificationDocId
+                                                                          ? 'Certifications'
+                                                                          : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.employmentDocId
+                                                                              ? 'Employment'
+                                                                              : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.clinicalVerificationDocId
+                                                                                  ? 'Clinical Verification'
+                                                                                  : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.acknowledgementDocId
+                                                                                      ? 'Acknowledgement'
+                                                                                      : snapshotPrefill.data!.employeeDocTypeMetaId == AppConfig.compensationDocId
+                                                                                          ? 'Compensation'
+                                                                                          : 'Performance', employeeDocTypeMetaDataId: docMetaId,
+
+
                                                                 );
                                                               },
                                                             );
@@ -613,3 +456,63 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
     );
   }
 }
+
+String _getDocumentType(int empDocTypeMetaId) {
+  switch (empDocTypeMetaId) {
+    case AppConfig.healthDocId:
+      return 'Health';
+    case AppConfig.certificationDocId:
+      return 'Certifications';
+    case AppConfig.employmentDocId:
+      return 'Employment';
+    case AppConfig.clinicalVerificationDocId:
+      return 'Clinical Verification';
+    case AppConfig.acknowledgementDocId:
+      return 'Acknowledgement';
+    case AppConfig.compensationDocId:
+      return 'Compensation';
+    default:
+      return 'Performance';
+  }
+}
+
+
+// onSavePredded:
+//     () async {
+//       setState(() {
+//         _isLoading = true;
+//       });
+//       try {
+//         // String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+//         //     ? "Not Applicable"
+//         //     : dateController.text;
+//         int threshold = 0;
+//         String? expiryDateToSend = "";
+//         if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+//           int enteredValue = int.parse(daysController.text);
+//           if (selectedYear == AppConfig.year) {
+//             threshold = enteredValue * 365;
+//           } else if (selectedYear == AppConfig.month) {
+//             threshold = enteredValue * 30;
+//           }
+//           expiryDateToSend = dateController.text;
+//         } else if (selectedExpiryType == AppConfig.notApplicable || selectedExpiryType == AppConfig.issuer) {
+//           threshold = 0;
+//           expiryDateToSend = null;
+//         }
+//   await editEmployeeDocTypeSetupId(context,
+//       docName == docNamecontroller.text ? docName.toString() : docNamecontroller.text,
+//       "",
+//       selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+//       idOfDocController.text,
+//       selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+//       employeedoc.employeeDocTypesetupId,
+//       snapshotPrefill.data!.employeeDocTypeMetaId,
+//       threshold);
+// } finally {
+// setState(() {
+// _isLoading = false;
+// });
+// Navigator.pop(context);
+// }
+// },

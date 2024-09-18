@@ -157,15 +157,18 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "Logos",
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.mediumgrey,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      "Logos",
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.mediumgrey,
+                      ),
                     ),
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 4.3),
+                  SizedBox(width: MediaQuery.of(context).size.width / 4.2),
                   Expanded(
                     child: Text(
                       "Details",
@@ -423,7 +426,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         ],
                                                       ),
                                                       SizedBox(height: AppSize.s15),
-                                                      SMTextFConst(
+                                                      FirstSMTextFConst(
                                                         controller: nameController,
                                                         keyboardType:
                                                         TextInputType.text,

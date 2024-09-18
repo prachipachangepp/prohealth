@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/custome_dialog.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
@@ -182,24 +183,14 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                               children: [
                                                 Text(
                                                   formattedSerialNumber,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                  style:  DocumentTypeDataStyle.customTextStyle(context),
                                                 ),
                                                 // Text(''),
                                                 Text(
                                                   vendorData.vendorName
                                                       .toString(),
                                                   textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                  style:  DocumentTypeDataStyle.customTextStyle(context),
                                                 ),
                                                 //  Text(''),
                                                 Row(

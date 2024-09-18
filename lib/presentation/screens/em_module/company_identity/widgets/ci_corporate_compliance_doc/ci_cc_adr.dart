@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -217,19 +218,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         Text(
                                                           "ID : ${manageCCADR.idOfDocument.toString()}",
                                                           // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize:
-                                                                FontSize.s10,
-                                                            fontWeight:
-                                                                FontWeightManager
-                                                                    .regular,
-                                                            color: ColorManager
-                                                                .granitegray,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           manageCCADR
@@ -237,18 +226,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize:
-                                                                FontSize.s10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: ColorManager
-                                                                .granitegray,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
+                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
