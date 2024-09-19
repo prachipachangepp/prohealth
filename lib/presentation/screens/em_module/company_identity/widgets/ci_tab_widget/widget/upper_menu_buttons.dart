@@ -29,7 +29,7 @@ class UpperMenuButtons extends StatelessWidget {
         children: [
           Text(
             heading,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
               color: grpIndex == index

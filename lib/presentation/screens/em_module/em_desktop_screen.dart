@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
@@ -157,7 +156,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'Select a module',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
@@ -170,7 +169,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'User Management',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
@@ -195,7 +194,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Users',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -221,7 +220,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Role Manager',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -247,7 +246,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'Clinical',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
@@ -272,7 +271,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Visits',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -298,7 +297,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'HR',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
+                                  style:TextStyle(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
@@ -323,7 +322,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Designation Settings',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -354,7 +353,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Work Schedule',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style:TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -380,7 +379,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Employee Documents',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -406,7 +405,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'Finance',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
@@ -431,7 +430,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Pay Rates',
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
@@ -960,7 +959,7 @@ class CustomDropdownButton extends StatelessWidget {
                   child: Text(
                     item.value ?? '',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s12,
                       fontWeight: FontWeight.w700,
                       color: item.value == 'Select a module'

@@ -6,11 +6,11 @@ import 'package:prohealth/app/resources/font_manager.dart';
 ///Tabbar with Blue BG
 class BlueBgTabbar {
   static TextStyle customTextStyle(int selectedIndex, int currentIndex) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s12,
       fontWeight: selectedIndex == currentIndex
-          ? FontWeight.w600
-          : FontWeight.w400,
+          ? FontWeight.w700
+          : FontWeight.w500,
       color: selectedIndex == currentIndex
           ? ColorManager.mediumgrey
           : ColorManager.white,
@@ -22,7 +22,7 @@ class BlueBgTabbar {
 ///Tabbar with transparent BG
 class TransparentBgTabbar {
   static TextStyle customTextStyle(int selectedIndex, int currentIndex) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s12,
       fontWeight: selectedIndex == currentIndex
           ? FontWeight.w600
@@ -38,7 +38,7 @@ class TransparentBgTabbar {
 ///listview table listview heading
 class AllHRTableHeading {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s12,
       fontWeight: FontWeight.w400,
       color: ColorManager.white,
@@ -49,7 +49,7 @@ class AllHRTableHeading {
 ///apply most of the places for each listview data
 class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: FontSize.s11,
       color: ColorManager.mediumgrey,
@@ -61,7 +61,7 @@ class DocumentTypeDataStyle {
 ///details screen office name
 class CompanyIdentityManageHeadings {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s15,
       color: ColorManager.black,
       fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class CompanyIdentityManageHeadings {
 ///listview table data used for HR
 class AllHRTableData {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s10,
       fontWeight: FontWeight.w400,
       color: ColorManager.mediumgrey,
@@ -88,7 +88,7 @@ class AllHRTableData {
 ///document defination
 class DefineWorkWeekStyle {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: ColorManager.mediumgrey,

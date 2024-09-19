@@ -184,7 +184,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         children: [
                                           Text(
                                             widget.headingText,
-                                            style: GoogleFonts.firaSans(
+                                            style: TextStyle(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w700,
                                               color: const Color(0xff2B647F),

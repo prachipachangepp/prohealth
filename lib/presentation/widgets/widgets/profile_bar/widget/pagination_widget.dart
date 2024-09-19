@@ -43,6 +43,9 @@ class _PaginationControlsWidgetState extends State<PaginationControlsWidget> {
               ),
             ),
             child: IconButton(
+              splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               padding: EdgeInsets.only(bottom: 1.5),
               icon: Icon(Icons.chevron_left),
               onPressed: widget.onPreviousPagePressed,
@@ -103,6 +106,9 @@ class _PaginationControlsWidgetState extends State<PaginationControlsWidget> {
               ),
             ),
             child: IconButton(
+              splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               padding: EdgeInsets.only(bottom: 1.5),
               icon: Icon(Icons.chevron_right),
               onPressed: widget.onNextPagePressed,

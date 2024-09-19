@@ -32,6 +32,7 @@ class TableHeadingConst extends StatelessWidget {
               padding: const EdgeInsets.only(right: 100),
               child: Text(
                 AppStringEM.docID,
+                textAlign: TextAlign.start,
                 style: AllHRTableHeading.customTextStyle(context),
               ),
             ),

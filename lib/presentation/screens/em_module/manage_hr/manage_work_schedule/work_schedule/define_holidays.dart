@@ -121,7 +121,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     ),
                   ),
                Expanded(
-                   flex: flexVal,
+                   flex: 1,
                    child: SizedBox()),
                   Expanded(
                     flex: flexVal,

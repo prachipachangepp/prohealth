@@ -5,7 +5,7 @@ import '../font_manager.dart';
 ///all login flow head
 class LoginFlowHeading {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s30,
       fontWeight: FontWeight.w700,
       color: ColorManager.mediumgrey,
@@ -17,7 +17,7 @@ class LoginFlowHeading {
 /// all login flow base text
 class LoginFlowBase {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.bluebottom,
       fontSize: FontSize.s12,
       fontWeight: FontWeight.w400,
@@ -29,7 +29,7 @@ class LoginFlowBase {
 ///bottom bar powered by
 class LoginFlowBottomBar {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.black,
       fontSize: FontSize.s14,
       fontWeight: FontWeight.w400,
@@ -41,9 +41,9 @@ class LoginFlowBottomBar {
 ///login flow textFormField
 class LoginFlowTextField {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.blackForLoginTexts,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       fontSize: FontSize.s14,
       decoration: TextDecoration.none,
     );
@@ -53,7 +53,7 @@ class LoginFlowTextField {
 /// all login flow base text
 class LoginFlowText {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.blueprime,
       fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
@@ -65,7 +65,7 @@ class LoginFlowText {
 ///error msg
 class LoginFlowErrorMsg {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.red,
       fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
@@ -77,7 +77,7 @@ class LoginFlowErrorMsg {
 ///email theme
 class EmailTextStyle {
   static TextStyle enterEmail(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: Color(0xff000000).withOpacity(0.3),
       fontSize: FontSize.s14,
       fontWeight: FontWeight.w300,
@@ -87,7 +87,7 @@ class EmailTextStyle {
 ///
 class LoginFlowTheme {
   static TextStyle enterEmail(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.darkgrey,
       fontSize: FontSize.s12,
       fontWeight: FontWeight.w400,
@@ -98,7 +98,7 @@ class LoginFlowTheme {
 /// having letter spacing
 class LoginFlowLetterSpacing {
   static TextStyle enterEmail(BuildContext context, {bool applyLetterSpacing = true}) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       letterSpacing: applyLetterSpacing ? 0.5 : 0.0,
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s10,
@@ -111,7 +111,7 @@ class LoginFlowLetterSpacing {
 ///didnt receive code
 class CodeVerficationText {
   static TextStyle VerifyCode(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.darkgrey,
       // fontSize: FontSize.s10,
       fontSize: FontSize.s14,

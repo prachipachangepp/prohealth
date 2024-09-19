@@ -176,9 +176,9 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                             padding: const EdgeInsets.only(left: 20.0),
                                             child: Text(
                                              employeedoc.docName,
-                                                                                     textAlign: TextAlign.start,
-                                                                                   style: DocumentTypeDataStyle.customTextStyle(context),
-                                                                                    ),
+                                              textAlign: TextAlign.start,
+                                              style: DocumentTypeDataStyle.customTextStyle(context),
+                                            ),
                                           ),
                                         ),
                                         Expanded(
