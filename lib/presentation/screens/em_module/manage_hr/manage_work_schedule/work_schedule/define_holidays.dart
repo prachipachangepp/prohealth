@@ -223,7 +223,6 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                     padding: const EdgeInsets.only(right: 10.0),
                                                     child: Text(
                                                       formattedSerialNumber,
-                                                      // formattedSerialNumber,
                                                       style: DocumentTypeDataStyle.customTextStyle(context)
                                                     ),
                                                   ),
