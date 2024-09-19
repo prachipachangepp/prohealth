@@ -442,6 +442,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
       currentPage = pageNumber;
     });
   }
+  int flexVal = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -451,6 +452,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
           Container(
             height: AppSize.s30,
             margin: EdgeInsets.symmetric(horizontal: 60),
+            padding: EdgeInsets.only(right: 80,left: 20),
             decoration: BoxDecoration(
               color: ColorManager.fmediumgrey,
               borderRadius: BorderRadius.circular(12),
@@ -459,53 +461,60 @@ class _HRTabScreensState extends State<HRTabScreens> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Text(AppStringEM.srno,
-                        textAlign: TextAlign.center,
-                        style:AllHRTableHeading.customTextStyle(context),
-                    )
+                  flex: flexVal,
+                  child: Text(AppStringEM.srno,
+                      textAlign: TextAlign.center,
+                      style:AllHRTableHeading.customTextStyle(context),
                   ),
                 ),
                 Expanded(
+                    flex: 1,
+                    child: SizedBox()),
+                Expanded(
+                  flex: flexVal,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 40.0),
-                    child: Center(
-                      child: Text(AppStringEM.employee,
-                          textAlign: TextAlign.center,
-                        style:AllHRTableHeading.customTextStyle(context),
-                          ),
-                    ),
+                    padding: const EdgeInsets.only(left: 35.0),
+                    child: Text(AppStringEM.employee,
+                        textAlign: TextAlign.start,
+                      style:AllHRTableHeading.customTextStyle(context),
+                        ),
                   ),
                 ),
                 Expanded(
+                    flex: 1,
+                    child: SizedBox()),
+                Expanded(
+                  flex: flexVal,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 80.0),
+                    padding: const EdgeInsets.only(right: 20.0),
                     child: Center(
                       child: Text(AppStringEM.abbrevation,
+                        textAlign: TextAlign.start,
                         style:AllHRTableHeading.customTextStyle(context),
                           ),
                     ),
                   ),
                 ),
+
                 Expanded(
+                  flex: flexVal,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 80.0),
-                    child: Center(
-                        child: Text(AppStringEM.color,
-                          style:AllHRTableHeading.customTextStyle(context),
-                            )),
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: Text(AppStringEM.color,
+                      textAlign: TextAlign.end,
+                      style:AllHRTableHeading.customTextStyle(context),
+                        ),
                   ),
                 ),
-                //
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 100.0),
-                    child: Center(
-                        child: Text(AppStringEM.action,
-                          style:AllHRTableHeading.customTextStyle(context),
-                            )),
-                  ),
+                    flex: 1,
+                    child: SizedBox()),
+                Expanded(
+                  flex: flexVal,
+                  child: Center(
+                      child: Text(AppStringEM.action,
+                        style:AllHRTableHeading.customTextStyle(context),
+                          )),
                 ),
               ],
             ),
@@ -584,7 +593,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                       children: [
                                         ///sr no
                                         Expanded(
-                                          flex: 2,
+                                          flex: flexVal,
                                           child: Center(
                                               child: Text(
                                             formattedSerialNumber,
@@ -593,20 +602,22 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
-
+                                        Expanded(
+                                            flex: 1,
+                                            child: SizedBox()),
                                         ///emptype
                                         Expanded(
-                                          flex: 2,
-                                          child: Center(
-                                              child: Text(
-                                            hrdoc.empType!,
-                                            style: DocumentTypeDataStyle.customTextStyle(context)
-                                          )),
+                                         flex: flexVal,
+                                          child: Text(
+                                             hrdoc.empType!,
+                                             textAlign: TextAlign.start,
+                                             style: DocumentTypeDataStyle.customTextStyle(context)
+                                             ),
                                         ),
 
                                         ///abbreviation
                                         Expanded(
-                                          flex: 2,
+                                          flex: flexVal,
                                           child: Center(
                                               child: Text(
                                             hrdoc.abbrivation!,
