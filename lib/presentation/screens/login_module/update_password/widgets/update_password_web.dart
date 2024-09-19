@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
@@ -99,17 +100,13 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
 
                   ///txtfield
                   TextFormField(
-                    style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.black.withOpacity(0.5),
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s14,
-                    ),
+                    style: LoginFlowTextField.customTextStyle(context),
                     focusNode: newPasswordFocusNode,
                     onFieldSubmitted: (_) {
                       FocusScope.of(context)
@@ -168,11 +165,7 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
                     cursorHeight: 22,
                     obscuringCharacter: '*',
                     controller: controllerConfirm,
-                    style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.black.withOpacity(0.5),
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s14,
-                    ),
+                    style: LoginFlowTextField.customTextStyle(context),
                     cursorColor: ColorManager.black,
                     obscureText: _obscureTextconfirm,
                     decoration: InputDecoration(
@@ -270,28 +263,11 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
                                         Text(
                                           AppString.successfully,
                                           style:
-                                          CustomTextStylesCommon
-                                              .commonStyle(
-                                            color:
-                                            ColorManager.darkgrey,
-                                            fontSize: FontSize.s30,
-                                            fontWeight:
-                                            FontWeightManager
-                                                .extrabold,
-                                          ),
+                                         LoginFlowHeading.customTextStyle(context)
                                         ),
                                         Text(
                                           AppString.resetsuccessfully,
-                                          style:
-                                          CustomTextStylesCommon
-                                              .commonStyle(
-                                            color:
-                                            ColorManager.darkgrey,
-                                            fontSize: FontSize.s12,
-                                            fontWeight:
-                                            FontWeightManager
-                                                .medium,
-                                          ),
+                                          style:LoginFlowTheme.enterEmail(context),
                                         ),
                                         CustomButton(
                                           width: AppSize.s181,
@@ -329,24 +305,12 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
                                   CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      AppString
-                                          .threetimepasscanchange,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s30,
-                                        color: Color(0xff686464),
-                                        fontWeight:
-                                        FontWeightManager.bold,
-                                      ),
+                                      AppString.threetimepasscanchange,
+                                      style: LoginFlowHeading.customTextStyle(context),
                                     ),
                                     Text(
                                       AppString.cannotchangepass,
-                                      style: CustomTextStylesCommon
-                                          .commonStyle(
-                                        color: ColorManager.darkgrey,
-                                        fontSize: FontSize.s12,
-                                        fontWeight:
-                                        FontWeightManager.medium,
-                                      ),
+                                      style: LoginFlowTheme.enterEmail(context),
                                     ),
                                     CustomButton(
                                       width: AppSize.s181,
@@ -383,7 +347,7 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         _errorMessage!,
-                        style: TextStyle(color: Colors.red),
+                        style: LoginFlowErrorMsg.customTextStyle(context),
                       ),
                     ),
                 ],

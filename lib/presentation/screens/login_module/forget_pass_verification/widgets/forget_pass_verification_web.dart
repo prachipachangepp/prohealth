@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../app/resources/theme_manager.dart';
@@ -110,11 +111,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(AppString.entersixdigitCode,
-                    style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.mediumgrey,
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.semiBold,
-                    )),
+                    style: LoginFlowLetterSpacing.enterEmail(context,applyLetterSpacing: false)),
 
                 ///txtfield
                 Row(
@@ -134,11 +131,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                         ),
                       ),
                       child: TextFormField(
-                        style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.black.withOpacity(0.7),
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.medium,
-                        ),
+                        style: LoginFlowTextField.customTextStyle(context),
                         controller: _otpControllers[index],
                         cursorColor: ColorManager.black,
                         inputFormatters: [
@@ -184,7 +177,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.orange,
                     fontSize: FontSize.s8,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
 
@@ -205,11 +198,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.red,
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
-                      ),
+                      style: LoginFlowErrorMsg.customTextStyle(context),
                     ),
                   ),
 
@@ -218,12 +207,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(AppString.didntrecieveCode,
-                        style: GoogleFonts.firaSans(
-                          color: ColorManager.mediumgrey,
-                          //fontSize: FontSize.s10,
-                          fontSize: MediaQuery.of(context).size.width / 115,
-                          fontWeight: FontWeightManager.semiBold,
-                        )),
+                        style: LoginFlowLetterSpacing.enterEmail(context,)),
                     TextButton(
                       onPressed: () {
                         print("Resend tapped!");
@@ -232,7 +216,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.blueprime,
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.semiBold,
+                            fontWeight: FontWeight.w500,
                           )),
                     )
                   ],
