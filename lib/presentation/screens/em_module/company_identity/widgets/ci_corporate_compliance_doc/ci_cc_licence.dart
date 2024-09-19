@@ -64,7 +64,7 @@ class _CICCLicenseState extends State<CICCLicense> {
 
   @override
   void initState() {
-    getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance,
+    getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId,
             AppConfig.subDocId1Licenses, 1, 20)
         .then((data) {
       lisenceController.add(data);
@@ -106,6 +106,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                   getListMCorporateCompliancefetch(
                           context,
                           AppConfig.corporateAndCompliance,
+                      widget.officeId,
                           AppConfig.subDocId1Licenses,
                           1,
                           20)
@@ -418,7 +419,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20).then((data) {
+                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
                                                                                   lisenceController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

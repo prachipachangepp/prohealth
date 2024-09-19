@@ -96,7 +96,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.corporateAndCompliance,
+                          AppConfig.corporateAndCompliance, widget.officeId,
                           AppConfig.subDocId5BalReport,
                           1,
                           20)
@@ -203,7 +203,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${balReport.orgDocumentSetupid}",
+                                                          "ID : ${balReport.idOfDocument}",
                                                           //balReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -790,7 +790,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                                               // await deleteOrgDoc(context: context, orgDocId: null,);
                                                                               await deleteOrgDoc(context: context, orgDocId: balReport.orgOfficeDocumentId);
                                                                               setState(() async {
-                                                                                await await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20).then((data) {
+                                                                                await await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
                                                                                   _ccQuarterlyController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

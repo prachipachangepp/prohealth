@@ -101,6 +101,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                   getListMCorporateCompliancefetch(
                           context,
                           AppConfig.corporateAndCompliance,
+                      widget.officeId,
                           AppConfig.subDocId4CapReport,
                           1,
                           20)
@@ -216,7 +217,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${CapReports.orgDocumentSetupid}",
+                                                          "ID : ${CapReports.idOfDocument}",
                                                           //CapReports.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -421,7 +422,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId4CapReport, 1, 20).then((data) {
+                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId4CapReport, 1, 20).then((data) {
                                                                                   _ccCapController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

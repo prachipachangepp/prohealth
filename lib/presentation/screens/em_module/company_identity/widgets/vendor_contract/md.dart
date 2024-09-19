@@ -104,7 +104,7 @@ class _CiMdState extends State<CiMd> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.vendorContracts,
+                          AppConfig.vendorContracts, widget.officeId,
                           AppConfig.subDocId9MD,
                           1,
                           20)
@@ -219,7 +219,7 @@ class _CiMdState extends State<CiMd> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${mdData.orgDocumentSetupid}",
+                                                          "ID : ${mdData.idOfDocument}",
                                                           // mdData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -423,7 +423,7 @@ class _CiMdState extends State<CiMd> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, AppConfig.subDocId9MD, 1, 20).then((data) {
+                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId, AppConfig.subDocId9MD, 1, 20).then((data) {
                                                                                   vendorMDController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error
