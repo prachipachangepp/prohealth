@@ -1,0 +1,121 @@
+import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../color.dart';
+import '../font_manager.dart';
+///all login flow head
+class LoginFlowHeading {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: FontSize.s30,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+/// all login flow base text
+class LoginFlowBase {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.bluebottom,
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w400,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///bottom bar powered by
+class LoginFlowBottomBar {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.black,
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w400,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///login flow textFormField
+class LoginFlowTextField {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.blackForLoginTexts,
+      fontWeight: FontWeight.w400,
+      fontSize: FontSize.s14,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+/// all login flow base text
+class LoginFlowText {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.blueprime,
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///error msg
+class LoginFlowErrorMsg {
+  static TextStyle customTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.red,
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///email theme
+class EmailTextStyle {
+  static TextStyle enterEmail(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: Color(0xff000000).withOpacity(0.3),
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w300,
+    );
+  }
+}
+///
+class LoginFlowTheme {
+  static TextStyle enterEmail(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.darkgrey,
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w400,
+    );
+  }
+}
+
+/// having letter spacing
+class LoginFlowLetterSpacing {
+  static TextStyle enterEmail(BuildContext context, {bool applyLetterSpacing = true}) {
+    return GoogleFonts.firaSans(
+      letterSpacing: applyLetterSpacing ? 0.5 : 0.0,
+      color: ColorManager.mediumgrey,
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
+
+
+///didnt receive code
+class CodeVerficationText {
+  static TextStyle VerifyCode(BuildContext context) {
+    return GoogleFonts.firaSans(
+      color: ColorManager.darkgrey,
+      // fontSize: FontSize.s10,
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}

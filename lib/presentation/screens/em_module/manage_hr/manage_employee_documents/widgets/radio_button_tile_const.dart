@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+
 class CustomRadioListTile extends StatefulWidget {
   final String value;
   final String? groupValue;
@@ -34,12 +36,7 @@ class _CustomRadioListTileState extends State<CustomRadioListTile> {
           const SizedBox(width: 0),
           Text(
             widget.title,
-            style: GoogleFonts.firaSans(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xff9B9B9B),
-              decoration: TextDecoration.none,
-            ),
+            style: DocumentTypeDataStyle.customTextStyle(context),
           ),
         ],
       ),

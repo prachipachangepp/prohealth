@@ -166,17 +166,17 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomButton(
-                  paddingVertical: 1,
-                  borderRadius: 12,
+                CustomIconButtonConst(
+                  // paddingVertical: 1,
+                  // borderRadius: 12,
                   text: 'White Labelling',
-                  style: GoogleFonts.firaSans(
-                    fontSize: AppSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.white,
-                  ),
+                  // style: GoogleFonts.firaSans(
+                  //   fontSize: AppSize.s12,
+                  //   fontWeight: FontWeight.w700,
+                  //   color: ColorManager.white,
+                  // ),
                   width: 120,
-                  height: 26,
+                  //height: 26,
                   onPressed: showWhitelabellingScreenFunction,
                 ),
                 SizedBox(width: 10,),
@@ -337,6 +337,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   country: countryNameController.text,
                                   isHeadOffice: false,
                                 );
+
                                 nameController.clear();
                                 addressController.clear();
                                 emailController.clear();
@@ -346,11 +347,20 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 countryNameController.clear();
 
                                 Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Added successfully.',
+                                    );
+                                  },
+                                );
                                 if(response.statusCode == 200 || response.statusCode ==201){
                                   print('Services List ${selectedServices}');
                                   await addNewOfficeServices(context: context, officeId: response.officeId!,
                                       serviceList: selectedServices);
                                 }
+
                                 companyOfficeListGet(context, 1, 30).then((data) {
                                   _companyIdentityController
                                       .add(data);

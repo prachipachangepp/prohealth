@@ -92,8 +92,8 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
     return DialogueTemplate(
       width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
-          ? widget.height ?? AppSize.s522
-      :widget.height ??AppSize.s560,
+          ? widget.height ?? AppSize.s500
+      :widget.height ??AppSize.s550,
       body: [
         /// ID of the Document
         SMTextFConst(
@@ -241,7 +241,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Row(
                         children: [
@@ -498,7 +498,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height ?? AppSize.s560,
+      height: widget.height ?? AppSize.s420,
       body: [
         /// ID of the Document
         HeaderContentConst(
@@ -537,7 +537,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
               _nameDocError!,
               style: TextStyle(
                 color: Colors.red,
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s10,
               ),
             ),
           ),
@@ -596,173 +596,173 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
         ),
 
         /// Radio Button Section
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Row(
-            children: [
-              HeaderContentConst(
-                heading: AppString.expiry_type,
-                content: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    widget.subDocTypeId == AppConfig.subDocId10MISC
-                        ? Offstage()
-                        : CustomRadioListTile(
-                      value: AppConfig.notApplicable,
-                      groupValue: selectedExpiryType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedExpiryType = value!;
-                        });
-                      },
-                      title: AppConfig.notApplicable,
-                    ),
-                    CustomRadioListTile(
-                      value: AppConfig.scheduled,
-                      groupValue: selectedExpiryType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedExpiryType = value!;
-                        });
-                      },
-                      title: AppConfig.scheduled,
-                    ),
-                    widget.subDocTypeId == AppConfig.subDocId10MISC
-                        ? Offstage()
-                        : CustomRadioListTile(
-                      value: AppConfig.issuer,
-                      groupValue: selectedExpiryType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedExpiryType = value!;
-                        });
-                      },
-                      title: AppConfig.issuer,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: AppPadding.p20,
-                  right: AppPadding.p20,
-                ),
-                child: Visibility(
-                  visible: selectedExpiryType == AppConfig.scheduled,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 50,
-                            //color: ColorManager.red,
-                            child: TextFormField(
-                              controller:
-                              daysController,
-                              cursorColor: ColorManager.black,
-                              cursorWidth: 1,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.mediumgrey,
-                              ),
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ColorManager.fmediumgrey,
-                                      width: 2),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ColorManager.fmediumgrey,
-                                      width: 2),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding:
-                                EdgeInsets.symmetric(horizontal: 10),
-                              ),
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter
-                                    .digitsOnly, // This ensures only digits are accepted
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Container(
-                            height: 30,
-                            width: 80,
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                              border:
-                              Border.all(color: ColorManager.fmediumgrey),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: DropdownButtonFormField<String>(
-                              value:
-                              selectedYear, // Initial value (you should define this variable)
-                              items: [
-                                DropdownMenuItem(
-                                  value: AppConfig.year,
-                                  child: Text(
-                                    AppConfig.year,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  value: AppConfig.month,
-                                  child: Text(
-                                    AppConfig.month,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedYear = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                hintText: AppConfig.year,
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorManager.mediumgrey,
-                                ),
-                                contentPadding: EdgeInsets.only(bottom: 20),
-                              ),
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                color: ColorManager.black,
-                                size: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 12),
+        //   child: Row(
+        //     children: [
+        //       HeaderContentConst(
+        //         heading: AppString.expiry_type,
+        //         content: Column(
+        //           mainAxisAlignment: MainAxisAlignment.start,
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             widget.subDocTypeId == AppConfig.subDocId10MISC
+        //                 ? Offstage()
+        //                 : CustomRadioListTile(
+        //               value: AppConfig.notApplicable,
+        //               groupValue: selectedExpiryType,
+        //               onChanged: (value) {
+        //                 setState(() {
+        //                   selectedExpiryType = value!;
+        //                 });
+        //               },
+        //               title: AppConfig.notApplicable,
+        //             ),
+        //             CustomRadioListTile(
+        //               value: AppConfig.scheduled,
+        //               groupValue: selectedExpiryType,
+        //               onChanged: (value) {
+        //                 setState(() {
+        //                   selectedExpiryType = value!;
+        //                 });
+        //               },
+        //               title: AppConfig.scheduled,
+        //             ),
+        //             widget.subDocTypeId == AppConfig.subDocId10MISC
+        //                 ? Offstage()
+        //                 : CustomRadioListTile(
+        //               value: AppConfig.issuer,
+        //               groupValue: selectedExpiryType,
+        //               onChanged: (value) {
+        //                 setState(() {
+        //                   selectedExpiryType = value!;
+        //                 });
+        //               },
+        //               title: AppConfig.issuer,
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsets.only(
+        //           left: AppPadding.p20,
+        //           right: AppPadding.p20,
+        //         ),
+        //         child: Visibility(
+        //           visible: selectedExpiryType == AppConfig.scheduled,
+        //           child: Column(
+        //             children: [
+        //               SizedBox(
+        //                 height: 20,
+        //               ),
+        //               Row(
+        //                 children: [
+        //                   Container(
+        //                     height: 30,
+        //                     width: 50,
+        //                     //color: ColorManager.red,
+        //                     child: TextFormField(
+        //                       controller:
+        //                       daysController,
+        //                       cursorColor: ColorManager.black,
+        //                       cursorWidth: 1,
+        //                       style: GoogleFonts.firaSans(
+        //                         fontSize: FontSize.s10,
+        //                         fontWeight: FontWeight.w500,
+        //                         color: ColorManager.mediumgrey,
+        //                       ),
+        //                       decoration: InputDecoration(
+        //                         enabledBorder: OutlineInputBorder(
+        //                           borderSide: BorderSide(
+        //                               color: ColorManager.fmediumgrey,
+        //                               width: 2),
+        //                           borderRadius: BorderRadius.circular(8),
+        //                         ),
+        //                         focusedBorder: OutlineInputBorder(
+        //                           borderSide: BorderSide(
+        //                               color: ColorManager.fmediumgrey,
+        //                               width: 2),
+        //                           borderRadius: BorderRadius.circular(8),
+        //                         ),
+        //                         contentPadding:
+        //                         EdgeInsets.symmetric(horizontal: 10),
+        //                       ),
+        //                       keyboardType: TextInputType.number,
+        //                       inputFormatters: [
+        //                         FilteringTextInputFormatter
+        //                             .digitsOnly, // This ensures only digits are accepted
+        //                       ],
+        //                     ),
+        //                   ),
+        //                   SizedBox(width: 10),
+        //                   Container(
+        //                     height: 30,
+        //                     width: 80,
+        //                     padding: EdgeInsets.symmetric(horizontal: 5),
+        //                     decoration: BoxDecoration(
+        //                       border:
+        //                       Border.all(color: ColorManager.fmediumgrey),
+        //                       borderRadius: BorderRadius.circular(8),
+        //                     ),
+        //                     child: DropdownButtonFormField<String>(
+        //                       value:
+        //                       selectedYear, // Initial value (you should define this variable)
+        //                       items: [
+        //                         DropdownMenuItem(
+        //                           value: AppConfig.year,
+        //                           child: Text(
+        //                             AppConfig.year,
+        //                             style: GoogleFonts.firaSans(
+        //                               fontSize: FontSize.s10,
+        //                               fontWeight: FontWeight.w500,
+        //                               color: ColorManager.mediumgrey,
+        //                             ),
+        //                           ),
+        //                         ),
+        //                         DropdownMenuItem(
+        //                           value: AppConfig.month,
+        //                           child: Text(
+        //                             AppConfig.month,
+        //                             style: GoogleFonts.firaSans(
+        //                               fontSize: FontSize.s10,
+        //                               fontWeight: FontWeight.w500,
+        //                               color: ColorManager.mediumgrey,
+        //                             ),
+        //                           ),
+        //                         ),
+        //                       ],
+        //                       onChanged: (value) {
+        //                         setState(() {
+        //                           selectedYear = value;
+        //                         });
+        //                       },
+        //                       decoration: InputDecoration(
+        //                         enabledBorder: InputBorder.none,
+        //                         focusedBorder: InputBorder.none,
+        //                         hintText: AppConfig.year,
+        //                         hintStyle: GoogleFonts.firaSans(
+        //                           fontSize: FontSize.s10,
+        //                           fontWeight: FontWeight.w500,
+        //                           color: ColorManager.mediumgrey,
+        //                         ),
+        //                         contentPadding: EdgeInsets.only(bottom: 20),
+        //                       ),
+        //                       icon: Icon(
+        //                         Icons.arrow_drop_down,
+        //                         color: ColorManager.black,
+        //                         size: 16,
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
 
 
       ],

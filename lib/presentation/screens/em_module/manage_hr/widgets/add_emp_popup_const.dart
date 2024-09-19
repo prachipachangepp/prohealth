@@ -199,7 +199,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                           'Type of Employee',
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             color: const Color(0xff686464),
                             decoration: TextDecoration.none,
                           ),
@@ -215,7 +215,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                           'Color',
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             color: Color(0xff686464),
                             decoration: TextDecoration.none,
                           ),

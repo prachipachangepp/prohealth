@@ -8,7 +8,7 @@ import 'color.dart';
 class TableHeadingStyle{
   static const TextStyle firaSansWhite12Bold = TextStyle(
     fontSize: 12,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: Colors.white,
     fontFamily: 'FiraSans',
   );
@@ -18,7 +18,7 @@ class TableHeadingStyle{
 class TableListTextStyle{
   static final TextStyle firaSansGray10Bold = GoogleFonts.firaSans(
     fontSize: 10,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: Color(0xff686464),
   );
 }
@@ -46,7 +46,7 @@ class ThemeManagerBold {
       //color: Color(0xFF686464),
       color: Colors.black,
       //fontWeight: FontWeight.w400,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
     );
   }
 }
@@ -69,7 +69,7 @@ class ThemeManagerDarkFont {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: ColorManager.black,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
     );
   }
 }
@@ -91,7 +91,7 @@ class ThemeManagerWhite {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -102,7 +102,7 @@ class ThemeManagerBlack {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -124,7 +124,7 @@ class ThemeManagerblue {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xff2B647F),
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -135,7 +135,7 @@ class ThemeManageWhitebold {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -146,7 +146,7 @@ class RegisterTableHead {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -156,7 +156,7 @@ class AknowledgementStyleConst {
     return GoogleFonts.firaSans(
       fontSize: 10,
       color: Color(0xFF000000),
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
     );
   }
 }
@@ -213,7 +213,7 @@ class CustomTextStylesCommon {
     return GoogleFonts.firaSans(
       fontSize: fontSize ?? 15,
       color: color ?? Color(0xff4B89BA),
-      fontWeight: fontWeight ?? FontWeight.bold,
+      fontWeight: fontWeight ?? FontWeight.w600,
     );
   }
 }
@@ -224,32 +224,11 @@ class MenuScreenHeadStyle {
     return GoogleFonts.firaSans(
         color: ColorManager.darkgrey,
         fontSize: 14.0,
-        fontWeight: FontWeight.w700);
+        fontWeight: FontWeight.w600);
   }
 }
 
-///email theme
-class EmailTextStyle {
-  static TextStyle enterEmail(BuildContext context) {
-    return GoogleFonts.firaSans(
-      color: Color(0xff000000).withOpacity(0.3),
-      fontSize: FontSize.s14,
-      fontWeight: FontWeight.w300,
-    );
-  }
-}
 
-///didnt receive code
-class CodeVerficationText {
-  static TextStyle VerifyCode(BuildContext context) {
-    return GoogleFonts.firaSans(
-      color: ColorManager.darkgrey,
-     // fontSize: FontSize.s10,
-      fontSize: FontSize.s14,
-      fontWeight: FontWeight.w600,
-    );
-  }
-}
 
 ///mobile menu screen text head
 class MobileMenuText {

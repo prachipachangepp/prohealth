@@ -1,14 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
@@ -112,11 +111,7 @@ class _LoginWebState extends State<LoginWeb> {
                             horizontal: MediaQuery.of(context).size.width / 30,
                           ),
                           child: TextFormField(
-                            style: CustomTextStylesCommon.commonStyle(
-                              color: ColorManager.blackForLoginTexts,
-                              fontWeight: FontWeightManager.medium,
-                              fontSize: FontSize.s14,
-                            ),
+                            style: LoginFlowTextField.customTextStyle(context),
                             focusNode: emailFocusNode,
                             controller: _emailController,
                             cursorColor: ColorManager.black,
@@ -165,11 +160,7 @@ class _LoginWebState extends State<LoginWeb> {
                             padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
                               _errorMessage!,
-                              style: CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.red,
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeightManager.bold,
-                              ),
+                              style: LoginFlowErrorMsg.customTextStyle(context),
                             ),
                           ),
                       ])),

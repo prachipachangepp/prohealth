@@ -187,6 +187,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                       return StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return OrgDocNewEditPopup(
+                                                            height: AppSize.s374,
                                                             title: EditPopupString.editPolicy,
                                                             orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
                                                             docTypeId: snapshotPrefill.data!.documentTypeId,

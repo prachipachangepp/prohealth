@@ -61,7 +61,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
       currentPage = pageNumber;
     });
   }
-  
+  int flexVal = 2;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -112,6 +112,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 children: [
                   // Text(''),
                   Expanded(
+                    flex: flexVal,
                     child: Center(
                       child: Text(
                           AppStringEM.srno,
@@ -119,15 +120,17 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                       ),
                     ),
                   ),
-      //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+               Expanded(
+                   flex: flexVal,
+                   child: SizedBox()),
                   Expanded(
-                    child: Center(
-                      child: Text(AppStringEM.holidayName,
-                          textAlign: TextAlign.start,
-                          style: AllHRTableHeading.customTextStyle(context)),
-                    ),
+                    flex: flexVal,
+                    child: Text(AppStringEM.holidayName,
+                        textAlign: TextAlign.start,
+                        style: AllHRTableHeading.customTextStyle(context)),
                   ),
                   Expanded(
+                    flex: flexVal,
                     child: Center(
                       child: Text(
                           AppStringEM.date,
@@ -137,6 +140,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   ),
 
                   Expanded(
+                    flex: flexVal,
                     child: Center(
                       child: Text(AppStringEM.actions,
                           textAlign: TextAlign.start,
@@ -213,25 +217,30 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Expanded(
+                                                flex: flexVal,
                                                 child: Center(
-                                                  child: Text(
-                                                    formattedSerialNumber,
-                                                    // formattedSerialNumber,
-                                                    style: DocumentTypeDataStyle.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                              // Text(''),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                    defineData.holidayName,
-                                                    textAlign: TextAlign.center,
-                                                    style: DocumentTypeDataStyle.customTextStyle(context)
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(right: 10.0),
+                                                    child: Text(
+                                                      formattedSerialNumber,
+                                                      style: DocumentTypeDataStyle.customTextStyle(context)
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                               Expanded(
+                                                  flex: 1,
+                                                  child: SizedBox()),
+                                              Expanded(
+                                                flex: flexVal,
+                                                child: Text(
+                                                  defineData.holidayName,
+                                                  textAlign: TextAlign.start,
+                                                  style: DocumentTypeDataStyle.customTextStyle(context)
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: flexVal,
                                                 child: Center(
                                                   child: Text(
                                                     defineData.date.toString(),
@@ -242,6 +251,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                               ),
                                               //  Text(''),
                                               Expanded(
+                                                flex: flexVal,
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [

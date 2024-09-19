@@ -118,7 +118,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
             ? Text(widget.text!,
             style: GoogleFonts.firaSans(
               fontSize: 12,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: Colors.white,
             ))
             : widget.child,

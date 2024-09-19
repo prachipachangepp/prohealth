@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -22,7 +21,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'location_screen.dart';
 
-
 class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
   final TextEditingController? zipcodeController;
@@ -42,26 +40,25 @@ class CIZoneAddPopup extends StatefulWidget {
   final String? title6;
   final String title;
 
-
   const CIZoneAddPopup({
     Key? key,
     required this.onSavePressed,
     required this.title1,
-     this.title2,
+    this.title2,
     this.title3,
     this.title4,
     this.title5,
     this.title6,
-
     required this.countynameController,
-     this.zipcodeController,
+    this.zipcodeController,
     this.mapController,
     this.landmarkController,
     this.zoneController,
     this.cityController,
     this.countryController,
     this.stateController,
-    required this.title, required this.buttonTitle,
+    required this.title,
+    required this.buttonTitle,
   }) : super(key: key);
 
   @override
@@ -97,10 +94,10 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
 
       // If any error message is not null, the form is invalid
       isValid = countyNameError == null;
-          // &&
-          // zipcodeError == null &&
-          // mapError == null ;
-          //landmarkError == null;
+      // &&
+      // zipcodeError == null &&
+      // mapError == null ;
+      //landmarkError == null;
     });
 
     return isValid;
@@ -183,23 +180,25 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         ),
                       ),
                     SizedBox(height: AppSize.s20),
-                    if (widget.title2 != null) ...[FirstSMTextFConst(
-                      inputFormated: [UpperCaseTextFormatter()],
-                      controller: widget.zipcodeController!,
-                      keyboardType: TextInputType.text,
-                      text: widget.title2!,
-                    ),
-                    if (zipcodeError != null)
-                      Text(
-                        zipcodeError!,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.red,
-                          decoration: TextDecoration.none,
+                    if (widget.title2 != null) ...[
+                      FirstSMTextFConst(
+                        inputFormated: [UpperCaseTextFormatter()],
+                        controller: widget.zipcodeController!,
+                        keyboardType: TextInputType.text,
+                        text: widget.title2!,
+                      ),
+                      if (zipcodeError != null)
+                        Text(
+                          zipcodeError!,
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.red,
+                            decoration: TextDecoration.none,
+                          ),
                         ),
-                      ),],
+                    ],
                     if (widget.title3 != null) ...[
                       SizedBox(height: AppSize.s20),
                       FirstSMTextFConst(
@@ -248,29 +247,29 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,
-                    ))
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ))
                     : Center(
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: widget.buttonTitle,
-                    onPressed: () async {
-                      if (validateFields()) {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        await widget.onSavePressed();
-                        setState(() {
-                          isLoading = false;
-                        });
-                      }
-                    },
-                  ),
-                ),
+                        child: CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: widget.buttonTitle,
+                          onPressed: () async {
+                            if (validateFields()) {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              await widget.onSavePressed();
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          },
+                        ),
+                      ),
               ),
             ],
           ),
@@ -279,8 +278,6 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
     );
   }
 }
-
-
 
 ///edit
 class AddZipCodePopup extends StatefulWidget {
@@ -303,10 +300,10 @@ class AddZipCodePopup extends StatefulWidget {
     required this.countynameController,
     required this.zipcodeController,
     required this.mapController,
-     // this.landmarkController,
+    // this.landmarkController,
     this.child,
     required this.onSavePressed,
-     // this.cityNameController,
+    // this.cityNameController,
     this.child1,
     this.onPickLocation,
     this.child2,
@@ -320,7 +317,6 @@ class AddZipCodePopup extends StatefulWidget {
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
   bool isLoading = false;
-
 
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Select Lat/Long '; // Default text
@@ -338,7 +334,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
             setState(() {
               _latitude = location.latitude;
               _longitude = location.longitude;
-              _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+              _location =
+                  'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
               //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
             });
           },
@@ -353,14 +350,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
         _selectedLocation = pickedLocation;
         _latitude = pickedLocation.latitude;
         _longitude = pickedLocation.longitude;
-        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        _location =
+            'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
         //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
       });
     } else {
       print('No location was picked.');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -490,7 +487,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             color: ColorManager.granitegray,
                             size: AppSize.s18,
                           ),
-                          SizedBox(width:10),
+                          SizedBox(width: 10),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Row(
@@ -510,7 +507,6 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                           ),
                         ],
                       ),
-
 
                       // Text('${widget.location}'),
                       // Text('Picked Location: ${widget.locationController.text}'),
@@ -587,13 +583,13 @@ class EditZipCodePopup extends StatefulWidget {
   EditZipCodePopup({
     super.key,
     required this.title,
-     this.countynameController,
-     required this.zipcodeController,
-     this.mapController,
-     this.landmarkController,
+    this.countynameController,
+    required this.zipcodeController,
+    this.mapController,
+    this.landmarkController,
     this.child,
     required this.onSavePressed,
-     this.cityNameController,
+    this.cityNameController,
     this.child1,
     this.onPickLocation,
   });
@@ -621,7 +617,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
             setState(() {
               _latitude = location.latitude;
               _longitude = location.longitude;
-              _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+              _location =
+                  'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
               //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
             });
           },
@@ -636,13 +633,15 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
         _selectedLocation = pickedLocation;
         _latitude = pickedLocation.latitude;
         _longitude = pickedLocation.longitude;
-        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        _location =
+            'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
         //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
       });
     } else {
       print('No location was picked.');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -737,7 +736,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         ],
                       ),
 
-
                       // SizedBox(height: AppSize.s15),
                       // FirstSMTextFConst(
                       //   controller: widget.cityNameController!,
@@ -789,7 +787,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                 decoration: TextDecoration.none,
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -800,7 +797,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       //   keyboardType: TextInputType.text,
                       //   text: 'Landmark',
                       // ),
-
                     ],
                   ),
                 ),
@@ -933,7 +929,9 @@ class AddZonePopup extends StatefulWidget {
       required this.zoneNumberController,
       this.child,
       required this.title,
-      required this.onSavePressed, required this.buttonTitle, required this.countyNameController});
+      required this.onSavePressed,
+      required this.buttonTitle,
+      required this.countyNameController});
 
   @override
   State<AddZonePopup> createState() => _AddZonePopupState();
@@ -1027,6 +1025,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FirstSMTextFConst(
+                      enable: true,
                       controller: widget.zoneNumberController,
                       keyboardType: TextInputType.text,
                       text: 'Zone Number',
@@ -1036,7 +1035,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Text(
                           zoneNumberError!,
-                         style: GoogleFonts.firaSans(
+                          style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeight.w400,
                             color: Colors.red,
@@ -1049,6 +1048,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FirstSMTextFConst(
+                          enable: false,
                           controller: widget.countyNameController,
                           keyboardType: TextInputType.text,
                           text: AppString.county,
@@ -1074,7 +1074,6 @@ class _AddZonePopupState extends State<AddZonePopup> {
                           ),
                       ],
                     ),
-
                   ],
                 ),
               ),
@@ -1083,38 +1082,38 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,
-                    ))
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ))
                     : Center(
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: widget.buttonTitle,
-                    onPressed: () async {
-                      if (validateFields()) {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        await widget.onSavePressed();
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CountySuccessPopup(
-                              message: 'Save Successfully',
-                            );
+                        child: CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: widget.buttonTitle,
+                          onPressed: () async {
+                            if (validateFields()) {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              await widget.onSavePressed();
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return CountySuccessPopup(
+                                    message: 'Save Successfully',
+                                  );
+                                },
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
                           },
-                        );
-                        setState(() {
-                          isLoading = false;
-                        });
-                      }
-                    },
-                  ),
-                ),
+                        ),
+                      ),
               ),
             ],
           ),
@@ -1123,4 +1122,3 @@ class _AddZonePopupState extends State<AddZonePopup> {
     );
   }
 }
-

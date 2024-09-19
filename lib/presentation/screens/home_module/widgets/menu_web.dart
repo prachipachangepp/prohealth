@@ -232,7 +232,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.w600,
                                         color: ColorManager.darkgrey,
                                       ),
                                     ),
@@ -455,16 +455,16 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                               '${_country} (${_city})',
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.grey[800],
                                 decoration: TextDecoration.none,
                               ),
                             )
                           : Text(
-                              'No location data',
+                              '--',
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.grey[800],
                                 decoration: TextDecoration.none,
                               ),
@@ -478,16 +478,16 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                               'Loading IP...',
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                                 decoration: TextDecoration.none,
                               ),
                             )
                           : Text(
-                              _ipAddress ?? 'No IP',
+                              _ipAddress ?? '--',
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                                 decoration: TextDecoration.none,
                               ),
