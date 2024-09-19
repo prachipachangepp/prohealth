@@ -790,32 +790,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
-                        ///
-                        // ProfileEditScreen(
-                        //   // isEditModeNotifier: _isEditMode,
-                        //   onCancel: () {
-                        //
-                        //    setState(() {
-                        //      _isEditMode.value = false;
-                        //    });
-                        //
-                        //   },
-                        //
-                        //   employeeId: employeeId,
-                        // //   backButtonCallBack: (bool val) {
-                        // //
-                        // //   _isEditMode.value = false;
-                        // // },
-                        // ),
-
-                        ///
-                        // ProfileEditScreen(
-                        //   isEditModeNotifier: _isEditMode,
-                        //   onCancel: () {
-                        //   _isEditMode.value = false; // Reset the edit mode
-                        // }, employeeId: employeeId,
-                        // ),
-                      //  SeeAllHrScreen()
                       ],
                     );
                   }
@@ -829,61 +803,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     );
   }
 }
-
-
-// abbrivationWidget: FutureBuilder<List<HRClinical>>(
-//   future: companyAllHrClinicApi(context),
-//   builder: (context, snapshot) {
-//     if (snapshot.connectionState ==
-//         ConnectionState.waiting) {
-//       return Padding(
-//         padding: const EdgeInsets.symmetric(
-//             horizontal: 7),
-//         child: Container(
-//           width: AppSize.s150,
-//           height: 31,
-//           decoration: BoxDecoration(
-//               color: Colors.white),
-//         ),
-//       );
-//     }
-//    if(snapshot.hasData){
-//      return Wrap(
-//        children: [
-//          ...List.generate(snapshot.data!.length, (index){
-//            return Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: ConstantContainerWithText(text: snapshot.data![index].abbrivation!,//onTap: () {
-//                // setState((){
-//                //   isSelectedBox = !isSelectedBox;
-//                //   dropdownAbbrevation = snapshot.data![index].abbrivation!;
-//                //   isDropDownAbbreavation = true;
-//                // });
-//              // },
-//              ),
-//            );
-//          }),
-//          //SizedBox(width: MediaQuery.of(context).size.width / 90),
-//        ],
-//      );
-//
-//   } else{
-//       return const Offstage();
-//     }
-//   },
-// ),
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

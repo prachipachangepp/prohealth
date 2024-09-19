@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
@@ -12,20 +13,15 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
-
-// typedef  VoidCallback onCancel;
-// typedef onCancel = void Function();
 typedef BackButtonCallBack = void Function(bool val);
 class ProfileEditScreen extends StatefulWidget {
-  // static const String routeName = "/edit";
-  // final ValueNotifier<bool> isEditModeNotifier;
+
   final VoidCallback onCancel;
-  // final BackButtonCallBack backButtonCallBack;
+
   final int employeeId;
 
   ProfileEditScreen({ required this.onCancel,
     required this.employeeId,
-    // required this.backButtonCallBack,
   });
 
   @override
@@ -33,7 +29,7 @@ class ProfileEditScreen extends StatefulWidget {
 }
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
-  ProfileEditorModal? _prefilledData;
+
   String? selectedDepartment ;
   String? selectedGender ;
   String? selectedZone ;
@@ -143,7 +139,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           var profileData = snapshot.data!;
 
           nameController.text = profileData.firstName ?? '';
-          deptController.text = profileData.lastName ?? '';
+          deptController.text = profileData.department ?? '';
           empTypeController.text = profileData.employeType ?? '';
           addressController.text = profileData.finalAddress ?? '';
           ageController.text = profileData.dateOfBirth ?? '';
@@ -219,6 +215,20 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
+                             // CICCDropdown(
+                  //   initialValue: selectedEmployeType,
+                  //   onChange: (val) {
+                  //     setState(() {
+                  //       selectedEmployeType = val;
+                  //       for (var service in snapshot.data!) {
+                  //         if (service.serviceName == val) {
+                  //           serviceId = service.serviceId;
+                  //         }
+                  //       }
+                  //     });
+                  //   },
+                  //   items: [],
+                  // ),
                           HRManageTextField(
                               controller: empTypeController,
                               keyboardType: TextInputType.text,
@@ -233,7 +243,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           //   labelStyle: GoogleFonts.firaSans(fontSize: 12),
                           //   labelFontSize: 12,
                           //   items: ['Clinical', 'Sales', 'Administration'],
-                          //   // When a new value is selected, update the state
                           //   onChanged: (value) {
                           //     setState(() {
                           //       selectedDepartment = value!;
@@ -264,9 +273,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: ageController,
                               keyboardType: TextInputType.text,
-                              text: AppString.age,
+                              text: AppStringMobile.age,
                               suffixIcon: Icon(Icons.calendar_month_outlined),
-                              cursorHeight: 12, labelText: AppString.age,
+                              cursorHeight: 12, labelText: AppStringMobile.age,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -285,9 +294,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: genderController,
                               keyboardType: TextInputType.text,
-                              text: AppString.gender,
+                              text: AppStringMobile.gender,
                               suffixIcon: Icon(Icons.calendar_month_outlined),
-                              cursorHeight: 12, labelText: AppString.gender,
+                              cursorHeight: 12, labelText: AppStringMobile.gender,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -328,8 +337,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: workPhoneController,
                               keyboardType: TextInputType.text,
-                              text: AppString.workno,
-                              cursorHeight: 12, labelText: AppString.workno,
+                              text: AppStringMobile.worNo,
+                              cursorHeight: 12, labelText: AppStringMobile.worNo,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -343,16 +352,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: personalEmailController,
                               keyboardType: TextInputType.text,
-                              text: AppString.personalEmail,
-                              cursorHeight: 12, labelText: AppString.personalEmail,
+                              text: AppStringMobile.perEmail,
+                              cursorHeight: 12, labelText: AppStringMobile.perEmail,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
                           HRManageTextField(
                               controller: workEmailController,
                               keyboardType: TextInputType.text,
-                              text: AppString.workemail,
-                              cursorHeight: 12, labelText: AppString.workemail,
+                              text: AppStringMobile.worEmail,
+                              cursorHeight: 12, labelText: AppStringMobile.worEmail,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -372,8 +381,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: zoneController,
                               keyboardType: TextInputType.text,
-                              text: AppString.zone,
-                              cursorHeight: 12, labelText: AppString.zone,
+                              text: AppStringMobile.zone,
+                              cursorHeight: 12, labelText: AppStringMobile.zone,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -394,16 +403,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: serviceController,
                               keyboardType: TextInputType.text,
-                              text: AppString.service,
-                              cursorHeight: 12, labelText: AppString.service,
+                              text: AppStringMobile.service,
+                              cursorHeight: 12, labelText: AppStringMobile.service,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
                           HRManageTextField(
                               controller: reportingOfficeController,
                               keyboardType: TextInputType.text,
-                              text: AppString.reportingOffice,
-                              cursorHeight: 12, labelText: AppString.reportingOffice,
+                              text: AppStringMobile.repOff,
+                              cursorHeight: 12, labelText: AppStringMobile.repOff,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -427,8 +436,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           HRManageTextField(
                               controller: summaryController,
                               keyboardType: TextInputType.text,
-                              text: AppString.summary,
-                              cursorHeight: 12, labelText: AppString.summary,
+                              text: AppStringMobile.summry,
+                              cursorHeight: 12, labelText: AppStringMobile.summry,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -617,7 +626,7 @@ class EditProfile {
 class ProfileEditCancelButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
-  final Color backgroundColor; // Added parameter for background color
+  final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
   final double paddingVertical;
@@ -630,7 +639,7 @@ class ProfileEditCancelButton extends StatelessWidget {
      Key? key,
      this.text,
      required this.onPressed,
-     this.backgroundColor = const Color(0xFF50B5E5), // Default background color
+     this.backgroundColor = const Color(0xFF50B5E5),
      this.textColor = const Color(0xFF50B5E5),
      this.borderRadius = 14.0,
      this.paddingVertical = 12.0,

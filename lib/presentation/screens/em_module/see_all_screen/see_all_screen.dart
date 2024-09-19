@@ -584,13 +584,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.lastName,
                                                 textAlign: TextAlign.center,
-                                                // style: GoogleFonts.firaSans(
-                                                //   fontSize: FontSize.s10,
-                                                //   fontWeight:
-                                                //       FontWeightManager.bold,
-                                                //   color:
-                                                //       ColorManager.granitegray,
-                                                // ),
+
                                                 style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),

@@ -175,8 +175,11 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     Text(AppString.didntrecieveCode,
                         style: CodeVerficationText.VerifyCode(context)),
                     TextButton(
-                      onPressed: () {},
-                      child: Text(AppString.resend,
+                      onPressed: () {
+
+                      },
+                      child: Text(
+                          AppString.resend,
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.blueprime,
                             fontSize: FontSize.s14,
