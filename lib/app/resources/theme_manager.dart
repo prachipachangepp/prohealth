@@ -228,28 +228,7 @@ class MenuScreenHeadStyle {
   }
 }
 
-///email theme
-class EmailTextStyle {
-  static TextStyle enterEmail(BuildContext context) {
-    return GoogleFonts.firaSans(
-      color: Color(0xff000000).withOpacity(0.3),
-      fontSize: FontSize.s14,
-      fontWeight: FontWeight.w300,
-    );
-  }
-}
 
-///didnt receive code
-class CodeVerficationText {
-  static TextStyle VerifyCode(BuildContext context) {
-    return GoogleFonts.firaSans(
-      color: ColorManager.darkgrey,
-     // fontSize: FontSize.s10,
-      fontSize: FontSize.s14,
-      fontWeight: FontWeight.w600,
-    );
-  }
-}
 
 ///mobile menu screen text head
 class MobileMenuText {

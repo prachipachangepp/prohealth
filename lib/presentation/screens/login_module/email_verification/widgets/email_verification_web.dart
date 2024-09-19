@@ -1,7 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -93,11 +92,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
               children: [
                 Text(
                   AppString.enter6digitcode,
-                  style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.darkgrey,
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold),
-                ),
+                  style: CodeVerficationText.VerifyCode(context),),
                 ///txtfield
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -132,6 +127,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                             return KeyEventResult.ignored;
                           },
                           child: TextFormField(
+                            style: LoginFlowTextField.customTextStyle(context),
                             controller: _otpControllers[index],
                             focusNode: _focusNodes[index],
                             cursorColor: Colors.black,
@@ -177,11 +173,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     TextButton(
                       onPressed: () {},
                       child: Text(AppString.resend,
-                          style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.blueprime,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.semiBold,
-                          )),
+                          style: LoginFlowText.customTextStyle(context)),
                     )
                   ],
                 ),
@@ -200,22 +192,14 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.red,
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                      ),
+                      style: LoginFlowErrorMsg.customTextStyle(context),
                     ),
                   ),
                 ///bottomtxt
                 InkWell(
                   child: Text(
                     AppString.donthaveauth,
-                    style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.blueprime,
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
-                    ),
+                    style: LoginFlowText.customTextStyle(context)
                   ),
                   onTap: () {
                     Navigator.push(

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../app/resources/color.dart';
@@ -122,12 +123,7 @@ class LoginBaseConstant extends StatelessWidget {
                               children: [
                                 Text(
                                   titleText,
-                                  style: GoogleFonts.firaSans(
-                                    color: ColorManager.mediumgrey,
-                                    // fontSize: FontSize.s38,
-                                    fontSize: 30,
-                                    fontWeight: FontWeightManager.extrabold,
-                                  ),
+                                  style: LoginFlowHeading.customTextStyle(context),
                                 ),
                                 SizedBox(height: 20),
                                 child,
@@ -145,16 +141,7 @@ class LoginBaseConstant extends StatelessWidget {
                                         child: Text(
                                           textAction,
                                           textAlign: TextAlign.end,
-                                          style:
-                                              CustomTextStylesCommon.commonStyle(
-                                            color: ColorManager.bluebottom,
-                                            //fontSize: FontSize.s12,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                55,
-                                            fontWeight: FontWeightManager.medium,
-                                          ),
+                                          style:LoginFlowBase.customTextStyle(context),
                                         ),
                                       ),
                                     ),
@@ -214,11 +201,7 @@ class LoginBaseConstant extends StatelessWidget {
               children: [
                 Text(
                   AppString.poweredby,
-                  style: GoogleFonts.firaSans(
-                    color: ColorManager.black,
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.regular,
-                  ),
+                  style: LoginFlowBottomBar.customTextStyle(context),
                 ),
                 const SizedBox(
                   width: AppSize.s2,

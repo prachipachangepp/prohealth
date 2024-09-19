@@ -281,7 +281,7 @@ class CustomTitleButton extends StatelessWidget {
             text,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s12,
-              fontWeight: FontWeightManager.bold,
+              fontWeight: FontWeight.w600,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
             ),
           ),
@@ -321,7 +321,7 @@ class DZoneButton extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s11,
-              fontWeight: FontWeightManager.regular,
+              fontWeight: FontWeight.w300,
               color: isSelected ? ColorManager.white : ColorManager.black,
             ),
           ),
@@ -373,7 +373,7 @@ class CustomDropdownButton extends StatelessWidget {
             style: const TextStyle(
               color: Colors.black,
               fontSize: FontSize.s13,
-              fontWeight: FontWeightManager.bold,
+              fontWeight: FontWeight.w600,
             ),
             dropdownColor: ColorManager.white,
             borderRadius: BorderRadius.circular(borderRadius),
@@ -398,7 +398,7 @@ class CustomDropdownButton extends StatelessWidget {
                             ? ColorManager.white
                             : ColorManager.mediumgrey,
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               );
