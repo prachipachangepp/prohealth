@@ -48,6 +48,12 @@ class _PaginationControlsWidgetState extends State<PaginationControlsWidget> {
               onPressed: widget.onPreviousPagePressed,
               color: Colors.black,
               iconSize: 20,
+              splashColor:
+              Colors.transparent,
+              highlightColor:
+              Colors.transparent,
+              hoverColor:
+              Colors.transparent,
             ),
           ),
           SizedBox(width: 3),
@@ -108,6 +114,12 @@ class _PaginationControlsWidgetState extends State<PaginationControlsWidget> {
               onPressed: widget.onNextPagePressed,
               color: Colors.black,
               iconSize: 20,
+              splashColor:
+              Colors.transparent,
+              highlightColor:
+              Colors.transparent,
+              hoverColor:
+              Colors.transparent,
             ),
           ),
         ],

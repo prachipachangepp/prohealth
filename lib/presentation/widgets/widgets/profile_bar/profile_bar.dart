@@ -253,7 +253,14 @@ class _ProfileBarState extends State<ProfileBar> {
                               context,
                               MaterialPageRoute(builder: (context) =>  ProfileBarEditor()),
                             );
-                          }, icon: Icon(Icons.edit, size: 18, ))
+                          }, icon: Icon(Icons.edit, size: 18, ),
+                              splashColor:
+                            Colors.transparent,
+                            highlightColor:
+                            Colors.transparent,
+                            hoverColor:
+                            Colors.transparent,
+                          )
                         ],
                       ),
                       SizedBox(
