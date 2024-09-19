@@ -499,8 +499,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     print("Required data is missing.");
                                   }
                                 },
-                                child1: FutureBuilder<List<VisitListData>>(
-                                  future: getVisitList(context),
+                                child1: FutureBuilder<List<VisitListDataByServiceId>>(
+                                  future: getVisitListByServiceId(context:context, serviceId: serviceId,),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -629,7 +629,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               items: [
                 TableHeadItem(text: 'Sr No.', textAlign: TextAlign.center),
                 TableHeadItem(
-                    text: 'Type of Visit', textAlign: TextAlign.center),
+                    text: 'Type of Visit', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
                 //TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Actions', textAlign: TextAlign.center),

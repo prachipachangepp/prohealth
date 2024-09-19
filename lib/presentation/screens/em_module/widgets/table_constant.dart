@@ -47,6 +47,7 @@ class TableHeadItem {
   final String text;
   final TextAlign textAlign;
 
+
   const TableHeadItem({
     required this.text,
     this.textAlign = TextAlign.start,
