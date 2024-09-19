@@ -274,8 +274,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         Wrap(spacing: 8.0, children: listWidget),
                                       ],
                                     ),
-                                dropdownServices:FutureBuilder<List<ServicesData>>(
-                                  future: getAllServicesData(context),
+                                dropdownServices:FutureBuilder<List<ServicesMetaData>>(
+                                  future: getServicesMetaData(context),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -670,8 +670,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                         docNamecontroller.clear();
                                                                         _selectedItem = "Select";
                                                                       },
-                                                                      dropdownServices:FutureBuilder<List<ServicesData>>(
-                                                                        future: getAllServicesData(context),
+                                                                      dropdownServices:FutureBuilder<List<ServicesMetaData>>(
+                                                                        future: getServicesMetaData(context),
                                                                         builder: (context, snapshot) {
                                                                           if (snapshot.connectionState ==
                                                                               ConnectionState.waiting) {
