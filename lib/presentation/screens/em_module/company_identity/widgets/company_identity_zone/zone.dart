@@ -129,7 +129,8 @@ class _CiOrgDocumentState extends State<CiZone> {
     setState(() {
       _location = latlong;
       print("Updated Location: $_location");
-      locationController = TextEditingController(text:_location);// Check this log to see if the value updates
+      locationController = TextEditingController(text:_location);
+      print("locationController ${locationController.text}");// Check this log to see if the value updates
     });
   }
 
@@ -613,11 +614,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                                             int docType = 0;
                                             List<DropdownMenuItem<String>>
                                                 dropDownTypesList = [];
-                                            dropDownTypesList.add(
-                                                const DropdownMenuItem<String>(
-                                              child: Text('Select zone'),
-                                              value: 'Select zone',
-                                            ));
+                                            // dropDownTypesList.add(
+                                            //     const DropdownMenuItem<String>(
+                                            //   child: Text('Select zone'),
+                                            //   value: 'Select zone',
+                                            // ));
                                             for (var i in snapshotZone.data!) {
                                               dropDownTypesList.add(
                                                 DropdownMenuItem<String>(
@@ -628,8 +629,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                                             }
                                             if (selectedZipCodeZone == null) {
                                               selectedZipCodeZone =
-                                                  'Select zone';
+                                                  snapshotZone.data![0].zoneName;
                                             }
+                                            docZoneId = snapshotZone.data![0].zoneId;
                                             return CICCDropdown(
                                                 initialValue:
                                                     dropDownTypesList[0].value,
@@ -717,11 +719,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                                             int docType = 0;
                                             List<DropdownMenuItem<String>>
                                                 dropDownTypesList = [];
-                                            dropDownTypesList.add(
-                                                const DropdownMenuItem<String>(
-                                              child: Text('Select County'),
-                                              value: 'Select County',
-                                            ));
+                                            // dropDownTypesList.add(
+                                            //     const DropdownMenuItem<String>(
+                                            //   child: Text('Select County'),
+                                            //   value: 'Select County',
+                                            // ));
                                             for (var i in snapshotZone.data!) {
                                               dropDownTypesList.add(
                                                 DropdownMenuItem<String>(
