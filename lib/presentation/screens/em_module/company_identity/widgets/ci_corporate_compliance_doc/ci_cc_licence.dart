@@ -215,7 +215,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       children: [
                                                         Text(
                                                           // "ID : ${manageCCLicence.idOfDoc.toString()}",
-                                                          "ID : ${manageCCLicence.orgDocumentSetupid}",
+                                                          "ID : ${manageCCLicence.idOfDocument}",
                                                           textAlign:
                                                               TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
