@@ -253,7 +253,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             style: ThemeManagerBlack.customTextStyle(context),
                           ),
                           IconButton(
-                            onPressed: widget.onEditPressed, // Use the passed callback here
+                            onPressed: widget.onEditPressed,
                             icon: Icon(Icons.edit, size: 18),
                           ),
                         ],
