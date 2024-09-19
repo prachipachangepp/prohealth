@@ -92,8 +92,8 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
     return DialogueTemplate(
       width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
-          ? widget.height ?? AppSize.s522
-      :widget.height ??AppSize.s560,
+          ? widget.height ?? AppSize.s500
+      :widget.height ??AppSize.s550,
       body: [
         /// ID of the Document
         SMTextFConst(
@@ -241,7 +241,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Row(
                         children: [
@@ -653,7 +653,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Row(
                         children: [

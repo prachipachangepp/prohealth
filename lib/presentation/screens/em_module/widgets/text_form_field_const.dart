@@ -516,7 +516,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
             widget.text,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s12,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: widget.textColor,
               decoration: TextDecoration.none,
             ),
@@ -544,7 +544,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                   prefix: widget.prefixWidget,
                   prefixStyle: GoogleFonts.firaSans(
                     fontSize: 10,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: const Color(0xff686464),
                     decoration: TextDecoration.none,
                   ),
@@ -633,7 +633,7 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
           widget.text,
           style: GoogleFonts.firaSans(
             fontSize: FontSize.s12,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: widget.textColor,
             decoration: TextDecoration.none,
           ),
@@ -743,7 +743,7 @@ class EditTextField extends StatelessWidget {
           text,
           style: GoogleFonts.firaSans(
             fontSize: FontSize.s12,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: textColor,
             decoration: TextDecoration.none,
           ),
@@ -815,7 +815,7 @@ class EditTextFieldPhone extends StatelessWidget {
           text,
           style: GoogleFonts.firaSans(
             fontSize: FontSize.s12,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: textColor,
             decoration: TextDecoration.none,
           ),
@@ -848,7 +848,7 @@ class EditTextFieldPhone extends StatelessWidget {
                   EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
             style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 fontSize: FontSize.s12,
                 color: ColorManager.mediumgrey),
             onTap: onChange,

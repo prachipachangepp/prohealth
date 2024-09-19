@@ -469,7 +469,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
+                    padding: const EdgeInsets.only(right: 40.0),
                     child: Center(
                       child: Text(AppStringEM.employee,
                           textAlign: TextAlign.center,

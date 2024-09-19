@@ -9,8 +9,8 @@ class BlueBgTabbar {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s12,
       fontWeight: selectedIndex == currentIndex
-          ? FontWeight.w700
-          : FontWeight.w500,
+          ? FontWeight.w600
+          : FontWeight.w400,
       color: selectedIndex == currentIndex
           ? ColorManager.mediumgrey
           : ColorManager.white,
@@ -25,8 +25,8 @@ class TransparentBgTabbar {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s12,
       fontWeight: selectedIndex == currentIndex
-          ? FontWeight.w700
-          : FontWeight.w500,
+          ? FontWeight.w600
+          : FontWeight.w400,
       color: selectedIndex == currentIndex
           ? ColorManager.blueprime
           : ColorManager.mediumgrey,
@@ -40,7 +40,7 @@ class AllHRTableHeading {
   static TextStyle customTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       color: ColorManager.white,
       decoration: TextDecoration.none,
     );
@@ -50,7 +50,7 @@ class AllHRTableHeading {
 class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontSize: FontSize.s11,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -64,7 +64,7 @@ class CompanyIdentityManageHeadings {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s15,
       color: ColorManager.black,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -76,7 +76,7 @@ class AllHRTableData {
   static TextStyle customTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s10,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
