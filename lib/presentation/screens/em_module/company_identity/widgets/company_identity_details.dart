@@ -10,6 +10,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/google
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
@@ -26,7 +27,9 @@ class CIDetailsScreen extends StatefulWidget {
       required this.docTD,
       required this.companyId,
       required int companyID,
-      required this.companyOfficeid, required this.stateName, required this.countryName});
+      required this.companyOfficeid,
+      required this.stateName,
+      required this.countryName});
   final String stateName;
   final String countryName;
   final int companyId;
@@ -213,10 +216,31 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
       _suggestionsNotifier.value = [];
     }
   }
-  String latitude ='';
-  String longitude='';
-  bool isChecked = false;
 
+  String latitude = '';
+  String longitude = '';
+  bool isChecked = false;
+  Future<void> updateServices(
+      int officeServiceId,
+      String officeId,
+      String serviceName,
+      String serviceId,
+      String npiNum,
+      String medicareNum,
+      String hcoNumber) async {
+    await patchCompanyOfficeService(context, officeServiceId, officeId,
+        serviceName, serviceId, npiNum, medicareNum, hcoNumber);
+    setState(() {
+      companyDetailGetAll(context, widget.officeId);
+    });
+  }
+
+  Future<void> deleteService(int officeServiceId) async {
+    await deleteCompanyOfficeService(context, officeServiceId);
+    setState(() {
+      companyDetailGetAll(context, widget.officeId);
+    });
+  }
   //   try {
   //     // Fetch suggestions based on the addressController's text
   //     final suggestions = await fetchSuggestions(addressController.text);
@@ -265,7 +289,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
             countryNameController.text = snapshot.data!.countryName;
             latitude = snapshot.data!.lat;
             longitude = snapshot.data!.long;
-
 
             List<Widget> serviceRows = [];
             print('Fetched lat lng ${latitude} + ${longitude}');
@@ -344,18 +367,22 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                         topRight: Radius.circular(10),
                                       ),
                                     ),
-                                    child:
-                                    StatefulBuilder(
-                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                        return  Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    child: StatefulBuilder(
+                                      builder: (BuildContext context,
+                                          void Function(void Function())
+                                              setState) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding:  EdgeInsets.symmetric(horizontal: 10),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10),
                                               child: Container(
                                                   width: 300,
                                                   child: CheckboxTileDetails(
-                                                    title: serviceDetail.serviceName,
+                                                    title: serviceDetail
+                                                        .serviceName,
                                                     initialValue: isChecked,
                                                     onChanged: (value) {
                                                       setState(() {
@@ -367,58 +394,111 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                             Row(
                                               children: [
                                                 IconButton(
-                                                  splashColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                  highlightColor: Colors.transparent,
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onPressed: () {
-                                                    showDialog(context: context, builder: (BuildContext context){
-                                                      return DialogueTemplate(
-                                                        width: AppSize.s420,
-                                                        height: 250,
-                                                        body: [
-                                                          FirstSMTextFConst(
-                                                            controller: hcoNumController,
-                                                            keyboardType: TextInputType.text,
-                                                            text: 'HCO Number',
-                                                          ),
-                                                        ],
-                                                        bottomButtons: CustomElevatedButton(
-                                                            width: AppSize.s105,
-                                                            height: AppSize.s30,
-                                                            text: AppStringEM.save, //submit
-                                                            onPressed: () async {
-                                                              await patchCompanyOfficeService(context,
-                                                                  serviceDetail.officeServiceId,
-                                                                  widget.officeId,
-                                                                  serviceDetail.serviceName,
-                                                                  serviceDetail.serviceId,
-                                                                  serviceDetail.npiNum,
-                                                                  serviceDetail.medicareNum,
-                                                                  hcoNumController.text);
-
-                                                                companyDetailGetAll(context, widget.officeId);
-
-                                                              Navigator.pop(context);
-                                                            }
-                                                        ),
-                                                        title: 'Edit Service',);
-                                                    });
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return DialogueTemplate(
+                                                            width: AppSize.s420,
+                                                            height: 250,
+                                                            body: [
+                                                              FirstSMTextFConst(
+                                                                controller:
+                                                                    hcoNumController,
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .text,
+                                                                text:
+                                                                    'HCO Number',
+                                                              ),
+                                                            ],
+                                                            bottomButtons:
+                                                                CustomElevatedButton(
+                                                                    width: AppSize
+                                                                        .s105,
+                                                                    height:
+                                                                        AppSize
+                                                                            .s30,
+                                                                    text: AppStringEM
+                                                                        .save, //submit
+                                                                    onPressed:
+                                                                        () async {
+                                                                      await updateServices(
+                                                                          serviceDetail
+                                                                              .officeServiceId,
+                                                                          widget
+                                                                              .officeId,
+                                                                          serviceDetail
+                                                                              .serviceName,
+                                                                          serviceDetail
+                                                                              .serviceId,
+                                                                          serviceDetail
+                                                                              .npiNum,
+                                                                          serviceDetail
+                                                                              .medicareNum,
+                                                                          hcoNumController
+                                                                              .text);
+                                                                      hcoNumController
+                                                                          .clear();
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    }),
+                                                            title:
+                                                                'Edit Service',
+                                                          );
+                                                        });
                                                   },
-                                                  icon: Icon(Icons.mode_edit_outline_outlined, size:20,color: Colors.white),
+                                                  icon: Icon(
+                                                      Icons
+                                                          .mode_edit_outline_outlined,
+                                                      size: 20,
+                                                      color: Colors.white),
                                                 ),
-                                               // SizedBox(width:2),
-                                                isChecked ?
-                                                IconButton(
-                                                  splashColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                  highlightColor: Colors.transparent,
-                                                  onPressed: () async{
-                                                    await deleteCompanyOfficeService(context,serviceDetail.officeServiceId);
-                                                      companyDetailGetAll(context, widget.officeId);
-
-                                                  },
-                                                  icon: Icon(Icons.delete_outline_outlined, size:20,color: Colors.white),
-                                                ):Offstage()
+                                                // SizedBox(width:2),
+                                                isChecked
+                                                    ? IconButton(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onPressed: () async {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  DeletePopup(
+                                                                      title:
+                                                                          'Delete Service',
+                                                                      onCancel:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      onDelete:
+                                                                          () async {
+                                                                        await deleteService(
+                                                                            serviceDetail.officeServiceId);
+                                                                        //companyDetailGetAll(context, widget.officeId);
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      }));
+                                                        },
+                                                        icon: Icon(
+                                                            Icons
+                                                                .delete_outline_outlined,
+                                                            size: 20,
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    : Offstage()
                                               ],
                                             )
                                           ],
@@ -426,77 +506,112 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                       },
                                     ),
                                   ),
-                                  SizedBox(height: 10,),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+
                                   /// HCO number
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('HCO Number',style:GoogleFonts.firaSans(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
-                                      color: const Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),),
-                                        Text("${hcoNumController.text}",style:GoogleFonts.firaSans(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff686464),
-                                          decoration: TextDecoration.none,
-                                        ),)
+                                        Text(
+                                          'HCO Number',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${hcoNumController.text}",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
                                   // Divider
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: Divider(color: ColorManager.faintGrey,thickness: 1,),
+                                    child: Divider(
+                                      color: ColorManager.faintGrey,
+                                      thickness: 1,
+                                    ),
                                   ),
+
                                   /// Medicare ID
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('Medicare ID',style:GoogleFonts.firaSans(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff686464),
-                                          decoration: TextDecoration.none,
-                                        ),),
-                                        Text("${medicareController.text}",style:GoogleFonts.firaSans(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff686464),
-                                          decoration: TextDecoration.none,
-                                        ),)
+                                        Text(
+                                          'Medicare ID',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${medicareController.text}",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
                                   // Divider
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: Divider(color: ColorManager.faintGrey,thickness: 0.5,),
+                                    child: Divider(
+                                      color: ColorManager.faintGrey,
+                                      thickness: 0.5,
+                                    ),
                                   ),
+
                                   /// NPI Number
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('NPI Number',style:GoogleFonts.firaSans(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff686464),
-                                          decoration: TextDecoration.none,
-                                        ),),
-                                        Text("${npiNumController.text}",style:GoogleFonts.firaSans(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff686464),
-                                          decoration: TextDecoration.none,
-                                        ),)
+                                        Text(
+                                          'NPI Number',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${npiNumController.text}",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        )
                                       ],
                                     ),
                                   )
@@ -685,16 +800,19 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                   itemCount: suggestions.length,
                                   itemBuilder: (context, index) {
                                     return ListTile(
-                                      title: Text(suggestions[index],
+                                      title: Text(
+                                        suggestions[index],
                                         style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w700,
-                                        color: ColorManager.mediumgrey,
-                                        decoration: TextDecoration.none,
-                                      ),),
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w700,
+                                          color: ColorManager.mediumgrey,
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
                                       onTap: () {
                                         // Update TextField with selected suggestion
-                                        addressController.text = suggestions[index];
+                                        addressController.text =
+                                            suggestions[index];
                                         // Optionally clear suggestions
                                         _suggestionsNotifier.value = [];
                                         // Unfocus the TextField if needed
@@ -705,8 +823,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                 ),
                               ),
                             );
-                          }
-                      )
+                          })
                       // Suggestion list appears above the container when not empty
                       // ValueListenableBuilder<List<String>>(
                       //   valueListenable: _suggestionsNotifier,
@@ -795,23 +912,22 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         text: AppStringEM.save,
                         onPressed: () async {
                           await patchCompanyOffice(
-                            context,
-                            widget.companyOfficeid,
-                            widget.officeId,
-                            primNumController.text,
-                            secNumberController.text,
-                            primeFaxController.text,
-                            secFaxController.text,
-                            altNumController.text,
-                            emailController.text,
-                            nameController.text,
-                            addressController.text,
-                            latitude,
-                            longitude,
-                            "",
-                            stateNameController.text,
-                            countryNameController.text
-                          );
+                              context,
+                              widget.companyOfficeid,
+                              widget.officeId,
+                              primNumController.text,
+                              secNumberController.text,
+                              primeFaxController.text,
+                              secFaxController.text,
+                              altNumController.text,
+                              emailController.text,
+                              nameController.text,
+                              addressController.text,
+                              latitude,
+                              longitude,
+                              "",
+                              stateNameController.text,
+                              countryNameController.text);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
