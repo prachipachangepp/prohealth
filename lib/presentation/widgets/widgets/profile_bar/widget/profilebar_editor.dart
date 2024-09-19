@@ -8,16 +8,25 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
+
+// typedef  VoidCallback onCancel;
+// typedef onCancel = void Function();
+typedef BackButtonCallBack = void Function(bool val);
 class ProfileEditScreen extends StatefulWidget {
   // static const String routeName = "/edit";
-  final ValueNotifier<bool> isEditModeNotifier;
+  // final ValueNotifier<bool> isEditModeNotifier;
   final VoidCallback onCancel;
+  // final BackButtonCallBack backButtonCallBack;
   final int employeeId;
 
-  ProfileEditScreen({required this.isEditModeNotifier, required this.onCancel, required this.employeeId, });
+  ProfileEditScreen({ required this.onCancel,
+    required this.employeeId,
+    // required this.backButtonCallBack,
+  });
 
   @override
   State<ProfileEditScreen> createState() => _ProfileEditScreenState();
@@ -113,6 +122,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // print("Edit Mode Cancel :::::::::::::::::::::::############");
     return FutureBuilder<ProfileEditorModal>(
       future: getEmployeePrefill(context, widget.employeeId),
       builder: (context, snapshot) {
@@ -146,7 +156,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           zoneController.text = profileData.zone ?? '';
           countyController.text = profileData.county ?? '';
           serviceController.text = profileData.service ?? '';
-          reportingOfficeController.text = profileData.department ?? '';
+          reportingOfficeController.text = profileData.regOfficId ?? '';
           summaryController.text = profileData.service ?? '';
 
           return Column(
@@ -436,13 +446,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomButton(
-                            height: 32,
+                            height: 30,
                             width: 100,
                             onPressed: () async {
-                              // Print the code to the console
-                              print("code::::::::::::::::::::::::::::::::::::code");
 
-                              // Other print statements
+                              print("code::::::::::::::::::::::::::::::::::::code");
                               print("FirstName::::::::::::::::::::::::::::::::::::${nameController.text}");
                               print("LastName::::::::::::::::::::::::::::::::::::${deptController.text}");
                               print("DepartmentId::::::::::::::::::::::::::::::::::::1");
@@ -456,7 +464,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               print("PrimaryPhoneNbr::::::::::::::::::::::::::::::::::::${phoneNController.text}");
                               print("SecondaryPhoneNbr::::::::::::::::::::::::::::::::::::");
                               print("WorkPhoneNbr::::::::::::::::::::::::::::::::::::${workPhoneController.text}");
-                              print("RegOfficId::::::::::::::::::::::::::::::::::::001");
+                              print("RegOfficId::::::::::::::::::::::::::::::::::::${reportingOfficeController.text}");
                               print("PersonalEmail::::::::::::::::::::::::::::::::::::${personalEmailController.text}");
                               print("WorkEmail::::::::::::::::::::::::::::::::::::${workEmailController.text}");
                               print("Address::::::::::::::::::::::::::::::::::::${addressController.text}");
@@ -562,26 +570,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             },
                             text: 'Save',),
                           SizedBox(width: 30,),
-                          CustomButtonTransparent(
-                            height: 27,
-                            width: 90,
-                            text: 'Cancel',
-                              // onPressed: widget.onCancel
+                          ProfileEditCancelButton(
+                            height: 30,
+                            width: 100,
+                            text: AppString.cancel,
+
                             onPressed: () {
-                              // Call the onCancel callback
+                              print("Edit Mode Cancel :::::::::::::::::::::::############");
+
                               widget.onCancel();
 
-                              // Navigate to ManageScreen
-                              // pageController.jumpToPage(1); // Navigate to the ManageScreen
                             },
                             )
-                          // CustomButton(
-                          //   height: 27,
-                          //   width: 90,
-                          //   onPressed: (){
-                          //   widget.isEditModeNotifier.value = false;
-                          //   onCancel();
-                          // }, text: 'Cancel',)
                         ],
                       ),
                     ],
@@ -614,3 +614,68 @@ class EditProfile {
   }
 }
 
+class ProfileEditCancelButton extends StatelessWidget {
+  final String? text;
+  final VoidCallback onPressed;
+  final Color backgroundColor; // Added parameter for background color
+  final Color textColor;
+  final double borderRadius;
+  final double paddingVertical;
+  final double paddingHorizontal;
+  final double width;
+  final double height;
+  final TextStyle? style;
+  final Widget? child;
+   ProfileEditCancelButton({
+     Key? key,
+     this.text,
+     required this.onPressed,
+     this.backgroundColor = const Color(0xFF50B5E5), // Default background color
+     this.textColor = const Color(0xFF50B5E5),
+     this.borderRadius = 14.0,
+     this.paddingVertical = 12.0,
+     this.paddingHorizontal = 16.0,
+     this.width = 50,
+     this.height = 50.0,
+     this.style,
+     this.child,
+});
+
+  // bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    final defaultTextStyle = GoogleFonts.firaSans(
+      color: textColor,
+      fontSize: 12,
+      fontWeight: FontWeightManager.bold,
+    );
+    final mergedTextStyle = defaultTextStyle.merge(style);
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          const BoxShadow(
+            color: Color(0x40000000),
+            offset: Offset(0, 4),
+            blurRadius: 3,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          backgroundColor: ColorManager.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+        ),
+        child: Text(text!, textAlign: TextAlign.center, style: mergedTextStyle)
+      ),
+    );
+  }
+}

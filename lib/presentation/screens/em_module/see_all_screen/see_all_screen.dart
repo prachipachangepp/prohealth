@@ -506,7 +506,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 children: [
                                   SizedBox(height: 5),
                                   Container(
-                                    //margin: EdgeInsets.symmetric(horizontal: 50),
+                                    margin: EdgeInsets.symmetric(horizontal: 30),
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),

@@ -103,7 +103,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
               isLoading = false;
             });
           }
-          Navigator.pop(context);
+           Navigator.pop(context);
           },
                 style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),

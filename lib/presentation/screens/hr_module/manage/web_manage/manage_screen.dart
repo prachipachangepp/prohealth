@@ -23,16 +23,23 @@ import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart
 import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 
-class ManageScreen extends StatelessWidget {
+class ManageScreen extends StatefulWidget {
   final int employeeId;
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final PageController pageManageController;
 
   ManageScreen({super.key, this.searchByEmployeeIdProfileData, required this.employeeId, required this.pageManageController, });
 
-  // bool _isEditMode = false;
-  final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false);
+  @override
+  State<ManageScreen> createState() => _ManageScreenState();
+}
+
+class _ManageScreenState extends State<ManageScreen> {
+  bool _isEditMode = false;
+  // final  _isEditMode = ;
+
   ProfileEditorModal? _prefilledData;
+
   // final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false); // Use ValueNotifier to track edit mode
   @override
   Widget build(BuildContext context) {
@@ -40,11 +47,10 @@ class ManageScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // Expanded(
+                // Expanded(
           //   child: ListView(
           //     scrollDirection: Axis.vertical,
           //     children: [
-                // Green blue container
                 ///
                 // ProfileBar(
                 //   searchByEmployeeIdProfileData: searchByEmployeeIdProfileData!,
@@ -65,318 +71,332 @@ class ManageScreen extends StatelessWidget {
                 // ),
                 ///
         Expanded(
-        child: ValueListenableBuilder<bool>(
-        valueListenable: _isEditMode,
-        builder: (context, isEditMode, child) {
-          return isEditMode
-              ? ProfileEditScreen(
-            isEditModeNotifier: _isEditMode,
-            onCancel: () {
-              _isEditMode.value = false;
-            }, employeeId: employeeId,
-          )
-              : ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              // Profile Bar
-              ProfileBar(
-                searchByEmployeeIdProfileData:
-                searchByEmployeeIdProfileData!,
+        child: _isEditMode
+            ?
+        ProfileEditScreen(
 
-                onEditPressed: () {
-                  _isEditMode.value = true;
-                },
-              ),
+          onCancel: () {
 
-              ///sub tab bar
-              DefaultTabController(
-                length: 7,
-                child: Column(
+            setState(() {
+              _isEditMode = false;
 
-                  ///sub tab bar
-                  children: [
-                    TabBar(
-                      indicatorWeight: 6,
-                      overlayColor: MaterialStateProperty.all(
-                          Colors.transparent),
-                      indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-                      indicator: UnderlineTabIndicator(
-                          borderSide: BorderSide(width: 6, color: Color(
-                              0xFF50B5E5)),
-                          borderRadius: BorderRadius.circular(13)),
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelColor: Color(0xFF50B5E5),
-                      labelStyle: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      unselectedLabelColor: ColorManager.textPrimaryColor,
-                      dividerColor: Colors.transparent,
-                      tabs: [
-                        Tab(text: AppStringHr.qualification),
-                        Tab(text: AppStringHr.documents),
-                        Tab(text: AppStringHr.bankings),
-                        Tab(text: AppStringHr.inventory),
-                        Tab(text: AppStringHr.payRate),
-                        Tab(text: AppStringHr.termination),
-                        Tab(text: AppStringHr.timeOff),
-                      ],
+            });
+          },
+          employeeId: widget.employeeId,
+          // backButtonCallBack: (bool val) {
+          //   _isEditMode.value = false;
+          // },
+        )
+            : ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            // Profile Bar
+            ProfileBar(
+              searchByEmployeeIdProfileData:
+              widget.searchByEmployeeIdProfileData!,
+
+              onEditPressed: () {
+              setState(() {
+                _isEditMode = true;
+              });
+              },
+            ),
+
+            ///sub tab bar
+            DefaultTabController(
+              length: 7,
+              child: Column(
+
+                ///sub tab bar
+                children: [
+                  TabBar(
+                    indicatorWeight: 6,
+                    overlayColor: MaterialStateProperty.all(
+                        Colors.transparent),
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                    indicator: UnderlineTabIndicator(
+                        borderSide: BorderSide(width: 6, color: Color(
+                            0xFF50B5E5)),
+                        borderRadius: BorderRadius.circular(13)),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelColor: Color(0xFF50B5E5),
+                    labelStyle: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
                     ),
-                    SizedBox(
-                      height: 420.0, // Adjust height as needed
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
+                    unselectedLabelColor: ColorManager.textPrimaryColor,
+                    dividerColor: Colors.transparent,
+                    tabs: [
+                      Tab(text: AppStringHr.qualification),
+                      Tab(text: AppStringHr.documents),
+                      Tab(text: AppStringHr.bankings),
+                      Tab(text: AppStringHr.inventory),
+                      Tab(text: AppStringHr.payRate),
+                      Tab(text: AppStringHr.termination),
+                      Tab(text: AppStringHr.timeOff),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 420.0, // Adjust height as needed
+                    child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
 
-                          /// Qualification Tab Views
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: DefaultTabController(
-                              length: 4,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(24),
-                                      color: Color(0xFF50B5E5),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          // color: Colors.black.withOpacity(0.2),
-                                          color: Colors.black.withOpacity(0.25),
-                                          spreadRadius: 1,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    height: 30,
-                                    width: 620.0,
-                                    child: TabBar(
-                                      isScrollable: false,
-                                      tabs: [
-                                        Tab(text: AppStringHr.employment),
-                                        Tab(text: AppStringHr.education),
-                                        Tab(text: AppStringHr.referance),
-                                        Tab(text: AppStringHr.license),
-                                      ],
-                                      dividerColor: Colors.transparent,
-                                      indicator: BoxDecoration(
-                                          boxShadow: [BoxShadow(
-                                            // color: Colors.black.withOpacity(0.2),
-                                            color: Colors.black.withOpacity(
-                                                0.2),
-                                            spreadRadius: 1,
-                                            blurRadius: 5,
-                                            offset: Offset(0, 3),
-                                          ),
-                                          ],
-                                          borderRadius: BorderRadius.circular(
-                                              50), // Creates border
-                                          color: Colors.white),
-                                      indicatorSize: TabBarIndicatorSize.tab,
-                                      indicatorColor: Colors.white,
-                                      labelColor: Color(0xFF686464),
-                                      unselectedLabelStyle: GoogleFonts
-                                          .firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                      unselectedLabelColor: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  SizedBox(
-                                    height: 265.0, // Adjust height as needed
-                                    child: TabBarView(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      children: [
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              EmploymentContainerConstant(
-                                                  employeeId: employeeId!),
-                                              SizedBox(height: 30),
-                                            ],
-                                          ),
-                                        ),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              EducationChildTabbar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              ReferencesChildTabbar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              LicensesChildTabbar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                          /// Documents Tab Views
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: DefaultTabController(
-                              length: 4,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(24),
-                                      color: Color(0xFF50B5E5),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          // color: Colors.black.withOpacity(0.2),
-                                          color: Colors.black.withOpacity(0.25),
-                                          spreadRadius: 1,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    height: 30,
-                                    width: 620.0,
-                                    child: TabBar(
-                                      isScrollable: false,
-                                      tabs: [
-                                        Tab(text: AppStringHr.acknowledgement),
-                                        Tab(text: AppStringHr.compensation),
-                                        Tab(text: AppStringHr.addVaccination),
-                                        Tab(text: AppStringHr.others),
-                                      ],
-                                      dividerColor: Colors.transparent,
-                                      indicator: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              50), // Creates border
-                                          color: Colors.white),
-                                      indicatorSize: TabBarIndicatorSize.tab,
-                                      indicatorColor: Colors.white,
-                                      labelColor: Color(0xFF686464),
-                                      unselectedLabelStyle: GoogleFonts
-                                          .firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                      unselectedLabelColor: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 265.0, // Adjust height as needed
-                                    child: TabBarView(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      children: [
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              AcknowledgementsChildBar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              CompensationChildTabbar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              AdditionalVaccinationsChildBar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              OtherChildTabbar(
-                                                  employeeId: searchByEmployeeIdProfileData!
-                                                      .employeeId!),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                          /// Banking Tab
-                          BankingHeadTabbar(
-                              employeeID: searchByEmployeeIdProfileData!
-                                  .employeeId!),
-
-                          /// Inventory Tab
-                          SingleChildScrollView(
+                        /// Qualification Tab Views
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: DefaultTabController(
+                            length: 4,
                             child: Column(
                               children: [
-                                InventoryHeadTabbar(
-                                    employeeId: searchByEmployeeIdProfileData!
-                                        .employeeId!),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    color: Color(0xFF50B5E5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // color: Colors.black.withOpacity(0.2),
+                                        color: Colors.black.withOpacity(0.25),
+                                        spreadRadius: 1,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  height: 30,
+                                  width: 620.0,
+                                  child: TabBar(
+                                    isScrollable: false,
+                                    tabs: [
+                                      Tab(text: AppStringHr.employment),
+                                      Tab(text: AppStringHr.education),
+                                      Tab(text: AppStringHr.referance),
+                                      Tab(text: AppStringHr.license),
+                                    ],
+                                    dividerColor: Colors.transparent,
+                                    indicator: BoxDecoration(
+                                        boxShadow: [BoxShadow(
+                                          // color: Colors.black.withOpacity(0.2),
+                                          color: Colors.black.withOpacity(
+                                              0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 3),
+                                        ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(
+                                            50), // Creates border
+                                        color: Colors.white),
+                                    indicatorSize: TabBarIndicatorSize.tab,
+                                    indicatorColor: Colors.white,
+                                    labelColor: Color(0xFF686464),
+                                    unselectedLabelStyle: GoogleFonts
+                                        .firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    labelStyle: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    unselectedLabelColor: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                SizedBox(
+                                  height: 265.0, // Adjust height as needed
+                                  child: TabBarView(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    children: [
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            EmploymentContainerConstant(
+                                                employeeId: widget.employeeId!),
+                                            SizedBox(height: 30),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            EducationChildTabbar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            ReferencesChildTabbar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            LicensesChildTabbar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
+                        ),
 
-                          // Pay Rates Tab
-                          PayRatesHeadTabbar(
-                            employeeId: searchByEmployeeIdProfileData!
-                                .employeeId!,),
+                        /// Documents Tab Views
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: DefaultTabController(
+                            length: 4,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    color: Color(0xFF50B5E5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // color: Colors.black.withOpacity(0.2),
+                                        color: Colors.black.withOpacity(0.25),
+                                        spreadRadius: 1,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  height: 30,
+                                  width: 620.0,
+                                  child: TabBar(
+                                    isScrollable: false,
+                                    tabs: [
+                                      Tab(text: AppStringHr.acknowledgement),
+                                      Tab(text: AppStringHr.compensation),
+                                      Tab(text: AppStringHr.addVaccination),
+                                      Tab(text: AppStringHr.others),
+                                    ],
+                                    dividerColor: Colors.transparent,
+                                    indicator: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            50), // Creates border
+                                        color: Colors.white),
+                                    indicatorSize: TabBarIndicatorSize.tab,
+                                    indicatorColor: Colors.white,
+                                    labelColor: Color(0xFF686464),
+                                    unselectedLabelStyle: GoogleFonts
+                                        .firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    labelStyle: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    unselectedLabelColor: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 265.0, // Adjust height as needed
+                                  child: TabBarView(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    children: [
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            AcknowledgementsChildBar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            CompensationChildTabbar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            AdditionalVaccinationsChildBar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            OtherChildTabbar(
+                                                employeeId: widget.searchByEmployeeIdProfileData!
+                                                    .employeeId!),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
 
-                          // Termination Tab
-                          TerminationHeadTabbar(
-                            employeeId: searchByEmployeeIdProfileData!
-                                .employeeId!,),
+                        /// Banking Tab
+                        BankingHeadTabbar(
+                            employeeID: widget.searchByEmployeeIdProfileData!
+                                .employeeId!),
 
-                          // Time Off Tab
-                          const TimeOffHeadTabbar(),
-                        ],
-                      ),
+                        /// Inventory Tab
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              InventoryHeadTabbar(
+                                  employeeId: widget.searchByEmployeeIdProfileData!
+                                      .employeeId!),
+                            ],
+                          ),
+                        ),
+
+                        // Pay Rates Tab
+                        PayRatesHeadTabbar(
+                          employeeId: widget.searchByEmployeeIdProfileData!
+                              .employeeId!,),
+
+                        // Termination Tab
+                        TerminationHeadTabbar(
+                          employeeId: widget.searchByEmployeeIdProfileData!
+                              .employeeId!,),
+
+                        // Time Off Tab
+                        const TimeOffHeadTabbar(),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
+          ],
 
-            // Bottom row
-          );
-        }),
+          // Bottom row
+        )
+
+
+        // ValueListenableBuilder<bool>(
+        // valueListenable: _isEditMode,
+        // builder: (context, isEditMode, child) {
+        //   return
+        // }),
       ),
           BottomBarRow(),
     ]

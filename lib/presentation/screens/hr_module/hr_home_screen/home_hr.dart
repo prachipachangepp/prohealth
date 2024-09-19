@@ -790,16 +790,25 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
-                        ProfileEditScreen(
-                          isEditModeNotifier: _isEditMode,
-                          onCancel: () {
-                            // Reset the edit mode value
-                             _isEditMode.value = false;
+                        ///
+                        // ProfileEditScreen(
+                        //   // isEditModeNotifier: _isEditMode,
+                        //   onCancel: () {
+                        //
+                        //    setState(() {
+                        //      _isEditMode.value = false;
+                        //    });
+                        //
+                        //   },
+                        //
+                        //   employeeId: employeeId,
+                        // //   backButtonCallBack: (bool val) {
+                        // //
+                        // //   _isEditMode.value = false;
+                        // // },
+                        // ),
 
-                            // Optionally handle other cancel logic here
-                          },
-                          employeeId: employeeId,
-                        ),
+                        ///
                         // ProfileEditScreen(
                         //   isEditModeNotifier: _isEditMode,
                         //   onCancel: () {
