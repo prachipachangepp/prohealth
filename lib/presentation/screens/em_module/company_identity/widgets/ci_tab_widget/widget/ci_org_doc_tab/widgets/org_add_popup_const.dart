@@ -9,7 +9,6 @@ import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import '../../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';

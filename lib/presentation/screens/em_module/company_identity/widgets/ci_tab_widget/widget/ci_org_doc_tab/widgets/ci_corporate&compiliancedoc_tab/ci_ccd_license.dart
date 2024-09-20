@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
-
 import '../../../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
