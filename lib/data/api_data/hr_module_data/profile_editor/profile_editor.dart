@@ -118,3 +118,16 @@ class ProfileEditorModal {
       required this.success,
       required this.message});
 }
+
+
+class EmployeeTypeModal{
+  final int employeeTypeId;
+  final int DepartmentId;
+  final String employeeType;
+  final String color;
+  final String abbreviation;
+
+  EmployeeTypeModal({
+    required this.employeeTypeId, required this.DepartmentId, required this.employeeType, required this.color, required this.abbreviation
+});
+}

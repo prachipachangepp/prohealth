@@ -7,6 +7,8 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
+import '../../repository/establishment_manager/all_from_hr_repository.dart';
+
 /// Search by Text
 /// get api
 Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
@@ -668,5 +670,60 @@ Future<ProfileEditorModal> getEmployeePrefill(
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+
+
+// Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int departmentId) async {
+//   List<EmployeeTypeModal> itemsList = [];
+//   try {
+//     final response = await Api(context)
+//         .get(path: EstablishmentManagerRepository.getEmployeeType(departmentId: departmentId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       for (var item in response.data) {
+//       EmployeeTypeModal(
+//           employeeTypeId: item['employeeTypeId'],
+//           DepartmentId: item['DepartmentId'],
+//           employeeType: item['employeeType'],
+//           color:  item['color'],
+//           abbreviation: item['abbreviation'],);
+//       }
+//     } else {
+//       print('Api Error');
+//     }
+//     print("Response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
+Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int departmentId) async {
+  List<EmployeeTypeModal> itemsList = [];
+  try {
+    final response = await Api(context).get(path: EstablishmentManagerRepository.getEmployeeType(departmentId: departmentId));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        // Add the employee type to the list
+        itemsList.add(
+          EmployeeTypeModal(
+            employeeTypeId: item['employeeTypeId'],
+            DepartmentId: item['DepartmentId'],
+            employeeType: item['employeeType'],
+            color: item['color'],
+            abbreviation: item['abbreviation'],
+          ),
+        );
+      }
+    } else {
+      print('API Error: ${response.statusCode}');
+    }
+
+    print("Response:::::${response.data}"); // Debug the response to see what you're getting
+    return itemsList;
+  } catch (e) {
+    print("Error: $e");
+    return itemsList; // Return empty list on error
   }
 }
