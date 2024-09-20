@@ -467,6 +467,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
             ),
       ],
       bottomButtons: isLoading
+
           ? SizedBox(
               height: AppSize.s25,
               width: AppSize.s25,

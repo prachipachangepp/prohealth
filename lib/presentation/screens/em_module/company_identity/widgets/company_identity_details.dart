@@ -447,6 +447,14 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                               .text);
                                                                       hcoNumController
                                                                           .clear();
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) {
+                                                                          return AddSuccessPopup(
+                                                                            message: 'Service edited successfully.',
+                                                                          );
+                                                                        },
+                                                                      );
                                                                       Navigator.pop(
                                                                           context);
                                                                     }),

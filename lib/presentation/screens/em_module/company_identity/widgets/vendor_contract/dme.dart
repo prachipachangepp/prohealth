@@ -103,7 +103,7 @@ class _CiDmeState extends State<CiDme> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.vendorContracts,
+                          AppConfig.vendorContracts, widget.officeId,
                           AppConfig.subDocId8DME,
                           1,
                           20)
@@ -212,7 +212,7 @@ class _CiDmeState extends State<CiDme> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${dmeData.orgDocumentSetupid}",
+                                                          "ID : ${dmeData.idOfDocument}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           // style: GoogleFonts
                                                           //     .firaSans(
@@ -437,7 +437,7 @@ class _CiDmeState extends State<CiDme> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, AppConfig.subDocId8DME, 1, 20).then((data) {
+                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId, AppConfig.subDocId8DME, 1, 20).then((data) {
                                                                                   vendorDMEController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

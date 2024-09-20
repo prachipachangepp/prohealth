@@ -136,185 +136,103 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
         SizedBox(
           height: 20,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              height: 20,
-              width: 150,
-            ),
-            Material(
-              elevation: 4,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              child: Container(
-                width: 670,
-                height: 30,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: ColorManager.blueprime),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            _selectButton(0);
-                          },
-                          child: Container(
-                            height: 30,
-                            width: 210,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              color: _selectedIndex == 0
-                                  ? Colors.white
-                                  : Colors.transparent,
-                            ),
-                            child: Center(
-                              child: Text(
-                                AppString.corporateAndComplianceDocuments,
-                                style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
-                              ),
-                            ),
-                          ),
-                        )),
-                    Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            _selectButton(1);
-                          },
-                          child: Container(
-                            height: 30,
-                            width: 210,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              color: _selectedIndex == 1
-                                  ? Colors.white
-                                  : Colors.transparent,
-                            ),
-                            child: Center(
-                              child: Text(
-                                AppString.vendorContracts,
-                                style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
-                              ),
-                            ),
-                          ),
-                        )),
-                    Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            _selectButton(2);
-                          },
-                          child: Container(
-                            height: 30,
-                            width: 210,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              color: _selectedIndex == 2
-                                  ? Colors.white
-                                  : Colors.transparent,
-                            ),
-                            child: Center(
-                              child: Text(
-                                AppString.policiesAndProcedures,
-                                style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
-                              ),
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-            ),
-            //SizedBox(width: MediaQuery.of(context).size.width/25),
-
-            ///button
-            _selectedIndex == 0
-            ///Corporate
-                ? Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                height: 30,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 60.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 20,
                 width: 150,
-                child: CustomIconButton(
-                  icon: Icons.add,
-                  text: AddPopupString.addDocType,
-                  onPressed: () async {
-                    String? selectedExpiryType = expiryType;
-                    calenderController.clear();
-                    docIdController.clear();
-                    docNamecontroller.clear();
-                    selectedExpiryType = "";
-                    selectedSubDocTypeValue = "";
-                    selectedYear = AppConfig.year;
-                    daysController.text = "1";
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return AddNewOrgDocButton(
-                              title: AddPopupString.addCorporate,
-                              selectedSubDocType: selectedSubDocType,
-                              docTypeText:  getDocTypeText(docTypeMetaIdCC),
-                              docTypeId: docTypeMetaIdCC,
-                              subDocTypeId: selectedSubDocId,
-                              subDocTypeText: getSubDocTypeText(selectedSubDocId),
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
+              ),
+              Material(
+                elevation: 4,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                child: Container(
+                  width: 670,
+                  height: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: ColorManager.blueprime),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              _selectButton(0);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 210,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                color: _selectedIndex == 0
+                                    ? Colors.white
+                                    : Colors.transparent,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppString.corporateAndComplianceDocuments,
+                                  style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
+                                ),
+                              ),
+                            ),
+                          )),
+                      Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              _selectButton(1);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 210,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                color: _selectedIndex == 1
+                                    ? Colors.white
+                                    : Colors.transparent,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppString.vendorContracts,
+                                  style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
+                                ),
+                              ),
+                            ),
+                          )),
+                      Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              _selectButton(2);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 210,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                color: _selectedIndex == 2
+                                    ? Colors.white
+                                    : Colors.transparent,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppString.policiesAndProcedures,
+                                  style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
+                                ),
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
               ),
-            )
-                : _selectedIndex == 1
-            ///vendor
-                ? Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                height: 30,
-                width: 150,
-                child: CustomIconButton(
-                  icon: Icons.add,
-                  text: AddPopupString.addDocType,
-                  onPressed: () async {
-                    String? selectedExpiryType = expiryType;
-                    calenderController.clear();
-                    docIdController.clear();
-                    docNamecontroller.clear();
-                    selectedExpiryType = "";
-                    selectedSubDocTypeValue = "";
-                    selectedYear = AppConfig.year;
-                    daysController.text = "1";
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function())
-                              setState) {
-                            return AddNewOrgDocButton(
-                              title: AddPopupString.addVendor,
-                              selectedSubDocType: selectedSubDocType,
-                              docTypeText: getDocTypeText(docTypeMetaIdVC),
-                              docTypeId: docTypeMetaIdVC,
-                              subDocTypeId: selectedSubDocIdVC,
-                              subDocTypeText: getSubDocTypeText(
-                                  selectedSubDocIdVC),
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-            )
+              //SizedBox(width: MediaQuery.of(context).size.width/25),
 
-            ///Policies
-                : Align(
+              ///button
+              _selectedIndex == 0
+              ///Corporate
+                  ? Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
                   height: 30,
@@ -323,16 +241,53 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                     icon: Icons.add,
                     text: AddPopupString.addDocType,
                     onPressed: () async {
-                      String? selectedDocType;
-                      String? selectedSubDocType;
                       String? selectedExpiryType = expiryType;
                       calenderController.clear();
                       docIdController.clear();
                       docNamecontroller.clear();
                       selectedExpiryType = "";
-                      selectedDocTypeValue = "";
                       selectedSubDocTypeValue = "";
-                      daysController.clear();
+                      selectedYear = AppConfig.year;
+                      daysController.text = "1";
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return StatefulBuilder(
+                            builder: (BuildContext context,
+                                void Function(void Function()) setState) {
+                              return AddNewOrgDocButton(
+                                title: AddPopupString.addCorporate,
+                                selectedSubDocType: selectedSubDocType,
+                                docTypeText:  getDocTypeText(docTypeMetaIdCC),
+                                docTypeId: docTypeMetaIdCC,
+                                subDocTypeId: selectedSubDocId,
+                                subDocTypeText: getSubDocTypeText(selectedSubDocId),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              )
+                  : _selectedIndex == 1
+              ///vendor
+                  ? Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: 30,
+                  width: 150,
+                  child: CustomIconButton(
+                    icon: Icons.add,
+                    text: AddPopupString.addDocType,
+                    onPressed: () async {
+                      String? selectedExpiryType = expiryType;
+                      calenderController.clear();
+                      docIdController.clear();
+                      docNamecontroller.clear();
+                      selectedExpiryType = "";
+                      selectedSubDocTypeValue = "";
                       selectedYear = AppConfig.year;
                       daysController.text = "1";
                       showDialog(
@@ -343,11 +298,13 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                 void Function(void Function())
                                 setState) {
                               return AddNewOrgDocButton(
-                                title: AddPopupString.addPolicy,
-                                docTypeText: getDocTypeText(docTypeMetaIdPP),
-                                docTypeId: docTypeMetaIdPP,
-                                subDocTypeId: 0,
-                                subDocTypeText: '',
+                                title: AddPopupString.addVendor,
+                                selectedSubDocType: selectedSubDocType,
+                                docTypeText: getDocTypeText(docTypeMetaIdVC),
+                                docTypeId: docTypeMetaIdVC,
+                                subDocTypeId: selectedSubDocIdVC,
+                                subDocTypeText: getSubDocTypeText(
+                                    selectedSubDocIdVC),
                               );
                             },
                           );
@@ -355,8 +312,54 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                       );
                     },
                   ),
-                ))
-          ],
+                ),
+              )
+
+              ///Policies
+                  : Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    height: 30,
+                    width: 150,
+                    child: CustomIconButton(
+                      icon: Icons.add,
+                      text: AddPopupString.addDocType,
+                      onPressed: () async {
+                        String? selectedDocType;
+                        String? selectedSubDocType;
+                        String? selectedExpiryType = expiryType;
+                        calenderController.clear();
+                        docIdController.clear();
+                        docNamecontroller.clear();
+                        selectedExpiryType = "";
+                        selectedDocTypeValue = "";
+                        selectedSubDocTypeValue = "";
+                        daysController.clear();
+                        selectedYear = AppConfig.year;
+                        daysController.text = "1";
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return StatefulBuilder(
+                              builder: (BuildContext context,
+                                  void Function(void Function())
+                                  setState) {
+                                return AddNewOrgDocButton(
+                                  title: AddPopupString.addPolicy,
+                                  docTypeText: getDocTypeText(docTypeMetaIdPP),
+                                  docTypeId: docTypeMetaIdPP,
+                                  subDocTypeId: 0,
+                                  subDocTypeText: '',
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ))
+            ],
+          ),
         ),
         SizedBox(
           height: 30,

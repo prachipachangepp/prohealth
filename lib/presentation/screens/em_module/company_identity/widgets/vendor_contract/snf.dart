@@ -102,7 +102,7 @@ class _CiSnfState extends State<CiSnf> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.vendorContracts,
+                          AppConfig.vendorContracts, widget.officeId,
                           AppConfig.subDocId7SNF,
                           1,
                           20)
@@ -220,7 +220,7 @@ class _CiSnfState extends State<CiSnf> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${snfData.orgDocumentSetupid}",
+                                                          "ID : ${snfData.idOfDocument}",
                                                           //snfData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -423,7 +423,7 @@ class _CiSnfState extends State<CiSnf> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, AppConfig.subDocId9MD, 1, 20).then((data) {
+                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts,  widget.officeId,AppConfig.subDocId9MD, 1, 20).then((data) {
                                                                                   vendorSnfController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

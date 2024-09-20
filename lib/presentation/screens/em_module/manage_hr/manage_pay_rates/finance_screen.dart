@@ -474,7 +474,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       int perMile = int.parse(perMilesController.text);
                                       String serviceTypeId = serviceId;
                                       int fixedRate = int.parse(fixedPayRatesController.text);
-
                                       await addPayrates(
                                         context,
                                         empTypeId,
@@ -512,16 +511,26 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     }
                                     if (snapshot.hasData &&
                                         snapshot.data!.isEmpty) {
-                                      return Center(
-                                        child: Text(
-                                          "No available visits !!",
-                                          //AppString.dataNotFound,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                            FontWeight.w500,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
+                                      return Container(
+                                        width:  354,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Padding(
+                                          padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                                          child: Text(
+                                            "No available visits!",
+                                            //AppString.dataNotFound,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontWeight:
+                                              FontWeight.w500,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -569,7 +578,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     }
                                     if (snapshotZone.hasData &&
                                         snapshotZone.data!.isEmpty) {
-                                      return Center(
+                                      return Container(
+                                        width:  354,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
                                         child: Text(
                                           "No available zones !!",
                                           //AppString.dataNotFound,

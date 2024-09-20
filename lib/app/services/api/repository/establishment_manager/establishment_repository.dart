@@ -547,8 +547,8 @@ class EstablishmentManagerRepository {
   }
   ///new office doc
   ///org-office-document/ByDocumentTypeAndSubTypePageWise/{DocumentTypeId}/{DocumentSubTypeId}/{pageNbr}/{NbrofRows}
-  static String getListMCorporateCompliance({required int DocumentTypeId, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}){
-    return "$getCCVCPPList$DocumentTypeId/$DocumentSubTypeId/$pageNbr/$NbrofRows";
+  static String getListMCorporateCompliance({required int DocumentTypeId,    required String officeID, required int DocumentSubTypeId, required int pageNbr, required int NbrofRows}){
+    return "$getCCVCPPList$DocumentTypeId/$DocumentSubTypeId/$officeID/$pageNbr/$NbrofRows";
   }
 
   static String prefillDocOfficeOrg({required int orgDocID}) {

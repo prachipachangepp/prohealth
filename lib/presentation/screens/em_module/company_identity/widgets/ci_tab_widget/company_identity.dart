@@ -351,7 +351,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AddSuccessPopup(
-                                      message: 'Added successfully.',
+                                      message: 'Added  successfully.',
                                     );
                                   },
                                 );

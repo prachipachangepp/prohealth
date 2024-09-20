@@ -96,7 +96,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10,right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -149,7 +149,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                   builder: (context, snapshot) {
                     getListMCorporateCompliancefetch(
                             context,
-                            AppConfig.policiesAndProcedure,
+                            AppConfig.policiesAndProcedure, widget.officeId,
                             AppConfig.subDocId0,
                             1,
                             20)
@@ -243,7 +243,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        "ID : ${policiesdata.orgDocumentSetupid}",
+                                                        "ID : ${policiesdata.idOfDocument}",
                                                         style:  DocumentTypeDataStyle.customTextStyle(context),
                                                       ),
                                                       SizedBox(
@@ -418,7 +418,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                                 orgDocId: policiesdata.orgOfficeDocumentId);
                                                                             // await deleteManageCorporate(context,
                                                                             //     policiesdata.docId);
-                                                                            await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20).then((data) {
+                                                                            await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
                                                                               _controller.add(data);
                                                                             }).catchError((error) {
                                                                               // Handle error

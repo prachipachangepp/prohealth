@@ -48,7 +48,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s12,
-              fontWeight: FontWeightManager.bold,
+              fontWeight: FontWeight.w500,
               color: widget.textColor == null ?ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -118,7 +118,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
           style: const TextStyle(
             fontFamily: 'FiraSans',
             fontSize: FontSize.s12,
-            fontWeight: FontWeightManager.bold,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF50B5E5),
           ),
                 ),
@@ -154,7 +154,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
                 text,
                 style: GoogleFonts.firaSans(
                   fontSize: MediaQuery.of(context).size.width / 120,
-                  fontWeight: FontWeightManager.semiBold,
+                  fontWeight: FontWeight.w500,
                   color: ColorManager.blueprime,
                   decoration: TextDecoration.none,
                 ),
@@ -281,7 +281,7 @@ class CustomTitleButton extends StatelessWidget {
             text,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s12,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
             ),
           ),
@@ -373,7 +373,7 @@ class CustomDropdownButton extends StatelessWidget {
             style: const TextStyle(
               color: Colors.black,
               fontSize: FontSize.s13,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
             ),
             dropdownColor: ColorManager.white,
             borderRadius: BorderRadius.circular(borderRadius),
@@ -398,7 +398,7 @@ class CustomDropdownButton extends StatelessWidget {
                             ? ColorManager.white
                             : ColorManager.mediumgrey,
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
               );
