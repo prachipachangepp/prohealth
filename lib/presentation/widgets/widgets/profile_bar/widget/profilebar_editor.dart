@@ -379,10 +379,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           // )
                           ///
                           HRManageTextField(
-                              controller: zoneController,
+                              controller: summaryController,
                               keyboardType: TextInputType.text,
-                              text: AppStringMobile.zone,
-                              cursorHeight: 12, labelText: AppStringMobile.zone,
+                              text: AppStringMobile.summry,
+                              cursorHeight: 12, labelText: AppStringMobile.summry,
                               labelStyle: GoogleFonts.firaSans(
                                   fontSize: 12
                               ), labelFontSize: 12),
@@ -430,25 +430,127 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           // )
                         ],
                       ),
+
+                      ///Coverage
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       mainAxisAlignment: MainAxisAlignment.spaceAround ,
                         children: [
-                          HRManageTextField(
-                              controller: summaryController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.summry,
-                              cursorHeight: 12, labelText: AppStringMobile.summry,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
-                          SizedBox(
-                            width: 320,
-                            height: 40,
+                        Container(
+                          height: 55,
+                          width: 320,
+                          // margin: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: ColorManager.blueprime, //color of border
+                              width: 2, //width of border
+                            ),
+
                           ),
-                          SizedBox( width: 320,
-                            height: 40,)
-                        ],
-                      ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("County :", style: EditTextFontStyle.customEditTextStyle()),
+                              SizedBox(width: 5,),
+                              Text("San Fransisco", style: EditTextFontStyle.customEditTextStyle()),
+                              SizedBox(width: 30,),
+                              Text('Zone :', style:EditTextFontStyle.customEditTextStyle()),
+                              SizedBox(width: 5,),
+                              Text("Zone 1", style: EditTextFontStyle.customEditTextStyle(),),
+                              SizedBox(width: 5,),
+                              IconButton(onPressed: (){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20), // Rounded corners
+                                        side: BorderSide(
+                                          color: Colors.blue,  // Blue border color
+                                          width: 2,            // Border width
+                                        ),
+                                      ),
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.8,  // Adjust width
+                                        height: 300,  // Adjust height
+                                        padding: EdgeInsets.all(20),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Edit Information',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 20),
+                                            TextField(
+                                              decoration: InputDecoration(
+                                                labelText: 'Enter Name',
+                                                border: OutlineInputBorder(),
+                                              ),
+                                            ),
+                                            SizedBox(height: 20),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(); // Close dialog
+                                                  },
+                                                  child: Text('Cancel'),
+                                                ),
+                                                SizedBox(width: 10),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Perform action here, e.g., saving the data
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text('Save'),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                                icon: Icon(Icons.edit_outlined, size: 15,
+                                  color: ColorManager.mediumgrey, ),),
+                            ],
+                          ),
+
+                        ),
+                        Container(
+                          height: 55,
+                          width: 320,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: ColorManager.white,
+                              width: 2, //width of border
+                            ),
+
+                          ),
+                          // color: Colors.green,
+                        ),
+                        Container(
+                          height: 55,
+                          width: 320,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: ColorManager.white, //color of border
+                              width: 2, //width of border
+                            ),
+
+                          ),
+                          // color: Colors.green,
+                        )
+                      ],),
                       ///
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -619,6 +721,15 @@ class EditProfile {
           // : FontWeight.w500,
       color: ColorManager.blueprime,
       // decoration: TextDecoration.none,
+    );
+  }
+}
+class EditTextFontStyle{
+  static TextStyle customEditTextStyle() {
+    return GoogleFonts.firaSans(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.mediumgrey,
     );
   }
 }

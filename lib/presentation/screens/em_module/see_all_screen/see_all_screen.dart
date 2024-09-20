@@ -228,10 +228,23 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
+                                  List<String>dropDownServiceList =[];
                                   return Container(
                                     alignment: Alignment.center,
                                     child:
-                                        loadingText, // Display a loading indicator
+                                    HRManageDropdown(
+                                      controller: TextEditingController(
+                                          text: ''),
+                                      labelText: 'Select Department',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      labelFontSize: 12,
+                                      items:  dropDownServiceList,
+
+                                    )
                                   );
                                 }
                                 if (snapshot.hasData &&
@@ -805,12 +818,25 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                           .connectionState ==
                                                                       ConnectionState
                                                                           .waiting) {
+                                                                    List<String>dropDownServiceList =[];
                                                                     return Container(
                                                                       alignment:
                                                                           Alignment
                                                                               .center,
                                                                       child:
-                                                                          loadingText, // Display a loading indicator
+                                                                      HRManageDropdown(
+                                                                        controller: TextEditingController(
+                                                                            text: ''),
+                                                                        labelText: 'Select Department',
+                                                                        labelStyle: GoogleFonts.firaSans(
+                                                                          fontSize: 12,
+                                                                          fontWeight: FontWeight.w500,
+                                                                          color: ColorManager.mediumgrey,
+                                                                        ),
+                                                                        labelFontSize: 12,
+                                                                        items:  dropDownServiceList,
+
+                                                                      )
                                                                     );
                                                                   }
                                                                   if (snapshot
@@ -837,25 +863,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   }
                                                                   if (snapshot
                                                                       .hasData) {
-                                                                    List<String>
-                                                                        dropDownServiceList =
-                                                                        snapshot
-                                                                            .data!
-                                                                            .map((dept) =>
-                                                                                dept.deptName)
-                                                                            .toList();
-                                                                    String? firstDeptName = snapshot
-                                                                            .data!
-                                                                            .isNotEmpty
-                                                                        ? snapshot.data![0].deptName ??
-                                                                            ""
-                                                                        : " ";
-                                                                    int? firstDeptId = snapshot
-                                                                            .data!
-                                                                            .isNotEmpty
-                                                                        ? snapshot.data![0].deptId ??
-                                                                            0
-                                                                        : 0;
+                                                                    List<String>dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
+                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName ?? "" : " ";
+                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId ?? 0 : 0;
 
                                                                     if (selectedDeptName ==
                                                                             null &&
