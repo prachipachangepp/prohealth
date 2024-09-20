@@ -140,9 +140,7 @@ class EMDesktopScreen extends StatelessWidget {
                           isSelected: myController.selectedIndex.value == 1,
                         ),
                       ),
-                      SizedBox(
-                        width: 15,
-                      ),
+                      SizedBox(width: 15,),
                       Obx(
                         () => Material(
                           elevation: 4,
