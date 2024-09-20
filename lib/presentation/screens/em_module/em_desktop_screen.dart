@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/routes_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/dashboard_main_button_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/widgets/const_appbar/controller.dart';
@@ -125,15 +124,8 @@ class EMDesktopScreen extends StatelessWidget {
                             companyByIdApi(
                               context,
                             );
-                            // companyDetailsApi(context,5);
-                            // Provider.of<RouteProvider>(
-                            //     context,
-                            //     listen: false)
-                            //     .setRoute(
-                            //     RouteStrings.emCompanyIdentity);
                             myController.selectButton(1);
-                            _pageController.animateToPage(1,
-                                duration: Duration(milliseconds: 500),
+                            _pageController.animateToPage(1, duration: Duration(milliseconds: 500),
                                 curve: Curves.ease);
                           },
                           text: 'Company Identity',
@@ -154,12 +146,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'Select a module',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
                               ),
                               DropdownMenuItem<String>(
@@ -167,12 +154,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'User Management',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   // if (myController.selectedIndex.value != 5) {
@@ -192,12 +174,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Users',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {
@@ -218,12 +195,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Role Manager',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {
@@ -244,12 +216,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'Clinical',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   // if (myController.selectedIndex.value != 5) {
@@ -269,12 +236,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Visits',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {
@@ -295,12 +257,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'HR',
                                   textAlign: TextAlign.center,
-                                  style:TextStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   // if (myController.selectedIndex.value != 2) {
@@ -320,12 +277,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Designation Settings',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {
@@ -351,12 +303,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Work Schedule',
                                     textAlign: TextAlign.center,
-                                    style:TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style:AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {
@@ -377,12 +324,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Employee Documents',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {
@@ -403,12 +345,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 child: Text(
                                   'Finance',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   // if (myController.selectedIndex.value != 5) {
@@ -428,12 +365,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Pay Rates',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                   ),
                                 ),
                                 onTap: () {

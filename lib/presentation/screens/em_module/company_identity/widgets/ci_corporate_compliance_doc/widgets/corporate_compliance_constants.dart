@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
-
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -63,12 +62,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -109,12 +103,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     children: [
                       Text(
                         AppString.type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
-                        ),
+                        style:  DefineWorkWeekStyle.customTextStyle(context),
                       ),
                       SizedBox(
                         height: AppSize.s5,
@@ -128,12 +117,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     children: [
                       Text(
                         AppString.sub_type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style:  DefineWorkWeekStyle.customTextStyle(context),
                       ),
                       SizedBox(
                         height: AppSize.s5,
@@ -363,12 +347,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
                 Expanded(
                   child: Text(
                     _selectedValue ?? '',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w500,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: MobileMenuText.MenuTextConst(context),
                   ),
                 ),
                 Padding(
@@ -454,12 +433,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     padding: const EdgeInsets.only(left: 32),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -502,12 +476,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     children: [
                       Text(
                         AppString.type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
-                        ),
+                        style: ConstTextFieldRegister.customTextStyle(context),
                       ),
                       SizedBox(height: AppSize.s5),
                       widget.child!,
@@ -517,12 +486,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                   if (widget.child1 != null) ...[
                     Text(
                       AppString.sub_type_of_the_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight:FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                     SizedBox(height: AppSize.s5),
                   ],
@@ -670,12 +634,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     child: Text(
                       widget.title,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -746,11 +705,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     children: [
                       Text(
                         AppString.type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight:FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                       SizedBox(height: AppSize.s5),
                       widget.child ?? Offstage(),
@@ -762,12 +717,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   if (widget.child1 != null) ...[
                     Text(
                       AppString.sub_type_of_the_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                     SizedBox(height: AppSize.s5),
                   ],
@@ -864,7 +814,7 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
         child: TextFormField(
           textCapitalization: TextCapitalization.sentences,
           controller: _controller,
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: FontSize.s12,
             fontWeight: FontWeight.w400,
             color: ColorManager.black,
@@ -872,7 +822,7 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
           cursorColor: ColorManager.black,
           decoration: InputDecoration(
             labelText: widget.labelText,
-            labelStyle: GoogleFonts.firaSans(
+            labelStyle: TextStyle(
               fontSize: FontSize.s10,
               color: ColorManager.greylight,
             ),
@@ -910,94 +860,94 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
 
 ///circuler border
 
-class CdummeyTextField extends StatefulWidget {
-  final String labelText;
-  final String? initialValue;
-  final TextEditingController? controller;
-  final Icon? suffixIcon;
-  final FormFieldValidator<String>? validator;
-  final double? width;
-  final double? height;
-
-  const CdummeyTextField({
-    Key? key,
-    required this.labelText,
-    this.initialValue,
-    this.controller,
-    this.suffixIcon,
-    this.validator,
-    this.width,
-    this.height,
-  }) : super(key: key);
-
-  @override
-  _CdummeyTextFieldState createState() => _CdummeyTextFieldState();
-}
-
-class _CdummeyTextFieldState extends State<CdummeyTextField> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller =
-        widget.controller ?? TextEditingController(text: widget.initialValue);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        width: widget.width,
-        height: widget.height,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            textCapitalization: TextCapitalization.sentences,
-            controller: _controller,
-            style: GoogleFonts.firaSans(
-              fontSize: FontSize.s12,
-              fontWeight: FontWeight.w400,
-              color: ColorManager.black,
-            ),
-            cursorColor: ColorManager.black,
-            decoration: InputDecoration(
-              labelText: widget.labelText,
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: FontSize.s10,
-                color: ColorManager.greylight,
-              ),
-              border: const OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-              ),
-              suffixIcon: widget.suffixIcon != null
-                  ? GestureDetector(
-                      onTap: () async {
-                        // Open the date picker when the calendar icon is tapped
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2101),
-                        );
-
-                        if (pickedDate != null) {
-                          // Format the date and set it into the text field
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
-                          _controller.text = formattedDate;
-                        }
-                      },
-                      child: widget.suffixIcon,
-                    )
-                  : null,
-              // Do not show any icon if suffixIcon is null
-            ),
-            validator: widget.validator,
-          ),
-        ));
-  }
-}
+// class CdummeyTextField extends StatefulWidget {
+//   final String labelText;
+//   final String? initialValue;
+//   final TextEditingController? controller;
+//   final Icon? suffixIcon;
+//   final FormFieldValidator<String>? validator;
+//   final double? width;
+//   final double? height;
+//
+//   const CdummeyTextField({
+//     Key? key,
+//     required this.labelText,
+//     this.initialValue,
+//     this.controller,
+//     this.suffixIcon,
+//     this.validator,
+//     this.width,
+//     this.height,
+//   }) : super(key: key);
+//
+//   @override
+//   _CdummeyTextFieldState createState() => _CdummeyTextFieldState();
+// }
+//
+// class _CdummeyTextFieldState extends State<CdummeyTextField> {
+//   late TextEditingController _controller;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller =
+//         widget.controller ?? TextEditingController(text: widget.initialValue);
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//         width: widget.width,
+//         height: widget.height,
+//         child: Container(
+//           decoration: BoxDecoration(
+//             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           child: TextFormField(
+//             textCapitalization: TextCapitalization.sentences,
+//             controller: _controller,
+//             style: GoogleFonts.firaSans(
+//               fontSize: FontSize.s12,
+//               fontWeight: FontWeight.w400,
+//               color: ColorManager.black,
+//             ),
+//             cursorColor: ColorManager.black,
+//             decoration: InputDecoration(
+//               labelText: widget.labelText,
+//               labelStyle: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s10,
+//                 color: ColorManager.greylight,
+//               ),
+//               border: const OutlineInputBorder(),
+//               focusedBorder: OutlineInputBorder(
+//                 borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//               ),
+//               suffixIcon: widget.suffixIcon != null
+//                   ? GestureDetector(
+//                       onTap: () async {
+//                         // Open the date picker when the calendar icon is tapped
+//                         DateTime? pickedDate = await showDatePicker(
+//                           context: context,
+//                           initialDate: DateTime.now(),
+//                           firstDate: DateTime(1900),
+//                           lastDate: DateTime(2101),
+//                         );
+//
+//                         if (pickedDate != null) {
+//                           // Format the date and set it into the text field
+//                           String formattedDate =
+//                               DateFormat('yyyy-MM-dd').format(pickedDate);
+//                           _controller.text = formattedDate;
+//                         }
+//                       },
+//                       child: widget.suffixIcon,
+//                     )
+//                   : null,
+//               // Do not show any icon if suffixIcon is null
+//             ),
+//             validator: widget.validator,
+//           ),
+//         ));
+//   }
+// }

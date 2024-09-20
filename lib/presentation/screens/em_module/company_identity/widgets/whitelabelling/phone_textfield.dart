@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class PhoneNumberInput extends StatefulWidget {
   final TextEditingController phoneController;
@@ -37,12 +38,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
       children: [
         Text(
           widget.labelText,
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: widget.textColor,
-            decoration: TextDecoration.none,
-          ),
+          style:ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
         ),
         SizedBox(height: 5),
         Container(
@@ -77,12 +73,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
             inputDecoration: InputDecoration(
               suffixIcon: widget.icon,
               prefix: widget.prefixWidget,
-              prefixStyle: GoogleFonts.firaSans(
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: const Color(0xff686464),
-                decoration: TextDecoration.none,
-              ),
+              prefixStyle: AllHRTableData.customTextStyle(context),
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 18, left: 15),
             ),

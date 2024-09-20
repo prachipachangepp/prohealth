@@ -597,7 +597,6 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                           child: Center(
                                               child: Text(
                                             formattedSerialNumber,
-                                            // snapshot.data![index].name.toString(),
                                             style: DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),

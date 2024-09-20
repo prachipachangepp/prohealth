@@ -8,7 +8,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/popup_const.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';

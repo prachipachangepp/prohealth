@@ -196,21 +196,22 @@ class DeletePopupString{
 
 class AddPopupString{
   static const String addDocType = 'Add Doctype';
+  static const String addDocument = 'Add Document';
   static const String addNewHoliday = "Add New Holiday";
   static const String addPolicy = 'Add Policies & Procedures';
   static const String addCorporate = 'Add Corporate & Compliance';
   static const String addVendor= 'Add Vendor Contract';
-  static const String addLicenses = 'Delete Licenses';
-  static const String addAdr = 'Delete ADR';
-  static const String addMCR = 'Delete Medical Cost Reports';
-  static const String addCap = 'Delete Cap Reports';
-  static const String addQBR = 'Delete Quarterly Balance Report';
-  ///vendor contract
-  static const String deleteLeases = 'Delete Leases & Services';
-  static const String deleteSNF = 'Delete SNF';
-  static const String deleteDME = 'Delete DME';
-  static const String deleteMD = 'Delete MD';
-  static const String deleteMISC = 'Delete MISC';
+  // static const String addLicenses = 'Delete Licenses';
+  // static const String addAdr = 'Delete ADR';
+  // static const String addMCR = 'Delete Medical Cost Reports';
+  // static const String addCap = 'Delete Cap Reports';
+  // static const String addQBR = 'Delete Quarterly Balance Report';
+  // ///vendor contract
+  // static const String deleteLeases = 'Delete Leases & Services';
+  // static const String deleteSNF = 'Delete SNF';
+  // static const String deleteDME = 'Delete DME';
+  // static const String deleteMD = 'Delete MD';
+  // static const String deleteMISC = 'Delete MISC';
 }
 
 
