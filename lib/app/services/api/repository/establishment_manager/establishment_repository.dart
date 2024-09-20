@@ -74,6 +74,7 @@ class EstablishmentManagerRepository {
   ///new office doc
   static String getCCVCPPList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
   static String employees ="/employees/";
+  static String employeType = "/employee-types/Department/";
 
   static String companyAll() {
     return "$company";
@@ -560,4 +561,7 @@ class EstablishmentManagerRepository {
   static String employeePrefillPatch({required int employeeId}){
     return "$employees$employeeId";
 }
+ static String getEmployeeType({required int departmentId}){
+    return "$employeType$departmentId";
+ }
 }

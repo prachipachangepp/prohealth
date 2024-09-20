@@ -13,9 +13,15 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/zone_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/profile_mnager.dart';
+import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import '../../../../../data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
@@ -54,10 +60,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   List<String> selectedZipCodes = [];
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
+  var deptId = 1;
+  int? firstDeptId;
+  String? selectedDeptName;
+  int? selectedDeptId;
   // String? selectedCounty;
+  String? selectedServiceName;
+  String? serviceId;
   final StreamController<List<ZipcodeByCountyIdAndZoneIdData>>
       _countyStreamController =
       StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
+  TextEditingController dummyCtrl = TextEditingController();
 
   TextEditingController nameController = TextEditingController();
 
@@ -218,7 +231,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             CustomIconButton(
                               icon: Icons.upload_outlined,
                               text: AppString.photo, onPressed: () async {},
-                              // onPressed: () {} ,
                             )
                           ],
                         ),
@@ -250,14 +262,81 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           //   },
                           //   items: [],
                           // ),
-                          HRManageTextField(
-                              controller: empTypeController,
-                              keyboardType: TextInputType.text,
-                              text: AppString.employmentType,
-                              cursorHeight: 12,
-                              labelText: AppString.employmentType,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
+                          FutureBuilder<List<EmployeeTypeModal>>(
+                            future: EmployeeTypeGet(context, deptId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Container(
+                                  alignment: Alignment.center,
+                                  child: HRManageDropdown(
+                                    controller: TextEditingController(text: ''),
+                                    labelText: 'Select Employee Type',
+                                    labelStyle: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                    labelFontSize: 12,
+                                    items: [], // Empty while loading
+                                  ),
+                                );
+                              }
+
+                              if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                return HRManageDropdown(
+                                  controller: TextEditingController(text: ''),
+                                  labelText: 'Select Employee Type',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: [],
+                                );
+                              }
+
+                              if (snapshot.hasData) {
+                                List<EmployeeTypeModal> employeeTypeList = snapshot.data!;
+                                List<String> dropDownEmployeeTypes = employeeTypeList
+                                    .map((employeeType) => employeeType.employeeType)
+                                    .toList();
+
+                                String? selectedEmployeeType = dropDownEmployeeTypes.isNotEmpty
+                                    ? dropDownEmployeeTypes[0]
+                                    : null;
+
+                                int? selectedEmployeeTypeId = employeeTypeList.isNotEmpty
+                                    ? employeeTypeList[0].employeeTypeId
+                                    : null;
+
+                                return HRManageDropdown(
+                                  controller: TextEditingController(text: selectedEmployeeType ?? ''),
+                                  labelText: "Select Employee Type",
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownEmployeeTypes,
+                                  onChanged: (val) {
+                                    selectedEmployeeType = val;
+                                    selectedEmployeeTypeId = employeeTypeList
+                                        .firstWhere((employeeType) => employeeType.employeeType == val)
+                                        .employeeTypeId;
+
+                                    print('Selected Employee Type ID: $selectedEmployeeTypeId');
+                                  },
+                                );
+                              }
+
+                              return const SizedBox();
+                            },
+                          ),
+
+
+
                           // HRManageDropdown(
                           //   controller: deptController,
                           //   labelText: AppString.dept,
@@ -270,14 +349,98 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           //     });
                           //   },
                           // ),
-                          HRManageTextField(
-                              controller: deptController,
-                              keyboardType: TextInputType.text,
-                              text: AppString.dept,
-                              cursorHeight: 12,
-                              labelText: AppString.dept,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
+                          // HRManageTextField(
+                          //     controller: deptController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppString.dept,
+                          //     cursorHeight: 12,
+                          //     labelText: AppString.dept,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                          ///
+                          FutureBuilder<List<HRHeadBar>>(
+                            future: companyHRHeadApi(context, deptId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                List<String>dropDownServiceList =[];
+                                return Container(
+                                    alignment: Alignment.center,
+                                    child:
+                                    HRManageDropdown(
+                                      controller: TextEditingController(
+                                          text: ''),
+                                      labelText: 'Select Department',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      labelFontSize: 12,
+                                      items:  dropDownServiceList,
+
+                                    )
+                                );
+                              }
+                              if (snapshot.hasData &&
+                                  snapshot.data!.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    ErrorMessageString.noroleAdded,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                // Extract dropdown items from snapshot
+                                List<String> dropDownServiceList = snapshot
+                                    .data!
+                                    .map((dept) => dept.deptName!)
+                                    .toList();
+                                String? firstDeptName =
+                                snapshot.data!.isNotEmpty
+                                    ? snapshot.data![0].deptName
+                                    : null;
+                                int? firstDeptId = snapshot.data!.isNotEmpty
+                                    ? snapshot.data![0].deptId
+                                    : null;
+
+                                if (selectedDeptName == null &&
+                                    dropDownServiceList.isNotEmpty) {
+                                  selectedDeptName = firstDeptName;
+                                  selectedDeptId = firstDeptId;
+                                }
+
+                                return HRManageDropdown(
+                                  controller: TextEditingController(
+                                      text: selectedDeptName ?? ''),
+                                  labelText: "Select Department",
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownServiceList,
+                                  onChanged: (val) {
+                                    // setState(() {
+                                      selectedDeptName = val;
+
+                                      selectedDeptId = snapshot.data!
+                                          .firstWhere(
+                                              (dept) => dept.deptName == val)
+                                          .deptId;
+                                    // });
+                                  },
+                                );
+                              }
+                              return const SizedBox();
+                            },
+                          ),
                         ],
                       ),
                       Row(
@@ -316,7 +479,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: genderController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.gender,
-                              suffixIcon: Icon(Icons.calendar_month_outlined),
+                              // suffixIcon: Icon(Icons.calendar_month_outlined),
                               cursorHeight: 12,
                               labelText: AppStringMobile.gender,
                               labelStyle: GoogleFonts.firaSans(fontSize: 12),
@@ -419,15 +582,51 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               labelText: AppString.county,
                               labelStyle: GoogleFonts.firaSans(fontSize: 12),
                               labelFontSize: 12),
-                          HRManageTextField(
-                              controller: serviceController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.service,
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.service,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          HRManageTextField(
+                          // HRManageTextField(
+                          //     controller: serviceController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.service,
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.service,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                  FutureBuilder<List<ServicesMetaData>>(
+                    future: getServicesMetaData(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Show loading indicator or dummy dropdown
+                        return HRManageDropdown(
+                          controller: TextEditingController(text: ''),
+                          labelText: 'Select Service',
+                          labelStyle: TextStyle(fontSize: 14),
+                          items: [], labelFontSize: 12, // Empty until data is fetched
+                        );
+                      }
+
+                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                        List<String> serviceNames = snapshot.data!
+                            .map((service) => service.serviceName)
+                            .toList();
+
+                        return HRManageDropdown(
+                          controller: TextEditingController(),
+                          labelText: 'Select Service',
+                          items: serviceNames,
+                          onChanged: (val) {
+                            // Handle selected service
+                            var selectedService = snapshot.data!
+                                .firstWhere((service) => service.serviceName == val);
+                            print('Selected Service ID: ${selectedService.serviceId}');
+                          }, labelStyle:  TextStyle(fontSize: 14),labelFontSize: 12 ,
+                        );
+                      }
+
+                      return const Text('No services available');
+                    }, ),
+
+
+
+                  HRManageTextField(
                               controller: reportingOfficeController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.repOff,

@@ -151,7 +151,8 @@ class ErrorMessageString{
  static const String noEmpDocc =  "No available employee document!";
  static const String noPayRates =  "No available pay rates!";
  static const String noserviceAdded = "No service added";
- static const String noroleAdded = "no role added";
+ static const String noroleAdded = "No role added";
+ static const String noEmployeType= "No Employee Type";
 }
 ///edit
 class EditPopupString{
