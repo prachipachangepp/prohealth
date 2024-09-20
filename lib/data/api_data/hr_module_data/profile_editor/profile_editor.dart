@@ -56,7 +56,7 @@ class ProfileEditorModal {
   final String country;
   final String county;
   final String zone;
-  final int profileScorePercentage;
+  final double profileScorePercentage;
   final String success;
   final String message;
 
