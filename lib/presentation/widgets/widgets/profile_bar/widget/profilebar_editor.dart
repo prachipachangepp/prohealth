@@ -430,7 +430,43 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           // )
                         ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 20,
+                            width: 320,
+                             child: Text("Coverage",   style:EditProfile.customEditTextStyle(),),
+                            // color: Colors.green,
+                          ),
+                          Container(
+                            height: 20,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: ColorManager.white,
+                                width: 2, //width of border
+                              ),
 
+                            ),
+                            // color: Colors.green,
+                          ),
+                          Container(
+                            height: 55,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: ColorManager.white,
+                                width: 2, //width of border
+                              ),
+
+                            ),
+                            // color: Colors.green,
+                          ),
+                        ],
+                      ),
                       ///Coverage
                       Row(
                        mainAxisAlignment: MainAxisAlignment.spaceAround ,
@@ -464,53 +500,25 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   builder: (BuildContext context) {
                                     return Dialog(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20), // Rounded corners
+                                        borderRadius: BorderRadius.circular(20),
                                         side: BorderSide(
-                                          color: Colors.blue,  // Blue border color
-                                          width: 2,            // Border width
+                                          color: Colors.blue,
+                                          width: 2,
                                         ),
                                       ),
                                       child: Container(
-                                        width: MediaQuery.of(context).size.width * 0.8,  // Adjust width
-                                        height: 300,  // Adjust height
+                                        width: 700,
+                                        height: 300,
                                         padding: EdgeInsets.all(20),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Edit Information',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
+                                              'Edit Coverage',
+                                              style:EditProfile.customEditTextStyle(),
                                               ),
-                                            ),
                                             SizedBox(height: 20),
-                                            TextField(
-                                              decoration: InputDecoration(
-                                                labelText: 'Enter Name',
-                                                border: OutlineInputBorder(),
-                                              ),
-                                            ),
-                                            SizedBox(height: 20),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop(); // Close dialog
-                                                  },
-                                                  child: Text('Cancel'),
-                                                ),
-                                                SizedBox(width: 10),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Perform action here, e.g., saving the data
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Text('Save'),
-                                                ),
-                                              ],
-                                            ),
+
                                           ],
                                         ),
                                       ),
