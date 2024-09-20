@@ -123,7 +123,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.regular,
-                          color: ColorManager.lightgreyheading
+                          color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
@@ -131,7 +131,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                         labelStyle: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.regular,
-                            color: ColorManager.lightgreyheading
+                            color: ColorManager.greylight
                         ),
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
@@ -163,7 +163,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                                   style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.lightgreyheading
+                                      color: ColorManager.greylight
                                   ),),
                               );
                             }).toList();
@@ -201,7 +201,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.regular,
-                          color: ColorManager.lightgreyheading
+                          color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
@@ -324,7 +324,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                                 style: GoogleFonts.firaSans(
                                   fontSize: FontSize.s12,
                                   fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.lightgreyheading,
+                                  color: ColorManager.greylight,
                                 ),
                               ),
                             ),

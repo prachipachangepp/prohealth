@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../app/resources/color.dart';
-import '../../../../app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/value_manager.dart';
 
 class HeaderContentConst extends StatelessWidget {
@@ -20,11 +17,7 @@ class HeaderContentConst extends StatelessWidget {
         children: [
           Text(
             heading,
-            style: GoogleFonts.firaSans(
-              fontSize: FontSize.s12,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.textPrimaryColor,
-            ),
+            style: AppbarCustomDropdownStyle.customTextStyle(context),
           ),
           SizedBox(height: AppSize.s5),
 

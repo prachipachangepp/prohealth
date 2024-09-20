@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class PayRatesPopup extends StatefulWidget {
   final Widget child1;
@@ -90,12 +92,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                     padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -121,11 +118,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                     children: [
                       widget.visitTypeTextActive ? Text(
                         'Type of Visit',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style:  DefineWorkWeekStyle.customTextStyle(context),
                       ) : Offstage(),
                       SizedBox(height: 5,),
                       widget.child1,
@@ -137,11 +130,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                         text: 'Payrates',
                       ),
                       SizedBox(height: 20,),
-                      Text("Out of Zone", style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),),
+                      Text("Out of Zone", style:  DefineWorkWeekStyle.customTextStyle(context),),
                       SizedBox(height: 20,),
                       //////////////
 

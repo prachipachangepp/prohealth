@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -153,7 +151,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -770,7 +768,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -868,6 +866,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 35,),
                   Expanded(
                     flex: 6, //6
                     child: Column(

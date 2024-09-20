@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -11,7 +10,6 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/controller/controller.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_batch_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_shift_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -118,8 +116,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         quarterTurns: 3,
                                         child: Text(
                                           data.weekDays,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 15,
+                                          style: TextStyle(
+                                            fontSize: FontSize.s15,
                                             fontWeight: FontWeight.w600,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,
@@ -393,12 +391,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                 children: [
                                                                               Text(
                                                                                 snapshotShift.data![index].shiftName,
-                                                                                style: GoogleFonts.firaSans(
-                                                                                  fontSize: 12,
-                                                                                  fontWeight: FontWeight.w700,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                  decoration: TextDecoration.none,
-                                                                                ),
+                                                                                style:  DefineWorkWeekStyle.customTextStyle(context),
                                                                               ),
                                                                               FutureBuilder<List<ShiftBachesData>>(
                                                                                   future: shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays),
@@ -423,12 +416,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                               child: Center(
                                                                                                   child: Text(
                                                                                                     snapshot.data![index].officeStartTime,
-                                                                                                    style: GoogleFonts.firaSans(
-                                                                                                      fontSize: 12,
-                                                                                                      fontWeight: FontWeight.w600,
-                                                                                                      color: ColorManager.mediumgrey,
-                                                                                                      decoration: TextDecoration.none,
-                                                                                                    ),
+                                                                                                    style: AllHRTableData.customTextStyle(context),
                                                                                                   )),
                                                                                             );
                                                                                           }),
@@ -447,7 +435,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                             },
                                                                                             child: Text(
                                                                                               'View more',
-                                                                                              style: GoogleFonts.firaSans(
+                                                                                              style: TextStyle(
                                                                                                 fontSize: 12,
                                                                                                 fontWeight:FontWeight.w300,
                                                                                                 color: ColorManager.faintgrey,

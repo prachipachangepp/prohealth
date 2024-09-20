@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
-
 import '../../../../../../app/resources/color.dart';
 import '../../../../../app/resources/theme_manager.dart';
 
@@ -115,12 +115,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
                 ),
                 child: Text(
           widget.text,
-          style: const TextStyle(
-            fontFamily: 'FiraSans',
-            fontSize: FontSize.s12,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF50B5E5),
-          ),
+          style: LoginFlowBase.customTextStyle(context)
                 ),
               ),
         );
@@ -152,12 +147,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
                   size: MediaQuery.of(context).size.width / 100),
               Text(
                 text,
-                style: GoogleFonts.firaSans(
-                  fontSize: MediaQuery.of(context).size.width / 120,
-                  fontWeight: FontWeight.w500,
-                  color: ColorManager.blueprime,
-                  decoration: TextDecoration.none,
-                ),
+                style: IconButtonTextConst.customTextStyle(context),
               ),
             ],
           )),
@@ -195,10 +185,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = GoogleFonts.firaSans(
+    final defaultTextStyle = TextStyle(
       color: textColor,
       fontSize: MediaQuery.of(context).size.width / 90,
-      fontWeight: FontWeightManager.bold,
+      fontWeight: FontWeight.w600,
     );
     final mergedTextStyle = defaultTextStyle.merge(style);
     return Container(
@@ -279,7 +269,7 @@ class CustomTitleButton extends StatelessWidget {
               : null,
           child: Text(
             text,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: FontSize.s12,
               fontWeight: FontWeight.w500,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
@@ -319,7 +309,7 @@ class DZoneButton extends StatelessWidget {
           child: Text(
             'DZ',
             textAlign: TextAlign.center,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: FontSize.s11,
               fontWeight: FontWeight.w300,
               color: isSelected ? ColorManager.white : ColorManager.black,
@@ -331,83 +321,3 @@ class DZoneButton extends StatelessWidget {
   }
 }
 
-
-class CustomDropdownButton extends StatelessWidget {
-  final List<String> items;
-  final String? selectedItem;
-  final ValueChanged<String?>? onChanged;
-  final double borderRadius;
-  final double paddingVertical;
-  final double paddingHorizontal;
-  final double width;
-  final double height;
-
-  const CustomDropdownButton({
-    Key? key,
-    required this.items,
-    this.selectedItem,
-    this.onChanged,
-    this.borderRadius = 8.0,
-    this.paddingVertical = 11.0,
-    this.paddingHorizontal = 16.0,
-    this.width = 40,
-    this.height = 40.0,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(borderRadius),
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: ColorManager.blueprime,
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: selectedItem,
-            onChanged: onChanged,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: FontSize.s13,
-              fontWeight: FontWeight.w500,
-            ),
-            dropdownColor: ColorManager.white,
-            borderRadius: BorderRadius.circular(borderRadius),
-            icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
-            iconSize: 20.0,
-            isExpanded: true,
-            items: items.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                enabled: value != 'Select a module', // Disable the heading item
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: paddingVertical,
-                    horizontal: paddingHorizontal,
-                  ),
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                        // color: ColorManager.mediumgrey,
-                        //value == 'Select a module' ? ColorManager.mediumgrey : Color(0xff686464),
-                        color: value == selectedItem
-                            ? ColorManager.white
-                            : ColorManager.mediumgrey,
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-///

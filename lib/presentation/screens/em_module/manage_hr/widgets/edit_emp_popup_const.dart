@@ -2,13 +2,11 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
-
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -66,7 +64,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
         return AlertDialog(
           title: Padding(
             padding: const EdgeInsets.only(left: AppPadding.p20),
-            child: Text('Pick a Color',style: GoogleFonts.firaSans(
+            child: Text('Pick a Color',style: TextStyle(
                 fontSize: FontSize.s14,
                 fontWeight:FontWeight.w700,
                 color: ColorManager.blueprime
@@ -191,12 +189,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                       children: [
                         Text(
                           'Type of Employee',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xff686464),
-                            decoration: TextDecoration.none,
-                          ),
+                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                         ),
                         SizedBox(height: 5),
                         widget.child,
@@ -209,12 +202,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                       children: [
                         Text(
                           'Color',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                         ),
                         SizedBox(width: AppSize.s25),
                         Container(

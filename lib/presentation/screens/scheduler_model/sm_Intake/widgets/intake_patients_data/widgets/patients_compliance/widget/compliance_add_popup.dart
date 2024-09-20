@@ -256,7 +256,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     style: GoogleFonts.firaSans(
                       fontSize: AppSize.s12,
                       fontWeight: FontWeightManager.regular,
-                      color: ColorManager.lightgreyheading,
+                      color: ColorManager.greylight,
                     ),
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
@@ -488,7 +488,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.regular,
-                        color: ColorManager.lightgreyheading,
+                        color: ColorManager.greylight,
                       ),
                     ),
                     IconButton(

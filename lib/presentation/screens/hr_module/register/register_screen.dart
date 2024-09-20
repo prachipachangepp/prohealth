@@ -32,7 +32,7 @@ import '../../../../data/api_data/hr_module_data/register_data/main_register_scr
 import '../../../widgets/establishment_text_const/text_widget_const.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import '../../em_module/widgets/popup_const.dart';
+import '../../em_module/see_all_screen/widgets/popup_const.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
 import 'dart:html' as html;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/color.dart';
-import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 
 class DialogueTemplate extends StatelessWidget {
@@ -50,12 +48,7 @@ class DialogueTemplate extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
                       title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w500,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(

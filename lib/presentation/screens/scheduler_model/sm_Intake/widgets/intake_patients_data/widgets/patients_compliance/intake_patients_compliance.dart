@@ -162,7 +162,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeightManager.regular,
-                                              color: ColorManager.lightgreyheading,
+                                              color: ColorManager.greylight,
                                             ),
                                           ),
                                           IconButton(

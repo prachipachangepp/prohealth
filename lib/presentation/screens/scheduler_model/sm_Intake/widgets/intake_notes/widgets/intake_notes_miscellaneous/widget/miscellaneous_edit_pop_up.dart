@@ -121,7 +121,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.regular,
-                          color: ColorManager.lightgreyheading
+                          color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
@@ -129,7 +129,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         labelStyle: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.regular,
-                            color: ColorManager.lightgreyheading
+                            color: ColorManager.greylight
                         ),
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
@@ -157,7 +157,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                                   style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.lightgreyheading
+                                      color: ColorManager.greylight
                                   ),),
                               );
                             }).toList();
@@ -192,7 +192,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.regular,
-                          color: ColorManager.lightgreyheading
+                          color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
@@ -217,7 +217,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.regular,
-                            color: ColorManager.lightgreyheading
+                            color: ColorManager.greylight
                         ),
                       ),
                       RadioListTile<String>(

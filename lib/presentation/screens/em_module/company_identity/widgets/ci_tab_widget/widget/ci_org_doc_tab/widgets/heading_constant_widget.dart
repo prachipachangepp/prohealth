@@ -6,7 +6,6 @@ import '../../../../../../../../../app/resources/value_manager.dart';
 
 class TableHeadingConst extends StatelessWidget {
   const TableHeadingConst({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Container(
