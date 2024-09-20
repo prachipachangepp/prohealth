@@ -542,9 +542,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       setState(() {
                                         String latlong = _selectedLocation.latitude.toString();
                                       });
-
-
-
                                     },
                                     mapController: mapController,
                                     locationController: locationController,

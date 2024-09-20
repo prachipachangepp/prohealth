@@ -536,6 +536,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     selectedZipCodeCounty =
                                     'Select County';
                                   }
+                                  countyId = snapshotZone.data![0].countyId;
                                   return CICCDropdown(
                                       initialValue:
                                       dropDownTypesList[0].value,
@@ -1464,7 +1465,6 @@ class _AddZonePopupState extends State<AddZonePopup> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FirstSMTextFConst(
-                      enable: true,
                       controller: widget.zoneNumberController,
                       keyboardType: TextInputType.text,
                       text: 'Zone Number',
