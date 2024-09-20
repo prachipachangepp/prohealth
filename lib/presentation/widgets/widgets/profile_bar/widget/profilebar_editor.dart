@@ -1,26 +1,34 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/zone_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/profile_mnager.dart';
+import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
 typedef BackButtonCallBack = void Function(bool val);
-class ProfileEditScreen extends StatefulWidget {
 
+class ProfileEditScreen extends StatefulWidget {
   final VoidCallback onCancel;
 
   final int employeeId;
 
-  ProfileEditScreen({ required this.onCancel,
+  ProfileEditScreen({
+    required this.onCancel,
     required this.employeeId,
   });
 
@@ -29,15 +37,27 @@ class ProfileEditScreen extends StatefulWidget {
 }
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
-
-  String? selectedDepartment ;
-  String? selectedGender ;
-  String? selectedZone ;
-  String? selectedCounty ;
-  String? selectedSSn ;
-  String? selectedServices ;
-  String? selectedEmployeType ;
-  String? selectedReportingOffice ;
+  String? selectedDepartment;
+  String? selectedGender;
+  String? selectedZone;
+  String? selectedCounty;
+  String? selectedSSn;
+  String? selectedServices;
+  String? selectedEmployeType;
+  String? selectedReportingOffice;
+  List<DropdownMenuItem<String>> dropDownList = [];
+  int selectedZoneId = 0;
+  int selectedCountyId = 0;
+  int selectedCityId = 0;
+  Map<String, bool> checkedZipCodes = {};
+  Map<String, bool> checkedCityName = {};
+  List<String> selectedZipCodes = [];
+  List<String> selectedCityName = [];
+  String selectedZipCodesString = '';
+  // String? selectedCounty;
+  final StreamController<List<ZipcodeByCountyIdAndZoneIdData>>
+      _countyStreamController =
+      StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
 
   TextEditingController nameController = TextEditingController();
 
@@ -70,7 +90,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   TextEditingController reportingOfficeController = TextEditingController();
 
   TextEditingController summaryController = TextEditingController();
-
 
   @override
   void initState() {
@@ -171,7 +190,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     borderRadius: BorderRadius.circular(20.0),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blue.  withOpacity(0.5),
+                        color: Colors.blue.withOpacity(0.5),
                         offset: Offset(0, -4),
                         // blurRadius: 8.0,
                         spreadRadius: 1.0,
@@ -194,15 +213,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           children: [
                             Text(
                               AppString.editProfile,
-                              style: EditProfile.customEditTextStyle(),) ,
-
+                              style: EditProfile.customEditTextStyle(),
+                            ),
                             CustomIconButton(
                               icon: Icons.upload_outlined,
-                              text: AppString.photo, onPressed: () async {  },
+                              text: AppString.photo, onPressed: () async {},
                               // onPressed: () {} ,
                             )
-                          ],),
+                          ],
+                        ),
                       ),
+
                       ///
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -211,32 +232,32 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: nameController,
                               keyboardType: TextInputType.text,
                               text: AppString.name,
-                              cursorHeight: 12, labelText: AppString.name,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
-                             // CICCDropdown(
-                  //   initialValue: selectedEmployeType,
-                  //   onChange: (val) {
-                  //     setState(() {
-                  //       selectedEmployeType = val;
-                  //       for (var service in snapshot.data!) {
-                  //         if (service.serviceName == val) {
-                  //           serviceId = service.serviceId;
-                  //         }
-                  //       }
-                  //     });
-                  //   },
-                  //   items: [],
-                  // ),
+                              cursorHeight: 12,
+                              labelText: AppString.name,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
+                          // CICCDropdown(
+                          //   initialValue: selectedEmployeType,
+                          //   onChange: (val) {
+                          //     setState(() {
+                          //       selectedEmployeType = val;
+                          //       for (var service in snapshot.data!) {
+                          //         if (service.serviceName == val) {
+                          //           serviceId = service.serviceId;
+                          //         }
+                          //       }
+                          //     });
+                          //   },
+                          //   items: [],
+                          // ),
                           HRManageTextField(
                               controller: empTypeController,
                               keyboardType: TextInputType.text,
                               text: AppString.employmentType,
-                              cursorHeight: 12, labelText: AppString.employmentType,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppString.employmentType,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           // HRManageDropdown(
                           //   controller: deptController,
                           //   labelText: AppString.dept,
@@ -253,10 +274,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: deptController,
                               keyboardType: TextInputType.text,
                               text: AppString.dept,
-                              cursorHeight: 12, labelText: AppString.dept,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppString.dept,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                         ],
                       ),
                       Row(
@@ -266,19 +287,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: addressController,
                               keyboardType: TextInputType.text,
                               text: AppString.address,
-                              cursorHeight: 12, labelText: AppString.address,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppString.address,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           HRManageTextField(
                               controller: ageController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.age,
                               suffixIcon: Icon(Icons.calendar_month_outlined),
-                              cursorHeight: 12, labelText: AppStringMobile.age,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.age,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           // HRManageDropdown(controller: genderController,
                           //     labelText: AppString.gender,
                           //     labelStyle: GoogleFonts.firaSans(
@@ -296,11 +317,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.gender,
                               suffixIcon: Icon(Icons.calendar_month_outlined),
-                              cursorHeight: 12, labelText: AppStringMobile.gender,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
-
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.gender,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                         ],
                       ),
                       Row(
@@ -322,29 +342,29 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: ssNController,
                               keyboardType: TextInputType.text,
                               text: AppString.ssn,
-                              cursorHeight: 12, labelText: AppString.ssn,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppString.ssn,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           HRManageTextField(
                               controller: phoneNController,
                               keyboardType: TextInputType.text,
                               text: AppString.phone_number,
-                              cursorHeight: 12, labelText: AppString.phone_number,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppString.phone_number,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           HRManageTextField(
                               controller: workPhoneController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.worNo,
-                              cursorHeight: 12, labelText: AppStringMobile.worNo,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
-
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.worNo,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                         ],
                       ),
+
                       ///
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -353,18 +373,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: personalEmailController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.perEmail,
-                              cursorHeight: 12, labelText: AppStringMobile.perEmail,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.perEmail,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           HRManageTextField(
                               controller: workEmailController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.worEmail,
-                              cursorHeight: 12, labelText: AppStringMobile.worEmail,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.worEmail,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           // HRManageDropdown(controller: zoneController,
                           //     labelText: AppString.zone,
                           //     labelStyle: GoogleFonts.firaSans(
@@ -382,11 +402,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: summaryController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.summry,
-                              cursorHeight: 12, labelText: AppStringMobile.summry,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
-
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.summry,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                         ],
                       ),
                       Row(
@@ -396,26 +415,26 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               controller: countyController,
                               keyboardType: TextInputType.text,
                               text: AppString.county,
-                              cursorHeight: 12, labelText: AppString.county,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppString.county,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           HRManageTextField(
                               controller: serviceController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.service,
-                              cursorHeight: 12, labelText: AppStringMobile.service,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.service,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           HRManageTextField(
                               controller: reportingOfficeController,
                               keyboardType: TextInputType.text,
                               text: AppStringMobile.repOff,
-                              cursorHeight: 12, labelText: AppStringMobile.repOff,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 12
-                              ), labelFontSize: 12),
+                              cursorHeight: 12,
+                              labelText: AppStringMobile.repOff,
+                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelFontSize: 12),
                           // HRManageDropdown(controller: reportingOfficeController,
                           //     labelText: AppString.reportingOffice,
                           //     labelStyle: GoogleFonts.firaSans(
@@ -436,7 +455,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           Container(
                             height: 20,
                             width: 320,
-                             child: Text("Coverage",   style:EditProfile.customEditTextStyle(),),
+                            child: Text(
+                              "Coverage",
+                              style: EditProfile.customEditTextStyle(),
+                            ),
                             // color: Colors.green,
                           ),
                           Container(
@@ -448,7 +470,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 color: ColorManager.white,
                                 width: 2, //width of border
                               ),
-
                             ),
                             // color: Colors.green,
                           ),
@@ -461,104 +482,637 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 color: ColorManager.white,
                                 width: 2, //width of border
                               ),
-
                             ),
                             // color: Colors.green,
                           ),
                         ],
                       ),
+
                       ///Coverage
                       Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceAround ,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                        Container(
-                          height: 55,
-                          width: 320,
-                          // margin: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: ColorManager.blueprime, //color of border
-                              width: 2, //width of border
+                          Container(
+                            height: 55,
+                            width: 320,
+                            // margin: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: ColorManager.blueprime, //color of border
+                                width: 2, //width of border
+                              ),
                             ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("County :",
+                                    style: EditTextFontStyle
+                                        .customEditTextStyle()),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text("San Fransisco",
+                                    style: EditTextFontStyle
+                                        .customEditTextStyle()),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text('Zone :',
+                                    style: EditTextFontStyle
+                                        .customEditTextStyle()),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Zone 1",
+                                  style:
+                                      EditTextFontStyle.customEditTextStyle(),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                              side: BorderSide(color: Colors.blue, width: 2,),),
+                                            child: SizedBox(
+                                              height: 289,
+                                              width: 690,
+                                              child: SingleChildScrollView(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 30),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.only( top: 8),
+                                                        child: Text("Edit Coverage", style: EditProfile.customEditTextStyle(),),
+                                                      ),
 
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("County :", style: EditTextFontStyle.customEditTextStyle()),
-                              SizedBox(width: 5,),
-                              Text("San Fransisco", style: EditTextFontStyle.customEditTextStyle()),
-                              SizedBox(width: 30,),
-                              Text('Zone :', style:EditTextFontStyle.customEditTextStyle()),
-                              SizedBox(width: 5,),
-                              Text("Zone 1", style: EditTextFontStyle.customEditTextStyle(),),
-                              SizedBox(width: 5,),
-                              IconButton(onPressed: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        side: BorderSide(
-                                          color: Colors.blue,
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: Container(
-                                        width: 700,
-                                        height: 300,
-                                        padding: EdgeInsets.all(20),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Edit Coverage',
-                                              style:EditProfile.customEditTextStyle(),
+                                                      Row(
+                                                        children: [
+
+                                                          Container(
+                                                            height: 300,
+                                                            width: 170,
+                                                            child: Column(
+                                                              children: [
+                                                                ///county
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      'County',
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color: ColorManager
+                                                                            .mediumgrey,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height: 5),
+                                                                    FutureBuilder<
+                                                                        List<
+                                                                            AllCountyGetList>>(
+                                                                      future:
+                                                                          getCountyZoneList(
+                                                                              context),
+                                                                      builder: (context,
+                                                                          snapshot) {
+                                                                        if (snapshot
+                                                                                .connectionState ==
+                                                                            ConnectionState
+                                                                                .waiting) {
+                                                                          return Padding(
+                                                                            padding: const EdgeInsets
+                                                                                .symmetric(
+                                                                                horizontal:
+                                                                                    7),
+                                                                            child:
+                                                                                Container(
+                                                                              height:
+                                                                                  31,
+                                                                              width:
+                                                                                  250,
+                                                                              decoration:
+                                                                                  BoxDecoration(color: ColorManager.white),
+                                                                            ),
+                                                                          );
+                                                                        } else if (snapshot
+                                                                            .hasError) {
+                                                                          return const CustomDropdownTextField(
+                                                                            hintText:
+                                                                                'Select County',
+                                                                            labelText:
+                                                                                'County',
+                                                                            labelStyle:
+                                                                                TextStyle(
+                                                                              fontSize:
+                                                                                  12,
+                                                                              color:
+                                                                                  Color(0xff575757),
+                                                                              fontWeight:
+                                                                                  FontWeight.w400,
+                                                                            ),
+                                                                            labelFontSize:
+                                                                                12,
+                                                                            items: [
+                                                                              'Error'
+                                                                            ],
+                                                                          );
+                                                                        } else if (snapshot
+                                                                            .hasData) {
+                                                                          dropDownList
+                                                                              .clear();
+                                                                          dropDownList.add(
+                                                                              DropdownMenuItem<
+                                                                                  String>(
+                                                                            child: Text(
+                                                                                'Select County'),
+                                                                            value:
+                                                                                'Select County',
+                                                                          ));
+                                                                          for (var i
+                                                                              in snapshot
+                                                                                  .data!) {
+                                                                            dropDownList
+                                                                                .add(DropdownMenuItem<String>(
+                                                                              child:
+                                                                                  Text(i.countyName),
+                                                                              value:
+                                                                                  i.countyName,
+                                                                            ));
+                                                                          }
+                                                                          if (selectedCounty ==
+                                                                              null) {
+                                                                            selectedCounty =
+                                                                                'Select County';
+                                                                          }
+                                                                          return StatefulBuilder(
+                                                                            builder: (BuildContext
+                                                                                    context,
+                                                                                StateSetter
+                                                                                    setState) {
+                                                                              return Container(
+                                                                                height:
+                                                                                    31,
+                                                                                width:
+                                                                                    250,
+                                                                                padding:
+                                                                                    const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                                                                decoration:
+                                                                                    BoxDecoration(
+                                                                                  color: Colors.white,
+                                                                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                                                                  borderRadius: BorderRadius.circular(6),
+                                                                                ),
+                                                                                child:
+                                                                                    DropdownButtonFormField<String>(
+                                                                                  focusColor: Colors.transparent,
+                                                                                  icon: const Icon(
+                                                                                    Icons.arrow_drop_down_sharp,
+                                                                                    color: Color(0xff686464),
+                                                                                  ),
+                                                                                  decoration: const InputDecoration.collapsed(hintText: ''),
+                                                                                  items: dropDownList,
+                                                                                  onChanged: (newValue) {
+                                                                                    setState(() {
+                                                                                      selectedCounty = newValue;
+                                                                                      for (var a in snapshot.data!) {
+                                                                                        if (a.countyName == newValue) {
+                                                                                          selectedCountyId = a.countyId;
+                                                                                          print("County Id :: ${selectedCountyId}");
+                                                                                          // Perform other actions if needed
+                                                                                        }
+                                                                                      }
+                                                                                    });
+                                                                                  },
+                                                                                  value: selectedCounty,
+                                                                                  style: GoogleFonts.firaSans(
+                                                                                    fontSize: 12,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: const Color(0xff686464),
+                                                                                    decoration: TextDecoration.none,
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                          );
+                                                                        } else {
+                                                                          return CustomDropdownTextField(
+                                                                            labelText:
+                                                                                'County',
+                                                                            labelStyle:
+                                                                                GoogleFonts.firaSans(
+                                                                              fontSize:
+                                                                                  12,
+                                                                              color:
+                                                                                  const Color(0xff575757),
+                                                                              fontWeight:
+                                                                                  FontWeight.w400,
+                                                                            ),
+                                                                            labelFontSize:
+                                                                                12,
+                                                                            items: [
+                                                                              'No Data'
+                                                                            ],
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                SizedBox(
+                                                                    height: MediaQuery.of(
+                                                                                context)
+                                                                            .size
+                                                                            .height /
+                                                                        20),
+
+                                                                ///zone api
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Zone',
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color: ColorManager
+                                                                            .mediumgrey,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height: 5),
+                                                                    FutureBuilder<
+                                                                        List<
+                                                                            SortByZoneData>>(
+                                                                      future:
+                                                                          PayRateZoneDropdown(
+                                                                              context),
+                                                                      builder: (context,
+                                                                          snapshot) {
+                                                                        if (snapshot
+                                                                                .connectionState ==
+                                                                            ConnectionState
+                                                                                .waiting) {
+                                                                          return Padding(
+                                                                            padding: const EdgeInsets
+                                                                                .symmetric(
+                                                                                horizontal:
+                                                                                    7),
+                                                                            child:
+                                                                                Container(
+                                                                              height:
+                                                                                  31,
+                                                                              width:
+                                                                                  250,
+                                                                              decoration:
+                                                                                  BoxDecoration(color: ColorManager.white),
+                                                                            ),
+                                                                          );
+                                                                        } else if (snapshot
+                                                                            .hasError) {
+                                                                          return const CustomDropdownTextField(
+                                                                            labelText:
+                                                                                'Zone',
+                                                                            labelStyle:
+                                                                                TextStyle(
+                                                                              fontSize:
+                                                                                  12,
+                                                                              color:
+                                                                                  Color(0xff575757),
+                                                                              fontWeight:
+                                                                                  FontWeight.w400,
+                                                                            ),
+                                                                            labelFontSize:
+                                                                                12,
+                                                                            items: [
+                                                                              'Error'
+                                                                            ],
+                                                                          );
+                                                                        } else if (snapshot
+                                                                            .hasData) {
+                                                                          List<DropdownMenuItem<String>>
+                                                                              dropDownList =
+                                                                              [];
+
+                                                                          // Add the default "Select" item
+                                                                          dropDownList.add(
+                                                                              DropdownMenuItem<
+                                                                                  String>(
+                                                                            child: Text(
+                                                                                'Select Zone'),
+                                                                            value:
+                                                                                'Select Zone',
+                                                                          ));
+
+                                                                          // Populate dropdown list with zones
+                                                                          for (var i
+                                                                              in snapshot
+                                                                                  .data!) {
+                                                                            dropDownList
+                                                                                .add(DropdownMenuItem<String>(
+                                                                              child:
+                                                                                  Text(i.zoneName),
+                                                                              value:
+                                                                                  i.zoneName,
+                                                                            ));
+                                                                          }
+
+                                                                          // Set initial selectedZone if not already set
+                                                                          String?
+                                                                              selectedZone =
+                                                                              'Select Zone';
+
+                                                                          return StatefulBuilder(
+                                                                            builder: (BuildContext
+                                                                                    context,
+                                                                                StateSetter
+                                                                                    setState) {
+                                                                              return Container(
+                                                                                height:
+                                                                                    31,
+                                                                                width:
+                                                                                    250,
+                                                                                padding:
+                                                                                    const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                                                                decoration:
+                                                                                    BoxDecoration(
+                                                                                  color: Colors.white,
+                                                                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                                                                  borderRadius: BorderRadius.circular(6),
+                                                                                ),
+                                                                                child:
+                                                                                    DropdownButtonFormField<String>(
+                                                                                  focusColor: Colors.transparent,
+                                                                                  icon: const Icon(
+                                                                                    Icons.arrow_drop_down_sharp,
+                                                                                    color: Color(0xff686464),
+                                                                                  ),
+                                                                                  decoration: const InputDecoration.collapsed(hintText: ''),
+                                                                                  items: dropDownList,
+                                                                                  onChanged: (newValue) {
+                                                                                    setState(() {
+                                                                                      selectedZone = newValue;
+                                                                                      for (var a in snapshot.data!) {
+                                                                                        if (a.zoneName == newValue) {
+                                                                                          int zoneId = a.zoneId;
+                                                                                          selectedZoneId = zoneId;
+                                                                                          print("Zone Id :: ${selectedZoneId}");
+                                                                                          // Perform other actions if needed
+                                                                                        }
+                                                                                      }
+                                                                                    });
+                                                                                  },
+                                                                                  value: selectedZone,
+                                                                                  style: GoogleFonts.firaSans(
+                                                                                    fontSize: 12,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: const Color(0xff686464),
+                                                                                    decoration: TextDecoration.none,
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                          );
+                                                                        } else {
+                                                                          return CustomDropdownTextField(
+                                                                            labelText:
+                                                                                'Zone',
+                                                                            labelStyle:
+                                                                                GoogleFonts.firaSans(
+                                                                              fontSize:
+                                                                                  12,
+                                                                              color:
+                                                                                  const Color(0xff575757),
+                                                                              fontWeight:
+                                                                                  FontWeight.w400,
+                                                                            ),
+                                                                            labelFontSize:
+                                                                                12,
+                                                                            items: [
+                                                                              'No Data'
+                                                                            ],
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+
+                                                          ///old code tabbar
+                                                          Container(
+                                                            height: 350,
+                                                            width: 170,
+                                                            child:
+                                                                DefaultTabController(
+                                                              length: 2,
+                                                              child: Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsets
+                                                                        .symmetric(
+                                                                            horizontal:
+                                                                                120),
+                                                                    child: TabBar(
+                                                                      indicatorColor:
+                                                                          const Color(
+                                                                              0xff1696C8),
+                                                                      labelColor:
+                                                                          const Color(
+                                                                              0xff686464),
+                                                                      unselectedLabelColor:
+                                                                          const Color(
+                                                                              0xff686464),
+                                                                      labelStyle:
+                                                                          GoogleFonts
+                                                                              .firaSans(
+                                                                        fontSize:
+                                                                            10,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                      ),
+                                                                      unselectedLabelStyle:
+                                                                          GoogleFonts
+                                                                              .firaSans(
+                                                                        fontSize:
+                                                                            10,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                      ),
+                                                                      tabs: const [
+                                                                        Tab(
+                                                                            text:
+                                                                                'Zip Codes'),
+                                                                        // Tab(text: 'Cities'),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              100.0,
+                                                                          right:
+                                                                              100.0),
+                                                                      child:
+                                                                          TabBarView(
+                                                                        physics:
+                                                                            const NeverScrollableScrollPhysics(),
+                                                                        children: [
+                                                                          StreamBuilder<
+                                                                              List<
+                                                                                  ZipcodeByCountyIdAndZoneIdData>>(
+                                                                            stream:
+                                                                                _countyStreamController.stream,
+                                                                            builder:
+                                                                                (BuildContext context,
+                                                                                    snapshot) {
+                                                                              getZipcodeByCountyIdAndZoneId(context: context, countyId: selectedCountyId, zoneId: selectedZoneId).then(
+                                                                                  (data) {
+                                                                                _countyStreamController.add(data);
+                                                                              }).catchError(
+                                                                                  (error) {
+                                                                                // Handle error
+                                                                              });
+                                                                              if (snapshot.connectionState ==
+                                                                                  ConnectionState.waiting) {
+                                                                                return SizedBox();
+                                                                              }
+                                                                              if (selectedCountyId ==
+                                                                                  0) {
+                                                                                return Center(
+                                                                                    child: Text(
+                                                                                  'Select county',
+                                                                                  style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                                                                ));
+                                                                              }
+                                                                              if (snapshot
+                                                                                  .data!
+                                                                                  .isEmpty) {
+                                                                                return Center(
+                                                                                    child: Text(
+                                                                                  'No Data Found!',
+                                                                                  style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                                                                ));
+                                                                              }
+                                                                              return Row(
+                                                                                children: [
+                                                                                  StatefulBuilder(
+                                                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                                      return Container(
+                                                                                        width: 200,
+                                                                                        height: 300,
+                                                                                        child: ListView.builder(
+                                                                                          itemCount: snapshot.data!.length,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            String zipCode = snapshot.data![index].zipCode;
+                                                                                            bool isChecked = checkedZipCodes[zipCode] ?? false;
+                                                                                            return CheckBoxTileConst(
+                                                                                                text: zipCode,
+                                                                                                value: isChecked,
+                                                                                                onChanged: (bool? val) {
+                                                                                                  setState(() {
+                                                                                                    print('Clicked check box 1');
+                                                                                                    checkedZipCodes[zipCode] = val ?? false;
+                                                                                                    if (val == true) {
+                                                                                                      selectedZipCodes.add(zipCode);
+                                                                                                    } else {
+                                                                                                      selectedZipCodes.remove(zipCode);
+                                                                                                    }
+                                                                                                    selectedZipCodesString = selectedZipCodes.join(', ');
+                                                                                                  });
+                                                                                                });
+                                                                                          },
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                            SizedBox(height: 20),
-
-                                          ],
-                                        ),
-                                      ),
+                                            ));
+                                      },
                                     );
                                   },
-                                );
-                              },
-                                icon: Icon(Icons.edit_outlined, size: 15,
-                                  color: ColorManager.mediumgrey, ),),
-                            ],
-                          ),
-
-                        ),
-                        Container(
-                          height: 55,
-                          width: 320,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: ColorManager.white,
-                              width: 2, //width of border
+                                  icon: Icon(
+                                    Icons.edit_outlined,
+                                    size: 15,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                              ],
                             ),
-
                           ),
-                          // color: Colors.green,
-                        ),
-                        Container(
-                          height: 55,
-                          width: 320,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: ColorManager.white, //color of border
-                              width: 2, //width of border
+                          Container(
+                            height: 55,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: ColorManager.white,
+                                width: 2, //width of border
+                              ),
                             ),
-
+                            // color: Colors.green,
                           ),
-                          // color: Colors.green,
-                        )
-                      ],),
+                          Container(
+                            height: 55,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: ColorManager.white, //color of border
+                                width: 2, //width of border
+                              ),
+                            ),
+                            // color: Colors.green,
+                          )
+                        ],
+                      ),
+
                       ///
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -568,54 +1122,100 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             height: 30,
                             width: 100,
                             onPressed: () async {
-
-                              print("code::::::::::::::::::::::::::::::::::::code");
-                              print("FirstName::::::::::::::::::::::::::::::::::::${nameController.text}");
-                              print("LastName::::::::::::::::::::::::::::::::::::${deptController.text}");
-                              print("DepartmentId::::::::::::::::::::::::::::::::::::1");
-                              print("EmployeeTypeId::::::::::::::::::::::::::::::::::::2");
-                              print("Expertise::::::::::::::::::::::::::::::::::::Expert");
-                              print("CityId::::::::::::::::::::::::::::::::::::1");
-                              print("CountryId::::::::::::::::::::::::::::::::::::1");
-                              print("CountyId::::::::::::::::::::::::::::::::::::1");
-                              print("ZoneId::::::::::::::::::::::::::::::::::::1");
-                              print("SSNNbr::::::::::::::::::::::::::::::::::::${ssNController.text}");
-                              print("PrimaryPhoneNbr::::::::::::::::::::::::::::::::::::${phoneNController.text}");
-                              print("SecondaryPhoneNbr::::::::::::::::::::::::::::::::::::");
-                              print("WorkPhoneNbr::::::::::::::::::::::::::::::::::::${workPhoneController.text}");
-                              print("RegOfficId::::::::::::::::::::::::::::::::::::${reportingOfficeController.text}");
-                              print("PersonalEmail::::::::::::::::::::::::::::::::::::${personalEmailController.text}");
-                              print("WorkEmail::::::::::::::::::::::::::::::::::::${workEmailController.text}");
-                              print("Address::::::::::::::::::::::::::::::::::::${addressController.text}");
-                              print("DateOfBirth::::::::::::::::::::::::::::::::::::${ageController.text}");
-                              print("EmergencyContact::::::::::::::::::::::::::::::::::::John Doe");
-                              print("Coverage::::::::::::::::::::::::::::::::::::Health");
-                              print("Employment::::::::::::::::::::::::::::::::::::Full Time");
-                              print("Gender::::::::::::::::::::::::::::::::::::${genderController.text}");
-                              print("Status::::::::::::::::::::::::::::::::::::Active");
-                              print("Service::::::::::::::::::::::::::::::::::::${serviceController.text}");
-                              print("ImgUrl::::::::::::::::::::::::::::::::::::");
-                              print("ResumeUrl::::::::::::::::::::::::::::::::::::");
-                              print("CompanyId::::::::::::::::::::::::::::::::::::1");
-                              print("OnboardingStatus::::::::::::::::::::::::::::::::::::Completed");
-                              print("DriverLicenceNbr::::::::::::::::::::::::::::::::::::DL123");
-                              print("DateOfTermination::::::::::::::::::::::::::::::::::::");
-                              print("DateOfResignation::::::::::::::::::::::::::::::::::::");
-                              print("DateOfHire::::::::::::::::::::::::::::::::::::2022-01-01");
-                              print("Rehirable::::::::::::::::::::::::::::::::::::Yes");
-                              print("Position::::::::::::::::::::::::::::::::::::Manager");
-                              print("FinalAddress::::::::::::::::::::::::::::::::::::${addressController.text}");
-                              print("Type::::::::::::::::::::::::::::::::::::Full Time");
-                              print("Reason::::::::::::::::::::::::::::::::::::");
-                              print("FinalPayCheck::::::::::::::::::::::::::::::::::::5000");
-                              print("CheckDate::::::::::::::::::::::::::::::::::::2022-01-01");
-                              print("GrossPay::::::::::::::::::::::::::::::::::::10000");
-                              print("NetPay::::::::::::::::::::::::::::::::::::8000");
-                              print("Methods::::::::::::::::::::::::::::::::::::Bank Transfer");
-                              print("Materials::::::::::::::::::::::::::::::::::::");
-                              print("Race::::::::::::::::::::::::::::::::::::Asian");
-                              print("Rating::::::::::::::::::::::::::::::::::::A+");
-                              print("SignatureURL::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "code::::::::::::::::::::::::::::::::::::code");
+                              print(
+                                  "FirstName::::::::::::::::::::::::::::::::::::${nameController.text}");
+                              print(
+                                  "LastName::::::::::::::::::::::::::::::::::::${deptController.text}");
+                              print(
+                                  "DepartmentId::::::::::::::::::::::::::::::::::::1");
+                              print(
+                                  "EmployeeTypeId::::::::::::::::::::::::::::::::::::2");
+                              print(
+                                  "Expertise::::::::::::::::::::::::::::::::::::Expert");
+                              print(
+                                  "CityId::::::::::::::::::::::::::::::::::::1");
+                              print(
+                                  "CountryId::::::::::::::::::::::::::::::::::::1");
+                              print(
+                                  "CountyId::::::::::::::::::::::::::::::::::::1");
+                              print(
+                                  "ZoneId::::::::::::::::::::::::::::::::::::1");
+                              print(
+                                  "SSNNbr::::::::::::::::::::::::::::::::::::${ssNController.text}");
+                              print(
+                                  "PrimaryPhoneNbr::::::::::::::::::::::::::::::::::::${phoneNController.text}");
+                              print(
+                                  "SecondaryPhoneNbr::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "WorkPhoneNbr::::::::::::::::::::::::::::::::::::${workPhoneController.text}");
+                              print(
+                                  "RegOfficId::::::::::::::::::::::::::::::::::::${reportingOfficeController.text}");
+                              print(
+                                  "PersonalEmail::::::::::::::::::::::::::::::::::::${personalEmailController.text}");
+                              print(
+                                  "WorkEmail::::::::::::::::::::::::::::::::::::${workEmailController.text}");
+                              print(
+                                  "Address::::::::::::::::::::::::::::::::::::${addressController.text}");
+                              print(
+                                  "DateOfBirth::::::::::::::::::::::::::::::::::::${ageController.text}");
+                              print(
+                                  "EmergencyContact::::::::::::::::::::::::::::::::::::John Doe");
+                              print(
+                                  "Coverage::::::::::::::::::::::::::::::::::::Health");
+                              print(
+                                  "Employment::::::::::::::::::::::::::::::::::::Full Time");
+                              print(
+                                  "Gender::::::::::::::::::::::::::::::::::::${genderController.text}");
+                              print(
+                                  "Status::::::::::::::::::::::::::::::::::::Active");
+                              print(
+                                  "Service::::::::::::::::::::::::::::::::::::${serviceController.text}");
+                              print(
+                                  "ImgUrl::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "ResumeUrl::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "CompanyId::::::::::::::::::::::::::::::::::::1");
+                              print(
+                                  "OnboardingStatus::::::::::::::::::::::::::::::::::::Completed");
+                              print(
+                                  "DriverLicenceNbr::::::::::::::::::::::::::::::::::::DL123");
+                              print(
+                                  "DateOfTermination::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "DateOfResignation::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "DateOfHire::::::::::::::::::::::::::::::::::::2022-01-01");
+                              print(
+                                  "Rehirable::::::::::::::::::::::::::::::::::::Yes");
+                              print(
+                                  "Position::::::::::::::::::::::::::::::::::::Manager");
+                              print(
+                                  "FinalAddress::::::::::::::::::::::::::::::::::::${addressController.text}");
+                              print(
+                                  "Type::::::::::::::::::::::::::::::::::::Full Time");
+                              print(
+                                  "Reason::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "FinalPayCheck::::::::::::::::::::::::::::::::::::5000");
+                              print(
+                                  "CheckDate::::::::::::::::::::::::::::::::::::2022-01-01");
+                              print(
+                                  "GrossPay::::::::::::::::::::::::::::::::::::10000");
+                              print(
+                                  "NetPay::::::::::::::::::::::::::::::::::::8000");
+                              print(
+                                  "Methods::::::::::::::::::::::::::::::::::::Bank Transfer");
+                              print(
+                                  "Materials::::::::::::::::::::::::::::::::::::");
+                              print(
+                                  "Race::::::::::::::::::::::::::::::::::::Asian");
+                              print(
+                                  "Rating::::::::::::::::::::::::::::::::::::A+");
+                              print(
+                                  "SignatureURL::::::::::::::::::::::::::::::::::::");
 
                               try {
                                 await getEmployeeEdit(
@@ -626,7 +1226,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   firstName: nameController.text,
                                   lastName: profileData.lastName,
                                   departmentId: int.parse(deptController.text),
-                                  employeeTypeId: int.parse(empTypeController.text),
+                                  employeeTypeId:
+                                      int.parse(empTypeController.text),
                                   expertise: 'Expert',
                                   cityId: profileData.cityId,
                                   countryId: profileData.countryId,
@@ -634,14 +1235,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   zoneId: int.parse(zoneController.text),
                                   SSNNbr: ssNController.text,
                                   primaryPhoneNbr: phoneNController.text,
-                                  secondryPhoneNbr: profileData.secondryPhoneNbr,
+                                  secondryPhoneNbr:
+                                      profileData.secondryPhoneNbr,
                                   workPhoneNbr: workPhoneController.text,
                                   regOfficId: profileData.regOfficId,
                                   personalEmail: personalEmailController.text,
                                   workEmail: workEmailController.text,
                                   address: addressController.text,
                                   dateOfBirth: ageController.text,
-                                  emergencyContact: profileData.emergencyContact,
+                                  emergencyContact:
+                                      profileData.emergencyContact,
                                   covreage: profileData.covreage,
                                   employment: profileData.employment,
                                   gender: genderController.text,
@@ -650,10 +1253,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   imgurl: profileData.imgurl,
                                   resumeurl: profileData.resumeurl,
                                   // companyId: 1,
-                                  onboardingStatus: profileData.onboardingStatus,
-                                  driverLicenceNbr: profileData.driverLicenceNbr,
-                                  dateofTermination: profileData.dateofTermination,
-                                  dateofResignation: profileData.dateofResignation,
+                                  onboardingStatus:
+                                      profileData.onboardingStatus,
+                                  driverLicenceNbr:
+                                      profileData.driverLicenceNbr,
+                                  dateofTermination:
+                                      profileData.dateofTermination,
+                                  dateofResignation:
+                                      profileData.dateofResignation,
                                   dateofHire: profileData.dateofHire,
                                   rehirable: profileData.rehirable,
                                   position: profileData.position,
@@ -675,39 +1282,40 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 empTypeController.clear();
                                 addressController.clear();
                                 ageController.clear();
-                               ssNController.clear();
-                               phoneNController.clear();
-                               workPhoneController.clear();
-                               personalEmailController.clear();
-                               workEmailController.clear();
-                               countyController.clear();
-                               serviceController.clear();
-                               zoneController.clear();
+                                ssNController.clear();
+                                phoneNController.clear();
+                                workPhoneController.clear();
+                                personalEmailController.clear();
+                                workEmailController.clear();
+                                countyController.clear();
+                                serviceController.clear();
+                                zoneController.clear();
                               } catch (e) {
                                 print(e);
                               }
                             },
-                            text: 'Save',),
-                          SizedBox(width: 30,),
+                            text: 'Save',
+                          ),
+                          SizedBox(
+                            width: 30,
+                          ),
                           ProfileEditCancelButton(
                             height: 30,
                             width: 100,
                             text: AppString.cancel,
-
                             onPressed: () {
-                              print("Edit Mode Cancel :::::::::::::::::::::::############");
+                              print(
+                                  "Edit Mode Cancel :::::::::::::::::::::::############");
 
                               widget.onCancel();
-
                             },
-                            )
+                          )
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
-
             ],
           );
         }
@@ -718,23 +1326,23 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       },
     );
   }
-
 }
 
 class EditProfile {
   static TextStyle customEditTextStyle() {
-    return GoogleFonts.firaSans(
-      fontSize: FontSize.s12,
+    return TextStyle(
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
-          // : FontWeight.w500,
+      // : FontWeight.w500,
       color: ColorManager.blueprime,
       // decoration: TextDecoration.none,
     );
   }
 }
-class EditTextFontStyle{
+
+class EditTextFontStyle {
   static TextStyle customEditTextStyle() {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
@@ -754,20 +1362,20 @@ class ProfileEditCancelButton extends StatelessWidget {
   final double height;
   final TextStyle? style;
   final Widget? child;
-   ProfileEditCancelButton({
-     Key? key,
-     this.text,
-     required this.onPressed,
-     this.backgroundColor = const Color(0xFF50B5E5),
-     this.textColor = const Color(0xFF50B5E5),
-     this.borderRadius = 14.0,
-     this.paddingVertical = 12.0,
-     this.paddingHorizontal = 16.0,
-     this.width = 50,
-     this.height = 50.0,
-     this.style,
-     this.child,
-});
+  ProfileEditCancelButton({
+    Key? key,
+    this.text,
+    required this.onPressed,
+    this.backgroundColor = const Color(0xFF50B5E5),
+    this.textColor = const Color(0xFF50B5E5),
+    this.borderRadius = 14.0,
+    this.paddingVertical = 12.0,
+    this.paddingHorizontal = 16.0,
+    this.width = 50,
+    this.height = 50.0,
+    this.style,
+    this.child,
+  });
 
   // bool isLoading = false;
   @override
@@ -793,17 +1401,17 @@ class ProfileEditCancelButton extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-          backgroundColor: ColorManager.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: Color(0xFF50B5E5)),
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            backgroundColor: ColorManager.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: Color(0xFF50B5E5)),
+            ),
           ),
-        ),
-        child: Text(text!, textAlign: TextAlign.center, style: mergedTextStyle)
-      ),
+          child:
+              Text(text!, textAlign: TextAlign.center, style: mergedTextStyle)),
     );
   }
 }

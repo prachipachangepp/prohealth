@@ -346,7 +346,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 5),
-                    FutureBuilder<List<AllCountyGetList>>(
+                               FutureBuilder<List<AllCountyGetList>>(
                       future: getCountyZoneList(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -449,7 +449,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         }
                       },
                     ),
-                    ],
+                               ],
                             ),
                                 SizedBox(
                                     height:
