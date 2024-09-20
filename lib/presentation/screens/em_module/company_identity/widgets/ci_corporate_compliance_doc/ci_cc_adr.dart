@@ -102,6 +102,7 @@ class _CICCADRState extends State<CICCADR> {
                   getListMCorporateCompliancefetch(
                           context,
                           AppConfig.corporateAndCompliance,
+                          widget.officeId,
                           AppConfig.subDocId2Adr,
                           1,
                           20)
@@ -215,7 +216,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${manageCCADR.orgDocumentSetupid}",
+                                                          "ID : ${manageCCADR.idOfDocument}",
                                                           // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -418,7 +419,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId2Adr, 1, 20).then((data) {
+                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId2Adr, 1, 20).then((data) {
                                                                                   _ccAdrController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

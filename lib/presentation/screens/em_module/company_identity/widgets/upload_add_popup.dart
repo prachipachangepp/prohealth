@@ -2,12 +2,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
 
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
@@ -101,7 +103,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 for (var doc in widget.dataList) {
                   if (doc.docname == val) {
                     docTypeId = doc.orgDocumentSetupid!;
-                    documentTypeName = doc.docname;
+                    documentTypeName = doc.idOfDocument;
 
                     // Show expiry date field only if expirytype is "issuer expiry"
                     if (doc.expirytype == AppConfig.issuer) {
@@ -128,11 +130,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   child: TextFormField(
                     controller: expiryDateController,
                     cursorColor: ColorManager.black,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w500,
-                      color: ColorManager.mediumgrey,
-                    ),
+                      style: DocumentTypeDataStyle.customTextStyle(context),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -145,11 +143,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       hintText: 'MM-DD-YYYY',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w500,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
@@ -211,11 +205,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       Expanded(
                         child: Text(
                           fileName,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w500,
-                            color: ColorManager.mediumgrey,
-                          ),
+                            style: DocumentTypeDataStyle.customTextStyle(context),
                         ),
                       ),
                       IconButton(
@@ -284,8 +274,11 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 } finally {
                   setState(() {
                     Navigator.pop(context);
+
+
                     load = false;
                   });
+
                 }
               },
             ),

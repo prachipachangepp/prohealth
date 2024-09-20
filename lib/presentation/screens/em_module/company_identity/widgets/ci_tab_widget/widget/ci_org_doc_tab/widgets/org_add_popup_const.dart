@@ -537,7 +537,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
               _nameDocError!,
               style: TextStyle(
                 color: Colors.red,
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s10,
               ),
             ),
           ),

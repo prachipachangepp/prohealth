@@ -69,7 +69,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
 
   @override
   void initState() {
-    getListMCorporateCompliancefetch(context, AppConfig.vendorContracts,
+    getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId,
             AppConfig.subDocId6Leases, 1, 20)
         .then((data) {
       vendorLeasesController.add(data);
@@ -115,7 +115,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.vendorContracts,
+                          AppConfig.vendorContracts, widget.officeId,
                           AppConfig.subDocId6Leases,
                           1,
                           20)
@@ -222,7 +222,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${leasesData.orgDocumentSetupid}",
+                                                          "ID : ${leasesData.idOfDocument}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -427,7 +427,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, AppConfig.subDocId6Leases, 1, 20).then((data) {
+                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId, AppConfig.subDocId6Leases, 1, 20).then((data) {
                                                                                   vendorLeasesController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error
