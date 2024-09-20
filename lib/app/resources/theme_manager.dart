@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
 import 'color.dart';
@@ -16,7 +15,7 @@ class TableHeadingStyle{
 
 
 class TableListTextStyle{
-  static final TextStyle firaSansGray10Bold = GoogleFonts.firaSans(
+  static final TextStyle firaSansGray10Bold = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w600,
     color: Color(0xff686464),
