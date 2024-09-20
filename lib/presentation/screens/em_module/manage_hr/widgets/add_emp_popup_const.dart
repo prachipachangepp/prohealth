@@ -1,11 +1,12 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
@@ -57,7 +58,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
         return AlertDialog(
           title: Padding(
             padding: const EdgeInsets.only(left: AppPadding.p20),
-            child: Text('Pick a Color',style: GoogleFonts.firaSans(
+            child: Text('Pick a Color',
+              style: TextStyle(
                 fontSize: FontSize.s14,
                 fontWeight: FontWeight.w700,
                 color: ColorManager.blueprime
@@ -168,7 +170,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                         if (_typeError != null)
                           Text(
                             _typeError!,
-                            style: TextStyle(color: Colors.red, fontSize: 10),
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                       ],
                     ),
@@ -182,12 +184,12 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                         CapitalSMTextFConst(
                           controller: widget.abbreviationController,
                           keyboardType: TextInputType.streetAddress,
-                          text: 'Abbreviation',
+                          text: AppStringEM.abbrevation,
                         ),
                         if (_abbreviationError != null)
                           Text(
                             _abbreviationError!,
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                       ],
                     ),
@@ -197,12 +199,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                       children: [
                         Text(
                           'Type of Employee',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xff686464),
-                            decoration: TextDecoration.none,
-                          ),
+                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                         ),
                         SizedBox(height: 5),
                         widget.child!,
@@ -212,13 +209,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                     Row(
                       children: [
                         Text(
-                          'Color',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff686464),
-                            decoration: TextDecoration.none,
-                          ),
+                          AppStringEM.color,
+                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                         ),
                         SizedBox(width: AppSize.s25),
                         Container(

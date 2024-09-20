@@ -129,11 +129,14 @@ Future<CountyZonePrefillGet> getZoneByCountyPrefill(
       print("1");
 
       itemsList = CountyZonePrefillGet(
-          countyId: response.data['county_id'] ?? 0,
-          zoneId: response.data['zone_id'] ?? 0,
+          countyId: response.data['countyId'] ?? 0,
+          zoneId: response.data['zoneId'] ?? 0,
           zoneName: response.data['zoneName'] ?? "--",
-          companyId: response.data['companyId'],
-          officeId: response.data['officeId']);
+          countyName: response.data['countyName']??"--"
+
+          // companyId: response.data['companyId'],
+          // officeId: response.data['officeId']
+      );
     } else {
       print('County Api Error');
       return itemsList;

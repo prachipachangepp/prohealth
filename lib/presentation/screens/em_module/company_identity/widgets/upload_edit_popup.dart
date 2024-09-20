@@ -1,8 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
@@ -112,11 +112,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               children: [
                 Text(
                   widget.docName,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style: ConstTextFieldRegister.customTextStyle(context),
                 ),
                 Icon(
                   Icons.arrow_drop_down,
@@ -152,10 +148,10 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         Expanded(
                           child: Text(
                             fileName,
-                            style: GoogleFonts.firaSans(
+                            style: TextStyle(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w500,
-                              color: ColorManager.lightgreyheading,
+                              color: ColorManager.greylight,
                             ),
                           ),
                         ),
@@ -165,7 +161,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                           icon: Icon(
                             Icons.file_upload_outlined,
                             color: ColorManager.black,
-                            size: 17,
+                            size: IconSize.I16,
                           ),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
@@ -191,11 +187,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   child: TextFormField(
                     controller: expiryDateController,
                     cursorColor: ColorManager.black,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w500,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: ConstTextFieldRegister.customTextStyle(context),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -208,11 +200,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       hintText: 'MM-DD-YYYY',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w500,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      hintStyle: ConstTextFieldRegister.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(

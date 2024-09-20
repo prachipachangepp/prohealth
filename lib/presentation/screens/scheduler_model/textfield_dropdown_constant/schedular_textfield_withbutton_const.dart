@@ -38,7 +38,7 @@ class SchedularTextFieldWithButton extends StatelessWidget {
               labelText: labelText,
               labelStyle: GoogleFonts.firaSans(
                 fontSize: FontSize.s10,
-                color: ColorManager.lightgreyheading,                                                      // text color
+                color: ColorManager.greylight,                                                      // text color
               ),
               border: const OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(

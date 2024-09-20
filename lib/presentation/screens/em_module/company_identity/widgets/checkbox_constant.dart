@@ -1,11 +1,8 @@
 ///saloni
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -130,12 +127,7 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
           Expanded(
             child: Text(
               _selectedValue ?? '',
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey,
-                decoration: TextDecoration.none,
-              ),
+              style: DefineWorkWeekStyle.customTextStyle(context),
             ),
           ),
           // IconButton(
@@ -183,11 +175,7 @@ class _CIDetailsDropdownPopupState extends State<CIDetailsDropdownPopup> {
   void _showCheckboxWarning(BuildContext context) {
     final snackBar = SnackBar(
       content: Text('Please check the checkbox',
-        style: GoogleFonts.firaSans(
-          fontSize: FontSize.s12,
-          color: ColorManager.white,
-          fontWeight: FontWeight.w600,
-        ),
+        style: AllHRTableHeading.customTextStyle(context),
       ),
       backgroundColor: ColorManager.mediumgrey,
     );
@@ -246,12 +234,7 @@ class _CIDetailsDropdownPopupState extends State<CIDetailsDropdownPopup> {
                     children: [
                       Text(
                         AppStringEM.emabled,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                       Checkbox(
                         value: checkboxValue1,

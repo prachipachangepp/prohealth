@@ -46,7 +46,7 @@ class ColorManager {
   static Color red = Color(0xffD93D3D);
   static Color rednew = Color(0xffEB3223);
   static Color buttoncolor = Color(0xfc79AEF5);
-  static Color lightgreyheading = Color(0xff575757);
+  //static Color greylight = Color(0xff575757);
   static Color dividerColor = Color(0xffD4D4D4);
   static Color darkgray = Color(0xff454545);
 

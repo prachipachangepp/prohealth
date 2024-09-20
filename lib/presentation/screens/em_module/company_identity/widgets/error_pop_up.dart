@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -52,12 +51,7 @@ class _ErrorPopUpState extends State<ErrorPopUp> {
                     padding: const EdgeInsets.only(left: 30),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -80,12 +74,7 @@ class _ErrorPopUpState extends State<ErrorPopUp> {
                 children: [
                   Text(
                     widget.text,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w500,
-                      color: ColorManager.mediumgrey,
-                      //decoration: TextDecoration.none,
-                    ),
+                    style: ConstTextFieldRegister.customTextStyle(context),
                   ),
                 ],
               ),

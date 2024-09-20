@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../color.dart';
 import '../font_manager.dart';
 ///all login flow head
@@ -20,7 +19,7 @@ class LoginFlowBase {
     return TextStyle(
       color: ColorManager.bluebottom,
       fontSize: FontSize.s12,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       decoration: TextDecoration.none,
     );
   }

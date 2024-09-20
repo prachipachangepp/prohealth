@@ -184,7 +184,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               return StatefulBuilder(
                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                   return EmpDocADDPopup(
-                                    title: 'Add Document',
+                                    title: AddPopupString.addDocument,
                                    Subdocid:subDocId,
                                   );
                                 },

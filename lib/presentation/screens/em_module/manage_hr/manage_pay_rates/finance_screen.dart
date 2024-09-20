@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
@@ -131,12 +132,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               children: [
                 Text(
                   'Clinicians Pay Rates',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xff686464),
-                    decoration: TextDecoration.none,
-                  ),
+                  style: DefineWorkWeekStyle.customTextStyle(context),
                 ),
               ],
             ),
@@ -151,12 +147,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   children: [
                     Text(
                       'Pick Service Type',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xff686464),
-                        decoration: TextDecoration.none,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ],
                 ),
@@ -196,11 +187,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style: ConstTextFieldRegister.customTextStyle(context),
                                   ),
                                 ),
                               );
@@ -386,11 +373,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 child: Center(
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style: ConstTextFieldRegister.customTextStyle(context),
                                   ),
                                 ),
                               );
@@ -524,13 +507,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           child: Text(
                                             "No available visits!",
                                             //AppString.dataNotFound,
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                              fontWeight:
-                                              FontWeight.w500,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
+                                            style: ConstTextFieldRegister.customTextStyle(context)
                                           ),
                                         ),
                                       );
@@ -733,14 +710,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Text(
                                                   formattedSerialNumber,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                  style:AllHRTableData.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -748,14 +718,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Text(
                                                   finance.typeOfVisitId,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                  style: AllHRTableData.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -763,14 +726,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Text(
                                                   '\$${finance.rate}',
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                  style: AllHRTableData.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -1063,109 +1019,109 @@ class _FinanceScreenState extends State<FinanceScreen> {
       ),
     );
   }
-
-  Widget buildDropdownButton(BuildContext context) {
-    return FutureBuilder<List<SortByZoneData>>(
-      future: PayRateZoneDropdown(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.25),
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Text(
-              "No available zone",
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.blueprime,
-                decoration: TextDecoration.none,
-              ),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Text(
-            ErrorMessageString.noZoneAdded,
-            style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: FontSize.s12,
-              color: ColorManager.mediumgrey,
-            ),
-          );
-        } else {
-          List<SortByZoneData> zoneList = snapshot.data!;
-          return Container(
-            height: 31,
-            width: 110,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.25),
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: DropdownButton<String>(
-              value: _selectedZone,
-              hint: Text(
-                'Sort By',
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.blueprime,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-              icon: const Icon(
-                Icons.arrow_drop_down,
-                color: Color(0xff50B5E5),
-              ),
-              iconSize: 20,
-              underline: const SizedBox(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedZone = newValue;
-                 // _filterPayRatesByZone();
-                });
-              },
-              isDense: true,
-              items:
-                  zoneList.map<DropdownMenuItem<String>>((SortByZoneData zone) {
-                String dropdownValue = "${zone.zoneId}-${zone.zoneName}";
-                return DropdownMenuItem<String>(
-                  value: dropdownValue,
-                  child: Text(
-                    zone.zoneName,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight:FontWeight.w500,
-                      color: ColorManager.blueprime,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          );
-        }
-      },
-    );
-  }
+  //
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<SortByZoneData>>(
+  //     future: PayRateZoneDropdown(context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.waiting) {
+  //         return Container(
+  //           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+  //             borderRadius: BorderRadius.circular(12.0),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: const Color(0xff000000).withOpacity(0.25),
+  //                 blurRadius: 2,
+  //                 offset: const Offset(0, 2),
+  //               ),
+  //             ],
+  //           ),
+  //           child: Text(
+  //             "No available zone",
+  //             style: GoogleFonts.firaSans(
+  //               fontSize: FontSize.s12,
+  //               fontWeight: FontWeight.w700,
+  //               color: ColorManager.blueprime,
+  //               decoration: TextDecoration.none,
+  //             ),
+  //           ),
+  //         );
+  //       } else if (snapshot.hasError) {
+  //         return Text('Error: ${snapshot.error}');
+  //       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+  //         return Text(
+  //           ErrorMessageString.noZoneAdded,
+  //           style: CustomTextStylesCommon.commonStyle(
+  //             fontWeight: FontWeight.w500,
+  //             fontSize: FontSize.s12,
+  //             color: ColorManager.mediumgrey,
+  //           ),
+  //         );
+  //       } else {
+  //         List<SortByZoneData> zoneList = snapshot.data!;
+  //         return Container(
+  //           height: 31,
+  //           width: 110,
+  //           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+  //             borderRadius: BorderRadius.circular(12.0),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: const Color(0xff000000).withOpacity(0.25),
+  //                 blurRadius: 2,
+  //                 offset: const Offset(0, 2),
+  //               ),
+  //             ],
+  //           ),
+  //           child: DropdownButton<String>(
+  //             value: _selectedZone,
+  //             hint: Text(
+  //               'Sort By',
+  //               style: GoogleFonts.firaSans(
+  //                 fontSize: FontSize.s12,
+  //                 fontWeight: FontWeight.w700,
+  //                 color: ColorManager.blueprime,
+  //                 decoration: TextDecoration.none,
+  //               ),
+  //             ),
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down,
+  //               color: Color(0xff50B5E5),
+  //             ),
+  //             iconSize: 20,
+  //             underline: const SizedBox(),
+  //             onChanged: (String? newValue) {
+  //               setState(() {
+  //                 _selectedZone = newValue;
+  //                // _filterPayRatesByZone();
+  //               });
+  //             },
+  //             isDense: true,
+  //             items:
+  //                 zoneList.map<DropdownMenuItem<String>>((SortByZoneData zone) {
+  //               String dropdownValue = "${zone.zoneId}-${zone.zoneName}";
+  //               return DropdownMenuItem<String>(
+  //                 value: dropdownValue,
+  //                 child: Text(
+  //                   zone.zoneName,
+  //                   style: GoogleFonts.firaSans(
+  //                     fontSize: FontSize.s12,
+  //                     fontWeight:FontWeight.w500,
+  //                     color: ColorManager.blueprime,
+  //                     decoration: TextDecoration.none,
+  //                   ),
+  //                 ),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }

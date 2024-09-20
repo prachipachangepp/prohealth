@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 

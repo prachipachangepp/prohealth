@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -11,6 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -123,11 +123,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         )),
                     Text(
                       'Go Back',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ],
                 ),

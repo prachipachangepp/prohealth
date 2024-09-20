@@ -623,7 +623,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               children: [
                                 Text('Insurance Verified',
                                     style: GoogleFonts.firaSans(
-                                        color: ColorManager.lightgreyheading,
+                                        color: ColorManager.greylight,
                                         fontSize: FontSize.s10,
                                         fontWeight:FontWeightManager.regular)
                                 ),
@@ -658,7 +658,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                         style: GoogleFonts.firaSans(
                                             fontSize: FontSize.s12,
                                             fontWeight: FontWeightManager.regular,
-                                            color: ColorManager.lightgreyheading
+                                            color: ColorManager.greylight
                                         ),
                                       ),
                                     ),

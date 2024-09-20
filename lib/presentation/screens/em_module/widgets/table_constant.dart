@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 
 class TableHeadConstant extends StatelessWidget {
   final List<TableHeadItem> items;
@@ -28,12 +28,7 @@ class TableHeadConstant extends StatelessWidget {
               child: Text(
                 item.text,
                 textAlign: item.textAlign,
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.white,
-                  decoration: TextDecoration.none,
-                ),
+                style: AllHRTableHeading.customTextStyle(context)
               ),
             ),
           );
