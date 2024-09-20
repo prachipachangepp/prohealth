@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:pdf/pdf.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -123,11 +123,8 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                     return Center(
                         child: Text(
                      ErrorMessageString.noVendor,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey),
-                    ));
+                      style:DocumentTypeDataStyle.customTextStyle(context),)
+                        );
                   }
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;

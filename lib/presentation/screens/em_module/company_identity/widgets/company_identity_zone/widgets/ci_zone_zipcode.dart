@@ -193,11 +193,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noZipcode,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight:FontWeight.w500,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context),
                   ),
                 );
               }
@@ -360,14 +356,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                                     child: Text(
                                                                       ErrorMessageString.noCountyAdded,
                                                                       // AppString.dataNotFound,
-                                                                      style: CustomTextStylesCommon
-                                                                          .commonStyle(
-                                                                        fontWeight:
-                                                                        FontWeight.w500,
-                                                                        fontSize: FontSize.s12,
-                                                                        color:
-                                                                        ColorManager.mediumgrey,
-                                                                      ),
+                                                                      style: DocumentTypeDataStyle.customTextStyle(context),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -381,7 +370,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                                 dropDownTypesList.add(
                                                                   DropdownMenuItem<String>(
                                                                     value: i.countyName,
-                                                                    child: Text(i.countyName),
+                                                                    child: Text(i.countyName,),
                                                                   ),
                                                                 );
                                                               }

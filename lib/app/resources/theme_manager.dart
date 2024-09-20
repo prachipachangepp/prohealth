@@ -5,14 +5,14 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'color.dart';
 
 /// listview table heading
-class TableHeadingStyle{
-  static const TextStyle firaSansWhite12Bold = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w600,
-    color: Colors.white,
-    fontFamily: 'FiraSans',
-  );
-}
+// class TableHeadingStyle{
+//   static const TextStyle firaSansWhite12Bold = TextStyle(
+//     fontSize: 12,
+//     fontWeight: FontWeight.w600,
+//     color: Colors.white,
+//     fontFamily: 'FiraSans',
+//   );
+// }
 
 
 class TableListTextStyle{
