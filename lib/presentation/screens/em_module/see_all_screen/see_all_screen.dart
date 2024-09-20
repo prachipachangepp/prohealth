@@ -374,7 +374,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               children: [
                 Container(
                   height: AppSize.s30,
-                  //margin: EdgeInsets.symmetric(horizontal: 50),
+                  margin: EdgeInsets.symmetric(horizontal: 30),
                   decoration: BoxDecoration(
                     color: ColorManager.fmediumgrey,
                     borderRadius: BorderRadius.circular(12),
