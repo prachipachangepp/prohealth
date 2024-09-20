@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -528,21 +527,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                       children: [
                                         Text(
                                           'HCO Number',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style: ConstTextFieldRegister.customTextStyle(context),
                                         ),
                                         Text(
                                           "${hcoNumController.text}",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style: ConstTextFieldRegister.customTextStyle(context),
                                         )
                                       ],
                                     ),
@@ -566,21 +555,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                       children: [
                                         Text(
                                           'Medicare ID',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style: ConstTextFieldRegister.customTextStyle(context),
                                         ),
                                         Text(
                                           "${medicareController.text}",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style:ConstTextFieldRegister.customTextStyle(context),
                                         )
                                       ],
                                     ),
@@ -604,21 +583,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                       children: [
                                         Text(
                                           'NPI Number',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style: ConstTextFieldRegister.customTextStyle(context),
                                         ),
                                         Text(
                                           "${npiNumController.text}",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                          style: ConstTextFieldRegister.customTextStyle(context),
                                         )
                                       ],
                                     ),
@@ -810,12 +779,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                     return ListTile(
                                       title: Text(
                                         suggestions[index],
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
-                                        ),
+                                        style: DefineWorkWeekStyle.customTextStyle(context),
                                       ),
                                       onTap: () {
                                         // Update TextField with selected suggestion

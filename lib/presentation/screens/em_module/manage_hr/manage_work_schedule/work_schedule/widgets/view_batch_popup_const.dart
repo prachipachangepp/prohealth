@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -70,7 +69,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
-                            child: Text("Batches",style: GoogleFonts.firaSans(
+                            child: Text("Batches",style: TextStyle(
                               fontSize: FontSize.s16,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white,
@@ -205,12 +204,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                               child: Text(
                                                                 formattedSerialNumber,
                                                                 // formattedSerialNumber,
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  color: const Color(0xff686464),
-                                                                  decoration: TextDecoration.none,
-                                                                ),
+                                                                style: AllHRTableData.customTextStyle(context),
                                                               ),
                                                             ),
                                                           ),
@@ -219,12 +213,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                             child: Center(
                                                               child: Text(
                                                                 snapshot.data![index].officeStartTime,textAlign:TextAlign.center,
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  color: const Color(0xff686464),
-                                                                  decoration: TextDecoration.none,
-                                                                ),
+                                                                style: AllHRTableData.customTextStyle(context),
                                                               ),
                                                             ),
                                                           ),
@@ -232,12 +221,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                             child: Center(
                                                               child: Text(
                                                                 snapshot.data![index].officeEndTime,textAlign:TextAlign.center,
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  color: const Color(0xff686464),
-                                                                  decoration: TextDecoration.none,
-                                                                ),
+                                                                style: AllHRTableData.customTextStyle(context),
                                                               ),
                                                             ),
                                                           ),

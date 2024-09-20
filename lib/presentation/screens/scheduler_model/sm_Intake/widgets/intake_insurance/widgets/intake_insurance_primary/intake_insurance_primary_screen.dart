@@ -646,7 +646,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                               children: [
                                 Text('Insurance Verified',
                                     style: GoogleFonts.firaSans(
-                                        color: ColorManager.lightgreyheading,
+                                        color: ColorManager.greylight,
                                         fontSize: FontSize.s10, fontWeight: FontWeightManager.regular)
                                 ),
                                 SizedBox(height: 1),
@@ -681,7 +681,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                         style: GoogleFonts.firaSans(
                                             fontSize: MediaQuery.of(context).size.width * 0.008,
                                             fontWeight: FontWeightManager.regular,
-                                            color: ColorManager.lightgreyheading
+                                            color: ColorManager.greylight
                                         ),
                                       ),
                                     ),

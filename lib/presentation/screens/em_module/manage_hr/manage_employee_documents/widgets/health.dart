@@ -240,9 +240,6 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                       color: ColorManager
                                                                           .blueprime));
                                                             }
-                                                            // var expiry = snapshotPrefill.data!.expiry;
-                                                            // expiryType = expiry;
-
                                                             var docName =
                                                                 snapshotPrefill
                                                                     .data

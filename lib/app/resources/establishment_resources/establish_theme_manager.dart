@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
@@ -25,8 +24,8 @@ class TransparentBgTabbar {
     return TextStyle(
       fontSize: FontSize.s12,
       fontWeight: selectedIndex == currentIndex
-          ? FontWeight.w600
-          : FontWeight.w400,
+          ? FontWeight.w700
+          : FontWeight.w500,
       color: selectedIndex == currentIndex
           ? ColorManager.blueprime
           : ColorManager.mediumgrey,
@@ -40,7 +39,7 @@ class AllHRTableHeading {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s12,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: ColorManager.white,
       decoration: TextDecoration.none,
     );
@@ -50,7 +49,7 @@ class AllHRTableHeading {
 class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       fontSize: FontSize.s11,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -64,7 +63,7 @@ class CompanyIdentityManageHeadings {
     return TextStyle(
       fontSize: FontSize.s15,
       color: ColorManager.black,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     );
   }
 }
@@ -76,26 +75,26 @@ class AllHRTableData {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s10,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
   }
 }
-
-
 
 ///document defination
 class DefineWorkWeekStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s12,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
   }
 }
+
+
 
 // class RadioButtonHeadStyle {
 //   static TextStyle customTextStyle(BuildContext context) {

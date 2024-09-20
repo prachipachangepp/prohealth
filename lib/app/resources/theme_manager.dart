@@ -230,13 +230,13 @@ class MenuScreenHeadStyle {
 
 
 
-///mobile menu screen text head
+///Human Resource screen textField email only
 class MobileMenuText {
   static TextStyle MenuTextConst(BuildContext context) {
     return TextStyle(
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
-      fontWeight:FontWeight.w600,
+      fontWeight:FontWeight.w500,
     );
   }
 }

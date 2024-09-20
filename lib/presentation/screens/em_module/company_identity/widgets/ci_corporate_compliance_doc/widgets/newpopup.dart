@@ -1,10 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -103,12 +103,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                     padding: const EdgeInsets.only(left: 30),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -131,12 +126,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                 children: [
                   Text(
                     AppString.type_of_the_document,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight:FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      //decoration: TextDecoration.none,
-                    ),
+                    style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                   ),
                   SizedBox(height: AppSize.s5),
                   widget.child,
@@ -147,11 +137,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                     children: [
                       Text(
                         AppString.upload_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.textPrimaryColor,
-                        ),
+                        style:AppbarCustomDropdownStyle.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -180,11 +166,7 @@ class _PoliciesProcedureAddPopUpState extends State<PoliciesProcedureAddPopUp> {
                             children: [
                               Text(
                                 fileName,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.lightgreyheading,
-                                ),
+                                style: DropdownItemStyle.customTextStyle(context),
                               ),
                               IconButton(
                                 padding: EdgeInsets.all(4),

@@ -32,7 +32,7 @@ class RegisterPopupMcq extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: textFontSizeHead,
-            color: ColorManager.lightgreyheading,
+            color: ColorManager.greylight,
             fontWeight: FontWeight.w600,
           ),
         ),

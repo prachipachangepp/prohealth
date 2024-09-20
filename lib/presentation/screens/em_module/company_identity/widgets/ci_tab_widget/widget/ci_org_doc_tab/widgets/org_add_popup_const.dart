@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
@@ -254,11 +253,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                   daysController, // Use the controller initialized with "1"
                               cursorColor: ColorManager.black,
                               cursorWidth: 1,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.mediumgrey,
-                              ),
+                              style: AllHRTableData.customTextStyle(context),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -300,22 +295,14 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                   value: AppConfig.year,
                                   child: Text(
                                     AppConfig.year,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style: AllHRTableData.customTextStyle(context),
                                   ),
                                 ),
                                 DropdownMenuItem(
                                   value: AppConfig.month,
                                   child: Text(
                                     AppConfig.month,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style: AllHRTableData.customTextStyle(context),
                                   ),
                                 ),
                               ],
@@ -329,11 +316,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 hintText: AppConfig.year,
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorManager.mediumgrey,
-                                ),
+                                hintStyle: AllHRTableData.customTextStyle(context),
                                 contentPadding: EdgeInsets.only(bottom: 20),
                               ),
                               icon: Icon(

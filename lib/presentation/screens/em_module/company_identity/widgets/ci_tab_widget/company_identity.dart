@@ -1,9 +1,8 @@
 import 'dart:async';
-// import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
@@ -234,12 +233,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                           if(snapshot.data!.isEmpty){
                                             return Center(
                                               child: Text('No services available',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.mediumgrey,
-                                                  //decoration: TextDecoration.none,
-                                                ),),
+                                                style: DocumentTypeDataStyle.customTextStyle(context),),
                                             );
                                           }
                                           if(snapshot.hasData){
@@ -297,12 +291,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                         backgroundColor: Colors.transparent),
                                     child: Text(
                                       'Pick Location',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorManager.bluelight,
-                                        //decoration: TextDecoration.none,
-                                      ),
+                                      style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.bluelight),
                                     ),
                                   ),
                                   Icon(
@@ -312,7 +301,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   ),
                                   Text(
                                     _location,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                       fontSize: FontSize.s12,
                                       color: ColorManager.granitegray,
                                     ),

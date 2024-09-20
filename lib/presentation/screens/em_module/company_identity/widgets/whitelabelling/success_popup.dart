@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/home_hr.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -158,12 +156,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       "Success",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -246,12 +239,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       "Required",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -270,11 +258,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                 width: AppSize.s210,
                 child: Center(
                   child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
-                    style:GoogleFonts.firaSans(
-                        fontWeight:FontWeight.w500,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey
-                    ),),
+                    style:ConstTextFieldRegister.customTextStyle(context),),
                 ),
               ),
             ),
@@ -340,12 +324,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       "Success",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -364,11 +343,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                 width: AppSize.s210,
                 child: Center(
                   child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
-                    style:GoogleFonts.firaSans(
-                        fontWeight: FontWeight.w500,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey
-                    ),),
+                    style:ConstTextFieldRegister.customTextStyle(context),),
                 ),
               ),
             ),
@@ -433,12 +408,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       "Success",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
