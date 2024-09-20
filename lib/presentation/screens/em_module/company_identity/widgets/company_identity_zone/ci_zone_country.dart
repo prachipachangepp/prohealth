@@ -153,7 +153,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                         children: [
                           // SizedBox(height: 5),
                           Padding(
-                            padding: const EdgeInsets.all(AppPadding.p8),
+                            padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
                             child: Container(
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
@@ -169,7 +169,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                 ),
                                 height: AppSize.s56,
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
                                   child: Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,

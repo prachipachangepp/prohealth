@@ -104,7 +104,7 @@ class _CiMiscState extends State<CiMisc> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.vendorContracts,
+                          AppConfig.vendorContracts, widget.officeId,
                           AppConfig.subDocId10MISC,
                           1,
                           20)
@@ -220,7 +220,7 @@ class _CiMiscState extends State<CiMisc> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${miscData.orgDocumentSetupid}",
+                                                          "ID : ${miscData.idOfDocument}",
                                                           // miscData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -423,7 +423,7 @@ class _CiMiscState extends State<CiMisc> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, AppConfig.subDocId10MISC, 1, 20).then((data) {
+                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId, AppConfig.subDocId10MISC, 1, 20).then((data) {
                                                                                   vendorMISCController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

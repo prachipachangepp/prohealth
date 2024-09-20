@@ -64,7 +64,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
       currentPage = pageNumber;
     });
   }
-
+ int flexVal = 2;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,7 +127,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                     padding:
                                         EdgeInsets.only(bottom: AppPadding.p5),
                                     margin: EdgeInsets.symmetric(
-                                        horizontal: AppMargin.m40),
+                                        horizontal: AppMargin.m50),
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
@@ -147,31 +147,42 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         Expanded(
+                                          flex: flexVal,
                                           child: Center(
                                               child: Text(
                                             formattedSerialNumber,
-                                            // snapshot.data![index].name.toString(),
                                             style: DocumentTypeDataStyle.customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
                                         Expanded(
-                                          child: Center(
-                                              child: Text(
+                                          flex: flexVal,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 40.0),
+                                            child: Text(
                                             employeedoc.idOfDocument,
-                                            // snapshot.data![index].name.toString(),
+                                               // snapshot.data![index].name.toString(),
                                             style: DocumentTypeDataStyle.customTextStyle(context),
-                                            textAlign: TextAlign.start,
-                                          )),
+                                            textAlign: TextAlign.center,
+                                             ),
+                                          ),
                                         ),
                                         Expanded(
-                                          child: Center(
-                                              child: Text(
-                                            employeedoc.docName,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                          )),
+                                            flex: 1,
+                                            child: SizedBox()),
+                                        Expanded(
+                                          flex: flexVal,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 20.0),
+                                            child: Text(
+                                             employeedoc.docName,
+                                              textAlign: TextAlign.start,
+                                              style: DocumentTypeDataStyle.customTextStyle(context),
+                                            ),
+                                          ),
                                         ),
                                         Expanded(
+                                          flex: flexVal,
                                           child: Center(
                                               child: Text(
                                             employeedoc.reminderThreshold,
@@ -181,6 +192,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
 
                                         ///edit
                                         Expanded(
+                                          flex: 3,
                                           child: Center(
                                             child: Row(
                                               mainAxisAlignment:

@@ -393,6 +393,7 @@ Future<List<TypeofDocpopup>> getTypeofDoc(
 Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
     BuildContext context,
     int DocumentTypeId,
+    String officeID,
     int DocumentSubTypeId,
     int pageNbr,
     int NbrofRows) async {
@@ -403,6 +404,7 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
         path: EstablishmentManagerRepository.getListMCorporateCompliance(
             DocumentTypeId: DocumentTypeId,
             DocumentSubTypeId: DocumentSubTypeId,
+            officeID:officeID,
             pageNbr: pageNbr,
             NbrofRows: NbrofRows));
 

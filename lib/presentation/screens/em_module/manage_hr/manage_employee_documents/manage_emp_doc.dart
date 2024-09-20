@@ -194,11 +194,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         },
                         icon: Icons.add,
                       ),
-                                         ],
+                    ],
                   ),
                 ),
-
-
 
 
           /// tab bar

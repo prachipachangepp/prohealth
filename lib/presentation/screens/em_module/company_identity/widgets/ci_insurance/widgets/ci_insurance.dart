@@ -216,7 +216,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 ),
                 _selectedIndex == 0
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
+                        padding: const EdgeInsets.only(right: 15),
                         child: CustomIconButtonConst(
                             width: 79,
                             icon: Icons.add,

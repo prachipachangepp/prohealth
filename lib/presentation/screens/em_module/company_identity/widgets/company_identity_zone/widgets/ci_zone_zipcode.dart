@@ -176,7 +176,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                         children: [
                           // SizedBox(height: 5),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.symmetric(vertical: AppPadding.p8),
                             child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,

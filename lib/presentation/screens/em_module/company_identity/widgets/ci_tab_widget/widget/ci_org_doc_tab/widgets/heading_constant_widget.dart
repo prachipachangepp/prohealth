@@ -12,31 +12,35 @@ class TableHeadingConst extends StatelessWidget {
     return Container(
       height: AppSize.s30,
       margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
+      padding: EdgeInsets.only(left: 100,right: 50),
       decoration: BoxDecoration(
         color: ColorManager.fmediumgrey,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Center(
-              child: Text(
-                AppStringEM.srNo,
-                style: AllHRTableHeading.customTextStyle(context),
-              ),
+            child: Text(
+              AppStringEM.srNo,
+              style: AllHRTableHeading.customTextStyle(context),
             ),
           ),
           Expanded(
-            child: Center(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 100),
               child: Text(
                 AppStringEM.docID,
+                textAlign: TextAlign.start,
                 style: AllHRTableHeading.customTextStyle(context),
               ),
             ),
           ),
           Expanded(
-            child: Center(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 40.0),
               child: Text(
                 AppStringEM.name,
                 style: AllHRTableHeading.customTextStyle(context),
@@ -44,7 +48,9 @@ class TableHeadingConst extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Center(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 AppStringEM.reminderthershold,
                 style: AllHRTableHeading.customTextStyle(context),
@@ -52,11 +58,10 @@ class TableHeadingConst extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Center(
-              child: Text(
-                AppStringEM.actions,
-                style: AllHRTableHeading.customTextStyle(context),
-              ),
+            child: Text(
+              AppStringEM.actions,
+              textAlign: TextAlign.center,
+              style: AllHRTableHeading.customTextStyle(context),
             ),
           ),
         ],

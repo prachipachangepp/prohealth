@@ -28,7 +28,7 @@ class TableListTextStyle{
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 140;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,
@@ -41,7 +41,7 @@ class ThemeManager {
 class ThemeManagerBold {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 140;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       //color: Color(0xFF686464),
       color: Colors.black,
@@ -56,7 +56,7 @@ class ThemeManagerBold {
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width/140;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
       fontWeight: FontWeight.w400,
@@ -66,7 +66,7 @@ class ThemeManagerDark {
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width/140;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
       fontWeight: FontWeight.w400,
@@ -77,7 +77,7 @@ class ThemeManagerDarkFont {
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 120;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
       fontWeight: FontWeight.w600,
@@ -88,7 +88,7 @@ class ThemeManagerLightblue {
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 130;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
       fontWeight: FontWeight.w600,
@@ -99,7 +99,7 @@ class ThemeManagerWhite {
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 130;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.black,
       fontWeight: FontWeight.w600,
@@ -110,7 +110,7 @@ class ThemeManagerBlack {
 class ThemeManagerAccentblue {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 130;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.blueAccent,
       fontWeight: FontWeight.w200,
@@ -121,7 +121,7 @@ class ThemeManagerAccentblue {
 class ThemeManagerblue {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 120;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
       fontWeight: FontWeight.w600,
@@ -132,7 +132,7 @@ class ThemeManagerblue {
 class ThemeManageWhitebold {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 99;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
       fontWeight: FontWeight.w600,
@@ -143,7 +143,7 @@ class ThemeManageWhitebold {
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = 12;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
       fontWeight: FontWeight.w600,
@@ -153,7 +153,7 @@ class RegisterTableHead {
 
 class AknowledgementStyleConst {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: 10,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w400,
@@ -164,7 +164,7 @@ class AknowledgementStyleConst {
 ///profile bar
 class ProfileBarConst {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s10,
       color: ColorManager.primary,
       decoration: TextDecoration.underline,
@@ -175,7 +175,7 @@ class ProfileBarConst {
 
 class ProfileBarConstText {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s10,
       color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w600,
@@ -185,7 +185,7 @@ class ProfileBarConstText {
 
 class ProfileBarLastColText {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: FontSize.s10,
       color: ColorManager.bluelight,
       fontWeight: FontWeight.w600,
@@ -195,7 +195,7 @@ class ProfileBarLastColText {
 
 class ProfileBarClipText {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: MediaQuery.of(context).size.width / 140,
       color: ColorManager.white,
       fontWeight: FontWeight.w600,
@@ -210,7 +210,7 @@ class CustomTextStylesCommon {
     Color? color,
     FontWeight? fontWeight,
   }) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize ?? 15,
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.w600,
@@ -221,7 +221,7 @@ class CustomTextStylesCommon {
 ///menu screen
 class MenuScreenHeadStyle {
   static TextStyle menuHead(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
         color: ColorManager.darkgrey,
         fontSize: 14.0,
         fontWeight: FontWeight.w600);
@@ -233,7 +233,7 @@ class MenuScreenHeadStyle {
 ///mobile menu screen text head
 class MobileMenuText {
   static TextStyle MenuTextConst(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
       fontWeight:FontWeight.w600,

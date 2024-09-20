@@ -99,7 +99,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                 builder: (context, snapshot) {
                   getListMCorporateCompliancefetch(
                           context,
-                          AppConfig.corporateAndCompliance,
+                          AppConfig.corporateAndCompliance, widget.officeId,
                           AppConfig.subDocId3CICCMedicalCR,
                           1,
                           20)
@@ -206,7 +206,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${MedicalCostReport.orgDocumentSetupid}",
+                                                          "ID : ${MedicalCostReport.idOfDocument}",
                                                           // MedicalCostReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
@@ -792,7 +792,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                               );
                                                                               // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
-                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId3CICCMedicalCR, 1, 20).then((data) {
+                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId3CICCMedicalCR, 1, 20).then((data) {
                                                                                   _ccMedicalController.add(data);
                                                                                 }).catchError((error) {
                                                                                   // Handle error

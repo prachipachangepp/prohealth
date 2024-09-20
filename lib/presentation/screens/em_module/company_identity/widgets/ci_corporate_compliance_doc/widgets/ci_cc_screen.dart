@@ -312,7 +312,7 @@ class _CiCorporateComplianceScreenState
                 width: MediaQuery.of(context).size.width / 8,
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 5.0, right: 5),
+                padding: const EdgeInsets.only(bottom: 5, right: 25),
                 child: CustomIconButton(
                     icon: CupertinoIcons.plus,
                     text: "Add Document",

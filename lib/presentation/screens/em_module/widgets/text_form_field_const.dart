@@ -210,11 +210,7 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 18, left: 15),
             ),
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: Color(0xff686464),
-            ),
+            style: DocumentTypeDataStyle.customTextStyle(context),
             // style: TextStyle(
             //   fontWeight: FontWeight.w500,
             //   fontSize: 12,
@@ -308,11 +304,7 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 18, left: 15),
             ),
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: Color(0xff686464),
-            ),
+            style: DocumentTypeDataStyle.customTextStyle(context),
             validator: widget.validator,
             onTap: widget.onChange,
           ),
@@ -567,28 +559,66 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
   }
 }
 
+
+///new
 class CapitalizeFirstLetterFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
     // If the new text is empty or just whitespace, return it as is
     if (newValue.text.isEmpty) {
       return newValue;
     }
 
     // Capitalize the first letter
-    final String newText = newValue.text.substring(0, 1).toUpperCase() +
-        newValue.text.substring(1);
+    String newText;
+    if (newValue.text.length > 1) {
+      newText = newValue.text[0].toUpperCase() + newValue.text.substring(1);
+    } else {
+      newText = newValue.text.toUpperCase();
+    }
 
-    // Return the updated text value
+    // Calculate the new cursor position
+    int newOffset;
+    if (newText.length > oldValue.text.length) {
+      newOffset = oldValue.selection.start == 0 ? 1 : oldValue.selection.start + 1;
+    } else {
+      newOffset = oldValue.selection.start;
+    }
+
+    // Return the updated text value while preserving cursor position
     return newValue.copyWith(
       text: newText,
-      selection: TextSelection.collapsed(offset: newText.length),
+      selection: TextSelection.collapsed(offset: newOffset.clamp(0, newText.length)),
     );
   }
 }
+
+///old working
+// class CapitalizeFirstLetterFormatter extends TextInputFormatter {
+//   @override
+//   TextEditingValue formatEditUpdate(
+//     TextEditingValue oldValue,
+//     TextEditingValue newValue,
+//   ) {
+//     // If the new text is empty or just whitespace, return it as is
+//     if (newValue.text.isEmpty) {
+//       return newValue;
+//     }
+//
+//     // Capitalize the first letter
+//     final String newText = newValue.text.substring(0, 1).toUpperCase() +
+//         newValue.text.substring(1);
+//
+//     // Return the updated text value
+//     return newValue.copyWith(
+//       text: newText,
+//       selection: TextSelection.collapsed(offset: newText.length),
+//     );
+//   }
+// }
 
 ///all capital letter
 class CapitalSMTextFConst extends StatefulWidget {
