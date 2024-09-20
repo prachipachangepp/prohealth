@@ -237,6 +237,10 @@ class EstablishmentManagerRepository {
     return "$visit$visitList";
   }
 
+  static String getCiVisitListByServiceId({required String serviceId}) {
+    return "$visit/getVisitsByServiceId/${serviceId}";
+  }
+
   static String getCiVisitPrefill({required int visitId}) {
     return "$visit/$visitId";
   }

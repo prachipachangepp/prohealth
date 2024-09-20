@@ -177,22 +177,34 @@ class _ProfileBarState extends State<ProfileBar> {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                                  widget.searchByEmployeeIdProfileData!.imgurl == null ?
-                              Icon(
-                                Icons.person,
-                                color: ColorManager.white,
-                                size: AppSize.s50,
-                              ) :
-                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".png") ||
-                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".jpg")||
-                                  widget.searchByEmployeeIdProfileData!.imgurl.contains(".webp")?
-                              Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
-                                  height: AppSize.s50, width: AppSize.s50):Icon(
-                                Icons.person,
-                                color: ColorManager.white,
-                                size: AppSize.s50,
-                              ),
+                              widget.searchByEmployeeIdProfileData!.imgurl ==
+                                          'imgurl' ||
+                                      widget.searchByEmployeeIdProfileData!
+                                              .imgurl ==
+                                          null
+                                  ? Icon(
+                                      Icons.person,
+                                      color: ColorManager.white,
+                                      size: AppSize.s50,
+                                    )
+                                  : widget.searchByEmployeeIdProfileData!.imgurl
+                                              .contains(".png") ||
+                                          widget.searchByEmployeeIdProfileData!
+                                              .imgurl
+                                              .contains(".jpg") ||
+                                          widget.searchByEmployeeIdProfileData!
+                                              .imgurl
+                                              .contains(".webp")
+                                      ? Image.network(
+                                          widget.searchByEmployeeIdProfileData!
+                                              .imgurl,
+                                          height: AppSize.s50,
+                                          width: AppSize.s50)
+                                      : Icon(
+                                          Icons.person,
+                                          color: ColorManager.white,
+                                          size: AppSize.s50,
+                                        ),
                               // you can replace
                               SizedBox(
                                 height: AppSize.s53,
@@ -245,15 +257,24 @@ class _ProfileBarState extends State<ProfileBar> {
                         children: [
                           Text(
                             "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst}"
-                                " ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
+                            " ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
                             style: ThemeManagerBlack.customTextStyle(context),
                           ),
-                          IconButton(onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>  ProfileBarEditor()),
-                            );
-                          }, icon: Icon(Icons.edit, size: 18, ))
+                          IconButton(
+                              hoverColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfileBarEditor()),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.edit,
+                                size: 18,
+                              ))
                         ],
                       ),
                       SizedBox(
@@ -380,6 +401,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                 style:
                                     ThemeManagerDark.customTextStyle(context),
                               ),
+                              //
                               SizedBox(width: 10),
                               Container(
                                 height: MediaQuery.of(context).size.height / 35,
@@ -655,35 +677,30 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                     ],
                   ),
-
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(AppString.hideDate,
-                                    style: GoogleFonts.firaSans(
-                                        color: ColorManager.textPrimaryColor,
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: 10)),
-                                SizedBox(height: 10,),
+                                    style: ThemeManager.customTextStyle(context)),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Text('PTA',
-                                    style: GoogleFonts.firaSans(
-                                        color: ColorManager.textPrimaryColor,
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: 10)),
+                                    style: ThemeManager.customTextStyle(context)),
                               ],
                             ),
-                            SizedBox(width: 30,),
+                            SizedBox(
+                              width: 30,
+                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -691,7 +708,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                 Text(AppString.datetime,
                                     style: ThemeManagerDark.customTextStyle(
                                         context)),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Text('1.2',
                                     style: ThemeManagerDark.customTextStyle(
                                         context)),

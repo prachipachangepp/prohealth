@@ -91,6 +91,33 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
   }
 }
 
+/// visits get by serviceID
+Future<List<VisitListDataByServiceId>> getVisitListByServiceId({required BuildContext context,required String serviceId}) async {
+  List<VisitListDataByServiceId> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getCiVisitListByServiceId(serviceId: serviceId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      for (var item in response.data) {
+        itemsList.add(VisitListDataByServiceId(
+            sucess: true,
+            message: response.statusMessage!,
+            visitId: item['visitId'],
+            visitType: item['typeOfVisit'], serviceId:item['serviceId']));
+      }
+      print("1");
+    } else {
+      print('Org Api Error');
+      return itemsList;
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
 /// Get prefill visit
 Future<VisitListDataPrefill> getVisitListPrefill(
     BuildContext context, int visitId) async {

@@ -39,6 +39,19 @@ class VisitListData {
       required this.visitType});
 }
 
+class VisitListDataByServiceId {
+  final String visitType;
+  final int visitId;
+  final String serviceId;
+  final bool sucess;
+  final String message;
+  VisitListDataByServiceId({required this.serviceId,
+      required this.sucess,
+        required this.message,
+        required this.visitId,
+        required this.visitType});
+}
+
 /// Get visit prefill
 class VisitListDataPrefill {
   final String visitType;

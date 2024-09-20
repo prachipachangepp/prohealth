@@ -478,7 +478,7 @@ String? _city;
                 decoration: TextDecoration.none,
               ),
             ) : Text(
-        'No location data',
+        '--',
         style: GoogleFonts.firaSans(
           fontSize: 12,
           fontWeight: FontWeight.bold,
@@ -548,7 +548,7 @@ String? _city;
                         ),
                       )
                     : Text(
-                        _ipAddress ?? 'No IP',
+                        _ipAddress ?? '--',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,

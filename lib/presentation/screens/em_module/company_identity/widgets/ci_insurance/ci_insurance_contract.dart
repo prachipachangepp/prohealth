@@ -172,7 +172,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 //   ),
                                                 // ),
                                               ),
-                                              SizedBox(width: 50),
+                                              SizedBox(width: AppSize.s10),
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,

@@ -116,37 +116,34 @@ class _CustomDialogState extends State<CustomDialog> {
                       topRight: Radius.circular(8),
                     ),
                   ),
-                  child: Form(
-                    key: _formKey,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: AppPadding.p25),
-                          child: Text(
-                            widget.title,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: AppPadding.p23),
+                        child: Text(
+                          widget.title,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 30.0),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                            ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 5.0),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.white,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 18),

@@ -160,15 +160,36 @@ class _CiOrgDocumentState extends State<CiZone> {
                         }
                         if (snapshotZone.data!.isEmpty) {
                           return Container(
-                            height: 30,
                             width: 354,
-                            child: Center(
-                              child: Text(
-                                ErrorMessageString.noCounties,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeightManager.medium,
-                                  fontSize: FontSize.s12,
-                                  color: ColorManager.mediumgrey,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: ColorManager
+                                      .containerBorderGrey,
+                                  width: AppSize.s1),
+                              borderRadius:
+                              BorderRadius.circular(4),
+                            ),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets
+                                    .symmetric(
+                                    horizontal: 10),
+                                child: Text(
+                                  ErrorMessageString
+                                      .noCountyAdded,
+                                  // AppString.dataNotFound,
+                                  style:
+                                  CustomTextStylesCommon
+                                      .commonStyle(
+                                    fontWeight:
+                                    FontWeightManager
+                                        .medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager
+                                        .mediumgrey,
+                                  ),
                                 ),
                               ),
                             ),
@@ -186,12 +207,10 @@ class _CiOrgDocumentState extends State<CiZone> {
                               ),
                             );
                           }
-
                           if (coyntyNameVal == 'Select County') {
                             countySortId = snapshotZone.data![0].countyId;
                             countynameController = TextEditingController(text: coyntyNameVal);
                           }
-
                           return StatefulBuilder(
                             builder: (BuildContext context,
                                 void Function(void Function()) setState) {
