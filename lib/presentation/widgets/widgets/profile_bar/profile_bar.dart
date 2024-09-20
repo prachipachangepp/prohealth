@@ -63,18 +63,16 @@ class _ProfileBarState extends State<ProfileBar> {
     int months = today.month - convertedDate.month;
     int days = today.day - convertedDate.day;
 
-    // Adjust for negative values in months and days
     if (days < 0) {
       months--;
       days += DateTime(today.year, today.month, 0)
-          .day; // Get days in the previous month
+          .day;
     }
     if (months < 0) {
       years--;
       months += 12;
     }
 
-    // Determine which value to use for dobTimestamp
     if (years > 0) {
       dobTimestamp = "${years.toString()} year";
     } else if (months > 0) {
