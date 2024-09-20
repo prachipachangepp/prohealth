@@ -77,7 +77,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s460,
+      height: AppSize.s480,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -104,7 +104,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
               if (_nameError != null)
                 Text(
                   _nameError!,
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+                  style: TextStyle(color: Colors.red, fontSize: 10),
                 ),
               SizedBox(height: AppSize.s8),
               // Text(

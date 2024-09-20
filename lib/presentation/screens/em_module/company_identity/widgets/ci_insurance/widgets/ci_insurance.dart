@@ -216,7 +216,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 ),
                 _selectedIndex == 0
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 15),
+                        padding: const EdgeInsets.only(right: 20),
                         child: CustomIconButtonConst(
                             width: 79,
                             icon: Icons.add,
@@ -251,54 +251,57 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                               );
                             }),
                       )
-                    : CustomIconButtonConst(
-                        width: 130,
-                        icon: Icons.add,
-                        text: "Add Doctype",
-                        onPressed:
-                        isAddButtonEnabled?  () {
-                                //selectedExpiryType = expiryType;
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                        return ContractAddDialog(
-                                            selectedVendorId :selectedVendorId,
-                                          officeid:widget.officeId,
+                    : Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: CustomIconButtonConst(
+                          width: 130,
+                          icon: Icons.add,
+                          text: "Add Doctype",
+                          onPressed:
+                          isAddButtonEnabled?  () {
+                                  //selectedExpiryType = expiryType;
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return StatefulBuilder(
+                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                          return ContractAddDialog(
+                                              selectedVendorId :selectedVendorId,
+                                            officeid:widget.officeId,
 
 
 
-                                          // onSubmitPressed: () async {
-                                          //   //if (selectedVendorId == 0) {
-                                          //   await addVendorContract(
-                                          //     context,
-                                          //     selectedVendorId,
-                                          //     contractNameController.text,
-                                          //     selectedExpiryType!,
-                                          //     widget.officeId,
-                                          //     contractIdController.text,
-                                          //     calenderController.text
-                                          //   );
-                                          // },
+                                            // onSubmitPressed: () async {
+                                            //   //if (selectedVendorId == 0) {
+                                            //   await addVendorContract(
+                                            //     context,
+                                            //     selectedVendorId,
+                                            //     contractNameController.text,
+                                            //     selectedExpiryType!,
+                                            //     widget.officeId,
+                                            //     contractIdController.text,
+                                            //     calenderController.text
+                                            //   );
+                                            // },
 
-                                          title: 'Add Contract',
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              }
-                            : () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return VendorSelectNoti(message: "No Vendor Added.",);
-                            },
-                          );
+                                            title: 'Add Contract',
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                }
+                              : () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return VendorSelectNoti(message: "No Vendor Added.",);
                               },
-                        enabled: isAddButtonEnabled,
-                      ),
+                            );
+                                },
+                          enabled: isAddButtonEnabled,
+                        ),
+                    ),
               ],
             ),
           ),

@@ -15,6 +15,7 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
@@ -23,6 +24,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 class OtherChildTabbar extends StatefulWidget {
   final int employeeId;
   const OtherChildTabbar({super.key, required this.employeeId});
@@ -45,30 +47,43 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              // width: 100,
-              margin: const EdgeInsets.only(right: 60),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
-                  onPressed: () {
+                  onPressed: () async {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return CustomDocumedAddPopup(
-                            // idController: compensitionAddIdController,
-                            // nameController: compensitionAddNameController,
-                            // expiryType: compensationExpiryType,
-                            labelName: 'Add Other Document',
-                            AcknowledgementnameController:
-                            otherAddNameController, onSavePressed: () {  },
-                            employeeId: widget.employeeId,
-                            documentMetaId: 9,
-                            documentSetupId: 38,
-                          );
+                        builder: (context) {
+                          return FutureBuilder<List<EmployeeDocSetupModal>>(
+                              future: getEmployeeDocSetupDropDown(context),
+                              builder: (contex, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return AcknowledgementAddPopup(
+                                    title: 'Add Other Document',
+                                    employeeId: widget.employeeId,
+                                    // docTypeMetaIdCC: 10,
+                                    // selectedSubDocId: 48,
+                                    dataList: snapshot.data!,
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
                         });
+                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
+
+
           ],
         ),
         const SizedBox(
@@ -196,9 +211,21 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                   IconButton(
                                     onPressed: () {
                                     },
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     icon: const Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
                                   IconButton(
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     onPressed: () async{
                                       try{
                                         final String token = await TokenManager.getAccessToken();
@@ -237,12 +264,24 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
                                   IconButton(
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     onPressed: () {
                                       DowloadFile().downloadPdfFromBase64(fileExtension,"Other");
                                     },
                                     icon: const Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
                                   IconButton(
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     onPressed: () {
                                       showDialog(
                                           context: context,
@@ -275,6 +314,12 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     icon: const Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
                                   IconButton(
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     onPressed: () {
                                     },
                                     icon: const Icon(Icons.delete_outline,color: Color(0xffFF0000),),
