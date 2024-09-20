@@ -10,6 +10,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
@@ -104,46 +105,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
       currentPage = page;
     });
   }
-  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
-  double? _latitude;
-  double? _longitude;
-  bool isHeadOffice = false;
-  void _pickLocation() async {
-    final pickedLocation = await Navigator.of(context).push<LatLng>(
-      MaterialPageRoute(
-        builder: (context) => MapScreen(
-          initialLocation: _selectedLocation,
-          onLocationPicked: (location) {
-            // Print debug information to ensure this is being called
-            print('Picked location inside MapScreen: $_selectedLocation');
-            _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
-            setState(() {
-              _latitude = location.latitude;
-              _longitude = location.longitude;
-              _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-            });
-          },
-        ),
-      ),
-    );
-    print("Picked location ${pickedLocation}");
 
-    if (pickedLocation != null) {
-      // Print debug information to ensure this is being reached
-      print('Picked location from Navigator: $pickedLocation');
-      setState(() {
-        _selectedLocation = pickedLocation;
-        _latitude = pickedLocation.latitude;
-        _longitude = pickedLocation.longitude;
-        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-      });
-    } else {
-      print('No location was picked.');
-    }
-  }
+  bool isHeadOffice = false;
+
 
   String generateRandomString(int length) {
     const characters = 'abcdefghijklmnopqrstuvwxyz';
@@ -194,168 +158,84 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       builder: (BuildContext context) {
     return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
-                            return AddOfficeSumbitButton(
-                              nameController: nameController,
-                              addressController: addressController,
-                              emailController: emailController,
-                              stateController: stateNameController,
-                              countryController: countryNameController,
-                              mobNumController: mobNumController,
-                              secNumController: secNumController,
-                              OptionalController: OptionalController,
-                              // checkBoxHeadOffice:StatefulBuilder(
-                              //   builder: (BuildContext context, void Function(void Function()) setState) {
-                              //     return Container(
-                              //         width: 300,
-                              //         child: CheckboxTile(
-                              //           title: 'Head Office',
-                              //           initialValue: false,
-                              //           onChanged: (value) {
-                              //             setState(() {
-                              //               isHeadOffice = true;
-                              //               print('HeadOffice ${isHeadOffice}');
-                              //             });
-                              //           },
-                              //         ));
-                              //   },
-                              // ),
-                              checkBoxServices: StatefulBuilder(
-
-                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                  return Container(
-                                    height:100,
-                                    width: 300,
-                                    child: FutureBuilder<List<ServicesMetaData>>(
-                                        future: getServicesMetaData(context),
-                                        builder: (context,snapshot) {
-                                          if(snapshot.connectionState == ConnectionState.waiting){
-                                            return SizedBox();
-                                          }
-                                          if(snapshot.data!.isEmpty){
-                                            return Center(
-                                              child: Text('No services available',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.mediumgrey,
-                                                  //decoration: TextDecoration.none,
-                                                ),),
-                                            );
-                                          }
-                                          if(snapshot.hasData){
-                                            return StatefulBuilder(
-                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                return Wrap(
-                                                    children:[
-                                                      ...List.generate(snapshot.data!.length, (index){
-                                                        String serviceID = snapshot.data![index].serviceId;
-                                                        bool isSelected = selectedServices.contains(serviceID);
-                                                        return Container(
-                                                            width: 150,
-                                                            child: Center(
-                                                              child: CheckboxTile(
-                                                                title: snapshot.data![index].serviceName,
-
-                                                                initialValue: false,
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    if (value == true) {
-                                                                      selectedServices.add(
-                                                                          ServiceList(
-                                                                          serviceId: serviceID,
-                                                                          npiNumber: "",
-                                                                          medicareProviderId: "",
-                                                                          hcoNumId: ""));
-                                                                    } else {
-                                                                      selectedServices.remove(serviceID);
-                                                                    }
-                                                                  });
-                                                                  print("Service Id List ${selectedServices}");
-                                                                },
-
-                                                              ),
-                                                            ));
-                                                      })]
-                                                );
-                                              },
-
-                                            );
-                                          }else{
-                                            return SizedBox();
-                                          }
-
-                                        }
-                                    ),
-                                  );
-                                },
-                              ),
-                              pickLocationWidget: Row(
-                                children: [
-                                  TextButton(
-                                    onPressed: _pickLocation,
-                                    style: TextButton.styleFrom(
-                                        backgroundColor: Colors.transparent),
-                                    child: Text(
-                                      'Pick Location',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorManager.bluelight,
-                                        //decoration: TextDecoration.none,
-                                      ),
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.location_on_outlined,
-                                    color: ColorManager.granitegray,
-                                    size: AppSize.s18,
-                                  ),
-                                  Text(
-                                    _location,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.granitegray,
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                              onPressed: () async{
-                                print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
-                                ApiData response = await
-                                addNewOffice( context:context,
-                                  name: nameController.text,
-                                  address: addressController.text,
-                                  email: emailController.text,
-                                  primaryPhone:  mobNumController.text,
-                                  secondaryPhone:secNumController.text,
-                                  officeId: "",
-                                  lat: _selectedLocation.latitude.toString(),
-                                  long:_selectedLocation.longitude.toString(),
-                                  cityName: "",
-                                  stateName: stateNameController.text,
-                                  country: countryNameController.text,
-                                  isHeadOffice: false,
-                                );
-                                nameController.clear();
-                                addressController.clear();
-                                emailController.clear();
-                                mobNumController.clear();
-                                secNumController.clear();
-                                stateNameController.clear();
-                                countryNameController.clear();
-
-                                Navigator.pop(context);
-                                if(response.statusCode == 200 || response.statusCode ==201){
-                                  print('Services List ${selectedServices}');
-                                  await addNewOfficeServices(context: context, officeId: response.officeId!,
-                                      serviceList: selectedServices);
+                            return FutureBuilder<List<ServicesMetaData>>(
+                              future: getServicesMetaData(context),
+                              builder: (context,snapshot) {
+                                if(snapshot.connectionState == ConnectionState.waiting){
+                                  return Center(
+                                      child: CircularProgressIndicator());
                                 }
-                                companyOfficeListGet(context, 1, 30).then((data) {
-                                  _companyIdentityController
-                                      .add(data);
-                                }).catchError((error) {});
-                              }, formKey: _formKey,);
+                                if(snapshot.hasData){
+                                  return AddOfficeSumbitButton(
+                                    nameController: nameController,
+                                    addressController: addressController,
+                                    emailController: emailController,
+                                    stateController: stateNameController,
+                                    countryController: countryNameController,
+                                    mobNumController: mobNumController,
+                                    secNumController: secNumController,
+                                    OptionalController: OptionalController,
+                                    // checkBoxHeadOffice:StatefulBuilder(
+                                    //   builder: (BuildContext context, void Function(void Function()) setState) {
+                                    //     return Container(
+                                    //         width: 300,
+                                    //         child: CheckboxTile(
+                                    //           title: 'Head Office',
+                                    //           initialValue: false,
+                                    //           onChanged: (value) {
+                                    //             setState(() {
+                                    //               isHeadOffice = true;
+                                    //               print('HeadOffice ${isHeadOffice}');
+                                    //             });
+                                    //           },
+                                    //         ));
+                                    //   },
+                                    // ),
+                                    onPressed: () async{
+                                      // print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
+                                      // ApiData response = await
+                                      // addNewOffice( context:context,
+                                      //   name: nameController.text,
+                                      //   address: addressController.text,
+                                      //   email: emailController.text,
+                                      //   primaryPhone:  mobNumController.text,
+                                      //   secondaryPhone:secNumController.text,
+                                      //   officeId: "",
+                                      //   lat: _selectedLocation.latitude.toString(),
+                                      //   long:_selectedLocation.longitude.toString(),
+                                      //   cityName: "",
+                                      //   stateName: stateNameController.text,
+                                      //   country: countryNameController.text,
+                                      //   isHeadOffice: false,
+                                      // );
+                                      // nameController.clear();
+                                      // addressController.clear();
+                                      // emailController.clear();
+                                      // mobNumController.clear();
+                                      // secNumController.clear();
+                                      // stateNameController.clear();
+                                      // countryNameController.clear();
+                                      //
+                                      // Navigator.pop(context);
+                                      // if(response.statusCode == 200 || response.statusCode ==201){
+                                      //   print('Services List ${selectedServices}');
+                                      //   await addNewOfficeServices(context: context, officeId: response.officeId!,
+                                      //       serviceList: selectedServices);
+                                      // }
+                                      // companyOfficeListGet(context, 1, 30).then((data) {
+                                      //   _companyIdentityController
+                                      //       .add(data);
+                                      // }).catchError((error) {});
+                                    }, formKey: _formKey, servicesList: snapshot.data!,);
+                                }
+                                else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+
+                              }
+                            );
 
     },
     );
@@ -451,6 +331,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     return StreamBuilder<List<CompanyIdentityModel>>(
                       stream: _companyIdentityController.stream,
                       builder: (BuildContext context, snapshot) {
+                        companyOfficeListGet(context, 1, 30).then((data) {
+                          _companyIdentityController
+                              .add(data);
+                        }).catchError((error) {});
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Center(child: CircularProgressIndicator(color: Colors.blue));
                         }

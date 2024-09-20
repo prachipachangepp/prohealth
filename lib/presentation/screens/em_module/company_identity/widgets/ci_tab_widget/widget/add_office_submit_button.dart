@@ -6,7 +6,12 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +22,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
 import '../../company_identity_zone/widgets/location_screen.dart';
@@ -31,13 +37,11 @@ class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController mobNumController;
   final TextEditingController secNumController;
   final TextEditingController OptionalController;
+  final List<ServicesMetaData> servicesList;
   //final Widget checkBoxHeadOffice;
-  final Widget checkBoxServices;
-  final Widget pickLocationWidget;
   final Future<void> Function() onPressed;
   final GlobalKey<FormState> formKey;
   AddOfficeSumbitButton({super.key,
-    required this.pickLocationWidget,
     required this.nameController,
     required this.addressController,
     required this.emailController,
@@ -47,9 +51,9 @@ class AddOfficeSumbitButton extends StatefulWidget {
     required this.onPressed,
     required this.formKey,
     required this.stateController,
-    required this.countryController,
+    required this.countryController, required this.servicesList,
     // required this.checkBoxHeadOffice,
-    required this.checkBoxServices});
+    });
 
   @override
   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
@@ -83,6 +87,46 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
      _suggestions = suggestions;
    });
  }
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  double? _latitude;
+  double? _longitude;
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            // Print debug information to ensure this is being called
+            print('Picked location inside MapScreen: $_selectedLocation');
+            _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
+            setState(() {
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+            });
+          },
+        ),
+      ),
+    );
+    print("Picked location ${pickedLocation}");
+
+    if (pickedLocation != null) {
+      // Print debug information to ensure this is being reached
+      print('Picked location from Navigator: $pickedLocation');
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+      });
+    } else {
+      print('No location was picked.');
+    }
+  }
+  List<ServiceList> selectedServices = [];
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +238,50 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
                           )),
-                          widget.checkBoxServices,
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                return Container(
+                                  height:100,
+                                  width: 300,
+                                  child:StatefulBuilder(
+                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                              return Wrap(
+                                                  children:[
+                                                    ...List.generate(widget.servicesList.length, (index){
+                                                      String serviceID = widget.servicesList[index].serviceId;
+                                                      bool isSelected = selectedServices.contains(serviceID);
+                                                      return Container(
+                                                          width: 150,
+                                                          child: Center(
+                                                            child: CheckboxTile(
+                                                              title: widget.servicesList[index].serviceName,
+
+                                                              initialValue: false,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  if (value == true) {
+                                                                    selectedServices.add(
+                                                                        ServiceList(
+                                                                            serviceId: serviceID,
+                                                                            npiNumber: "",
+                                                                            medicareProviderId: "",
+                                                                            hcoNumId: ""));
+                                                                  } else {
+                                                                    selectedServices.remove(serviceID);
+                                                                  }
+                                                                });
+                                                                print("Service Id List ${selectedServices}");
+                                                              },
+                                                            ),
+                                                          ));
+                                                    })]
+                                              );
+                                            },
+                                          ),
+
+                                );
+                              },
+                            )
                         ],),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,7 +314,37 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             text: 'Alternative Phone',
                           ),
                           const SizedBox(height: AppSize.s10),
-                          widget.pickLocationWidget,
+                            Row(
+                              children: [
+                                TextButton(
+                                  onPressed: _pickLocation,
+                                  style: TextButton.styleFrom(
+                                      backgroundColor: Colors.transparent),
+                                  child: Text(
+                                    'Pick Location',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.bluelight,
+                                      //decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  color: ColorManager.granitegray,
+                                  size: AppSize.s18,
+                                ),
+                                Text(
+                                  _location,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.granitegray,
+                                  ),
+                                ),
+
+                              ],
+                            ),
                         ],)
                       ]
                     ),
@@ -297,7 +414,34 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       isLoading = true;
                     });
                     try {
-                      await widget.onPressed();
+                      print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
+                        ApiData response = await
+                        addNewOffice( context:context,
+                          name: widget.nameController.text,
+                          address: widget.addressController.text,
+                          email: widget.emailController.text,
+                          primaryPhone:  widget.mobNumController.text,
+                          secondaryPhone:widget.secNumController.text,
+                          officeId: "",
+                          lat: _selectedLocation.latitude.toString(),
+                          long:_selectedLocation.longitude.toString(),
+                          cityName: "",
+                          stateName: widget.stateController.text,
+                          country: widget.countryController.text,
+                          isHeadOffice: false,
+                        );
+
+                        Navigator.pop(context);
+                        if(response.statusCode == 200 || response.statusCode ==201){
+                          print('Services List ${selectedServices}');
+                          await addNewOfficeServices(context: context, officeId: response.officeId!,
+                              serviceList: selectedServices);
+                        }
+                        // companyOfficeListGet(context, 1, 30).then((data) {
+                        //   _companyIdentityController
+                        //       .add(data);
+                        // }).catchError((error) {});
+
                       widget.stateController.clear();
                       widget.countryController.clear();
                       widget.nameController.clear();
