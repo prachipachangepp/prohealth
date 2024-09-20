@@ -17,6 +17,7 @@ import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
@@ -26,6 +27,7 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 class AdditionalVaccinationsChildBar extends StatefulWidget {
   final int employeeId;
   const AdditionalVaccinationsChildBar({super.key, required this.employeeId});
@@ -56,42 +58,42 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              // width: 100,
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
-                  onPressed: () {
+                  onPressed: () async {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return CustomDocumedAddPopup(
-                            // idController: compensitionAddIdController,
-                            // nameController: compensitionAddNameController,
-                            // expiryType: compensationExpiryType,
-                            labelName: 'Add Health Record',
-                            AcknowledgementnameController:
-                            healthRecordAddNameController, onSavePressed: () {  },
-                            employeeId: widget.employeeId,
-                            documentMetaId: documentMetaDataId,
-                            documentSetupId: documentSetupId,
-                            // onSavePredded: () async {
-                            //   await addEmployeeDocSetup(
-                            //       context,
-                            //       11,
-                            //       compensitionAddNameController.text,
-                            //       compensationExpiryType.toString(),
-                            //       DateTime.now() as String);
-                            //   Navigator.pop(context);
-                            //   compensitionAddIdController.clear();
-                            //   compensitionAddNameController.clear();
-                            //   compensationExpiryType = '';
-                            // },
-                          );
+                        builder: (context) {
+                          return FutureBuilder<List<EmployeeDocSetupModal>>(
+                              future: getEmployeeDocSetupDropDown(context),
+                              builder: (contex, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return AcknowledgementAddPopup(
+                                    title: 'Add Health Record',
+                                    employeeId: widget.employeeId,
+                                    // docTypeMetaIdCC: 10,
+                                    // selectedSubDocId: 48,
+                                    dataList: snapshot.data!,
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
                         });
+                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
+
           ],
         ),
         SizedBox(
@@ -100,7 +102,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,10,widget.employeeId,'yes').then((data) {
+            getAckHealthRecord(context, 1,10,widget.employeeId,'no').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -240,6 +242,12 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
 
                                   ///
                                   IconButton(
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     onPressed: () {
                                       print("FileExtension:${fileExtension}");
                                       //DowloadFile().downloadPdfFromBase64(fileExtension,"Health.pdf");
@@ -267,6 +275,12 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                           });
                                     },
                                     icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     iconSize: 20,),
                                   IconButton(
                                     onPressed: () async{
@@ -292,6 +306,12 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                       );
                                     },
                                     icon: Icon(Icons.delete_outline,color: Color(0xffFF0000),),
+                                    splashColor:
+                                    Colors.transparent,
+                                    highlightColor:
+                                    Colors.transparent,
+                                    hoverColor:
+                                    Colors.transparent,
                                     iconSize: 20,),
                                 ],)
                             ],

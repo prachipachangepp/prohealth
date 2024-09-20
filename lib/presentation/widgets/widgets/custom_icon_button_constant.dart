@@ -42,9 +42,9 @@ class CustomIconButtonConst extends StatelessWidget {
             : Offstage(),
         label: Text(
           text!,
-          style: GoogleFonts.firaSans(
+          style:TextStyle(
             fontSize: AppSize.s12,
-            fontWeight: FontWeightManager.bold,
+            fontWeight: FontWeight.w600,
             color: ColorManager.white,
           ),
         ),

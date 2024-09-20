@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/button_constant.dart';
+import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
 
 class CustomPopup extends StatefulWidget {
@@ -40,62 +41,20 @@ class CustomPopup extends StatefulWidget {
 class _CustomPopupState extends State<CustomPopup> {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
+    return DialogueTemplate(
+
+
         width: AppSize.s400,
-        height: AppSize.s220,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: AppSize.s40,
-              width: AppSize.s400,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(
-                      widget.title,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.close,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s24),
+        height: AppSize.s250,
+
+
+          body: [
+
+
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
+                horizontal: AppPadding.p10,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,24 +68,18 @@ class _CustomPopupState extends State<CustomPopup> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  bottom: AppPadding.p24, top: AppPadding.p24),
-              child: Center(
-                child: CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: widget.buttontxt,
-                  onPressed: () {
-                    widget.onPressed();
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ),
+
           ],
-        ),
-      ),
+        bottomButtons: CustomElevatedButton(
+          width: AppSize.s105,
+          height: AppSize.s30,
+          text: widget.buttontxt,
+          onPressed: () {
+            widget.onPressed();
+            Navigator.pop(context);
+          },
+        ), title:widget.title,
+
     );
   }
 }

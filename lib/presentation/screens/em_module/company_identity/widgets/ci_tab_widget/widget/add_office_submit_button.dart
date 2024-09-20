@@ -165,10 +165,11 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
 
   @override
   Widget build(BuildContext context) {
+
     return DialogueTemplate(
       width: AppSize.s833,
       height: AppSize.s600,
-      //height :MediaQuery.of(context).size.height/1.1,
+
       title: 'Add New Office',
       body: [
         Padding(
@@ -467,7 +468,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
             ),
       ],
       bottomButtons: isLoading
-
           ? SizedBox(
               height: AppSize.s25,
               width: AppSize.s25,

@@ -46,7 +46,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
       label: Text(
           widget.text,
           textAlign: TextAlign.center,
-          style: CustomTextStylesCommon.commonStyle(
+          style: TextStyle(
               fontSize: FontSize.s12,
               fontWeight: FontWeight.w500,
               color: widget.textColor == null ?ColorManager.white:widget.textColor)),
