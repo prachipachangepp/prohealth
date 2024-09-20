@@ -155,7 +155,7 @@ class _ProfileBarState extends State<ProfileBar> {
               bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
           child: Container(
             height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width / 1.1,
+            width: MediaQuery.of(context).size.width / 1.2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(8),
@@ -164,12 +164,13 @@ class _ProfileBarState extends State<ProfileBar> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSize.s10, vertical: AppSize.s15),
+                  horizontal: AppSize.s10, vertical: AppSize.s10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  ///image
                   Padding(
-                    padding: const EdgeInsets.only(left: 50),
+                    padding: const EdgeInsets.only(left: 15),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -215,6 +216,7 @@ class _ProfileBarState extends State<ProfileBar> {
                               .capitalizeFirst!,
                           style: ThemeManagerBlack.customTextStyle(context),
                         ),
+                        SizedBox(height: 5,),
                         FutureBuilder<ProfilePercentage>(
                             future: getPercentage(
                                 context,
@@ -231,13 +233,14 @@ class _ProfileBarState extends State<ProfileBar> {
                                     Text(
                                       "Annual skills ${snapshot.data!.percentage}%",
                                       style:
-                                          ThemeManager.customTextStyle(context),
+                                      ProfileBarTextBoldStyle.customEditTextStyle(),
                                     ),
                                   ]);
                             })
                       ],
                     ),
                   ),
+                  SizedBox(width: 20,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,12 +255,12 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                           IconButton(
                             onPressed: widget.onEditPressed,
-                            icon: Icon(Icons.edit, size: 18),
+                            icon: Icon(Icons.edit_outlined, size: 14),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: AppSize.s2,
+                        width: 40,
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height / 40,
@@ -281,8 +284,8 @@ class _ProfileBarState extends State<ProfileBar> {
                         ),
                       ),
                       Row(children: [
-                        Text('Employement Type',
-                            style: ThemeManager.customTextStyle(context)),
+                        Text('Employement Type :',
+                            style: ProfileBarTextBoldStyle.customEditTextStyle()),
                         SizedBox(
                           width: 20,
                         ),
@@ -309,7 +312,10 @@ class _ProfileBarState extends State<ProfileBar> {
                           )),
                     ],
                   ),
-                  Row(
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -317,10 +323,10 @@ class _ProfileBarState extends State<ProfileBar> {
                         children: MyConstants.personalInfoTexts(context),
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 20
                       ),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ///text john scott
@@ -354,18 +360,21 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    width: 40,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: MyConstantsColumn.personalInfoTexts(context),
                       ),
-                      SizedBox(
-                        width: 30,
-                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width/90,),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.searchByEmployeeIdProfileData!.workEmail,
@@ -381,7 +390,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                 style:
                                     ThemeManagerDark.customTextStyle(context),
                               ),
-                              SizedBox(width: 10),
+                              SizedBox(width: 15,),
                               Container(
                                 height: MediaQuery.of(context).size.height / 35,
                                 width: MediaQuery.of(context).size.width / 16,
@@ -656,49 +665,47 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                     ],
                   ),
-
+                  SizedBox(width: MediaQuery.of(context).size.width/45,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
 
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(AppString.hideDate,
-                                    style: GoogleFonts.firaSans(
-                                        color: ColorManager.textPrimaryColor,
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: 10)),
-                                SizedBox(height: 10,),
-                                Text('PTA',
-                                    style: GoogleFonts.firaSans(
-                                        color: ColorManager.textPrimaryColor,
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: 10)),
-                              ],
-                            ),
-                            SizedBox(width: 30,),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(AppString.datetime,
-                                    style: ThemeManagerDark.customTextStyle(
-                                        context)),
-                                SizedBox(height: 10,),
-                                Text('1.2',
-                                    style: ThemeManagerDark.customTextStyle(
-                                        context)),
-                              ],
-                            )
-                          ]),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(AppString.hideDate,
+                                      style: ProfileBarTextBoldStyle.customEditTextStyle()
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Text('PTA',
+                                      style: ProfileBarTextBoldStyle.customEditTextStyle()),
+                                ],
+                              ),
+                              SizedBox(width: MediaQuery.of(context).size.width/50,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(AppString.datetime,
+                                      style: ThemeManagerDark.customTextStyle(
+                                          context)),
+                                  SizedBox(height: 10,),
+                                  Text('1.2',
+                                      style: ThemeManagerDark.customTextStyle(
+                                          context)),
+                                ],
+                              )
+                            ]),
+                      ),
                       FutureBuilder(
                         future: fetchData(),
                         builder: (BuildContext context, snapshot) {
@@ -1589,6 +1596,17 @@ class _ProfileBarState extends State<ProfileBar> {
           ),
         ),
       ],
+    );
+  }
+}
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
     );
   }
 }

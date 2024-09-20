@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/profile_bar.dart';
 
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -10,27 +11,27 @@ class MyConstants {
     return [
       Text(
         AppString.age,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.gender,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.ssn,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.phone,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.personalno,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.workno,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
     ];
   }
@@ -42,30 +43,30 @@ class MyConstantsColumn {
     return [
       Text(
           AppString.personalEmail,
-      style: textStyle
+      style: ProfileBarTextBoldStyle.customEditTextStyle()
     ),
       Text(
         AppString.workemail,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
-        AppString.zone,
-        style: textStyle,
+        AppString.zonee,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.speciality,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.service,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       Text(
         AppString.reportingOffice,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),Text(
         AppString.summary,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),];
   }
 }

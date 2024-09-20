@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -32,7 +33,7 @@ class ProfileBarClipConst extends StatelessWidget {
             text,
             style: ProfileBarLastColText.profileTextStyle(context),
           ),
-          SizedBox(width: MediaQuery.of(context).size.width/160),
+          SizedBox(width: 20),
           ClipOval(
             child: Container(
               height: MediaQuery.of(context).size.height / 55,
@@ -60,34 +61,127 @@ class ProfileBarClipConst extends StatelessWidget {
     );
   }
 }
-
+//
+// class ProfileBarPhoneCmtConst extends StatelessWidget {
+//   final String phoneNo;
+//   List<TextInputFormatter>? inputFormatters;
+//    ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return  Row(
+//       children: [
+//         Text(
+//           phoneNo,
+//           style: ThemeManagerDark.customTextStyle(context),
+//           inputFormatters: [
+//             PhoneNumberInputFormatter(),
+//           ],
+//         ),
+//
+//         SizedBox(
+//           width: AppSize.s15,
+//         ),
+//         Icon(
+//           Icons.phone,
+//           color: ColorManager.green,
+//           size: AppSize.s13,
+//         ),
+//         Icon(
+//           Icons.comment,
+//           color: ColorManager.blueprime,
+//           size: AppSize.s13,
+//         )
+//       ],
+//     );
+//   }
+// }
+///
+//
+// class ProfileBarPhoneCmtConst extends StatelessWidget {
+//   final String phoneNo;
+//   List<TextInputFormatter>? inputFormatters;
+//
+//   ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
+//
+//   String formatPhoneNumber(String phoneNumber) {
+//     // Example of formatting (XXX) XXX-XXXX
+//     if (phoneNumber.length == 10) {
+//       return '(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, 10)}';
+//     } else {
+//       return phoneNumber;
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Text(
+//           formatPhoneNumber(phoneNo),  // Format the phone number before displaying
+//           style: ThemeManagerDark.customTextStyle(context),
+//         ),
+//         SizedBox(
+//           width: 15,
+//         ),
+//         Icon(
+//           Icons.phone,
+//           color: ColorManager.green,
+//           size: 13,
+//         ),
+//         Icon(
+//           Icons.comment,
+//           color: ColorManager.blueprime,
+//           size: 13,
+//         )
+//       ],
+//     );
+//   }
+// }
+///
 class ProfileBarPhoneCmtConst extends StatelessWidget {
-  final String phoneNo;
-  const ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
+  final String? phoneNo;
+  List<TextInputFormatter>? inputFormatters;
+
+  ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
+
+  // Method to format the phone number
+  String formatPhoneNumber(String? phoneNumber) {
+    if (phoneNumber == null || phoneNumber.isEmpty) {
+      return "---------------   ";
+    }
+
+    // Example of formatting (XXX) XXX-XXXX
+    if (phoneNumber.length == 10) {
+      return '(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, 10)}';
+    } else {
+      return phoneNumber;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text(
-          phoneNo,
+          formatPhoneNumber(phoneNo),
           style: ThemeManagerDark.customTextStyle(context),
         ),
         SizedBox(
-          width: AppSize.s15,
+          width: 15,
         ),
         Icon(
           Icons.phone,
           color: ColorManager.green,
-          size: AppSize.s13,
+          size: 13,
         ),
         Icon(
           Icons.comment,
           color: ColorManager.blueprime,
-          size: AppSize.s13,
+          size: 13,
         )
       ],
     );
   }
 }
-

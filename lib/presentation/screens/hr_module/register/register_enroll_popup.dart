@@ -270,7 +270,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: speciality,//firstname
+                            controller: speciality, //firstname
                             labelFontSize: 12,
                           ),
 
