@@ -557,8 +557,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       ),
 
                                                       Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
 
+                                                          ///county zone
                                                           Container(
                                                             height: 300,
                                                             width: 170,
@@ -924,27 +926,20 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                             ),
                                                           ),
 
-                                                          ///old code tabbar
+                                                          ///Zipcode
                                                           Container(
                                                             height: 350,
-                                                            width: 170,
+                                                            width: 200,
+                                                            // color:  Colors.green,
                                                             child:
                                                                 DefaultTabController(
                                                               length: 2,
                                                               child: Column(
                                                                 children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsets
-                                                                        .symmetric(
-                                                                            horizontal:
-                                                                                120),
+                                                                  Padding(padding: EdgeInsets.symmetric(horizontal: 20),
                                                                     child: TabBar(
-                                                                      indicatorColor:
-                                                                          const Color(
-                                                                              0xff1696C8),
-                                                                      labelColor:
-                                                                          const Color(
-                                                                              0xff686464),
+                                                                      indicatorColor: const Color(0xff1696C8),
+                                                                      labelColor: const Color(0xff686464),
                                                                       unselectedLabelColor:
                                                                           const Color(
                                                                               0xff686464),
