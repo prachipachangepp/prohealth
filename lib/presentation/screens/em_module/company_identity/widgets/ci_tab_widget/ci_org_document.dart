@@ -144,6 +144,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 height: 20,
                 width: 150,
               ),
+
               Material(
                 elevation: 4,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
