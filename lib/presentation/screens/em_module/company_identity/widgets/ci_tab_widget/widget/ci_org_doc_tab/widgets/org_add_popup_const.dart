@@ -89,10 +89,10 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      width: AppSize.s450,
+      width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
-          ? widget.height ?? AppSize.s600
-      :widget.height ??AppSize.s600,
+          ? widget.height ?? AppSize.s522
+      :widget.height ??AppSize.s580,
       body: [
         /// ID of the Document
         SMTextFConst(
