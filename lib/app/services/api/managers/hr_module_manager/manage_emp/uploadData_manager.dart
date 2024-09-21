@@ -19,7 +19,8 @@ Future<ApiData> uploadDocuments({
   required int employeeDocumentTypeSetupId,
   required int employeeId,
   required dynamic documentFile,
-  required String documentName
+  required String documentName,
+  String? expiryDate
 }) async {
   try {
     String documents = await
@@ -29,7 +30,8 @@ Future<ApiData> uploadDocuments({
     var response = await Api(context).post(
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
       data: {
-        'base64':documents
+        'base64':documents,
+        "expiry_date": expiryDate
       },
     );
     print("Response ${response.toString()}");

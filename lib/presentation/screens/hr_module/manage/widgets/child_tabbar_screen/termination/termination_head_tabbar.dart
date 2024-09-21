@@ -59,11 +59,23 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                     text: "Terminate",
                     icon: Icons.add,
                     onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) =>
+                              FutureBuilder<TerminateEmployeePrefillData>(
+                                future:getTerminationEmployeePerfill(context: context, employeeId: widget.employeeId) ,
+                                builder: (context,snapshotPrefill) {
+                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                  }
+                                  if(snapshotPrefill.hasData){
+                                    return TerminatePopup(employeeId: widget.employeeId, preFillData: snapshotPrefill.data!,);
+                                  }else{
+                                    return SizedBox();
+                                  }
 
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (_) =>
-                      //         TerminatePopup(employeeId: widget.employeeId));
+                                }
+                              ));
                     }
                     ),
               ),
@@ -387,44 +399,14 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class TerminatePopup extends StatefulWidget {
   final int employeeId;
-  TerminatePopup({super.key, required this.employeeId});
-
+  final TerminateEmployeePrefillData preFillData;
+  TerminatePopup({super.key, required this.employeeId, required this.preFillData});
   @override
   State<TerminatePopup> createState() => _TerminatePopupState();
 }
-
 class _TerminatePopupState extends State<TerminatePopup> {
-
-
 
   TextEditingController terminationdatecltr = TextEditingController();
   TextEditingController namecltr = TextEditingController();
@@ -443,25 +425,34 @@ class _TerminatePopupState extends State<TerminatePopup> {
   TextEditingController grosspaycltr = TextEditingController();
   TextEditingController netpaycltr = TextEditingController();
   TextEditingController datecltr = TextEditingController();
-
-
-
-
-
-
-
-
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    terminationdatecltr = TextEditingController(text: widget.preFillData.dateofTermination);
+    namecltr = TextEditingController(text:widget.preFillData.firstName);
+    resignationdatecltr = TextEditingController(text: widget.preFillData.dateofResignation);
+    dateofhirecltr = TextEditingController(text: widget.preFillData.dateofHire);
+    materialscltr = TextEditingController(text: widget.preFillData.materials);
+    methodscltr = TextEditingController(text: widget.preFillData.methods);
+    rehirablecltr = TextEditingController(text: widget.preFillData.rehirable);
+    phonenocltr = TextEditingController(text: widget.preFillData.primaryPhoneNbr);
+    finaladdrescltr = TextEditingController(text: widget.preFillData.finalAddress);
+    finalpaycheckcltr = TextEditingController(text: widget.preFillData.finalPayCheck.toString());
+    typecltr = TextEditingController(text: widget.preFillData.type);
+    reasoncltr = TextEditingController(text: widget.preFillData.reason);
+    statuscltr = TextEditingController(text: widget.preFillData.status);
+    positioncltr = TextEditingController(text: widget.preFillData.position);
+    grosspaycltr = TextEditingController(text: widget.preFillData.grossPay.toString());
+    netpaycltr = TextEditingController(text: widget.preFillData.netPay.toString());
+    datecltr = TextEditingController(text: widget.preFillData.checkDate);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-
-
          width: 800,
         height: 800,
-
     body: [
-
           SingleChildScrollView(
             child: Center(
               child: Row(
@@ -471,10 +462,7 @@ class _TerminatePopupState extends State<TerminatePopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-              
-                      FirstHRTextFConst(controller: namecltr, keyboardType: TextInputType.text, text: 'Name',
-              
-                      ),
+                      FirstHRTextFConst(controller: namecltr, keyboardType: TextInputType.text, text: 'Name'),
                       HeaderContentConst(
                         heading:"Termination Date",
                         content: FormField<String>(
@@ -534,7 +522,6 @@ class _TerminatePopupState extends State<TerminatePopup> {
                           },
                         ),
                       ),
-              
                       HeaderContentConst(
                         heading:"Resignation Date",
                         content: FormField<String>(
@@ -594,8 +581,6 @@ class _TerminatePopupState extends State<TerminatePopup> {
                           },
                         ),
                       ),
-              
-              
                       HeaderContentConst(
                         heading:"Date of Hire",
                         content: FormField<String>(
@@ -655,91 +640,37 @@ class _TerminatePopupState extends State<TerminatePopup> {
                           },
                         ),
                       ),
-              
-                      FirstHRTextFConst(controller: positioncltr, keyboardType: TextInputType.text, text: 'Position',
-              
-                      ),
-              
-                      FirstHRTextFConst(controller: phonenocltr, keyboardType: TextInputType.number, text: 'Phone No.',
-              
-                      ),
-              
-              
-                      FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: 'Rehirable',
-              
-                      ),
-              
-                      FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: '',
-              
-                      ),
-                      FirstHRTextFConst(controller: finaladdrescltr, keyboardType: TextInputType.text, text: 'Final Address',
-              
-                      ),
-              
+                      FirstHRTextFConst(controller: positioncltr, keyboardType: TextInputType.text, text: 'Position'),
+                      FirstHRTextFConst(controller: phonenocltr, keyboardType: TextInputType.number, text: 'Phone No.'),
+                      FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: 'Rehirable'),
+                      // FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: ''),
+                      FirstHRTextFConst(controller: finaladdrescltr, keyboardType: TextInputType.text, text: 'Final Address'),
                     ],
                   ),
                   // SizedBox(
                   //   width: 20,
                   // ),
-              
-              
                   SizedBox(
                  width: MediaQuery.of(context).size.width / 50,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-              
-                      FirstHRTextFConst(controller: typecltr, keyboardType: TextInputType.text, text: 'Type',
-              
-                      ),
-              
-                      FirstHRTextFConst(controller: reasoncltr, keyboardType: TextInputType.text, text: 'Reason',
-              
-                      ),
-              
-              
-                      FirstHRTextFConst(controller: finalpaycheckcltr, keyboardType: TextInputType.text, text: 'Final Paycheck',
-              
-                      ),
-              
-                      FirstHRTextFConst(controller: datecltr, keyboardType: TextInputType.text, text: 'Date',
-              
-                      ),
-              
-              
-              
-                      FirstHRTextFConst(controller: grosspaycltr, keyboardType: TextInputType.text, text: 'Gross Pay',
-              
-                      ),
-              
-              
-                      FirstHRTextFConst(controller: netpaycltr, keyboardType: TextInputType.text, text: 'Net Pay',
-              
-                      ),
-              
-              
-                      FirstHRTextFConst(controller: methodscltr, keyboardType: TextInputType.text, text: 'Methods',
-              
-                      ),
-              
-              
-                      FirstHRTextFConst(controller: materialscltr, keyboardType: TextInputType.text, text: 'Materials',
-              
-                      ),
-              
+                      FirstHRTextFConst(controller: typecltr, keyboardType: TextInputType.text, text: 'Type'),
+                      FirstHRTextFConst(controller: reasoncltr, keyboardType: TextInputType.text, text: 'Reason'),
+                      FirstHRTextFConst(controller: finalpaycheckcltr, keyboardType: TextInputType.text, text: 'Final Paycheck'),
+                      FirstHRTextFConst(controller: datecltr, keyboardType: TextInputType.text, text: 'Date'),
+                      FirstHRTextFConst(controller: grosspaycltr, keyboardType: TextInputType.text, text: 'Gross Pay'),
+                      FirstHRTextFConst(controller: netpaycltr, keyboardType: TextInputType.text, text: 'Net Pay'),
+                      FirstHRTextFConst(controller: methodscltr, keyboardType: TextInputType.text, text: 'Methods'),
+                      FirstHRTextFConst(controller: materialscltr, keyboardType: TextInputType.text, text: 'Materials'),
                     ],
                   ),
                 ],
               ),
             ),
           ),
-
-
-    
         ],
-      
-      
       bottomButtons:   Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -749,13 +680,31 @@ class _TerminatePopupState extends State<TerminatePopup> {
               Navigator.pop(context);
             },
           ),
-
           SizedBox(width:25),
           CustomElevatedButton(
             width: AppSize.s100,
             text: "Terminate",
             onPressed: () async {
-              showDialog(
+            var response = await  patchEmployeeTermination(context: context, employeeId: widget.employeeId,
+                dateofTermination: widget.preFillData.dateofTermination == terminationdatecltr.text ? widget.preFillData.dateofTermination : terminationdatecltr.text,
+                dateofResignation: widget.preFillData.dateofResignation == resignationdatecltr.text ? widget.preFillData.dateofResignation : resignationdatecltr.text,
+                dateofHire: widget.preFillData.dateofHire == dateofhirecltr.text ? widget.preFillData.dateofHire : dateofhirecltr.text,
+                rehirable: widget.preFillData.rehirable == rehirablecltr.text ? widget.preFillData.rehirable : rehirablecltr.text,
+                position: widget.preFillData.position == positioncltr.text ? widget.preFillData.position : positioncltr.text,
+                finalAddress: widget.preFillData.finalAddress == finaladdrescltr.text ? widget.preFillData.finalAddress :finaladdrescltr.text ,
+                type: widget.preFillData.type == typecltr.text ? widget.preFillData.type : typecltr.text,
+                reason: widget.preFillData.reason == reasoncltr.text ? widget.preFillData.reason : reasoncltr.text,
+                finalPayCheck: widget.preFillData.finalPayCheck == double.parse(finalpaycheckcltr.text) ? widget.preFillData.finalPayCheck : double.parse(finalpaycheckcltr.text),
+                checkDate: widget.preFillData.checkDate == datecltr.text ? widget.preFillData.checkDate : datecltr.text,
+                grossPay: widget.preFillData.grossPay == double.parse(grosspaycltr.text) ? widget.preFillData.grossPay : double.parse(grosspaycltr.text),
+                netPay: widget.preFillData.netPay == double.parse(netpaycltr.text) ? widget.preFillData.netPay : double.parse(netpaycltr.text),
+                methods: widget.preFillData.methods == methodscltr.text ? widget.preFillData.methods : methodscltr.text,
+                materials: widget.preFillData.materials == materialscltr.text ? widget.preFillData.materials : materialscltr.text,
+                status: widget.preFillData.status == statuscltr.text ? widget.preFillData.status : statuscltr.text,
+              );
+            Navigator.pop(context);
+            if(response.statusCode == 200 || response.statusCode == 201){
+             return showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   // Future.delayed(
@@ -767,10 +716,11 @@ class _TerminatePopupState extends State<TerminatePopup> {
                   //   },
                   // );
                   return const AddSuccessPopup(
-                    message: 'Added Successfully',
+                    message: 'Employee Terminated Successfully',
                   );
                 },
               );
+            }
             },
           ),
         ],

@@ -580,6 +580,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -938,7 +939,7 @@ class _AcknowledgementAddPopupppState extends State<AcknowledgementAddPopuppp> {
         HeaderContentConst(
             heading: AppString.type_of_the_document,
             content: CICCDropdown(
-                initialValue: dropDownMenuItems[0].value,
+                initialValue: 'Select Document',
                 onChange: (val){
 
                   setState((){
@@ -950,12 +951,9 @@ class _AcknowledgementAddPopupppState extends State<AcknowledgementAddPopuppp> {
                         documentSetupId = a.employeeDocTypeSetupId;
                         //docMetaId = docType;
                         documentTypeName = a.documentName;
-
-
-
-                        // if (a.expirytype == AppConfig.issuer) {
-                        //   showExpiryDateField = true;
-                        // }
+                        if (a.reminderThreshould == AppConfig.issuer) {
+                          showExpiryDateField = true;
+                        }
                       }
                     }
                   });
@@ -1041,7 +1039,7 @@ class _AcknowledgementAddPopupppState extends State<AcknowledgementAddPopuppp> {
                       if (pickedDate != null) {
                         datePicked = pickedDate;
                         expiryDateController.text =
-                            DateFormat('MM-dd-yyyy').format(pickedDate);
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
                       }
                     },
                     validator: (value) {
@@ -1162,9 +1160,15 @@ class _AcknowledgementAddPopupppState extends State<AcknowledgementAddPopuppp> {
         onPressed: () async{
           try{
             //File filePath = File(finalPath!);
+            String? expiryDate;
+            if (expiryDateController.text.isEmpty) {
+              expiryDate = null;
+            } else {
+              expiryDate = datePicked!.toIso8601String() + "Z";
+            }
             var response  = await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
                 employeeId: widget.employeeId, documentName: documentTypeName,
-                documentFile: filePath);
+                documentFile: filePath,expiryDate: expiryDate);
             if(response.statusCode == 200 || response.statusCode == 201) {
               Navigator.pop(context);
               showDialog(
