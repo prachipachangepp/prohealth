@@ -193,7 +193,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           onTap: () => _selectButton(1),
                           child: Container(
                             height: 40,
-                            width: 52,
+                            width: 60,
                             child: Column(
                               children: [
                                 Text(

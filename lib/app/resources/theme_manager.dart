@@ -12,13 +12,13 @@ import 'color.dart';
 //   );
 // }
 
-class TableListTextStyle{
-  static final TextStyle firaSansGray10Bold = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w600,
-    color: Color(0xff686464),
-  );
-}
+// class TableListTextStyle{
+//   static final TextStyle firaSansGray10Bold = TextStyle(
+//     fontSize: 10,
+//     fontWeight: FontWeight.w600,
+//     color: Color(0xff686464),
+//   );
+// }
 
 
 ///done by saloni and prachi

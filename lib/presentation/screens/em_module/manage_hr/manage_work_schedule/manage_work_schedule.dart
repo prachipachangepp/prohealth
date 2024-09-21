@@ -54,7 +54,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 4.87,
+                    width: MediaQuery.of(context).size.width / 4.865,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorManager.blueprime,
