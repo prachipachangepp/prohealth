@@ -6,6 +6,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+
 ///prach to do
 class McqWidget extends StatelessWidget {
   final String title;
@@ -32,12 +34,7 @@ class McqWidget extends StatelessWidget {
         Flexible(
           child: Text(
             title,
-            style: GoogleFonts.firaSans(
-              // fontSize: textFontSize,
-              fontSize: fontSize,
-              color: ColorManager.mediumgrey,
-              fontWeight: FontWeight.w600
-            ),
+            style:  DefineWorkWeekStyle.customTextStyle(context),
           ),
         ),
         Padding(
@@ -79,11 +76,7 @@ class McqWidget extends StatelessWidget {
             )),
             Text(
               items[i],
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: ColorManager.mediumgrey,
-                fontWeight: FontWeightManager.regular,
-              ),
+             style: DocumentTypeDataStyle.customTextStyle(context),
             ),
             SizedBox(width: AppSize.s20),
           ],

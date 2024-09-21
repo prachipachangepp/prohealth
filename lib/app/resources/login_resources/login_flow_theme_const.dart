@@ -50,6 +50,7 @@ class LoginFlowTextField {
 }
 
 /// all login flow base text
+/// offer later screen
 class LoginFlowText {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(

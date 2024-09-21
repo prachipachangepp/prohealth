@@ -95,6 +95,19 @@ class DefineWorkWeekStyle {
 }
 
 
+//hr register screen link
+class RegisterLinkDataStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: FontSize.s11,
+      color: ColorManager.blueprime,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+
 
 // class RadioButtonHeadStyle {
 //   static TextStyle customTextStyle(BuildContext context) {

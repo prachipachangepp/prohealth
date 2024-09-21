@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -18,6 +18,8 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
@@ -218,12 +220,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         'Enroll',
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: PopupBlueBarText.customTextStyle(context),
+                        // style: GoogleFonts.firaSans(
+                        //   fontSize: FontSize.s12,
+                        //   fontWeight: FontWeightManager.semiBold,
+                        //   color: ColorManager.white,
+                        //   decoration: TextDecoration.none,
+                        // ),
                       ),
                     ),
                     IconButton(
@@ -249,11 +252,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'First Name',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 15,
-                              color: Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.firstName,//firstname
                             labelFontSize: 12,
                           ),
@@ -265,11 +264,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'Speciality',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 15,
-                              color: Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: speciality, //firstname
                             labelFontSize: 12,
                           ),
@@ -283,11 +278,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'Email',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.email,
                             labelFontSize: 12,
                           ),
@@ -309,11 +300,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'Last Name',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.lastName,
                             labelFontSize: 12,
                           ),
@@ -332,11 +319,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   height: textFieldHeight,
                                   items: ['item 1', 'item 2'],
                                   labelText: 'Clinician',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                                 );
                               }
                               if (snapshot.hasData) {
@@ -346,11 +329,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 }
                                 return CustomDropdownTextField(
                                   labelText: 'Clinician',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  labelStyle:DocumentTypeDataStyle.customTextStyle(context),
                                   labelFontSize: 12,
                                   items: dropDownList,
                                   onChanged: (newValue) {
@@ -382,11 +361,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'Position',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: position,
                             labelFontSize: 12,
                           ),
@@ -402,11 +377,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'Phone No',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: phone,
                             labelFontSize: 12,
                           ),
@@ -424,11 +395,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   height: textFieldHeight,
                                   items: ['item 1', 'item 2'],
                                   labelText: 'Reporting Office',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  labelStyle:DocumentTypeDataStyle.customTextStyle(context),
                                 );
                               }
                               if (snapshot.hasData) {
@@ -438,11 +405,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 }
                                 return CustomDropdownTextField(
                                   labelText: 'Reporting Office',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  labelStyle:DocumentTypeDataStyle.customTextStyle(context),
                                   labelFontSize: 12,
                                   items: dropDownList,
                                   onChanged: (newValue) {
@@ -639,11 +602,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              height: textFieldHeight,
              items: ['item 1', 'item 2'],
              labelText: 'Country',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
            );
 
          } else if (snapshot.hasError) {
@@ -664,20 +623,12 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            for(var i in snapshot.data!){
              dropDownList.add(DropdownMenuItem<String>(
                value: i.name,
-               child: Text(i.name, style: GoogleFonts.firaSans(
-                 fontSize: 12,
-                 color: Color(0xff575757),
-                 fontWeight: FontWeight.w400,
-               ),),
+               child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
                ));
            }
            return CustomDropdownTextField(
              labelText: 'Country',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
              labelFontSize: 12,
              dropDownMenuList: dropDownList,
              onChanged: (newValue) {
@@ -695,11 +646,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            return CustomDropdownTextField(
              // width: MediaQuery.of(context).size.width / 5,
              labelText: 'Country',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: const Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
              labelFontSize: 12,
              items: ['No Data'],
            );
@@ -722,11 +669,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              height: textFieldHeight,
              items: ['item 1', 'item 2'],
              labelText: 'City',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
            );
 
          } else if (snapshot.hasError) {
@@ -746,21 +689,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            int degreeID = 0;
            for(var i in snapshot.data!){
              dropDownList.add(DropdownMenuItem<String>(
-               child: Text(i.cityName!, style: GoogleFonts.firaSans(
-                 fontSize: 12,
-                 color: Color(0xff575757),
-                 fontWeight: FontWeight.w400,
-               ),),
+               child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
                value: i.cityName!,
              ));
            }
            return CustomDropdownTextField(
              labelText: 'City',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
              labelFontSize: 12,
              dropDownMenuList: dropDownList,
              onChanged: (newValue) {
@@ -778,11 +713,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            return CustomDropdownTextField(
              // width: MediaQuery.of(context).size.width / 5,
              labelText: 'City',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: const Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
              labelFontSize: 12,
              items: ['No Data'],
            );
@@ -805,11 +736,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              height: textFieldHeight,
              items: ['item 1', 'item 2'],
              labelText: 'Zone',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
            );
          } else if (snapshot.hasError) {
            return const CustomDropdownTextField(
@@ -828,21 +755,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            int degreeID = 0;
            for(var i in snapshot.data!){
              dropDownList.add(DropdownMenuItem<String>(
-               child: Text(i.zoneName!, style: GoogleFonts.firaSans(
-                 fontSize: 12,
-                 color: Color(0xff575757),
-                 fontWeight: FontWeight.w400,
-               ),),
+               child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
                value: i.zoneName!,
              ));
            }
            return CustomDropdownTextField(
              labelText: 'Zone',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
              labelFontSize: 12,
              dropDownMenuList: dropDownList,
              onChanged: (newValue) {
@@ -862,11 +781,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            return CustomDropdownTextField(
              // width: MediaQuery.of(context).size.width / 5,
              labelText: 'Zone',
-             labelStyle: GoogleFonts.firaSans(
-               fontSize: 12,
-               color: const Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
+             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
              labelFontSize: 12,
              items: ['No Data'],
            );
@@ -915,11 +830,7 @@ class RegisterEnrollAlertDialog {
                 children: [
                   Text(
                     AppString.enroll,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s14,
-                      color: ColorManager.white,
-                      fontWeight: FontWeightManager.medium,
-                    ),
+                    style:PopupBlueBarText.customTextStyle(context),
                   ),
                   IconButton(
                       onPressed: () {

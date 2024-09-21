@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -49,10 +49,7 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(
-              fontSize: AppSize.s12,
-              color: ColorManager.mediumgrey,
-              fontWeight: FontWeightManager.regular),
+          style:DocumentTypeDataStyle.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
@@ -137,11 +134,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                     value: value,
                     child: Text(
                       value,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        color: Color(0xff575757),
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style:DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   );
                 }).toList()
@@ -227,11 +220,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xff575757),
-                  fontWeight: FontWeight.w400,
-                ),
+                style:DocumentTypeDataStyle.customTextStyle(context),
               ),
             );
           }).toList(),
@@ -537,11 +526,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: GoogleFonts.firaSans(
-                  fontSize: 10,
-                  fontWeight: FontWeightManager.medium,
-                  color: ColorManager.mediumgrey,
-                ),
+                style:DocumentTypeDataStyle.customTextStyle(context),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -640,11 +625,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xff575757),
-                  fontWeight: FontWeight.w600,
-                ),
+                style:DocumentTypeDataStyle.customTextStyle(context),
               ),
             );
           }).toList(),
@@ -656,12 +637,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               widget.onChanged!(newValue);
             }
           },
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: const Color(0xff686464),
-            decoration: TextDecoration.none,
-          ),
+          style:DocumentTypeDataStyle.customTextStyle(context),
           isExpanded: true,
           decoration: const InputDecoration.collapsed(hintText: '')),
     );
