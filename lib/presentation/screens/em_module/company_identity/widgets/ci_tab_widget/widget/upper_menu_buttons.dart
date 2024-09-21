@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
-
 import '../../../../../../../app/resources/color.dart';
 
 typedef void OnManuButtonTapCallBack(int index);
