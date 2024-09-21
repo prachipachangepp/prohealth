@@ -15,6 +15,8 @@ class ManageReposotory{
   static String payrates = "/employee-payrates/ByEmployeeId";
 
   static String gettermination = "/employees/allTerminatedEmployee";
+  static String getterminationPrefillEmp = "/employees/GetTerminateEmployeeDetails";
+  static String terminateEmployeePatch = "/employees/terminate";
 
   static String employeeTimeOff = "/employee-time-off";
 
@@ -192,6 +194,12 @@ class ManageReposotory{
   /// Termination
   static String getTermination({required int companyId}){
     return "$gettermination/$companyId";
+  }
+  static String getTerminationPreFillEmp({required int employeeId}){
+    return "$getterminationPrefillEmp/$employeeId";
+  }
+  static String patchTerminateEmployee({required int employeeId}){
+    return "$terminateEmployeePatch/$employeeId";
   }
   /// Time offf
   static String getEmployeeTimeOff({required int companyId}){
