@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import '../../../../../app/resources/color.dart';
@@ -147,10 +147,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                 padding: const EdgeInsets.symmetric(vertical: 150),
                 child: Text(
                   AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
+                  style: AllNoDataAvailable.customTextStyle(context)
                 ),
               ));
         }
@@ -160,10 +157,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                 padding: const EdgeInsets.symmetric(vertical: 150),
                 child: Text(
                   AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
+                  style: AllNoDataAvailable.customTextStyle(context)
                 ),
               ));
         }
@@ -274,10 +268,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                       ),
                       child: Text(
                         'Reject',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: TransparentButtonTextConst.customTextStyle(context)
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 75),
@@ -292,10 +283,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                       ),
                       child: Text(
                         'Approve',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: BlueButtonTextConst.customTextStyle(context),
                       ),
                     ),
                   ],

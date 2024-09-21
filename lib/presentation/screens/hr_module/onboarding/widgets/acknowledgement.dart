@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
@@ -161,10 +161,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                 padding: const EdgeInsets.symmetric(vertical: 150),
                 child: Text(
                   AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
+                  style: AllNoDataAvailable.customTextStyle(context)
                 ),
               ));
         }
@@ -282,10 +279,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                         ),
                       ),
                       child: Text(AppString.reject,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.medium,
-                        ),
+                        style:TransparentButtonTextConst.customTextStyle(context)
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 75),
@@ -300,10 +294,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                       ),
                       child: Text(
                         'Approve',
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.bold,
-                        ),
+                        style: BlueButtonTextConst.customTextStyle(context),
                       ),
                     ),
                   ],

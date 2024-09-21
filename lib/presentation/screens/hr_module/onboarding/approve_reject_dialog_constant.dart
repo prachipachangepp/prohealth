@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 
@@ -46,12 +45,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(AppString.reject,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style:PopupBlueBarText.customTextStyle(context)
                     ),
                   ),
                   IconButton(
@@ -73,11 +67,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                 children: [
                   Text(
                     "Do you really want to reject the selected files?",
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.regular,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: PopupTextConst.customTextStyle(context),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -102,10 +92,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                         ),
                       ),
                       child: Text(AppString.cancel,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.bold,
-                        ),
+                        style: TransparentButtonTextConst.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -122,10 +109,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                         ),
                       ),
                       child: Text(AppString.yes,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.bold,
-                        ),
+                        style: BlueButtonTextConst.customTextStyle(context),
                       ),
                     ),
                   ),
@@ -182,12 +166,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       'Approve',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context)
                     ),
                   ),
                   IconButton(
@@ -208,11 +187,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                 children: [
                   Text(
                     "Do you really want to approve this?",
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.regular,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style:PopupTextConst.customTextStyle(context),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -237,10 +212,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                         ),
                       ),
                       child: Text(AppString.cancel,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.bold,
-                        ),
+                        style: TransparentButtonTextConst.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -257,10 +229,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                         ),
                       ),
                       child: Text(AppString.yes,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.bold,
-                        ),
+                        style: BlueButtonTextConst.customTextStyle(context),
                       ),
                     ),
                   ),

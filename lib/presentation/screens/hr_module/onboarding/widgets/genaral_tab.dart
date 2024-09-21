@@ -1,9 +1,7 @@
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -63,11 +61,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                 return Center(
                   child: Text(
                     AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 );
               }
@@ -97,10 +91,10 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        width: AppSize.s1,
-                                        color: ColorManager.white,
-                                      ),
+                                      // border: Border.all(
+                                      //   width: AppSize.s1,
+                                      //   color: ColorManager.white,
+                                      // ),
                                     ),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -127,13 +121,10 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   child: Text(
                                                       general.status.toString(),
                                                       textAlign: TextAlign.center,
-                                                      style: CustomTextStylesCommon
-                                                          .commonStyle(
-                                                          color:
-                                                          ColorManager.white,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                          color: ColorManager.white,
                                                           fontSize: FontSize.s11,
-                                                          fontWeight:
-                                                          FontWeightManager.bold)),
+                                                          fontWeight: FontWeight.w700)),
                                                 )),
                                           ],
                                         ),
@@ -191,7 +182,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                           style: CustomTextStylesCommon.commonStyle(
                                                             color: ColorManager.black,
                                                             fontSize: FontSize.s12,
-                                                            fontWeight: FontWeightManager.bold,
+                                                            fontWeight: FontWeight.w700,
                                                           ),
                                                         ),
                                                       ),
@@ -422,9 +413,9 @@ class InfoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style: GoogleFonts.firaSans(
+        Text(text, style: TextStyle(
             fontSize: FontSize.s12,
-            fontWeight: FontWeightManager.medium,
+            fontWeight: FontWeight.w500,
             color: ColorManager.textBlack),),
         const SizedBox(height: AppSize.s10),
       ],
@@ -443,9 +434,9 @@ class InfoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text,style: GoogleFonts.firaSans(
+        Text(text,style: TextStyle(
             fontSize: FontSize.s12,
-            fontWeight: FontWeightManager.regular,
+            fontWeight: FontWeight.w400,
             color: ColorManager.textBlack),),
         const SizedBox(height: AppSize.s10),
       ],

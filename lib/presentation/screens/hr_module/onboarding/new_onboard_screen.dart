@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/acknowledgement.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/banking_tab.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/form_status.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/genaral_tab.dart';
-import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/health_record_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/qualification_tab.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -126,14 +123,12 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                   child: Text(
                                     entry.value,
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                      textStyle: TextStyle(
+                                    style: TextStyle(
                                         fontSize: FontSize.s12,
-                                        fontWeight: FontWeightManager.semiBold,
+                                        fontWeight: FontWeight.w600,
                                         color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
                                             ? ColorManager.mediumgrey
                                             : ColorManager.white,
-                                      ),
                                     ),
                                   ),
                                 ),
@@ -163,7 +158,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   Banking(employeeId: widget.employeeId,),
                   HealthRecord(employeeId: widget.employeeId,),
                   Acknowledgement(employeeId: widget.employeeId,),
-                  Acknowledgement(employeeId: widget.employeeId,),
+                  FormStatusScreen(employeeId: widget.employeeId,),
                 ],
               ),
             ),
