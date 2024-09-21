@@ -784,11 +784,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           Container(
                                                             height: 300,
                                                             width: 150,
-                                                            child: Column(
-                                                              children: [
-                                                                ///county
-                                                                ///
-                                                              Column(
+                                                            child:
+
+                                                            Column(
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Text(
@@ -808,7 +806,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                         padding: EdgeInsets.symmetric(horizontal: 7),
                                                                         child: CICCDropdown(
                                                                           hintText: 'Select County',
-                                                                          items: [],),
+                                                                          items: [],
+                                                                        ),
                                                                       );
                                                                     } else if (snapshot.hasError) {
                                                                       return const Text("Error fetching counties");
@@ -873,7 +872,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                     );
                                                                                   }
 
-                                                                                  setState(() {}); // Update UI after fetching zones
+                                                                                  setState(() {});
                                                                                   print("Selected CountyId: $selectedCountyId");
                                                                                 },
                                                                               ),
@@ -890,10 +889,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                               ),
                                                                               const SizedBox(height: 5),
 
-                                                                              // Zone Dropdown
-                                                                              zoneDropDownList.isNotEmpty
-                                                                                  ? CICCDropdown(
-                                                                                items: zoneDropDownList,
+                                                                              // Zone Dropdown with hint text
+                                                                              CICCDropdown(
+                                                                                hintText: 'Select Zone',
+                                                                                items: zoneDropDownList.isNotEmpty ? zoneDropDownList : [],
                                                                                 initialValue: selectedZone,
                                                                                 width: 150,
                                                                                 onChange: (newValue) {
@@ -902,8 +901,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                     print('Selected Zone: $selectedZone');
                                                                                   });
                                                                                 },
-                                                                              )
-                                                                                  : CICCDropdown(items: [],)
+                                                                              ),
                                                                             ],
                                                                           );
                                                                         },
@@ -914,365 +912,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   },
                                                                 ),
                                                               ],
-                                                            )///
-                                                                ///
-                                                                // Column(
-                                                                //   crossAxisAlignment:
-                                                                //       CrossAxisAlignment
-                                                                //           .start,
-                                                                //   children: [
-                                                                //     Text(
-                                                                //       'County',
-                                                                //       style: GoogleFonts
-                                                                //           .firaSans(
-                                                                //         fontSize:
-                                                                //             12,
-                                                                //         fontWeight:
-                                                                //             FontWeight
-                                                                //                 .w600,
-                                                                //         color: ColorManager
-                                                                //             .mediumgrey,
-                                                                //       ),
-                                                                //     ),
-                                                                //     SizedBox(
-                                                                //         height: 5),
-                                                                //     FutureBuilder<
-                                                                //         List<
-                                                                //             AllCountyGetList>>(
-                                                                //       future:
-                                                                //           getCountyZoneList(
-                                                                //               context),
-                                                                //       builder: (context,
-                                                                //           snapshot) {
-                                                                //         if (snapshot
-                                                                //                 .connectionState ==
-                                                                //             ConnectionState
-                                                                //                 .waiting) {
-                                                                //           return Padding(
-                                                                //             padding: const EdgeInsets
-                                                                //                 .symmetric(
-                                                                //                 horizontal:
-                                                                //                     7),
-                                                                //             child:
-                                                                //                 Container(
-                                                                //               height:
-                                                                //                   31,
-                                                                //               width:
-                                                                //                   250,
-                                                                //               decoration:
-                                                                //                   BoxDecoration(color: ColorManager.white),
-                                                                //             ),
-                                                                //           );
-                                                                //         } else if (snapshot
-                                                                //             .hasError) {
-                                                                //           return const CustomDropdownTextField(
-                                                                //             hintText:
-                                                                //                 'Select County',
-                                                                //             labelText:
-                                                                //                 'County',
-                                                                //             labelStyle:
-                                                                //                 TextStyle(
-                                                                //               fontSize:
-                                                                //                   12,
-                                                                //               color:
-                                                                //                   Color(0xff575757),
-                                                                //               fontWeight:
-                                                                //                   FontWeight.w400,
-                                                                //             ),
-                                                                //             labelFontSize:
-                                                                //                 12,
-                                                                //             items: [
-                                                                //               'Error'
-                                                                //             ],
-                                                                //           );
-                                                                //         } else if (snapshot
-                                                                //             .hasData) {
-                                                                //           dropDownList
-                                                                //               .clear();
-                                                                //           dropDownList.add(
-                                                                //               DropdownMenuItem<
-                                                                //                   String>(
-                                                                //             child: Text(
-                                                                //                 'Select County'),
-                                                                //             value:
-                                                                //                 'Select County',
-                                                                //           ));
-                                                                //           for (var i
-                                                                //               in snapshot
-                                                                //                   .data!) {
-                                                                //             dropDownList
-                                                                //                 .add(DropdownMenuItem<String>(
-                                                                //               child:
-                                                                //                   Text(i.countyName),
-                                                                //               value:
-                                                                //                   i.countyName,
-                                                                //             ));
-                                                                //           }
-                                                                //           if (selectedCounty ==
-                                                                //               null) {
-                                                                //             selectedCounty =
-                                                                //                 'Select County';
-                                                                //           }
-                                                                //           return StatefulBuilder(
-                                                                //             builder: (BuildContext
-                                                                //                     context,
-                                                                //                 StateSetter
-                                                                //                     setState) {
-                                                                //               return Container(
-                                                                //                 height:
-                                                                //                     31,
-                                                                //                 width:
-                                                                //                     250,
-                                                                //                 padding:
-                                                                //                     const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                                                //                 decoration:
-                                                                //                     BoxDecoration(
-                                                                //                   color: Colors.white,
-                                                                //                   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                                                //                   borderRadius: BorderRadius.circular(6),
-                                                                //                 ),
-                                                                //                 child:
-                                                                //                     DropdownButtonFormField<String>(
-                                                                //                   focusColor: Colors.transparent,
-                                                                //                   icon: const Icon(
-                                                                //                     Icons.arrow_drop_down_sharp,
-                                                                //                     color: Color(0xff686464),
-                                                                //                   ),
-                                                                //                   decoration: const InputDecoration.collapsed(hintText: ''),
-                                                                //                   items: dropDownList,
-                                                                //                   onChanged: (newValue) {
-                                                                //                     setState(() {
-                                                                //                       selectedCounty = newValue;
-                                                                //                       for (var a in snapshot.data!) {
-                                                                //                         if (a.countyName == newValue) {
-                                                                //                           selectedCountyId = a.countyId;
-                                                                //                           print("County Id :: ${selectedCountyId}");
-                                                                //                           // Perform other actions if needed
-                                                                //                         }
-                                                                //                       }
-                                                                //                     });
-                                                                //                   },
-                                                                //                   value: selectedCounty,
-                                                                //                   style: GoogleFonts.firaSans(
-                                                                //                     fontSize: 12,
-                                                                //                     fontWeight: FontWeight.w600,
-                                                                //                     color: const Color(0xff686464),
-                                                                //                     decoration: TextDecoration.none,
-                                                                //                   ),
-                                                                //                 ),
-                                                                //               );
-                                                                //             },
-                                                                //           );
-                                                                //         } else {
-                                                                //           return CustomDropdownTextField(
-                                                                //             labelText:
-                                                                //                 'County',
-                                                                //             labelStyle:
-                                                                //                 GoogleFonts.firaSans(
-                                                                //               fontSize:
-                                                                //                   12,
-                                                                //               color:
-                                                                //                   const Color(0xff575757),
-                                                                //               fontWeight:
-                                                                //                   FontWeight.w400,
-                                                                //             ),
-                                                                //             labelFontSize:
-                                                                //                 12,
-                                                                //             items: [
-                                                                //               'No Data'
-                                                                //             ],
-                                                                //           );
-                                                                //         }
-                                                                //       },
-                                                                //     ),
-                                                                //   ],
-                                                                // ),
-                                                                // SizedBox(
-                                                                //     height: MediaQuery.of(
-                                                                //                 context)
-                                                                //             .size
-                                                                //             .height /
-                                                                //         20),
-                                                                //
-                                                                // ///zone api
-                                                                // Column(
-                                                                //   crossAxisAlignment:
-                                                                //       CrossAxisAlignment
-                                                                //           .start,
-                                                                //   children: [
-                                                                //     Text(
-                                                                //       'Zone',
-                                                                //       style: GoogleFonts
-                                                                //           .firaSans(
-                                                                //         fontSize:
-                                                                //             12,
-                                                                //         fontWeight:
-                                                                //             FontWeight
-                                                                //                 .w600,
-                                                                //         color: ColorManager
-                                                                //             .mediumgrey,
-                                                                //       ),
-                                                                //     ),
-                                                                //     SizedBox(
-                                                                //         height: 5),
-                                                                //     FutureBuilder<
-                                                                //         List<
-                                                                //             SortByZoneData>>(
-                                                                //       future:
-                                                                //           PayRateZoneDropdown(
-                                                                //               context),
-                                                                //       builder: (context,
-                                                                //           snapshot) {
-                                                                //         if (snapshot
-                                                                //                 .connectionState ==
-                                                                //             ConnectionState
-                                                                //                 .waiting) {
-                                                                //           return Padding(
-                                                                //             padding: const EdgeInsets
-                                                                //                 .symmetric(
-                                                                //                 horizontal:
-                                                                //                     7),
-                                                                //             child:
-                                                                //                 Container(
-                                                                //               height:
-                                                                //                   31,
-                                                                //               width:
-                                                                //                   250,
-                                                                //               decoration:
-                                                                //                   BoxDecoration(color: ColorManager.white),
-                                                                //             ),
-                                                                //           );
-                                                                //         } else if (snapshot
-                                                                //             .hasError) {
-                                                                //           return const CustomDropdownTextField(
-                                                                //             labelText:
-                                                                //                 'Zone',
-                                                                //             labelStyle:
-                                                                //                 TextStyle(
-                                                                //               fontSize:
-                                                                //                   12,
-                                                                //               color:
-                                                                //                   Color(0xff575757),
-                                                                //               fontWeight:
-                                                                //                   FontWeight.w400,
-                                                                //             ),
-                                                                //             labelFontSize:
-                                                                //                 12,
-                                                                //             items: [
-                                                                //               'Error'
-                                                                //             ],
-                                                                //           );
-                                                                //         } else if (snapshot
-                                                                //             .hasData) {
-                                                                //           List<DropdownMenuItem<String>>
-                                                                //               dropDownList =
-                                                                //               [];
-                                                                //
-                                                                //           // Add the default "Select" item
-                                                                //           dropDownList.add(
-                                                                //               DropdownMenuItem<
-                                                                //                   String>(
-                                                                //             child: Text(
-                                                                //                 'Select Zone'),
-                                                                //             value:
-                                                                //                 'Select Zone',
-                                                                //           ));
-                                                                //
-                                                                //           // Populate dropdown list with zones
-                                                                //           for (var i
-                                                                //               in snapshot
-                                                                //                   .data!) {
-                                                                //             dropDownList
-                                                                //                 .add(DropdownMenuItem<String>(
-                                                                //               child:
-                                                                //                   Text(i.zoneName),
-                                                                //               value:
-                                                                //                   i.zoneName,
-                                                                //             ));
-                                                                //           }
-                                                                //
-                                                                //           // Set initial selectedZone if not already set
-                                                                //           String?
-                                                                //               selectedZone =
-                                                                //               'Select Zone';
-                                                                //
-                                                                //           return StatefulBuilder(
-                                                                //             builder: (BuildContext
-                                                                //                     context,
-                                                                //                 StateSetter
-                                                                //                     setState) {
-                                                                //               return Container(
-                                                                //                 height:
-                                                                //                     31,
-                                                                //                 width:
-                                                                //                     250,
-                                                                //                 padding:
-                                                                //                     const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                                                //                 decoration:
-                                                                //                     BoxDecoration(
-                                                                //                   color: Colors.white,
-                                                                //                   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                                                //                   borderRadius: BorderRadius.circular(6),
-                                                                //                 ),
-                                                                //                 child:
-                                                                //                     DropdownButtonFormField<String>(
-                                                                //                   focusColor: Colors.transparent,
-                                                                //                   icon: const Icon(
-                                                                //                     Icons.arrow_drop_down_sharp,
-                                                                //                     color: Color(0xff686464),
-                                                                //                   ),
-                                                                //                   decoration: const InputDecoration.collapsed(hintText: ''),
-                                                                //                   items: dropDownList,
-                                                                //                   onChanged: (newValue) {
-                                                                //                     setState(() {
-                                                                //                       selectedZone = newValue;
-                                                                //                       for (var a in snapshot.data!) {
-                                                                //                         if (a.zoneName == newValue) {
-                                                                //                           int zoneId = a.zoneId;
-                                                                //                           selectedZoneId = zoneId;
-                                                                //                           print("Zone Id :: ${selectedZoneId}");
-                                                                //                           // Perform other actions if needed
-                                                                //                         }
-                                                                //                       }
-                                                                //                     });
-                                                                //                   },
-                                                                //                   value: selectedZone,
-                                                                //                   style: GoogleFonts.firaSans(
-                                                                //                     fontSize: 12,
-                                                                //                     fontWeight: FontWeight.w600,
-                                                                //                     color: const Color(0xff686464),
-                                                                //                     decoration: TextDecoration.none,
-                                                                //                   ),
-                                                                //                 ),
-                                                                //               );
-                                                                //             },
-                                                                //           );
-                                                                //         } else {
-                                                                //           return CustomDropdownTextField(
-                                                                //             labelText:
-                                                                //                 'Zone',
-                                                                //             labelStyle:
-                                                                //                 GoogleFonts.firaSans(
-                                                                //               fontSize:
-                                                                //                   12,
-                                                                //               color:
-                                                                //                   const Color(0xff575757),
-                                                                //               fontWeight:
-                                                                //                   FontWeight.w400,
-                                                                //             ),
-                                                                //             labelFontSize:
-                                                                //                 12,
-                                                                //             items: [
-                                                                //               'No Data'
-                                                                //             ],
-                                                                //           );
-                                                                //         }
-                                                                //       },
-                                                                //     ),
-                                                                //   ],
-                                                                // )
-                                                              ],
-                                                            ),
+                                                            )
+
                                                           ),
 
                                                           ///Zipcode
