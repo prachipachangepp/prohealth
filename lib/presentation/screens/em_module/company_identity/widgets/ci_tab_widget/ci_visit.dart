@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/app.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
@@ -176,13 +176,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 return Center(
                                                   child: Text(
                                                     AppString.dataNotFound,
-                                                    style: CustomTextStylesCommon
-                                                        .commonStyle(
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                      fontSize: FontSize.s12,
-                                                      color: ColorManager.mediumgrey,
-                                                    ),
+                                                    style: AllNoDataAvailable.customTextStyle(context),
                                                   ),
                                                 );
                                               }
@@ -211,8 +205,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                               chipValues.add(val);
                                                               selectedChips.add(
                                                                 Chip(
-                                                                  backgroundColor:
-                                                                  ColorManager.white,
+                                                                  backgroundColor: ColorManager.white,
 
                                                                   shape: StadiumBorder(
                                                                       side: BorderSide(
@@ -226,14 +219,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                   ),
                                                                   label: Text(
                                                                     val,
-                                                                    style: CustomTextStylesCommon.commonStyle(
-                                                                        fontWeight:
-                                                                        FontWeight.w500,
-                                                                        fontSize:
-                                                                        FontSize.s10,
-                                                                        color: ColorManager
-                                                                            .mediumgrey),
-                                                                  ),
+                                                                    style: AllHRTableData.customTextStyle(context),),
                                                                   onDeleted: () {
                                                                     setState(() {
                                                                       // deleteChip(
@@ -303,11 +289,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                           child: Text(
                                             ErrorMessageString.noserviceAdded,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight:FontWeight.w500,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
+                                            style: AllNoDataAvailable.customTextStyle(context),
                                           ),
                                         ),
                                       );
@@ -378,11 +360,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   AppString.srNo,
                   textAlign: TextAlign.center,
                   // style: RegisterTableHead.customTextStyle(context),
-                  style: GoogleFonts.firaSans(
-                      fontSize: AppSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                  ),
+                  style: AllHRTableHeading.customTextStyle(context),
                 ),
               ),
 
@@ -392,11 +370,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 child: Text(
                   AppString.visit,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                      fontSize: AppSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                  ),
+                  style: AllHRTableHeading.customTextStyle(context),
                 ),
               ),
 
@@ -406,12 +380,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 child: Text(
                   AppString.eligibleClinician,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                      fontSize: AppSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                  ),
+                  style: AllHRTableHeading.customTextStyle(context),
                 ),
               ),
               Padding(
@@ -419,12 +388,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 child: Text(
                   AppString.actions,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                      fontSize: AppSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                  ),
+                  style: AllHRTableHeading.customTextStyle(context),
                   // style: RegisterTableHead.customTextStyle(context),
                 ),
               ),
@@ -496,7 +460,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       child: Center(
                                           child: Text(
                                             i.eligibleClinician,
-                                            style: GoogleFonts.firaSans(
+                                            style: TextStyle(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
                                               color: _isDarkColor(hexColor == 'string'
@@ -536,10 +500,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           Expanded(
                                             child: Text(
                                               formattedSerialNumber,
-                                              style: GoogleFonts.firaSans(
-                                                  fontSize: AppSize.s10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464)),
+                                              style: DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -549,10 +510,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                               visitData.typeofVisit
                                                   .toString(),
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                  fontSize: AppSize.s10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464)),
+                                              style:DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
                                           // Expanded(flex: 1, child: Container()),
@@ -699,11 +657,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                                                                 child: Text(
                                                                                   ErrorMessageString.noserviceAdded,
-                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    fontSize: FontSize.s12,
-                                                                                    color: ColorManager.mediumgrey,
-                                                                                  ),
+                                                                                  style: AllNoDataAvailable.customTextStyle(context),
                                                                                 ),
                                                                               ),
                                                                             );
@@ -770,11 +724,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                 return Center(
                                                                                   child: Text(
                                                                                     AppString.dataNotFound,
-                                                                                    style: CustomTextStylesCommon.commonStyle(
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      fontSize: FontSize.s12,
-                                                                                      color: ColorManager.mediumgrey,
-                                                                                    ),
+                                                                                    style: AllNoDataAvailable.customTextStyle(context),
                                                                                   ),
                                                                                 );
                                                                               }
@@ -809,7 +759,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                                 deleteIcon: Icon(
                                                                                                   Icons.close,
                                                                                                   color: ColorManager.blueprime,
-                                                                                                  size: 17,
+                                                                                                  size: IconSize.I16,
                                                                                                 ),
                                                                                                 label: Text(
                                                                                                   val,
@@ -862,8 +812,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                       },
                                                       icon: Icon(
                                                         Icons.edit_outlined,
-                                                        size: 20,
-                                                        color: ColorManager.bluebottom,
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager.bluebottom,
                                                       )),
                                                   SizedBox(
                                                     width: 3,
@@ -890,10 +840,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                               }));
 
                                                     },
-                                                    icon: const Icon(
-                                                      size: 18,
+                                                    icon: Icon(
+                                                      size: IconSize.I18,
                                                       Icons.delete_outline,
-                                                      color: Color(0xffF6928A),
+                                                      color: IconColorManager.red,
                                                     ),
                                                   ),
                                                 ],
