@@ -783,7 +783,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           ///county zone
                                                           Container(
                                                             height: 300,
-                                                            width: 170,
+                                                            width: 150,
                                                             child: Column(
                                                               children: [
                                                                 ///county
