@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
+import '../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 import '../../em_module/widgets/text_form_field_const.dart';
 
 
@@ -397,6 +400,94 @@ class CustomTextFieldEnroll extends StatelessWidget {
 
 
 
+////terminate popup
+class FirstHRTextFConst extends StatefulWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final bool? enable;
+  final Widget? prefixWidget;
+  final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormated;
+
+  FirstHRTextFConst({
+    Key? key,
+    this.inputFormated,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464),
+    this.icon,
+    this.onChange,
+    this.readOnly,
+    this.enable,
+    this.validator,
+    this.prefixWidget,
+  }) : super(key: key);
+
+  @override
+  State<FirstHRTextFConst> createState() => _FirstHRTextFConstState();
+}
+
+class _FirstHRTextFConstState extends State<FirstHRTextFConst> {
+  @override
+  Widget build(BuildContext context) {
+    String? errorText;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.text,
+            style: ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: 354,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: TextFormField(
+                autofocus: true,
+                enabled: widget.enable == null ? true : false,
+                controller: widget.controller,
+                keyboardType: widget.keyboardType,
+                cursorHeight: 17,
+                cursorColor: Colors.black,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  suffixIcon: widget.icon,
+                  prefix: widget.prefixWidget,
+                  prefixStyle:AllHRTableData.customTextStyle(context),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(
+                      bottom: AppPadding.p18, left: AppPadding.p15),
+                ),
+                style: DocumentTypeDataStyle.customTextStyle(context),
+                //validator: widget.validator,
+                onTap: widget.onChange,
+                inputFormatters: widget.inputFormated == null
+                    ? [
+                  CapitalizeFirstLetterFormatter(),
+                ]
+                    : widget.inputFormated
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 
 

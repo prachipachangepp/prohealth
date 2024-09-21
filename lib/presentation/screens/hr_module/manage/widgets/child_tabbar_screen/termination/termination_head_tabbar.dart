@@ -13,9 +13,12 @@ import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widge
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
 
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/widgets/button_constant.dart';
+import '../../../../../em_module/widgets/dialogue_template.dart';
+import '../../../../../em_module/widgets/header_content_const.dart';
 import '../../../../register/taxtfield_constant.dart';
 import '../../custom_icon_button_constant.dart';
 
@@ -450,591 +453,681 @@ class _TerminatePopupState extends State<TerminatePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
+    return DialogueTemplate(
+
+
         width: 800,
         height: 600,
-        // width: MediaQuery.of(context).size.width / 1,
-        // height: MediaQuery.of(context).size.height / 1,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(children: [
-          Container(
-            height: 50,
-            decoration: const BoxDecoration(
-              color: Color(0xff50B5E5),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15, horizontal: 15),
-                  child: Text(
-                    "Terminate",
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Material(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                     "Name",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: namecltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Termination Date',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: terminationdatecltr,
-                      hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                      width: 300,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            terminationdatecltr.text =
-                            "${pickedDate.toLocal()}"
-                                .split(' ')[0];
-                          }
-                        },
-                      ),
-                    ),
-                    Text(
-                      'Resignation Date',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: resignationdatecltr,
-                      hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                      width: 300,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            resignationdatecltr.text =
-                            "${pickedDate.toLocal()}"
-                                .split(' ')[0];
-                          }
-                        },
-                      ),
-                    ),
-                    Text(
-                      'Date of Hire',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: dateofhirecltr,
-                      hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                      width: 300,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            dateofhirecltr.text =
-                            "${pickedDate.toLocal()}"
-                                .split(' ')[0];
-                          }
-                        },
-                      ),
-                    ),
-                    Text(
-                      'Status',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: statuscltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Position',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: positioncltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Phone No.',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: phonenocltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Rehirable',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: rehirablecltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Final Address',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: finaladdrescltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                
-                
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.width / 50,
-                // ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Type',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: typecltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Reason',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: reasoncltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Final Paycheck',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller:finalpaycheckcltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Date',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: datecltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Gross Pay',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: grosspaycltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Net Pay',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: netpaycltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Methods',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: methodscltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    ),
-                    Text(
-                      'Materials',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: materialscltr,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff9B9B9B),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      height: 32,
-                      width: 300,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height:10),
+
+    body: [
+
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomButtonTransparent(
-                text: AppString.cancel,
-                onPressed: () async {
-                  Navigator.pop(context);
-                },
-              ),
-    
-              SizedBox(width:25),
-              CustomElevatedButton(
-                width: AppSize.s100,
-                text: "Terminate",
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      Future.delayed(
-                        const Duration(seconds: 3),
-                            () {
-                          if (Navigator.of(context).canPop()) {
-                            Navigator.of(context).pop();
-                          }
-                        },
-                      );
-                      return const AddSuccessPopup(
-                        message: 'Added Successfully',
-                      );
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  FirstHRTextFConst(controller: namecltr, keyboardType: TextInputType.text, text: 'Name',
+
+                  ),
+                  // Text(
+                  //  "Name",
+                  //   style: GoogleFonts.firaSans(
+                  //       fontSize: 10.0,
+                  //       fontWeight: FontWeight.w400,
+                  //       color: const Color(0xff686464)),
+                  // ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  // CustomTextFieldRegister(
+                  //   controller: namecltr,
+                  //   hintText: 'Enter Text',
+                  //   hintStyle: GoogleFonts.firaSans(
+                  //     fontSize: 10.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: const Color(0xff9B9B9B),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter some text';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   height: 32,
+                  //   width: 300,
+                  // ),
+
+                  HeaderContentConst(
+                    heading:"Termination Date",
+                    content: FormField<String>(
+                      builder: (FormFieldState<String> field) {
+                        return SizedBox(
+                          width: 354,
+                          height: 30,
+                          child: TextFormField(
+                            controller: terminationdatecltr,
+                            cursorColor: ColorManager.black,
+                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager.fmediumgrey, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager.fmediumgrey, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              hintText: 'MM-DD-YYYY',
+                              hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: BorderSide(
+                                    width: 1, color: ColorManager.fmediumgrey),
+                              ),
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 16),
+                              suffixIcon: Icon(Icons.calendar_month_outlined,
+                                  color: ColorManager.blueprime),
+                              errorText: field.errorText,
+                            ),
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+
+                                firstDate: DateTime(1901),
+                                lastDate: DateTime(3101),
+                              );
+                              if (pickedDate != null) {
+                                terminationdatecltr.text =
+                                        "${pickedDate.toLocal()}"
+                                            .split(' ')[0];
+                              }
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please select date';
+                              }
+                              return null;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  // Text(
+                  //   'Termination Date',
+                  //   style: GoogleFonts.firaSans(
+                  //       fontSize: 10.0,
+                  //       fontWeight: FontWeight.w400,
+                  //       color: const Color(0xff686464)),
+                  // ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  // CustomTextFieldRegister(
+                  //   controller: terminationdatecltr,
+                  //   hintText: 'dd-mm-yyyy',
+                  //   hintStyle: GoogleFonts.firaSans(
+                  //     fontSize: 10.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: Color(0xff9B9B9B),
+                  //   ),
+                  //   height: 32,
+                  //   width: 300,
+                  //   suffixIcon: IconButton(
+                  //     icon: Icon(
+                  //       Icons.calendar_month_outlined,
+                  //       color: Color(0xff50B5E5),
+                  //       size: 16,
+                  //     ),
+                  //     onPressed: () async {
+                  //       DateTime? pickedDate =
+                  //       await showDatePicker(
+                  //         context: context,
+                  //         initialDate: DateTime.now(),
+                  //         firstDate: DateTime(2000),
+                  //         lastDate: DateTime(2101),
+                  //       );
+                  //       if (pickedDate != null) {
+                  //         terminationdatecltr.text =
+                  //         "${pickedDate.toLocal()}"
+                  //             .split(' ')[0];
+                  //       }
+                  //     },
+                  //   ),
+                  // ),
+                  Text(
+                    'Resignation Date',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  HeaderContentConst(
+                    heading:"Resignation Date",
+                    content: FormField<String>(
+                      builder: (FormFieldState<String> field) {
+                        return SizedBox(
+                          width: 354,
+                          height: 30,
+                          child: TextFormField(
+                            controller: resignationdatecltr,
+                            cursorColor: ColorManager.black,
+                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager.fmediumgrey, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager.fmediumgrey, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              hintText: 'MM-DD-YYYY',
+                              hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: BorderSide(
+                                    width: 1, color: ColorManager.fmediumgrey),
+                              ),
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 16),
+                              suffixIcon: Icon(Icons.calendar_month_outlined,
+                                  color: ColorManager.blueprime),
+                              errorText: field.errorText,
+                            ),
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+
+                                firstDate: DateTime(1901),
+                                lastDate: DateTime(3101),
+                              );
+                              if (pickedDate != null) {
+                                resignationdatecltr.text =
+                                "${pickedDate.toLocal()}"
+                                    .split(' ')[0];
+                              }
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please select date';
+                              }
+                              return null;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Text(
+                    'Date of Hire',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  HeaderContentConst(
+                    heading:"Date of Hire",
+                    content: FormField<String>(
+                      builder: (FormFieldState<String> field) {
+                        return SizedBox(
+                          width: 354,
+                          height: 30,
+                          child: TextFormField(
+                            controller: dateofhirecltr,
+                            cursorColor: ColorManager.black,
+                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager.fmediumgrey, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager.fmediumgrey, width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              hintText: 'MM-DD-YYYY',
+                              hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: BorderSide(
+                                    width: 1, color: ColorManager.fmediumgrey),
+                              ),
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 16),
+                              suffixIcon: Icon(Icons.calendar_month_outlined,
+                                  color: ColorManager.blueprime),
+                              errorText: field.errorText,
+                            ),
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+
+                                firstDate: DateTime(1901),
+                                lastDate: DateTime(3101),
+                              );
+                              if (pickedDate != null) {
+                                dateofhirecltr.text =
+                                "${pickedDate.toLocal()}"
+                                    .split(' ')[0];
+                              }
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please select date';
+                              }
+                              return null;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  // Text(
+                  //   'Status',
+                  //   style: GoogleFonts.firaSans(
+                  //       fontSize: 10.0,
+                  //       fontWeight: FontWeight.w400,
+                  //       color: const Color(0xff686464)),
+                  // ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  // CustomTextFieldRegister(
+                  //   controller: statuscltr,
+                  //   hintText: 'Enter Text',
+                  //   hintStyle: GoogleFonts.firaSans(
+                  //     fontSize: 10.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: const Color(0xff9B9B9B),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter some text';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   height: 32,
+                  //   width: 300,
+                  // ),
+                  FirstHRTextFConst(controller: positioncltr, keyboardType: TextInputType.text, text: 'Position',
+
+                  ),
+                  // Text(
+                  //   'Position',
+                  //   style: GoogleFonts.firaSans(
+                  //       fontSize: 10.0,
+                  //       fontWeight: FontWeight.w400,
+                  //       color: const Color(0xff686464)),
+                  // ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  // CustomTextFieldRegister(
+                  //   controller: positioncltr,
+                  //   hintText: 'Enter Text',
+                  //   hintStyle: GoogleFonts.firaSans(
+                  //     fontSize: 10.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: const Color(0xff9B9B9B),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter some text';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   height: 32,
+                  //   width: 300,
+                  // ),
+
+                  FirstHRTextFConst(controller: phonenocltr, keyboardType: TextInputType.number, text: 'Phone No.',
+
+                  ),
+                  // Text(
+                  //   'Phone No.',
+                  //   style: GoogleFonts.firaSans(
+                  //       fontSize: 10.0,
+                  //       fontWeight: FontWeight.w400,
+                  //       color: const Color(0xff686464)),
+                  // ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  // CustomTextFieldRegister(
+                  //   controller: phonenocltr,
+                  //   hintText: 'Enter Text',
+                  //   hintStyle: GoogleFonts.firaSans(
+                  //     fontSize: 10.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: const Color(0xff9B9B9B),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter some text';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   height: 32,
+                  //   width: 300,
+                  // ),
+
+                  FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: 'Rehirable',
+
+                  ),
+                  // Text(
+                  //   'Rehirable',
+                  //   style: GoogleFonts.firaSans(
+                  //       fontSize: 10.0,
+                  //       fontWeight: FontWeight.w400,
+                  //       color: const Color(0xff686464)),
+                  // ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  // CustomTextFieldRegister(
+                  //   controller: rehirablecltr,
+                  //   hintText: 'Enter Text',
+                  //   hintStyle: GoogleFonts.firaSans(
+                  //     fontSize: 10.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: const Color(0xff9B9B9B),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter some text';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   height: 32,
+                  //   width: 300,
+                  // ),
+
+                  FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: '',
+
+                  ),
+                  Text(
+                    'Final Address',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: finaladdrescltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
                     },
-                  );
-                },
+                    height: 32,
+                    width: 300,
+                  )
+                ],
+              ),
+              SizedBox(
+                width: 20,
+              ),
+
+
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.width / 50,
+              // ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Type',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: typecltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Reason',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: reasoncltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Final Paycheck',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller:finalpaycheckcltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Date',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: datecltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Gross Pay',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: grosspaycltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Net Pay',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: netpaycltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Methods',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: methodscltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  ),
+                  Text(
+                    'Materials',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: materialscltr,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff9B9B9B),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    height: 32,
+                    width: 300,
+                  )
+                ],
               ),
             ],
-          )
-    
-        ]
-    
-          )
           ),
+
+
+    
+        ],
+      bottomButtons:   Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomButtonTransparent(
+            text: AppString.cancel,
+            onPressed: () async {
+              Navigator.pop(context);
+            },
+          ),
+
+          SizedBox(width:25),
+          CustomElevatedButton(
+            width: AppSize.s100,
+            text: "Terminate",
+            onPressed: () async {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  Future.delayed(
+                    const Duration(seconds: 3),
+                        () {
+                      if (Navigator.of(context).canPop()) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  );
+                  return const AddSuccessPopup(
+                    message: 'Added Successfully',
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      title: "Terminate",
+    
+
     );
   }
 }
