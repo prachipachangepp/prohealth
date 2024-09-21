@@ -97,7 +97,7 @@ Future<TerminateEmployeePrefillData> getTerminationEmployeePerfill({required Bui
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -111,11 +111,13 @@ Future<TerminateEmployeePrefillData> getTerminationEmployeePerfill({required Bui
     await Api(context).get(path: ManageReposotory.getTerminationPreFillEmp(employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
         String dateofTermination =
-        convertIsoToDayMonthYear(response.data['dateofTermination']);
+        convertIsoToDayMonthYear(response.data['dateofTermination'] ?? "0000-00-00");
         String dateofResignation =
-        convertIsoToDayMonthYear(response.data['dateofResignation']);
+        convertIsoToDayMonthYear(response.data['dateofResignation'] ?? "0000-00-00");
         String dateofHire =
-        convertIsoToDayMonthYear(response.data['dateofHire']);
+        convertIsoToDayMonthYear(response.data['dateofHire'] ?? "0000-00-00");
+        String checkDate =
+        convertIsoToDayMonthYear(response.data['checkDate'] ?? "0000-00-00");
         itemsData = TerminateEmployeePrefillData(
           employeeId: response.data['employeeId'],
           firstName: response.data['firstName']??"--",
@@ -125,13 +127,13 @@ Future<TerminateEmployeePrefillData> getTerminationEmployeePerfill({required Bui
           finalAddress: response.data['finalAddress'] ?? "--",
           type: response.data['type'] ?? "--",
           finalPayCheck: response.data['finalPayCheck'] ?? 0,
-          checkDate: response.data['checkDate'] ?? "--",
+          checkDate: checkDate ?? "0000-00-00",
           grossPay: response.data['grossPay'] ?? 0,
           netPay: response.data['netPay'] ?? 0,
           methods: response.data['methods'] ?? "--",
           materials: response.data['materials'] ?? "--",
           primaryPhoneNbr: response.data['primaryPhoneNbr']??"--",
-          terminationFlag: response.data['terminationFlag']??"--",
+          terminationFlag: response.data['terminationFlag']??false,
           dateofTermination: dateofTermination??"--",
           dateofResignation: dateofResignation??"--",
           dateofHire: dateofHire??"--",
@@ -153,20 +155,20 @@ Future<TerminateEmployeePrefillData> getTerminationEmployeePerfill({required Bui
 Future<ApiData> patchEmployeeTermination({required BuildContext context, required int employeeId,
   required String dateofTermination,required String dateofResignation,required String dateofHire,
   required String rehirable, required String position, required String finalAddress,required String type,
-  required String reason, required int finalPayCheck, required String checkDate, required int grossPay,
-  required int netPay, required String methods, required String materials ,required String status}) async {
+  required String reason, required double finalPayCheck, required String checkDate, required double grossPay,
+  required double netPay, required String methods, required String materials ,required String status}) async {
   try {
     var response = await Api(context).patch(path: ManageReposotory.patchTerminateEmployee(employeeId: employeeId), data: {
-  "dateofTermination": dateofTermination,
-  "dateofResignation": dateofResignation,
-  "dateofHire": dateofHire,
+  "dateofTermination": "${dateofTermination}T00:00:00Z",
+  "dateofResignation": "${dateofResignation}T00:00:00Z",
+  "dateofHire": "${dateofHire}T00:00:00Z",
   "rehirable": rehirable,
   "position": position,
   "finalAddress": finalAddress,
   "type": type,
   "reason": reason,
   "finalPayCheck": finalPayCheck,
-  "checkDate": checkDate,
+  "checkDate": "${checkDate}T00:00:00Z",
   "grossPay": grossPay,
   "netPay": netPay,
   "methods": methods,

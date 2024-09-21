@@ -330,13 +330,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   },
                                 );
                               }
-
                               return const SizedBox();
                             },
                           ),
-
-
-
                           // HRManageDropdown(
                           //   controller: deptController,
                           //   labelText: AppString.dept,
@@ -429,7 +425,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   onChanged: (val) {
                                     // setState(() {
                                       selectedDeptName = val;
-
                                       selectedDeptId = snapshot.data!
                                           .firstWhere(
                                               (dept) => dept.deptName == val)
@@ -741,8 +736,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               borderRadius: BorderRadius.circular(10),
                                               side: BorderSide(color: Colors.blue, width: 2,),),
                                             child: SizedBox(
-                                              height: 289,
-                                              width: 690,
+                                              height: 300,
+                                              width: 720,
                                               child: SingleChildScrollView(
                                                 child: Padding(
                                                   padding: EdgeInsets.symmetric(horizontal: 30),
