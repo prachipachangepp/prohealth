@@ -451,7 +451,7 @@ class _FirstHRTextFConstState extends State<FirstHRTextFConst> {
             height: 5,
           ),
           Container(
-            width: 354,
+            width: 300,
             height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
