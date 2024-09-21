@@ -230,7 +230,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                     Text(
                                       'Select a Module',
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.firaSans(
+                                      style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         color: ColorManager.darkgrey,

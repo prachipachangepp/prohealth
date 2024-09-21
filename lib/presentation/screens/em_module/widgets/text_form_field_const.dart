@@ -58,7 +58,8 @@ class _SMTextFConstState extends State<SMTextFConst> {
       children: [
         Text(
           widget.text,
-          style: ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          style: AllPopupHeadings.customTextStyle(context)
+          //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
         ),
         SizedBox(
           height: 5,
@@ -172,7 +173,7 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
       children: [
         Text(
           widget.text,
-          style: ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          style: AllPopupHeadings.customTextStyle(context),
         ),
         SizedBox(height: 5),
         Container(
@@ -253,12 +254,7 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
       children: [
         Text(
           widget.text,
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: widget.textColor,
-            decoration: TextDecoration.none,
-          ),
+          style: AllPopupHeadings.customTextStyle(context),
         ),
         SizedBox(height: 5),
         Container(
@@ -387,7 +383,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
         children: [
           Text(
             widget.text,
-            style: ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+            style: AllPopupHeadings.customTextStyle(context),
           ),
           SizedBox(
             height: 5,

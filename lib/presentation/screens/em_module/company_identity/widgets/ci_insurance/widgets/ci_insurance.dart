@@ -163,7 +163,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                   padding: const EdgeInsets.only(right: 250,top: AppPadding.p10),
                   child: Container(
                    // color: Colors.red,
-                    width: MediaQuery.of(context).size.width / 12,
+                    width: MediaQuery.of(context).size.width / 10.2,
                     height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,7 +172,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           onTap: () => _selectButton(0,isAddButtonEnabled),
                           child: Container(
                             height: 40,
-                            width: 50,
+                            width: 52,
                             child: Column(
                               children: [
                                 Text(
@@ -193,7 +193,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           onTap: () => _selectButton(1),
                           child: Container(
                             height: 40,
-                            width: 50,
+                            width: 52,
                             child: Column(
                               children: [
                                 Text(

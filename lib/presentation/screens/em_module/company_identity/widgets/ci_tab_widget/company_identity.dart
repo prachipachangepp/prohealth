@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
@@ -130,22 +131,18 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomButton(
-                  paddingVertical: 1,
-                  borderRadius: 12,
-                  text: 'White Labelling',
-                  style: GoogleFonts.firaSans(
-                    fontSize: AppSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.white,
-                  ),
+                CustomIconButtonConst(
+                  // paddingVertical: 1,
+                  // borderRadius: 12,
+                  text: 'White Labelling  ',
+                  //style: PopupBlueBarText.customTextStyle(context),
                   width: 120,
-                  height: 26,
+                  // height: 26,
                   onPressed: showWhitelabellingScreenFunction,
                 ),
                 SizedBox(width: 10,),
                 CustomIconButtonConst(
-                  width: 140,
+                  width: 150,
                   text: 'Add New Office',
                   onPressed: () {
                     // setState((){
@@ -156,89 +153,89 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-    return StatefulBuilder(
-    builder: (BuildContext context, void Function(void Function()) setState) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
                             return FutureBuilder<List<ServicesMetaData>>(
-                              future: getServicesMetaData(context),
-                              builder: (context,snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                if(snapshot.hasData){
-                                  return AddOfficeSumbitButton(
-                                    nameController: nameController,
-                                    addressController: addressController,
-                                    emailController: emailController,
-                                    stateController: stateNameController,
-                                    countryController: countryNameController,
-                                    mobNumController: mobNumController,
-                                    secNumController: secNumController,
-                                    OptionalController: OptionalController,
-                                    // checkBoxHeadOffice:StatefulBuilder(
-                                    //   builder: (BuildContext context, void Function(void Function()) setState) {
-                                    //     return Container(
-                                    //         width: 300,
-                                    //         child: CheckboxTile(
-                                    //           title: 'Head Office',
-                                    //           initialValue: false,
-                                    //           onChanged: (value) {
-                                    //             setState(() {
-                                    //               isHeadOffice = true;
-                                    //               print('HeadOffice ${isHeadOffice}');
-                                    //             });
-                                    //           },
-                                    //         ));
-                                    //   },
-                                    // ),
-                                    onPressed: () async{
-                                      // print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
-                                      // ApiData response = await
-                                      // addNewOffice( context:context,
-                                      //   name: nameController.text,
-                                      //   address: addressController.text,
-                                      //   email: emailController.text,
-                                      //   primaryPhone:  mobNumController.text,
-                                      //   secondaryPhone:secNumController.text,
-                                      //   officeId: "",
-                                      //   lat: _selectedLocation.latitude.toString(),
-                                      //   long:_selectedLocation.longitude.toString(),
-                                      //   cityName: "",
-                                      //   stateName: stateNameController.text,
-                                      //   country: countryNameController.text,
-                                      //   isHeadOffice: false,
-                                      // );
-                                      // nameController.clear();
-                                      // addressController.clear();
-                                      // emailController.clear();
-                                      // mobNumController.clear();
-                                      // secNumController.clear();
-                                      // stateNameController.clear();
-                                      // countryNameController.clear();
-                                      //
-                                      // Navigator.pop(context);
-                                      // if(response.statusCode == 200 || response.statusCode ==201){
-                                      //   print('Services List ${selectedServices}');
-                                      //   await addNewOfficeServices(context: context, officeId: response.officeId!,
-                                      //       serviceList: selectedServices);
-                                      // }
-                                      // companyOfficeListGet(context, 1, 30).then((data) {
-                                      //   _companyIdentityController
-                                      //       .add(data);
-                                      // }).catchError((error) {});
-                                    }, formKey: _formKey, servicesList: snapshot.data!,);
-                                }
-                                else {
-                                  return ErrorPopUp(
-                                      title: "Received Error",
-                                      text: snapshot.error.toString());
-                                }
+                                future: getServicesMetaData(context),
+                                builder: (context,snapshot) {
+                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  if(snapshot.hasData){
+                                    return AddOfficeSumbitButton(
+                                      nameController: nameController,
+                                      addressController: addressController,
+                                      emailController: emailController,
+                                      stateController: stateNameController,
+                                      countryController: countryNameController,
+                                      mobNumController: mobNumController,
+                                      secNumController: secNumController,
+                                      OptionalController: OptionalController,
+                                      // checkBoxHeadOffice:StatefulBuilder(
+                                      //   builder: (BuildContext context, void Function(void Function()) setState) {
+                                      //     return Container(
+                                      //         width: 300,
+                                      //         child: CheckboxTile(
+                                      //           title: 'Head Office',
+                                      //           initialValue: false,
+                                      //           onChanged: (value) {
+                                      //             setState(() {
+                                      //               isHeadOffice = true;
+                                      //               print('HeadOffice ${isHeadOffice}');
+                                      //             });
+                                      //           },
+                                      //         ));
+                                      //   },
+                                      // ),
+                                      onPressed: () async{
+                                        // print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
+                                        // ApiData response = await
+                                        // addNewOffice( context:context,
+                                        //   name: nameController.text,
+                                        //   address: addressController.text,
+                                        //   email: emailController.text,
+                                        //   primaryPhone:  mobNumController.text,
+                                        //   secondaryPhone:secNumController.text,
+                                        //   officeId: "",
+                                        //   lat: _selectedLocation.latitude.toString(),
+                                        //   long:_selectedLocation.longitude.toString(),
+                                        //   cityName: "",
+                                        //   stateName: stateNameController.text,
+                                        //   country: countryNameController.text,
+                                        //   isHeadOffice: false,
+                                        // );
+                                        // nameController.clear();
+                                        // addressController.clear();
+                                        // emailController.clear();
+                                        // mobNumController.clear();
+                                        // secNumController.clear();
+                                        // stateNameController.clear();
+                                        // countryNameController.clear();
+                                        //
+                                        // Navigator.pop(context);
+                                        // if(response.statusCode == 200 || response.statusCode ==201){
+                                        //   print('Services List ${selectedServices}');
+                                        //   await addNewOfficeServices(context: context, officeId: response.officeId!,
+                                        //       serviceList: selectedServices);
+                                        // }
+                                        // companyOfficeListGet(context, 1, 30).then((data) {
+                                        //   _companyIdentityController
+                                        //       .add(data);
+                                        // }).catchError((error) {});
+                                      }, formKey: _formKey, servicesList: snapshot.data!,);
+                                  }
+                                  else {
+                                    return ErrorPopUp(
+                                        title: "Received Error",
+                                        text: snapshot.error.toString());
+                                  }
 
-                              }
+                                }
                             );
 
-    },
-    );
+                          },
+                        );
 
                       },
                     );
@@ -267,7 +264,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      "Sr No.",
+                      AppStringEM.srno,
                       style:AllHRTableHeading.customTextStyle(context),
                       // style: GoogleFonts.firaSans(
                       //   fontSize: 12,
@@ -278,35 +275,33 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   ),
                 ),
                 Expanded(
-                  child: Center(
-                    child: Text(
-                      "Office Name",
-                      style:AllHRTableHeading.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: 12,
-                      //   fontWeight: FontWeight.w700,
-                      //   color: ColorManager.white,
-                      // ),
-                    ),
+                  child: Text(
+                    AppStringEM.officename,
+                    textAlign: TextAlign.start,
+                    style:AllHRTableHeading.customTextStyle(context),
+                    // style: GoogleFonts.firaSans(
+                    //   fontSize: 12,
+                    //   fontWeight: FontWeight.w700,
+                    //   color: ColorManager.white,
+                    // ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    AppStringEM.address,
+                    textAlign: TextAlign.start,
+                    style:AllHRTableHeading.customTextStyle(context),
+                    // style: GoogleFonts.firaSans(
+                    //   fontSize: 12,
+                    //   fontWeight: FontWeight.w700,
+                    //   color: ColorManager.white,
+                    // ),
                   ),
                 ),
                 Expanded(
                   child: Center(
                     child: Text(
-                      "Address",
-                      style:AllHRTableHeading.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: 12,
-                      //   fontWeight: FontWeight.w700,
-                      //   color: ColorManager.white,
-                      // ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      "Actions",
+                      AppStringEM.actions,
                       style:AllHRTableHeading.customTextStyle(context),
                       // style: GoogleFonts.firaSans(
                       //   fontSize: 12,
@@ -341,7 +336,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                         if (snapshot.data!.isEmpty) {
                           return const Center(
                             child: Text(
-                             ErrorMessageString.noOffice,
+                              ErrorMessageString.noOffice,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -384,170 +379,157 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                           ),
                                           height: 90,
                                           child: Stack(
-                                            children: [
-                                              snapshot.data![index].isHeadOffice?Positioned(
-                                                right:0,
-                                                top:0,
-                                                child: Container(
-                                                  height:20,
-                                                  width:80,
-                                                  decoration: BoxDecoration(color: ColorManager.faintOrange,
-                                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight:Radius.circular(4))),
-                                                  child:Center(
-                                                      child:Text('Head Office',
-                                                        style:AllHRTableHeading.customTextStyle(context),))
-                                                ),
-                                              ):Offstage(),
-                                              Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 25,right: 45,top:10,bottom: 10),
-                                                  child: StatefulBuilder(
-                                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                                      return InkWell(
-                                                        onTap: () async{
-                                                          String googleMapsUrl =
-                                                              'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                          if (await canLaunchUrlString(googleMapsUrl)) {
-                                                          await launchUrlString(googleMapsUrl);
-                                                          } else {
-                                                          print('Could not open the map.');
-                                                          }
-                                                        },
-                                                        child: SizedBox(
-                                                          height: 100,
-                                                          width: 150,
-                                                          child: GoogleMap(
-                                                            initialCameraPosition: CameraPosition(
-                                                              target: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
-                                                              zoom: 15.0,
+                                                snapshot.data![index].isHeadOffice?Positioned(
+                                                  right:0,
+                                                  top:0,
+                                                  child: Container(
+                                                      height:20,
+                                                      width:80,
+                                                      decoration: BoxDecoration(color: ColorManager.faintOrange,
+                                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight:Radius.circular(4))),
+                                                      child:Center(
+                                                          child:Text('Head Office',
+                                                            style:AllHRTableHeading.customTextStyle(context),))
+                                                  ),
+                                                ):Offstage(),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 25,right: 45,top:10,bottom: 10),
+                                                      child: StatefulBuilder(
+                                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                                          return InkWell(
+                                                            onTap: () async{
+                                                              String googleMapsUrl =
+                                                                  'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                              if (await canLaunchUrlString(googleMapsUrl)) {
+                                                                await launchUrlString(googleMapsUrl);
+                                                              } else {
+                                                                print('Could not open the map.');
+                                                              }
+                                                            },
+                                                            child: SizedBox(
+                                                              height: 100,
+                                                              width: 150,
+                                                              child: GoogleMap(
+                                                                initialCameraPosition: CameraPosition(
+                                                                  target: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                                  zoom: 15.0,
+                                                                ),
+                                                                markers: {
+                                                                  Marker(
+                                                                    markerId: MarkerId(''),
+                                                                    position: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                                  )
+                                                                }, // Optional: Disable if not needed// Optional: Disable if not needed
+                                                                zoomControlsEnabled: false,
+                                                                mapToolbarEnabled: false,
+                                                              ),
                                                             ),
-                                                            markers: {
-                                                               Marker(
-                                                                markerId: MarkerId(''),
-                                                                position: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
-                                                              )
-                                                            }, // Optional: Disable if not needed// Optional: Disable if not needed
-                                                            zoomControlsEnabled: false,
-                                                            mapToolbarEnabled: false,
-                                                          ),
-                                                        ),
-                                                      );
-                                                      //   Center(
-                                                      //   child: InkWell(
-                                                      //     onTap: () async{
-                                                      //       String googleMapsUrl =
-                                                      //           'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                      //       if (await canLaunchUrlString(googleMapsUrl)) {
-                                                      //       await launchUrlString(googleMapsUrl);
-                                                      //       } else {
-                                                      //       print('Could not open the map.');
-                                                      //       }
-                                                      //     },
-                                                      //     child: MouseRegion(
-                                                      //       onEnter: (_) {
-                                                      //         setState(() {
-                                                      //           _isHovered = true;
-                                                      //         });
-                                                      //       },
-                                                      //       onExit: (_) {
-                                                      //         setState(() {
-                                                      //           _isHovered = false;
-                                                      //         });
-                                                      //       },
-                                                      //       child: Stack(
-                                                      //         alignment: Alignment.center,
-                                                      //         children: [
-                                                      //           Container(
-                                                      //             height: 100,
-                                                      //             width: 100,
-                                                      //             child: Image.asset(
-                                                      //               "images/mapImage.png",
-                                                      //               fit: BoxFit.cover,
-                                                      //             ),
-                                                      //           ),
-                                                      //           if (_isHovered)
-                                                      //             Icon(
-                                                      //               Icons.map,
-                                                      //               size: 20,
-                                                      //               color: ColorManager.blueprime,
-                                                      //             ),
-                                                      //         ],
-                                                      //       ),
-                                                      //     ),
-                                                      //   ),
-                                                      // );
-                                                      },
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(
-                                                      formattedSerialNumber,
-                                                        style: DocumentTypeDataStyle.customTextStyle(context)
-                                                      // style: GoogleFonts.firaSans(
-                                                      //   fontSize: 10,
-                                                      //   fontWeight: FontWeight.w700,
-                                                      //   color: const Color(0xff686464),
-                                                      // ),
+                                                          );
+                                                          //   Center(
+                                                          //   child: InkWell(
+                                                          //     onTap: () async{
+                                                          //       String googleMapsUrl =
+                                                          //           'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                          //       if (await canLaunchUrlString(googleMapsUrl)) {
+                                                          //       await launchUrlString(googleMapsUrl);
+                                                          //       } else {
+                                                          //       print('Could not open the map.');
+                                                          //       }
+                                                          //     },
+                                                          //     child: MouseRegion(
+                                                          //       onEnter: (_) {
+                                                          //         setState(() {
+                                                          //           _isHovered = true;
+                                                          //         });
+                                                          //       },
+                                                          //       onExit: (_) {
+                                                          //         setState(() {
+                                                          //           _isHovered = false;
+                                                          //         });
+                                                          //       },
+                                                          //       child: Stack(
+                                                          //         alignment: Alignment.center,
+                                                          //         children: [
+                                                          //           Container(
+                                                          //             height: 100,
+                                                          //             width: 100,
+                                                          //             child: Image.asset(
+                                                          //               "images/mapImage.png",
+                                                          //               fit: BoxFit.cover,
+                                                          //             ),
+                                                          //           ),
+                                                          //           if (_isHovered)
+                                                          //             Icon(
+                                                          //               Icons.map,
+                                                          //               size: 20,
+                                                          //               color: ColorManager.blueprime,
+                                                          //             ),
+                                                          //         ],
+                                                          //       ),
+                                                          //     ),
+                                                          //   ),
+                                                          // );
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(
-                                                      paginatedData[index].officeName.toString(),
-                                                        style: DocumentTypeDataStyle.customTextStyle(context)
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        // Text('View Map',style:GoogleFonts.firaSans(
-                                                        //   fontSize: 10,
-                                                        //   fontWeight: FontWeight.w700,
-                                                        //   color: const Color(0xff686464),
-                                                        // ),),
-                                                        // SizedBox(width:15),
-                                                        Text(
-                                                          paginatedData[index].address.toString(),
+                                                    Expanded(
+                                                      child: Center(
+                                                        child: Text(
+                                                            formattedSerialNumber,
                                                             style: DocumentTypeDataStyle.customTextStyle(context)
+                                                          // style: GoogleFonts.firaSans(
+                                                          //   fontSize: 10,
+                                                          //   fontWeight: FontWeight.w700,
+                                                          //   color: const Color(0xff686464),
+                                                          // ),
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        CustomButtonTransparentSM(
-                                                          text: 'Manage',
-                                                          onPressed: () {
-                                                            print(paginatedData[index].officeId);
-                                                            showManageScreenFunction(
-                                                              officeId: paginatedData[index].officeId,
-                                                              officeName: paginatedData[index].officeName,
-                                                              compId: paginatedData[index].companyId,
-                                                              companyOfficeId: paginatedData[index].companyOfficeId,
-                                                              stateName: paginatedData[index].stateName,
-                                                              countryName: paginatedData[index].countryName,
-                                                            );
-                                                          },
+                                                    Expanded(
+                                                      child: Text(
+                                                          paginatedData[index].officeName.toString(),
+                                                          textAlign: TextAlign.start,
+                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                          paginatedData[index].address.toString(),
+                                                          textAlign: TextAlign.start,
+                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Center(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            CustomButtonTransparentSM(
+                                                              text: 'Manage',
+                                                              onPressed: () {
+                                                                print(paginatedData[index].officeId);
+                                                                showManageScreenFunction(
+                                                                  officeId: paginatedData[index].officeId,
+                                                                  officeName: paginatedData[index].officeName,
+                                                                  compId: paginatedData[index].companyId,
+                                                                  companyOfficeId: paginatedData[index].companyOfficeId,
+                                                                  stateName: paginatedData[index].stateName,
+                                                                  countryName: paginatedData[index].countryName,
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          ]
+                                              ]
                                           ),
                                         ),
                                       ],
@@ -579,23 +561,23 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                             ],
                           );
                         }
-                            return const Scaffold();
-                          },
-                        );
-                      } else {
-                        return const Center(
-                            child: CircularProgressIndicator(
+                        return const Scaffold();
+                      },
+                    );
+                  } else {
+                    return const Center(
+                        child: CircularProgressIndicator(
                             color: Colors.blue));
-                      }
-                    })
+                  }
+                })
                 : PageView(
-                    controller: _pageController,
-                    children: [
-                      Container(
-                        child: WhitelabellingScreen(officeId: selectedOfficeID,),
-                      ),
-                    ],
-                  ),
+              controller: _pageController,
+              children: [
+                Container(
+                  child: WhitelabellingScreen(officeId: selectedOfficeID,),
+                ),
+              ],
+            ),
           ),
 
         /// Render manage screen if showManageScreen is true

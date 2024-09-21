@@ -70,7 +70,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
           fetchDocuments: (context) => getNewOrgDocfetch(
             context, AppConfig.vendorContracts, AppConfig.subDocId7SNF, 1, 50,
           ),
-          emptyMessage: ErrorMessageString.noLeases,
+          emptyMessage: ErrorMessageString.noSNF,
           onEdit: (NewOrgDocument doc) {
             String? selectedExpiryType = expiryType;
             showDialog(context: context, builder: (context){

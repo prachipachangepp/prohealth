@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../color.dart';
 import '../font_manager.dart';
 ///AppBar custom buttons
@@ -53,7 +52,7 @@ class ConstTextFieldRegister {
 class PopupBlueBarText {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s13,
       fontWeight: FontWeight.w700,
       color: ColorManager.white,
       decoration: TextDecoration.none,
@@ -97,13 +96,49 @@ class TransparentButtonTextConst {
   }
 }
 
-///all iconbutton
-class IconButtonTextConst {
+// ///all iconbutton
+// class IconButtonTextConst {
+//   static TextStyle customTextStyle(BuildContext context) {
+//     return TextStyle(
+//       fontSize: FontSize.s12,
+//       fontWeight: FontWeight.w600,
+//       color: ColorManager.white,
+//       decoration: TextDecoration.none,
+//     );
+//   }
+// }
+
+///all popu heading
+class AllPopupHeadings {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///all menu container heading
+class MenuContainerTextStylling {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
-      color: ColorManager.white,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///all no data msg
+class AllNoDataAvailable {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
   }
@@ -114,9 +149,10 @@ class CommonErrorMsg {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       color: ColorManager.red,
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s10,
       fontWeight: FontWeight.w500,
       decoration: TextDecoration.none,
     );
   }
 }
+

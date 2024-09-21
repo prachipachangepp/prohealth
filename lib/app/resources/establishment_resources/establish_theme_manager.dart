@@ -39,7 +39,7 @@ class AllHRTableHeading {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: ColorManager.white,
       decoration: TextDecoration.none,
     );

@@ -147,7 +147,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
                   size: MediaQuery.of(context).size.width / 100),
               Text(
                 text,
-                style: IconButtonTextConst.customTextStyle(context),
+                style: BlueButtonTextConst.customTextStyle(context),
               ),
             ],
           )),
@@ -271,7 +271,7 @@ class CustomTitleButton extends StatelessWidget {
             text,
             style: TextStyle(
               fontSize: FontSize.s12,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
             ),
           ),

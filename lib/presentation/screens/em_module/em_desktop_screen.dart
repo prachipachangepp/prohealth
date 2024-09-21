@@ -142,9 +142,9 @@ class EMDesktopScreen extends StatelessWidget {
                             width: 170,
                             items: [
                               DropdownMenuItem<String>(
-                                value: 'Select a module',
+                                value: 'Select a Module',
                                 child: Text(
-                                  'Select a module',
+                                  'Select a Module',
                                   textAlign: TextAlign.center,
                                   style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
@@ -400,7 +400,7 @@ class EMDesktopScreen extends StatelessWidget {
                                                                 .value ==
                                                             5
                                                         ? 'Finance'
-                                                        : 'Select a module',
+                                                        : 'Select a Module',
                             onChanged: (newValue) {
                               // Not needed for this implementation
                             },

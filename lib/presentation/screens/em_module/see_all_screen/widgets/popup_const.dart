@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -123,11 +125,7 @@ class _CustomDialogState extends State<CustomDialog> {
                         padding: const EdgeInsets.only(left: AppPadding.p23),
                         child: Text(
                           widget.title,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style: PopupBlueBarText.customTextStyle(context),
                         ),
                       ),
                       Padding(
@@ -155,7 +153,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     text: "First Name",
                     cursorHeight: 12,
                     labelText: "First Name",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelStyle: TextStyle(),
                     labelFontSize: 12,
                     errorText: 'First Name is required',
                   ),
@@ -169,7 +167,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     text: "Last Name",
                     cursorHeight: 12,
                     labelText: "Last Name",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelStyle: TextStyle(),
                     labelFontSize: 12,
                     errorText: 'Last Name is required',
                   ),
@@ -186,7 +184,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     text: "Email",
                     cursorHeight: 12,
                     labelText: "Email",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelStyle: TextStyle(),
                     labelFontSize: 12,
                     errorText: 'Email is required',
                   ),
@@ -200,7 +198,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     text: "Password",
                     cursorHeight: 12,
                     labelText: "Password",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelStyle: TextStyle(),
                     labelFontSize: 12,
                     errorText: 'Password is required',
                     onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
@@ -275,7 +273,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500, color: ColorManager.mediumgrey,),
+          style: DocumentTypeDataStyle.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -404,11 +402,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                               padding: const EdgeInsets.only(left: AppPadding.p23),
                               child: Text(
                                 widget.title,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
+                                style: PopupBlueBarText.customTextStyle(context),
                               ),
                             ),
                             Padding(
@@ -450,7 +444,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           text: "First Name",
                           cursorHeight: 12,
                           labelText: "First Name",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                          labelStyle: TextStyle(),
                           labelFontSize: 12,
                           errorText: 'First Name is required',
                         ),
@@ -463,7 +457,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           text: "Last Name",
                           cursorHeight: 12,
                           labelText: "Last Name",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                          labelStyle: TextStyle(),
                           labelFontSize: 12,
                           errorText: 'Last Name is required',
                         ),
@@ -484,7 +478,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           text: "Email",
                           cursorHeight: 12,
                           labelText: "Email",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                          labelStyle: TextStyle(),
                           labelFontSize: 12,
                           errorText: 'Email is required',
                         ),

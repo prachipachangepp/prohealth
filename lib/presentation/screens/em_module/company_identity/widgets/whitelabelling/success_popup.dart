@@ -59,11 +59,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       "Success",
-                      style:CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.white
-                      ),
+                      style:PopupBlueBarText.customTextStyle(context),
                       // style: GoogleFonts.firaSans(
                       //   fontSize: FontSize.s14,
                       //   fontWeight: FontWeightManager.semiBold,
@@ -174,11 +170,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                 height: AppSize.s50,
                 width: AppSize.s210,
                 child: Text('Submitted Successfully \nThank You.',textAlign: TextAlign.center,
-                  style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: FontSize.s16,
-                      color: ColorManager.mediumgrey
-                  ),),
+                  style:ConstTextFieldRegister.customTextStyle(context),),
               ),
             ),
             Spacer(),

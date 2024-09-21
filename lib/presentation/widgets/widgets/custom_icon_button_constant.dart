@@ -43,7 +43,7 @@ class CustomIconButtonConst extends StatelessWidget {
             : Offstage(),
         label: Text(
           text!,
-          style: IconButtonTextConst.customTextStyle(context)
+          style: BlueButtonTextConst.customTextStyle(context)
         ),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
