@@ -579,24 +579,19 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         HeaderContentConst(
           heading: AppString.type_of_the_document,
           content: CICCDropdown(
-              initialValue: dropDownMenuItems[0].value,
+              initialValue: "Select Document",
               onChange: (val){
-
                 setState((){
                   showExpiryDateField = false;
-
                   for(var a in widget.dataList!){
                     if(a.documentName == val){
                       documentMetaDataId = a.employeeDocMetaDataId;
                       documentSetupId = a.employeeDocTypeSetupId;
                       //docMetaId = docType;
                       documentTypeName = a.documentName;
-
-
-
-                      // if (a.expirytype == AppConfig.issuer) {
-                      //   showExpiryDateField = true;
-                      // }
+                      if (a.reminderThreshould == AppConfig.issuer) {
+                        showExpiryDateField = true;
+                      }
                     }
                   }
                 });
@@ -606,8 +601,6 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
               items:dropDownMenuItems
           )
         ),
-
-
         // HeaderContentConst(
         //   heading: AppString.type_of_the_document,
         //   content: CICCDropdown(
@@ -636,7 +629,6 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         // ),
         Visibility(
           visible: showExpiryDateField,
-
           /// Conditionally display expiry date field
           child: HeaderContentConst(
             heading: AppString.expiry_date,
@@ -682,7 +674,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                       if (pickedDate != null) {
                         datePicked = pickedDate;
                         expiryDateController.text =
-                            DateFormat('MM-dd-yyyy').format(pickedDate);
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
                       }
                     },
                     validator: (value) {
@@ -803,9 +795,15 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         onPressed: () async{
           try{
             //File filePath = File(finalPath!);
+            String? expiryDate;
+            if (expiryDateController.text.isEmpty) {
+              expiryDate = null;
+            } else {
+              expiryDate = datePicked!.toIso8601String() + "Z";
+            }
             var response  = await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
                 employeeId: widget.employeeId, documentName: documentTypeName,
-                documentFile: filePath);
+                documentFile: filePath,expiryDate:expiryDate);
 
             if(response.statusCode == 200 || response.statusCode == 201) {
               Navigator.pop(context);

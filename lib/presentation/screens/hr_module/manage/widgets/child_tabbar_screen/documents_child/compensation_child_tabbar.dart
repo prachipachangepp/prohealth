@@ -54,7 +54,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
 
-
             Container(
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
@@ -87,8 +86,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
-
-
             // Container(
             //   // width: 100,
             //   margin: EdgeInsets.only(right: 60),
