@@ -60,10 +60,10 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                     icon: Icons.add,
                     onPressed: () {
 
-                      showDialog(
-                          context: context,
-                          builder: (_) =>
-                              TerminatePopup(employeeId: widget.employeeId));
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) =>
+                      //         TerminatePopup(employeeId: widget.employeeId));
                     }
                     ),
               ),
