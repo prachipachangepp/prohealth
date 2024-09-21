@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -379,7 +380,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
   }
 }
 
-///Human Resource screen textField normal
+/// Human Resource screen textField normal
 class HRManageTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -394,12 +395,12 @@ class HRManageTextField extends StatefulWidget {
   final String labelText;
   final TextStyle labelStyle;
   final double labelFontSize;
+  final bool showDatePicker; // New parameter for showing date picker
   final Icon? suffixIcon;
   final IconData? prefixIcon;
   final FocusNode? focusNode;
   final String? errorText;
   final String? Function(String?)? validator;
-  // final bool Function(String)? validator;
   final ValueChanged<String>? onChanged;
   bool? enabled;
 
@@ -419,13 +420,13 @@ class HRManageTextField extends StatefulWidget {
     required this.labelText,
     required this.labelStyle,
     required this.labelFontSize,
+    this.showDatePicker = false, // Default to false
     this.suffixIcon,
     this.prefixIcon,
     this.focusNode,
     this.errorText,
     this.onChanged,
     this.validator,
-    // this.validator,
   }) : super(key: key);
 
   @override
@@ -439,6 +440,18 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
   void initState() {
     super.initState();
     hasError = false;
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null) {
+      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate); // Format the date
+    }
   }
 
   @override
@@ -457,14 +470,6 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
-          // cursorHeight: widget.cursorHeight,
-          // validator: validator,
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'This field cannot be empty';
-          //   }
-          //   return null;
-          // },
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
                 bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p5),
@@ -482,10 +487,15 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
                 fontSize: widget.labelFontSize,
                 color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(left: AppPadding.p14),
-              child: widget.suffixIcon,
-            ),
+            suffixIcon: widget.showDatePicker
+                ? GestureDetector(
+              onTap: () => _selectDate(context), // Open date picker
+              child: Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p14),
+                child: widget.suffixIcon ?? Icon(Icons.calendar_month_outlined),
+              ),
+            )
+                : null, // No suffix icon if not needed
           ),
           inputFormatters: [
             CapitalizeFirstLetterFormatter(),
@@ -495,6 +505,123 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
     );
   }
 }
+///
+// ///Human Resource screen textField normal
+// class HRManageTextField extends StatefulWidget {
+//   final TextEditingController controller;
+//   final TextInputType keyboardType;
+//   final String text;
+//   final Color textColor;
+//   final Icon? icon;
+//   final bool? readOnly;
+//   final VoidCallback? onChange;
+//   final double? width;
+//   final double? height;
+//   final double cursorHeight;
+//   final String labelText;
+//   final TextStyle labelStyle;
+//   final double labelFontSize;
+//   final Icon? suffixIcon;
+//   final IconData? prefixIcon;
+//   final FocusNode? focusNode;
+//   final String? errorText;
+//   final String? Function(String?)? validator;
+//   // final bool Function(String)? validator;
+//   final ValueChanged<String>? onChanged;
+//   bool? enabled;
+//
+//   HRManageTextField({
+//     Key? key,
+//     this.enabled,
+//     required this.controller,
+//     required this.keyboardType,
+//     required this.text,
+//     this.textColor = const Color(0xff686464),
+//     this.icon,
+//     this.onChange,
+//     this.readOnly,
+//     this.width,
+//     this.height,
+//     required this.cursorHeight,
+//     required this.labelText,
+//     required this.labelStyle,
+//     required this.labelFontSize,
+//     this.suffixIcon,
+//     this.prefixIcon,
+//     this.focusNode,
+//     this.errorText,
+//     this.onChanged,
+//     this.validator,
+//     // this.validator,
+//   }) : super(key: key);
+//
+//   @override
+//   State<HRManageTextField> createState() => _HRManageTextFieldState();
+// }
+//
+// class _HRManageTextFieldState extends State<HRManageTextField> {
+//   late bool hasError;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     hasError = false;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 320,
+//       height: 40,
+//       child: Padding(
+//         padding: const EdgeInsets.all(AppPadding.p5),
+//         child: TextFormField(
+//           enabled: widget.enabled == null ? true : false,
+//           focusNode: widget.focusNode,
+//           controller: widget.controller,
+//           textAlign: TextAlign.start,
+//           style: DocumentTypeDataStyle.customTextStyle(context),
+//           textAlignVertical: TextAlignVertical.center,
+//           cursorColor: ColorManager.black,
+//           textInputAction: TextInputAction.next,
+//           // cursorHeight: widget.cursorHeight,
+//           // validator: validator,
+//           // validator: (value) {
+//           //   if (value == null || value.isEmpty) {
+//           //     return 'This field cannot be empty';
+//           //   }
+//           //   return null;
+//           // },
+//           decoration: InputDecoration(
+//             contentPadding: EdgeInsets.only(
+//                 bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p5),
+//             border: OutlineInputBorder(
+//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//             ),
+//             labelText: widget.labelText,
+//             labelStyle: widget.labelStyle.copyWith(
+//                 fontSize: widget.labelFontSize,
+//                 color: ColorManager.mediumgrey),
+//             errorText: hasError ? widget.errorText : null,
+//             suffixIcon: Padding(
+//               padding: const EdgeInsets.only(left: AppPadding.p14),
+//               child: widget.suffixIcon,
+//             ),
+//           ),
+//           inputFormatters: [
+//             CapitalizeFirstLetterFormatter(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 ///drop down User
 

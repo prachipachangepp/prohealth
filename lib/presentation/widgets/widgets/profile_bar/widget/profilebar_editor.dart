@@ -53,6 +53,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String? selectedServices;
   String? selectedEmployeType;
   String? selectedReportingOffice;
+  DateTime? selectedDate;
   List<DropdownMenuItem<String>> dropDownList = [];
   int selectedZoneId = 0;
   int selectedCountyId = 0;
@@ -258,20 +259,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               labelText: AppString.name,
                               labelStyle: GoogleFonts.firaSans(fontSize: 12),
                               labelFontSize: 12),
-                          // CICCDropdown(
-                          //   initialValue: selectedEmployeType,
-                          //   onChange: (val) {
-                          //     setState(() {
-                          //       selectedEmployeType = val;
-                          //       for (var service in snapshot.data!) {
-                          //         if (service.serviceName == val) {
-                          //           serviceId = service.serviceId;
-                          //         }
-                          //       }
-                          //     });
-                          //   },
-                          //   items: [],
-                          // ),
                           FutureBuilder<List<EmployeeTypeModal>>(
                             future: EmployeeTypeGet(context, deptId),
                             builder: (context, snapshot) {
@@ -343,27 +330,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               return const SizedBox();
                             },
                           ),
-                          // HRManageDropdown(
-                          //   controller: deptController,
-                          //   labelText: AppString.dept,
-                          //   labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //   labelFontSize: 12,
-                          //   items: ['Clinical', 'Sales', 'Administration'],
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       selectedDepartment = value!;
-                          //     });
-                          //   },
-                          // ),
-                          // HRManageTextField(
-                          //     controller: deptController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppString.dept,
-                          //     cursorHeight: 12,
-                          //     labelText: AppString.dept,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
-                          ///
                           FutureBuilder<List<HRHeadBar>>(
                             future: companyHRHeadApi(context, deptId),
                             builder: (context, snapshot) {
@@ -460,26 +426,28 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               labelStyle: GoogleFonts.firaSans(fontSize: 12),
                               labelFontSize: 12),
                           HRManageTextField(
-                              controller: ageController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.age,
-                              suffixIcon: Icon(Icons.calendar_month_outlined),
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.age,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          // HRManageDropdown(controller: genderController,
-                          //     labelText: AppString.gender,
-                          //     labelStyle: GoogleFonts.firaSans(
-                          //         fontSize: 12
-                          //     ), labelFontSize: 12,
-                          //     items: ['Male', 'Female',],
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       selectedGender = value!;
-                          //     });
-                          //   },
-                          // )
+                            controller: ageController,
+                            keyboardType: TextInputType.text,
+                            text: AppStringMobile.age,
+                            showDatePicker: true, // Set to true to show the date picker icon
+                            cursorHeight: 12,
+                            labelText: AppStringMobile.age,
+                            labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                            labelFontSize: 12,
+                          ),
+
+
+
+                          ///
+                          // HRManageTextField(
+                          //     controller: ageController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.age,
+                          //     suffixIcon: Icon(Icons.calendar_month_outlined),
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.age,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
                           HRManageTextField(
                               controller: genderController,
                               keyboardType: TextInputType.text,
@@ -494,18 +462,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          // HRManageDropdown(controller: ssNController,
-                          //     labelText: AppString.ssn,
-                          //     labelStyle: GoogleFonts.firaSans(
-                          //         fontSize: 12
-                          //     ), labelFontSize: 12,
-                          //     items: ['SSJ', 'SSNL', 'SSNM'],
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       selectedSSn = value!;
-                          //     });
-                          //   },
-                          // ),
+
                           HRManageTextField(
                               controller: ssNController,
                               keyboardType: TextInputType.text,
@@ -553,19 +510,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               labelText: AppStringMobile.worEmail,
                               labelStyle: GoogleFonts.firaSans(fontSize: 12),
                               labelFontSize: 12),
-                          // HRManageDropdown(controller: zoneController,
-                          //     labelText: AppString.zone,
-                          //     labelStyle: GoogleFonts.firaSans(
-                          //         fontSize: 12
-                          //     ), labelFontSize: 12,
-                          //     items: ['Clinical', 'Sales','Administration'],
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       selectedZone = value!;
-                          //     });
-                          //   },
-                          // )
-                          ///
                           HRManageTextField(
                               controller: summaryController,
                               keyboardType: TextInputType.text,
@@ -664,31 +608,22 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             height: 40,
                             width: 320,
                           ),
-                          // HRManageDropdown(controller: reportingOfficeController,
-                          //     labelText: AppString.reportingOffice,
-                          //     labelStyle: GoogleFonts.firaSans(
-                          //         fontSize: 12
-                          //     ), labelFontSize: 12,
-                          //     items: ['Clinical', 'Sales','Administration'],
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       selectedReportingOffice = value!;
-                          //     });
-                          //   },
-                          // )
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 20,
-                            width: 320,
-                            child: Text(
-                              "Coverage",
-                              style: EditProfile.customEditTextStyle(),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Container(
+                              height: 20,
+                              width: 320,
+                              child: Text(
+                                "Coverage",
+                                style: EditProfile.customEditTextStyle(),
+                              ),
+                              // color: Colors.green,
                             ),
-                            // color: Colors.green,
                           ),
 
                           Container(
