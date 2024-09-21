@@ -12,7 +12,6 @@ import 'color.dart';
 //   );
 // }
 
-
 class TableListTextStyle{
   static final TextStyle firaSansGray10Bold = TextStyle(
     fontSize: 10,
