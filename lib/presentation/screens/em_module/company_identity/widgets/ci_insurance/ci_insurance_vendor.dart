@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:pdf/pdf.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -63,37 +63,40 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  // Text(''),
-                  Text(
-                    AppString.srNo,
-                    style:AllHRTableHeading.customTextStyle(context),
-                  ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 25),
-                    child: Text('Name    ',
-                        textAlign: TextAlign.start,
-                      style:AllHRTableHeading.customTextStyle(context),),
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // Text(''),
+                    Text(
+                      AppString.srNo,
+                      style:AllHRTableHeading.customTextStyle(context),
+                    ),
+            //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 25),
+                      child: Text('Name    ',
+                          textAlign: TextAlign.start,
+                        style:AllHRTableHeading.customTextStyle(context),),
+                    ),
 
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30),
-                    child: Text(AppString.actions,
-                        textAlign: TextAlign.start,
-                      style:AllHRTableHeading.customTextStyle(context),),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Text(AppString.actions,
+                          textAlign: TextAlign.start,
+                        style:AllHRTableHeading.customTextStyle(context),),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -120,11 +123,8 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                     return Center(
                         child: Text(
                      ErrorMessageString.noVendor,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey),
-                    ));
+                      style:DocumentTypeDataStyle.customTextStyle(context),)
+                        );
                   }
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;

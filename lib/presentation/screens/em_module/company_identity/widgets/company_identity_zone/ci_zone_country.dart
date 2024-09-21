@@ -8,9 +8,9 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/zone_m
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_zone_data.dart';
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -125,11 +125,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noCounties,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context)
                   ),
                 );
               }

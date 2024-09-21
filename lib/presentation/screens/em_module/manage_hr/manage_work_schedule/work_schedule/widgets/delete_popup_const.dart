@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -8,6 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class DeletePopup extends StatefulWidget {
   final VoidCallback onCancel;
@@ -53,7 +56,13 @@ class _DeletePopupState extends State<DeletePopup> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       widget.title,
-                      style:  PopupBlueBarText.customTextStyle(context),
+                      style: PopupBlueBarText.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: FontSize.s12,
+                      //   fontWeight: FontWeight.w600,
+                      //   color: ColorManager.white,
+                      //   decoration: TextDecoration.none,
+                      // ),
                     ),
                   ),
                   IconButton(
@@ -74,7 +83,12 @@ class _DeletePopupState extends State<DeletePopup> {
               child: Row(
                 children: [
                   Text('Do you really want to delete?',
-                    style:ConstTextFieldRegister.customTextStyle(context),
+                  style: DocumentTypeDataStyle.customTextStyle(context),
+                  //   style:CustomTextStylesCommon.commonStyle(
+                  //     fontWeight: FontWeight.w600,
+                  //     fontSize: FontSize.s12,
+                  //     color: ColorManager.mediumgrey
+                  // ),
                   ),
                 ],
               ),
@@ -99,7 +113,8 @@ class _DeletePopupState extends State<DeletePopup> {
                           ),
                         ),),
                       child: Text('Cancel',
-                          style: TransparentButtonTextConst.customTextStyle(context)),),
+                         style: TransparentButtonTextConst.customTextStyle(context),
+                      ),),
                   )
                 ),
                 SizedBox(width: 20,),
@@ -177,7 +192,13 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       widget.title,
-                      style:  PopupBlueBarText.customTextStyle(context),
+                      style: PopupBlueBarText.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: FontSize.s12,
+                      //   fontWeight: FontWeight.w600,
+                      //   color: ColorManager.white,
+                      //   decoration: TextDecoration.none,
+                      // ),
                     ),
                   ),
                   IconButton(
@@ -198,11 +219,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
               child: Row(
                 children: [
                   Text('Not allow to delete county.',
-                    style:CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey
-                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context),
                   ),
                 ],
               ),
@@ -227,7 +244,8 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                               ),
                             ),),
                           child: Text('Cancel',
-                              style: TransparentButtonTextConst.customTextStyle(context)),),
+                              style:TransparentButtonTextConst.customTextStyle(context)
+                          ),),
                       )
                   ),
                   SizedBox(width: 20,),
@@ -325,10 +343,11 @@ class _ReusableLoadingButtonState extends State<ReusableLoadingButton> {
         ),
         child: Text(
           widget.text,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
+          style: BlueButtonTextConst.customTextStyle(context),
+          // style: GoogleFonts.firaSans(
+          //   fontSize: 12,
+          //   fontWeight: FontWeight.w700,
+          // ),
         ),
       ),
     );

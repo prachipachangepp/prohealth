@@ -61,7 +61,7 @@ class PopupBlueBarText {
   }
 }
 
-///all PopupBlue BarText
+///all Popupgray BarText
 class DropdownItemStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
@@ -85,7 +85,7 @@ class BlueButtonTextConst {
   }
 }
 
-///all transparentButton
+///all transparentButton  and pick location text
 class TransparentButtonTextConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(

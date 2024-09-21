@@ -1,17 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/button_constant.dart';
+import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
 
@@ -105,176 +108,114 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          width: AppSize.s407,
-          height: AppSize.s250,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
+    return DialogueTemplate(
+
+
+        width: AppSize.s407,
+        height: AppSize.s267,
+
+
+          body: [
+
+            Padding(
+              padding: const EdgeInsets.symmetric(
+
+                horizontal: AppPadding.p10,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    controller: widget.countynameController,
+                    keyboardType: TextInputType.text,
+                    text: widget.title1,
                   ),
-                ),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 27.0),
-                      child: Text(
-                        widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
+                  if (countyNameError != null)
+                    Text(
+                      countyNameError!,
+                      textAlign: TextAlign.start,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: AppSize.s20),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p6,
-                  horizontal: AppPadding.p20,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  SizedBox(height: AppSize.s20),
+                  if (widget.title2 != null) ...[
                     FirstSMTextFConst(
-                      controller: widget.countynameController,
+                      inputFormated: [UpperCaseTextFormatter()],
+                      controller: widget.zipcodeController!,
                       keyboardType: TextInputType.text,
-                      text: widget.title1,
+                      text: widget.title2!,
                     ),
-                    if (countyNameError != null)
+                    if (zipcodeError != null)
                       Text(
-                        countyNameError!,
+                        zipcodeError!,
                         textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.red,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
-                    SizedBox(height: AppSize.s20),
-                    if (widget.title2 != null) ...[
-                      FirstSMTextFConst(
-                        inputFormated: [UpperCaseTextFormatter()],
-                        controller: widget.zipcodeController!,
-                        keyboardType: TextInputType.text,
-                        text: widget.title2!,
-                      ),
-                      if (zipcodeError != null)
-                        Text(
-                          zipcodeError!,
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                    ],
-                    if (widget.title3 != null) ...[
-                      SizedBox(height: AppSize.s20),
-                      FirstSMTextFConst(
-                        controller: widget.mapController!,
-                        keyboardType: TextInputType.text,
-                        text: widget.title3!,
-                      ),
-                      if (mapError != null)
-                        Text(
-                          mapError!,
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                    ],
-                    // if (widget.title4 != null &&
-                    //     widget.landmarkController != null) ...[
-                    //   SizedBox(height: AppSize.s20),
-                    //   FirstSMTextFConst(
-                    //     controller: widget.landmarkController!,
-                    //     keyboardType: TextInputType.text,
-                    //     text: widget.title4!,
-                    //   ),
-                    //   if (landmarkError != null)
-                    //     Text(
-                    //       landmarkError!,
-                    //       textAlign: TextAlign.start,
-                    //       style: GoogleFonts.firaSans(
-                    //         fontSize: FontSize.s10,
-                    //         fontWeight: FontWeight.w400,
-                    //         color: Colors.red,
-                    //         decoration: TextDecoration.none,
-                    //       ),
-                    //     ),
-                    // ],
                   ],
-                ),
-              ),
-              SizedBox(height: AppSize.s5),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: AppSize.s25,
-                        width: AppSize.s25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: widget.buttonTitle,
-                          onPressed: () async {
-                            if (validateFields()) {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              await widget.onSavePressed();
-                              setState(() {
-                                isLoading = false;
-                              });
-                            }
-                          },
-                        ),
+                  if (widget.title3 != null) ...[
+                    SizedBox(height: AppSize.s20),
+                    FirstSMTextFConst(
+                      controller: widget.mapController!,
+                      keyboardType: TextInputType.text,
+                      text: widget.title3!,
+                    ),
+                    if (mapError != null)
+                      Text(
+                        mapError!,
+                        textAlign: TextAlign.start,
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
+                  ],
+                  // if (widget.title4 != null &&
+                  //     widget.landmarkController != null) ...[
+                  //   SizedBox(height: AppSize.s20),
+                  //   FirstSMTextFConst(
+                  //     controller: widget.landmarkController!,
+                  //     keyboardType: TextInputType.text,
+                  //     text: widget.title4!,
+                  //   ),
+                  //   if (landmarkError != null)
+                  //     Text(
+                  //       landmarkError!,
+                  //       textAlign: TextAlign.start,
+                  //       style: GoogleFonts.firaSans(
+                  //         fontSize: FontSize.s10,
+                  //         fontWeight: FontWeight.w400,
+                  //         color: Colors.red,
+                  //         decoration: TextDecoration.none,
+                  //       ),
+                  //     ),
+                  // ],
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+
+
+          ], bottomButtons:    isLoading
+        ? SizedBox(
+        height: AppSize.s25,
+        width: AppSize.s25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ))
+        : CustomElevatedButton(
+      width: AppSize.s105,
+      height: AppSize.s30,
+      text: widget.buttonTitle,
+      onPressed: () async {
+        if (validateFields()) {
+          setState(() {
+            isLoading = true;
+          });
+          await widget.onSavePressed();
+          setState(() {
+            isLoading = false;
+          });
+        }
+      },
+    ),
+      title: widget.title,
+
     );
   }
 }
@@ -361,209 +302,137 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          width: AppSize.s400,
-          height: AppSize.s400,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                ),
-                height: AppSize.s40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p1,
-                  horizontal: AppPadding.p20,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: AppPadding.p15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'County Name',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          widget.child!
-                        ],
-                      ),
-                      SizedBox(height: AppSize.s10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.zone,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          widget.child1!
-                        ],
-                      ),
-                      SizedBox(height: AppSize.s15),
-                      // FirstSMTextFConst(
-                      //   controller: widget.cityNameController,
-                      //   keyboardType: TextInputType.text,
-                      //   text: 'City Name',
-                      // ),
-                      // SizedBox(height: AppSize.s15),
-                      SMTextFConst(
-                        controller: widget.zipcodeController,
-                        keyboardType: TextInputType.text,
-                        text: 'Zip Code',
-                      ),
-                      SizedBox(height: AppSize.s15),
-                      /////
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: widget.onPickLocation,
-                            style: TextButton.styleFrom(
-                                backgroundColor: Colors.transparent),
-                            child: Text(
-                              'Pick Location',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.bluelight,
-                                //decoration: TextDecoration.none,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: ColorManager.granitegray,
-                            size: AppSize.s18,
-                          ),
-                          SizedBox(width: 10),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _location,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff686464),
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+    return DialogueTemplate(
 
-                      // Text('${widget.location}'),
-                      // Text('Picked Location: ${widget.locationController.text}'),
-                      // SizedBox(height: AppSize.s15),
-                      // FirstSMTextFConst(
-                      //   controller: widget.landmarkController,
-                      //   keyboardType: TextInputType.text,
-                      //   text: 'Landmark',
-                      // ),
+
+        width: AppSize.s400,
+        height: AppSize.s400,
+
+
+          body: [
+
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p1,
+                horizontal: AppPadding.p10,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'County Name',
+                        style: DocumentTypeDataStyle.customTextStyle(context)
+                      ),
+                      SizedBox(height: AppSize.s5),
+                      widget.child!
                     ],
                   ),
-                ),
-              ),
-              SizedBox(
-                height: AppSize.s10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: AppStringEM.add,
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            await widget.onSavePressed();
-                            // Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
-                                );
-                              },
-                            );
-                            // Navigator.pop(context);
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
+                  SizedBox(height: AppSize.s10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.zone,
+                          style: DocumentTypeDataStyle.customTextStyle(context)
+                      ),
+                      SizedBox(height: AppSize.s5),
+                      widget.child1!
+                    ],
+                  ),
+                  SizedBox(height: AppSize.s15),
+                  // FirstSMTextFConst(
+                  //   controller: widget.cityNameController,
+                  //   keyboardType: TextInputType.text,
+                  //   text: 'City Name',
+                  // ),
+                  // SizedBox(height: AppSize.s15),
+                  SMTextFConst(
+                    controller: widget.zipcodeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Zip Code',
+                  ),
+                  SizedBox(height: AppSize.s15),
+                  /////
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: widget.onPickLocation,
+                        style: TextButton.styleFrom(
+                            backgroundColor: Colors.transparent),
+                        child: Text(
+                          'Pick Location',
+                            style: TransparentButtonTextConst.customTextStyle(context)
                         ),
                       ),
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: ColorManager.granitegray,
+                        size: AppSize.s18,
+                      ),
+                      SizedBox(width: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              _location,
+                                style: DocumentTypeDataStyle.customTextStyle(context)
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Text('${widget.location}'),
+                  // Text('Picked Location: ${widget.locationController.text}'),
+                  // SizedBox(height: AppSize.s15),
+                  // FirstSMTextFConst(
+                  //   controller: widget.landmarkController,
+                  //   keyboardType: TextInputType.text,
+                  //   text: 'Landmark',
+                  // ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+
+
+          ], bottomButtons: isLoading
+        ? SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ))
+        : CustomElevatedButton(
+      width: AppSize.s105,
+      height: AppSize.s30,
+      text: AppStringEM.add,
+      onPressed: () async {
+        setState(() {
+          isLoading = true;
+        });
+        await widget.onSavePressed();
+        // Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CountySuccessPopup(
+              message: 'Save Successfully',
+            );
+          },
+        );
+        // Navigator.pop(context);
+        setState(() {
+          isLoading = false;
+        });
+      },
+    ), title: widget.title,
+
     );
   }
 }
@@ -644,206 +513,135 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          width: AppSize.s400,
-          height: AppSize.s400,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                ),
-                height: AppSize.s40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ],
-                ),
+    return DialogueTemplate(
+
+
+        width: AppSize.s400,
+        height: AppSize.s420,
+
+
+          body: [
+
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p1,
+                horizontal: AppPadding.p10,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p1,
-                  horizontal: AppPadding.p20,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'County Name',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          widget.child1!
-                        ],
+                      Text(
+                        'County Name',
+                          style: DocumentTypeDataStyle.customTextStyle(context)
                       ),
-                      SizedBox(height: AppSize.s10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.zone,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          widget.child!
-                        ],
-                      ),
-
-                      // SizedBox(height: AppSize.s15),
-                      // FirstSMTextFConst(
-                      //   controller: widget.cityNameController!,
-                      //   keyboardType: TextInputType.text,
-                      //   text: 'City Name',
-                      // ),
-                      SizedBox(height: AppSize.s15),
-                      SMTextFConst(
-                        controller: widget.zipcodeController,
-                        keyboardType: TextInputType.text,
-                        text: 'Zip Code',
-                      ),
-                      SizedBox(height: AppSize.s15),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: widget.onPickLocation,
-                            style: TextButton.styleFrom(
-                                backgroundColor: Colors.transparent),
-                            child: Text(
-                              'Pick Location',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.bluelight,
-                                //decoration: TextDecoration.none,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: ColorManager.granitegray,
-                            size: AppSize.s18,
-                          ),
-                        ],
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              _location,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: AppSize.s15),
-
-                      // FirstSMTextFConst(
-                      //   controller: widget.landmarkController!,
-                      //   keyboardType: TextInputType.text,
-                      //   text: 'Landmark',
-                      // ),
+                      SizedBox(height: AppSize.s5),
+                      widget.child1!
                     ],
                   ),
-                ),
-              ),
-              SizedBox(
-                height: AppSize.s10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: AppStringEM.save,
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            await widget.onSavePressed();
-                            // Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
-                                );
-                              },
-                            );
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
+                  SizedBox(height: AppSize.s10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.zone,
+                          style: DocumentTypeDataStyle.customTextStyle(context)
+                      ),
+                      SizedBox(height: AppSize.s5),
+                      widget.child!
+                    ],
+                  ),
+
+                  // SizedBox(height: AppSize.s15),
+                  // FirstSMTextFConst(
+                  //   controller: widget.cityNameController!,
+                  //   keyboardType: TextInputType.text,
+                  //   text: 'City Name',
+                  // ),
+                  SizedBox(height: AppSize.s15),
+                  SMTextFConst(
+                    controller: widget.zipcodeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Zip Code',
+                  ),
+                  SizedBox(height: AppSize.s15),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: widget.onPickLocation,
+                        style: TextButton.styleFrom(
+                            backgroundColor: Colors.transparent),
+                        child: Text(
+                          'Pick Location',
+                          style: TransparentButtonTextConst.customTextStyle(context)
                         ),
                       ),
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: ColorManager.granitegray,
+                        size: AppSize.s18,
+                      ),
+                    ],
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          _location,
+                            style: DocumentTypeDataStyle.customTextStyle(context)
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+                  // FirstSMTextFConst(
+                  //   controller: widget.landmarkController!,
+                  //   keyboardType: TextInputType.text,
+                  //   text: 'Landmark',
+                  // ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+
+
+          ],
+      bottomButtons: isLoading
+          ? SizedBox(
+          height: 25,
+          width: 25,
+          child: CircularProgressIndicator(
+            color: ColorManager.blueprime,
+          ))
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.save,
+        onPressed: () async {
+          setState(() {
+            isLoading = true;
+          });
+          await widget.onSavePressed();
+          // Navigator.pop(context);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CountySuccessPopup(
+                message: 'Save Successfully',
+              );
+            },
+          );
+          setState(() {
+            isLoading = false;
+          });
+        },
+      ), title:   widget.title,
+
     );
   }
 }
@@ -968,157 +766,109 @@ class _AddZonePopupState extends State<AddZonePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          width: AppSize.s400,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
+    return DialogueTemplate(
+
+
+        width: AppSize.s400,
+
+
+          height: AppSize.s400,
+          body: [
+
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p15,
+                horizontal: AppPadding.p10,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    // enable: true,
+                    controller: widget.zoneNumberController,
+                    keyboardType: TextInputType.text,
+                    text: 'Zone Number',
                   ),
-                ),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  if (zoneNumberError != null)
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
+                      padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
-                        widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        zoneNumberError!,
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
+                  SizedBox(height: AppSize.s10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FirstSMTextFConst(
+                        // enable: false,
+                        controller: widget.countyNameController,
+                        keyboardType: TextInputType.text,
+                        text: AppString.county,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p15,
-                  horizontal: AppPadding.p20,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FirstSMTextFConst(
-                      enable: true,
-                      controller: widget.zoneNumberController,
-                      keyboardType: TextInputType.text,
-                      text: 'Zone Number',
-                    ),
-                    if (zoneNumberError != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          zoneNumberError!,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                            decoration: TextDecoration.none,
+                      // Text(
+                      //   AppString.county,
+                      //   style: GoogleFonts.firaSans(
+                      //     fontSize: FontSize.s12,
+                      //     fontWeight: FontWeightManager.bold,
+                      //     color: ColorManager.mediumgrey,
+                      //     //decoration: TextDecoration.none,
+                      //   ),
+                      // ),
+                      // SizedBox(height: AppSize.s5),
+                      // widget.child!,
+                      if (countyError != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            countyError!,
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                         ),
-                      ),
-                    SizedBox(height: AppSize.s10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FirstSMTextFConst(
-                          enable: false,
-                          controller: widget.countyNameController,
-                          keyboardType: TextInputType.text,
-                          text: AppString.county,
-                        ),
-                        // Text(
-                        //   AppString.county,
-                        //   style: GoogleFonts.firaSans(
-                        //     fontSize: FontSize.s12,
-                        //     fontWeight: FontWeightManager.bold,
-                        //     color: ColorManager.mediumgrey,
-                        //     //decoration: TextDecoration.none,
-                        //   ),
-                        // ),
-                        // SizedBox(height: AppSize.s5),
-                        // widget.child!,
-                        if (countyError != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: Text(
-                              countyError!,
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: AppSize.s25,
-                        width: AppSize.s25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: widget.buttonTitle,
-                          onPressed: () async {
-                            if (validateFields()) {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              await widget.onSavePressed();
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return CountySuccessPopup(
-                                    message: 'Save Successfully',
-                                  );
-                                },
-                              );
-                              setState(() {
-                                isLoading = false;
-                              });
-                            }
-                          },
-                        ),
-                      ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
+
+          ], bottomButtons: isLoading
+        ? SizedBox(
+        height: AppSize.s25,
+        width: AppSize.s25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ))
+        : CustomElevatedButton(
+      width: AppSize.s105,
+      height: AppSize.s30,
+      text: widget.buttonTitle,
+      onPressed: () async {
+        if (validateFields()) {
+          setState(() {
+            isLoading = true;
+          });
+          await widget.onSavePressed();
+          Navigator.pop(context);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CountySuccessPopup(
+                message: 'Save Successfully',
+              );
+            },
+          );
+          setState(() {
+            isLoading = false;
+          });
+        }
+      },
+    ),
+
+
+      title: widget.title,
+
     );
   }
 }

@@ -22,7 +22,9 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
+
 ///download
 
 class AcknowledgementsChildBar extends StatefulWidget {
@@ -30,22 +32,23 @@ class AcknowledgementsChildBar extends StatefulWidget {
   const AcknowledgementsChildBar({super.key, required this.employeeId});
 
   @override
-  State<AcknowledgementsChildBar> createState() => _AcknowledgementsChildBarState();
+  State<AcknowledgementsChildBar> createState() =>
+      _AcknowledgementsChildBarState();
 }
 
 class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
-  final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
+  final StreamController<List<OnboardingAckHealthData>> _controller =
+      StreamController<List<OnboardingAckHealthData>>();
   TextEditingController acknowldgementNameController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, widget.employeeId,"yes").then((data) {
+    getAckHealthRecord(context, 10, 48, widget.employeeId, "no").then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +64,33 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
-                  onPressed: () {
-                    showDialog(context: context, builder: (BuildContext context){
-                      return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
-                        employeeId: widget.employeeId,
-                        AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
-                        },
-                        );
-                    });
+                  onPressed: () async {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                         return FutureBuilder<List<EmployeeDocSetupModal>>(
+                              future: getEmployeeDocSetupDropDown(context),
+                              builder: (contex, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return AcknowledgementAddPopup(
+                                    title: 'Add Acknowledgement',
+                                    employeeId: widget.employeeId,
+                                    // docTypeMetaIdCC: 10,
+                                    // selectedSubDocId: 48,
+                                    dataList: snapshot.data!,
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
+                        });
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
@@ -80,7 +102,6 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(
@@ -111,7 +132,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Container(
-                height: MediaQuery.of(context).size.height/2,
+                height: MediaQuery.of(context).size.height / 2,
                 padding: EdgeInsets.symmetric(vertical: 30),
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -172,27 +193,29 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                     }
 
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 10),
                       child: Container(
                         width: AppSize.s500,
                         child: Row(
                           children: [
                             GestureDetector(
-                              onTap: () => DowloadFile().downloadPdfFromBase64(fileExtension,"Acknowledgement"), // Use the utility function
+                              onTap: () =>  downloadFile(fileUrl),// Use the utility function
                               child: Container(
-                                width: 62,
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 2, color: ColorManager.faintGrey),
-                                ),
-                                child: Image.asset('images/Vector.png')
-                              ),
+                                  width: 62,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: ColorManager.faintGrey),
+                                  ),
+                                  child: Image.asset('images/Vector.png')),
                             ),
                             SizedBox(width: 10),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     data.DocumentName,

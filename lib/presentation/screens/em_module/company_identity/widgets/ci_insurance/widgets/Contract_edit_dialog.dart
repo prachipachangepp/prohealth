@@ -10,7 +10,9 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../../../app/constants/app_config.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -125,11 +127,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
               children: [
                 Text(
                   widget.contractId,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style: DocumentTypeDataStyle.customTextStyle(context)
                 ),
               ],
             ),
@@ -147,10 +145,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
             padding: const EdgeInsets.only(top: 4.0),
             child: Text(
               _nameDocError!,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: FontSize.s12,
-              ),
+              style: CommonErrorMsg.customTextStyle(context),
             ),
           ),
 
@@ -252,22 +247,14 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                                 value: AppConfig.year,
                                 child: Text(
                                   AppConfig.year,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                  ),
+                                  style:DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                               ),
                               DropdownMenuItem(
                                 value: AppConfig.month,
                                 child: Text(
                                   AppConfig.month,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                  ),
+                                 style:DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                               ),
                             ],

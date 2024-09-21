@@ -23,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 
 class CompensationChildTabbar extends StatefulWidget {
   final int employeeId;
@@ -52,33 +53,69 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+
+
             Container(
-              // width: 100,
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
-                width: 100,
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
-                  onPressed: () {
+                  onPressed: () async {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return CustomDocumedAddPopup(
-                            // idController: compensitionAddIdController,
-                            // nameController: compensitionAddNameController,
-                            // expiryType: compensationExpiryType,
-                            labelName: 'Add Compensation',
-                            AcknowledgementnameController:
-                            compensitionAddNameController,
-                            onSavePressed: () {  },
-                            employeeId: widget.employeeId,
-                            documentMetaId: 11,
-                            documentSetupId: 36,
-                          );
+                        builder: (context) {
+                          return FutureBuilder<List<EmployeeDocSetupModal>>(
+                              future: getEmployeeDocSetupDropDown(context),
+                              builder: (contex, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return AcknowledgementAddPopuppp(
+                                    title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
                         });
-                    //
+                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
+
+
+            // Container(
+            //   // width: 100,
+            //   margin: EdgeInsets.only(right: 60),
+            //   child: CustomIconButtonConst(
+            //     width: 100,
+            //       text: AppStringHr.addNew,
+            //       icon: Icons.add,
+            //       onPressed: () {
+            //         showDialog(
+            //             context: context,
+            //             builder: (BuildContext context) {
+            //               return AcknowledgementAddPopuppp(
+            //                 // idController: compensitionAddIdController,
+            //                 // nameController: compensitionAddNameController,
+            //                 // expiryType: compensationExpiryType,
+            //                 title: 'Add Compensation', employeeId: widget.employeeId, dataList: ,
+            //                 // AcknowledgementnameController:
+            //                 // compensitionAddNameController,
+            //                 // onSavePressed: () {  },
+            //                 // employeeId: widget.employeeId,
+            //                 // documentMetaId: 11,
+            //                 // documentSetupId: 36,
+            //               );
+            //             });
+            //         //
+            //       }),
+            // ),
           ],
         ),
         SizedBox(
@@ -278,8 +315,20 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         color: Color(0xff1696C8),
                                       ),
                                       iconSize: 20,
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
                                     ),
                                     IconButton(
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
                                       onPressed: () {
                                         showDialog(
                                             context: context,
@@ -313,9 +362,16 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         Icons.edit_outlined,
                                         color: Color(0xff1696C8),
                                       ),
+
                                       iconSize: 20,
                                     ),
                                     IconButton(
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
                                       onPressed: () async {
                                         await showDialog(
                                             context: context,

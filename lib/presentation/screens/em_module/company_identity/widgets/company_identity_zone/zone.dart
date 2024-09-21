@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
+
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -20,6 +20,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
@@ -181,15 +182,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       .noCountyAdded,
                                   // AppString.dataNotFound,
                                   style:
-                                  CustomTextStylesCommon
-                                      .commonStyle(
-                                    fontWeight:
-                                    FontWeightManager
-                                        .medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager
-                                        .mediumgrey,
-                                  ),
+                                  DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                               ),
                             ),
@@ -263,15 +256,16 @@ class _CiOrgDocumentState extends State<CiZone> {
                             children: [
                               Text(
                                 AppString.county,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 0
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 0
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
-                                ),
+                                style: TransparentBgTabbar.customTextStyle(0, _selectedIndex),
+                                // style: GoogleFonts.firaSans(
+                                //   fontSize: 12,
+                                //   fontWeight: _selectedIndex == 0
+                                //       ? FontWeightManager.bold
+                                //       : FontWeightManager.regular,
+                                //   color: _selectedIndex == 0
+                                //       ? ColorManager.blueprime
+                                //       : ColorManager.mediumgrey,
+                                // ),
                               ),
                               _selectedIndex == 0
                                   ? Divider(
@@ -295,15 +289,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             children: [
                               Text(
                                 AppString.zone,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 1
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 1
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
-                                ),
+                                style: TransparentBgTabbar.customTextStyle(1, _selectedIndex),
                               ),
                               _selectedIndex == 1
                                   ? Divider(
@@ -327,15 +313,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             children: [
                               Text(
                                 AppString.zip_code,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 2
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 2
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
-                                ),
+                                style: TransparentBgTabbar.customTextStyle(2, _selectedIndex),
                               ),
                               _selectedIndex == 2
                                   ? Divider(
@@ -457,16 +435,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                     ErrorMessageString
                                                         .noCounties,
                                                     //AppString.dataNotFound,
-                                                    style:
-                                                        CustomTextStylesCommon
-                                                            .commonStyle(
-                                                      fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
-                                                      fontSize: FontSize.s12,
-                                                      color: ColorManager
-                                                          .mediumgrey,
-                                                    ),
+                                                    style: DocumentTypeDataStyle.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
@@ -613,16 +582,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                     ErrorMessageString
                                                         .noZoneAdded,
                                                     //  AppString.dataNotFound,
-                                                    style:
-                                                        CustomTextStylesCommon
-                                                            .commonStyle(
-                                                      fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
-                                                      fontSize: FontSize.s12,
-                                                      color: ColorManager
-                                                          .mediumgrey,
-                                                    ),
+                                                    style:DocumentTypeDataStyle.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
@@ -718,16 +678,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                     ErrorMessageString
                                                         .noCountyAdded,
                                                     // AppString.dataNotFound,
-                                                    style:
-                                                        CustomTextStylesCommon
-                                                            .commonStyle(
-                                                      fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
-                                                      fontSize: FontSize.s12,
-                                                      color: ColorManager
-                                                          .mediumgrey,
-                                                    ),
+                                                    style:DocumentTypeDataStyle.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
