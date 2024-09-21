@@ -345,19 +345,30 @@ Future<ApiData> addEmpEnrollAddCoverage(
   BuildContext context,
   int employeeEnrollId,
   int employeeId,
-  String city,
-  int countyId,
-  int zoneId,
+  List<ApiAddCovrageData> addCovrage,
+  // String city,
+  // int countyId,
+  // int zoneId,
 ) async {
   try {
+    var data = {
+      "employeeEnrollId": employeeEnrollId,
+      "employeeId": employeeId,
+      "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
+      // "city": city,
+      // "countyId": countyId,
+      // "zoneId": zoneId,
+    };
+    print("Covrage Data ${data}");
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrolladdCoverage(),
       data: {
         "employeeEnrollId": employeeEnrollId,
         "employeeId": employeeId,
-        "city": city,
-        "countyId": countyId,
-        "zoneId": zoneId,
+        "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
+        // "city": city,
+        // "countyId": countyId,
+        // "zoneId": zoneId,
       },
     );
     print(response);

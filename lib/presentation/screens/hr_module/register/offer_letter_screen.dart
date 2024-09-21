@@ -70,6 +70,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
   String _salary = "";
   String generatedURL = '';
+  List<ApiAddCovrageData> addCovrage = [];
+  List<int> zipCodes = [];
 
   final List<Map<String, String>> data = [
     {'zipCode': '10001', 'city': 'New York'},
@@ -642,6 +644,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                             checkedZipCodes[zipCode] = val ?? false;
                                                             if (val == true) {
                                                               selectedZipCodes.add(zipCode);
+                                                              zipCodes.add(int.parse(zipCode));
                                                             } else {
                                                               selectedZipCodes.remove(zipCode);
                                                             }
@@ -1032,6 +1035,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
                   ElevatedButton(
                     onPressed: ()  {
+                       addCovrage.add(ApiAddCovrageData(city: "", countyId: selectedCountyId, zoneId: selectedZoneId,
+                          zipCodes: zipCodes));
+                       print("Added covrage ${addCovrage}");
                       // await _generateUrlLink(widget.email, widget.userId.toString());
 
 
@@ -1056,6 +1062,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               print('Salari Type ${dropdownValue}');
                               print('PatianCount ${patientsController.text}');
                               try {
+
                                 var empEnrollOfferResponse = await addEmpEnrollOffers(
                                   context,
                                   0,
@@ -1072,9 +1079,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   context,
                                   0,
                                   widget.apiData!.employeeId!,
-                                  selectedCityString,
-                                  selectedCountyId,
-                                  selectedZoneId,
+                                  addCovrage
+                                  // selectedCityString,
+                                  // selectedCountyId,
+                                  // selectedZoneId,
                                 );
 
                                 await addEmpEnrollAddCompensation(

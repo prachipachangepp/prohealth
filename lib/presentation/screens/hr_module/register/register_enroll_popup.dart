@@ -155,9 +155,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      widget.firstName.addListener(_validateFields);
      widget.lastName.addListener(_validateFields);
      widget.email.addListener(_validateFields);
-     speciality.addListener(_validateFields);
+     // speciality.addListener(_validateFields);
     // position.addListener(_validateFields);
-     phone.addListener(_validateFields);
+    //  phone.addListener(_validateFields);
      // Add other controllers if necessary
    }
    void _validateFields() {
@@ -165,10 +165,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
        // Check if any of the required fields are empty
        _isButtonEnabled = widget.firstName.text.isNotEmpty &&
            widget.lastName.text.isNotEmpty &&
-           widget.email.text.isNotEmpty &&
-           speciality.text.isNotEmpty &&
+           widget.email.text.isNotEmpty;
+           // speciality.text.isNotEmpty &&
            //position.text.isNotEmpty &&
-           phone.text.isNotEmpty;
+           // phone.text.isNotEmpty;
        // Add other conditions if necessary
      });
    }
@@ -178,9 +178,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      widget.firstName.removeListener(_validateFields);
      widget.lastName.removeListener(_validateFields);
      widget.email.removeListener(_validateFields);
-     speciality.removeListener(_validateFields);
+     // speciality.removeListener(_validateFields);
      //position.removeListener(_validateFields);
-     phone.removeListener(_validateFields);
+     // phone.removeListener(_validateFields);
      super.dispose();
    }
 
@@ -998,7 +998,7 @@ class RegisterEnrollAlertDialog {
                       keyboardType: TextInputType.text,
                       padding: EdgeInsets.only(
                           bottom: AppPadding.p5, left: AppPadding.p20),
-                      onChanged: (value) {},
+                      // onChanged: (value) {},
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppString.enterText;

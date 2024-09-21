@@ -12,19 +12,19 @@ class ApiData {
   final int? rDignosisId;
   final int? orgOfficeDocumentId;
 
-  ApiData({this.officeId,
-    required this.statusCode,
-    required this.success,
-    required this.message,
-    this.labReportId,
-    this.data,
-    this.imageUrl,
-    this.employeeId,
-    this.patientId,
-    this.miscNoteId,
-    this.rDignosisId,
-    this.orgOfficeDocumentId
-  });
+  ApiData(
+      {this.officeId,
+      required this.statusCode,
+      required this.success,
+      required this.message,
+      this.labReportId,
+      this.data,
+      this.imageUrl,
+      this.employeeId,
+      this.patientId,
+      this.miscNoteId,
+      this.rDignosisId,
+      this.orgOfficeDocumentId});
 }
 
 class ApiDataFilter {
@@ -153,4 +153,24 @@ class ApiDataRegister {
     required this.message,
     this.data,
   });
+}
+
+class ApiAddCovrageData {
+  final String city;
+  final int countyId;
+  final int zoneId;
+  final List<int> zipCodes;
+  ApiAddCovrageData(
+      {required this.city,
+      required this.countyId,
+      required this.zoneId,
+      required this.zipCodes});
+  Map<String, dynamic> toJson() {
+    return {
+      'city': city,
+      'countyId': countyId,
+      'zoneId': zoneId,
+      'zipCode': zipCodes,
+    };
+  }
 }
