@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/widgets/ci_role_container_constant.dart';
@@ -9,13 +8,9 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
-import '../../../../../../../../app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import '../../../../../../../../app/services/api/managers/establishment_manager/role_manager.dart';
-import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/role_manager/role_manager_data.dart';
-import '../../../../../../hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
 import '../../../../../widgets/button_constant.dart';
 import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../whitelabelling/success_popup.dart';
@@ -80,13 +75,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pick Department',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      AppStringEM.pickDept,
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     const SizedBox(height: 4),
                     FutureBuilder<List<RoleManagerData>>(
@@ -108,11 +98,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                               child: Text(
                                ErrorMessageString.noSDepartment,
                                // AppString.dataNotFound,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: FontSize.s12,
-                                  color: ColorManager.mediumgrey,
-                                ),
+                                style: AllNoDataAvailable.customTextStyle(context),
                               ),
                             );
                           }
@@ -166,13 +152,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pick Employee Type',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      AppStringEM.pickEmpType,
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: AppSize.s4),
                     StreamBuilder<List<RoleManagerDepartmentEmpType>>(
@@ -194,11 +175,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                               child: Text(
                                 ErrorMessageString.noClinicianRole,
                                 // AppString.dataNotFound,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight:FontWeight.w500,
-                                  fontSize: FontSize.s12,
-                                  color: ColorManager.mediumgrey,
-                                ),
+                                style: AllNoDataAvailable.customTextStyle(context),
                               ),
                             );
                           }
@@ -284,11 +261,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       child: Text(
                         ErrorMessageString.noModules,
                        // AppString.dataNotFound,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight:FontWeight.w500,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style:AllNoDataAvailable.customTextStyle(context),
                       ),
                     );
                   }

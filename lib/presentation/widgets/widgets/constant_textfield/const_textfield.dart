@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
@@ -335,11 +336,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: ColorManager.mediumgrey,
-          ),
+          style: DocumentTypeDataStyle.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -456,11 +453,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: ColorManager.mediumgrey,
-          ),
+          style: DocumentTypeDataStyle.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -486,7 +479,8 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(
-                fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
+                fontSize: widget.labelFontSize,
+                color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),

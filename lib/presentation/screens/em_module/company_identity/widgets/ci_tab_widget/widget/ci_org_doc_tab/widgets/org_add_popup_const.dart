@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
@@ -90,8 +91,8 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
     return DialogueTemplate(
       width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
-          ? widget.height ?? AppSize.s500
-      :widget.height ??AppSize.s550,
+          ? widget.height ?? AppSize.s522
+      :widget.height ??AppSize.s580,
       body: [
         /// ID of the Document
         SMTextFConst(
@@ -100,15 +101,10 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
           text: AppString.id_of_the_document,
         ),
         if (_idDocError != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 2.0),
-            child: Text(
-              _idDocError!,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: FontSize.s12,
-              ),
-            ),
+          Text(
+            _idDocError!,
+            textAlign: TextAlign.start,
+            style:CommonErrorMsg.customTextStyle(context),
           ),
 
         /// Name of the Document
@@ -118,15 +114,10 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
           text: AppString.name_of_the_document,
         ),
         if (_nameDocError != null) // Display error if any
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Text(
-              _nameDocError!,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: FontSize.s12,
-              ),
-            ),
+          Text(
+            _nameDocError!,
+            textAlign: TextAlign.start,
+            style: CommonErrorMsg.customTextStyle(context),
           ),
 
         /// Type of the Document

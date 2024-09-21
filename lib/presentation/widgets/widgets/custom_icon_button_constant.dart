@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/font_manager.dart';
@@ -42,11 +43,7 @@ class CustomIconButtonConst extends StatelessWidget {
             : Offstage(),
         label: Text(
           text!,
-          style:TextStyle(
-            fontSize: AppSize.s12,
-            fontWeight: FontWeight.w600,
-            color: ColorManager.white,
-          ),
+          style: BlueButtonTextConst.customTextStyle(context)
         ),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),

@@ -91,6 +91,8 @@ class AppStringEM{
   ///Role manager
   static const String role = "Roles";
   static const String roleRules = "Role Rules";
+  static const String pickDept = "Pick Department";
+  static const String pickEmpType = "Pick Employee Type";
 
   ///work schedule
   static const String shiftbatch = "Shift & Batches";
@@ -121,8 +123,8 @@ class ErrorMessageString{
   static const String noZipcode = "No available zipcodes!";
   static const String noLicenses =  "No available licenses!";
   static const String noADR =   "No available ADR!";
-  static const String noMCR =  "No available medical cost reports!";
-  static const String noCR =  "No available cap reports!";
+  static const String noMCR =  "No available Medical Cost Reports!";
+  static const String noCR =  "No available CAP Reports!";
   static const String noQBR =  "No available quarterly balance reports!";
   static const String noVendor =  "No available vendors!";
   static const String noVendorAdded =  "No vendor added";

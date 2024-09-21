@@ -124,7 +124,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       'Add Shift',
-                      style: IconButtonTextConst.customTextStyle(context),
+                      style: BlueButtonTextConst.customTextStyle(context),
                     ),
                   ),
                   IconButton(

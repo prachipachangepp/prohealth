@@ -2,6 +2,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -11,14 +12,6 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/manage
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
@@ -52,7 +45,7 @@ class AddOfficeSumbitButton extends StatefulWidget {
     required this.stateController,
     required this.countryController, required this.servicesList,
     // required this.checkBoxHeadOffice,
-    });
+  });
 
   @override
   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
@@ -73,19 +66,19 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     widget.addressController.removeListener(_onCountyNameChanged);
     super.dispose();
   }
- void _onCountyNameChanged() async {
-   if (widget.addressController.text.isEmpty) {
-     setState(() {
-       _suggestions = [];
-     });
-     return;
-   }
+  void _onCountyNameChanged() async {
+    if (widget.addressController.text.isEmpty) {
+      setState(() {
+        _suggestions = [];
+      });
+      return;
+    }
 
-   final suggestions = await fetchSuggestions(widget.addressController.text);
-   setState(() {
-     _suggestions = suggestions;
-   });
- }
+    final suggestions = await fetchSuggestions(widget.addressController.text);
+    setState(() {
+      _suggestions = suggestions;
+    });
+  }
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected'; // Default text
   double? _latitude;
@@ -158,12 +151,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     child: Text(
                       'Add New Office',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   Padding(
@@ -188,206 +176,196 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Stack(
-                    children: [
-                      Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                          FirstSMTextFConst(
-                            controller: widget.nameController,
-                            keyboardType: TextInputType.text,
-                            text: AppStringEM.name,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return "Please Enter name";
-                            //   }
-                            //   if (!value.contains(RegExp(r'[0-9]'))) {
-                            //     return 'Please Enter valid name';
-                            //   }
-                            //   return "";
-                            // },
-                          ),
-                          const SizedBox(height: AppSize.s9),
-                          DemailSMTextFConst(
-                            controller: widget.emailController,
-                            keyboardType:
-                            TextInputType.emailAddress,
-                            text: AppString.email,
-                          ),
-                          const SizedBox(height: AppSize.s9),
-                          FirstSMTextFConst(
-                            controller: widget.countryController,
-                            keyboardType: TextInputType.text,
-                            text: 'Country',
-                          ),
-                          const SizedBox(height: AppSize.s9),
-                          SMTextFConstPhone(
-                            controller: widget.secNumController,
-                            keyboardType: TextInputType.number,
-                            text: 'Secondary Phone',
-                          ),
-                          const SizedBox(height: AppSize.s9),
-                          Text('Services',style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          )),
-                            StatefulBuilder(
-                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                return Container(
-                                  height:100,
-                                  width: 300,
-                                  child:StatefulBuilder(
-                                            builder: (BuildContext context, void Function(void Function()) setState) {
-                                              return Wrap(
-                                                  children:[
-                                                    ...List.generate(widget.servicesList.length, (index){
-                                                      String serviceID = widget.servicesList[index].serviceId;
-                                                      bool isSelected = selectedServices.contains(serviceID);
-                                                      return Container(
-                                                          width: 150,
-                                                          child: Center(
-                                                            child: CheckboxTile(
-                                                              title: widget.servicesList[index].serviceName,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:[
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  FirstSMTextFConst(
+                                    controller: widget.nameController,
+                                    keyboardType: TextInputType.text,
+                                    text: AppStringEM.name,
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please Enter name";
+                                    //   }
+                                    //   if (!value.contains(RegExp(r'[0-9]'))) {
+                                    //     return 'Please Enter valid name';
+                                    //   }
+                                    //   return "";
+                                    // },
+                                  ),
+                                  const SizedBox(height: AppSize.s9),
+                                  DemailSMTextFConst(
+                                    controller: widget.emailController,
+                                    keyboardType:
+                                    TextInputType.emailAddress,
+                                    text: AppString.email,
+                                  ),
+                                  const SizedBox(height: AppSize.s9),
+                                  FirstSMTextFConst(
+                                    controller: widget.countryController,
+                                    keyboardType: TextInputType.text,
+                                    text: 'Country',
+                                  ),
+                                  const SizedBox(height: AppSize.s9),
+                                  SMTextFConstPhone(
+                                    controller: widget.secNumController,
+                                    keyboardType: TextInputType.number,
+                                    text: 'Secondary Phone',
+                                  ),
+                                  const SizedBox(height: AppSize.s9),
+                                  Text('Services',style: AllPopupHeadings.customTextStyle(context),),
+                                  StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return Container(
+                                        height:100,
+                                        width: 300,
+                                        child:StatefulBuilder(
+                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                            return Wrap(
+                                                children:[
+                                                  ...List.generate(widget.servicesList.length, (index){
+                                                    String serviceID = widget.servicesList[index].serviceId;
+                                                    bool isSelected = selectedServices.contains(serviceID);
+                                                    return Container(
+                                                        width: 150,
+                                                        child: Center(
+                                                          child: CheckboxTile(
+                                                            title: widget.servicesList[index].serviceName,
 
-                                                              initialValue: false,
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  if (value == true) {
-                                                                    selectedServices.add(
-                                                                        ServiceList(
-                                                                            serviceId: serviceID,
-                                                                            npiNumber: "",
-                                                                            medicareProviderId: "",
-                                                                            hcoNumId: ""));
-                                                                  } else {
-                                                                    selectedServices.remove(serviceID);
-                                                                  }
-                                                                });
-                                                                print("Service Id List ${selectedServices}");
-                                                              },
-                                                            ),
-                                                          ));
-                                                    })]
-                                              );
-                                            },
+                                                            initialValue: false,
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                if (value == true) {
+                                                                  selectedServices.add(
+                                                                      ServiceList(
+                                                                          serviceId: serviceID,
+                                                                          npiNumber: "",
+                                                                          medicareProviderId: "",
+                                                                          hcoNumId: ""));
+                                                                } else {
+                                                                  selectedServices.remove(serviceID);
+                                                                }
+                                                              });
+                                                              print("Service Id List ${selectedServices}");
+                                                            },
+                                                          ),
+                                                        ));
+                                                  })]
+                                            );
+                                          },
+                                        ),
+
+                                      );
+                                    },
+                                  )
+                                ],),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: AppSize.s7),
+                                  SMTextFConst(
+                                    controller: widget.addressController,
+                                    keyboardType:
+                                    TextInputType.streetAddress,
+                                    text: AppString.officeaddress,
+                                  ),
+                                  // widget.checkBoxHeadOffice,
+                                  const SizedBox(height: AppSize.s9),
+                                  FirstSMTextFConst(
+                                    controller: widget.stateController,
+                                    keyboardType: TextInputType.text,
+                                    text: 'State',
+                                  ),
+                                  const SizedBox(height: AppSize.s9),
+                                  SMTextFConstPhone(
+                                    controller: widget.mobNumController,
+                                    keyboardType: TextInputType.number,
+                                    text: 'Primary Phone',
+                                  ),
+                                  const SizedBox(height: AppSize.s10),
+                                  SMTextFConstPhone(
+                                    controller: widget.OptionalController,
+                                    keyboardType: TextInputType.number,
+                                    text: 'Alternative Phone',
+                                  ),
+                                  const SizedBox(height: AppSize.s10),
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                        onPressed: _pickLocation,
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Colors.transparent),
+                                        child: Text(
+                                          'Pick Location',
+                                          style: TextStyle(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.bluelight,
+                                            //decoration: TextDecoration.none,
                                           ),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        color: ColorManager.granitegray,
+                                        size: AppSize.s18,
+                                      ),
+                                      Text(
+                                        _location,
+                                        style: TextStyle(
+                                          fontSize: FontSize.s12,
+                                          color: ColorManager.granitegray,
+                                        ),
+                                      ),
 
-                                );
-                              },
-                            )
-                        ],),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: AppSize.s7),
-                          SMTextFConst(
-                            controller: widget.addressController,
-                            keyboardType:
-                            TextInputType.streetAddress,
-                            text: AppString.officeaddress,
-                          ),
-                          // widget.checkBoxHeadOffice,
-                          const SizedBox(height: AppSize.s9),
-                          FirstSMTextFConst(
-                            controller: widget.stateController,
-                            keyboardType: TextInputType.text,
-                            text: 'State',
-                          ),
-                          const SizedBox(height: AppSize.s9),
-                          SMTextFConstPhone(
-                            controller: widget.mobNumController,
-                            keyboardType: TextInputType.number,
-                            text: 'Primary Phone',
-                          ),
-                          const SizedBox(height: AppSize.s10),
-                          SMTextFConstPhone(
-                            controller: widget.OptionalController,
-                            keyboardType: TextInputType.number,
-                            text: 'Alternative Phone',
-                          ),
-                          const SizedBox(height: AppSize.s10),
-                            Row(
-                              children: [
-                                TextButton(
-                                  onPressed: _pickLocation,
-                                  style: TextButton.styleFrom(
-                                      backgroundColor: Colors.transparent),
-                                  child: Text(
-                                    'Pick Location',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.bluelight,
-                                      //decoration: TextDecoration.none,
-                                    ),
+                                    ],
                                   ),
-                                ),
-                                Icon(
-                                  Icons.location_on_outlined,
-                                  color: ColorManager.granitegray,
-                                  size: AppSize.s18,
-                                ),
-                                Text(
-                                  _location,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.granitegray,
+                                ],)
+                            ]
+                        ),
+                        if (_suggestions.isNotEmpty)
+                          Positioned(
+                            top: 50,
+                            right: 50,
+                            child: Container(
+                              height:100,
+                              width:320,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
                                   ),
-                                ),
-
-                              ],
+                                ],
+                              ),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: _suggestions.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(_suggestions[index],style: AllPopupHeadings.customTextStyle(context),),
+                                    onTap: () {
+                                      widget.addressController.text = _suggestions[index];
+                                      widget.addressController.removeListener(_onCountyNameChanged);
+                                      setState(() {
+                                        _suggestions.clear();
+                                      });
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                        ],)
-                      ]
-                    ),
-                      if (_suggestions.isNotEmpty)
-                        Positioned(
-                          top: 50,
-                          right: 50,
-                          child: Container(
-                            height:100,
-                            width:320,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: _suggestions.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(_suggestions[index],style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w700,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.none,
-                                  ),),
-                                  onTap: () {
-                                    widget.addressController.text = _suggestions[index];
-                                    widget.addressController.removeListener(_onCountyNameChanged);
-                                    setState(() {
-                                      _suggestions.clear();
-                                    });
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),]
+                          ),]
                   ),
                 ],
               ),
@@ -414,32 +392,32 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     });
                     try {
                       print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
-                        ApiData response = await
-                        addNewOffice( context:context,
-                          name: widget.nameController.text,
-                          address: widget.addressController.text,
-                          email: widget.emailController.text,
-                          primaryPhone:  widget.mobNumController.text,
-                          secondaryPhone:widget.secNumController.text,
-                          officeId: "",
-                          lat: _selectedLocation.latitude.toString(),
-                          long:_selectedLocation.longitude.toString(),
-                          cityName: "",
-                          stateName: widget.stateController.text,
-                          country: widget.countryController.text,
-                          isHeadOffice: false,
-                        );
+                      ApiData response = await
+                      addNewOffice( context:context,
+                        name: widget.nameController.text,
+                        address: widget.addressController.text,
+                        email: widget.emailController.text,
+                        primaryPhone:  widget.mobNumController.text,
+                        secondaryPhone:widget.secNumController.text,
+                        officeId: "",
+                        lat: _selectedLocation.latitude.toString(),
+                        long:_selectedLocation.longitude.toString(),
+                        cityName: "",
+                        stateName: widget.stateController.text,
+                        country: widget.countryController.text,
+                        isHeadOffice: false,
+                      );
 
-                        Navigator.pop(context);
-                        if(response.statusCode == 200 || response.statusCode ==201){
-                          print('Services List ${selectedServices}');
-                          await addNewOfficeServices(context: context, officeId: response.officeId!,
-                              serviceList: selectedServices);
-                        }
-                        // companyOfficeListGet(context, 1, 30).then((data) {
-                        //   _companyIdentityController
-                        //       .add(data);
-                        // }).catchError((error) {});
+                      Navigator.pop(context);
+                      if(response.statusCode == 200 || response.statusCode ==201){
+                        print('Services List ${selectedServices}');
+                        await addNewOfficeServices(context: context, officeId: response.officeId!,
+                            serviceList: selectedServices);
+                      }
+                      // companyOfficeListGet(context, 1, 30).then((data) {
+                      //   _companyIdentityController
+                      //       .add(data);
+                      // }).catchError((error) {});
 
                       widget.stateController.clear();
                       widget.countryController.clear();

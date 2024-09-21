@@ -144,11 +144,12 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 height: 20,
                 width: 150,
               ),
+
               Material(
                 elevation: 4,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                  width: 670,
+                  width: 695,
                   height: 30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -163,7 +164,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             },
                             child: Container(
                               height: 30,
-                              width: 210,
+                              width: 225,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: _selectedIndex == 0

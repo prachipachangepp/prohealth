@@ -23,7 +23,7 @@ class _CustomRadioListTileState extends State<CustomRadioListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           Radio<String>(
