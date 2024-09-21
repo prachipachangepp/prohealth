@@ -84,7 +84,7 @@ class _CiOrgDocumentState extends State<CiZone> {
   String? selectedZipCodeZone;
   LatLng _selectedLocation =
        LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected';
+  String?_location ;
   final StreamController<List<AllCountyZoneGet>> _zoneController =
       StreamController<List<AllCountyZoneGet>>.broadcast();
   void _pickLocation() async {
@@ -502,6 +502,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                   print(
                                       "Location passed to dialog: $_location");
                                   return AddZipCodePopup(
+                                    officeId: widget.officeId,
                                     title: 'Add Zip Code',
                                     countynameController: countynameController,
                                     zipcodeController: zipcodeController,
@@ -510,223 +511,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       setState(() {
                                         String latlong = _selectedLocation.latitude.toString();
                                       });
-                                      var response = await addZipCodeSetup(
-                                          context,
-                                          docZoneId,
-                                          countyId,
-                                          widget.officeId,
-                                          cityController.text,
-                                          zipcodeController.text,
-                                          _selectedLocation.latitude.toString(),
-                                          _selectedLocation.longitude
-                                              .toString(),
-                                          landmarkController.text);
-
-                                      print(
-                                          "Saved lat long${_selectedLocation.latitude.toString()} + ${_selectedLocation.longitude.toString()}");
-                                      Navigator.pop(context);
                                     },
                                     mapController: mapController,
                                     locationController: locationController,
-                                    child1: StreamBuilder<
-                                            List<AllCountyZoneGet>>(
-                                        stream: _zoneController.stream,
-                                        builder: (context, snapshotZone) {
-                                          getZoneByCounty(
-                                                  context,
-                                                  widget.officeId,
-                                                  countyId,
-                                                  1,
-                                                  200)
-                                              .then((data) {
-                                            _zoneController.add(data);
-                                          }).catchError((error) {});
-                                          if (snapshotZone.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return Container(
-                                              width: 354,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: ColorManager
-                                                        .containerBorderGrey,
-                                                    width: AppSize.s1),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: const Text(
-                                                "",
-                                                //AppString.dataNotFound,
-                                              ),
-                                            );
-                                          }
-                                          if (snapshotZone.data!.isEmpty) {
-                                            return Container(
-                                              width: 354,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: ColorManager
-                                                        .containerBorderGrey,
-                                                    width: AppSize.s1),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 10),
-                                                  child: Text(
-                                                    ErrorMessageString
-                                                        .noZoneAdded,
-                                                    //  AppString.dataNotFound,
-                                                    style:DocumentTypeDataStyle.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          if (snapshotZone.hasData) {
-                                            List dropDown = [];
-                                            int docType = 0;
-                                            List<DropdownMenuItem<String>>
-                                                dropDownTypesList = [];
-                                            // dropDownTypesList.add(
-                                            //     const DropdownMenuItem<String>(
-                                            //   child: Text('Select zone'),
-                                            //   value: 'Select zone',
-                                            // ));
-                                            for (var i in snapshotZone.data!) {
-                                              dropDownTypesList.add(
-                                                DropdownMenuItem<String>(
-                                                  value: i.zoneName,
-                                                  child: Text(i.zoneName),
-                                                ),
-                                              );
-                                            }
-                                            if (selectedZipCodeZone == null) {
-                                              selectedZipCodeZone =
-                                                  snapshotZone.data![0].zoneName;
-                                            }
-                                            docZoneId = snapshotZone.data![0].zoneId;
-                                            return CICCDropdown(
-                                                initialValue:
-                                                    dropDownTypesList[0].value,
-                                                onChange: (val) {
-                                                  selectedZipCodeZone = val;
-                                                  for (var a
-                                                      in snapshotZone.data!) {
-                                                    if (a.zoneName == val) {
-                                                      docType = a.zoneId;
-                                                      print(
-                                                          "ZONE id :: ${a.zoneId}");
-                                                      docZoneId = docType;
-                                                    }
-                                                  }
-                                                  print(":::${docType}");
-                                                  print(":::<>${docZoneId}");
-                                                },
-                                                items: dropDownTypesList);
-                                          }
-                                          return const SizedBox();
-                                        }),
-                                    child: FutureBuilder<
-                                            List<OfficeWiseCountyData>>(
-                                        future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
-                                        builder: (context, snapshotZone) {
-                                          if (snapshotZone.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return Container(
-                                              width: 354,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: ColorManager
-                                                        .containerBorderGrey,
-                                                    width: AppSize.s1),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: const Text(
-                                                "",
-                                                //AppString.dataNotFound,
-                                              ),
-                                            );
-                                          }
-
-                                          if (snapshotZone.data!.isEmpty) {
-                                            return Container(
-                                              width: 354,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: ColorManager
-                                                        .containerBorderGrey,
-                                                    width: AppSize.s1),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 10),
-                                                  child: Text(
-                                                    ErrorMessageString
-                                                        .noCountyAdded,
-                                                    // AppString.dataNotFound,
-                                                    style:DocumentTypeDataStyle.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          if (snapshotZone.hasData) {
-                                            List dropDown = [];
-                                            int docType = 0;
-                                            List<DropdownMenuItem<String>>
-                                                dropDownTypesList = [];
-                                            // dropDownTypesList.add(
-                                            //     const DropdownMenuItem<String>(
-                                            //   child: Text('Select County'),
-                                            //   value: 'Select County',
-                                            // ));
-                                            for (var i in snapshotZone.data!) {
-                                              dropDownTypesList.add(
-                                                DropdownMenuItem<String>(
-                                                  value: i.countyName,
-                                                  child: Text(i.countyName),
-                                                ),
-                                              );
-                                            }
-                                            if (selectedZipCodeCounty == null) {
-                                              selectedZipCodeCounty =
-                                                  'Select County';
-                                            }
-                                            return CICCDropdown(
-                                                initialValue:
-                                                    dropDownTypesList[0].value,
-                                                onChange: (val) {
-                                                  selectedZipCodeCounty = val;
-                                                  for (var a
-                                                      in snapshotZone.data!) {
-                                                    if (a.countyName == val) {
-                                                      docType = a.countyId;
-                                                      print(
-                                                          "County id :: ${a.companyId}");
-                                                      countyId = docType;
-                                                    }
-                                                  }
-                                                  print(":::${docType}");
-                                                  print(":::<>${countyId}");
-                                                },
-                                                items: dropDownTypesList);
-                                          }
-                                          return const SizedBox();
-                                        }),
                                   );
                                 });
                           })

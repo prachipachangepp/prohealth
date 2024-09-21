@@ -91,12 +91,13 @@ class CountyZonePrefillGet {
   final int countyId;
   final int zoneId;
   final String zoneName;
-  final int companyId;
-  final String officeId;
+  final String countyName;
+  // final int companyId;
+  // final String officeId;
 
-  CountyZonePrefillGet({
-    required this.companyId,
-    required this.officeId,
+  CountyZonePrefillGet({required this.countyName,
+    // required this.companyId,
+    // required this.officeId,
     required this.countyId,
     required this.zoneId,
     required this.zoneName,

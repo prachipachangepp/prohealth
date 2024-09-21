@@ -274,7 +274,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                 .zoneName
                                                                                 .toString());
                                                                     return AddZonePopup(
-                                                                      countyNameController: TextEditingController(text: snapshotPrefill.data!.countyId.toString()),
+                                                                      countyNameController: TextEditingController(text: snapshotPrefill.data!.countyName),
                                                                       buttonTitle: AppStringEM.save,
                                                                       zoneNumberController:
                                                                           zoneNumberController,
