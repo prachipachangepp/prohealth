@@ -681,7 +681,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             height: 20,
@@ -692,18 +692,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ),
                             // color: Colors.green,
                           ),
-                          Container(
-                            height: 20,
-                            width: 320,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                color: ColorManager.white,
-                                width: 2, //width of border
-                              ),
-                            ),
-                            // color: Colors.green,
-                          ),
+
                           Container(
                             height: 55,
                             width: 320,
@@ -817,7 +806,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                     if (snapshot.connectionState == ConnectionState.waiting) {
                                                                       return const Padding(
                                                                         padding: EdgeInsets.symmetric(horizontal: 7),
-                                                                        child: CircularProgressIndicator(),
+                                                                        child: CICCDropdown(
+                                                                          hintText: 'Select County',
+                                                                          items: [],),
                                                                       );
                                                                     } else if (snapshot.hasError) {
                                                                       return const Text("Error fetching counties");
@@ -844,69 +835,47 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                                             children: [
                                                                               // County Dropdown
-                                                                              Container(
-                                                                                height: 40,
+                                                                              CICCDropdown(
+                                                                                items: countyDropDownList,
+                                                                                initialValue: selectedCounty,
                                                                                 width: 150,
-                                                                                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Colors.white,
-                                                                                  border: Border.all(
-                                                                                    color: const Color(0xff686464).withOpacity(0.5),
-                                                                                    width: 1,
-                                                                                  ),
-                                                                                  borderRadius: BorderRadius.circular(6),
-                                                                                ),
-                                                                                child: DropdownButtonFormField<String>(
-                                                                                  decoration: const InputDecoration.collapsed(hintText: ''),
-                                                                                  items: countyDropDownList,
-                                                                                  value: selectedCounty,
-                                                                                  onChanged: (newValue) async {
-                                                                                    setState(() {
-                                                                                      selectedCounty = newValue;
-                                                                                    });
+                                                                                onChange: (newValue) async {
+                                                                                  setState(() {
+                                                                                    selectedCounty = newValue;
+                                                                                  });
 
-                                                                                    // Get the county ID for the selected county
-                                                                                    for (var county in snapshot.data!) {
-                                                                                      if (county.countyName == newValue) {
-                                                                                        selectedCountyId = county.countyId;
-                                                                                        break;
-                                                                                      }
+                                                                                  // Get the county ID for the selected county
+                                                                                  for (var county in snapshot.data!) {
+                                                                                    if (county.countyName == newValue) {
+                                                                                      selectedCountyId = county.countyId;
+                                                                                      break;
                                                                                     }
+                                                                                  }
 
-                                                                                    // Fetch zones for the selected county
-                                                                                    List<CountyWiseZoneModal> zones =
-                                                                                    await fetchCountyWiseZone(context, selectedCountyId);
+                                                                                  // Fetch zones for the selected county
+                                                                                  List<CountyWiseZoneModal> zones =
+                                                                                  await fetchCountyWiseZone(context, selectedCountyId);
 
-                                                                                    // Clear and populate zone dropdown list
-                                                                                    zoneDropDownList.clear();
+                                                                                  // Clear and populate zone dropdown list
+                                                                                  zoneDropDownList.clear();
+                                                                                  zoneDropDownList.add(
+                                                                                    DropdownMenuItem<String>(
+                                                                                      child: Text('Select Zone'),
+                                                                                      value: 'Select Zone',
+                                                                                    ),
+                                                                                  );
+                                                                                  for (var zone in zones) {
                                                                                     zoneDropDownList.add(
                                                                                       DropdownMenuItem<String>(
-                                                                                        child: Text('Select Zone'),
-                                                                                        value: 'Select Zone',
+                                                                                        child: Text(zone.zoneName),
+                                                                                        value: zone.zoneName,
                                                                                       ),
                                                                                     );
-                                                                                    for (var zone in zones) {
-                                                                                      zoneDropDownList.add(
-                                                                                        DropdownMenuItem<String>(
-                                                                                          child: Text(zone.zoneName),
-                                                                                          value: zone.zoneName,
-                                                                                        ),
-                                                                                      );
-                                                                                    }
+                                                                                  }
 
-                                                                                    setState(() {}); // Update UI after fetching zones
-                                                                                    print("Selected CountyId: $selectedCountyId");
-                                                                                  },
-                                                                                  style: GoogleFonts.firaSans(
-                                                                                    fontSize: 12,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    color: const Color(0xff686464),
-                                                                                  ),
-                                                                                  icon: const Icon(
-                                                                                    Icons.arrow_drop_down_sharp,
-                                                                                    color: Color(0xff686464),
-                                                                                  ),
-                                                                                ),
+                                                                                  setState(() {}); // Update UI after fetching zones
+                                                                                  print("Selected CountyId: $selectedCountyId");
+                                                                                },
                                                                               ),
                                                                               const SizedBox(height: 10),
 
@@ -921,42 +890,20 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                               ),
                                                                               const SizedBox(height: 5),
 
-                                                                              // Zone Dropdown with the same styling as County Dropdown
+                                                                              // Zone Dropdown
                                                                               zoneDropDownList.isNotEmpty
-                                                                                  ? Container(
-                                                                                height: 40,
+                                                                                  ? CICCDropdown(
+                                                                                items: zoneDropDownList,
+                                                                                initialValue: selectedZone,
                                                                                 width: 150,
-                                                                                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Colors.white,
-                                                                                  border: Border.all(
-                                                                                    color: const Color(0xff686464).withOpacity(0.5),
-                                                                                    width: 1,
-                                                                                  ),
-                                                                                  borderRadius: BorderRadius.circular(6),
-                                                                                ),
-                                                                                child: DropdownButtonFormField<String>(
-                                                                                  decoration: const InputDecoration.collapsed(hintText: ''),
-                                                                                  items: zoneDropDownList,
-                                                                                  value: selectedZone,
-                                                                                  onChanged: (newValue) {
-                                                                                    setState(() {
-                                                                                      selectedZone = newValue;
-                                                                                      print('Selected Zone: $selectedZone');
-                                                                                    });
-                                                                                  },
-                                                                                  style: GoogleFonts.firaSans(
-                                                                                    fontSize: 12,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    color: const Color(0xff686464),
-                                                                                  ),
-                                                                                  icon: const Icon(
-                                                                                    Icons.arrow_drop_down_sharp,
-                                                                                    color: Color(0xff686464),
-                                                                                  ),
-                                                                                ),
+                                                                                onChange: (newValue) {
+                                                                                  setState(() {
+                                                                                    selectedZone = newValue;
+                                                                                    print('Selected Zone: $selectedZone');
+                                                                                  });
+                                                                                },
                                                                               )
-                                                                                  : const Text('No zones available for this county'),
+                                                                                  : CICCDropdown(items: [],)
                                                                             ],
                                                                           );
                                                                         },
@@ -967,8 +914,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   },
                                                                 ),
                                                               ],
-                                                            )
-                                                                ///
+                                                            )///
                                                                 ///
                                                                 // Column(
                                                                 //   crossAxisAlignment:
