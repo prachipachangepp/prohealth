@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -72,8 +73,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
 
 
           body: [
-
-
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p5,
@@ -99,10 +98,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                             padding: const EdgeInsets.only(top: 4.0),
                             child: Text(
                               _nameOfDocumentErrorText,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s12,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                       ],
@@ -113,11 +109,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       children: [
                         Text(
                           'Select services',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                          ),
+                          style:AllPopupHeadings.customTextStyle(context),
                         ),
                         SizedBox(height: AppSize.s5),
                         widget.dropdownServices
@@ -130,11 +122,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       children: [
                         Text(
                           'Select Eligible Clinician',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                          ),
+                          style: AllPopupHeadings.customTextStyle(context),
                         ),
                         SizedBox(height: AppSize.s5),
                         widget.child,

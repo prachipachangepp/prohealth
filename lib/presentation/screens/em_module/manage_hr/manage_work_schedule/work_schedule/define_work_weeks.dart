@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -220,13 +221,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                             color: Colors.grey,
                                                             width: 1),
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
+                                                            BorderRadius.circular(10)),
                                                     child: Center(
                                                       child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                         children: [
                                                           Text(
                                                               data.officeEndTime,
@@ -243,19 +241,11 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                         const EdgeInsets.only(
                                                             left: 15),
                                                     child: Container(
-                                                        height:
-                                                            mediaQuery.height /
-                                                                23,
-                                                        width:
-                                                            mediaQuery.width /
-                                                                50,
+                                                        height: mediaQuery.height / 23,
+                                                        width: mediaQuery.width / 50,
                                                         decoration: BoxDecoration(
-                                                            color: ColorManager
-                                                                .blueprime,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5)),
+                                                            color: ColorManager.blueprime,
+                                                            borderRadius: BorderRadius.circular(5)),
                                                         child: InkWell(
                                                             onTap: () {
                                                               showDialog(
@@ -319,12 +309,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                             context)
                                                         .copyWith(
                                                             scrollbars: false),
-                                                child: FutureBuilder<
-                                                        List<
-                                                            WorkWeekShiftScheduleData>>(
-                                                    future:
-                                                        workWeekShiftScheduleGet(
-                                                            context,
+                                                child: FutureBuilder<List<WorkWeekShiftScheduleData>>(
+                                                    future: workWeekShiftScheduleGet(context,
                                                             //snapshot.data![index].companyId,
                                                             data.weekDays),
                                                     builder: (context,
@@ -347,7 +333,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                         return Center(
                                                             child: Text(
                                                         "No available shift!",
-                                                          style: DefineWorkWeekStyle.customTextStyle(context)
+                                                          style: AllNoDataAvailable.customTextStyle(context)
                                                         ));
                                                       }
                                                       if (snapshotShift

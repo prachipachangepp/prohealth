@@ -91,7 +91,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: AppSize.s500,
+      height: AppSize.s470,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(
@@ -108,12 +108,9 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 text: 'Contract Name',
               ),
               if (_nameDocError != null) // Display error if any
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: Text(
-                    _nameDocError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
+                Text(
+                  _nameDocError!,
+                  style: CommonErrorMsg.customTextStyle(context),
                 ),
 
               SizedBox(height: AppSize.s8),

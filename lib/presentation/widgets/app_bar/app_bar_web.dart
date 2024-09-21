@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -136,15 +135,14 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           children: [
                                             Text(
                                               'Ask',
-                                              style: GoogleFonts.jost(
+                                              style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10,
-                                                  decoration:
-                                                      TextDecoration.none,
+                                                  decoration: TextDecoration.none,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                             Text("KLIP",
-                                                style: GoogleFonts.jost(
+                                                style: TextStyle(
                                                   color: ColorManager.white,
                                                   fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w400,
@@ -358,7 +356,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               value: _selectedValue,
                                               hint: Text(
                                                 'Super User',
-                                                style: GoogleFonts.firaSans(
+                                                style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.white,
@@ -374,7 +372,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   value: value,
                                                   child: Text(
                                                     value,
-                                                    style: GoogleFonts.firaSans(
+                                                    style:TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w400,
@@ -506,7 +504,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             return Text(
                                               loginName!,
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
+                                              style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: FontSize.s8,
                                                 fontWeight:

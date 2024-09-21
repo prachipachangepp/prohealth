@@ -147,7 +147,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
                   size: MediaQuery.of(context).size.width / 100),
               Text(
                 text,
-                style: BlueButtonTextConst.customTextStyle(context),
+                style: TransparentButtonTextConst.customTextStyle(context),
               ),
             ],
           )),
