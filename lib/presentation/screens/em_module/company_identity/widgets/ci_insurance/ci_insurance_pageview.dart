@@ -2,12 +2,14 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 
 class CiPageview extends StatelessWidget {
@@ -59,16 +61,7 @@ class CiPageview extends StatelessWidget {
                         Text(
                           entry.value,
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: selectedIndex == entry.key
-                                ? FontWeight.w700
-                                : FontWeight.w400,
-                            color:selectedIndex == entry.key
-                                ? ColorManager.blueprime
-                                : ColorManager.mediumgrey,
-
-                          ),
+                          style:TransparentBgTabbar.customTextStyle(selectedIndex, 0)
                         ),
                         selectedIndex == entry.key ?
                         Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()

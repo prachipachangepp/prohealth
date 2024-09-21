@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -10,7 +10,9 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../../../app/constants/app_config.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../widgets/dialogue_template.dart';
@@ -110,10 +112,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                   padding: const EdgeInsets.only(top: 4.0),
                   child: Text(
                     _nameDocError!,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: FontSize.s12,
-                    ),
+                    style: CommonErrorMsg.customTextStyle(context),
                   ),
                 ),
 
@@ -128,10 +127,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                   padding: const EdgeInsets.only(top: 2.0),
                   child: Text(
                     _idDocError!,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: FontSize.s12,
-                    ),
+                    style: CommonErrorMsg.customTextStyle(context),
                   ),
                 ),
 
@@ -197,11 +193,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                   daysController, // Use the controller initialized with "1"
                               cursorColor: ColorManager.black,
                               cursorWidth: 1,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.mediumgrey,
-                              ),
+                              style:  DocumentTypeDataStyle.customTextStyle(context),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -243,22 +235,14 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                   value: AppConfig.year,
                                   child: Text(
                                     AppConfig.year,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style:  DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                 ),
                                 DropdownMenuItem(
                                   value: AppConfig.month,
                                   child: Text(
                                     AppConfig.month,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style:  DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                 ),
                               ],
@@ -272,11 +256,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 hintText: AppConfig.year,
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight:FontWeight.w500,
-                                  color: ColorManager.mediumgrey,
-                                ),
+                                hintStyle:   DocumentTypeDataStyle.customTextStyle(context),
                                 contentPadding: EdgeInsets.only(bottom: 20),
                               ),
                               icon: Icon(
@@ -306,11 +286,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                         child: TextFormField(
                           controller: expiryDateController,
                           cursorColor: ColorManager.black,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w500,
-                            color: ColorManager.mediumgrey,
-                          ),
+                          style:  DocumentTypeDataStyle.customTextStyle(context),
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -323,11 +299,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             hintText: 'MM-DD-YYYY',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w500,
-                              color: ColorManager.mediumgrey,
-                            ),
+                            hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
                               borderSide: BorderSide(

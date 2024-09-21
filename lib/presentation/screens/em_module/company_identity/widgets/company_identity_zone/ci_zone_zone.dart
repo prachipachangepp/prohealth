@@ -1,18 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
+
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -137,11 +138,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noZones,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context)
                   ),
                 );
               }
@@ -353,11 +350,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                     Text(
                                                                                       ErrorMessageString.noCountyAdded,
                                                                                   style:
-                                                                                      CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    fontSize: FontSize.s12,
-                                                                                    color: ColorManager.mediumgrey,
-                                                                                  ),
+                                                                                  DocumentTypeDataStyle.customTextStyle(context)
                                                                                 ),
                                                                               );
                                                                             }

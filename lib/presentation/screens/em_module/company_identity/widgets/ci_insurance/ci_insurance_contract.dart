@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/Contract_edit_dialog.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
@@ -87,11 +88,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                   return Center(
                     child: Text(
                       'Failed to load data',
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.red,
-                      ),
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
                   );
                 }
@@ -99,11 +96,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                   return Center(
                     child: Text(
                       ErrorMessageString.noContract,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style: DocumentTypeDataStyle.customTextStyle(context)
                     ),
                   );
                 }

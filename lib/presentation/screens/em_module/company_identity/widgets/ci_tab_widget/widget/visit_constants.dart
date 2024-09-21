@@ -9,6 +9,8 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
+import '../../../../widgets/dialogue_template.dart';
+
 class AddVisitPopup extends StatefulWidget {
   final TextEditingController nameOfDocumentController;
   final TextEditingController idOfDocumentController;
@@ -63,59 +65,19 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
+    return DialogueTemplate(
+
         width: AppSize.s400,
         height: AppSize.s450,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: AppSize.s40,
-              width: AppSize.s400,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 23),
-                    child: Text(
-                      widget.title,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: widget.onClosePressed,
-                    icon: Icon(
-                      Icons.close,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s20),
+
+
+          body: [
+
+
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p5,
-                horizontal: AppPadding.p20,
+                horizontal: AppPadding.p10,
               ),
               child: Center(
                 child: Column(
@@ -182,42 +144,38 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                 ),
               ),
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p30),
-              child: Center(
-                child: isLoading
-                    ? CircularProgressIndicator(
-                  color: ColorManager.blueprime,
-                )
-                    : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.save,
-                  onPressed: () async {
-                    _validateInputs();
-                    if (_isNameOfDocumentValid) {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      try {
-                        await widget.onSavePressed();
-                      } finally {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        Navigator.pop(context);
-                        widget.idOfDocumentController.clear();
-                        widget.nameOfDocumentController.clear();
-                      }
-                    }
-                  },
-                ),
-              ),
-            ),
+
+
           ],
-        ),
-      ),
+      bottomButtons: isLoading
+          ? CircularProgressIndicator(
+        color: ColorManager.blueprime,
+      )
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.save,
+        onPressed: () async {
+          _validateInputs();
+          if (_isNameOfDocumentValid) {
+            setState(() {
+              isLoading = true;
+            });
+            try {
+              await widget.onSavePressed();
+            } finally {
+              setState(() {
+                isLoading = false;
+              });
+              Navigator.pop(context);
+              widget.idOfDocumentController.clear();
+              widget.nameOfDocumentController.clear();
+            }
+          }
+        },
+      ), title: widget.title,
+
+
     );
   }
 }
