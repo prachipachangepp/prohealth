@@ -287,13 +287,19 @@ class _HrWidgetState extends State<HrWidget> {
                                   future: companyHRHeadApi(context,deptId),
                                   builder: (context,snapshot) {
                                     if(snapshot.connectionState == ConnectionState.waiting){
-                                      return Container(
-                                        width: 300,
-                                        child: Text(
-                                          'Loading...',
-                                          style: DocumentTypeDataStyle.customTextStyle(context),
-                                        ),
-                                      );
+                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                      return
+                                        CICCDropdown(
+
+                                            items:dropDownMenuItems
+                                        );
+                                      //   Container(
+                                      //   width: 300,
+                                      //   child: Text(
+                                      //     'Loading...',
+                                      //     style: DocumentTypeDataStyle.customTextStyle(context),
+                                      //   ),
+                                      // );
                                     }
                                     if (snapshot.data!.isEmpty) {
                                       return Center(
