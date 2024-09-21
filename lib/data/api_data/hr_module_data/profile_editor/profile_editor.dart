@@ -119,15 +119,33 @@ class ProfileEditorModal {
       required this.message});
 }
 
-
-class EmployeeTypeModal{
+class EmployeeTypeModal {
   final int employeeTypeId;
   final int DepartmentId;
   final String employeeType;
   final String color;
   final String abbreviation;
 
-  EmployeeTypeModal({
-    required this.employeeTypeId, required this.DepartmentId, required this.employeeType, required this.color, required this.abbreviation
+  EmployeeTypeModal(
+      {required this.employeeTypeId,
+      required this.DepartmentId,
+      required this.employeeType,
+      required this.color,
+      required this.abbreviation});
+}
+
+class CountyWiseZoneModal {
+
+
+  final int zone_id;
+  final int county_id;
+  final String zoneName;
+  final int companyId;
+  final String officeId;
+
+
+
+  CountyWiseZoneModal({
+    required this.zone_id, required this.county_id, required this.zoneName, required this.companyId, required this.officeId
 });
 }

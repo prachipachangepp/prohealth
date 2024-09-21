@@ -344,82 +344,6 @@ Future<ProfilePercentage> getPercentage(
   }
 }
 
-///Patch API Employees
-// Future<ProfileEditorModal> getEmployeePrefill(
-//     BuildContext context, int employeeId) async {
-//   var itemsList;
-//   try {
-//     final companyId = await TokenManager.getCompanyId();
-//     final response = await Api(context).get(
-//         path: EstablishmentManagerRepository.employeePrefillGet(employeeId: employeeId));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       itemsList = ProfileEditorModal(
-//           code: response.data['code'] ,
-//           userId: response.data['userId'],
-//           firstName: response.data['firstName'],
-//           lastName: response.data['lastName'],
-//           departmentId: response.data['departmentId'],
-//           employeeTypeId: response.data['employeeTypeId'],
-//           expertise: response.data['expertise'],
-//           cityId: response.data['cityId'],
-//           countryId: response.data['countryId'],
-//           countyId: response.data['countyId'],
-//           zoneId: response.data['zoneId'],
-//           SSNNbr: response.data['SSNNbr'],
-//           primaryPhoneNbr: response.data['primaryPhoneNbr'],
-//           secondryPhoneNbr: response.data['secondryPhoneNbr'],
-//           workPhoneNbr: response.data['workPhoneNbr'],
-//           regOfficId: response.data['regOfficId'],
-//           personalEmail: response.data['personalEmail'],
-//           workEmail: response.data['workEmail'],
-//           address: response.data['address'],
-//           dateOfBirth: response.data['dateOfBirth'],
-//           emergencyContact: response.data['emergencyContact'],
-//           covreage: response.data['covreage'],
-//           employment: response.data['employment'], gender: response.data['gender'],
-//           status: response.data['status'], service: response.data['service'],
-//           imgurl: response.data['imgurl'], resumeurl: response.data['resumeurl'],
-//           companyId: response.data['companyId'], onboardingStatus: response.data['onboardingStatus'],
-//           driverLicenceNbr: response.data['driverLicenceNbr'],
-//           dateofTermination: response.data['dateofTermination'],
-//           dateofResignation: response.data['dateofResignation'],
-//           dateofHire: response.data['dateofHire'], rehirable: response.data['rehirable'],
-//           position: response.data['position'],
-//           finalAddress: response.data['finalAddress'],
-//           type: response.data['type'], reason: response.data['reason'],
-//           finalPayCheck: response.data['finalPayCheck'],
-//           checkDate: response.data['checkDate'],
-//           grossPay: response.data['grossPay'],
-//           netPay: response.data['netPay'], methods: response.data['methods'],
-//           materials: response.data['materials'], race: response.data['race'], rating: response.data['rating'],
-//           signatureURL: response.data['signatureURL'],
-//          message: response.statusMessage!,
-//         success: '',
-//
-//         // userId: response.data['userId'],
-//         // firstName: response.data['firstName'],
-//         // lastName: response.data['lastName'] ?? "--",
-//         // deptId: response.data['departmentId'] ?? 1,
-//         // department: (response.data['department'] is List)
-//         //     ? response.data['department'].join(", ") ??
-//         //     "" // Convert list to comma-separated string
-//         //     : response.data['department'] ?? "", // If it's already a string
-//         // companyId: companyId, // response.data['company_id'],
-//         // password:
-//         // response.data['password'], // Still including but not using in UI
-//         // email: response.data['email'],
-//         //
-//       );
-//       print("Employee Prefilled by Get: $itemsList");
-//     } else {
-//       print('User Data Error');
-//     }
-//     return itemsList;
-//   } catch (e) {
-//     print("Error $e");
-//     return itemsList;
-//   }
-// }
 
 Future<void> getEmployeeEdit({
   required BuildContext context,
@@ -673,35 +597,10 @@ Future<ProfileEditorModal> getEmployeePrefill(
   }
 }
 
-
-// Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int departmentId) async {
-//   List<EmployeeTypeModal> itemsList = [];
-//   try {
-//     final response = await Api(context)
-//         .get(path: EstablishmentManagerRepository.getEmployeeType(departmentId: departmentId));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       for (var item in response.data) {
-//       EmployeeTypeModal(
-//           employeeTypeId: item['employeeTypeId'],
-//           DepartmentId: item['DepartmentId'],
-//           employeeType: item['employeeType'],
-//           color:  item['color'],
-//           abbreviation: item['abbreviation'],);
-//       }
-//     } else {
-//       print('Api Error');
-//     }
-//     print("Response:::::${response}");
-//     return itemsList;
-//   } catch (e) {
-//     print("Error $e");
-//     return itemsList;
-//   }
-// }
-Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int departmentId) async {
+Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int departmentId,  ) async {
   List<EmployeeTypeModal> itemsList = [];
   try {
-    final response = await Api(context).get(path: EstablishmentManagerRepository.getEmployeeType(departmentId: departmentId));
+    final response = await Api(context).get(path:  EstablishmentManagerRepository.getEmployeeType(departmentId: departmentId));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
@@ -721,6 +620,40 @@ Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int depart
     }
 
     print("Response:::::${response.data}"); // Debug the response to see what you're getting
+    return itemsList;
+  } catch (e) {
+    print("Error: $e");
+    return itemsList; // Return empty list on error
+  }
+}
+
+///county wise zone Get API
+
+Future<List<CountyWiseZoneModal>> fetchCountyWiseZone(BuildContext context,
+    int countyId,) async {
+  List<CountyWiseZoneModal> itemsList = [];
+  try {
+    final response = await Api(context).get(path:
+    ProfileRepository.getCountyWiseZone(
+       countyId: countyId));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+          CountyWiseZoneModal(
+              zone_id: item['zone_id'],
+              county_id: item['county_id'],
+              zoneName: item['zoneName'],
+              companyId: item['companyId'],
+              officeId: item['officeId'])
+
+          );
+      }
+    } else {
+      print('County Wise Zone API Error: ${response.statusCode}');
+    }
+
+    print("Response:::::${response.data}");
     return itemsList;
   } catch (e) {
     print("Error: $e");

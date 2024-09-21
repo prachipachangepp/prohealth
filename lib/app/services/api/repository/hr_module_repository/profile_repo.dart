@@ -2,6 +2,9 @@ class ProfileRepository {
   static String profilesearch = "/employees/searchByStringFilter";
   static String employees = "/employees";
   static String score = "GetProfileScore";
+  static String zone = "/zone";
+  static String countyWiseZone = "/zoneByCounty/";
+
 
   /// search employee profile
   static String searchEmployeeProfileByText({
@@ -18,5 +21,10 @@ class ProfileRepository {
   }
   static String getPercentage({required int employeeId}){
     return "$employees/$score/$employeeId";
+  }
+  static String getCountyWiseZone({
+    required int countyId
+   }){
+    return "$zone$countyWiseZone$countyId";
   }
 }

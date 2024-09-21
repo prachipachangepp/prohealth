@@ -157,7 +157,7 @@ class _ProfileBarState extends State<ProfileBar> {
               bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
           child: Container(
             height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width / 1.2,
+            width: MediaQuery.of(context).size.width / 1.1,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(8),
@@ -289,20 +289,20 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                           onPressed: () {},
                           child: Text(
-                            widget.searchByEmployeeIdProfileData!.employment
-                                .capitalizeFirst!,
+                                widget.searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
                             style: ThemeManagerWhite.customTextStyle(context),
                           ),
                         ),
                       ),
                       Row(children: [
-                        Text('Employement Type :',
+                        Text(
+                            'Employement Type :',
                             style: ProfileBarTextBoldStyle.customEditTextStyle()),
                         SizedBox(
                           width: 20,
                         ),
                         Text(
-                          widget.searchByEmployeeIdProfileData!.employeeType,
+                          widget.searchByEmployeeIdProfileData!.employment,
                           style: ThemeManagerDark.customTextStyle(context),
                         ),
                       ]),

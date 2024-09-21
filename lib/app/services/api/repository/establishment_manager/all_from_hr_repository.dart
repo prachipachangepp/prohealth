@@ -56,7 +56,11 @@ class AllZoneRepository{
     return "$county/$companyId/$officeId/$pageNo/$noOfRow";
   }
   ///county get list zone
-  static String countyZoneGet({required int companyId,required String officeId,required int countyId,required int pageNo,required int noOfRow}){
+  static String countyZoneGet({required int companyId,
+    required String officeId,
+    required int countyId,
+    required int pageNo,
+    required int noOfRow}){
     return "$zone/$companyId/$officeId/$countyId/$pageNo/$noOfRow";
   }
   static String countyZoneDelete({required int zoinId}){
