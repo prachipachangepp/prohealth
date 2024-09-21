@@ -5,6 +5,7 @@ import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_p
 import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
+import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
 import '../widgets/bottom_row.dart';
@@ -22,6 +23,30 @@ import '../widgets/child_tabbar_screen/health_record_child/health_records_head_t
 import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
+
+
+
+class HrManageScreenHeadingStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w700,
+      // : FontWeight.w500,
+      color: ColorManager.mediumgrey,
+      // decoration: TextDecoration.none,
+    );
+  }
+}
+
+class HrManageScreenEditTextFontStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.mediumgrey,
+    );
+  }
+}
 
 class ManageScreen extends StatefulWidget {
   final int employeeId;
@@ -97,11 +122,10 @@ class _ManageScreenState extends State<ManageScreen> {
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
-                                unselectedLabelColor:
-                                    ColorManager.textPrimaryColor,
+                                unselectedLabelColor: ColorManager.textPrimaryColor,
                                 dividerColor: Colors.transparent,
                                 tabs: [
-                                  Tab(text: AppStringHr.qualification),
+                                  Tab(text: AppStringHr.qualification,),
                                   Tab(text: AppStringHr.documents),
                                   Tab(text: AppStringHr.bankings),
                                   Tab(text: AppStringHr.inventory),
@@ -143,18 +167,10 @@ class _ManageScreenState extends State<ManageScreen> {
                                               child: TabBar(
                                                 isScrollable: false,
                                                 tabs: [
-                                                  Tab(
-                                                      text: AppStringHr
-                                                          .employment),
-                                                  Tab(
-                                                      text: AppStringHr
-                                                          .education),
-                                                  Tab(
-                                                      text: AppStringHr
-                                                          .referance),
-                                                  Tab(
-                                                      text:
-                                                          AppStringHr.license),
+                                                  Tab(text: AppStringHr.employment,),
+                                                  Tab(text: AppStringHr.education),
+                                                  Tab(text: AppStringHr.referance),
+                                                  Tab(text: AppStringHr.license),
                                                 ],
                                                 dividerColor:
                                                     Colors.transparent,

@@ -26,7 +26,7 @@ import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_fina
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
-typedef BackButtonCallBack = void Function(bool val);
+
 
 class ProfileEditScreen extends StatefulWidget {
   final VoidCallback onCancel;
