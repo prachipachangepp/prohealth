@@ -107,3 +107,51 @@ class TerminationData {
   // "methods": "string",
   // "materials": "string"
 }
+
+/// prefill termination
+class TerminateEmployeePrefillData {
+  final int employeeId;
+  final String firstName;
+  final String lastName;
+  final String primaryPhoneNbr;
+  final bool? terminationFlag;
+  final String dateofTermination;
+  final String dateofResignation;
+  final String dateofHire;
+  final String rehirable;
+  final String position;
+  final String finalAddress;
+  final String type;
+  final String reason;
+  final double finalPayCheck;
+  final String checkDate;
+  final double grossPay;
+  final double netPay;
+  final String methods;
+  final String materials;
+  final String status;
+
+  TerminateEmployeePrefillData({
+    required this.employeeId,
+    required this.firstName,
+    required this.lastName,
+    required this.primaryPhoneNbr,
+    required this.terminationFlag,
+    required this.dateofTermination,
+    required this.dateofResignation,
+    required this.dateofHire,
+    required this.rehirable,
+    required this.position,
+    required this.finalAddress ,
+    required this.type,
+    required this.reason,
+    required this.finalPayCheck,
+    required this.checkDate,
+    required this.grossPay,
+    required this.netPay,
+    required this.methods,
+    required this.materials,
+    required this.status,
+  });
+}
+
