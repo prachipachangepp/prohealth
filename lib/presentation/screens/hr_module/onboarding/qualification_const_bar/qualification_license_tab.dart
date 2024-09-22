@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualificatin_emloyment_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/qualification_tab_constant.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
@@ -59,13 +60,10 @@ class _QualificationLicenseState extends State<QualificationLicense> {
           if (snapshot.data!.isEmpty) {
             return Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  padding:  EdgeInsets.symmetric(vertical: 150),
                   child: Text(
                     AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ));
           }
@@ -102,11 +100,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                         Text(
                           'License #${index + 1}',
                           // 'License #${snapshot.data![index].licenseId.toString()}',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 13,
-                            color: Color(0xFF333333),
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: OnboardFlowContainerHeading.customTextStyle(context),
                         ),
                         //SizedBox(height: 10),
                         Row(
@@ -202,16 +196,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                     child: Text(
                                                       'Reject',
                                                       style:
-                                                          GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight:
-                                                            FontWeightManager
-                                                                .semiBold,
-                                                        color:
-                                                            ColorManager.white,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                      ),
+                                                      PopupBlueBarText.customTextStyle(context)
                                                     ),
                                                   ),
                                                   IconButton(
@@ -233,14 +218,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                 child: Text(
                                                   "Do you really want to,reject this?",
                                                   textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeightManager
-                                                            .regular,
-                                                    color:
-                                                        ColorManager.mediumgrey,
-                                                  ),
+                                                  style: PopupTextConst.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -279,12 +257,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                       ),
                                                       child: Text(
                                                         'Cancel',
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize: 10.0,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
+                                                        style:TransparentButtonTextConst.customTextStyle(context)
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -325,12 +298,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                       ),
                                                       child: Text(
                                                         'Yes',
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize: 10.0,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
+                                                        style: BlueButtonTextConst.customTextStyle(context),
                                                       ),
                                                     ),
                                                   ],
@@ -390,16 +358,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                     child: Text(
                                                       'Approve',
                                                       style:
-                                                          GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight:
-                                                            FontWeightManager
-                                                                .semiBold,
-                                                        color:
-                                                            ColorManager.white,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                      ),
+                                                      PopupBlueBarText.customTextStyle(context)
                                                     ),
                                                   ),
                                                   IconButton(
@@ -421,14 +380,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                 child: Text(
                                                   "Do you really want to,approve this?",
                                                   textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeightManager
-                                                            .regular,
-                                                    color:
-                                                        ColorManager.mediumgrey,
-                                                  ),
+                                                  style: PopupTextConst.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -467,12 +419,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                       ),
                                                       child: Text(
                                                         'Cancel',
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize: 10.0,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
+                                                        style:TransparentButtonTextConst.customTextStyle(context)
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -513,12 +460,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                       ),
                                                       child: Text(
                                                         'Yes',
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize: 10.0,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
+                                                        style:BlueButtonTextConst.customTextStyle(context),
                                                       ),
                                                     ),
                                                   ],

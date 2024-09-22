@@ -83,7 +83,7 @@ class _DeletePopupState extends State<DeletePopup> {
               child: Row(
                 children: [
                   Text('Do you really want to delete?',
-                  style: DocumentTypeDataStyle.customTextStyle(context),
+                  style: PopupTextConst.customTextStyle(context)
                   //   style:CustomTextStylesCommon.commonStyle(
                   //     fontWeight: FontWeight.w600,
                   //     fontSize: FontSize.s12,
@@ -219,7 +219,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
               child: Row(
                 children: [
                   Text('Not allow to delete county.',
-                    style: DocumentTypeDataStyle.customTextStyle(context),
+                    style: PopupTextConst.customTextStyle(context)
                   ),
                 ],
               ),

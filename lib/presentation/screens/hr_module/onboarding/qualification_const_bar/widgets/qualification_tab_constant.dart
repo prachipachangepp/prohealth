@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 
@@ -36,19 +36,16 @@ class QualificationActionButtons extends StatelessWidget {
           ),
           child: Text(
             'Reject',
-            style: GoogleFonts.firaSans(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TransparentButtonTextConst.customTextStyle(context)
           ),
         )
             : approve == false
             ? Text(
-          'Saloni',
+          'Rejected',
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
             fontSize: FontSize.s12,
-            fontWeight: FontWeightManager.bold,
+            fontWeight: FontWeight.w600,
             color: ColorManager.mediumgrey,
           ),
         )
@@ -66,10 +63,7 @@ class QualificationActionButtons extends StatelessWidget {
           ),
           child: Text(
             'Approve',
-            style: GoogleFonts.firaSans(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w700,
-            ),
+            style: BlueButtonTextConst.customTextStyle(context),
           ),
         )
             : approve == true
@@ -78,7 +72,7 @@ class QualificationActionButtons extends StatelessWidget {
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
             fontSize: FontSize.s12,
-            fontWeight: FontWeightManager.bold,
+            fontWeight: FontWeight.w600,
             color: ColorManager.blueprime,
           ),
         )

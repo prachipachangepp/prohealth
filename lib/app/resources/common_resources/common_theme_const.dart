@@ -155,4 +155,15 @@ class CommonErrorMsg {
     );
   }
 }
+///popup text const
+class PopupTextConst {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      color: ColorManager.mediumgrey,
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w500,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 

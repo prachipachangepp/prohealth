@@ -62,7 +62,7 @@ class CompanyIdentityManageHeadings {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s15,
-      color: ColorManager.black,
+      color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w700,
     );
   }

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/qualificatio
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../manage/const_wrap_widget.dart';
@@ -59,10 +60,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Text(
                     AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ));
           }
@@ -97,11 +95,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                         Text(
                           'References #${index + 1}',
                           // 'Reference #${snapshot.data![index].referenceId.toString()}',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 13,
-                            color: Color(0xFF333333),
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style:OnboardFlowContainerHeading.customTextStyle(context),
                         ),
                        // SizedBox(height: 10),
                         Row(
@@ -181,12 +175,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                       padding: const EdgeInsets.only(left: 10.0),
                                                       child: Text(
                                                         'Reject',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: FontSize.s12,
-                                                          fontWeight: FontWeightManager.semiBold,
-                                                          color: ColorManager.white,
-                                                          decoration: TextDecoration.none,
-                                                        ),
+                                                        style: PopupBlueBarText.customTextStyle(context)
                                                       ),
                                                     ),
                                                     IconButton(
@@ -205,11 +194,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                   child: Text(
                                                     "Do you really want to,reject this?",
                                                     textAlign: TextAlign.center,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeightManager.regular,
-                                                      color: ColorManager.mediumgrey,
-                                                    ),
+                                                    style: PopupTextConst.customTextStyle(context)
                                                   ),
                                                 ),
                                               ),
@@ -235,10 +220,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                         ),
                                                         child: Text(
                                                           'Cancel',
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10.0,
-                                                            fontWeight: FontWeight.w700,
-                                                          ),
+                                                          style:TransparentButtonTextConst.customTextStyle(context)
                                                         ),
                                                       ),
                                                       SizedBox(width: MediaQuery.of(context).size.width / 75),
@@ -259,10 +241,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                         ),
                                                         child: Text(
                                                           'Yes',
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10.0,
-                                                            fontWeight: FontWeight.w700,
-                                                          ),
+                                                          style: BlueButtonTextConst.customTextStyle(context),
                                                         ),
                                                       ),
                                                     ],
@@ -315,12 +294,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                     padding: const EdgeInsets.only(left: 20.0),
                                                     child: Text(
                                                       'Approve',
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight: FontWeightManager.semiBold,
-                                                        color: ColorManager.white,
-                                                        decoration: TextDecoration.none,
-                                                      ),
+                                                      style:PopupBlueBarText.customTextStyle(context)
                                                     ),
                                                   ),
                                                   IconButton(
@@ -339,11 +313,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                 child: Text(
                                                   "Do you really want to,approve this?",
                                                   textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeightManager.regular,
-                                                    color: ColorManager.mediumgrey,
-                                                  ),
+                                                  style:PopupTextConst.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -369,10 +339,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                       ),
                                                       child: Text(
                                                         'Cancel',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 10.0,
-                                                          fontWeight: FontWeight.w700,
-                                                        ),
+                                                        style: TransparentButtonTextConst.customTextStyle(context)
                                                       ),
                                                     ),
                                                     SizedBox(width: MediaQuery.of(context).size.width / 75),
@@ -393,10 +360,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                       ),
                                                       child: Text(
                                                         'Yes',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 10.0,
-                                                          fontWeight: FontWeight.w700,
-                                                        ),
+                                                        style: BlueButtonTextConst.customTextStyle(context),
                                                       ),
                                                     ),
                                                   ],

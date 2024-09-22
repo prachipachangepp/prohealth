@@ -184,7 +184,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     child: CircularProgressIndicator(color: ColorManager.blueprime,)
                 )
                     : CustomElevatedButton(
-                    width: AppSize.s105,
+                    width: AppSize.s120,
                     height: AppSize.s30,
                     text: "Add Batches",
                     onPressed: () {

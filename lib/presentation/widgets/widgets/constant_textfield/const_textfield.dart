@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
@@ -49,7 +49,7 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style:DocumentTypeDataStyle.customTextStyle(context),
+          style: AllNoDataAvailable.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
@@ -134,7 +134,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                     value: value,
                     child: Text(
                       value,
-                      style:DocumentTypeDataStyle.customTextStyle(context),
+                      style: AllNoDataAvailable.customTextStyle(context)
                     ),
                   );
                 }).toList()
@@ -220,7 +220,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style:DocumentTypeDataStyle.customTextStyle(context),
+                style:AllNoDataAvailable.customTextStyle(context)
               ),
             );
           }).toList(),
@@ -526,7 +526,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style:DocumentTypeDataStyle.customTextStyle(context),
+                style: AllHRTableHeading.customTextStyle(context)
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -625,7 +625,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style:DocumentTypeDataStyle.customTextStyle(context),
+                style: DefineWorkWeekStyle.customTextStyle(context)
               ),
             );
           }).toList(),
@@ -637,7 +637,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               widget.onChanged!(newValue);
             }
           },
-          style:DocumentTypeDataStyle.customTextStyle(context),
+          style: DefineWorkWeekStyle.customTextStyle(context),
           isExpanded: true,
           decoration: const InputDecoration.collapsed(hintText: '')),
     );
