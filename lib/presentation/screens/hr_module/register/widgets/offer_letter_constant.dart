@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -121,7 +121,7 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
           hintText: widget.hintText,
           hintStyle:DocumentTypeDataStyle.customTextStyle(context),
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle:TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),

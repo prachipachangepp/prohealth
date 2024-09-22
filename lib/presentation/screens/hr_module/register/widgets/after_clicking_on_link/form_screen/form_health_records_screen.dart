@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/constants/app_config.dart';
@@ -10,6 +10,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/form_health_record_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_health_record_data.dart';
@@ -109,10 +112,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           Center(
             child: Text(
               'Health Records',
-              style: GoogleFonts.firaSans(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff50B5E5)),
+              style: FormHeading.customTextStyle(context)
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -130,20 +130,12 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   children: [
                     Text(
                       '• ',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style:  DefineWorkWeekStyle.customTextStyle(context),
                     ),
                     Expanded(
                       child: Text(
                         'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
-                        style: GoogleFonts.firaSans(
-                          color: Color(0xFF686464),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style:  DefineWorkWeekStyle.customTextStyle(context),
                       ),
                     ),
                   ],
@@ -154,20 +146,12 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   children: [
                     Text(
                       '• ',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style:  DefineWorkWeekStyle.customTextStyle(context),
                     ),
                     Expanded(
                       child: Text(
                         'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
-                        style: GoogleFonts.firaSans(
-                          color: Color(0xFF686464),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style:  DefineWorkWeekStyle.customTextStyle(context),
                       ),
                     ),
                   ],
@@ -248,7 +232,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                               ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(15),
+                              padding:  EdgeInsets.all(15),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -260,21 +244,13 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                       children: [
                                         Text(
                                           document.docName,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xff686464),
-                                          ),
+                                          style: onlyFormDataStyle.customTextStyle(context),
                                         ),
                                         SizedBox(height: 8),
                                         Flexible(
                                           child: Text(
                                             'Upload Physical Exam records in pdf, jpg or png format',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xff686464),
-                                            ),
+                                            style:  onlyFormDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ],
@@ -318,11 +294,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                           },
                                           child: Text(
                                             "Upload file",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                            ),
+                                            style: BlueButtonTextConst.customTextStyle(context),
                                           ),
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Color(0xff50B5E5),
@@ -347,11 +319,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                         const EdgeInsets.all(8.0),
                                         child: Text(
                                           'File picked: $fileName',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w600,
-                                            color:ColorManager.mediumgrey,
-                                          ),
+                                          style:onlyFormDataStyle.customTextStyle(context),
                                         ),
                                       )
                                           : SizedBox(),

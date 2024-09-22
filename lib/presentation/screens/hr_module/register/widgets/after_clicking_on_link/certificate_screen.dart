@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Make sure to import flutter_svg package
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_two_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_nine_screen.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../manage/widgets/top_row.dart';
 import 'offer_letter_description_screen.dart';
 
@@ -23,11 +25,7 @@ class CertificateOfCompletion extends StatelessWidget {
               SizedBox(height: 20),
               Text(
                 'Declination Form',
-                style: GoogleFonts.firaSans(
-                  fontSize: 20,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: FormHeading.customTextStyle(context)
               ),
               SizedBox(height: 20),
               Stack(
@@ -110,9 +108,9 @@ class CertificateOfCompletion extends StatelessWidget {
               SizedBox(width: 80.0),
               Text(
                 'C E R T I F I C A T E  O F \n    C O M P L E T I O N',
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   fontSize: 40,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(width: 80),
@@ -129,32 +127,32 @@ class CertificateOfCompletion extends StatelessWidget {
       children: [
         Text(
           'T H I S   A W A R D   C E R T I F I E S   T H A T',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 20,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(height: 70.0),
         Text(
           '<Enter Name of Recipient>',
-          style: GoogleFonts.caveat(
+          style: TextStyle(
             fontSize: 30,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
         Divider(height: 30, color: Colors.grey),
         SizedBox(height: 70.0),
         Text(
           'H A S   S U C C E S S F U L L Y   C O M P L E T E D',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 25,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
         SizedBox(height: 70.0),
         Text(
           '<Enter comments>',
-          style: GoogleFonts.caveat(
+          style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w600,
           ),
@@ -181,7 +179,7 @@ class CertificateOfCompletion extends StatelessWidget {
         children: [
           Text(
             text1,
-            style: GoogleFonts.caveat(
+            style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w600,
             ),
@@ -190,7 +188,7 @@ class CertificateOfCompletion extends StatelessWidget {
           Divider(height: 20, color: Colors.grey),
           Text(
             text2,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w500,
             ),
@@ -231,10 +229,7 @@ class CertificateOfCompletion extends StatelessWidget {
               ),
               child: Text(
                 'Cancel',
-                style: GoogleFonts.firaSans(
-                  color: Color((0xFF50B5E5)),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TransparentButtonTextConst.customTextStyle(context)
               ),
             ),
             SizedBox(width: 10),
@@ -250,10 +245,7 @@ class CertificateOfCompletion extends StatelessWidget {
               ),
               child: Text(
                 'Sign',
-                style: GoogleFonts.firaSans(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: BlueButtonTextConst.customTextStyle(context)
               ),
             ),
           ],

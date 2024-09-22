@@ -4,13 +4,16 @@ import 'dart:typed_data';
 import 'dart:html' as html;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -122,10 +125,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   Center(
                     child: Text(
                       'Legal Documents',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff50B5E5)),
+                      style:FormHeading.customTextStyle(context)
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -142,11 +142,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     child: Center(
                       child: Text(
                         'Please add information about your legal documents',
-                        style: GoogleFonts.firaSans(
-                          color: Color(0xFF686464),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                     ),
                   ),
@@ -156,11 +152,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       Expanded(
                         child: Text(
                           'Upload one of your government ids ( e.g. drivers license )',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff686464),
-                          ),
+                          style: DefineWorkWeekStyle.customTextStyle(context),
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 10),
@@ -218,11 +210,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                             color: Colors.white),
                         label: Text(
                           'Upload Document',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style:BlueButtonTextConst.customTextStyle(context),
                         ),
                       ),
                       _loading
@@ -241,10 +229,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'File picked: $fileName',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style:onlyFormDataStyle.customTextStyle(context),
                           ),
                         ))
                             .toList(),
@@ -258,11 +243,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     children: [
                       Text(
                         'List Of Documents',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff686464),
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -272,11 +253,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     children: [
                       Text(
                         'i - 9 Paper Version',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff686464),
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -303,11 +280,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         ),
                         child: Text(
                           isSelected == false ? 'Fill Info' : "Done",
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style:BlueButtonTextConst.customTextStyle(context)
                         ),
                       ),
                     ],
@@ -323,11 +296,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     children: [
                       Text(
                         'W4 2023',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff686464),
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -342,11 +311,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         ),
                         child: Text(
                           'Fill Info',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style: BlueButtonTextConst.customTextStyle(context)
                         ),
                       ),
                     ],
@@ -368,11 +333,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   width: 117,
                   height: 30,
                   text: 'Save',
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: BlueButtonTextConst.customTextStyle(context),
                   borderRadius: 12,
                 onPressed: () async {
                   if (finalPath == null || finalPath.isEmpty) {

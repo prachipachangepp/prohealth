@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
@@ -10,6 +10,8 @@ import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../manage/widgets/bottom_row.dart';
@@ -96,11 +98,7 @@ class _OfferLetterDescriptionScreenState
               children: [
                 Text(
                   'Offer Letter',
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                    color: Color(0xff50B5E5),
-                  ),
+                  style: FormHeading.customTextStyle(context)
                 ),
               ],
             ),
@@ -194,10 +192,7 @@ class _OfferLetterDescriptionScreenState
                         ),
                         child: Text(
                           'Upload Sign',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: BlueButtonTextConst.customTextStyle(context)
                         ),
                       ),
                     )
@@ -216,10 +211,7 @@ class _OfferLetterDescriptionScreenState
                       ),
                       Text(
                         'I agree to the terms & conditions',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                        ),
+                        style:onlyFormDataStyle.customTextStyle(context)
                       ),
                     ],
                   ),
@@ -246,8 +238,8 @@ class _OfferLetterDescriptionScreenState
                       if(updateOfferFuture.statusCode == 200 || updateOfferFuture.statusCode == 201){
                         showDialog(context: context, builder: (BuildContext context){
                           return AlertDialog(
-                            title: Text('Offer Accepted Succefully', style: GoogleFonts.firaSans(
-                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w700
+                            title: Text('Offer Accepted Succefully', style: TextStyle(
+                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
                             ),),
                             content: Text( ""
                               // snapshot.data!.message
@@ -261,8 +253,8 @@ class _OfferLetterDescriptionScreenState
                                     MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
                                   );
                                 },
-                                child: Text('OK', style: GoogleFonts.firaSans(
-                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w700
+                                child: Text('OK', style: TextStyle(
+                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
                                 ),),
                               ),
                             ],
@@ -271,8 +263,8 @@ class _OfferLetterDescriptionScreenState
                       }else{
                         showDialog(context: context, builder: (BuildContext context){
                           return AlertDialog(
-                            title: Text('Offer Already Accepted', style: GoogleFonts.firaSans(
-                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w700
+                            title: Text('Offer Already Accepted', style: TextStyle(
+                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
                             ),),
                             content: Text( ""
                               // snapshot.data!.message
@@ -286,8 +278,8 @@ class _OfferLetterDescriptionScreenState
                                     MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
                                   );
                                 },
-                                child: Text('OK', style: GoogleFonts.firaSans(
-                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w700
+                                child: Text('OK', style:TextStyle(
+                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
                                 ),),
                               ),
                             ],
@@ -305,10 +297,7 @@ class _OfferLetterDescriptionScreenState
                   ),
                   child: Text(
                     'Continue',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                    style:BlueButtonTextConst.customTextStyle(context)
                   ),
                 ),
               ],

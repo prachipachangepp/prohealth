@@ -790,10 +790,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   children: [
                                                     dropdownValue == 'Salaried' ?  Text(
                                                       'Salary',
-                                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                     ) : Text(
                                                       'Per Visit',
-                                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                     ),
                                                     SizedBox(
                                                       height: MediaQuery.of(context)

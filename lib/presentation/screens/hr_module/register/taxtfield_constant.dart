@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../em_module/widgets/text_form_field_const.dart';
 
@@ -104,18 +105,14 @@ class CustomTextFieldForEmail extends StatelessWidget {
               //   borderRadius: BorderRadius.circular(5.0),
               // ),
               labelText: labelText,
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: FontSize.s10,
-              ),
+              labelStyle:onlyFormDataStyle.customTextStyle(context),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               contentPadding: padding
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
-          style: GoogleFonts.firaSans(
-            fontSize: FontSize.s12,
-          ),
+          style:onlyFormDataStyle.customTextStyle(context),
           obscureText: obscureText,
           autofocus: autofocus,
           enabled: enabled,
@@ -357,18 +354,14 @@ class CustomTextFieldEnroll extends StatelessWidget {
               //   borderRadius: BorderRadius.circular(5.0),
               // ),
               labelText: labelText,
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: FontSize.s10,
-              ),
+              labelStyle:onlyFormDataStyle.customTextStyle(context),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               contentPadding: padding
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
-          style: GoogleFonts.firaSans(
-            fontSize: FontSize.s12,
-          ),
+          style: onlyFormDataStyle.customTextStyle(context),
           obscureText: obscureText,
           autofocus: autofocus,
           enabled: enabled,

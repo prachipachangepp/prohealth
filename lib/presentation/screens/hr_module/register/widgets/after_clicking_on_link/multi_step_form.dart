@@ -3,14 +3,17 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/widgets/container_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -88,12 +91,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                     children: [
                       Text(
                         "Details",
-                        style: GoogleFonts.firaSans(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.blueprime,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: FormHeading.customTextStyle(context),
                       ),
                       // ElevatedButton(
                       //   style: ElevatedButton.styleFrom(
@@ -201,11 +199,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                             SizedBox(width: 3),
                                             Text(
                                               'Back',
-                                              style: GoogleFonts.firaSans(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 12,
-                                                color: Color(0xFF50B5E5),
-                                              ),
+                                              style: TransparentButtonTextConst.customTextStyle(context),
                                             ),
                                           ],
                                         ),
@@ -262,12 +256,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'General',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style: formNameText.customTextStyle(context),
             ),
           ),
           content: generalForm(context: context, employeeID: widget.employeeID, ),
@@ -282,12 +271,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Employment',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style:  formNameText.customTextStyle(context),
             ),
           ),
           content: Employment_screen(context: context, employeeID: widget.employeeID,),
@@ -302,12 +286,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Education',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style:  formNameText.customTextStyle(context),
             ),
           ),
           content: EducationScreen(context: context, employeeID: widget.employeeID),
@@ -322,12 +301,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'References',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style:  formNameText.customTextStyle(context),
             ),
           ),
           content: ReferencesScreen(context: context, employeeID: widget.employeeID),
@@ -342,12 +316,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Licenses',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style: formNameText.customTextStyle(context),
             ),
           ),
           content: LicensesScreen(context: context, employeeID: widget.employeeID),
@@ -362,12 +331,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Banking',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style:  formNameText.customTextStyle(context),
             ),
           ),
           content: BankingScreen(context: context, employeeID: widget.employeeID),
@@ -382,12 +346,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Health \nRecords',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style: formNameText.customTextStyle(context),
             ),
           ),
           content: HealthRecordsScreen(context: context, employeeID: widget.employeeID,),
@@ -402,12 +361,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Acknowledgements',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style: formNameText.customTextStyle(context),
             ),
           ),
           content: AcknowledgementsScreen(context: context, employeeID: widget.employeeID,),
@@ -422,12 +376,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
             child: Text(
               'Legal \nDocuments',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.grey,
-                decoration: TextDecoration.none,
-              ),
+              style:  formNameText.customTextStyle(context),
             ),
           ),
           content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,),
