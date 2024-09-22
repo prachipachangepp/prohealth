@@ -174,3 +174,23 @@ class ApiAddCovrageData {
     };
   }
 }
+
+class ApiPatchCovrageData {
+  final String city;
+  final int countyId;
+  final int zoneId;
+  final List<int> zipCodes;
+  ApiPatchCovrageData(
+      {required this.city,
+        required this.countyId,
+        required this.zoneId,
+        required this.zipCodes});
+  Map<String, dynamic> toJson() {
+    return {
+      'city': city,
+      'countyId': countyId,
+      'zoneId': zoneId,
+      'zipCode': zipCodes,
+    };
+  }
+}

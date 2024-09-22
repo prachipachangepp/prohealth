@@ -46,6 +46,10 @@ class AllRegisterRepository{
   static String addEmpEnrolladdCoverage(){
     return "$empEnroll$addCoverage";
   }
+  ///employee-enroll/addCoverage
+  static String PatchEmpEnrolladdCoverage({required int empEnrollId}){
+    return "$empEnroll/updateCoverage/$empEnrollId";
+  }
   /// employee_onboarding patch
   static String patchOnboardingEmployee({required int employeeId}){
     return "$onboarbingUser/$employeeId";

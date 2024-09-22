@@ -393,6 +393,60 @@ Future<ApiData> addEmpEnrollAddCoverage(
   }
 }
 
+/// Patch employee-enroll
+///employee-enroll/addCoverage
+Future<ApiData> patchEmpEnrollAddCoverage(
+    BuildContext context,
+    int employeeEnrollId,
+    int employeeId,
+    List<ApiPatchCovrageData> addCovrage,
+    // String city,
+    // int countyId,
+    // int zoneId,
+    ) async {
+  try {
+    var data = {
+      "employeeEnrollId": employeeEnrollId,
+      "employeeId": employeeId,
+      "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
+      // "city": city,
+      // "countyId": countyId,
+      // "zoneId": zoneId,
+    };
+    print("Covrage Data ${data}");
+    var response = await Api(context).post(
+      path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
+      data: {
+        "employeeEnrollId": employeeEnrollId,
+        "employeeId": employeeId,
+        "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
+        // "city": city,
+        // "countyId": countyId,
+        // "zoneId": zoneId,
+      },
+    );
+    print(response);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Coverage added");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 /// Onboard User Patch
 Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async {
   try {
