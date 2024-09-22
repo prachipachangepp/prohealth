@@ -423,31 +423,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               text: AppString.address,
                               cursorHeight: 12,
                               labelText: AppString.address,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                              labelStyle:TextStyle(fontSize: 10),
                               labelFontSize: 12),
                           HRManageTextField(
                             controller: ageController,
                             keyboardType: TextInputType.text,
-                            text: AppStringMobile.age,
-                            showDatePicker: true, // Set to true to show the date picker icon
+                            text: 'Other Field',
                             cursorHeight: 12,
-                            labelText: AppStringMobile.age,
-                            labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                            labelText: 'Other Field',
+                            labelStyle: TextStyle(fontSize: 10),
                             labelFontSize: 12,
+                            showDatePicker: true,
                           ),
-
-
-
-                          ///
-                          // HRManageTextField(
-                          //     controller: ageController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppStringMobile.age,
-                          //     suffixIcon: Icon(Icons.calendar_month_outlined),
-                          //     cursorHeight: 12,
-                          //     labelText: AppStringMobile.age,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
                           HRManageTextField(
                               controller: genderController,
                               keyboardType: TextInputType.text,
@@ -455,8 +442,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               // suffixIcon: Icon(Icons.calendar_month_outlined),
                               cursorHeight: 12,
                               labelText: AppStringMobile.gender,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
+                              labelStyle:TextStyle(fontSize: 10),
+                              labelFontSize: 10),
                         ],
                       ),
                       Row(
@@ -523,7 +510,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                     FutureBuilder<List<ServicesMetaData>>(
+                          FutureBuilder<List<ServicesMetaData>>(
                     future: getServicesMetaData(context),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -844,8 +831,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                     }
                                                                   },
                                                                 ),
+                                                                SizedBox(height:25),
+                                                                CustomButton(
+                                                                    height: 28,
+                                                                    width: 70,
+                                                                    text: 'Add',
+                                                                    onPressed: () {})
                                                               ],
-                                                            )
+                                                            ),
+
 
                                                           ),
 
@@ -987,6 +981,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           ),
                                                         ],
                                                       ),
+
                                                     ],
                                                   ),
                                                 ),

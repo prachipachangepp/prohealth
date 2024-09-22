@@ -379,8 +379,8 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
     );
   }
 }
+///
 
-/// Human Resource screen textField normal
 class HRManageTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -395,14 +395,14 @@ class HRManageTextField extends StatefulWidget {
   final String labelText;
   final TextStyle labelStyle;
   final double labelFontSize;
-  final bool showDatePicker; // New parameter for showing date picker
   final Icon? suffixIcon;
   final IconData? prefixIcon;
   final FocusNode? focusNode;
   final String? errorText;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
-  bool? enabled;
+  final bool? enabled;
+  final bool showDatePicker;
 
   HRManageTextField({
     Key? key,
@@ -420,13 +420,12 @@ class HRManageTextField extends StatefulWidget {
     required this.labelText,
     required this.labelStyle,
     required this.labelFontSize,
-    this.showDatePicker = false, // Default to false
     this.suffixIcon,
     this.prefixIcon,
     this.focusNode,
     this.errorText,
     this.onChanged,
-    this.validator,
+    this.validator,  this.showDatePicker = false ,
   }) : super(key: key);
 
   @override
@@ -450,178 +449,64 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
       lastDate: DateTime.now(),
     );
     if (pickedDate != null) {
-      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate); // Format the date
+      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320,
-      height: 40,
+      width: widget.width ?? 320,
+      height: widget.height ?? 40,
       child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p5),
+        padding: const EdgeInsets.all(5.0),  // Assuming you have an AppPadding.p5
         child: TextFormField(
-          enabled: widget.enabled == null ? true : false,
+          enabled: widget.enabled ?? true,
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: DocumentTypeDataStyle.customTextStyle(context),
+          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w600, fontSize: 12),  // Example of applying text color
           textAlignVertical: TextAlignVertical.center,
-          cursorColor: ColorManager.black,
+          cursorColor: Colors.black,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
-                bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p5),
+                bottom: 3.0, // Replace with AppPadding.p3 if needed
+                top: 5.0,    // Replace with AppPadding.p5 if needed
+                left: 5.0    // Replace with AppPadding.p5 if needed
+            ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+              borderSide: BorderSide(color: Colors.grey),  // Customize as needed
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+              borderSide: BorderSide(color: Colors.grey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+              borderSide: BorderSide(color: Colors.grey),
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(
-                fontSize: widget.labelFontSize,
-                color: ColorManager.mediumgrey),
+              fontSize: widget.labelFontSize,
+              color: Colors.grey,
+            ),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: widget.showDatePicker
                 ? GestureDetector(
-              onTap: () => _selectDate(context), // Open date picker
-              child: Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p14),
-                child: widget.suffixIcon ?? Icon(Icons.calendar_month_outlined),
-              ),
+              onTap: () => _selectDate(context),
+              child: Icon(Icons.calendar_month_outlined),
             )
-                : null, // No suffix icon if not needed
+                : widget.suffixIcon,
           ),
           inputFormatters: [
             CapitalizeFirstLetterFormatter(),
           ],
+          onChanged: widget.onChanged,
+          validator: widget.validator,
         ),
       ),
     );
   }
 }
-///
-// ///Human Resource screen textField normal
-// class HRManageTextField extends StatefulWidget {
-//   final TextEditingController controller;
-//   final TextInputType keyboardType;
-//   final String text;
-//   final Color textColor;
-//   final Icon? icon;
-//   final bool? readOnly;
-//   final VoidCallback? onChange;
-//   final double? width;
-//   final double? height;
-//   final double cursorHeight;
-//   final String labelText;
-//   final TextStyle labelStyle;
-//   final double labelFontSize;
-//   final Icon? suffixIcon;
-//   final IconData? prefixIcon;
-//   final FocusNode? focusNode;
-//   final String? errorText;
-//   final String? Function(String?)? validator;
-//   // final bool Function(String)? validator;
-//   final ValueChanged<String>? onChanged;
-//   bool? enabled;
-//
-//   HRManageTextField({
-//     Key? key,
-//     this.enabled,
-//     required this.controller,
-//     required this.keyboardType,
-//     required this.text,
-//     this.textColor = const Color(0xff686464),
-//     this.icon,
-//     this.onChange,
-//     this.readOnly,
-//     this.width,
-//     this.height,
-//     required this.cursorHeight,
-//     required this.labelText,
-//     required this.labelStyle,
-//     required this.labelFontSize,
-//     this.suffixIcon,
-//     this.prefixIcon,
-//     this.focusNode,
-//     this.errorText,
-//     this.onChanged,
-//     this.validator,
-//     // this.validator,
-//   }) : super(key: key);
-//
-//   @override
-//   State<HRManageTextField> createState() => _HRManageTextFieldState();
-// }
-//
-// class _HRManageTextFieldState extends State<HRManageTextField> {
-//   late bool hasError;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     hasError = false;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 320,
-//       height: 40,
-//       child: Padding(
-//         padding: const EdgeInsets.all(AppPadding.p5),
-//         child: TextFormField(
-//           enabled: widget.enabled == null ? true : false,
-//           focusNode: widget.focusNode,
-//           controller: widget.controller,
-//           textAlign: TextAlign.start,
-//           style: DocumentTypeDataStyle.customTextStyle(context),
-//           textAlignVertical: TextAlignVertical.center,
-//           cursorColor: ColorManager.black,
-//           textInputAction: TextInputAction.next,
-//           // cursorHeight: widget.cursorHeight,
-//           // validator: validator,
-//           // validator: (value) {
-//           //   if (value == null || value.isEmpty) {
-//           //     return 'This field cannot be empty';
-//           //   }
-//           //   return null;
-//           // },
-//           decoration: InputDecoration(
-//             contentPadding: EdgeInsets.only(
-//                 bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p5),
-//             border: OutlineInputBorder(
-//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-//             ),
-//             enabledBorder: OutlineInputBorder(
-//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-//             ),
-//             focusedBorder: OutlineInputBorder(
-//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-//             ),
-//             labelText: widget.labelText,
-//             labelStyle: widget.labelStyle.copyWith(
-//                 fontSize: widget.labelFontSize,
-//                 color: ColorManager.mediumgrey),
-//             errorText: hasError ? widget.errorText : null,
-//             suffixIcon: Padding(
-//               padding: const EdgeInsets.only(left: AppPadding.p14),
-//               child: widget.suffixIcon,
-//             ),
-//           ),
-//           inputFormatters: [
-//             CapitalizeFirstLetterFormatter(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 ///drop down User
 

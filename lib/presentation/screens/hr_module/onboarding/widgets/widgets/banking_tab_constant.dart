@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_banking_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_banking_data.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../manage/const_wrap_widget.dart';
 
 class BankingTabContainerConstant extends StatefulWidget {
@@ -55,10 +56,7 @@ class _BankingTabContainerConstantState
               padding: const EdgeInsets.symmetric(vertical: 150),
               child: Text(
                 AppString.dataNotFound,
-                style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey),
+                style: AllNoDataAvailable.customTextStyle(context)
               ),
             ));
       }
@@ -93,11 +91,7 @@ class _BankingTabContainerConstantState
                     Text(
                       'Bank #${index + 1}',
                       // 'Bank #${snapshot.data![index].empBankId.toString()}',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 13,
-                        color: Color(0xFF333333),
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: OnboardFlowContainerHeading.customTextStyle(context),
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -634,7 +628,7 @@ class CustomElevatedButton extends StatelessWidget {
           SizedBox(width: 6.0),
           Text(
             label,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: 10.0,
               fontWeight: FontWeight.w700,
             ),
@@ -643,7 +637,7 @@ class CustomElevatedButton extends StatelessWidget {
             : [
           Text(
             label,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: 10.0,
               fontWeight: FontWeight.w700,
             ),

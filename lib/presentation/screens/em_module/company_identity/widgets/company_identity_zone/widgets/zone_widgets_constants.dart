@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -140,12 +141,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       padding: const EdgeInsets.only(left: 27.0),
                       child: Text(
                         widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        style:PopupBlueBarText.customTextStyle(context)
                       ),
                     ),
                     IconButton(
@@ -179,12 +175,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       Text(
                         countyNameError!,
                         textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.red,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
                     SizedBox(height: AppSize.s20),
                     if (widget.title2 != null) ...[
@@ -198,12 +189,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         Text(
                           zipcodeError!,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: CommonErrorMsg.customTextStyle(context),
                         ),
                     ],
                     if (widget.title3 != null) ...[
@@ -217,12 +203,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         Text(
                           mapError!,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: CommonErrorMsg.customTextStyle(context),
                         ),
                     ],
                     // if (widget.title4 != null &&
@@ -410,12 +391,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: PopupBlueBarText.customTextStyle(context)
                       ),
                     ),
                     IconButton(
@@ -445,12 +421,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         children: [
                           Text(
                             'County Name',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
+                            style: AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: AppSize.s5),
                           FutureBuilder<
@@ -499,16 +470,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                           ErrorMessageString
                                               .noCountyAdded,
                                           // AppString.dataNotFound,
-                                          style:
-                                          CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                            FontWeightManager
-                                                .medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager
-                                                .mediumgrey,
-                                          ),
+                                          style:AllNoDataAvailable.customTextStyle(context)
                                         ),
                                       ),
                                     ),
@@ -566,12 +528,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         children: [
                           Text(
                             AppString.zone,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
+                            style: AllPopupHeadings.customTextStyle(context)
                           ),
                           SizedBox(height: AppSize.s5),
                           StreamBuilder<
@@ -629,15 +586,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                               .noZoneAdded,
                                           //  AppString.dataNotFound,
                                           style:
-                                          CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                            FontWeightManager
-                                                .medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager
-                                                .mediumgrey,
-                                          ),
+                                          AllNoDataAvailable.customTextStyle(context),
                                         ),
                                       ),
                                     ),
@@ -711,9 +660,9 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                 backgroundColor: Colors.transparent),
                             child: Text(
                               'Pick Location',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
+                                fontWeight: FontWeight.w600,
                                 color: ColorManager.bluelight,
                                 //decoration: TextDecoration.none,
                               ),
@@ -733,12 +682,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                 _location == null ? Text(''):
                                 Text(
                                   _location!,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff686464),
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: AllNoDataAvailable.customTextStyle(context),
                                 ),
                               ],
                             ),
@@ -944,12 +888,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: PopupBlueBarText.customTextStyle(context)
                       ),
                     ),
                     IconButton(
@@ -979,12 +918,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         children: [
                           Text(
                             'County Name',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
+                            style: AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: AppSize.s5),
                           FutureBuilder<List<AllCountyGetList>>(
@@ -1021,14 +955,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                         child: Text(
                                           ErrorMessageString.noCountyAdded,
                                           // AppString.dataNotFound,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                            FontWeight.w500,
-                                            fontSize: FontSize.s12,
-                                            color:
-                                            ColorManager.mediumgrey,
-                                          ),
+                                          style: AllNoDataAvailable.customTextStyle(context)
                                         ),
                                       ),
                                     ),
@@ -1076,12 +1003,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         children: [
                           Text(
                             AppString.zone,
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
+                            style: AllPopupHeadings.customTextStyle(context)
                           ),
                           SizedBox(height: AppSize.s5),
                           FutureBuilder<List<SortByZoneData>>(
@@ -1118,14 +1040,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                         child: Text(
                                           ErrorMessageString.noZoneAdded,
                                           //  AppString.dataNotFound,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                            FontWeight.w500,
-                                            fontSize: FontSize.s12,
-                                            color:
-                                            ColorManager.mediumgrey,
-                                          ),
+                                          style: AllNoDataAvailable.customTextStyle(context)
                                         ),
                                       ),
                                     ),
@@ -1186,9 +1101,9 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                 backgroundColor: Colors.transparent),
                             child: Text(
                               'Pick Location',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
+                                fontWeight: FontWeight.w600,
                                 color: ColorManager.bluelight,
                                 //decoration: TextDecoration.none,
                               ),
@@ -1209,12 +1124,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           children: [
                             Text(
                               _location,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
+                              style: AllNoDataAvailable.customTextStyle(context)
                             ),
                           ],
                         ),
@@ -1435,12 +1345,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: PopupBlueBarText.customTextStyle(context)
                       ),
                     ),
                     IconButton(
@@ -1474,12 +1379,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Text(
                           zoneNumberError!,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                            decoration: TextDecoration.none,
-                          ),
+                          style:CommonErrorMsg.customTextStyle(context)
                         ),
                       ),
                     SizedBox(height: AppSize.s10),
@@ -1508,7 +1408,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                             padding: const EdgeInsets.only(top: 5.0),
                             child: Text(
                               countyError!,
-                              style: TextStyle(color: Colors.red, fontSize: 12),
+                              style: CommonErrorMsg.customTextStyle(context)
                             ),
                           ),
                       ],
