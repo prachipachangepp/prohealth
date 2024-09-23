@@ -46,6 +46,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+
             Container(
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
@@ -65,12 +66,8 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                       child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
-                                  return AcknowledgementAddPopup(
-                                    title: 'Add Other Document',
-                                    employeeId: widget.employeeId,
-                                    // docTypeMetaIdCC: 10,
-                                    // selectedSubDocId: 48,
-                                    dataList: snapshot.data!,
+                                  return CustomDocumedAddPopup(
+                                    title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
                                   );
                                 } else {
                                   return ErrorPopUp(
@@ -82,6 +79,46 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
+            // Container(
+            //   margin: EdgeInsets.only(right: 60),
+            //   child: CustomIconButtonConst(
+            //       width: 100,
+            //       text: AppStringHr.addNew,
+            //       icon: Icons.add,
+            //       onPressed: () async {
+            //         showDialog(
+            //             context: context,
+            //             builder: (context) {
+            //               return FutureBuilder<List<EmployeeDocSetupModal>>(
+            //                   future: getEmployeeDocSetupDropDown(context),
+            //                   builder: (contex, snapshot) {
+            //                     if (snapshot.connectionState ==
+            //                         ConnectionState.waiting) {
+            //                       return Center(
+            //                           child: CircularProgressIndicator());
+            //                     }
+            //                     if (snapshot.hasData) {
+            //
+            //                       CustomDocumedAddPopup(
+            //                         title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+            //                       );
+            //                       // return AcknowledgementAddPopup(
+            //                       //   title: 'Add Other Document',
+            //                       //   employeeId: widget.employeeId,
+            //                       //   // docTypeMetaIdCC: 10,
+            //                       //   // selectedSubDocId: 48,
+            //                       //   dataList: snapshot.data!,
+            //                       // );
+            //                     } else {
+            //                       return ErrorPopUp(
+            //                           title: "Received Error",
+            //                           text: snapshot.error.toString());
+            //                     }
+            //                   });
+            //             });
+            //         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+            //       }),
+            // ),
 
 
           ],
@@ -286,29 +323,43 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return CustomDocumedAddPopup(
-                                              // idController: compensitionAddIdController,
-                                              // nameController: compensitionAddNameController,
-                                              // expiryType: compensationExpiryType,
-                                              labelName: 'Edit Other Document',
-                                              AcknowledgementnameController:
-                                              otherEditNameController, onSavePressed: () {  },
-                                              employeeId: widget.employeeId,
-                                              documentMetaId: 9,
-                                              documentSetupId: 38,
-                                              // onSavePredded: () async {
-                                              //   await addEmployeeDocSetup(
-                                              //       context,
-                                              //       11,
-                                              //       compensitionAddNameController.text,
-                                              //       compensationExpiryType.toString(),
-                                              //       DateTime.now() as String);
-                                              //   Navigator.pop(context);
-                                              //   compensitionAddIdController.clear();
-                                              //   compensitionAddNameController.clear();
-                                              //   compensationExpiryType = '';
-                                              // },
-                                            );
+
+                                            return FutureBuilder<List<EmployeeDocSetupModal>>(
+                                                future: getEmployeeDocSetupDropDown(context),
+                                                builder: (contex, snapshot) {
+                                                  if (snapshot.connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return Center(
+                                                        child: CircularProgressIndicator());
+                                                  }
+                                                  if (snapshot.hasData) {
+
+                                                    return CustomDocumedEditPopup(
+                                                      labelName: 'Edit Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                    );
+
+
+                                                    // return CustomDocumedAddPopup(
+                                                    //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                    // );
+                                                  } else {
+                                                    return ErrorPopUp(
+                                                        title: "Received Error",
+                                                        text: snapshot.error.toString());
+                                                  }
+                                                });
+                                            // return CustomDocumedEditPopup(
+                                            //   // idController: compensitionAddIdController,
+                                            //   // nameController: compensitionAddNameController,
+                                            //   // expiryType: compensationExpiryType,
+                                            //   labelName: 'Edit Other Document',
+                                            //   AcknowledgementnameController:
+                                            //   otherEditNameController, onSavePressed: () {  },
+                                            //   employeeId: widget.employeeId,
+                                            //   documentMetaId: 9,
+                                            //   documentSetupId: 38,
+                                            //
+                                            // );
                                           });
                                     },
                                     icon: const Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
