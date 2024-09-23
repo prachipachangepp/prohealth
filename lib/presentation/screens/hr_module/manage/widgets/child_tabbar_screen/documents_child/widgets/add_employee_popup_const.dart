@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/const_field.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
@@ -29,6 +30,7 @@ class CustomPopupConst extends StatelessWidget {
                   children: [
                     Text(
                       'Add Employee',
+                        style: PopupHeadingStyle.customTextStyle(context)
                     ),
                     IconButton(
                         onPressed: () {

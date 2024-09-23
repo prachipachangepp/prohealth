@@ -278,7 +278,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         height: MediaQuery.of(context).size.height / 40,
                         width: MediaQuery.of(context).size.width / 10,
                         ///edit button
-                        child: ElevatedButton(
+                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero,

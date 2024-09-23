@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
+
 class EducationChildTabbar extends StatefulWidget {
   final int employeeId;
   const EducationChildTabbar({super.key, required this.employeeId});
@@ -156,7 +157,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   child: Text(
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w600,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey),
                   ));
@@ -197,12 +198,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
 
                                'Education #${index + 1}',
                                // 'Education #${snapshot.data![index].educationId}',
-                               style: GoogleFonts.firaSans(
-                                 // fontFamily: 'FiraSans',
-                                 fontSize: FontSize.s13,
-                                 color: ColorManager.black,
-                                 fontWeight: FontWeightManager.medium,
-                               ),),
+                               style: BoxHeadingStyle.customTextStyle(context)),
                           ],),
                           SizedBox(height: MediaQuery.of(context).size.height/50,),
                           Row(

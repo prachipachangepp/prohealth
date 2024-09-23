@@ -24,7 +24,7 @@ import 'color.dart';
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -37,7 +37,7 @@ class ThemeManager {
 ///prajwal
 class ThemeManagerBold {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       //color: Color(0xFF686464),
@@ -52,17 +52,17 @@ class ThemeManagerBold {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width/140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width/140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -95,7 +95,8 @@ class ThemeManagerWhite {
 
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
+    double fontSize = 12;
+        // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.black,
@@ -154,6 +155,15 @@ class AknowledgementStyleConst {
       fontSize: 10,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w400,
+    );
+  }
+}
+class AknowledgementStyleNormal {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: 10,
+      color: Color(0xFF000000),
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -234,6 +244,75 @@ class MobileMenuText {
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
       fontWeight:FontWeight.w500,
+    );
+  }
+}
+
+
+class BoxHeadingStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 13;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+    );
+  }
+}
+
+class PopupHeadingStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 16;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w700,
+    );
+  }
+}
+///Equipment
+class EquipmentStyleHeading{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class EquipmentStyleRegular{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w600,
+      color: Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///
+class EquipTableRegStyle {
+  static TextStyle  customTextStyle(BuildContext) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      color:  ColorManager.granitegray,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///Time Off
+class TimeOffRegular{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.granitegray,
+      decoration:
+      TextDecoration.none,
     );
   }
 }

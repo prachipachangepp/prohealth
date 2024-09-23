@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -88,12 +89,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupHeadingStyle.customTextStyle(context)
                     ),
                   ),
                   IconButton(
@@ -103,7 +99,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     },
                     icon: Icon(
                       Icons.close,
-                      color: Colors.white,
+                      color: IconColorManager.white
                     ),
                   ),
                 ],

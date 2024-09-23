@@ -72,7 +72,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                 child: Text(
               AppString.dataNotFound,
               style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w700,
                   fontSize: FontSize.s12,
                   color: ColorManager.mediumgrey),
             ));
@@ -146,9 +146,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           ),
                           label: Text(
                           _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
-                            style: GoogleFonts.roboto(
+                            style: TextStyle(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w600,
                               color: ColorManager.granitegray,
                             ),
                           ),
@@ -181,12 +181,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                             child: Center(
                               child: Text(
                                 AppString.znNo,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white,
-                                  decoration: TextDecoration.none,
-                                ),
+                                  style: EquipmentStyleHeading.customTextStyle(context)
                               ),
                             ),
                           ),
@@ -195,95 +190,55 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                             child: Center(
                               child: Text(AppString.actions,
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text('Time off Request',
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text(AppString.reason,
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text('Hours',
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text('Start Time',
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text('End Time',
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text('Sick Time',
                                   //textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  )),
+                                  style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(flex: 1, child: Container()),
                           Text('  ',
                               textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.white,
-                                decoration: TextDecoration.none,
-                              )),
+                              style: EquipmentStyleHeading.customTextStyle(context)),
                         ],
                       ),
                     ),
@@ -338,13 +293,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   formattedSerialNumber,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                 style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -365,16 +314,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                     Text(
                                                       timeOff.employeeName,
                                                       //textAlign: TextAlign.center,
-                                                      style:
-                                                          GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s10,
-                                                        fontWeight:
-                                                            FontWeightManager.bold,
-                                                        color:
-                                                            ColorManager.granitegray,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                      ),
+                                                        style: EquipmentStyleRegular.customTextStyle(context)
                                                     ),
                                                   ],
                                                 ),
@@ -385,13 +325,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   timeOff.timeOffRequest,
                                                   //textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                  style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -400,13 +334,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   timeOff.reson,
                                                   //textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                    style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -415,13 +343,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   timeOff.hours,
                                                   //textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                   style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -430,13 +352,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   timeOff.startTime,
                                                   //textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                    style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -445,13 +361,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   timeOff.endTime,
                                                   //textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                    style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -460,13 +370,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   timeOff.sickTime,
                                                   //textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.medium,
-                                                    color: ColorManager.granitegray,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
+                                                    style: TimeOffRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -482,7 +386,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(
                                                             fontSize: FontSize.s12,
-                                                            fontWeight: FontWeightManager.bold,
+                                                            fontWeight: FontWeight.w700,
                                                             color: ColorManager.blueprime)):
                                                     TextInkwellButton(
                                                       text: 'Approve',

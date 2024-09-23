@@ -67,7 +67,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
   var deptId = 1;
-  int? firstDeptId;
+  int? firstDept;
   String? selectedDeptName;
   int? selectedDeptId;
   // String? selectedCounty;
