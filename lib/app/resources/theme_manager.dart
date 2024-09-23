@@ -73,7 +73,7 @@ class ThemeManagerDarkFont {
 
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 120;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -84,7 +84,7 @@ class ThemeManagerLightblue {
 
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
@@ -107,7 +107,7 @@ class ThemeManagerBlack {
 
 class ThemeManagerAccentblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.blueAccent,
@@ -118,7 +118,7 @@ class ThemeManagerAccentblue {
 
 class ThemeManagerblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 120;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -203,7 +203,7 @@ class ProfileBarLastColText {
 class ProfileBarClipText {
   static TextStyle profileTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: MediaQuery.of(context).size.width / 140,
+      fontSize: 10,
       color: ColorManager.white,
       fontWeight: FontWeight.w600,
     );
