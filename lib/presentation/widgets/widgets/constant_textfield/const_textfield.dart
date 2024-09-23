@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/value_manager.dart';
@@ -50,10 +50,7 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style: TextStyle(
-              fontSize: AppSize.s12,
-              color: ColorManager.mediumgrey,
-              fontWeight: FontWeightManager.regular),
+          style: DocumentTypeDataStyle.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
@@ -64,7 +61,7 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide(color: ColorManager.black),
             ),
             labelText: labelText,
-            labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
               child: suffixIcon,
@@ -138,7 +135,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                     value: value,
                     child: Text(
                       value,
-                      style: MobileMenuText.MenuTextConst(context),
+                      style:DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   );
                 }).toList()
@@ -169,6 +166,83 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
     );
   }
 }
+
+///
+///
+class CustomTextFieldPhone extends StatelessWidget {
+  final TextEditingController controller;
+  final double? width;
+  final double? height;
+  final double cursorHeight;
+  final String labelText;
+  final TextStyle labelStyle;
+  final double labelFontSize;
+  final Icon? suffixIcon;
+  final IconData? prefixIcon;
+  final FocusNode? focusNode;
+  final VoidCallback? onTapSuffixIcon;
+  final void Function(String)? onChanged;
+
+  CustomTextFieldPhone({
+    this.width,
+    this.height,
+    required this.cursorHeight,
+    required this.labelText,
+    required this.labelStyle,
+    this.suffixIcon,
+    this.prefixIcon,
+    required this.controller,
+    this.focusNode,
+    required this.labelFontSize,
+    this.onTapSuffixIcon,
+    this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: AppSize.s250,
+      height: AppSize.s40,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: TextFormField(
+          focusNode: focusNode,
+          controller: controller,
+          textAlign: TextAlign.start,
+          style: DocumentTypeDataStyle.customTextStyle(context),
+          textAlignVertical: TextAlignVertical.center,
+          cursorHeight: cursorHeight,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
+            border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.black),
+            ),
+            labelText: labelText,
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(left: AppPadding.p14),
+              child: suffixIcon,
+            ),
+          ),
+          onChanged: onChanged,
+
+          inputFormatters: [
+            PhoneNumberInputFormatter(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+///
+///
+
+
+
+
+
 
 class CustomDropDown extends StatefulWidget {
   final String? value;
@@ -224,7 +298,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style: MobileMenuText.MenuTextConst(context),
+                style: DocumentTypeDataStyle.customTextStyle(context),
               ),
             );
           }).toList(),
@@ -329,7 +403,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w600, fontSize: 12),
+          style: DocumentTypeDataStyle.customTextStyle(context),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -541,7 +615,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: MobileMenuText.MenuTextConst(context),
+                style:DocumentTypeDataStyle.customTextStyle(context),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -640,11 +714,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff575757),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: DocumentTypeDataStyle.customTextStyle(context),
               ),
             );
           }).toList(),
@@ -656,12 +726,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               widget.onChanged!(newValue);
             }
           },
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: const Color(0xff686464),
-            decoration: TextDecoration.none,
-          ),
+          style: DocumentTypeDataStyle.customTextStyle(context),
           isExpanded: true,
           decoration: const InputDecoration.collapsed(hintText: '')),
     );
