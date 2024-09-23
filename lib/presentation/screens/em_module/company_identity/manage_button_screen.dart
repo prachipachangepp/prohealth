@@ -116,15 +116,20 @@ class _ManageWidgetState extends State<ManageWidget> {
                         onTap: () {
                           widget.backButtonCallBack(true);
                         },
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 15,
-                          color: ColorManager.mediumgrey,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.arrow_back,
+                              size: 15,
+                              color: ColorManager.mediumgrey,
+                            ),
+                            SizedBox(width: 1,),
+                            Text(
+                              'Go Back',
+                              style: DefineWorkWeekStyle.customTextStyle(context),
+                            ),
+                          ],
                         )),
-                    Text(
-                      'Go Back',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
-                    ),
                   ],
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 50,),
@@ -145,6 +150,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                   child: Row(
                     children: [
                       InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
                         child: Container(
                           height: 30,
                           width: MediaQuery.of(context).size.width / 8.4,
@@ -191,7 +199,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       InkWell(
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 7,
+                          width: MediaQuery.of(context).size.width / 6,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
@@ -265,6 +273,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                         onTap: () => _selectButton(5),
                       ),
                       InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
                         child: Container(
                           height: AppSize.s30,
                           width: MediaQuery.of(context).size.width / 8.4,

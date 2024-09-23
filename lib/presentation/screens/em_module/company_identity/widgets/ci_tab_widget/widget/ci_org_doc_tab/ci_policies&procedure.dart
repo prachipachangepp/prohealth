@@ -106,7 +106,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                               threshhold: snapshotPrefill.data!.threshold,
                               expiryDate: snapshotPrefill.data!.expiryDate,
                               expiryReminder: snapshotPrefill.data!.expiryReminder,
-                              docTypeText: AppString.policiesAndProcedures,
+                              docTypeText: AppStringEM.policiesAndProcedures,
                               subDocTypeText: '',
                             );
                           },

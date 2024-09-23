@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
@@ -273,7 +273,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: DocumentTypeDataStyle.customTextStyle(context),
+          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w600, fontSize: 12),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -303,9 +303,9 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
               onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
             ),
           ),
-          // inputFormatters: [
-          //   CapitalizeFirstLetterFormatter(),
-          // ],
+          inputFormatters: [
+            CapitalizeFirstLetterFormatter(),
+          ],
         ),
       ),
     );

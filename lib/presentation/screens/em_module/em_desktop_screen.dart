@@ -29,7 +29,7 @@ class EMDesktopScreen extends StatelessWidget {
   final ValueChanged<String?>? onChanged;
   final HRController hrController = Get.put(HRController());
   final VoidCallback? onItem2Selected;
-  String selectedOption = 'Select';
+  //String selectedOption = 'Select ';
   bool showSelectOption = true;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
@@ -67,11 +67,6 @@ class EMDesktopScreen extends StatelessWidget {
         break;
     }
   }
-  // final List<String> routeNames = [
-  //   DashboardMainButtonScreen.routeName,
-  //   CompanyIdentityScreen.routeName,
-  //   HrScreen.routeName
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +92,6 @@ class EMDesktopScreen extends StatelessWidget {
                           height: 30,
                           width: 100,
                           onPressed: () {
-                            //companyAll(context);
-                            // Provider.of<RouteProvider>(
-                            //     context,
-                            //     listen: false)
-                            //     .setRoute(
-                            //     RouteStrings.emMainDashboard);
                             myController.selectButton(0);
                             _pageController.animateToPage(0,
                                 duration: Duration(milliseconds: 500),
@@ -156,16 +145,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 5) {
-                                  //   myController.selectButton(5);
-                                  //   _pageController.animateToPage(
-                                  //     5,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
+                                onTap: () {  },
                               ),
                               DropdownMenuItem<String>(
                                 value: 'Users',
@@ -218,16 +198,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 5) {
-                                  //   myController.selectButton(5);
-                                  //   _pageController.animateToPage(
-                                  //     5,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
+                                onTap: () { },
                               ),
                               DropdownMenuItem<String>(
                                 value: 'Visits',
@@ -259,16 +230,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 2) {
-                                  //   myController.selectButton(2);
-                                  //   _pageController.animateToPage(
-                                  //     2,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
+                                onTap: () { },
                               ),
                               DropdownMenuItem<String>(
                                 value: 'Designation Settings',
@@ -282,12 +244,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   if (myController.selectedIndex.value != 2) {
-                                    // Provider.of<RouteProvider>(
-                                    //     context,
-                                    //     listen: false)
-                                    //     .setRoute(
-                                    //     RouteStrings.emHrAdminScreen);
-                                    myController.selectButton(2);
+                                   myController.selectButton(2);
                                     _pageController.animateToPage(
                                       2,
                                       duration: Duration(milliseconds: 500),
@@ -347,16 +304,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: AppbarCustomDropdownStyle.customTextStyle(context),
                                 ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 5) {
-                                  //   myController.selectButton(5);
-                                  //   _pageController.animateToPage(
-                                  //     5,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
+                                onTap: () {},
                               ),
                               DropdownMenuItem<String>(
                                 value: 'Pay Rates',
@@ -388,22 +336,14 @@ class EMDesktopScreen extends StatelessWidget {
                                         ? 'Users'
                                         : myController.selectedIndex.value == 2
                                             ? 'Designation Settings'
-                                            : myController
-                                                        .selectedIndex.value ==
-                                                    3
+                                            : myController.selectedIndex.value == 3
                                                 ? 'Work Schedule'
-                                                : myController.selectedIndex
-                                                            .value ==
-                                                        4
+                                                : myController.selectedIndex.value == 4
                                                     ? 'Employee Documents'
-                                                    : myController.selectedIndex
-                                                                .value ==
-                                                            5
+                                                    : myController.selectedIndex.value == 5
                                                         ? 'Finance'
                                                         : 'Select a Module',
-                            onChanged: (newValue) {
-                              // Not needed for this implementation
-                            },
+                            onChanged: (newValue) {},
                           ),
                         ),
                       ),
@@ -432,24 +372,102 @@ class EMDesktopScreen extends StatelessWidget {
                   CiRoleManager(),
                   CiVisitScreen(),
                 ],
-                // routeNames.map((route) {
-                //   return Navigator(
-                //     onGenerateRoute: (settings) {
-                //       // Use the getRoutes function to retrieve pages
-                //       return MaterialPageRoute(
-                //         builder: (context) =>
-                //             routesManager.getRoutes(token: true)[route]!(context),
-                //       );
-                //     },
-                //   );
-                // }).toList(),
-
-              ),
+                            ),
             ),
             BottomBarRow()
           ],
         ),
       ]),
+    );
+  }
+}
+
+class EMController extends GetxController {
+  var selectedItem = 'Admin'.obs;
+  void changeSelectedItem(String newItem) {
+    selectedItem.value = newItem;
+  }
+}
+
+class ButtonSelectionController extends GetxController {
+  RxInt selectedIndex = 0.obs;
+
+  void selectButton(int index) {
+    selectedIndex.value = index;
+  }
+}
+
+class CustomDropdownButton extends StatelessWidget {
+  final double height;
+  final double width;
+  final List<DropdownMenuItem<String>> items;
+  final String selectedItem;
+  final void Function(String?)? onChanged;
+
+  const CustomDropdownButton({
+    required this.height,
+    required this.width,
+    required this.items,
+    required this.selectedItem,
+    this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      height: height + 5,
+      decoration: selectedItem != 'Select a Module'
+          ? BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xff51B5E6),
+                  Color(0xff008ABD),
+                ],
+              ))
+          : const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              color: Colors.white),
+      child: DropdownButtonHideUnderline(
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            hoverColor: Colors.transparent,
+          ),
+          child: DropdownButton<String>(
+            icon: Icon(
+              Icons.arrow_drop_down,
+              color: selectedItem == 'Select a Module'
+                  ? ColorManager.textPrimaryColor
+                  : Colors.white,
+            ),
+            value: selectedItem,
+            onChanged: onChanged,
+            items: items,
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((DropdownMenuItem<String> item) {
+                return Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    item.value ?? '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: selectedItem == 'Select a Module'
+                          ? ColorManager.textPrimaryColor
+                          : (selectedItem == item.value
+                              ? Colors.white
+                              : ColorManager.textPrimaryColor),
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            dropdownColor: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -819,113 +837,3 @@ class EMDesktopScreen extends StatelessWidget {
 // }
 //
 //
-
-class EMController extends GetxController {
-  var selectedItem = 'Admin'.obs;
-  void changeSelectedItem(String newItem) {
-    selectedItem.value = newItem;
-  }
-}
-
-class ButtonSelectionController extends GetxController {
-  RxInt selectedIndex = 0.obs;
-
-  void selectButton(int index) {
-    selectedIndex.value = index;
-  }
-}
-
-class CustomDropdownButton extends StatelessWidget {
-  final double height;
-  final double width;
-  final List<DropdownMenuItem<String>> items;
-  final String selectedItem;
-  final void Function(String?)? onChanged;
-
-  const CustomDropdownButton({
-    required this.height,
-    required this.width,
-    required this.items,
-    required this.selectedItem,
-    this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      height: height + 5,
-      decoration: selectedItem != 'Select a module'
-          ? BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xff51B5E6),
-                  Color(0xff008ABD),
-                ],
-              ))
-          : const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.white),
-      child: DropdownButtonHideUnderline(
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            hoverColor: Colors.transparent,
-          ),
-          child: DropdownButton<String>(
-            icon: Icon(
-              Icons.arrow_drop_down,
-              color: selectedItem == 'Select a module'
-                  ? ColorManager.textPrimaryColor
-                  : Colors.white,
-            ),
-            value: selectedItem,
-            onChanged: onChanged,
-            items: items,
-            selectedItemBuilder: (BuildContext context) {
-              return items.map<Widget>((DropdownMenuItem<String> item) {
-                return Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    item.value ?? '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: item.value == 'Select a module'
-                          ? ColorManager.textPrimaryColor
-                          : (selectedItem == item.value
-                              ? Colors.white
-                              : ColorManager.textPrimaryColor),
-                    ),
-                  ),
-                );
-              }).toList();
-            },
-            dropdownColor: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-///final 05 saloni
-
-///
-// Expanded(
-//   child: PageView(
-//     controller: _pageController,
-//     physics: NeverScrollableScrollPhysics(),
-//     children: [
-//       Center(child: Text('Dashboard')),           // Page 0
-//       Center(child: Text('Users Page')),           // Page 1
-//       Center(child: Text('Role Manager Page')),    // Page 2
-//       Center(child: Text('Visits Page')),          // Page 3
-//       Center(child: Text('Designation Settings')), // Page 4
-//       Center(child: Text('Work Schedule')),        // Page 5
-//       Center(child: Text('Employee Documents')),   // Page 6
-//       Center(child: Text('Pay Rates')),            // Page 7
-//     ],
-//   ),
-// ),

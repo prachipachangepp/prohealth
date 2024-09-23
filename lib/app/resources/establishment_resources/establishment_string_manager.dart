@@ -71,6 +71,11 @@ class AppStringEM{
   static const String street = "Street";
   static const String primaryEmail = "Primary Email";
   ///Document definition
+  static String corporateAndComplianceDocuments =
+      "Corporate & Compliance Documents";
+  static String vendorContracts = "Vendor Contracts";
+  static String policiesAndProcedures = "Policies & Procedures";
+
   static const String srNo = "Sr No.";
   static const String docID = "Document Id";
   static const String reminderthershold= "Reminder Threshold";
@@ -195,6 +200,7 @@ class DeletePopupString{
   static const String deleteDME = 'Delete DME';
   static const String deleteMD = 'Delete MD';
   static const String deleteMISC = 'Delete MISC';
+  static const String deleteContract = 'Delete Contract';
 }
 
 class AddPopupString{
@@ -222,7 +228,7 @@ class ManagaeButtonheading{
 
   static const String details = 'Details';
   static const String zones = 'Zones';
-  static const String cc = 'Corporate & Compliance';
+  static const String cc = 'Corporate & Compliance Document';
   static const String insurance = 'Insurance';
   static const String vc = 'Vendor Contracts';
   static const String pp = 'Policies & Procedures';

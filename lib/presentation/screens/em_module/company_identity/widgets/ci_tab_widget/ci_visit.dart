@@ -121,6 +121,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   text: AppString.addnewvisit,
                   icon: Icons.add,
                   onPressed: () {
+                    docIdController.clear();
+                    docNamecontroller.clear();
+                    selectedChips.clear();
+                    selectedServiceName = "";
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {

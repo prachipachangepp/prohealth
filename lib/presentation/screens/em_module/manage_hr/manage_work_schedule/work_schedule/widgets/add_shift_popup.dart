@@ -101,7 +101,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s350,
+        height: AppSize.s360,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -150,14 +150,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     text: 'Shift Name',
                   ),
                   if (shiftNameError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Text(
-                        shiftNameError!,
-                        style: CommonErrorMsg.customTextStyle(context),
-                      ),
+                    Text(
+                      shiftNameError!,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
                   SMTextFConst(
                     onChange: () => _selectStartTime(context),
                     controller: widget.controller1,
@@ -166,14 +163,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
                   if (startTimeError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Text(
-                        startTimeError!,
-                        style: CommonErrorMsg.customTextStyle(context),
-                      ),
+                    Text(
+                      startTimeError!,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
                   SMTextFConst(
                     onChange: () => _selectEndTime(context),
                     controller: widget.controller2,
@@ -182,19 +176,16 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
                   if (endTimeError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Text(
-                        endTimeError!,
-                        style: CommonErrorMsg.customTextStyle(context),
-                      ),
+                    Text(
+                      endTimeError!,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
                 ],
               ),
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p30),
+              padding: const EdgeInsets.only(bottom: AppPadding.p25),
               child: Center(
                 child: isLoading
                     ? SizedBox(

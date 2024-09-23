@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:prohealth/app/resources/const_string.dart';
@@ -239,11 +240,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         controller: TextEditingController(
                                             text: ''),
                                         labelText: 'Select Department',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorManager.mediumgrey,
-                                        ),
+                                        labelStyle: MobileMenuText.MenuTextConst(context),
                                         labelFontSize: 12,
                                         items:  dropDownServiceList,
 
@@ -255,11 +252,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     return Center(
                                       child: Text(
                                         ErrorMessageString.noroleAdded,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
+                                        style: AllNoDataAvailable.customTextStyle(context),
                                       ),
                                     );
                                   }
@@ -287,11 +280,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       controller: TextEditingController(
                                           text: selectedDeptName ?? ''),
                                       labelText: "Select Department",
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorManager.mediumgrey,
-                                      ),
+                                      labelStyle: MobileMenuText.MenuTextConst(context),
                                       labelFontSize: 12,
                                       items: dropDownServiceList,
                                       onChanged: (val) {
@@ -685,11 +674,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         "Edit",
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                                fontSize:
-                                                                    FontSize
-                                                                        .s10),
+                                                        style: TextStyle(fontSize: FontSize.s10),
                                                       ),
                                                     ),
                                                   ),
@@ -832,11 +817,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                         controller: TextEditingController(
                                                                             text: ''),
                                                                         labelText: 'Select Department',
-                                                                        labelStyle: GoogleFonts.firaSans(
-                                                                          fontSize: 12,
-                                                                          fontWeight: FontWeight.w500,
-                                                                          color: ColorManager.mediumgrey,
-                                                                        ),
+                                                                        labelStyle: MobileMenuText.MenuTextConst(context),
                                                                         labelFontSize: 12,
                                                                         items:  dropDownServiceList,
 
@@ -853,15 +834,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                           Text(
                                                                         ErrorMessageString
                                                                             .noroleAdded,
-                                                                        style: CustomTextStylesCommon
-                                                                            .commonStyle(
-                                                                          fontWeight:
-                                                                          FontWeight.w500,
-                                                                          fontSize:
-                                                                              FontSize.s12,
-                                                                          color:
-                                                                              ColorManager.mediumgrey,
-                                                                        ),
+                                                                        style: AllNoDataAvailable.customTextStyle(context),
                                                                       ),
                                                                     );
                                                                   }
@@ -886,30 +859,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                               text: selectedDeptName ?? ''),
                                                                       labelText:
                                                                           "Select Department",
-                                                                      labelStyle:
-                                                                          GoogleFonts
-                                                                              .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        color: ColorManager
-                                                                            .mediumgrey,
-                                                                      ),
-                                                                      labelFontSize:
-                                                                          12,
-                                                                      items:
-                                                                          dropDownServiceList,
-                                                                      onChanged:
-                                                                          (val) {
-                                                                        for (var a
-                                                                            in snapshot.data!) {
-                                                                          if (a.deptName ==
-                                                                              val) {
-                                                                            selectedDeptName =
-                                                                                val;
-                                                                            selectedDeptId =
-                                                                                snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                                                      labelStyle: MobileMenuText.MenuTextConst(context),
+                                                                      labelFontSize: 12,
+                                                                      items: dropDownServiceList,
+                                                                      onChanged: (val) {
+                                                                        for (var a in snapshot.data!) {
+                                                                          if (a.deptName == val) {
+                                                                            selectedDeptName = val;
+                                                                            selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
                                                                           }
                                                                         }
                                                                         setState(
@@ -965,16 +922,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     );
                                                   },
                                                   child: Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            30,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            25,
+                                                    height: MediaQuery.of(context).size.height / 30,
+                                                    width: MediaQuery.of(context).size.width / 25,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -986,11 +935,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         AppString.delete,
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                                fontSize:
-                                                                    FontSize
-                                                                        .s10),
+                                                        style: TextStyle(fontSize: FontSize.s10),
                                                       ),
                                                     ),
                                                   ),

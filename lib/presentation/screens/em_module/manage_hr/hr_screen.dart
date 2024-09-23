@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -160,6 +159,9 @@ class _HrWidgetState extends State<HrWidget> {
                                 children: [
 
                                   InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       child: Container(
                                         height: 30,
                                         width:
@@ -206,6 +208,9 @@ class _HrWidgetState extends State<HrWidget> {
                                         // metaDocID = snapshot.data![index].employeeDocMetaDataId;
                                       }),
                                   InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       child: Container(
                                         height: 30,
                                         width:
@@ -290,16 +295,8 @@ class _HrWidgetState extends State<HrWidget> {
                                       List<DropdownMenuItem<String>> dropDownMenuItems = [];
                                       return
                                         CICCDropdown(
-
                                             items:dropDownMenuItems
                                         );
-                                      //   Container(
-                                      //   width: 300,
-                                      //   child: Text(
-                                      //     'Loading...',
-                                      //     style: DocumentTypeDataStyle.customTextStyle(context),
-                                      //   ),
-                                      // );
                                     }
                                     if (snapshot.data!.isEmpty) {
                                       return Center(

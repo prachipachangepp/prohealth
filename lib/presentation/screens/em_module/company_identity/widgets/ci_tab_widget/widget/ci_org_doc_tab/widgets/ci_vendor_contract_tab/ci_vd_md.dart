@@ -101,7 +101,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.vendorContracts,
+                          docTypeText: AppStringEM.vendorContracts,
                           subDocTypeText: AppStringEM.md,
                         );
                       },

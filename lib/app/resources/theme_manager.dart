@@ -3,22 +3,6 @@ import 'package:prohealth/app/resources/font_manager.dart';
 
 import 'color.dart';
 
-/// listview table heading
-// class TableHeadingStyle{
-//   static const TextStyle firaSansWhite12Bold = TextStyle(
-//     fontSize: 12,
-//     fontWeight: FontWeight.w600,
-//     color: Colors.white,
-//   );
-// }
-
-// class TableListTextStyle{
-//   static final TextStyle firaSansGray10Bold = TextStyle(
-//     fontSize: 10,
-//     fontWeight: FontWeight.w600,
-//     color: Color(0xff686464),
-//   );
-// }
 
 
 ///done by saloni and prachi
