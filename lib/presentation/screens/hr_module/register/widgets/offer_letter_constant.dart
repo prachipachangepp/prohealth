@@ -43,6 +43,9 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
           labelText: widget.labelText,
           labelStyle: DocumentTypeDataStyle.customTextStyle(context),
           suffixIcon: IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
             splashRadius: 1,
             icon: Icon(Icons.calendar_month, color: Color(0xff686464),size: 16,),
             onPressed: () async {
