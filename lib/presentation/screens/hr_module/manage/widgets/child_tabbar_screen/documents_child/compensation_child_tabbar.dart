@@ -233,7 +233,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            'ID:${compaensation.employeeId}',
+                                            'ID:${compaensation.idOfTheDocument}',
                                             style: AknowledgementStyleConst
                                                 .customTextStyle(context)),
                                         SizedBox(

@@ -28,7 +28,7 @@ class ProfileEditorModal {
   final String service;
   final String imgurl;
   final String resumeurl;
-
+  final int employeeEnrollId;
   final String onboardingStatus;
   final String driverLicenceNbr;
   final String createdAt;
@@ -60,8 +60,8 @@ class ProfileEditorModal {
   final String success;
   final String message;
 
-  ProfileEditorModal(
-      {required this.employeeId,
+  ProfileEditorModal({required this.employeeEnrollId,
+      required this.employeeId,
       required this.code,
       required this.userId,
       required this.firstName,

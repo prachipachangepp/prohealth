@@ -192,7 +192,7 @@ Future<EmployeeDocumentPrefillData> getPrefillEmployeeDocuments({
       // orgDocumentGet(context);
       itemData = EmployeeDocumentPrefillData(
           documentName: response.data['DocumentName'] ?? "--",
-          expiry: response.data['Expiry'] ?? "--",
+          expiry: response.data['expiry_date'] ?? "--",
           reminderThresold: response.data['ReminderThreshold'] ?? "--",
           idOfDocument: response.data['idOfDocument'] ?? "--",
           documentType: response.data['DocumentType'] ?? "--",
