@@ -17,7 +17,11 @@ class DeletePopup extends StatefulWidget {
   final VoidCallback onDelete;
   final bool? loadingDuration;
   final String title;
+  final String? text;
+  final String? btnText;
    DeletePopup({super.key, required this.onCancel,
+     this.text,
+     this.btnText,
     required this.onDelete, this.loadingDuration, required this.title});
 
   @override
@@ -82,7 +86,7 @@ class _DeletePopupState extends State<DeletePopup> {
               ),
               child: Row(
                 children: [
-                  Text('Do you really want to delete?',
+                  Text( widget.text ?? 'Do you really want to delete?',
                   style: PopupTextConst.customTextStyle(context)
                   //   style:CustomTextStylesCommon.commonStyle(
                   //     fontWeight: FontWeight.w600,
@@ -131,7 +135,7 @@ class _DeletePopupState extends State<DeletePopup> {
                     : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.delete,
+                  text: widget.btnText ?? AppStringEM.delete,
                   onPressed: () {
                     widget.onDelete();
                     //Navigator.pop(context);
