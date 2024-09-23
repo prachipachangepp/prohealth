@@ -450,8 +450,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 3),
+                                          // padding: const EdgeInsets.symmetric(
+                                          //     horizontal: 5, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.notifications_none_outlined,
@@ -463,7 +463,7 @@ class _AppBarWebState extends State<AppBarWeb> {
 
                                       SizedBox(
                                           width: AppSize
-                                              .s15), //width between the notifications_none_outlined & settings_outlined icon
+                                              .s15),
 
                                       AppClickableWidget(
                                         onTap: () {},
@@ -483,24 +483,23 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   ),
                                 ),
 
-                                // SizedBox(
-                                //   width: MediaQuery.of(context).size.width / 50,
-                                // ),
                                 Expanded(
                                   flex: 2,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       PopupMenuButton<int>(
                                         icon: Icon(
                                           Icons.person,
+                                          // size: 10,
                                           color: Colors.white,
                                         ),
                                         onSelected: (value) {
                                           if (value == 1) {
                                             print("User logged out");
-                                           showDialog(context: context, builder: (context) =>  DeletePopup(onCancel: (){
+                                           showDialog(context: context, builder: (context) =>
+                                               DeletePopup(onCancel: (){
                                              Navigator.pop(context);
                                            }, onDelete: (){
                                              TokenManager.removeAccessToken();
@@ -544,13 +543,9 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     ],
                                   ),
                                 ),
-
                               ],
                             ),
                           )
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width / 30,
-                          // ),
                         ],
                       ),
                     ),
