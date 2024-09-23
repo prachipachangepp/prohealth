@@ -52,12 +52,13 @@ class ManageScreen extends StatefulWidget {
   final int employeeId;
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final PageController pageManageController;
+  final int? employeeEnrollId;
 
   ManageScreen({
     super.key,
     this.searchByEmployeeIdProfileData,
     required this.employeeId,
-    required this.pageManageController,
+    required this.pageManageController,  this.employeeEnrollId,
   });
 
   @override
@@ -85,6 +86,7 @@ class _ManageScreenState extends State<ManageScreen> {
                         });
                       },
                       employeeId: widget.employeeId,
+                // employeeEnrollId: widget.employeeEnrollId!,
                     )
                   : ListView(
                       scrollDirection: Axis.vertical,

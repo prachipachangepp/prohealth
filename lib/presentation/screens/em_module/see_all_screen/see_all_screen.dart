@@ -298,72 +298,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   return const SizedBox(); // Return an empty widget in case of no data
                                 },
                               ),
-                              // FutureBuilder<List<HRHeadBar>>(
-                              //   future: companyHRHeadApi(context, deptId),
-                              //   builder: (context, snapshot) {
-                              //     if (snapshot.connectionState ==
-                              //         ConnectionState.waiting) {
-                              //       return Container(
-                              //         // width: 180,
-                              //         // height: 30,
-                              //         alignment: Alignment.center,
-                              //         child: loadingText,
-                              //       );
-                              //     }
-                              //     if (snapshot.hasData && snapshot.data!.isEmpty) {
-                              //       return Center(
-                              //         child: Text(
-                              //           ErrorMessageString.noroleAdded,
-                              //           style: CustomTextStylesCommon.commonStyle(
-                              //             fontWeight: FontWeightManager.medium,
-                              //             fontSize: FontSize.s12,
-                              //             color: ColorManager.mediumgrey,
-                              //           ),
-                              //         ),
-                              //       );
-                              //     }
-                              //     if (snapshot.hasData) {
-                              //       List<DropdownMenuItem<String>>
-                              //       dropDownServiceList = [];
-                              //       for (var dept in snapshot.data!) {
-                              //         dropDownServiceList.add(
-                              //           DropdownMenuItem<String>(
-                              //             value: dept.deptName,
-                              //             child: Text(dept.deptName ?? ''),
-                              //           ),
-                              //         );
-                              //       }
-                              //       if (dropDownServiceList.isNotEmpty) {
-                              //         firstDeptId = snapshot.data![0].deptId;
-                              //       }
-                              //
-                              //       if (selectedDeptName == null &&
-                              //           dropDownServiceList.isNotEmpty) {
-                              //         selectedDeptName =
-                              //             dropDownServiceList[0].value;
-                              //         selectedDeptId = firstDeptId;
-                              //       }
-                              //
-                              //       return CICCDropdown(
-                              //         width: 300,
-                              //         initialValue: selectedDeptName,
-                              //         onChange: (val) {
-                              //           setState(() {
-                              //             selectedDeptName = val;
-                              //             for (var dept in snapshot.data!) {
-                              //               if (dept.deptName == val) {
-                              //                 selectedDeptId =
-                              //                     dept.deptId;
-                              //               }
-                              //             }
-                              //           });
-                              //         },
-                              //         items: dropDownServiceList,
-                              //       );
-                              //     }
-                              //     return const SizedBox();
-                              //   },
-                              // ),
+
                             );
                           },
                         );
@@ -544,12 +479,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             flex: 1,
                                             child: Text(
                                               formattedSerialNumber,
-                                              // style: GoogleFonts.firaSans(
-                                              //   fontSize: FontSize.s10,
-                                              //   fontWeight:
-                                              //       FontWeightManager.bold,
-                                              //   color: ColorManager.granitegray,
-                                              // ),
+
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
@@ -559,12 +489,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
-                                              // style: GoogleFonts.firaSans(
-                                              //   fontSize: FontSize.s10,
-                                              //   fontWeight:
-                                              //       FontWeightManager.bold,
-                                              //   color: ColorManager.granitegray,
-                                              // ),
+
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),

@@ -785,6 +785,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     searchByEmployeeIdProfileData = snapshot.data!;
                     print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
                     int empID = searchByEmployeeIdProfileData.employeeId!;
+
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),

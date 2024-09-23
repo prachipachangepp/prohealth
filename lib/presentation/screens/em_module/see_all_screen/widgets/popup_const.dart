@@ -89,7 +89,7 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 420,
+            height: 500,
             width: 360,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -147,61 +147,101 @@ class _CustomDialogState extends State<CustomDialog> {
 
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.firstNameController,
-                    keyboardType: TextInputType.phone,
-                    text: "First Name",
-                    cursorHeight: 12,
-                    labelText: "First Name",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'First Name is required',
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.lastNameController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                      SizedBox(height: 5,),
+                      HRManageTextField(
+                        controller: widget.firstNameController,
+                        keyboardType: TextInputType.phone,
+                        text: "First Name",
+                        cursorHeight: 12,
+                        labelText: "First Name",
+                        labelStyle: TextStyle(),
+                        labelFontSize: 12,
+                        errorText: 'First Name is required',
+                      ),
 
-                    keyboardType: TextInputType.phone,
-                    text: "Last Name",
-                    cursorHeight: 12,
-                    labelText: "Last Name",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'Last Name is required',
+                    ],
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: widget.child,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextFieldEmail(
-                    controller: widget.emailController,
-                    keyboardType: TextInputType.phone,
-                    text: "Email",
-                    cursorHeight: 12,
-                    labelText: "Email",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'Email is required',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                      SizedBox(height: 5,),
+                      HRManageTextField(
+                        controller: widget.lastNameController,
+                        keyboardType: TextInputType.phone,
+                        text: "Last Name",
+                        cursorHeight: 12,
+                        labelText: "Last Name",
+                        labelStyle: TextStyle(),
+                        labelFontSize: 12,
+                        errorText: 'Last Name is required',
+                      ),
+                    ],
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: CustomTextFieldWithIcon(
-                    controller: widget.passwordController,
-                    suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
-                    keyboardType: TextInputType.text,
-                    text: "Password",
-                    cursorHeight: 12,
-                    labelText: "Password",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'Password is required',
-                    onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Department Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                      SizedBox(height: 5,),
+                      widget.child,
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                      SizedBox(height: 5,),
+                      HRManageTextFieldEmail(
+                        controller: widget.emailController,
+                        keyboardType: TextInputType.phone,
+                        text: "Email",
+                        cursorHeight: 12,
+                        labelText: "Email",
+                        labelStyle: TextStyle(),
+                        labelFontSize: 12,
+                        errorText: 'Email is required',
+                      ),
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                      SizedBox(height: 5,),
+                      CustomTextFieldWithIcon(
+                        controller: widget.passwordController,
+                        suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
+                        keyboardType: TextInputType.text,
+                        text: "Password",
+                        cursorHeight: 12,
+                        labelText: "Password",
+                        labelStyle: TextStyle(),
+                        labelFontSize: 12,
+                        errorText: 'Password is required',
+                        onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
+                      ),
+                    ],
                   ),
                 ),
 

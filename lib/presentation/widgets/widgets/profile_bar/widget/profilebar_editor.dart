@@ -40,10 +40,11 @@ class ProfileEditScreen extends StatefulWidget {
   final VoidCallback onCancel;
 
   final int employeeId;
+  final int? employeeEnrollId;
 
   ProfileEditScreen({
     required this.onCancel,
-    required this.employeeId,
+    required this.employeeId,  this.employeeEnrollId,
   });
 
   @override
@@ -1218,11 +1219,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               print(
                                   "FirstName::::::::::::::::::::::::::::::::::::${nameController.text}");
                               print(
-                                  "LastName::::::::::::::::::::::::::::::::::::${deptController.text}");
+                                  "LastName::::::::::::::::::::::::::::::::::::${profileData.lastName}");
                               print(
-                                  "DepartmentId::::::::::::::::::::::::::::::::::::1");
+                                  "DepartmentId::::::::::::::::::::::::::::::::::::${deptController.text}");
                               print(
-                                  "EmployeeTypeId::::::::::::::::::::::::::::::::::::2");
+                                  "EmployeeTypeId::::::::::::::::::::::::::::::::::::${profileData.employeeTypeId}");
                               print(
                                   "Expertise::::::::::::::::::::::::::::::::::::Expert");
                               print(
@@ -1317,8 +1318,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   firstName: nameController.text,
                                   lastName: profileData.lastName,
                                   departmentId: int.parse(deptController.text),
-                                  employeeTypeId:
-                                      int.parse(empTypeController.text),
+                                  employeeTypeId: int.parse(empTypeController.text),
                                   expertise: 'Expert',
                                   cityId: profileData.cityId,
                                   countryId: profileData.countryId,
@@ -1368,7 +1368,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   rating: profileData.rating,
                                   signatureURL: profileData.signatureURL,
                                 );
-                                var patchCoverage = await patchEmpEnrollAddCoverage(context,0,widget.employeeId,addCovrage);
+                                var patchCoverage = await patchEmpEnrollAddCoverage(context,widget.employeeEnrollId!,widget.employeeId,addCovrage);
                                 if (patchCoverage.success) {
                                   print("Coverage added successfully");
                                 } else {
