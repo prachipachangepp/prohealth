@@ -61,83 +61,6 @@ class ProfileBarClipConst extends StatelessWidget {
     );
   }
 }
-//
-// class ProfileBarPhoneCmtConst extends StatelessWidget {
-//   final String phoneNo;
-//   List<TextInputFormatter>? inputFormatters;
-//    ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return  Row(
-//       children: [
-//         Text(
-//           phoneNo,
-//           style: ThemeManagerDark.customTextStyle(context),
-//           inputFormatters: [
-//             PhoneNumberInputFormatter(),
-//           ],
-//         ),
-//
-//         SizedBox(
-//           width: AppSize.s15,
-//         ),
-//         Icon(
-//           Icons.phone,
-//           color: ColorManager.green,
-//           size: AppSize.s13,
-//         ),
-//         Icon(
-//           Icons.comment,
-//           color: ColorManager.blueprime,
-//           size: AppSize.s13,
-//         )
-//       ],
-//     );
-//   }
-// }
-///
-//
-// class ProfileBarPhoneCmtConst extends StatelessWidget {
-//   final String phoneNo;
-//   List<TextInputFormatter>? inputFormatters;
-//
-//   ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
-//
-//   String formatPhoneNumber(String phoneNumber) {
-//     // Example of formatting (XXX) XXX-XXXX
-//     if (phoneNumber.length == 10) {
-//       return '(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, 10)}';
-//     } else {
-//       return phoneNumber;
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       children: [
-//         Text(
-//           formatPhoneNumber(phoneNo),  // Format the phone number before displaying
-//           style: ThemeManagerDark.customTextStyle(context),
-//         ),
-//         SizedBox(
-//           width: 15,
-//         ),
-//         Icon(
-//           Icons.phone,
-//           color: ColorManager.green,
-//           size: 13,
-//         ),
-//         Icon(
-//           Icons.comment,
-//           color: ColorManager.blueprime,
-//           size: 13,
-//         )
-//       ],
-//     );
-//   }
-// }
 ///
 class ProfileBarPhoneCmtConst extends StatelessWidget {
   final String? phoneNo;
@@ -164,22 +87,37 @@ class ProfileBarPhoneCmtConst extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          formatPhoneNumber(phoneNo),
-          style: ThemeManagerDark.customTextStyle(context),
+        Container(
+          height: 10,
+          width: 50,
+          child: Text(
+            formatPhoneNumber(phoneNo),
+            style: ThemeManagerDark.customTextStyle(context),
+          ),
         ),
         SizedBox(
           width: 15,
         ),
-        Icon(
-          Icons.phone,
-          color: ColorManager.green,
-          size: 13,
+        Container(
+          height: 10,
+          width: 15,
+          child: Icon(
+            Icons.phone,
+            color: ColorManager.green,
+            size: 13,
+          ),
         ),
-        Icon(
-          Icons.comment,
-          color: ColorManager.blueprime,
-          size: 13,
+        SizedBox(
+          width: 5,
+        ),
+        Container(
+          height: 10,
+          width: 15,
+          child: Icon(
+            Icons.comment,
+            color: ColorManager.blueprime,
+            size: 13,
+          ),
         )
       ],
     );
