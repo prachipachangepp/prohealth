@@ -319,8 +319,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
               borderSide: BorderSide(color: ColorManager.black),
             ),
             labelText: widget.labelText,
-            labelStyle:
-                widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle?.copyWith(
+                fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
           ),
         ),
       ),
@@ -396,7 +396,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
   Widget build(BuildContext context) {
     return Container(
       width: 320,
-      height: 40,
+      height: 35,
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(
@@ -523,7 +523,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width ?? 320,
-      height: widget.height ?? 40,
+      height: widget.height ?? 35,
       child: Padding(
         padding: const EdgeInsets.all(5.0),  // Assuming you have an AppPadding.p5
         child: TextFormField(
@@ -531,7 +531,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w600, fontSize: 12),  // Example of applying text color
+          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),  // Example of applying text color
           textAlignVertical: TextAlignVertical.center,
           cursorColor: Colors.black,
           textInputAction: TextInputAction.next,
@@ -605,7 +605,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
   Widget build(BuildContext context) {
     return Container(
       width: 320,
-      height: 40,
+      height: 35,
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: DropdownButtonFormField<String>(

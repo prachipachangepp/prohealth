@@ -4,6 +4,7 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/profile_repo.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
@@ -345,7 +346,7 @@ Future<ProfilePercentage> getPercentage(
 }
 
 
-Future<void> getEmployeeEdit({
+Future<ApiData> getEmployeeEdit({
   required BuildContext context,
   required int employeeId,
   required String code,
@@ -399,12 +400,6 @@ Future<void> getEmployeeEdit({
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
-
-    if (companyId == null) {
-      print("Error: companyId is null");
-      return;
-    }
-
     final data = {
       'code' : code,
       'userId' : userId,
@@ -467,46 +462,33 @@ Future<void> getEmployeeEdit({
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employees updated successfully");
       // Show success popup
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Success'),
-            content: Text('Employee updated successfully!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+      return ApiData(statusCode: response.statusCode!, success: true, message: response.statusMessage!);
+
     } else {
       print("Failed to update Employees: ${response.statusCode}");
 
       print("Error details: ${response.data}");
+      return ApiData(statusCode: response.statusCode!, success: false, message: response.statusMessage!);
 
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Error'),
-              content: Text('An error occurred. Please try again.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                  child: Text('Try Again'),
-                ),
-              ],
-            );});
+      // showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return AlertDialog(
+      //         title: Text('Error'),
+      //         content: Text('An error occurred. Please try again.'),
+      //         actions: [
+      //           TextButton(
+      //             onPressed: () {
+      //               Navigator.of(context).pop(); // Close the dialog
+      //             },
+      //             child: Text('Try Again'),
+      //           ),
+      //         ],
+      //       );});
     }
   } catch (e) {
     print("Error: $e");
+    return ApiData(statusCode: 500, success: false, message: "Server error");
   }
 }
 
@@ -583,7 +565,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         zone: response.data['zones'] ?? '',
         profileScorePercentage: response.data['profileScorePercentage'] ?? 0,
         message: response.statusMessage!,
-        success: '',
+        success: '', employeeEnrollId: response.data['employeeEnrollId']??0,
       );
       print('${response.data}');
       print("User Prefilled by Get: $itemsList");

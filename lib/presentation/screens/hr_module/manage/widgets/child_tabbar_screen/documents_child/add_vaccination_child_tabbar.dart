@@ -206,7 +206,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('ID:${health.employeeDocumentId}',
+                                      Text('ID:${health.idOfTheDocument}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
                                       Text(health.DocumentName,

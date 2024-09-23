@@ -40,11 +40,10 @@ class ProfileEditScreen extends StatefulWidget {
   final VoidCallback onCancel;
 
   final int employeeId;
-  final int? employeeEnrollId;
 
   ProfileEditScreen({
     required this.onCancel,
-    required this.employeeId,  this.employeeEnrollId,
+    required this.employeeId,
   });
 
   @override
@@ -72,7 +71,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
   var deptId = 1;
-  int? firstDept;
+  int? firstDeptId;
   String? selectedDeptName;
   int? selectedDeptId;
   // String? selectedCounty;
@@ -170,6 +169,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   List<int> zipCodes = [];
   String? selectedZipCodeZone;
   int docZoneId = 0;
+  bool pickedFilePath = false;
   dynamic finalPath;
   String fileName = '';
   @override
@@ -253,28 +253,37 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               AppString.editProfile,
                               style: EditProfile.customEditTextStyle(),
                             ),
-                            CustomIconButton(
-                              icon: Icons.upload_outlined,
-                              text: AppString.photo, onPressed: () async {
-                              // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                              //   allowMultiple: false,
-                              // );
-                              FilePickerResult? result =
-                              await FilePicker.platform.pickFiles();
-                              if (result != null) {
-                                print("Result::: ${result}");
+                            Row(
+                              children: [
+                                profileData.imgurl == null ? Text(''):
+                                Text('${profileData.imgurl}',style: GoogleFonts.firaSans(fontSize: 10,color: ColorManager.mediumgrey,fontWeight: FontWeightManager.medium),),
+                                SizedBox(width: 10,),
+                                CustomIconButton(
+                                  icon: Icons.upload_outlined,
+                                  text: AppString.photo, onPressed: () async {
+                                  // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                  //   allowMultiple: false,
+                                  // );
+                                  FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles();
+                                  if (result != null) {
+                                    print("Result::: ${result}");
 
-                                try {
-                                  print('File picked: ${fileName}');
-                                  //print(String.fromCharCodes(file));
-                                  fileName = result.files.first.name;
-                                  finalPath = result.files.first.bytes;
-
-                                } catch (e) {
-                                  print(e);
-                                }
-                              }
-                            },
+                                    try {
+                                      print('File picked: ${fileName}');
+                                      //print(String.fromCharCodes(file));
+                                      setState(() {
+                                        pickedFilePath = true;
+                                        fileName = result.files.first.name;
+                                        finalPath = result.files.first.bytes;
+                                      });
+                                    } catch (e) {
+                                      print(e);
+                                    }
+                                  }
+                                },
+                                ),
+                              ],
                             )
                           ],
                         ),
@@ -1126,9 +1135,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // setState(() {
                                                     //   _isLoading = true;
                                                     // });
-                                                    setState((){
-
-                                                    });
                                                    addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
                                                     print('Selected County ID: $selectedCountyId');
                                                     print('Selected Zone ID: $docZoneId');
@@ -1214,116 +1220,23 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             height: 30,
                             width: 100,
                             onPressed: () async {
-                              print(
-                                  "code::::::::::::::::::::::::::::::::::::code");
-                              print(
-                                  "FirstName::::::::::::::::::::::::::::::::::::${nameController.text}");
-                              print(
-                                  "LastName::::::::::::::::::::::::::::::::::::${profileData.lastName}");
-                              print(
-                                  "DepartmentId::::::::::::::::::::::::::::::::::::${deptController.text}");
-                              print(
-                                  "EmployeeTypeId::::::::::::::::::::::::::::::::::::${profileData.employeeTypeId}");
-                              print(
-                                  "Expertise::::::::::::::::::::::::::::::::::::Expert");
-                              print(
-                                  "CityId::::::::::::::::::::::::::::::::::::1");
-                              print(
-                                  "CountryId::::::::::::::::::::::::::::::::::::1");
-                              print(
-                                  "CountyId::::::::::::::::::::::::::::::::::::1");
-                              print(
-                                  "ZoneId::::::::::::::::::::::::::::::::::::1");
-                              print(
-                                  "SSNNbr::::::::::::::::::::::::::::::::::::${ssNController.text}");
-                              print(
-                                  "PrimaryPhoneNbr::::::::::::::::::::::::::::::::::::${phoneNController.text}");
-                              print(
-                                  "SecondaryPhoneNbr::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "WorkPhoneNbr::::::::::::::::::::::::::::::::::::${workPhoneController.text}");
-                              print(
-                                  "RegOfficId::::::::::::::::::::::::::::::::::::${reportingOfficeController.text}");
-                              print(
-                                  "PersonalEmail::::::::::::::::::::::::::::::::::::${personalEmailController.text}");
-                              print(
-                                  "WorkEmail::::::::::::::::::::::::::::::::::::${workEmailController.text}");
-                              print(
-                                  "Address::::::::::::::::::::::::::::::::::::${addressController.text}");
-                              print(
-                                  "DateOfBirth::::::::::::::::::::::::::::::::::::${ageController.text}");
-                              print(
-                                  "EmergencyContact::::::::::::::::::::::::::::::::::::John Doe");
-                              print(
-                                  "Coverage::::::::::::::::::::::::::::::::::::Health");
-                              print(
-                                  "Employment::::::::::::::::::::::::::::::::::::Full Time");
-                              print(
-                                  "Gender::::::::::::::::::::::::::::::::::::${genderController.text}");
-                              print(
-                                  "Status::::::::::::::::::::::::::::::::::::Active");
-                              print(
-                                  "Service::::::::::::::::::::::::::::::::::::${serviceController.text}");
-                              print(
-                                  "ImgUrl::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "ResumeUrl::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "CompanyId::::::::::::::::::::::::::::::::::::1");
-                              print(
-                                  "OnboardingStatus::::::::::::::::::::::::::::::::::::Completed");
-                              print(
-                                  "DriverLicenceNbr::::::::::::::::::::::::::::::::::::DL123");
-                              print(
-                                  "DateOfTermination::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "DateOfResignation::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "DateOfHire::::::::::::::::::::::::::::::::::::2022-01-01");
-                              print(
-                                  "Rehirable::::::::::::::::::::::::::::::::::::Yes");
-                              print(
-                                  "Position::::::::::::::::::::::::::::::::::::Manager");
-                              print(
-                                  "FinalAddress::::::::::::::::::::::::::::::::::::${addressController.text}");
-                              print(
-                                  "Type::::::::::::::::::::::::::::::::::::Full Time");
-                              print(
-                                  "Reason::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "FinalPayCheck::::::::::::::::::::::::::::::::::::5000");
-                              print(
-                                  "CheckDate::::::::::::::::::::::::::::::::::::2022-01-01");
-                              print(
-                                  "GrossPay::::::::::::::::::::::::::::::::::::10000");
-                              print(
-                                  "NetPay::::::::::::::::::::::::::::::::::::8000");
-                              print(
-                                  "Methods::::::::::::::::::::::::::::::::::::Bank Transfer");
-                              print(
-                                  "Materials::::::::::::::::::::::::::::::::::::");
-                              print(
-                                  "Race::::::::::::::::::::::::::::::::::::Asian");
-                              print(
-                                  "Rating::::::::::::::::::::::::::::::::::::A+");
-                              print(
-                                  "SignatureURL::::::::::::::::::::::::::::::::::::");
 
                               try {
-                                await getEmployeeEdit(
+                                var response = await getEmployeeEdit(
                                   context: context,
                                   employeeId: widget.employeeId,
                                   code: profileData.code,
                                   userId: profileData.userId,
                                   firstName: nameController.text,
                                   lastName: profileData.lastName,
-                                  departmentId: int.parse(deptController.text),
-                                  employeeTypeId: int.parse(empTypeController.text),
+                                  departmentId: profileData.departmentId,
+                                  employeeTypeId:
+                                      profileData.employeeTypeId,
                                   expertise: 'Expert',
                                   cityId: profileData.cityId,
                                   countryId: profileData.countryId,
                                   countyId: 1,
-                                  zoneId: int.parse(zoneController.text),
+                                  zoneId: profileData.zoneId,
                                   SSNNbr: ssNController.text,
                                   primaryPhoneNbr: phoneNController.text,
                                   secondryPhoneNbr:
@@ -1368,13 +1281,36 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   rating: profileData.rating,
                                   signatureURL: profileData.signatureURL,
                                 );
-                                var patchCoverage = await patchEmpEnrollAddCoverage(context,widget.employeeEnrollId!,widget.employeeId,addCovrage);
-                                if (patchCoverage.success) {
-                                  print("Coverage added successfully");
-                                } else {
-                                  print("Failed To Add Coverage");
+                                if(response.statusCode == 200 || response.statusCode == 201){
+                                  var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Success'),
+                                        content: Text('Employee updated successfully!'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  if (patchCoverage.success) {
+                                    print("Coverage added successfully");
+                                  } else {
+                                    print("Failed To Add Coverage");
+                                  }
+                                  if(pickedFilePath){
+                                    var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
+                                  }else{
+                                    print('Document Error');
+                                  }
                                 }
-                                var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
                                 nameController.clear();
                                 deptController.clear();
                                 empTypeController.clear();

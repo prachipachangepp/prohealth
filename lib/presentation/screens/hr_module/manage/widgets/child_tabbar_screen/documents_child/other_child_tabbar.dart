@@ -231,7 +231,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('ID:${others.employeeId}',
+                                      Text('ID:${others.idOfTheDocument}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       const SizedBox(height: 5,),
                                        Text(others.DocumentName,

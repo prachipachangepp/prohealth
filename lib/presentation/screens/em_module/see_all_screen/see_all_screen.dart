@@ -227,6 +227,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 companyIdController.clear();
                                 passwordController.clear();
                               },
+                              depTitle: 'Select Department',
                               child: FutureBuilder<List<HRHeadBar>>(
                                 future: companyHRHeadApi(context, deptId),
                                 builder: (context, snapshot) {
@@ -719,6 +720,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               },
                                                               // passwordController: passwordController,
                                                               ///Role
+                                                              deptName: 'Select Department',
                                                               child: FutureBuilder<
                                                                   List<
                                                                       HRHeadBar>>(

@@ -167,6 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             companyIdController.clear();
                             passwordController.clear();
                           },
+                          depTitle: 'Select Department',
                           child: FutureBuilder<List<HRHeadBar>>(
                             future: companyHRHeadApi(context, deptId),
                             builder: (context, snapshot) {
