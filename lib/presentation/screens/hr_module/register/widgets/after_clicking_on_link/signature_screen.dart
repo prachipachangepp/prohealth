@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
@@ -13,6 +13,9 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 import 'package:signature/signature.dart';
 import 'dart:typed_data';
 
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../manage/widgets/top_row.dart';
 import 'form_nine_screen.dart';
 
@@ -53,21 +56,13 @@ class _SignaturePageState extends State<SignaturePage> {
                       Center(
                         child: Text(
                           'Signature',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 18,
-                            color: Color(0xFF50B5E5),
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style:FormHeading.customTextStyle(context)
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 6),
                       Text(
                         'Upload Signature',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 16,
-                          color: Color(0xFF50B5E5),
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: BlueButtonTextConst.customTextStyle(context)
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 40),
                       Container(
@@ -78,11 +73,7 @@ class _SignaturePageState extends State<SignaturePage> {
                         ),
                         child: Text(
                           'Signature is needed to sign the declination form and few other forms',
-                          style: GoogleFonts.firaSans(
-                            color: Color(0xFF686464),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style:DefineWorkWeekStyle.customTextStyle(context)
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 40),
@@ -96,11 +87,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                 icon: Icon(Icons.edit, color: Color(0xFF50B5E5), size: 24),
                                 label: Text(
                                   'Draw',
-                                  style: GoogleFonts.firaSans(
-                                      color: Color(0xFF50B5E5),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700
-                                  ),
+                                  style:DefineWorkWeekStyle.customTextStyle(context)
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -128,11 +115,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                 icon: Icon(Icons.file_upload_outlined, color: Colors.grey, size: 24),
                                 label: Text(
                                   'Upload',
-                                  style: GoogleFonts.firaSans(
-                                      color: Colors.grey,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700
-                                  ),
+                                  style: DefineWorkWeekStyle.customTextStyle(context)
                                 ),
                                 onPressed: _pickFile,
                                 style: TextButton.styleFrom(
@@ -156,11 +139,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           _isDrawing
                               ? 'Sign your name using mouse or touchpad in center of the signature box'
                               : 'Uploaded signature',
-                          style: GoogleFonts.firaSans(
-                            color: Color(0xff68646480),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          ),
+                          style:DefineWorkWeekStyle.customTextStyle(context)
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -206,10 +185,10 @@ class _SignaturePageState extends State<SignaturePage> {
                             ElevatedButton(
                               child: Text(
                                 'Cancel',
-                                style: GoogleFonts.firaSans(
+                                style: TextStyle(
                                   color: Color(0xFF50B5E5),
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               onPressed: () {
@@ -233,10 +212,10 @@ class _SignaturePageState extends State<SignaturePage> {
                                 ElevatedButton(
                                   child: Text(
                                     'Reset',
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                       color: Color(0xFF50B5E5),
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   onPressed: () {
@@ -259,9 +238,9 @@ class _SignaturePageState extends State<SignaturePage> {
                             ElevatedButton(
                               child: Text(
                                 'Save',
-                                style: GoogleFonts.firaSans(
+                                style: TextStyle(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.w600),
                               ),
                               onPressed: () {
                                 _saveSignature();
@@ -346,7 +325,7 @@ class _SignaturePageState extends State<SignaturePage> {
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
                   Text(
                     'Successfully saved!',
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
                         color: Color(0xff686464)),
@@ -378,9 +357,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       children: [
                         Text(
                           'Continue',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700),
+                          style: BlueButtonTextConst.customTextStyle(context),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 140),
                         Icon(

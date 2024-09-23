@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -75,7 +75,7 @@ class OnBoardingWelcome extends StatelessWidget {
                     children: [
                       Text(
                         'Welcome to Prohealth Onboarding Wizard',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           color: const Color(0xff686464),
@@ -84,9 +84,9 @@ class OnBoardingWelcome extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         'Please go through each section and fill valid information',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: const Color(0xff686464),
                         ),
                       ),
@@ -113,7 +113,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           ),
                           child: Text(
                             'Start',
-                            style: GoogleFonts.firaSans(
+                            style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white),
@@ -213,9 +213,9 @@ class OnBoardingCongratulation extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   'Congratulations!',
-                  style: GoogleFonts.firaSans(
-                    color: const Color(0xFF686464),
-                    fontSize: 24.0,
+                  style: TextStyle(
+                    color:  Color(0xFF686464),
+                    fontSize: 24,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -230,20 +230,20 @@ class OnBoardingCongratulation extends StatelessWidget {
                   children: [
                     Text(
                       'You are a part of ProHealth family',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: const Color(0xFF686464),
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(height: 20.0),
                     Text(
                       'Please fill the information and provide necessary documents for the upcoming sections',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: const Color(0xFF686464),
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -283,7 +283,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                   ),
                   child: Text(
                     'Continue',
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
@@ -308,38 +308,38 @@ class OnBoardingCongratulation extends StatelessWidget {
                     ),
                     Text(
                       'For any assistance please call:',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: const Color(0xFF686464),
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       '(4088) 555-1234',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: const Color(0xFF50B5E5),
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
                         decorationColor: const Color(0xFF50B5E5),
                       ),
                     ),
                     Text(
                       'or email:',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: const Color(0xFF686464),
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.none,
                         decorationColor: const Color(0xFF686464),
                       ),
                     ),
                     Text(
                       'support@symmetry.com',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: const Color(0xFF50B5E5),
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
                         decorationColor: const Color(0xFF50B5E5),
                       ),

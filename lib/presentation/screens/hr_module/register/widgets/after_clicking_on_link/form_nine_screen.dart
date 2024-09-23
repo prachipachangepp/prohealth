@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
@@ -7,8 +7,11 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_r
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/form_legal_documents_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../manage/widgets/top_row.dart';
 import '../../taxtfield_constant.dart';
 import 'certificate_screen.dart';
@@ -59,11 +62,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
         if (label.isNotEmpty)
           Text(
             label,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              color: ColorManager.mediumgrey,
-              fontWeight: FontWeight.w500,
-            ),
+            style: onlyFormDataStyle.customTextStyle(context)
           ),
         SizedBox(height: 7),
         CustomTextFieldRegister(
@@ -109,10 +108,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
         Expanded(
           child: Text(
             text,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              color: Color(0xFF605F5F).withOpacity(0.50),
-            ),
+            style: onlyFormINineDataStyle.customTextStyle(context),
           ),
         ),
       ],
@@ -135,11 +131,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             Center(
               child: Text(
                 'Form i - 9',
-                style: GoogleFonts.firaSans(
-                  fontSize: 18,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w700,
-                ),
+                style:FormHeading.customTextStyle(context),
               ),
             ),
             SizedBox(height: 20.0),
@@ -289,11 +281,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             SizedBox(height: 20),
             Text(
               'I attest, under penalty of perjury, that I am (Check one of the following boxes.):',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: Color(0xFF686464),
-                fontWeight: FontWeight.w400,
-              ),
+              style: onlyFormDataStyle.customTextStyle(context),
             ),
             _buildCheckboxItem('A citizen of the United States', 0),
             _buildCheckboxItem('A noncitizen national of the United States', 1),
@@ -361,11 +349,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             SizedBox(height: 20),
             Text(
               'Aliens authorized to work must provide only one of the following document numbers to complete Form I-9:',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: Color(0xFF686464),
-                fontWeight: FontWeight.w400,
-              ),
+              style: onlyFormDataStyle.customTextStyle(context)
             ),
             SizedBox(height: 20),
             Row(
@@ -374,11 +358,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 Expanded(
                   child: Text(
                     'Alien Registration Number or USCIS Number:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: onlyFormINineDataStyle.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 100),
@@ -398,11 +378,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
               padding:  EdgeInsets.only(left: 280),
               child: Text(
                 'Or',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xFF686464).withOpacity(0.50),
-                  fontWeight: FontWeight.w400,
-                ),
+                style: onlyFormINineDataStyle.customTextStyle(context),
               ),
             ),
             SizedBox(height: 20),
@@ -412,11 +388,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 Expanded(
                   child: Text(
                     'Form I-94 Admission Number:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: onlyFormINineDataStyle.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 100),
@@ -436,11 +408,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
               padding: const EdgeInsets.only(left: 280),
               child: Text(
                 'Or',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xFF686464).withOpacity(0.50),
-                  fontWeight: FontWeight.w400,
-                ),
+                style: onlyFormINineDataStyle.customTextStyle(context),
               ),
             ),
             SizedBox(height: 20),
@@ -450,11 +418,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 Expanded(
                   child: Text(
                     'Foreign Passport Number:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: onlyFormINineDataStyle.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 100),
@@ -476,11 +440,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 Expanded(
                   child: Text(
                     'Country of Issuance:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: onlyFormINineDataStyle.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 100),
@@ -499,37 +459,74 @@ class _FormNineScreenState extends State<FormNineScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+
+                InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  child: Container(
+                    height: 30,
+                    width: 125,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Color(0xFF50B5E5),
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.arrow_back,
+                            color: Color(0xFF50B5E5),
+                            size: 16,
+                          ),
+                          SizedBox(width: 3),
+                          Text(
+                            'Back',
+                            style: TransparentButtonTextConst.customTextStyle(context),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.arrow_back,
-                        color: Color((0xFF50B5E5)),
-                      ),
-                      SizedBox(width: 5),
-                      Text(
-                        'Cancel',
-                        style: GoogleFonts.firaSans(
-                          color: Color((0xFF50B5E5)),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
+                  onTap: () {
+    Navigator.pop(context);
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+    }
                 ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //     //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: Colors.white,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(6.0),
+                //     ),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Icon(
+                //         Icons.arrow_back,
+                //         color: Color((0xFF50B5E5)),
+                //       ),
+                //       SizedBox(width: 5),
+                //       Text(
+                //         'Cancel',
+                //         style: TransparentButtonTextConst.customTextStyle(context),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () async{
+
+                Container(
+                  height: 30,
+                  width: 140,
+                  child: CustomIconButton(text: 'Continue', icon: Icons.arrow_forward , onPressed: () async{
                     //Navigator.pop(context);
                     var response =  await addEmployeeI9Form(context: context, employeeId: widget.employeeID!, firstName: firstName.text,
                         middleName: middleInitial.text, lastName: lastName.text, lastNameOther: otherLastNames.text, phonrNumber: phoneNumber.text,
@@ -544,32 +541,82 @@ class _FormNineScreenState extends State<FormNineScreen> {
 
                     }
 
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF50B5E5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Continue',
-                        style: GoogleFonts.firaSans(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
+                  },),
                 ),
+
               ],
             ),
+
+
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         Navigator.pop(context);
+            //         //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+            //       },
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.white,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(6.0),
+            //         ),
+            //       ),
+            //       child: Row(
+            //         children: [
+            //           Icon(
+            //             Icons.arrow_back,
+            //             color: Color((0xFF50B5E5)),
+            //           ),
+            //           SizedBox(width: 5),
+            //           Text(
+            //             'Cancel',
+            //             style: TransparentButtonTextConst.customTextStyle(context),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     SizedBox(width: 10),
+            //     ElevatedButton(
+            //       onPressed: () async{
+            //         //Navigator.pop(context);
+            //         var response =  await addEmployeeI9Form(context: context, employeeId: widget.employeeID!, firstName: firstName.text,
+            //             middleName: middleInitial.text, lastName: lastName.text, lastNameOther: otherLastNames.text, phonrNumber: phoneNumber.text,
+            //             city: cityTown.text, state: state.text, address: address.text, zipCode: zipCode.text, SSNNbr: ssn.text, email: email.text,
+            //             DOB: dob.text, isUSACitizen: isUSCitizen, isNonUSACitizen: isNonUSCitizen, isLawfullResident: isLawFullResidence,
+            //             alienRegNbr: isLawFullResidence == false ? "--" :alienRegistrationNumber.text, isAuthorizedToWork: isAuthoRiseToWork, unthorizedToWorkDate: isAuthoRiseToWork == false ?"0000-00-00":workAuthorizationExpirationDate.text,
+            //             I94AdmissionNbr: formI94AdmissionNumber.text, foreignPassportNbr: foreignPassportNumber.text, countryOfIssue: countryOfIssuance.text,
+            //             officeId: "");
+            //         if(response.statusCode == 200 || response.statusCode == 201){
+            //           Navigator.pop(context);
+            //         }else{
+            //
+            //         }
+            //
+            //       },
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Color(0xFF50B5E5),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(6.0),
+            //         ),
+            //       ),
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             'Continue',
+            //             style: BlueButtonTextConst.customTextStyle(context),
+            //           ),
+            //           SizedBox(width: 5),
+            //           Icon(
+            //             Icons.arrow_forward,
+            //             color: Colors.white,
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             // SizedBox(height: 30),
             // BottomBarRow()
           ],

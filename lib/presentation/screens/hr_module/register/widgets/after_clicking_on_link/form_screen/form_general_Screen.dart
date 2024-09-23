@@ -4,15 +4,19 @@ import 'dart:html' as html;
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/onlink_general_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onlink_general/onlink_general_data.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
@@ -161,12 +165,7 @@ class _generalFormState extends State<generalForm> {
               alignment: Alignment.topCenter,
               child: Text(
                 "General",
-                style: GoogleFonts.firaSans(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.blueprime,
-                  decoration: TextDecoration.none,
-                ),
+                style: FormHeading.customTextStyle(context)
               ),
             ),
           ),
@@ -183,11 +182,7 @@ class _generalFormState extends State<generalForm> {
               ),
               child: Text(
                 'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-                style: GoogleFonts.firaSans(
-                  color: const Color(0xFF686464),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+                style:DefineWorkWeekStyle.customTextStyle(context),
               ),
             ),
           ]),
@@ -210,10 +205,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             Text(
                               "Upload Photo",
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: BlueButtonTextConst.customTextStyle(context)
                             ),
                             SizedBox(
                                 height:
@@ -268,11 +260,7 @@ class _generalFormState extends State<generalForm> {
 
                               label: Text(
                                 "Choose File",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
+                                style:BlueButtonTextConst.customTextStyle(context),
                               ),
                               icon: const Icon(Icons.file_upload_outlined),
                             ),
@@ -292,12 +280,7 @@ class _generalFormState extends State<generalForm> {
                                                       const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     'File picked: $fileName',
-                                                    style: GoogleFonts.firaSans(
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: const Color(
-                                                            0xff686464)),
+                                                    style: onlyFormDataStyle.customTextStyle(context)
                                                   ),
                                                 )
                                     :  SizedBox(height: 40,width: 10,), // Display file names if picked
@@ -307,10 +290,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Legal First Name',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context)
                             ),
                             SizedBox(
                                 height:
@@ -318,11 +298,7 @@ class _generalFormState extends State<generalForm> {
                             CustomTextFieldRegister(
                               controller: firstname,
                               hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -336,10 +312,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Legal Last Name',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style:  onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -347,11 +320,7 @@ class _generalFormState extends State<generalForm> {
                             CustomTextFieldRegister(
                               controller: lastname,
                               hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -365,10 +334,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Social Security Number',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -377,11 +343,7 @@ class _generalFormState extends State<generalForm> {
                               controller: ssecuritynumber,
                               hintText: 'Enter Text',
                               obscureText: !_passwordVisible,
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -412,10 +374,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Personal Mobile Number',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style:  onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -424,11 +383,7 @@ class _generalFormState extends State<generalForm> {
                               controller: phonenumber,
                               keyboardType: TextInputType.name,
                               hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -442,10 +397,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Personal Email',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style:  onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -453,11 +405,7 @@ class _generalFormState extends State<generalForm> {
                             CustomTextFieldRegister(
                               controller: personalemail,
                               hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle:  onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -471,10 +419,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Driver’s License Number',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style:  onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -482,11 +427,7 @@ class _generalFormState extends State<generalForm> {
                             CustomTextFieldRegister(
                               controller: driverlicensenumb,
                               hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle:  onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -505,10 +446,7 @@ class _generalFormState extends State<generalForm> {
                           children: [
                             Text(
                               "Gender",
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -557,10 +495,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'DOB',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -568,11 +503,7 @@ class _generalFormState extends State<generalForm> {
                             CustomTextFieldRegister(
                               controller: dobcontroller,
                               hintText: 'yyyy-mm-dd',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
                               height: 32,
                               suffixIcon: IconButton(
                                 icon: const Icon(
@@ -599,10 +530,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Address',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style:onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -610,11 +538,7 @@ class _generalFormState extends State<generalForm> {
                             CustomTextFieldRegister(
                               controller: address,
                               hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff9B9B9B),
-                              ),
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter some text';
@@ -628,10 +552,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 60),
                             Text(
                               "Race",
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -736,10 +657,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 8),
                             Text(
                               'Type of Clinician',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -774,11 +692,7 @@ class _generalFormState extends State<generalForm> {
                                     child: DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         // hintText: 'Select Clinician',
-                                        hintStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: const Color(0xff9B9B9B),
-                                        ),
+                                        hintStyle:onlyFormDataStyle.customTextStyle(context),
                                         border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(4.0),
@@ -795,11 +709,7 @@ class _generalFormState extends State<generalForm> {
                                           color: Color(0xff9B9B9B)),
                                       iconSize: 24,
                                       elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
+                                      style:onlyFormDataStyle.customTextStyle(context),
 
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
@@ -815,11 +725,7 @@ class _generalFormState extends State<generalForm> {
                                           value: value,
                                           child: Text(
                                             value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                            style: onlyFormDataStyle.customTextStyle(context),
                                           ),
                                         );
                                       }).toList(),
@@ -835,10 +741,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Speciality',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
+                              style: onlyFormDataStyle.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -873,11 +776,7 @@ class _generalFormState extends State<generalForm> {
                                     child: DropdownButtonFormField<String>(
                                       decoration: InputDecoration(
                                         // hintText: 'Select Clinician',
-                                        hintStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: const Color(0xff9B9B9B),
-                                        ),
+                                        hintStyle: onlyFormDataStyle.customTextStyle(context),
                                         border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(4.0),
@@ -894,11 +793,7 @@ class _generalFormState extends State<generalForm> {
                                           color: Color(0xff9B9B9B)),
                                       iconSize: 24,
                                       elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
+                                      style: onlyFormDataStyle.customTextStyle(context),
 
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
@@ -914,11 +809,7 @@ class _generalFormState extends State<generalForm> {
                                           value: value,
                                           child: Text(
                                             value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                            style: onlyFormDataStyle.customTextStyle(context),
                                           ),
                                         );
                                       }).toList(),
@@ -942,11 +833,7 @@ class _generalFormState extends State<generalForm> {
                 width: 117,
                 height: 30,
                 text: 'Save',
-                style: const TextStyle(
-                  fontFamily: 'FiraSans',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
                   // Get the company and user IDs

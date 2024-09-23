@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'dart:typed_data';
 
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../manage/widgets/top_row.dart';
 import 'form_nine_screen.dart';
 
@@ -41,21 +43,13 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                       Center(
                         child: Text(
                           'Signature',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 18,
-                            color: Color(0xFF50B5E5),
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style:FormHeading.customTextStyle(context)
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 6),
                       Text(
                         AppString.upload_signature,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 18,
-                          color: Color(0xFF50B5E5),
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style:FormHeading.customTextStyle(context)
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 40),
                       Container(
@@ -66,7 +60,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                         ),
                         child: Text(
                           'Signature is needed to sign the declination form and few other forms',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                             color: Color(0xFF686464),
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -84,11 +78,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                                 icon: Icon(Icons.edit, color: Color(0xFF50B5E5), size: 24),
                                 label: Text(
                                   'Draw',
-                                  style: GoogleFonts.firaSans(
-                                    color: Color(0xFF50B5E5),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: TransparentButtonTextConst.customTextStyle(context)
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -116,10 +106,10 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                                 icon: Icon(Icons.file_upload_outlined, color: Colors.grey, size: 24),
                                 label: Text(
                                   'Upload',
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 onPressed: _pickFile,
@@ -144,7 +134,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                           _isDrawing
                               ? 'Sign your name using mouse or touchpad'
                               : 'Uploaded signature',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                             color: Color(0xff68646480),
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
@@ -195,11 +185,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                             ElevatedButton(
                               child: Text(
                                 AppString.cancel,
-                                style: GoogleFonts.firaSans(
-                                  color: Color(0xFF50B5E5),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: BlueButtonTextConst.customTextStyle(context)
                               ),
                               onPressed: () {
                                 setState(() {
@@ -222,11 +208,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                                 ElevatedButton(
                                   child: Text(
                                     AppString.reset,
-                                    style: GoogleFonts.firaSans(
-                                      color: Color(0xFF50B5E5),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style:  BlueButtonTextConst.customTextStyle(context)
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -248,8 +230,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                             ElevatedButton(
                               child: Text(
                                 AppString.save,
-                                style: GoogleFonts.firaSans(
-                                    fontSize: 14, fontWeight: FontWeight.w700),
+                                style:  BlueButtonTextConst.customTextStyle(context)
                               ),
                               onPressed: () {
                                 _showSaveConfirmationDialog();
@@ -324,8 +305,8 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
                   Text(
                     'Successfully saved!',
-                    style: GoogleFonts.firaSans(
-                        fontWeight: FontWeight.w700,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
                         fontSize: 24,
                         color: Color(0xff686464)),
                   ),
@@ -356,8 +337,7 @@ class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
                       children: [
                         Text(
                           'Continue',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 14, fontWeight: FontWeight.w700),
+                          style: BlueButtonTextConst.customTextStyle(context)
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 140),
                         Icon(

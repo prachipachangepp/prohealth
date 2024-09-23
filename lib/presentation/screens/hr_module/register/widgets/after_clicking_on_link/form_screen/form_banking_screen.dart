@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_banking_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_banking_data.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -131,10 +134,7 @@ class _BankingScreenState extends State<BankingScreen> {
         Center(
           child: Text(
             'Banking',
-            style: GoogleFonts.firaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff50B5E5)),
+            style:  FormHeading.customTextStyle(context)
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -146,11 +146,7 @@ class _BankingScreenState extends State<BankingScreen> {
           ),
           child: Text(
             'Your personal details will be required to proceed through the recruitment process.',
-            style: GoogleFonts.firaSans(
-              color: Color(0xFF686464),
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
+            style:  DefineWorkWeekStyle.customTextStyle(context),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -184,11 +180,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
                   'Add Banking',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                  style:BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
             ],
@@ -202,11 +194,7 @@ class _BankingScreenState extends State<BankingScreen> {
               width: 117,
               height: 30,
               text: 'Save',
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
+              style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
                 for (var key in bankingFormKeys) {
@@ -236,11 +224,7 @@ class _BankingScreenState extends State<BankingScreen> {
 
               child: Text(
                 'Save',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style:BlueButtonTextConst.customTextStyle(context),
               ),
             ),
             if (errorMessage != null)
@@ -374,10 +358,7 @@ class _BankingFormState extends State<BankingForm> {
                           children: [
                             Text(
                               bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)),
+                              style:  DefineWorkWeekStyle.customTextStyle(context),
                             ),
                             IconButton(
                               icon:
@@ -397,10 +378,7 @@ class _BankingFormState extends State<BankingForm> {
                                 children: [
                                   Text(
                                     'Type',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -439,10 +417,7 @@ class _BankingFormState extends State<BankingForm> {
                                               40),
                                   Text(
                                     'Effective Date',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -451,11 +426,7 @@ class _BankingFormState extends State<BankingForm> {
                                   CustomTextFieldRegister(
                                     controller: effectivecontroller,
                                     hintText: 'dd-mm-yyyy',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                     suffixIcon: IconButton(
                                       icon: Icon(
@@ -485,10 +456,7 @@ class _BankingFormState extends State<BankingForm> {
                                               30),
                                   Text(
                                     'Bank Name',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -497,11 +465,7 @@ class _BankingFormState extends State<BankingForm> {
                                   CustomTextFieldRegister(
                                     controller: bankname,
                                     hintText: 'Enter Bank Name',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -510,10 +474,7 @@ class _BankingFormState extends State<BankingForm> {
                                               30),
                                   Text(
                                     'Routing/Transit Number ( 9 Digits )',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -523,11 +484,7 @@ class _BankingFormState extends State<BankingForm> {
                                     maxLength: 9,
                                     controller: routingnumber,
                                     hintText: 'Enter Number',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                 ],
@@ -541,10 +498,7 @@ class _BankingFormState extends State<BankingForm> {
                                 children: [
                                   Text(
                                     'Account Number ',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -553,11 +507,7 @@ class _BankingFormState extends State<BankingForm> {
                                   CustomTextFieldRegister(
                                     controller: accountnumber,
                                     hintText: 'Enter AC Number',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -566,10 +516,7 @@ class _BankingFormState extends State<BankingForm> {
                                               30),
                                   Text(
                                     'Verify Account Number',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -579,11 +526,7 @@ class _BankingFormState extends State<BankingForm> {
                                     controller: verifyaccountnumber,
                                     // controller: ,
                                     hintText: 'Enter AC Number',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   if (errorMessage != null)
@@ -601,10 +544,7 @@ class _BankingFormState extends State<BankingForm> {
                                               25),
                                   Text(
                                     'Requested amount for this account (select one)',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   CustomRadioListTile(
                                     title: 'Specific Amount',
@@ -619,11 +559,7 @@ class _BankingFormState extends State<BankingForm> {
                                   CustomTextFieldRegister(
                                     controller: requestammount,
                                     prefixText: '\$',
-                                    prefixStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                     keyboardType: TextInputType.number,
                                   ),
@@ -639,10 +575,7 @@ class _BankingFormState extends State<BankingForm> {
                             Expanded(
                               child: Text(
                                 'Upload your Void Check',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff686464)),
+                                style:  DefineWorkWeekStyle.customTextStyle(context),
                               ),
                             ),
                             SizedBox(
@@ -662,39 +595,21 @@ class _BankingFormState extends State<BankingForm> {
                                     icon: checkUrl == "--" ? Icon(Icons.upload, color: Colors.white):null,
                                     label:checkUrl == null ?Text(
                                       'Upload File',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
+                                      style:BlueButtonTextConst.customTextStyle(context),
                                     ):Text(
                                       'Uploaded',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
+                                      style: BlueButtonTextConst.customTextStyle(context),
                                     )
                                 ),
                                 SizedBox(height: 8,),
                                 checkUrl != null ? AutoSizeText(
                                   'Uploaded File: $checkUrl',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 12.0,
-                                      fontWeight:
-                                      FontWeight.w600,
-                                      color:
-                                      ColorManager.mediumgrey),
+                                  style:onlyFormDataStyle.customTextStyle(context),
                                 ):
                                 fileName != null ?
                                 AutoSizeText(
                                   'File picked: $fileName',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 12.0,
-                                      fontWeight:
-                                      FontWeight.w400,
-                                      color:
-                                      Color(0xff686464)),
+                                  style: onlyFormDataStyle.customTextStyle(context),
                                 ) : SizedBox(),
                               ],
                             ),

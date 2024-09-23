@@ -7,13 +7,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
@@ -25,7 +27,6 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
@@ -34,10 +35,10 @@ import 'dart:convert';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -98,11 +99,7 @@ class _Employment_screenState extends State<Employment_screen> {
           Center(
             child: Text(
               'Employment',
-              style: GoogleFonts.firaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff50B5E5),
-              ),
+              style: FormHeading.customTextStyle(context)
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -114,11 +111,7 @@ class _Employment_screenState extends State<Employment_screen> {
             ),
             child: Text(
               'Your personal details will be required to proceed through the recruitment process.',
-              style: GoogleFonts.firaSans(
-                color: Color(0xFF686464),
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+              style: DefineWorkWeekStyle.customTextStyle(context),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -151,11 +144,7 @@ class _Employment_screenState extends State<Employment_screen> {
                   icon: Icon(Icons.add, color: Colors.white),
                   label: Text(
                     'Add Experience',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
+                    style:BlueButtonTextConst.customTextStyle(context)
                   ),
                   onPressed: () {
                     setState(() {
@@ -175,11 +164,7 @@ class _Employment_screenState extends State<Employment_screen> {
                 width: 117,
                 height: 30,
                 text: 'Save',
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
                   for (var key in employmentFormKeys) {
@@ -224,11 +209,7 @@ class _Employment_screenState extends State<Employment_screen> {
                 },
                 child: Text(
                   'Save',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                  style:BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
             ],
@@ -330,11 +311,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
               Expanded(
                 child: Text(
                   'Upload your resume as a docx or pdf with a maximum size of 2 mb',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600,
-                    color: ColorManager.mediumgrey,
-                  ),
+                  style: DefineWorkWeekStyle.customTextStyle(context),
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
@@ -352,20 +329,12 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       icon: Icon(Icons.upload, color: Colors.white),
                       label: Text(
                         'Upload File',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
+                        style: BlueButtonTextConst.customTextStyle(context),
                       ),
                     ),
                     SizedBox(height:8),
                     if (fileName != null)
-                      AutoSizeText('Selected file: $fileName',style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.mediumgrey,
-                      )),
+                      AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
                   ],
                 ),
             ],
@@ -376,11 +345,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
             children: [
               Text(
                 employementIndex == null ? 'Employment ${widget.index}' :'Employment ${employementIndex}',
-                style: GoogleFonts.firaSans(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xff686464),
-                ),
+                style:  DefineWorkWeekStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
                 IconButton(
@@ -401,42 +366,26 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   children: [
                     Text(
                       'Final Position Title',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: finalPositionController,
                       hintText: 'Enter Title',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Start Date',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: startDateController,
                       hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
@@ -464,21 +413,13 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'End Date',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: endDateController,
                       hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
@@ -520,32 +461,20 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         ),
                         Text(
                           'Currently work here',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464),
-                          ),
+                          style: onlyFormDataStyle.customTextStyle(context),
                         ),
                       ],
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Employer',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: employerController,
                       hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       // width: MediaQuery.of(context).size.width / 5,
                     ),
@@ -561,84 +490,52 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   children: [
                     Text(
                       'Reason for Leaving',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: reasonForLeavingController,
                       hintText: 'Enter Leaving Reason',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Last Supervisor’s Name',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: supervisorNameController,
                       hintText: 'Enter Supervisor’s Name',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Supervisor’s Mobile Number',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: supervisorMobileNumberController,
                       hintText: 'Enter Mobile Number',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'City',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: cityController,
                       hintText: 'Enter City',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                      // width: MediaQuery.of(context).size.width / 5,
                     ),

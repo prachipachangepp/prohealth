@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
+
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class CustomRow extends StatelessWidget {
   final IconData icon;
@@ -24,13 +26,13 @@ class CustomRow extends StatelessWidget {
         SizedBox(width: MediaQuery.of(context).size.width/40),
         Text(
           text1,
-          style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400,color: ColorManager.mediumgrey),
+          style:DocumentTypeDataStyle.customTextStyle(context)
         ),
         SizedBox(width: MediaQuery.of(context).size.width/20),
         Text(
           text2,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400,color: ColorManager.mediumgrey),
+            style:DocumentTypeDataStyle.customTextStyle(context)
         ),
       ],
     );

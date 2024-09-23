@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/home_hr.dart';
 
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
@@ -52,12 +53,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -78,11 +74,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                 children: [
                   Text(widget.containerText,
                     textAlign: TextAlign.center,
-                    style:CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey
-                    ),),
+                    style:ConstTextFieldRegister.customTextStyle(context)),
                 ],
               ),
             ),
@@ -105,11 +97,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                               ),
                             ),),
                           child: Text('Cancle',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.bluebottom,
-                              )),),
+                              style: TransparentButtonTextConst.customTextStyle(context)),),
                       )
                   ),
                   SizedBox(width: AppPadding.p20,),
@@ -178,12 +166,7 @@ class SuccessPopup extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       "Success",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -201,11 +184,7 @@ class SuccessPopup extends StatelessWidget {
                 height: AppSize.s50,
                 width: AppSize.s210,
                 child: Text('Successfully Enrolled!\nThank You.',textAlign: TextAlign.center,
-                  style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
-                      fontSize: FontSize.s16,
-                      color: ColorManager.mediumgrey
-                  ),),
+                  style:ConstTextFieldRegister.customTextStyle(context)),
               ),
             ),
             Spacer(),

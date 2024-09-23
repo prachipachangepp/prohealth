@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
@@ -14,6 +15,9 @@ import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 class OfferLetterScreen extends StatefulWidget {
   final String email;
@@ -120,7 +124,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
         title: Text(
           data['title'],
           style:
-          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+          DocumentTypeDataStyle.customTextStyle(context),
         ),
         value: data['value'],
         onChanged: (bool? value) {
@@ -137,9 +141,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
       return CheckboxListTile(
         title: Text(
           data['title'],
-          style:
-          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
-        ),
+          style:  DocumentTypeDataStyle.customTextStyle(context),
+                ),
         value: data['value'],
         onChanged: (bool? value) {
           setState(() {
@@ -191,11 +194,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 children: [
                   Text(
                     'Offer Letter',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xff1696C8),
-                    ),
+                    style: LoginFlowText.customTextStyle(context),
                   ),
                 ],
               ),
@@ -259,11 +258,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             filled: true,
                             fillColor: Colors.white,
                             labelText: 'No. of Patients',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff575757),
-                            ),
+                            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
                             suffixIcon: DropdownButton<String>(
                               value: selectedDropdownValue,
                               items: ['Per day', 'Per week', 'Per month']
@@ -294,10 +289,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             contentPadding:
                             const EdgeInsets.only(left: 20, bottom: 5),
                           ),
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff575757)),
+                          style: DocumentTypeDataStyle.customTextStyle(context),
                         );
                       },
                     ),
@@ -341,11 +333,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               children: [
                                 Text(
                                   'County',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: ColorManager.mediumgrey,
-                                  ),
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                                 SizedBox(height: 5),
                                FutureBuilder<List<AllCountyGetList>>(
@@ -427,12 +415,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     });
                                   },
                                   value: selectedCounty,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xff686464),
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                               );
                             },
@@ -440,12 +423,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         } else {
                           return CustomDropdownTextField(
                             labelText: 'County',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: const Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
-                            labelFontSize: 12,
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            labelFontSize: 11,
                             items: ['No Data'],
                           );
                         }
@@ -461,11 +440,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Zone',style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.mediumgrey,
-                                    ),),
+                                    Text('Zone',style:DocumentTypeDataStyle.customTextStyle(context),),
                                     SizedBox(height:5),
                     FutureBuilder<List<SortByZoneData>>(
                       future: PayRateZoneDropdown(context),
@@ -543,12 +518,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     });
                                   },
                                   value: selectedZone,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xff686464),
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                               );
                             },
@@ -556,12 +526,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         } else {
                           return CustomDropdownTextField(
                             labelText: 'Zone',
-                            labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: const Color(0xff575757),
-                              fontWeight: FontWeight.w400,
-                            ),
-                            labelFontSize: 12,
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            labelFontSize: 11,
                             items: ['No Data'],
                           );
                         }
@@ -586,14 +552,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     indicatorColor: const Color(0xff1696C8),
                                     labelColor: const Color(0xff686464),
                                     unselectedLabelColor: const Color(0xff686464),
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    unselectedLabelStyle: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                    unselectedLabelStyle:DocumentTypeDataStyle.customTextStyle(context),
                                     tabs: const [
                                       Tab(text: 'Zip Codes'),
                                       // Tab(text: 'Cities'),
@@ -621,11 +581,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             }
                                             if(selectedCountyId == 0){
                                               return Center(child: Text('Select county',style:
-                                              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                              DocumentTypeDataStyle.customTextStyle(context),));
                                             }
                                             if(snapshot.data!.isEmpty){
                                               return Center(child: Text('No Data Found!',style:
-                                              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                              DocumentTypeDataStyle.customTextStyle(context),));
                                             }
                                             return Row(
                                               children: [
@@ -768,11 +728,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             if (_salary.isNotEmpty)
                               Text(
                                 "\$ ${_salary}",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black,
-                                ),
+                                style: AllPopupHeadings.customTextStyle(context)
                               ),
                             SizedBox(
                               width: 10,
@@ -834,16 +790,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   children: [
                                                     dropdownValue == 'Salaried' ?  Text(
                                                       'Salary',
-                                                      style: GoogleFonts.firaSans(
-                                                          fontSize: 14.0,
-                                                          fontWeight: FontWeightManager.medium,
-                                                          color: ColorManager.mediumgrey),
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                     ) : Text(
                                                       'Per Visit',
-                                                      style: GoogleFonts.firaSans(
-                                                          fontSize: 14.0,
-                                                          fontWeight: FontWeightManager.medium,
-                                                          color: ColorManager.mediumgrey),
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                     ),
                                                     SizedBox(
                                                       height: MediaQuery.of(context)
@@ -855,18 +805,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                       height: 30,
                                                       child: TextFormField(
                                                         cursorColor: Colors.black,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeightManager.medium,
-                                                          color: ColorManager.mediumgrey,),
+                                                        style: DocumentTypeDataStyle.customTextStyle(context),
                                                         decoration: InputDecoration(
                                                           prefix:Text("\$ "),
                                                           hintText: '0.00',
-                                                          hintStyle: GoogleFonts.firaSans(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: const Color(
-                                                                  0xff686464)),
+                                                          hintStyle:DocumentTypeDataStyle.customTextStyle(context),
                                                           enabledBorder:
                                                           OutlineInputBorder(
                                                             borderRadius:
@@ -938,11 +881,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                               vertical: 8.0),
                                                           child: Text(
                                                             'Submit',
-                                                            style: GoogleFonts.firaSans(
-                                                                fontSize: 12.0,
-                                                                fontWeight:
-                                                                FontWeight.w700,
-                                                                color: Colors.white),
+                                                            style: BlueButtonTextConst.customTextStyle(context),
                                                           ),
                                                         ),
                                                       ),
@@ -966,16 +905,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 ),
                                 child: dropdownValue == 'Salaried' ? Text(
                                   'Add',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: BlueButtonTextConst.customTextStyle(context),
                                 ) : Text(
                                   'Add Visit',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: BlueButtonTextConst.customTextStyle(context),
                                 )
                             ),
                             SizedBox(width: 15),
@@ -1026,10 +959,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     child: Text(
                       'Back',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: TransparentButtonTextConst.customTextStyle(context)
                     ),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
@@ -1139,10 +1069,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     child: Text(
                       'Enroll',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: BlueButtonTextConst.customTextStyle(context)
                     ),
                   ),
                   // ElevatedButton(
@@ -1225,8 +1152,8 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
-        title: Text(text,style:
-        GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),),
+        title: Text(text,style:DocumentTypeDataStyle.customTextStyle(context)
+       ),
         value: value,
         onChanged: onChanged,
       ),
