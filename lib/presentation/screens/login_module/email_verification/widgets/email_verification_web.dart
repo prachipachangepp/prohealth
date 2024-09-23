@@ -28,7 +28,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
 
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
-
   Future<void> _verifyOTPAndLogin() async {
     setState(() {
       _isVerifyingOTP = true;

@@ -10,6 +10,7 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
+import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:universal_io/io.dart';
 
@@ -117,6 +118,98 @@ print(response.reasonPhrase);
 }
   } catch (e) {
     print("Error $e");
+  }
+}
+
+/// Patch employee documents
+Future<ApiData> patchEmployeeDocuments({
+  required BuildContext context,
+  required int empDocumentId,
+  required int employeeDocumentMetaId,
+  required int employeeDocumentTypeSetupId,
+  required int employeeId,
+  required String document,
+  required String uploadDate,
+  String? expiryDate
+}) async {
+  try {
+    // String documents = await
+    // AppFilePickerBase64.getEncodeBase64(
+    //     bytes: documentFile);
+    // print("File :::${documents}" );
+    var response = await Api(context).patch(
+      path: UploadDocumentRepository.PatchEmployeeDocumentGet(employeeDocumentId: empDocumentId),
+      data: {
+        "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
+        "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
+        "employeeId": employeeId,
+        "DocumentUrl": document,
+        "UploadDate": uploadDate,
+        "expiry_date": expiryDate
+      }
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Documents Updated");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Patch employee documents
+Future<EmployeeDocumentPrefillData> getPrefillEmployeeDocuments({
+  required BuildContext context,
+  required int empDocumentId,
+}) async {
+  var itemData;
+  try {
+    // String documents = await
+    // AppFilePickerBase64.getEncodeBase64(
+    //     bytes: documentFile);
+    // print("File :::${documents}" );
+
+    var response = await Api(context).get(
+      path: UploadDocumentRepository.PatchEmployeeDocumentGet(
+          employeeDocumentId: empDocumentId),
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Documents Get Prefill");
+      // orgDocumentGet(context);
+      itemData = EmployeeDocumentPrefillData(
+          documentName: response.data['DocumentName'] ?? "--",
+          expiry: response.data['Expiry'] ?? "--",
+          reminderThresold: response.data['ReminderThreshold'] ?? "--",
+          idOfDocument: response.data['idOfDocument'] ?? "--",
+          documentType: response.data['DocumentType'] ?? "--",
+          empDocMetaDataId: response.data['EmployeeDocumentTypeMetaDataId'] ??
+              0,
+          empDocSetupId: response.data['EmployeeDocumentTypeSetupId'] ?? 0,
+          documentUrl: response.data['DocumentUrl'] ?? "--",
+          employeeDocumentId: response.data['employeeDocumentId'] ?? 0,
+          employeeId: response.data['employeeId'] ?? 0);
+    } else {
+      print("Error 1");
+      return itemData;
+    }
+    return itemData;
+  } catch (e) {
+    print("Error $e");
+    return itemData;
   }
 }
 

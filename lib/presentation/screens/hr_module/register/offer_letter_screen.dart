@@ -1,23 +1,25 @@
 import 'dart:async';
 import 'dart:ui';
-
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
-import '../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 class OfferLetterScreen extends StatefulWidget {
   final String email;
@@ -124,7 +126,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
         title: Text(
           data['title'],
           style:
-          DocumentTypeDataStyle.customTextStyle(context),
+          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
         ),
         value: data['value'],
         onChanged: (bool? value) {
@@ -141,8 +143,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
       return CheckboxListTile(
         title: Text(
           data['title'],
-          style:  DocumentTypeDataStyle.customTextStyle(context),
-                ),
+          style:
+          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+        ),
         value: data['value'],
         onChanged: (bool? value) {
           setState(() {
@@ -166,6 +169,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     print('Generated URL: $generatedURL');
     return url;
   }
+  final StreamController<List<CountyWiseZoneModal>> _zoneController =
+  StreamController<List<CountyWiseZoneModal>>.broadcast();
   int selectedZoneId = 0;
   int selectedCountyId = 0;
   int selectedCityId = 0;
@@ -180,6 +185,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   String selectedCityString = '';
   List<DropdownMenuItem<String>> dropDownList = [];
   int countyId = 0;
+  String? selectedZipCodeZone;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,7 +200,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 children: [
                   Text(
                     'Offer Letter',
-                    style: LoginFlowText.customTextStyle(context),
+                    style: GoogleFonts.firaSans(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xff1696C8),
+                    ),
                   ),
                 ],
               ),
@@ -258,7 +268,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             filled: true,
                             fillColor: Colors.white,
                             labelText: 'No. of Patients',
-                            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff575757),
+                            ),
                             suffixIcon: DropdownButton<String>(
                               value: selectedDropdownValue,
                               items: ['Per day', 'Per week', 'Per month']
@@ -289,7 +303,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             contentPadding:
                             const EdgeInsets.only(left: 20, bottom: 5),
                           ),
-                          style: DocumentTypeDataStyle.customTextStyle(context),
+                          style: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff575757)),
                         );
                       },
                     ),
@@ -333,7 +350,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               children: [
                                 Text(
                                   'County',
-                                  style: DocumentTypeDataStyle.customTextStyle(context),
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorManager.mediumgrey,
+                                  ),
                                 ),
                                 SizedBox(height: 5),
                                FutureBuilder<List<AllCountyGetList>>(
@@ -415,7 +436,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     });
                                   },
                                   value: selectedCounty,
-                                  style: DocumentTypeDataStyle.customTextStyle(context),
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xff686464),
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
                               );
                             },
@@ -423,8 +449,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         } else {
                           return CustomDropdownTextField(
                             labelText: 'County',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                            labelFontSize: 11,
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: const Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            labelFontSize: 12,
                             items: ['No Data'],
                           );
                         }
@@ -440,8 +470,122 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Zone',style:DocumentTypeDataStyle.customTextStyle(context),),
+                                    Text('Zone',style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.mediumgrey,
+                                    ),),
                                     SizedBox(height:5),
+                                    // StreamBuilder<
+                                    //     List<CountyWiseZoneModal>>(
+                                    //     stream: _zoneController.stream,
+                                    //     builder: (context, snapshotZone) {
+                                    //       fetchCountyWiseZone(context, selectedCountyId)
+                                    //           .then((data) {
+                                    //         _zoneController.add(data);
+                                    //       }).catchError((error) {});
+                                    //       if (snapshotZone.connectionState ==
+                                    //           ConnectionState.waiting) {
+                                    //         return Padding(
+                                    //           padding: const EdgeInsets.symmetric(horizontal: 7),
+                                    //           child: Container(
+                                    //             height: 31,
+                                    //             width: 250,
+                                    //             decoration: BoxDecoration(color: ColorManager.white),
+                                    //           ),
+                                    //         );
+                                    //       }
+                                    //       if (snapshotZone.data!.isEmpty) {
+                                    //          return Container(
+                                    //           height: 31,
+                                    //           width: 250,
+                                    //           padding: const EdgeInsets.symmetric(vertical:4, horizontal: 15),
+                                    //           decoration: BoxDecoration(
+                                    //             color: Colors.white,
+                                    //             border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                    //             borderRadius: BorderRadius.circular(6),
+                                    //           ),
+                                    //           child: Padding(
+                                    //             padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                                    //             child: Text("No zone avalable!",style: GoogleFonts.firaSans(
+                                    //               fontSize: 12,
+                                    //               fontWeight: FontWeight.w600,
+                                    //               color: const Color(0xff686464),
+                                    //               decoration: TextDecoration.none,
+                                    //             ),),
+                                    //           )
+                                    //         );
+                                    //       }
+                                    //       if (snapshotZone.hasData) {
+                                    //         List dropDown = [];
+                                    //         int docType = 0;
+                                    //         List<DropdownMenuItem<String>>
+                                    //         dropDownTypesList = [];
+                                    //         dropDownTypesList.add(
+                                    //             const DropdownMenuItem<String>(
+                                    //           child: Text('Select zone'),
+                                    //           value: 'Select zone',
+                                    //         ));
+                                    //         for (var i in snapshotZone.data!) {
+                                    //           dropDownTypesList.add(
+                                    //             DropdownMenuItem<String>(
+                                    //               value: i.zoneName,
+                                    //               child: Text(i.zoneName),
+                                    //             ),
+                                    //           );
+                                    //         }
+                                    //         // if (selectedZone == null) {
+                                    //         //   selectedZipCodeZone =
+                                    //         //       snapshotZone.data![0].zoneName;
+                                    //         // }
+                                    //         // selectedZoneId = snapshotZone.data![0].zone_id;
+                                    //         String? selectedZone = 'Select Zone';
+                                    //         return StatefulBuilder(
+                                    //           builder: (BuildContext context, void Function(void Function()) setState) {
+                                    //             return  Container(
+                                    //               height: 31,
+                                    //               width: 250,
+                                    //               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+                                    //               decoration: BoxDecoration(
+                                    //                 color: Colors.white,
+                                    //                 border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                    //                 borderRadius: BorderRadius.circular(6),
+                                    //               ),
+                                    //               child: DropdownButtonFormField<String>(
+                                    //                 focusColor: Colors.transparent,
+                                    //                 icon: const Icon(
+                                    //                   Icons.arrow_drop_down_sharp,
+                                    //                   color: Color(0xff686464),
+                                    //                 ),
+                                    //                 decoration: const InputDecoration.collapsed(hintText: ''),
+                                    //                 items: dropDownList,
+                                    //                 onChanged: (newValue) {
+                                    //                   setState(() {
+                                    //                     selectedZone = newValue;
+                                    //                     for (var a in snapshotZone.data!) {
+                                    //                       if (a.zoneName == newValue) {
+                                    //                         int zoneId = a.zone_id;
+                                    //                         selectedZoneId = zoneId;
+                                    //                         print("Zone Id :: ${selectedZoneId}");
+                                    //                         // Perform other actions if needed
+                                    //                       }
+                                    //                     }
+                                    //                   });
+                                    //                 },
+                                    //                 value: selectedZone,
+                                    //                 style: GoogleFonts.firaSans(
+                                    //                   fontSize: 12,
+                                    //                   fontWeight: FontWeight.w600,
+                                    //                   color: const Color(0xff686464),
+                                    //                   decoration: TextDecoration.none,
+                                    //                 ),
+                                    //               ),
+                                    //             );
+                                    //           },
+                                    //         );
+                                    //       }
+                                    //       return const SizedBox();
+                                    //     }),
                     FutureBuilder<List<SortByZoneData>>(
                       future: PayRateZoneDropdown(context),
                       builder: (context, snapshot) {
@@ -518,7 +662,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     });
                                   },
                                   value: selectedZone,
-                                  style: DocumentTypeDataStyle.customTextStyle(context),
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xff686464),
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
                               );
                             },
@@ -526,8 +675,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         } else {
                           return CustomDropdownTextField(
                             labelText: 'Zone',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                            labelFontSize: 11,
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: const Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            labelFontSize: 12,
                             items: ['No Data'],
                           );
                         }
@@ -552,8 +705,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     indicatorColor: const Color(0xff1696C8),
                                     labelColor: const Color(0xff686464),
                                     unselectedLabelColor: const Color(0xff686464),
-                                    labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                    unselectedLabelStyle:DocumentTypeDataStyle.customTextStyle(context),
+                                    labelStyle: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    unselectedLabelStyle: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     tabs: const [
                                       Tab(text: 'Zip Codes'),
                                       // Tab(text: 'Cities'),
@@ -581,11 +740,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             }
                                             if(selectedCountyId == 0){
                                               return Center(child: Text('Select county',style:
-                                              DocumentTypeDataStyle.customTextStyle(context),));
+                                              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
                                             }
                                             if(snapshot.data!.isEmpty){
                                               return Center(child: Text('No Data Found!',style:
-                                              DocumentTypeDataStyle.customTextStyle(context),));
+                                              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
                                             }
                                             return Row(
                                               children: [
@@ -728,7 +887,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             if (_salary.isNotEmpty)
                               Text(
                                 "\$ ${_salary}",
-                                style: AllPopupHeadings.customTextStyle(context)
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
                               ),
                             SizedBox(
                               width: 10,
@@ -790,10 +953,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   children: [
                                                     dropdownValue == 'Salaried' ?  Text(
                                                       'Salary',
-                                                      style: DefineWorkWeekStyle.customTextStyle(context),
+                                                      style: GoogleFonts.firaSans(
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.mediumgrey),
                                                     ) : Text(
                                                       'Per Visit',
-                                                      style: DefineWorkWeekStyle.customTextStyle(context),
+                                                      style: GoogleFonts.firaSans(
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.mediumgrey),
                                                     ),
                                                     SizedBox(
                                                       height: MediaQuery.of(context)
@@ -805,11 +974,18 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                       height: 30,
                                                       child: TextFormField(
                                                         cursorColor: Colors.black,
-                                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.mediumgrey,),
                                                         decoration: InputDecoration(
                                                           prefix:Text("\$ "),
                                                           hintText: '0.00',
-                                                          hintStyle:DocumentTypeDataStyle.customTextStyle(context),
+                                                          hintStyle: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w700,
+                                                              color: const Color(
+                                                                  0xff686464)),
                                                           enabledBorder:
                                                           OutlineInputBorder(
                                                             borderRadius:
@@ -881,7 +1057,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                               vertical: 8.0),
                                                           child: Text(
                                                             'Submit',
-                                                            style: BlueButtonTextConst.customTextStyle(context),
+                                                            style: GoogleFonts.firaSans(
+                                                                fontSize: 12.0,
+                                                                fontWeight:
+                                                                FontWeight.w700,
+                                                                color: Colors.white),
                                                           ),
                                                         ),
                                                       ),
@@ -905,10 +1085,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 ),
                                 child: dropdownValue == 'Salaried' ? Text(
                                   'Add',
-                                  style: BlueButtonTextConst.customTextStyle(context),
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ) : Text(
                                   'Add Visit',
-                                  style: BlueButtonTextConst.customTextStyle(context),
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 )
                             ),
                             SizedBox(width: 15),
@@ -959,7 +1145,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     child: Text(
                       'Back',
-                      style: TransparentButtonTextConst.customTextStyle(context)
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
@@ -1069,7 +1258,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     child: Text(
                       'Enroll',
-                      style: BlueButtonTextConst.customTextStyle(context)
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   // ElevatedButton(
@@ -1152,8 +1344,8 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
-        title: Text(text,style:DocumentTypeDataStyle.customTextStyle(context)
-       ),
+        title: Text(text,style:
+        GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),),
         value: value,
         onChanged: onChanged,
       ),

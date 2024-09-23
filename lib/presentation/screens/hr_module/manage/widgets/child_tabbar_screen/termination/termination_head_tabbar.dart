@@ -445,7 +445,7 @@ class _TerminatePopupState extends State<TerminatePopup> {
   }
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(
+    return TerminationDialogueTemplate(
          width: 800,
         height: 800,
     body: [
@@ -667,7 +667,7 @@ class _TerminatePopupState extends State<TerminatePopup> {
             ),
           ),
         ],
-      bottomButtons:   Row(
+      bottomButtons:Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomButtonTransparent(
