@@ -144,7 +144,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
             children: [
               Icon(Icons.add,
                   color: ColorManager.blueprime,
-                  size: MediaQuery.of(context).size.width / 100),
+                  size: 15),
               Text(
                 text,
                 style: TransparentButtonTextConst.customTextStyle(context),

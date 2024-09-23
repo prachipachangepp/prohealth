@@ -27,6 +27,19 @@ import '../../../../onboarding/download_doc_const.dart';
 
 ///download
 
+
+class HRDocAckStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 10;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
+
 class AcknowledgementsChildBar extends StatefulWidget {
   final int employeeId;
   const AcknowledgementsChildBar({super.key, required this.employeeId});
@@ -122,7 +135,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                 child: Text(
                   AppString.dataNotFound,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w600,
                     fontSize: FontSize.s12,
                     color: ColorManager.mediumgrey,
                   ),
@@ -219,19 +232,11 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 children: [
                                   Text(
                                     data.DocumentName,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      color: ColorManager.black,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: HRDocAckStyle.customTextStyle(context)
                                   ),
                                   Text(
                                     data.ReminderThreshold,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 7,
-                                      color: ColorManager.mediumgrey,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                   style: HRDocAckStyle.customTextStyle(context)
                                   ),
                                 ],
                               ),

@@ -118,7 +118,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                     borderRadius: BorderRadius.circular(13)),
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 labelColor: Color(0xFF50B5E5),
-                                labelStyle: GoogleFonts.firaSans(
+                                labelStyle: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -194,14 +194,13 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 indicatorColor: Colors.white,
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
-                                                    GoogleFonts.firaSans(
+                                                    TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                 ),
-                                                labelStyle:
-                                                    GoogleFonts.firaSans(
+                                                labelStyle: TextStyle(
                                                   fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                                 unselectedLabelColor:
                                                     Colors.white,
@@ -314,14 +313,14 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 indicatorColor: Colors.white,
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
-                                                    GoogleFonts.firaSans(
+                                                    TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                                 labelStyle:
-                                                    GoogleFonts.firaSans(
+                                                TextStyle(
                                                   fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                                 unselectedLabelColor:
                                                     Colors.white,

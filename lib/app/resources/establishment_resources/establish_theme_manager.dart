@@ -57,6 +57,15 @@ class DocumentTypeDataStyle {
   }
 }
 
+class PopupCompStyle{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+    );
+  }
+}
 ///details screen office name
 class CompanyIdentityManageHeadings {
   static TextStyle customTextStyle(BuildContext context) {

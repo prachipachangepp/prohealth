@@ -138,7 +138,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                   child: Text(
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w700,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey,
                     ),

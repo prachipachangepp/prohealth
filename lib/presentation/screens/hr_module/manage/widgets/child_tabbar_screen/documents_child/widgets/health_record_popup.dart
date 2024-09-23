@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -63,11 +64,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                     children: [
                       Text(
                         widget.labelName,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                        style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
                       IconButton(
                         onPressed: () {

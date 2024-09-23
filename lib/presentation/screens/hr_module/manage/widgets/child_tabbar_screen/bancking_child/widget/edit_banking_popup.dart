@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
@@ -102,11 +103,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         children: [
           Text(
             widget.title,
-            style: GoogleFonts.firaSans(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
+            style: AllHRTableHeading.customTextStyle(context),
           ),
           IconButton(
             icon: Icon(Icons.close, color: Colors.white),
@@ -189,7 +186,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         Text(
           'Type',
           style:
-              GoogleFonts.firaSans(fontWeight: FontWeight.w600, fontSize: 14),
+              TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
         FormField<String>(
           key: _typeFieldKey,
@@ -401,7 +398,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
 
   TextStyle _labelStyle() {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: 12.0,
       fontWeight: FontWeight.w400,
       color: Color(0xff575757),

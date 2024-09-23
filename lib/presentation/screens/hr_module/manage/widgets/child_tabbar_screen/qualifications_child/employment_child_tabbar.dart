@@ -213,12 +213,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                               Text(
                                 'Employment #${index + 1}',
                                 // 'Employment #${snapshot.data![index].employmentId}',
-                                style: GoogleFonts.firaSans(
-                                  // fontFamily: 'FiraSans',
-                                  fontSize: 13,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),),
+                                style: BoxHeadingStyle.customTextStyle(context)),
                               // SizedBox(height: 7,),
                               Row(
                                 children: [

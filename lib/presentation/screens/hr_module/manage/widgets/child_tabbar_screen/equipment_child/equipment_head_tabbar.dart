@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/equipment_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/equipment_data.dart';
@@ -101,7 +103,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                   child: Text(
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w700,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey),
                   ));
@@ -129,12 +131,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                               child: Center(
                                 child: Text(
                                   AppString.srNo,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: EquipmentStyleHeading.customTextStyle(context)
                                 ),
                               ),
                             ),
@@ -142,45 +139,25 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                             Expanded(
                               child: Center(
                                 child: Text(AppStringHr.inventoryid,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.bold,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                    )),
+                                    style: EquipmentStyleHeading.customTextStyle(context)),
                               ),
                             ),
                             Expanded(
                               child: Center(
                                 child: Text(AppStringHr.docName,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                    )),
+                                    style: EquipmentStyleHeading.customTextStyle(context)),
                               ),
                             ),
                             Expanded(
                               child: Center(
                                 child: Text('Device Description',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                    )),
+                                    style: EquipmentStyleHeading.customTextStyle(context)),
                               ),
                             ),
                             Expanded(
                               child: Center(
                                 child: Text('Assign Date   ',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                    )),
+                                    style: EquipmentStyleHeading.customTextStyle(context)),
                               ),
                             ),
                           ],
@@ -233,12 +210,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   formattedSerialNumber,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                  style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -247,12 +219,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   "${equipmentData.inventoryId}",
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -260,12 +227,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   equipmentData.name,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -273,12 +235,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   equipmentData.givenId,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -286,12 +243,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   equipmentData.assignedDate.toString(),
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -356,12 +308,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               children: [
                 Text(
                   'Add New Equipment',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.white,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: AllHRTableHeading.customTextStyle(context),
                 ),
                 IconButton(
 
@@ -376,7 +323,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
         height: AppSize.s400,
         width: AppSize.s350,
         decoration: BoxDecoration(
-          color: ColorManager.white,                                              //background colour
+          color: ColorManager.white,
           borderRadius: BorderRadius.circular(0),
         ),
         child: Column(
@@ -395,12 +342,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Device Description',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color:  ColorManager.granitegray,
-                          decoration: TextDecoration.none,
-                        ),),
+                        style:  AllPopupHeadings.customTextStyle(context)),
                       SizedBox(height: 5),
                       FutureBuilder<List<InventoryDropdownData>>(
                           future: getDropdownInventory(context),
@@ -418,7 +360,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                 child: Text(
                                   AppString.dataNotFound,
                                   style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
+                                    fontWeight: FontWeight.w700,
                                     fontSize: FontSize.s12,
                                     color: ColorManager.mediumgrey,
                                   ),
@@ -503,12 +445,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Assign Date',
-                            style: GoogleFonts.firaSans(
-                              fontSize: AppSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.granitegray,
-                              decoration: TextDecoration.none,
-                            ),),
+                              style: AllPopupHeadings.customTextStyle(context)),
                         ],
                       ),
                       SizedBox(height:5,),
@@ -518,23 +455,13 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                             width: 354,
                             height: AppSize.s30,
                             child: TextFormField(
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.mediumgrey,
-                                //decoration: TextDecoration.none,
-                              ),
+                              style:  DocumentTypeDataStyle.customTextStyle(context),
                               controller: calenderController,
                               decoration: InputDecoration(
                                 focusColor: ColorManager.mediumgrey,
                                 hoverColor: ColorManager.mediumgrey,
                                 hintText: 'dd-mm-yyyy',
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.mediumgrey,
-                                  //decoration: TextDecoration.none,
-                                ),
+                                hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                   borderSide: BorderSide(
