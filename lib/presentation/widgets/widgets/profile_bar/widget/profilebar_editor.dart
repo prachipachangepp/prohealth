@@ -115,8 +115,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   TextEditingController summaryController = TextEditingController();
   List<DropdownMenuItem<String>> countyDropDownList = [];
   List<DropdownMenuItem<String>> zoneDropDownList = [];
-  // String? selectedCounty;
-  // String? selectedZone;
+  String selectedCovrageCounty = "Select County";
+  String selectedCovrageZone = "Select Zone";
 
 
   @override
@@ -684,7 +684,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Text("San Fransisco",
+                                Text(selectedCovrageCounty,
                                     style: EditTextFontStyle
                                         .customEditTextStyle()),
                                 SizedBox(
@@ -697,7 +697,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   width: 5,
                                 ),
                                 Text(
-                                  "Zone 1",
+                                  selectedCovrageZone,
                                   style:
                                       EditTextFontStyle.customEditTextStyle(),
                                 ),
@@ -795,6 +795,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                   onChange: (newValue) async {
                                                                                     setState(() {
                                                                                       selectedCounty = newValue;
+                                                                                      selectedCovrageCounty = newValue;
                                                                                     });
 
                                                                                     // Get the county ID for the selected county
@@ -926,6 +927,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                             dropDownTypesList[0].value,
                                                                                             onChange: (val) {
                                                                                               selectedZipCodeZone = val;
+                                                                                              selectedCovrageZone = val;
                                                                                               for (var a
                                                                                               in snapshotZone.data!) {
                                                                                                 if (a.zoneName == val) {
@@ -1123,6 +1125,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // setState(() {
                                                     //   _isLoading = true;
                                                     // });
+                                                    setState((){
+
+                                                    });
                                                    addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
                                                     print('Selected County ID: $selectedCountyId');
                                                     print('Selected Zone ID: $docZoneId');

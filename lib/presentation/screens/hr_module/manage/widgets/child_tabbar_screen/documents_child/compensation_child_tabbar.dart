@@ -385,7 +385,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                   Navigator.pop(context);
                                                 }, onDelete: () {
                                                   setState(() async {
-
+                                                   await deleteEmployeeDocuments(context: context, empDocumentId: compaensation.employeeDocumentId);
                                                     Navigator.pop(context);
                                                   });
                                                 }, title: 'Delete Compensation',));

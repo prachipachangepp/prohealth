@@ -320,19 +320,12 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     onPressed: () async{
                                       await showDialog(context: context,
                                           builder: (context) => DeletePopup(
-                                            title: 'Delete Vaccine',
+                                            title: 'Delete Health',
                                               onCancel: (){
                                                 Navigator.pop(context);
                                               }, onDelete: (){
                                             setState(() async{
-                                              await employeedoctypeSetupIdDelete(
-                                                  context,
-                                                  snapshot.data![index].employeeDocumentId);
-                                              getAckHealthRecord(context, 1,1,widget.employeeId,'no').then((data) {
-                                                _controller.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
+                                              await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
                                               Navigator.pop(context);
                                             });
                                           },

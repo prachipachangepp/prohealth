@@ -17,6 +17,7 @@ import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee
 import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
@@ -375,7 +376,18 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     Colors.transparent,
                                     hoverColor:
                                     Colors.transparent,
-                                    onPressed: () {
+                                    onPressed: () async{
+                                      await showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          DeletePopup(onCancel: () {
+                                            Navigator.pop(context);
+                                          }, onDelete: () {
+                                            setState(() async {
+                                              await deleteEmployeeDocuments(context: context, empDocumentId: others.employeeDocumentId);
+                                              Navigator.pop(context);
+                                            });
+                                          }, title: 'Delete Document',));
                                     },
                                     icon: const Icon(Icons.delete_outline,color: Color(0xffFF0000),),
                                     iconSize: 20,),
