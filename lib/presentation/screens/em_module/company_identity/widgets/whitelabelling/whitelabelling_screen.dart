@@ -86,7 +86,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
       allowedExtensions: [
         'png',
         'jpg',
-        'jpeg'
+        'jpeg',
+        'pdf'
       ], // Restrict to PNG, JPG, and JPEG
     );
 
@@ -113,7 +114,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
       allowedExtensions: [
         'png',
         'jpg',
-        'jpeg'
+        'jpeg',
+        'pdf'
       ], // Restrict to PNG, JPG, and JPEG
     );
 
@@ -205,7 +207,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 50),
                   Padding(
-                    padding: const EdgeInsets.only(right: 30),
+                    padding: const EdgeInsets.only(right: 20),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomIconButton(

@@ -568,14 +568,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 data.status == 'Notopen'
                     ? Text(
-                  'Not Opened',
-                  style: DocumentTypeDataStyle.customTextStyle(context),
-                  // style: GoogleFonts.firaSans(
-                  //   fontWeight: FontWeightManager.medium,
-                  //   color: const Color(0xff333333),
-                  //   fontSize: FontSize.s12,
-                  // ),
-                )
+                                      'Not Opened',
+                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                      // style: GoogleFonts.firaSans(
+                                      //   fontWeight: FontWeightManager.medium,
+                                      //   color: const Color(0xff333333),
+                                      //   fontSize: FontSize.s12,
+                                      // ),
+                                    )
                     : Text(
                   'Status',
                     style:DocumentTypeDataStyle.customTextStyle(context)

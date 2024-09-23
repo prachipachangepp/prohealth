@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
@@ -122,7 +122,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: AppPadding.p23),
+                        padding: const EdgeInsets.only(left: 27),
                         child: Text(
                           widget.title,
                           style: PopupBlueBarText.customTextStyle(context),
@@ -303,9 +303,9 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
               onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
             ),
           ),
-          inputFormatters: [
-            CapitalizeFirstLetterFormatter(),
-          ],
+          // inputFormatters: [
+          //   CapitalizeFirstLetterFormatter(),
+          // ],
         ),
       ),
     );
