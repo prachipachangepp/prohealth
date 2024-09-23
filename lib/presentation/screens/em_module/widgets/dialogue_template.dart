@@ -28,62 +28,63 @@ class DialogueTemplate extends StatelessWidget {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.bluebottom,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        title,
+                        style:PopupBlueBarText.customTextStyle(context),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      title,
-                      style:PopupBlueBarText.customTextStyle(context),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.close,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppPadding.p18,
+                  horizontal: AppPadding.p18,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: body,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p18,
-                horizontal: AppPadding.p18,
+              SizedBox(height: AppSize.s15),
+              ///button
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                child: Center(
+                  child: bottomButtons,
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: body,
-              ),
-            ),
-            SizedBox(height: AppSize.s15),
-
-            ///button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
-              child: Center(
-                child: bottomButtons,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

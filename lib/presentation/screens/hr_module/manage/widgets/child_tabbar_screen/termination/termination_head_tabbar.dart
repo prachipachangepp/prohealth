@@ -671,7 +671,7 @@ class _TerminatePopupState extends State<TerminatePopup> {
             ),
           ),
         ],
-      bottomButtons:   Row(
+      bottomButtons:Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomButtonTransparent(

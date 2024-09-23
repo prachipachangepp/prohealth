@@ -48,6 +48,9 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
               fontWeight: FontWeight.w400,
               color: Color(0xff575757)),
           suffixIcon: IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
             splashRadius: 1,
             icon: Icon(Icons.calendar_month, color: Color(0xff686464),size: 16,),
             onPressed: () async {
