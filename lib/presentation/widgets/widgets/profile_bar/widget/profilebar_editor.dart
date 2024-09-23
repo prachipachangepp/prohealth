@@ -159,7 +159,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     summaryController.dispose();
     super.dispose();
   }
-  List<ApiAddCovrageData> addCovrage = [];
+  List<ApiPatchCovrageData> addCovrage = [];
+  List<int> zipCodes = [];
   @override
   Widget build(BuildContext context) {
 
@@ -822,6 +823,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                     selectedZone = newValue;
                                                                                     print('Selected Zone: $selectedZone');
                                                                                   });
+                                                                                  // for (var zone in zones) {
+                                                                                  //   if (county.countyName == newValue) {
+                                                                                  //     selectedCountyId = county.countyId;
+                                                                                  //     break;
+                                                                                  //   }
+                                                                                  // }
                                                                                 },
                                                                               ),
                                                                             ],
@@ -882,100 +889,98 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                       ],
                                                                     ),
                                                                   ),
-
-
-
-
                                                                   ///
-                                                                  // Expanded(
-                                                                  //   child: Padding(
-                                                                  //     padding: const EdgeInsets
-                                                                  //         .only(
-                                                                  //         left:
-                                                                  //             20.0,
-                                                                  //         right:
-                                                                  //             20.0),
-                                                                  //     child:
-                                                                  //         TabBarView(
-                                                                  //       physics:
-                                                                  //           const NeverScrollableScrollPhysics(),
-                                                                  //       children: [
-                                                                  //         StreamBuilder<
-                                                                  //             List<
-                                                                  //                 ZipcodeByCountyIdAndZoneIdData>>(
-                                                                  //           stream:
-                                                                  //               _countyStreamController.stream,
-                                                                  //           builder:
-                                                                  //               (BuildContext context,
-                                                                  //                   snapshot) {
-                                                                  //             getZipcodeByCountyIdAndZoneId(context: context, countyId: selectedCountyId, zoneId: selectedZoneId).then(
-                                                                  //                 (data) {
-                                                                  //               _countyStreamController.add(data);
-                                                                  //             }).catchError(
-                                                                  //                 (error) {
-                                                                  //               // Handle error
-                                                                  //             });
-                                                                  //             if (snapshot.connectionState ==
-                                                                  //                 ConnectionState.waiting) {
-                                                                  //               return SizedBox();
-                                                                  //             }
-                                                                  //             if (selectedCountyId ==
-                                                                  //                 0) {
-                                                                  //               return Center(
-                                                                  //                   child: Text(
-                                                                  //                 'Select county',
-                                                                  //                 style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
-                                                                  //               ));
-                                                                  //             }
-                                                                  //             if (snapshot
-                                                                  //                 .data!
-                                                                  //                 .isEmpty) {
-                                                                  //               return Center(
-                                                                  //                   child: Text(
-                                                                  //                 'No Data Found!',
-                                                                  //                 style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
-                                                                  //               ));
-                                                                  //             }
-                                                                  //             return Row(
-                                                                  //               children: [
-                                                                  //                 StatefulBuilder(
-                                                                  //                   builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                  //                     return Container(
-                                                                  //                       width: 200,
-                                                                  //                       height: 300,
-                                                                  //                       child: ListView.builder(
-                                                                  //                         itemCount: snapshot.data!.length,
-                                                                  //                         itemBuilder: (BuildContext context, int index) {
-                                                                  //                           String zipCode = snapshot.data![index].zipCode;
-                                                                  //                           bool isChecked = checkedZipCodes[zipCode] ?? false;
-                                                                  //                           return CheckBoxTileConst(
-                                                                  //                               text: zipCode,
-                                                                  //                               value: isChecked,
-                                                                  //                               onChanged: (bool? val) {
-                                                                  //                                 setState(() {
-                                                                  //                                   print('Clicked check box 1');
-                                                                  //                                   checkedZipCodes[zipCode] = val ?? false;
-                                                                  //                                   if (val == true) {
-                                                                  //                                     selectedZipCodes.add(zipCode);
-                                                                  //                                   } else {
-                                                                  //                                     selectedZipCodes.remove(zipCode);
-                                                                  //                                   }
-                                                                  //                                   selectedZipCodesString = selectedZipCodes.join(', ');
-                                                                  //                                 });
-                                                                  //                               });
-                                                                  //                         },
-                                                                  //                       ),
-                                                                  //                     );
-                                                                  //                   },
-                                                                  //                 ),
-                                                                  //               ],
-                                                                  //             );
-                                                                  //           },
-                                                                  //         ),
-                                                                  //       ],
-                                                                  //     ),
-                                                                  //   ),
-                                                                  // ),
+                                                                  Expanded(
+                                                                    child: Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              20.0,
+                                                                          right:
+                                                                              20.0),
+                                                                      child:
+                                                                          TabBarView(
+                                                                        physics:
+                                                                            const NeverScrollableScrollPhysics(),
+                                                                        children: [
+                                                                          StreamBuilder<
+                                                                              List<
+                                                                                  ZipcodeByCountyIdAndZoneIdData>>(
+                                                                            stream:
+                                                                                _countyStreamController.stream,
+                                                                            builder:
+                                                                                (BuildContext context,
+                                                                                    snapshot) {
+                                                                              getZipcodeByCountyIdAndZoneId(context: context, countyId: selectedCountyId, zoneId: selectedZoneId).then(
+                                                                                  (data) {
+                                                                                _countyStreamController.add(data);
+                                                                              }).catchError(
+                                                                                  (error) {
+                                                                                // Handle error
+                                                                              });
+                                                                              if (snapshot.connectionState ==
+                                                                                  ConnectionState.waiting) {
+                                                                                return SizedBox();
+                                                                              }
+                                                                              if (selectedCountyId ==
+                                                                                  0) {
+                                                                                return Center(
+                                                                                    child: Text(
+                                                                                  'Select county',
+                                                                                  style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                                                                ));
+                                                                              }
+                                                                              if (snapshot
+                                                                                  .data!
+                                                                                  .isEmpty) {
+                                                                                return Center(
+                                                                                    child: Text(
+                                                                                  'No Data Found!',
+                                                                                  style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                                                                ));
+                                                                              }
+                                                                              return Row(
+                                                                                children: [
+                                                                                  StatefulBuilder(
+                                                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                                      return Container(
+                                                                                        width: 200,
+                                                                                        height: 300,
+                                                                                        child: ListView.builder(
+                                                                                          itemCount: snapshot.data!.length,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            String zipCode = snapshot.data![index].zipCode;
+                                                                                            bool isChecked = checkedZipCodes[zipCode] ?? false;
+                                                                                            return CheckBoxTileConst(
+                                                                                                text: zipCode,
+                                                                                                value: isChecked,
+                                                                                                onChanged: (bool? val) {
+                                                                                                  setState(() {
+                                                                                                    print('Clicked check box 1');
+                                                                                                    checkedZipCodes[zipCode] = val ?? false;
+                                                                                                    if (val == true) {
+                                                                                                      selectedZipCodes.add(zipCode);
+                                                                                                      zipCodes.add(int.parse(snapshot.data![index].zipCode));
+                                                                                                    } else {
+                                                                                                      selectedZipCodes.remove(zipCode);
+                                                                                                      zipCodes.remove(int.parse(snapshot.data![index].zipCode));
+                                                                                                    }
+                                                                                                    selectedZipCodesString = selectedZipCodes.join(', ');
+                                                                                                  });
+                                                                                                });
+                                                                                          },
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
@@ -992,7 +997,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // setState(() {
                                                     //   _isLoading = true;
                                                     // });
-
+                                                   addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: selectedZoneId, zipCodes: zipCodes));
                                                     print('Selected County ID: $selectedCountyId');
                                                     print('Selected Zone ID: $selectedZoneId');
                                                     print('Selected Zip Codes: $selectedZipCodes');
@@ -1000,20 +1005,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // print('Salary: $_salary');
                                                     // print('Salary Type: $dropdownValue');
                                                     // print('Patient Count: ${patientsController.text}');
-
                                                     try {
-                                                      var coverageResponse = await addEmpEnrollAddCoverage(
-                                                        context,
-                                                        0,
-                                                        widget.employeeId!,
-                                                        addCovrage,
-                                                      );
-                                                      if (coverageResponse.success) {
-                                                        print("Coverage added successfully");
-                                                         } else {
-                                                       print("Failed To Add Coverage");
-                                                      }
-
+                                                      // var coverageResponse = await addEmpEnrollAddCoverage(
+                                                      //   context,
+                                                      //   0,
+                                                      //   widget.employeeId!,
+                                                      //   addCovrage,
+                                                      // );
+                                                      // if (coverageResponse.success) {
+                                                      //   print("Coverage added successfully");
+                                                      //    } else {
+                                                      //  print("Failed To Add Coverage");
+                                                      // }
                                                     } catch (e) {
                                                       print("Error during adding coverage: $e");
                                                     } finally {
@@ -1024,10 +1027,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     }
                                                   },
                                                 ),
-
-
-
-
                                                       SizedBox(height: 10,)
                                                     ],
                                                   ),
@@ -1237,6 +1236,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   rating: profileData.rating,
                                   signatureURL: profileData.signatureURL,
                                 );
+                                var patchCoverage = await patchEmpEnrollAddCoverage(context,0,widget.employeeId,addCovrage);
+                                if (patchCoverage.success) {
+                                  print("Coverage added successfully");
+                                } else {
+                                  print("Failed To Add Coverage");
+                                }
                                 nameController.clear();
                                 deptController.clear();
                                 empTypeController.clear();
