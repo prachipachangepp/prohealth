@@ -89,7 +89,7 @@ class ProfileBarPhoneCmtConst extends StatelessWidget {
       children: [
         Container(
           height: 10,
-          width: 50,
+          width: 70,
           child: Text(
             formatPhoneNumber(phoneNo),
             style: ThemeManagerDark.customTextStyle(context),
