@@ -901,7 +901,7 @@ class RegisterEnrollAlertDialog {
                         return null;
                       },
                     ),
-                    CustomTextFieldRegister(
+                    CustomTextFieldRegisterPhone(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: phone,

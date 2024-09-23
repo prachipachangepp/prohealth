@@ -129,6 +129,162 @@ class CustomTextFieldForEmail extends StatelessWidget {
   }
 }
 
+/// us phone number
+///
+class CustomTextFieldRegisterPhone extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? labelText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final bool obscureText;
+  final bool autofocus;
+  final bool enabled;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+  VoidCallback? onTap;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onFieldSubmitted;
+  final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? height;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final TextStyle? prefixStyle;
+  final String? prefixText;
+  final double? cursorHeight;
+  final int? maxLength;
+
+
+  CustomTextFieldRegisterPhone({
+    Key? key,
+   // Default to false
+    this.maxLength,
+    this.controller,
+    this.labelText,
+    this.keyboardType,
+    this.textInputAction,
+    this.obscureText = false,
+    this.autofocus = false,
+    this.enabled = true,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.hintText,
+    this.hintStyle,
+    this.prefixText,
+    this.prefixStyle,
+    this.onChanged,
+    this.validator,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.padding,
+    this.width,
+    this.height,
+    this.cursorHeight,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: TextFormField(
+          controller: controller,
+          cursorHeight: cursorHeight,
+          cursorColor: Colors.black,
+          cursorWidth: 1.5,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: hintStyle,
+            prefixText: prefixText,
+            prefixStyle: prefixStyle,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Color(0xffB1B1B1),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Color(0xffB1B1B1),
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Color(0xffB1B1B1),
+              ),
+            ),
+            labelText: labelText,
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            contentPadding: padding,
+          ),
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          style:DocumentTypeDataStyle.customTextStyle(context),
+          obscureText: obscureText,
+          autofocus: autofocus,
+          enabled: enabled,
+          onTap: onTap,
+          onChanged: onChanged,
+          validator: validator,
+          focusNode: focusNode,
+          onFieldSubmitted: onFieldSubmitted,
+          inputFormatters: [
+            PhoneNumberInputFormatter(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+///
+class PhoneNumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    String text = newValue.text;
+    final StringBuffer newText = StringBuffer();
+
+    text = text.replaceAll(RegExp(r'\D'), ''); // Remove non-digit characters
+
+    if (text.length > 10) {
+      text = text.substring(0, 10);
+    }
+
+    // newText.write('+1 ');
+    // Add formatting based on length
+    if (text.length > 0) {
+      newText.write('(');
+    }
+    if (text.length > 3) {
+      newText.write('${text.substring(0, 3)}) ');
+      text = text.substring(3);
+    }
+    if (text.length > 3) {
+      newText.write('${text.substring(0, 3)}-');
+      text = text.substring(3);
+    }
+    newText.write(text);
+
+    return newValue.copyWith(
+      text: newText.toString(),
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}
+///
+///
+
+
+
 
 
 

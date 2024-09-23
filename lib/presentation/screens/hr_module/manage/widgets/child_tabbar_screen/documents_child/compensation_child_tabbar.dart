@@ -73,7 +73,10 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
-                                  return AcknowledgementAddPopuppp(
+
+
+
+                                  return CustomDocumedAddPopup(
                                     title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
                                   );
                                 } else {
@@ -330,29 +333,30 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return CustomDocumedAddPopup(
-                                                // idController: compensitionAddIdController,
-                                                // nameController: compensitionAddNameController,
-                                                // expiryType: compensationExpiryType,
-                                                labelName: 'Edit Compensation',
-                                                AcknowledgementnameController:
-                                                editCompensationNameController, onSavePressed: () {  },
-                                                employeeId: widget.employeeId,
-                                                documentMetaId: 11,
-                                                documentSetupId: 36,
-                                                // onSavePredded: () async {
-                                                //   await addEmployeeDocSetup(
-                                                //       context,
-                                                //       11,
-                                                //       compensitionAddNameController.text,
-                                                //       compensationExpiryType.toString(),
-                                                //       DateTime.now() as String);
-                                                //   Navigator.pop(context);
-                                                //   compensitionAddIdController.clear();
-                                                //   compensitionAddNameController.clear();
-                                                //   compensationExpiryType = '';
-                                                // },
-                                              );
+                                              return FutureBuilder<List<EmployeeDocSetupModal>>(
+                                                  future: getEmployeeDocSetupDropDown(context),
+                                                  builder: (contex, snapshot) {
+                                                    if (snapshot.connectionState ==
+                                                        ConnectionState.waiting) {
+                                                      return Center(
+                                                          child: CircularProgressIndicator());
+                                                    }
+                                                    if (snapshot.hasData) {
+
+                                                      return CustomDocumedEditPopup(
+                                                        labelName: 'Edit Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                      );
+
+
+                                                      // return CustomDocumedAddPopup(
+                                                      //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                      // );
+                                                    } else {
+                                                      return ErrorPopUp(
+                                                          title: "Received Error",
+                                                          text: snapshot.error.toString());
+                                                    }
+                                                  });
                                             });
                                       },
                                       icon: Icon(

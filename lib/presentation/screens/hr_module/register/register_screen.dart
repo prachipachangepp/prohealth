@@ -568,14 +568,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 data.status == 'Notopen'
                     ? Text(
-                  'Not Opened',
-                  style: DocumentTypeDataStyle.customTextStyle(context),
-                  // style: GoogleFonts.firaSans(
-                  //   fontWeight: FontWeightManager.medium,
-                  //   color: const Color(0xff333333),
-                  //   fontSize: FontSize.s12,
-                  // ),
-                )
+                                      'Not Opened',
+                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                      // style: GoogleFonts.firaSans(
+                                      //   fontWeight: FontWeightManager.medium,
+                                      //   color: const Color(0xff333333),
+                                      //   fontSize: FontSize.s12,
+                                      // ),
+                                    )
                     : Text(
                   'Status',
                     style:DocumentTypeDataStyle.customTextStyle(context)
@@ -651,17 +651,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //  const url = "http://localhost:58043/#/onBordingWelcome";
                            const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                          // if (await canLaunch(url)) {
-                          //  await launch(url);
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                builder: (context) => OnBoardingWelcome(),
-                              ),
-                             );
-                          //  } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                          if (await canLaunch(url)) {
+                           await launch(url);
+                          //    Navigator.push(
+                          //      context,
+                          //      MaterialPageRoute(
+                          //       builder: (context) => OnBoardingWelcome(),
+                          //     ),
+                          //    );
+                           } else {
+                            throw 'Could not launch $url';
+                          }
                         },
                         child: Text(
                           data.link!,
