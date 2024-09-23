@@ -687,49 +687,54 @@ class _generalFormState extends State<generalForm> {
                                   for (var i in snapshot.data!) {
                                     dropDownList.add(i.empType!);
                                   }
-                                  return SizedBox(
-                                    height: 32,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        // hintText: 'Select Clinician',
-                                        hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return  SizedBox(
+                                        height: 32,
+                                        child: DropdownButtonFormField<String>(
+                                          decoration: InputDecoration(
+                                            // hintText: 'Select Clinician',
+                                            hintStyle:onlyFormDataStyle.customTextStyle(context),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
                                               BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
+                                              borderSide: const BorderSide(
+                                                  color: Colors.grey),
+                                            ),
+                                            contentPadding:
                                             const EdgeInsets.symmetric(
-                                                //   //  vertical: 5,
+                                              //   //  vertical: 5,
                                                 horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(Icons.arrow_drop_down,
-                                          color: Color(0xff9B9B9B)),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style:onlyFormDataStyle.customTextStyle(context),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.empType == newValue) {
-                                            _selectedClinician = a.empType!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: onlyFormDataStyle.customTextStyle(context),
                                           ),
-                                        );
-                                      }).toList(),
-                                    ),
+                                          // value: selectedCountry,
+                                          icon: Icon(Icons.arrow_drop_down,
+                                              color: Color(0xff9B9B9B)),
+                                          iconSize: 24,
+                                          elevation: 16,
+                                          style:onlyFormDataStyle.customTextStyle(context),
+
+                                          onChanged: (newValue) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.empType == newValue) {
+                                                _selectedClinician = a.empType!;
+                                                //country = a
+                                                // int? docType = a.companyOfficeID;
+                                              }
+                                            }
+                                          },
+                                          items: dropDownList.map((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                style: onlyFormDataStyle.customTextStyle(context),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      );
+                                    },
+
                                   );
                                 } else {
                                   return const Offstage();
@@ -771,49 +776,54 @@ class _generalFormState extends State<generalForm> {
                                   for (var i in snapshot.data!) {
                                     dropDownList.add(i.empType!);
                                   }
-                                  return SizedBox(
-                                    height: 32,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        // hintText: 'Select Clinician',
-                                        hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return SizedBox(
+                                        height: 32,
+                                        child: DropdownButtonFormField<String>(
+                                          decoration: InputDecoration(
+                                            // hintText: 'Select Clinician',
+                                            hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
                                               BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
+                                              borderSide: const BorderSide(
+                                                  color: Colors.grey),
+                                            ),
+                                            contentPadding:
                                             const EdgeInsets.symmetric(
-                                                //   //  vertical: 5,
+                                              //   //  vertical: 5,
                                                 horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(Icons.arrow_drop_down,
-                                          color: Color(0xff9B9B9B)),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: onlyFormDataStyle.customTextStyle(context),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.empType == newValue) {
-                                            _selectedSpeciality = a.empType!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: onlyFormDataStyle.customTextStyle(context),
                                           ),
-                                        );
-                                      }).toList(),
-                                    ),
+                                          // value: selectedCountry,
+                                          icon: Icon(Icons.arrow_drop_down,
+                                              color: Color(0xff9B9B9B)),
+                                          iconSize: 24,
+                                          elevation: 16,
+                                          style: onlyFormDataStyle.customTextStyle(context),
+
+                                          onChanged: (newValue) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.empType == newValue) {
+                                                _selectedSpeciality = a.empType!;
+                                                //country = a
+                                                // int? docType = a.companyOfficeID;
+                                              }
+                                            }
+                                          },
+                                          items: dropDownList.map((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                style: onlyFormDataStyle.customTextStyle(context),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      );
+                                    },
+
                                   );
                                 } else {
                                   return const Offstage();

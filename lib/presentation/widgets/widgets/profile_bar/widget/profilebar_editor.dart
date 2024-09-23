@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -112,8 +115,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   TextEditingController summaryController = TextEditingController();
   List<DropdownMenuItem<String>> countyDropDownList = [];
   List<DropdownMenuItem<String>> zoneDropDownList = [];
-  // String? selectedCounty;
-  // String? selectedZone;
+  String selectedCovrageCounty = "Select County";
+  String selectedCovrageZone = "Select Zone";
 
 
   @override
@@ -166,6 +169,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   List<int> zipCodes = [];
   String? selectedZipCodeZone;
   int docZoneId = 0;
+  dynamic finalPath;
+  String fileName = '';
   @override
   Widget build(BuildContext context) {
 
@@ -249,7 +254,26 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ),
                             CustomIconButton(
                               icon: Icons.upload_outlined,
-                              text: AppString.photo, onPressed: () async {},
+                              text: AppString.photo, onPressed: () async {
+                              // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                              //   allowMultiple: false,
+                              // );
+                              FilePickerResult? result =
+                              await FilePicker.platform.pickFiles();
+                              if (result != null) {
+                                print("Result::: ${result}");
+
+                                try {
+                                  print('File picked: ${fileName}');
+                                  //print(String.fromCharCodes(file));
+                                  fileName = result.files.first.name;
+                                  finalPath = result.files.first.bytes;
+
+                                } catch (e) {
+                                  print(e);
+                                }
+                              }
+                            },
                             )
                           ],
                         ),
@@ -660,7 +684,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Text("San Fransisco",
+                                Text(selectedCovrageCounty,
                                     style: EditTextFontStyle
                                         .customEditTextStyle()),
                                 SizedBox(
@@ -673,7 +697,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   width: 5,
                                 ),
                                 Text(
-                                  "Zone 1",
+                                  selectedCovrageZone,
                                   style:
                                       EditTextFontStyle.customEditTextStyle(),
                                 ),
@@ -771,6 +795,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                   onChange: (newValue) async {
                                                                                     setState(() {
                                                                                       selectedCounty = newValue;
+                                                                                      selectedCovrageCounty = newValue;
                                                                                     });
 
                                                                                     // Get the county ID for the selected county
@@ -902,6 +927,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                             dropDownTypesList[0].value,
                                                                                             onChange: (val) {
                                                                                               selectedZipCodeZone = val;
+                                                                                              selectedCovrageZone = val;
                                                                                               for (var a
                                                                                               in snapshotZone.data!) {
                                                                                                 if (a.zoneName == val) {
@@ -1099,6 +1125,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // setState(() {
                                                     //   _isLoading = true;
                                                     // });
+                                                    setState((){
+
+                                                    });
                                                    addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
                                                     print('Selected County ID: $selectedCountyId');
                                                     print('Selected Zone ID: $docZoneId');
@@ -1345,6 +1374,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 } else {
                                   print("Failed To Add Coverage");
                                 }
+                                var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
                                 nameController.clear();
                                 deptController.clear();
                                 empTypeController.clear();

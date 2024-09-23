@@ -344,7 +344,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                employementIndex == null ? 'Employment ${widget.index}' :'Employment ${employementIndex}',
+                employementIndex == null ? 'Employment #${widget.index}' :'Employment #${employementIndex}',
                 style:  DefineWorkWeekStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
