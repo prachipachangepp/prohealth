@@ -105,11 +105,12 @@ class _CICorporateCompilianceDocumentState
         SizedBox(height: 10),
         Center(
           child: Container(
-            width: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery.of(context).size.width / 1.6,
+           // color: Colors.greenAccent,
             height: 50,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Licenses tab
                 InkWell(
@@ -169,7 +170,7 @@ class _CICorporateCompilianceDocumentState
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
                     height: 50,
-                    width: MediaQuery.of(context).size.width / 10,
+                    width: MediaQuery.of(context).size.width / 8,
                     child: Column(
                       children: [
                         Text(
@@ -220,8 +221,9 @@ class _CICorporateCompilianceDocumentState
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
+                    //color: Colors.purple,
                     height: 50,
-                    width: MediaQuery.of(context).size.width / 10,
+                    width: MediaQuery.of(context).size.width / 7,
                     child: Column(
                       children: [
                         Text(

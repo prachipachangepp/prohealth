@@ -134,7 +134,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 50,),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.1815,
+                  width: MediaQuery.of(context).size.width / 1.182,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                       boxShadow: [
@@ -155,7 +155,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         hoverColor: Colors.transparent,
                         child: Container(
                           height: 30,
-                          width: MediaQuery.of(context).size.width / 8.4,
+                          width: MediaQuery.of(context).size.width / 9.5,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
@@ -179,7 +179,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       InkWell(
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 8.9,
+                          width: MediaQuery.of(context).size.width / 9.855,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
@@ -278,7 +278,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         hoverColor: Colors.transparent,
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 8.4,
+                          width: MediaQuery.of(context).size.width / 8.398,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
