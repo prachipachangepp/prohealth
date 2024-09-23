@@ -93,7 +93,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10,right: 20),
+              padding: const EdgeInsets.only(top: 10,right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -385,31 +385,21 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             Colors.transparent,
                                                       ),
                                                       IconButton(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
+                                                          splashColor: Colors.transparent,
+                                                          highlightColor: Colors.transparent,
+                                                          hoverColor: Colors.transparent,
                                                           onPressed: () {
-                                                            showDialog(
-                                                                context:
-                                                                    context,
+                                                            showDialog(context: context,
                                                                 builder: (context) =>
                                                                     DeletePopup(
-                                                                        title:
-                                                                        DeletePopupString.deletePolicy,
+                                                                        title: DeletePopupString.deletePolicy,
                                                                         onCancel:
                                                                             () {
-                                                                          Navigator.pop(
-                                                                              context);
+                                                                          Navigator.pop(context);
                                                                         },
-                                                                        onDelete:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                          setState(
-                                                                              () async {
+                                                                        onDelete: () {
+                                                                          Navigator.pop(context);
+                                                                          setState(() async {
                                                                             await deleteOrgDoc(
                                                                                 context: context,
                                                                                 orgDocId: policiesdata.orgOfficeDocumentId);

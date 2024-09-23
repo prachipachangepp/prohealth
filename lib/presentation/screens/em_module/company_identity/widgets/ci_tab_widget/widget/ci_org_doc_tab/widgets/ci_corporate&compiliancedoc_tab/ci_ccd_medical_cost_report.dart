@@ -102,7 +102,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.corporateAndComplianceDocuments,
+                          docTypeText: AppStringEM.corporateAndComplianceDocuments,
                           subDocTypeText: AppStringEM.mcr,
                         );
                       },

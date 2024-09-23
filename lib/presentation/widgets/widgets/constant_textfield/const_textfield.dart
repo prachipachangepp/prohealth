@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/value_manager.dart';
@@ -50,7 +50,7 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
               fontSize: AppSize.s12,
               color: ColorManager.mediumgrey,
               fontWeight: FontWeightManager.regular),
@@ -138,11 +138,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                     value: value,
                     child: Text(
                       value,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        color: Color(0xff575757),
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: MobileMenuText.MenuTextConst(context),
                     ),
                   );
                 }).toList()
@@ -228,11 +224,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xff575757),
-                  fontWeight: FontWeight.w400,
-                ),
+                style: MobileMenuText.MenuTextConst(context),
               ),
             );
           }).toList(),
@@ -337,7 +329,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: DocumentTypeDataStyle.customTextStyle(context),
+          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w600, fontSize: 12),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -549,11 +541,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: GoogleFonts.firaSans(
-                  fontSize: 10,
-                  fontWeight: FontWeightManager.medium,
-                  color: ColorManager.mediumgrey,
-                ),
+                style: MobileMenuText.MenuTextConst(context),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -652,7 +640,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               value: value,
               child: Text(
                 value,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   fontSize: 12,
                   color: Color(0xff575757),
                   fontWeight: FontWeight.w600,
@@ -668,7 +656,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
               widget.onChanged!(newValue);
             }
           },
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
             color: const Color(0xff686464),

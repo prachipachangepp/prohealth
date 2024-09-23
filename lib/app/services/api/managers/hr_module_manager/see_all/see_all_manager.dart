@@ -25,7 +25,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
         String DOB = convertIsoToDayMonthYear(item['dateOfBirth']);
       itemsData.add(SeeAllData(
         empId: item['employeeId'],
-        expertise: item['expertise'],
+        companyId: compID,
         code: item['code'],
         userID: item['userId'],
         firstName: item['firstName'],

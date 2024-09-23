@@ -36,7 +36,7 @@ class AppString {
   static const String workno = "Work No:";
   static const String personalEmail = "Personal Email:";
   static const String workemail = "Work Email:";
-  static const String somethingWentWrong = "Something went wrong !";
+  static const String somethingWentWrong = "Something went wrong!";
   // static const String four = "4";
   // static const String four = "4";
   // static const String four = "4";
@@ -165,7 +165,7 @@ class AppString {
   ///login
   static const String login = "Log In";
   static const String emailhint = "Enter your email address";
-  static const String forgotpass = "Forgot your account password ?";
+  static const String forgotpass = "Forgot your account password?";
   static const String loginemail = "Login with Email";
   static const String loginauth = "Login with Authenticator";
   static const String enteremail = "Enter Email";
@@ -212,10 +212,7 @@ class AppString {
   static String id_of_the_document = "ID of the Document";
   static String expiry_date = "Expiry Date";
   static String expiry_type = "Expiry Type";
-  static String corporateAndComplianceDocuments =
-      "Corporate & Compliance Documents";
-  static String vendorContracts = "Vendor Contracts";
-  static String policiesAndProcedures = "Policies & Procedures";
+
 
   static String add_new = "Add New";
   static String street = "street";
@@ -240,7 +237,7 @@ class AppString {
   static const String enterpasstologin = "Enter your password to login";
 
   ///forgot
-  static const String forgotpassword = "Forgot Password ?";
+  static const String forgotpassword = "Forgot Password?";
   static const String forgotbtnpress = "forgot button press";
   static const String continuet = "Continue";
   static const String logout = "Logout";

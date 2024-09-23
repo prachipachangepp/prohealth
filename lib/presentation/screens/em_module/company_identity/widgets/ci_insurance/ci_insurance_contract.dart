@@ -165,7 +165,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 //   ),
                                                 // ),
                                               ),
-                                              SizedBox(width: AppSize.s10),
+                                             // SizedBox(width: AppSize.s10),
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -252,33 +252,28 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                         builder: (context) =>
                                                             DeletePopup(
                                                                 title:
-                                                                'Delete Contract',
+                                                                DeletePopupString.deleteContract,
                                                                 onCancel: () {
-                                                                  Navigator.pop(
-                                                                      context);
+                                                                  Navigator.pop(context);
                                                                 },
-                                                                onDelete:
-                                                                    () async {
-                                                                  print(
-                                                                      "${contract.insuranceVendorContracId}");
-                                                                  await deleteContract(
-                                                                      context,
-                                                                      contract
-                                                                          .insuranceVendorContracId);
-                                                                  // companyContractGetByVendorId(
-                                                                  //   context,
-                                                                  //   widget.officeId,
-                                                                  //   widget.insuranceVendorId,
-                                                                  //   currentPage,
-                                                                  //   itemsPerPage,
-                                                                  // ).then((data) {
-                                                                  //   _controller.add(data);
-                                                                  // }).catchError((error) {
-                                                                  //   // Handle error
-                                                                  //   _controller.addError(error);
-                                                                  // });
-                                                                  Navigator.pop(
-                                                                      context);
+                                                                onDelete: () {
+                                                                  Navigator.pop(context);
+                                                                  print("${contract.insuranceVendorContracId}");
+                                                                  setState(() async {
+                                                                    await deleteContract(context, contract.insuranceVendorContracId);
+                                                                    // await companyContractGetByVendorId(
+                                                                    //   context,
+                                                                    //   widget.officeId,
+                                                                    //   widget.insuranceVendorId,
+                                                                    //   currentPage,
+                                                                    //   itemsPerPage,
+                                                                    // ).then((data) {
+                                                                    //   _controller.add(data);
+                                                                    // }).catchError((error) {
+                                                                    //   // Handle error
+                                                                    //   //_controller.addError(error);
+                                                                    // });
+                                                                  });
                                                                 }));
                                                   },
                                                   icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
