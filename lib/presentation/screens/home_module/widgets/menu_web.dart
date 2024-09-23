@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:prohealth/app/constants/app_config.dart';
@@ -441,7 +441,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                 children: [
                   Text(
                     '--',
-                    style: GoogleFonts.firaSans(
+                    style:TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
@@ -453,7 +453,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                       _city != null
                           ? Text(
                               '${_country} (${_city})',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.grey[800],
@@ -462,7 +462,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                             )
                           : Text(
                               '--',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.grey[800],
@@ -476,7 +476,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                       _isFetchingIp
                           ? Text(
                               'Loading IP...',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey,
@@ -485,7 +485,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                             )
                           : Text(
                               _ipAddress ?? '--',
-                              style: GoogleFonts.firaSans(
+                              style:TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey,
@@ -511,7 +511,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                           width: AppSize.s20, height: AppSize.s20),
                       Text(
                         'Powered by',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height / 90,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,

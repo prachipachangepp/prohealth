@@ -1,10 +1,13 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -72,10 +75,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
         Center(
           child: Text(
             AppString.references,
-            style: GoogleFonts.firaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff50B5E5)),
+            style:FormHeading.customTextStyle(context)
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -94,11 +94,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                   Expanded(
                     child: Text(
                       'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each\n reference, Kindly include the following information:',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -137,11 +133,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
                   'Add Reference',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                  style:BlueButtonTextConst.customTextStyle(context)
                 ),
               ),
             ],
@@ -155,11 +147,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               width: 117,
               height: 30,
               text: 'Save',
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
+              style:BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
                 // Loop through each form and extract data to post
@@ -187,11 +175,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               },
               child: Text(
                 'Save',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style: BlueButtonTextConst.customTextStyle(context)
               ),
             ),
           ],
@@ -264,10 +248,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                           children: [
                             Text(
                               referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)),
+                              style:  DefineWorkWeekStyle.customTextStyle(context),
                             ),
                             IconButton(
                               icon:
@@ -287,10 +268,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                 children: [
                                   Text(
                                     AppString.name,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -299,11 +277,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldRegister(
                                     controller: name,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -312,10 +286,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.title_position,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -324,11 +295,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldRegister(
                                     controller: titleposition,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -337,10 +304,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.company_organization,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -349,11 +313,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldRegister(
                                     controller: companyorganization,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -362,10 +322,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.mobile_number,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -374,11 +331,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldRegister(
                                     controller: mobilenumber,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                 ],
@@ -392,10 +345,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                 children: [
                                   Text(
                                     AppString.email,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -404,11 +354,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldForEmail(
                                     controller: email,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -417,10 +363,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.how_do_you_know_this_person,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style:onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -429,11 +372,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldRegister(
                                     controller: knowthisperson,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                   SizedBox(
@@ -442,10 +381,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.length_of_association,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
+                                    style: onlyFormDataStyle.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -454,11 +390,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   CustomTextFieldRegister(
                                     controller: lengthofassociation,
                                     hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
                                 ],
@@ -470,10 +402,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                             height: MediaQuery.of(context).size.height / 20),
                         Text(
                           'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff686464)),
+                          style: DefineWorkWeekStyle.customTextStyle(context),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 20),

@@ -5,7 +5,7 @@ import 'dart:html' as html;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -15,6 +15,9 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
@@ -139,10 +142,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
         Center(
           child: Text(
             'Licenses',
-            style: GoogleFonts.firaSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff50B5E5)),
+            style: FormHeading.customTextStyle(context)
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -160,20 +160,12 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 children: [
                   Text(
                     '• ',
-                    style: GoogleFonts.firaSans(
-                      color: Color(0xFF686464),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: DefineWorkWeekStyle.customTextStyle(context),
                   ),
                   Expanded(
                     child: Text(
                       'Please fill all the current and relevant licensure / certification below. If you are applying for a clinical or attorney position which is lists licensure in the requirements, your information will be required to proceed through the requirements process.',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -184,20 +176,12 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 children: [
                   Text(
                     '• ',
-                    style: GoogleFonts.firaSans(
-                      color: Color(0xFF686464),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: DefineWorkWeekStyle.customTextStyle(context),
                   ),
                   Expanded(
                     child: Text(
                       'Please note, MSW and Chaplains do not need a License. Rather , they need academic credentials.',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -208,20 +192,12 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 children: [
                   Text(
                     '• ',
-                    style: GoogleFonts.firaSans(
-                      color: Color(0xFF686464),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style:DefineWorkWeekStyle.customTextStyle(context),
                   ),
                   Expanded(
                     child: Text(
                       'Clinical Staff MUST fill this section out. ',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style:DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -265,11 +241,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
                   'Add Licenses',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                  style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
             ],
@@ -283,11 +255,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
               width: 117,
               height: 30,
               text: 'Save',
-              style: const TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
+              style:BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
                 for (var key in licenseFormKeys) {
@@ -315,11 +283,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
               },
               child: Text(
                 'Save',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
           ],
@@ -423,10 +387,7 @@ class _licensesFormState extends State<licensesForm> {
             children: [
               Text(
                 licenseIdIndex == null ? 'Licensure / Certification #${widget.index}' : 'Licensure / Certification #${licenseIdIndex}',
-                style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff686464)),
+                style: DefineWorkWeekStyle.customTextStyle(context),
               ),
               IconButton(
                 icon:
@@ -446,10 +407,7 @@ class _licensesFormState extends State<licensesForm> {
                   children: [
                     Text(
                       'Licensure / Certification',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -458,11 +416,7 @@ class _licensesFormState extends State<licensesForm> {
                     CustomTextFieldRegister(
                       controller: licensure,
                       hintText: 'Enter Licensure / Certification',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                     ),
                     SizedBox(
@@ -471,10 +425,7 @@ class _licensesFormState extends State<licensesForm> {
                             40),
                     Text(
                       'Issuing Organization',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -483,11 +434,7 @@ class _licensesFormState extends State<licensesForm> {
                     CustomTextFieldRegister(
                       controller: org,
                       hintText: 'Enter Organization Name',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                     ),
                     SizedBox(
@@ -496,11 +443,7 @@ class _licensesFormState extends State<licensesForm> {
                             30),
                     Text(
                       'Country',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
-                      ),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -516,10 +459,7 @@ class _licensesFormState extends State<licensesForm> {
                             30),
                     Text(
                       'Number / ID',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -528,11 +468,7 @@ class _licensesFormState extends State<licensesForm> {
                     CustomTextFieldRegister(
                       controller: licensurenumber,
                       hintText: 'Enter Number',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                     ),
                   ],
@@ -547,10 +483,7 @@ class _licensesFormState extends State<licensesForm> {
                   children: [
                     Text(
                       'Issue Date',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
+                      style:onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -559,11 +492,7 @@ class _licensesFormState extends State<licensesForm> {
                     CustomTextFieldRegister(
                       controller: controllerIssueDate,
                       hintText: 'yyyy-MM-dd',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -598,10 +527,7 @@ class _licensesFormState extends State<licensesForm> {
                         Expanded(
                           child: Text(
                             'If the licensure / certification will be recieved in future, enter the expected issuing date',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff686464)),
+                            style:onlyFormDataStyle.customTextStyle(context),
                           ),
                         ),
                       ],
@@ -612,10 +538,7 @@ class _licensesFormState extends State<licensesForm> {
                             100),
                     Text(
                       'Expiration Date',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -624,11 +547,7 @@ class _licensesFormState extends State<licensesForm> {
                     CustomTextFieldRegister(
                       controller: controllerExpirationDate,
                       hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -667,10 +586,7 @@ class _licensesFormState extends State<licensesForm> {
               Expanded(
                 child: Text(
                   'Upload your licensure / certifications as a docx or pdf',
-                  style: GoogleFonts.firaSans(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff686464)),
+                  style:DefineWorkWeekStyle.customTextStyle(context),
                 ),
               ),
               SizedBox(
@@ -690,39 +606,21 @@ class _licensesFormState extends State<licensesForm> {
                     icon: licenseUrl == "--" ? Icon(Icons.upload, color: Colors.white):null,
                     label:licenseUrl == null ?Text(
                       'Upload File',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
+                      style: BlueButtonTextConst.customTextStyle(context),
                     ):Text(
                       'Uploaded',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
+                      style:  BlueButtonTextConst.customTextStyle(context),
                     )
                   ),
                   SizedBox(height: 8,),
                   licenseUrl != null ? AutoSizeText(
                     'Uploaded File: $licenseUrl',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight:
-                        FontWeight.w600,
-                        color:
-                        ColorManager.mediumgrey),
+                    style:onlyFormDataStyle.customTextStyle(context),
                   ):
                   fileName != null ?
                   AutoSizeText(
                       'File picked: $fileName',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12.0,
-                          fontWeight:
-                          FontWeight.w600,
-                          color:
-                          ColorManager.mediumgrey),
+                      style: onlyFormDataStyle.customTextStyle(context),
                     ) : SizedBox(),
                 ],
               ),
@@ -754,14 +652,10 @@ class _licensesFormState extends State<licensesForm> {
           );
 
         } else if (snapshot.hasError) {
-          return const CustomDropdownTextField(
+          return  CustomDropdownTextField(
             //width: MediaQuery.of(context).size.width / 5,
             labelText: 'Country',
-            labelStyle: TextStyle(
-              fontSize: 12,
-              color: Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
+            labelStyle: onlyFormDataStyle.customTextStyle(context),
             labelFontSize: 12,
             items: ['Error'],
           );
@@ -806,24 +700,15 @@ class _licensesFormState extends State<licensesForm> {
                 }
               },
               value: dropDownList[0].value,
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xff686464),
-                decoration: TextDecoration.none,
-              ),
+              style: onlyFormDataStyle.customTextStyle(context),
             ),
           );
         } else {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
             labelText: 'Country',
-            labelStyle: GoogleFonts.firaSans(
-              fontSize: 12,
-              color: const Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
-            labelFontSize: 12,
+            labelStyle: onlyFormDataStyle.customTextStyle(context),
+            labelFontSize: 11,
             items: ['No Data'],
           );
         }

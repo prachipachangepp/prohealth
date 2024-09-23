@@ -5,15 +5,17 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_education_manager.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
@@ -97,10 +99,7 @@ class _EducationScreenState extends State<EducationScreen> {
                   Center(
                     child: Text(
                       'Education',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff50B5E5)),
+                      style:FormHeading.customTextStyle(context)
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -112,11 +111,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     ),
                     child: Text(
                       'Your personal details will be required to proceed through the recruitment process.',
-                      style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -155,11 +150,7 @@ class _EducationScreenState extends State<EducationScreen> {
                           icon: Icon(Icons.add, color: Colors.white),
                           label: Text(
                             'Add Education',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
+                            style: BlueButtonTextConst.customTextStyle(context)
                           ),
                         ),
                       ],
@@ -172,11 +163,7 @@ class _EducationScreenState extends State<EducationScreen> {
                         width: 117,
                         height: 30,
                         text: 'Save',
-                        style: TextStyle(
-                          fontFamily: 'FiraSans',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style:  BlueButtonTextConst.customTextStyle(context),
                         borderRadius: 12,
                         onPressed: () async {
                           // Loop through each form and extract data to post
@@ -226,11 +213,7 @@ class _EducationScreenState extends State<EducationScreen> {
                         },
                         child: Text(
                           'Save',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style: BlueButtonTextConst.customTextStyle(context),
                         ),
                       ),
                     ],
@@ -334,11 +317,7 @@ class _EducationFormState extends State<EducationForm> {
                   children: [
                     Text(
                       educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff686464),
-                      ),
+                      style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                     if (widget.index > 1)
                     IconButton(
@@ -357,29 +336,19 @@ class _EducationFormState extends State<EducationForm> {
                         children: [
                           Text(
                             'College/University',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style:onlyFormDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: collegeuniversity,
                             hintText: 'Enter College/University Name',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
-                            ),
+                            hintStyle: onlyFormDataStyle.customTextStyle(context),
                             height: 32,
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'Graduate',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style: onlyFormDataStyle.customTextStyle(context),
                           ),
                           Row(
                             children: [
@@ -411,10 +380,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'Degree',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style:onlyFormDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           Container(
@@ -424,20 +390,13 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'Major Subject',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style: onlyFormDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: majorsubject,
                             hintText: 'Enter Subject',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
-                            ),
+                            hintStyle:onlyFormDataStyle.customTextStyle(context),
                             height: 32,
                           ),
                         ],
@@ -450,58 +409,37 @@ class _EducationFormState extends State<EducationForm> {
                         children: [
                           Text(
                             'Phone ',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style: onlyFormDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: phone,
                             hintText: 'Enter Phone Number',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
-                            ),
+                            hintStyle: onlyFormDataStyle.customTextStyle(context),
                             height: 32,
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'City',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style: onlyFormDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: city,
                             hintText: 'Enter City',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
-                            ),
+                            hintStyle:onlyFormDataStyle.customTextStyle(context),
                             height: 32,
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 45),
                           Text(
                             'State',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                            style:onlyFormDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: state,
                             hintText: 'Enter State',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
-                            ),
+                            hintStyle: onlyFormDataStyle.customTextStyle(context),
                             height: 32,
                           ),
                         ],
@@ -516,11 +454,7 @@ class _EducationFormState extends State<EducationForm> {
                     Expanded(
                       child: Text(
                         'Upload your degree / certifications as a docx or pdf',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff686464),
-                        ),
+                        style: DefineWorkWeekStyle.customTextStyle(context),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 20),
@@ -539,39 +473,21 @@ class _EducationFormState extends State<EducationForm> {
                             icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
                             label:docName == null ?Text(
                               'Upload File',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
+                              style: BlueButtonTextConst.customTextStyle(context),
                             ):Text(
                               'Uploaded',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
+                              style: BlueButtonTextConst.customTextStyle(context),
                             )
                         ),
                         SizedBox(height: 8,),
                         docName != null ? AutoSizeText(
                           'Uploaded File: $docName',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12.0,
-                              fontWeight:
-                              FontWeight.w600,
-                              color:
-                              ColorManager.mediumgrey),
+                          style:onlyFormDataStyle.customTextStyle(context)
                         ):
                         fileName != null ?
                         AutoSizeText(
                           'File picked: $fileName',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12.0,
-                              fontWeight:
-                              FontWeight.w600,
-                              color:
-                              ColorManager.mediumgrey),
+                          style: onlyFormDataStyle.customTextStyle(context)
                         ) : SizedBox(),
                       ],
                     ),
@@ -606,15 +522,11 @@ class _EducationFormState extends State<EducationForm> {
           );
 
         } else if (snapshot.hasError) {
-          return const CustomDropdownTextField(
+          return  CustomDropdownTextField(
             //width: MediaQuery.of(context).size.width / 5,
             labelText: 'Degree',
-            labelStyle: TextStyle(
-              fontSize: 12,
-              color: Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
-            labelFontSize: 12,
+            labelStyle: onlyFormDataStyle.customTextStyle(context),
+            labelFontSize: 11,
             items: ['Error'],
           );
         } else if (snapshot.hasData) {
@@ -659,24 +571,15 @@ class _EducationFormState extends State<EducationForm> {
                 }
               },
               value: dropDownList[0].value,
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xff686464),
-                decoration: TextDecoration.none,
-              ),
+              style: onlyFormDataStyle.customTextStyle(context)
             ),
           );
         } else {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
             labelText: 'Zone',
-            labelStyle: GoogleFonts.firaSans(
-              fontSize: 12,
-              color: const Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
-            labelFontSize: 12,
+            labelStyle: onlyFormDataStyle.customTextStyle(context),
+            labelFontSize: 11,
             items: ['No Data'],
           );
         }

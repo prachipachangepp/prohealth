@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 
 
@@ -24,10 +25,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
       width: MediaQuery.of(context).size.width / 5,
       child: TextFormField(
         readOnly: true,
-        style: GoogleFonts.firaSans(
-            fontSize: 10.0,
-            fontWeight: FontWeight.w400,
-            color: Color(0xff575757)) ,
+        style:DocumentTypeDataStyle.customTextStyle(context) ,
 
         cursorColor: Colors.black,
         controller: widget.controller,
@@ -43,10 +41,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.firaSans(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xff575757)),
+          labelStyle: DocumentTypeDataStyle.customTextStyle(context),
           suffixIcon: IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -127,13 +122,9 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
           filled: true,
           fillColor: Colors.white,
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.firaSans(
-            fontSize: 10.0,
-            fontWeight: FontWeight.w400,
-            color: Color(0xff686464),
-          ),
+          hintStyle:DocumentTypeDataStyle.customTextStyle(context),
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle:TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),
@@ -144,11 +135,7 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
           return DropdownMenuItem<String>(
             value: item,
             child: Text(item,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: Color(0xff575757)
-            ),),
+            style:DocumentTypeDataStyle.customTextStyle(context),),
           );
         }).toList(),
         onChanged: (newValue) {

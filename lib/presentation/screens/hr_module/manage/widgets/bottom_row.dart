@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'dart:convert';
@@ -457,9 +457,9 @@ String? _city;
             /// Text
             Text(
               '--',
-              style: GoogleFonts.firaSans(
+              style: TextStyle(
                 fontSize: 12, // FontSize.s12 or a constant value
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.w400,
                 color: Colors.grey, // ColorManager.grey or a color constant
                 decoration: TextDecoration.none,
               ),
@@ -471,17 +471,17 @@ String? _city;
               children: [
                 _city != null ? Text(
             '${_country} (${_city})',
-              style: GoogleFonts.firaSans(
+              style: TextStyle(
                 fontSize: 12,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 color: Colors.grey[800],
                 decoration: TextDecoration.none,
               ),
             ) : Text(
         '--',
-        style: GoogleFonts.firaSans(
+        style: TextStyle(
           fontSize: 12,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w400,
           color: Colors.grey[800],
           decoration: TextDecoration.none,
         ),
@@ -540,18 +540,18 @@ String? _city;
                 _isFetchingIp
                     ? Text(
                         'Loading IP...',
-                        style: GoogleFonts.firaSans(
+                        style:TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey,
                           decoration: TextDecoration.none,
                         ),
                       )
                     : Text(
                         _ipAddress ?? '--',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey,
                           decoration: TextDecoration.none,
                         ),
@@ -570,9 +570,9 @@ String? _city;
                   ),
                   Text(
                     'Powered by',
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.w400,
                       color: Colors.grey,
                       decoration: TextDecoration.none,
                     ),

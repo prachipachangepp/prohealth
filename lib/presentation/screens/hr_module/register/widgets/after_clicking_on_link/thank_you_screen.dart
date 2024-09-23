@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 
@@ -58,7 +58,7 @@ class OnBoardingThankYou extends StatelessWidget {
                                 Center(
                                   child: Text(
                                     'Thank You',
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.w600,
                                       color: Color(0xff686464),
@@ -69,9 +69,9 @@ class OnBoardingThankYou extends StatelessWidget {
                                 Center(
                                   child: Text(
                                     'You have submitted all the needed\n     Information and Documents',
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w500,
                                         color: Color(0xFF686464)),
                                   ),
                                 ),

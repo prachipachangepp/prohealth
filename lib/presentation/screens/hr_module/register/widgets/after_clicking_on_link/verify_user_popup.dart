@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
+
+
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -11,7 +11,10 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verifyuser_manager.dart';
 import '../../taxtfield_constant.dart';
@@ -176,11 +179,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         const SizedBox(width: 10),
                         Text(
                           AppString.verify_user,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style:PopupBlueBarText.customTextStyle(context),
                         ),
                       ],
                     ),
@@ -209,11 +208,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       //height:30,   // MediaQuery.of(context).size.height / 25,
                       child: TextFormField(
                         cursorColor: Colors.black,
-                        cursorWidth: 1.5,
+
                         controller: emailController,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                        ),
+                        style: onlyFormDataStyle.customTextStyle(context),
                         focusNode: emailFocusNode,
                         decoration: new InputDecoration(
                           // contentPadding: EdgeInsets.only(
@@ -221,10 +218,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           isDense: true,
                           labelText: 'Email',
 
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                          ),
-
+                          labelStyle: onlyFormDataStyle.customTextStyle(context),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                             borderSide: const BorderSide(
@@ -337,10 +331,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 }
                               : null,
                           child: Text('Get OTP',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s14,
-                                  color: ColorManager.white,
-                                  fontWeight: FontWeightManager.medium)),
+                              style: BlueButtonTextConst.customTextStyle(context)),
                         ),
                     const SizedBox(height: 20),
 
@@ -351,11 +342,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       child: TextFormField(
                         cursorColor: Colors.black,
                         controller: otpController,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                        ),
+                        style:  onlyFormDataStyle.customTextStyle(context),
                         enabled: otpEnabled,
-                        cursorWidth: 1.5,
+                        // cursorWidth: 1,
                         focusNode: otpFocusNode,
                         decoration: new InputDecoration(
                           // contentPadding: EdgeInsets.only(
@@ -363,9 +352,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           isDense: true,
                           labelText: 'Enter OTP',
 
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                          ),
+                          labelStyle: onlyFormDataStyle.customTextStyle(context),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                             borderSide: const BorderSide(
@@ -424,11 +411,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                   padding: const EdgeInsets.only(right: 55),
                                   child: Text(
                                     '00:$_remainingTime',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s13,
-                                        color: ColorManager.mediumgrey,
-                                        fontWeight: FontWeightManager.semiBold),
-                                  ),
+                                    style:  onlyFormDataStyle.customTextStyle(context),)
                                 ),
                               )
                             : _remainingTime == 0
@@ -450,11 +433,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                             const EdgeInsets.only(right: 55),
                                         child: Text(
                                           'Resend Otp',
-                                          style: GoogleFonts.firaSans(
+                                          style:TextStyle(
                                               fontSize: FontSize.s12,
                                               color: ColorManager.blueprime,
                                               fontWeight:
-                                                  FontWeightManager.medium),
+                                                  FontWeight.w500),
                                         ),
                                       ),
                                     ),
@@ -520,10 +503,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 : null,
                             child: Text(
                               'Submit',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s14,
-                                  color: ColorManager.white,
-                                  fontWeight: FontWeightManager.medium),
+                              style: BlueButtonTextConst.customTextStyle(context)
                             ),
                           ),
                   ],

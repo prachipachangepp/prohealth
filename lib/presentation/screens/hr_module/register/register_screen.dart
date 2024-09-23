@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
@@ -22,6 +22,8 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
@@ -81,11 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
       // Optionally show a snackbar or dialog to notify the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Copied to clipboard',style: GoogleFonts.firaSans(
-          fontWeight: FontWeightManager.medium,
-          color:  ColorManager.white,
-          fontSize: FontSize.s13,
-        ),)),
+        SnackBar(content: Text('Copied to clipboard',  style:AllHRTableHeading.customTextStyle(context))),
       );
     });
   }
@@ -174,22 +172,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Container(
-                                  // width: 180,
-                                  // height: 30,
-                                  alignment: Alignment.center,
-                                  child: loadingText,
+                                return CICCDropdown(
+                                  width: 310,
+                                  initialValue: 'Select',
+                                  items: [],
                                 );
                               }
                               if (snapshot.hasData && snapshot.data!.isEmpty) {
                                 return Center(
                                   child: Text(
                                     ErrorMessageString.noroleAdded,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
+                                    style:DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                 );
                               }
@@ -218,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
 
                                 return CICCDropdown(
-                                  width: 300,
+                                  width: 310,
                                   initialValue: selectedDeptName,
                                   onChange: (val) {
                                     setState(() {
@@ -269,11 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Center(
                     child: Text(
                       AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style:DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   ),
                 );
@@ -464,12 +453,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       filterData();
                     });
                   },
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeightManager.bold,
-                    color: const Color(0xff50B5E5),
-                    decoration: TextDecoration.none,
-                  ),
+                  style: TransparentButtonTextConst.customTextStyle(context),
                   icon: const Icon(
                     Icons.arrow_drop_down,
                     color: Color(0xff50B5E5),
@@ -569,20 +553,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Text(
                   data.firstName.capitalizeFirst!,
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeightManager.medium,
-                    color: const Color(0xff333333),
-                    fontSize: FontSize.s13,
-                  ),
+                  style:  DefineWorkWeekStyle.customTextStyle(context),
                 ),
                 SizedBox(width: 4,),
                 Text(
                   data.lastName.capitalizeFirst!,
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeightManager.medium,
-                    color: const Color(0xff333333),
-                    fontSize: FontSize.s13,
-                  ),
+                  style:  DefineWorkWeekStyle.customTextStyle(context),
                 ),
               ],
             ),
@@ -593,19 +569,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 data.status == 'Notopen'
                     ? Text(
                   'Not Opened',
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeightManager.medium,
-                    color: const Color(0xff333333),
-                    fontSize: FontSize.s12,
-                  ),
+                  style: DocumentTypeDataStyle.customTextStyle(context),
+                  // style: GoogleFonts.firaSans(
+                  //   fontWeight: FontWeightManager.medium,
+                  //   color: const Color(0xff333333),
+                  //   fontSize: FontSize.s12,
+                  // ),
                 )
                     : Text(
                   'Status',
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeightManager.medium,
-                    color: const Color(0xff333333),
-                    fontSize: FontSize.s12,
-                  ),
+                    style:DocumentTypeDataStyle.customTextStyle(context)
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 100),
                 data.status == 'Notopen'
@@ -627,15 +600,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ? const SizedBox(width: 10)
                     : Text(
                   data.status,
-                  style: GoogleFonts.firaSans(
-                    fontWeight: FontWeightManager.medium,
-                    color: data.status == 'Opened'
-                        ? Color(0xff51B5E6) : data.status == 'Partial'
-                        ? Color(0xffCA8A04) : data.status == 'Completed'
-                        ? Color(0xffB4DB4C)
-                        :ColorManager.rednew,
-                    fontSize: FontSize.s12,
-                  ),
+                   style: ConstTextFieldStyles.customTextStyle(textColor:  data.status == 'Opened'
+                           ? Color(0xff51B5E6) : data.status == 'Partial'
+                           ? Color(0xffCA8A04) : data.status == 'Completed'
+                           ? Color(0xffB4DB4C)
+                           :ColorManager.rednew,)
+                  // style: GoogleFonts.firaSans(
+                  //   fontWeight: FontWeightManager.medium,
+                  //   color: data.status == 'Opened'
+                  //       ? Color(0xff51B5E6) : data.status == 'Partial'
+                  //       ? Color(0xffCA8A04) : data.status == 'Completed'
+                  //       ? Color(0xffB4DB4C)
+                  //       :ColorManager.rednew,
+                  //   fontSize: FontSize.s12,
+                  // ),
                 ),
               ],
             ),
@@ -662,11 +640,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(width: MediaQuery.of(context).size.width / 40),
                       Text(
                         'Link',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.mediumgrey,
-                        ),
+                          style:DocumentTypeDataStyle.customTextStyle(context)
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 20),
                       data.status == 'Notopen'
@@ -691,11 +665,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         child: Text(
                           data.link!,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            color: ColorManager.blueprime,
-                          ),
+                          style: RegisterLinkDataStyle.customTextStyle(context),
+                          // style: GoogleFonts.firaSans(
+                          //   fontSize: 10,
+                          //   fontWeight: FontWeight.w400,
+                          //   color: ColorManager.blueprime,
+                          // ),
                         ),
                       ),
                       data.status == 'Notopen'

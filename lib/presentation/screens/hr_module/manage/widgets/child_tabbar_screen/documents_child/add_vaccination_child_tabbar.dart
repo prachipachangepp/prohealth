@@ -76,7 +76,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                       child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
-                                  return AcknowledgementAddPopup(
+                                  return CustomDocumedAddPopup(
                                     title: 'Add Health Record',
                                     employeeId: widget.employeeId,
                                     // docTypeMetaIdCC: 10,
@@ -258,20 +258,48 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                   ///
                                   IconButton(
                                     onPressed: () {
+
+
+
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return CustomDocumedAddPopup(
-                                              // idController: compensitionAddIdController,
-                                              // nameController: compensitionAddNameController,
-                                              // expiryType: compensationExpiryType,
-                                              labelName: 'Edit Health Record',
-                                              AcknowledgementnameController:
-                                              nameIdController, onSavePressed: () {  },
-                                              employeeId: widget.employeeId,
-                                              documentMetaId: 1,
-                                              documentSetupId: 10,
-                                            );
+
+                                            return FutureBuilder<List<EmployeeDocSetupModal>>(
+                                                future: getEmployeeDocSetupDropDown(context),
+                                                builder: (contex, snapshot) {
+                                                  if (snapshot.connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return Center(
+                                                        child: CircularProgressIndicator());
+                                                  }
+                                                  if (snapshot.hasData) {
+
+                                                    return CustomDocumedEditPopup(
+                                                      labelName: 'Edit Health Record', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                    );
+
+
+                                                    // return CustomDocumedAddPopup(
+                                                    //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                    // );
+                                                  } else {
+                                                    return ErrorPopUp(
+                                                        title: "Received Error",
+                                                        text: snapshot.error.toString());
+                                                  }
+                                                });
+                                            // return CustomDocumedAddPopup(
+                                            //   // idController: compensitionAddIdController,
+                                            //   // nameController: compensitionAddNameController,
+                                            //   // expiryType: compensationExpiryType,
+                                            //   labelName: 'Edit Health Record',
+                                            //   AcknowledgementnameController:
+                                            //   nameIdController, onSavePressed: () {  },
+                                            //   employeeId: widget.employeeId,
+                                            //   documentMetaId: 1,
+                                            //   documentSetupId: 10,
+                                            // );
                                           });
                                     },
                                     icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
