@@ -128,7 +128,7 @@ Future<ApiData> patchEmployeeDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required String document,
+  required String documentUrl,
   required String uploadDate,
   String? expiryDate
 }) async {
@@ -143,7 +143,7 @@ Future<ApiData> patchEmployeeDocuments({
         "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
         "employeeId": employeeId,
-        "DocumentUrl": document,
+        "DocumentUrl": documentUrl,
         "UploadDate": uploadDate,
         "expiry_date": expiryDate
       }
@@ -210,6 +210,41 @@ Future<EmployeeDocumentPrefillData> getPrefillEmployeeDocuments({
   } catch (e) {
     print("Error $e");
     return itemData;
+  }
+}
+
+/// Delete employee documents
+Future<ApiData> deleteEmployeeDocuments({
+  required BuildContext context,
+  required int empDocumentId,
+}) async {
+  try {
+    // String documents = await
+    // AppFilePickerBase64.getEncodeBase64(
+    //     bytes: documentFile);
+    // print("File :::${documents}" );
+    var response = await Api(context).delete(
+        path: UploadDocumentRepository.PatchEmployeeDocumentGet(employeeDocumentId: empDocumentId),
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Documents deleted");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
 
