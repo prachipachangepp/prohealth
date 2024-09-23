@@ -163,7 +163,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 ],
                                               ),
                                               height: 30,
-                                              width: 620.0,
+                                              width: 640.0,
                                               child: TabBar(
                                                 isScrollable: false,
                                                 tabs: [
@@ -178,19 +178,15 @@ class _ManageScreenState extends State<ManageScreen> {
                                                     boxShadow: [
                                                       BoxShadow(
                                                         // color: Colors.black.withOpacity(0.2),
-                                                        color: Colors.black
-                                                            .withOpacity(0.2),
+                                                        color: Colors.black.withOpacity(0.2),
                                                         spreadRadius: 1,
                                                         blurRadius: 5,
                                                         offset: Offset(0, 3),
                                                       ),
                                                     ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50), // Creates border
+                                                    borderRadius: BorderRadius.circular(50), // Creates border
                                                     color: Colors.white),
-                                                indicatorSize:
-                                                    TabBarIndicatorSize.tab,
+                                                indicatorSize: TabBarIndicatorSize.tab,
                                                 indicatorColor: Colors.white,
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
