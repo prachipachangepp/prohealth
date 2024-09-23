@@ -128,7 +128,7 @@ Future<ApiData> patchEmployeeDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required String document,
+  required String documentUrl,
   required String uploadDate,
   String? expiryDate
 }) async {
@@ -143,7 +143,7 @@ Future<ApiData> patchEmployeeDocuments({
         "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
         "employeeId": employeeId,
-        "DocumentUrl": document,
+        "DocumentUrl": documentUrl,
         "UploadDate": uploadDate,
         "expiry_date": expiryDate
       }

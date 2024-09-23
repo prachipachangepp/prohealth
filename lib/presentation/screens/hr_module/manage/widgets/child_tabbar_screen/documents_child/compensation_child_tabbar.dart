@@ -9,10 +9,12 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -333,8 +335,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return FutureBuilder<List<EmployeeDocSetupModal>>(
-                                                  future: getEmployeeDocSetupDropDown(context),
+                                              return FutureBuilder<EmployeeDocumentPrefillData>(
+                                         future: getPrefillEmployeeDocuments( context: context, empDocumentId: compaensation.employeeDocumentId),
                                                   builder: (contex, snapshot) {
                                                     if (snapshot.connectionState ==
                                                         ConnectionState.waiting) {
@@ -344,7 +346,9 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                     if (snapshot.hasData) {
 
                                                       return CustomDocumedEditPopup(
-                                                        labelName: 'Edit Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                        labelName: 'Edit Compensation', employeeId: widget.employeeId, docName: compaensation.DocumentName,
+                                                        docMetaDataId: compaensation.EmployeeDocumentTypeMetaDataId, docSetupId: compaensation.EmployeeDocumentTypeSetupId, empDocumentId: compaensation.employeeDocumentId,
+                                                        selectedExpiryType: compaensation.ReminderThreshold, url: compaensation.DocumentUrl,expiryDate: compaensation.Expiry,
                                                       );
 
 

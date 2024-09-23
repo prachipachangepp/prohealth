@@ -9,10 +9,12 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
@@ -324,8 +326,8 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                           context: context,
                                           builder: (BuildContext context) {
 
-                                            return FutureBuilder<List<EmployeeDocSetupModal>>(
-                                                future: getEmployeeDocSetupDropDown(context),
+                                            return FutureBuilder<EmployeeDocumentPrefillData>(
+                                                future: getPrefillEmployeeDocuments( context: context, empDocumentId: others.employeeDocumentId),
                                                 builder: (contex, snapshot) {
                                                   if (snapshot.connectionState ==
                                                       ConnectionState.waiting) {
@@ -335,7 +337,9 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                   if (snapshot.hasData) {
 
                                                     return CustomDocumedEditPopup(
-                                                      labelName: 'Edit Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                      labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
+                                                      docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,
+                                                      selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: others.Expiry,
                                                     );
 
 

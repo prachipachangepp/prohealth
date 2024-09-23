@@ -238,9 +238,11 @@ class _OfferLetterDescriptionScreenState
                       if(updateOfferFuture.statusCode == 200 || updateOfferFuture.statusCode == 201){
                         showDialog(context: context, builder: (BuildContext context){
                           return AlertDialog(
-                            title: Text('Offer Accepted Succefully', style: TextStyle(
-                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
-                            ),),
+                            title: Center(
+                              child: Text('Offer Accepted Succefully', style: TextStyle(
+                                  color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
+                              ),),
+                            ),
                             content: Text( ""
                               // snapshot.data!.message
                             ),
@@ -263,9 +265,11 @@ class _OfferLetterDescriptionScreenState
                       }else{
                         showDialog(context: context, builder: (BuildContext context){
                           return AlertDialog(
-                            title: Text('Offer Already Accepted', style: TextStyle(
-                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
-                            ),),
+                            title: Center(
+                              child: Text('Offer Already Accepted', style: TextStyle(
+                                  color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
+                              ),),
+                            ),
                             content: Text( ""
                               // snapshot.data!.message
                             ),
