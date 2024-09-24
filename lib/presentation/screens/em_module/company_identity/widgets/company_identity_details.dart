@@ -20,16 +20,15 @@ import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
 class CIDetailsScreen extends StatefulWidget {
-  CIDetailsScreen({
-    super.key,
+  CIDetailsScreen(
+      {super.key,
       required this.officeId,
       required this.docTD,
       required this.companyId,
       required int companyID,
       required this.companyOfficeid,
       required this.stateName,
-      required this.countryName
-  });
+      required this.countryName});
   final String stateName;
   final String countryName;
   final int companyId;
@@ -265,9 +264,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            right: 25, left: 0, top: 10, bottom: 10),
+                            right: 25, left: 25, top: 10, bottom: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
@@ -437,7 +436,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                 StatefulBuilder(
                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                     return DeletePopup(
-                                                                        title: "Delete Service",
+                                                                        title: DeletePopupString.deleteholiday,
                                                                         loadingDuration: _isLoading,
                                                                         onCancel: () {
                                                                           Navigator.pop(
@@ -578,6 +577,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                 ],
                               ),
                             )
+
                             // CIDetailsDropdown(
                             //   initialValue: serviceDetail.serviceName,
                             //   items: dropdownItems.map((item) {
@@ -670,7 +670,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SMTextFConst(
@@ -711,7 +711,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           ],
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SMTextFConstPhone(
@@ -864,7 +864,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
 
 
-///
+//////////////////////////////////////////
 
 class AddressInput extends StatefulWidget {
   final TextEditingController controller;
@@ -916,9 +916,8 @@ class _AddressInputState extends State<AddressInput> {
           text: AppStringEM.address,
         ),
         if (_suggestions.isNotEmpty)
-          Positioned(
-            // top: 10, // Adjust as needed
-            // left: 0,
+          Padding(
+            padding: const EdgeInsets.only(top:50),
             child: Container(
               height: 100,
               width: 320,
