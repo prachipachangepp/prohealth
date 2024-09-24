@@ -442,7 +442,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 print('1111111');
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 150),
+                    padding: const EdgeInsets.symmetric(vertical: 50),
                     child: Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
