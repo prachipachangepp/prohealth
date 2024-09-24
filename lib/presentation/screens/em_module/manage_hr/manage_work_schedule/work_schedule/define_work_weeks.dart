@@ -302,12 +302,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             ),
                                             Container(
                                               height: mediaQuery.height / 9,
-                                              child: ScrollConfiguration(
-                                                behavior:
-                                                    ScrollConfiguration.of(
-                                                            context)
-                                                        .copyWith(
-                                                            scrollbars: false),
                                                 child: FutureBuilder<List<WorkWeekShiftScheduleData>>(
                                                     future: workWeekShiftScheduleGet(context,
                                                             //snapshot.data![index].companyId,
@@ -529,7 +523,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                       }
                                                       return Offstage();
                                                     }),
-                                              ),
+
                                             ),
                                             const Spacer(),
                                             Padding(
