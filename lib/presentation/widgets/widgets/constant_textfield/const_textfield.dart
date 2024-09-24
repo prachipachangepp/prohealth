@@ -648,14 +648,16 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               borderSide: BorderSide(color: Colors.black),
             ),
             hintStyle: TextStyle(
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: FontWeight.w700,
               color: ColorManager.mediumgrey
             ),
-            // labelText: widget.labelText,
+            labelText: widget.labelText,
             hintText: widget.hintText,
-            // labelStyle: widget.labelStyle!.copyWith(
-            //     fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
+            labelStyle: TextStyle(
+                fontSize: widget.labelFontSize,
+                fontWeight: FontWeight.w700,
+                color: ColorManager.mediumgrey),
 
             // errorText: widget.errorText,
             // validator: validator,

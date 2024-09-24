@@ -211,7 +211,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     topRight: Radius.circular(12),
                   ),
                 ),
-                height: 35,
+                height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
