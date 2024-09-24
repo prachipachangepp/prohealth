@@ -92,7 +92,7 @@ class _CustomDialogState extends State<CustomDialog> {
         children: <Widget>[
           Container(
             height: 500,
-            width: 380,
+            width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.rectangle,
@@ -124,7 +124,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 27),
+                        padding: const EdgeInsets.only(left: 40),
                         child: Text(
                           widget.title,
                           style: PopupBlueBarText.customTextStyle(context),
@@ -146,14 +146,15 @@ class _CustomDialogState extends State<CustomDialog> {
                   ),
                 ),
                 SizedBox(height: 18),
-
-
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, top: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             HRManageTextField(
                               controller: widget.firstNameController,
@@ -175,7 +176,10 @@ class _CustomDialogState extends State<CustomDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             HRManageTextField(
                               controller: widget.lastNameController,
@@ -196,11 +200,14 @@ class _CustomDialogState extends State<CustomDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                               widget.depTitle,
-                              style: TextStyle(fontSize: 10,
-                                  color:  Color(0xff686464),
-                                  fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text(
+                                 widget.depTitle,
+                                style: TextStyle(fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             widget.child,
                           ],
@@ -212,7 +219,10 @@ class _CustomDialogState extends State<CustomDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
                               controller: widget.emailController,
@@ -234,7 +244,10 @@ class _CustomDialogState extends State<CustomDialog> {
 
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             CustomTextFieldWithIcon(
                               controller: widget.passwordController,

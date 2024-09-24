@@ -578,7 +578,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
 
 class HRManageDropdown extends StatefulWidget {
   final TextEditingController controller;
-  final String labelText;
+  final String? labelText;
   final TextStyle labelStyle;
   final double labelFontSize;
   final List<String> items;
@@ -588,7 +588,7 @@ class HRManageDropdown extends StatefulWidget {
   HRManageDropdown({
     Key? key,
     required this.controller,
-    required this.labelText,
+     this.labelText,
     required this.labelStyle,
     required this.labelFontSize,
     required this.items,
