@@ -689,7 +689,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("County :",
-                                    style: EditTextFontStyle
+                                    style: EditTextFontHeadingStyle
                                         .customEditTextStyle()),
                                 SizedBox(
                                   width: 5,
@@ -701,7 +701,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   width: 30,
                                 ),
                                 Text('Zone :',
-                                    style: EditTextFontStyle
+                                    style: EditTextFontHeadingStyle
                                         .customEditTextStyle()),
                                 SizedBox(
                                   width: 5,
@@ -981,6 +981,47 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                       }
                                                                     },
                                                                   ),
+                                                                  SizedBox(height: 15,),
+                                                                  CustomButton(
+                                                                    height: 28,
+                                                                    width: 70,
+                                                                    text: 'Add',
+                                                                    onPressed: () async {
+                                                                      // Uncomment if you need a loading state
+                                                                      // setState(() {
+                                                                      //   _isLoading = true;
+                                                                      // });
+                                                                      addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
+                                                                      print('Selected County ID: $selectedCountyId');
+                                                                      print('Selected Zone ID: $docZoneId');
+                                                                      print('Selected Zip Codes: $selectedZipCodes');
+                                                                      print('Selected City: $selectedCityName');
+                                                                      Navigator.pop(context);
+                                                                      // print('Salary: $_salary');
+                                                                      // print('Salary Type: $dropdownValue');
+                                                                      // print('Patient Count: ${patientsController.text}');
+                                                                      // try {
+                                                                      //   // var coverageResponse = await addEmpEnrollAddCoverage(
+                                                                      //   //   context,
+                                                                      //   //   0,
+                                                                      //   //   widget.employeeId!,
+                                                                      //   //   addCovrage,
+                                                                      //   // );
+                                                                      //   // if (coverageResponse.success) {
+                                                                      //   //   print("Coverage added successfully");
+                                                                      //   //    } else {
+                                                                      //   //  print("Failed To Add Coverage");
+                                                                      //   // }
+                                                                      // } catch (e) {
+                                                                      //   print("Error during adding coverage: $e");
+                                                                      // } finally {
+                                                                      //
+                                                                      //   // setState(() {
+                                                                      //   //   _isLoading = false;
+                                                                      //   // });
+                                                                      // }
+                                                                    },
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
@@ -997,28 +1038,26 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 children: [
                                                                   Padding(padding: EdgeInsets.symmetric(horizontal: 5),
                                                                     child: TabBar(
-                                                                      indicatorColor: const Color(0xff1696C8),
+                                                                      // indicatorColor: const Color(0xff1696C8),
                                                                       labelColor: const Color(0xff686464),
                                                                       unselectedLabelColor:
                                                                           const Color(
                                                                               0xff686464),
                                                                       labelStyle:
-                                                                          GoogleFonts
-                                                                              .firaSans(
+                                                                         TextStyle(
                                                                         fontSize:
                                                                             10,
                                                                         fontWeight:
                                                                             FontWeight
-                                                                                .w500,
+                                                                                .w700,
                                                                       ),
                                                                       unselectedLabelStyle:
-                                                                          GoogleFonts
-                                                                              .firaSans(
+                                                                         TextStyle(
                                                                         fontSize:
-                                                                            10,
+                                                                            12,
                                                                         fontWeight:
                                                                             FontWeight
-                                                                                .w500,
+                                                                                .w700,
                                                                       ),
                                                                       tabs: const [
                                                                         Tab(
@@ -1126,46 +1165,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                CustomButton(
-                                                  height: 28,
-                                                  width: 70,
-                                                  text: 'Add',
-                                                  onPressed: () async {
-                                                    // Uncomment if you need a loading state
-                                                    // setState(() {
-                                                    //   _isLoading = true;
-                                                    // });
-                                                   addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
-                                                    print('Selected County ID: $selectedCountyId');
-                                                    print('Selected Zone ID: $docZoneId');
-                                                    print('Selected Zip Codes: $selectedZipCodes');
-                                                    print('Selected City: $selectedCityName');
-                                                    Navigator.pop(context);
-                                                    // print('Salary: $_salary');
-                                                    // print('Salary Type: $dropdownValue');
-                                                    // print('Patient Count: ${patientsController.text}');
-                                                    // try {
-                                                    //   // var coverageResponse = await addEmpEnrollAddCoverage(
-                                                    //   //   context,
-                                                    //   //   0,
-                                                    //   //   widget.employeeId!,
-                                                    //   //   addCovrage,
-                                                    //   // );
-                                                    //   // if (coverageResponse.success) {
-                                                    //   //   print("Coverage added successfully");
-                                                    //   //    } else {
-                                                    //   //  print("Failed To Add Coverage");
-                                                    //   // }
-                                                    // } catch (e) {
-                                                    //   print("Error during adding coverage: $e");
-                                                    // } finally {
-                                                    //
-                                                    //   // setState(() {
-                                                    //   //   _isLoading = false;
-                                                    //   // });
-                                                    // }
-                                                  },
-                                                ),
+
                                                       SizedBox(height: 10,)
                                                     ],
                                                   ),
@@ -1374,6 +1374,16 @@ class EditProfile {
   }
 }
 
+class EditTextFontHeadingStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+    );
+  }
+}
+
 class EditTextFontStyle {
   static TextStyle customEditTextStyle() {
     return TextStyle(
@@ -1383,7 +1393,6 @@ class EditTextFontStyle {
     );
   }
 }
-
 class ProfileEditCancelButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
