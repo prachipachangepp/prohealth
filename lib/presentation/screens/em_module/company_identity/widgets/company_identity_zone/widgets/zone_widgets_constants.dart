@@ -1252,7 +1252,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                   FirstSMTextFConst(
                     controller: widget.zoneNumberController,
                     keyboardType: TextInputType.text,
-                    text: 'Zone Number',
+                    text: 'Zone Name',
                   ),
                   if (zoneNumberError != null)
                     Padding(
