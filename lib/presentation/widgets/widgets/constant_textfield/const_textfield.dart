@@ -640,7 +640,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
           },
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
-                bottom: 3.0, top: 5.0, left: 5.0),
+                bottom: 3.0, left: 5.0),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black),
             ),

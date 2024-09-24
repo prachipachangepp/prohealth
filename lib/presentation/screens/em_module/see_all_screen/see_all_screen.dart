@@ -243,7 +243,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         // labelText: 'Select Department',
                                         // labelStyle: MobileMenuText.MenuTextConst(context),
                                         labelFontSize: 12,
-                                        items:  dropDownServiceList, hintText: 'Department',
+                                        items:  dropDownServiceList,
+                                        // hintText: 'Department',
 
                                       )
                                     );
@@ -803,7 +804,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                               print(
                                                                                   "deptID :::::::${selectedDeptId}");
                                                                             });
-                                                                      }, hintText: 'Department',
+                                                                      },
                                                                     );
                                                                   }
                                                                   return const SizedBox();
