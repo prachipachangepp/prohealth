@@ -80,12 +80,15 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       setState((){
         _suggestions.clear();
       });
-    }else{
+    }else if(widget.addressController.text.isEmpty){
+      setState(() {
+        _suggestions = suggestions;
+      });
+    }else {
       setState(() {
         _suggestions = suggestions;
       });
     }
-
   }
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected'; // Default text
