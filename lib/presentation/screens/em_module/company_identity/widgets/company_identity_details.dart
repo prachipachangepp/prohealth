@@ -135,86 +135,38 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // addressController.addListener(_onAddressChanged);
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        // Populate _suggestionsNotifier with suggestions when the field is focused
-        addressController.addListener(_onAddressChanged);
-      } else {
-        // Clear suggestions when the field loses focus
-        _suggestionsNotifier.value = [];
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    addressController.removeListener(_onAddressChanged);
-    addressController.dispose();
-    _suggestionsNotifier.value = [];
-    super.dispose();
-  }
-
+  // ////////////////////////
+  // List<String> _suggestions = [];
+  //
   // @override
   // void initState() {
   //   super.initState();
-  //   _focusNode.addListener(() {
-  //     if (_focusNode.hasFocus) {
-  //       // Populate _suggestionsNotifier with suggestions when the field is focused
-  //       addressController.addListener(_onAddressChanged);
-  //     } else {
-  //       // Clear suggestions when the field loses focus
-  //       _suggestionsNotifier.value = [];
-  //     }
-  //   });
-  //
-  //   print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+  //   addressController.addListener(_onCountyNameChanged);
   // }
   //
-  // // List<String> _suggestions = [];
   // @override
   // void dispose() {
-  //   _focusNode.dispose();
-  //   _suggestionsNotifier.value = [];
-  //   //addressController.dispose();
+  //   addressController.removeListener(_onCountyNameChanged);
   //   super.dispose();
   // }
-
-  //ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
-
-  final _suggestionsNotifier = ValueNotifier<List<String>>([]);
-
-  // void _onAddressChanged() async {
-  //   if (addressController.text.isEmpty) {
-  //     _suggestionsNotifier.value = [];
+  //
+  // void _onCountyNameChanged() async {
+  //   final query = addressController.text;
+  //   if (query.isEmpty) {
+  //     setState(() {
+  //       _suggestions.clear();
+  //     });
   //     return;
   //   }
   //
-  //   // Fetch suggestions based on the addressController's text
-  //   final suggestions = await fetchSuggestions(addressController.text);
-  //   _suggestionsNotifier.value = suggestions;
-  //   }
+  //   final suggestions = await fetchSuggestions(query);
+  //   setState(() {
+  //     _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+  //   });
+  // }
 
-  void _onAddressChanged() async {
-    final query = addressController.text;
+  ///////////////////
 
-    if (query.isEmpty) {
-      _suggestionsNotifier.value = [];
-      return;
-    }
-
-    try {
-      final suggestions = await fetchSuggestions(query);
-      _suggestionsNotifier.value = suggestions;
-    } catch (e) {
-      print("Error fetching suggestions: $e");
-      _suggestionsNotifier.value = [];
-    }
-  }
 
   String latitude = '';
   String longitude = '';
@@ -695,186 +647,139 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     ),
                   ),
 
-                  Stack(
-                    children: [
-                      Container(
-                        height: AppSize.s350,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            width: 2,
-                            color: ColorManager.black.withOpacity(0.2),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.black.withOpacity(0.15),
-                              offset: const Offset(0, 4),
-                              blurRadius: 4,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                          color: ColorManager.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SMTextFConst(
-                                  controller: nameController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.officename,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                SMTextFConstPhone(
-                                  controller: secNumberController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.secNum,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                SMTextFConst(
-                                  focusNode: _focusNode,
-                                  controller: addressController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.address,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                SMTextFConst(
-                                  controller: stateNameController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.stateName,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SMTextFConstPhone(
-                                  controller: primNumController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.primNum,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                SMTextFConstPhone(
-                                  controller: altNumController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.alternatephone,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                SMTextFConst(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.primarymail,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                SMTextFConst(
-                                  controller: countryNameController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.countryName,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                  Container(
+                    height: AppSize.s350,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        width: 2,
+                        color: ColorManager.black.withOpacity(0.2),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorManager.black.withOpacity(0.15),
+                          offset: const Offset(0, 4),
+                          blurRadius: 4,
+                          spreadRadius: 0,
+                        ),
+                      ],
+                      color: ColorManager.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SMTextFConst(
+                              controller: nameController,
+                              keyboardType: TextInputType.text,
+                              text: AppStringEM.officename,
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                            SMTextFConstPhone(
+                              controller: secNumberController,
+                              keyboardType: TextInputType.number,
+                              text: AppStringEM.secNum,
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                            SMTextFConst(
+                              controller: stateNameController,
+                              keyboardType: TextInputType.text,
+                              text: AppStringEM.stateName,
+                            ),
 
-                      ValueListenableBuilder<List<String>>(
-                          valueListenable: _suggestionsNotifier,
-                          builder: (context, suggestions, child) {
-                            if (suggestions.isEmpty) return SizedBox.shrink();
+                           // AddressInput(controller: addressController),
 
-                            return Positioned(
-                              top: 250, // Adjust the position as needed
-                              left: 200,
 
-                              child: Container(
-                                height: 100,
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: ListView.builder(
-                                  itemCount: suggestions.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      title: Text(
-                                        suggestions[index],
-                                        style: DefineWorkWeekStyle.customTextStyle(context),
-                                      ),
-                                      onTap: () {
-                                        // Update TextField with selected suggestion
-                                        addressController.text =
-                                            suggestions[index];
-                                        // Optionally clear suggestions
-                                        _suggestionsNotifier.value = [];
-                                        // Unfocus the TextField if needed
-                                        _focusNode.unfocus();
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          })
-                      // Suggestion list appears above the container when not empty
-                      // ValueListenableBuilder<List<String>>(
-                      //   valueListenable: _suggestionsNotifier,
-                      //   builder: (context, suggestions, child) {
-                      //     if (suggestions.isEmpty) return SizedBox.shrink();
-                      //     return Positioned(
-                      //       top: 250, // Adjust the position as needed
-                      //       left: 200, // Align it with your container
-                      //       child: Container(
-                      //         height: 100,
-                      //         width: 360,
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.pink,
-                      //           borderRadius: BorderRadius.circular(8),
-                      //           boxShadow: [
-                      //             BoxShadow(
-                      //               color: Colors.black26,
-                      //               blurRadius: 4,
-                      //               offset: Offset(0, 2),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         child: ListView.builder(
-                      //           itemCount: suggestions.length,
-                      //           itemBuilder: (context, index) {
-                      //             return ListTile(
-                      //               title: Text(
-                      //                 suggestions[index],
-                      //                 style: GoogleFonts.firaSans(
-                      //                   fontSize: FontSize.s12,
-                      //                   fontWeight: FontWeight.w700,
-                      //                   color: ColorManager.mediumgrey,
-                      //                   decoration: TextDecoration.none,
-                      //                 ),
-                      //               ),
-                      //               onTap: () {
-                      //
-                      //                 addressController.text = suggestions[index];
-                      //                 _suggestionsNotifier.value = [];
-                      //                 _focusNode.unfocus();
-                      //               },
-                      //             );
-                      //           },
-                      //         ),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                    ],
+                            // SMTextFConst(
+                            //
+                            //   controller: addressController,
+                            //   keyboardType: TextInputType.text,
+                            //   text: AppStringEM.address,
+                            // ),
+                            const SizedBox(height: AppSize.s10),
+                            AddressInput(
+                              controller: addressController,
+                              onSuggestionSelected: (selectedSuggestion) {
+                                // Handle the selected suggestion here
+                                print("Selected suggestion: $selectedSuggestion");
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SMTextFConstPhone(
+                              controller: primNumController,
+                              keyboardType: TextInputType.number,
+                              text: AppStringEM.primNum,
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                            SMTextFConstPhone(
+                              controller: altNumController,
+                              keyboardType: TextInputType.number,
+                              text: AppStringEM.alternatephone,
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                            SMTextFConst(
+                              controller: emailController,
+                              keyboardType: TextInputType.text,
+                              text: AppStringEM.primarymail,
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                            SMTextFConst(
+                              controller: countryNameController,
+                              keyboardType: TextInputType.text,
+                              text: AppStringEM.countryName,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  // if (_suggestions.isNotEmpty)
+                  //   Positioned(
+                  //     top: 60, // Adjust as needed
+                  //     left: 0,
+                  //     child: Container(
+                  //       height: 100,
+                  //       width: 320,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.red,
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         boxShadow: [
+                  //           BoxShadow(
+                  //             color: Colors.black26,
+                  //             blurRadius: 4,
+                  //             offset: Offset(0, 2),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       child: ListView.builder(
+                  //         shrinkWrap: true,
+                  //         itemCount: _suggestions.length,
+                  //         itemBuilder: (context, index) {
+                  //           return ListTile(
+                  //             title: Text(
+                  //               _suggestions[index],
+                  //               style: AllPopupHeadings.customTextStyle(context),
+                  //             ),
+                  //             onTap: () {
+                  //               FocusScope.of(context).unfocus();
+                  //               addressController.text = _suggestions[index];
+                  //               setState(() {
+                  //                 _suggestions.clear();
+                  //               });
+                  //             },
+                  //           );
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ),
 
                   /// Service List
                   if (snapshot.data!.serviceDetails != null &&
@@ -955,3 +860,228 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
     );
   }
 }
+
+
+
+///
+
+class AddressInput extends StatefulWidget {
+  final TextEditingController controller;
+  final Function(String)? onSuggestionSelected; // Callback to notify parent
+
+  AddressInput({required this.controller, this.onSuggestionSelected});
+
+  @override
+  _AddressInputState createState() => _AddressInputState();
+}
+
+class _AddressInputState extends State<AddressInput> {
+  List<String> _suggestions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onCountyNameChanged);
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    final query = widget.controller.text;
+    if (query.isEmpty) {
+      setState(() {
+        _suggestions.clear();
+      });
+      return;
+    }
+
+    final suggestions = await fetchSuggestions(query);
+    setState(() {
+      _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SMTextFConst(
+          controller: widget.controller,
+          keyboardType: TextInputType.text,
+          text: AppStringEM.address,
+        ),
+        if (_suggestions.isNotEmpty)
+          Positioned(
+            // top: 10, // Adjust as needed
+            // left: 0,
+            child: Container(
+              height: 100,
+              width: 320,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _suggestions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      _suggestions[index],
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      widget.controller.text = _suggestions[index];
+                      setState(() {
+                        _suggestions.clear();
+                      });
+                      // Call the callback with the selected suggestion
+                      if (widget.onSuggestionSelected != null) {
+                        widget.onSuggestionSelected!(_suggestions[index]);
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+
+
+
+
+/////////////////////////////////////////////////
+// class AddressInput extends StatelessWidget {
+//   final TextEditingController controller;
+//
+//   AddressInput({required this.controller});
+//
+//   // List<String> _suggestions = [];
+//   @override
+//   Widget build(BuildContext context) {
+//     return SMTextFConst(
+//       controller: controller,
+//       keyboardType: TextInputType.text,
+//       text: AppStringEM.address,
+//     );
+//   }
+// }
+////////////////////////////////////////////////////////////////
+//
+// class AddressInput extends StatefulWidget {
+//   final TextEditingController controller;
+//
+//   AddressInput({required this.controller});
+//
+//   @override
+//   _AddressInputState createState() => _AddressInputState();
+// }
+//
+// class _AddressInputState extends State<AddressInput> {
+//   bool isLoading = false;
+//
+//   List<String> _suggestions = [];
+//   @override
+//   void initState() {
+//     super.initState();
+//     widget.controller.addListener(_onCountyNameChanged);
+//   }
+//
+//   @override
+//   void dispose() {
+//     // widget.addressController.removeListener(_onCountyNameChanged);
+//     super.dispose();
+//   }
+//
+//   void _onCountyNameChanged() async {
+//     if ( widget.controller.text.isEmpty) {
+//       setState(() {
+//         _suggestions = [];
+//       });
+//       return;
+//     }
+//     final suggestions = await fetchSuggestions (widget.controller.text);
+//     if (suggestions[0] ==  widget.controller.text) {
+//       setState(() {
+//         _suggestions.clear();
+//       });
+//     } else if ( widget.controller.text.isEmpty) {
+//       setState(() {
+//         _suggestions = suggestions;
+//       });
+//     } else {
+//       setState(() {
+//         _suggestions = suggestions;
+//       });
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         SMTextFConst(
+//           controller: widget.controller,
+//           keyboardType: TextInputType.text,
+//           text: AppStringEM.address,
+//         ),
+//         if (_suggestions.isNotEmpty)
+//           Positioned(
+//             top: 70, // Adjust as needed
+//             left: 0,
+//             child: Container(
+//               height: 100,
+//               width: 320,
+//               decoration: BoxDecoration(
+//                 color: Colors.red,
+//                 borderRadius: BorderRadius.circular(8),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black26,
+//                     blurRadius: 4,
+//                     offset: Offset(0, 2),
+//                   ),
+//                 ],
+//               ),
+//               child: ListView.builder(
+//                 shrinkWrap: true,
+//                 itemCount: _suggestions.length,
+//                 itemBuilder: (context, index) {
+//                   return ListTile(
+//                     title: Text(
+//                       _suggestions[index],
+//                       style: AllPopupHeadings.customTextStyle(context),
+//                     ),
+//                     onTap: () {
+//                       FocusScope.of(context).unfocus();
+//                       widget.controller.text = _suggestions[index];
+//                       setState(() {
+//                         _suggestions.clear();
+//                       });
+//                     },
+//                   );
+//                 },
+//               ),
+//             ),
+//           ),
+//       ],
+//     );
+//   }
+// }
+

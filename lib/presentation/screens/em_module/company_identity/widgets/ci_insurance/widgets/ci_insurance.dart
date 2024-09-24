@@ -89,27 +89,57 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                   builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting &&
                         selectedValue == null) {
-                      return dummeyTextField(
-                        width: 354,
+                      return Container(
+
+                        width:  354 ,
                         height: 30,
-                        controller: dummyCtrl,
-                        labelText: 'Select',
-                        suffixIcon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.black,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: AppSize.s8),
+                            Expanded(
+                              child: Text(
+                                "Select",
+                                style: MobileMenuText.MenuTextConst(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Icon(Icons.arrow_drop_down),
+                            ),
+                          ],
                         ),
                       );
                     }
 
                     if (snapshotZone.hasError || snapshotZone.data == null) {
-                      return dummeyTextField(
-                        width: 354,
+                      return Container(
+
+                        width:  354 ,
                         height: 30,
-                        controller: dummyCtrl,
-                        labelText: 'Select',
-                        suffixIcon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.black,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: AppSize.s8),
+                            Expanded(
+                              child: Text(
+                               "Select",
+                                style: MobileMenuText.MenuTextConst(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Icon(Icons.arrow_drop_down),
+                            ),
+                          ],
                         ),
                       );
                     }

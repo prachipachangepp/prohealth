@@ -182,6 +182,9 @@ class _CustomDialogState extends State<CustomDialog> {
                       Padding(
                         padding: EdgeInsets.only(bottom: 5.0),
                         child: IconButton(
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -591,6 +594,9 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             Padding(
                               padding: EdgeInsets.only(bottom: 5.0),
                               child: IconButton(
+                                splashColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
