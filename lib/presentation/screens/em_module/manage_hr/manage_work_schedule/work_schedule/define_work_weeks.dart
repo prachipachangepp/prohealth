@@ -482,6 +482,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 return StatefulBuilder(
                                                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                                                     return DeletePopup(
+                                                                                                      loadingDuration: _isLoading,
                                                                                                         title: DeletePopupString.deleteworkShift,
                                                                                                         onCancel: () {Navigator.pop(context);
                                                                                                         },
@@ -491,9 +492,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                           });
                                                                                                           try {
                                                                                                             await deleteWorkWeekSiftSchedule(context: context, workWeekShiftId: snapshotShift.data![index].weekShiftScheduleId!);
-                                                                                                            setState(() {
-                                                                                                               workWeekShiftScheduleGet(context, data.weekDays);
-                                                                                                            });
+                                                                                                            workWeekShiftScheduleGet(context, data.weekDays);
                                                                                                           } finally {
                                                                                                             setState(() {
                                                                                                               _isLoading = false;
