@@ -671,6 +671,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SMTextFConst(
                               controller: nameController,
@@ -711,6 +712,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SMTextFConstPhone(
                               controller: primNumController,
@@ -914,9 +916,8 @@ class _AddressInputState extends State<AddressInput> {
           text: AppStringEM.address,
         ),
         if (_suggestions.isNotEmpty)
-          Positioned(
-            // top: 10, // Adjust as needed
-            // left: 0,
+          Padding(
+            padding: const EdgeInsets.only(top:50),
             child: Container(
               height: 100,
               width: 320,
