@@ -458,7 +458,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w700, fontSize: 12),
+          style:TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -478,19 +478,16 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle?.copyWith(
-                fontSize: widget.labelFontSize,
-                color: ColorManager.mediumgrey
-            ),
+            labelStyle:TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
              errorText: hasError ? widget.errorText : null,
             suffixIcon: IconButton(
               icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),
               onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
             ),
           ),
-          inputFormatters: [
-            CapitalizeFirstLetterFormatter(),
-          ],
+          // inputFormatters: [
+          //   CapitalizeFirstLetterFormatter(),
+          // ],
         ),
       ),
     );
