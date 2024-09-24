@@ -20,6 +20,7 @@ import '../../../../../../../app/resources/establishment_resources/establishment
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/button_constant.dart';
+import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
 
@@ -88,7 +89,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
 
     setState(() {
       countyNameError = widget.countynameController.text.isEmpty
-          ? 'County field cannot be empty'
+          ? 'County Field Cannot Be Empty'
           : null;
       // zipcodeError = widget.zipcodeController!.text.isEmpty
       //     ? 'Country cannot be empty'
@@ -111,158 +112,112 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
     return isValid;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
+    return DialogueTemplate(
+
+      title: widget.title,
           width: AppSize.s407,
-          height: AppSize.s250,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
+          height: AppSize.s267,
+
+            body: [
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    controller: widget.countynameController,
+                    keyboardType: TextInputType.text,
+                    text: widget.title1,
                   ),
-                ),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 27.0),
-                      child: Text(
-                        widget.title,
-                        style:PopupBlueBarText.customTextStyle(context)
-                      ),
+                  if (countyNameError != null)
+                    Text(
+                      countyNameError!,
+                      textAlign: TextAlign.start,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: AppSize.s20),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p6,
-                  horizontal: AppPadding.p20,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  SizedBox(height: AppSize.s20),
+                  if (widget.title2 != null) ...[
                     FirstSMTextFConst(
-                      controller: widget.countynameController,
+                      inputFormated: [UpperCaseTextFormatter()],
+                      controller: widget.zipcodeController!,
                       keyboardType: TextInputType.text,
-                      text: widget.title1,
+                      text: widget.title2!,
                     ),
-                    if (countyNameError != null)
+                    if (zipcodeError != null)
                       Text(
-                        countyNameError!,
+                        zipcodeError!,
                         textAlign: TextAlign.start,
                         style: CommonErrorMsg.customTextStyle(context),
                       ),
-                    SizedBox(height: AppSize.s20),
-                    if (widget.title2 != null) ...[
-                      FirstSMTextFConst(
-                        inputFormated: [UpperCaseTextFormatter()],
-                        controller: widget.zipcodeController!,
-                        keyboardType: TextInputType.text,
-                        text: widget.title2!,
-                      ),
-                      if (zipcodeError != null)
-                        Text(
-                          zipcodeError!,
-                          textAlign: TextAlign.start,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ),
-                    ],
-                    if (widget.title3 != null) ...[
-                      SizedBox(height: AppSize.s20),
-                      FirstSMTextFConst(
-                        controller: widget.mapController!,
-                        keyboardType: TextInputType.text,
-                        text: widget.title3!,
-                      ),
-                      if (mapError != null)
-                        Text(
-                          mapError!,
-                          textAlign: TextAlign.start,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ),
-                    ],
-                    // if (widget.title4 != null &&
-                    //     widget.landmarkController != null) ...[
-                    //   SizedBox(height: AppSize.s20),
-                    //   FirstSMTextFConst(
-                    //     controller: widget.landmarkController!,
-                    //     keyboardType: TextInputType.text,
-                    //     text: widget.title4!,
-                    //   ),
-                    //   if (landmarkError != null)
-                    //     Text(
-                    //       landmarkError!,
-                    //       textAlign: TextAlign.start,
-                    //       style: GoogleFonts.firaSans(
-                    //         fontSize: FontSize.s10,
-                    //         fontWeight: FontWeight.w400,
-                    //         color: Colors.red,
-                    //         decoration: TextDecoration.none,
-                    //       ),
-                    //     ),
-                    // ],
                   ],
-                ),
-              ),
-              SizedBox(height: AppSize.s5),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: AppSize.s25,
-                        width: AppSize.s25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: widget.buttonTitle,
-                          onPressed: () async {
-                            if (validateFields()) {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              await widget.onSavePressed();
-                              setState(() {
-                                isLoading = false;
-                              });
-                            }
-                          },
-                        ),
+                  if (widget.title3 != null) ...[
+                    SizedBox(height: AppSize.s20),
+                    FirstSMTextFConst(
+                      controller: widget.mapController!,
+                      keyboardType: TextInputType.text,
+                      text: widget.title3!,
+                    ),
+                    if (mapError != null)
+                      Text(
+                        mapError!,
+                        textAlign: TextAlign.start,
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
+                  ],
+                  // if (widget.title4 != null &&
+                  //     widget.landmarkController != null) ...[
+                  //   SizedBox(height: AppSize.s20),
+                  //   FirstSMTextFConst(
+                  //     controller: widget.landmarkController!,
+                  //     keyboardType: TextInputType.text,
+                  //     text: widget.title4!,
+                  //   ),
+                  //   if (landmarkError != null)
+                  //     Text(
+                  //       landmarkError!,
+                  //       textAlign: TextAlign.start,
+                  //       style: GoogleFonts.firaSans(
+                  //         fontSize: FontSize.s10,
+                  //         fontWeight: FontWeight.w400,
+                  //         color: Colors.red,
+                  //         decoration: TextDecoration.none,
+                  //       ),
+                  //     ),
+                  // ],
+                ],
               ),
+
+
             ],
-          ),
-        ),
+      bottomButtons:  isLoading
+          ? SizedBox(
+          height: AppSize.s25,
+          width: AppSize.s25,
+          child: CircularProgressIndicator(
+            color: ColorManager.blueprime,
+          ))
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: widget.buttonTitle,
+        onPressed: () async {
+          if (validateFields()) {
+            setState(() {
+              isLoading = true;
+            });
+            await widget.onSavePressed();
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
       ),
+
+
     );
   }
 }
@@ -361,55 +316,38 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
     });
   }
 
+
+
+  String? zipcodeError;
+  bool validateFields() {
+    bool isValid = true;
+
+    setState(() {
+      zipcodeError =widget.zipcodeController.text.isEmpty
+          ? 'Zip Code Field Cannot Be Empty'
+          : null;
+
+      isValid = zipcodeError == null;
+
+    });
+
+    return isValid;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
+    return DialogueTemplate(
+
           width: AppSize.s400,
-          height: AppSize.s400,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                ),
-                height: AppSize.s40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        widget.title,
-                        style: PopupBlueBarText.customTextStyle(context)
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          height: AppSize.s420,
+         title: widget.title,
+
+            body: [
+
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppPadding.p1,
-                  horizontal: AppPadding.p20,
+                  horizontal: AppPadding.p10,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: AppPadding.p15),
@@ -650,6 +588,12 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         keyboardType: TextInputType.text,
                         text: 'Zip Code',
                       ),
+                      if (zipcodeError != null)
+                        Text(
+                          zipcodeError!,
+                          textAlign: TextAlign.start,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
                       SizedBox(height: AppSize.s15),
                       /////
                       Row(
@@ -701,63 +645,57 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: AppSize.s10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: AppStringEM.add,
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                             var response = await addZipCodeSetup(
-                            context,
-                            docZoneId,
-                            countyId,
-                            widget.officeId,
-                           "",
-                            widget.zipcodeController.text,
-                            _selectedLocation.latitude.toString(),
-                            _selectedLocation.longitude
-                                .toString(),
-                            "");
-                            print(
-                                "Saved lat long${_selectedLocation.latitude.toString()} + ${_selectedLocation.longitude.toString()}");
-                            Navigator.pop(context);
-                            // Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
-                                );
-                              },
-                            );
-                            // Navigator.pop(context);
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                        ),
-                      ),
-              ),
-            ],
-          ),
-        ),
-      ),
+
+
+            ], bottomButtons:    isLoading
+        ? SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ))
+        : CustomElevatedButton(
+      width: AppSize.s105,
+      height: AppSize.s30,
+      text: AppStringEM.add,
+      onPressed: () async {
+    if (validateFields()) {
+      setState(() {
+        isLoading = true;
+      });
+      var response = await addZipCodeSetup(
+          context,
+          docZoneId,
+          countyId,
+          widget.officeId,
+          "",
+          widget.zipcodeController.text,
+          _selectedLocation.latitude.toString(),
+          _selectedLocation.longitude
+              .toString(),
+          "");
+      print(
+          "Saved lat long${_selectedLocation.latitude
+              .toString()} + ${_selectedLocation.longitude.toString()}");
+      Navigator.pop(context);
+      // Navigator.pop(context);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CountySuccessPopup(
+            message: 'Save Successfully',
+          );
+        },
+      );
+      // Navigator.pop(context);
+      setState(() {
+        isLoading = false;
+      });
+    }
+      },
+    ),
+
+
     );
   }
 }
@@ -858,51 +796,33 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     });
   }
 
+  String? zipcodeError;
+  bool validateFields() {
+    bool isValid = true;
+
+    setState(() {
+      zipcodeError =widget.zipcodeController.text.isEmpty
+          ? 'Zip Code Field Cannot Be Empty'
+          : null;
+
+      isValid = zipcodeError == null;
+
+    });
+
+    return isValid;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
+    return DialogueTemplate(
+
+title: widget.title,
           width: AppSize.s400,
-          height: AppSize.s400,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                ),
-                height: AppSize.s40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        widget.title,
-                        style: PopupBlueBarText.customTextStyle(context)
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          height: AppSize.s450,
+
+
+            body: [
+
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppPadding.p1,
@@ -1092,6 +1012,12 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         keyboardType: TextInputType.text,
                         text: 'Zip Code',
                       ),
+                      if (zipcodeError != null)
+                        Text(
+                          zipcodeError!,
+                          textAlign: TextAlign.start,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
                       SizedBox(height: AppSize.s15),
                       Row(
                         children: [
@@ -1140,60 +1066,55 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: AppSize.s10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: AppStringEM.save,
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                             var response = await updateZipCodeSetup(context,
-                            widget.zipCodeSetupId,
-                            widget.zoneId == docZoneId ? widget.zoneId : docZoneId,
-                            widget.countyId == countyId ? widget.countyId : countyId,
-                            widget.officeId,
-                            "",
-                            widget.zipCodes == widget.zipcodeController.text ? widget.zipCodes.toString() : widget.zipcodeController.text,
-                            _selectedLocation.latitude.toString(),
-                            _selectedLocation.longitude.toString(),
-                            // "37.0902°",
-                            // "95.7129°",
-                            "");
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
-                                );
-                              },
-                            );
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                        ),
-                      ),
-              ),
+
+
             ],
-          ),
-        ),
+      bottomButtons:  isLoading
+          ? SizedBox(
+          height: 25,
+          width: 25,
+          child: CircularProgressIndicator(
+            color: ColorManager.blueprime,
+          ))
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.save,
+        onPressed: () async {
+    if (validateFields()) {
+      setState(() {
+        isLoading = true;
+      });
+      var response = await updateZipCodeSetup(
+          context,
+          widget.zipCodeSetupId,
+          widget.zoneId == docZoneId ? widget.zoneId : docZoneId,
+          widget.countyId == countyId ? widget.countyId : countyId,
+          widget.officeId,
+          "",
+          widget.zipCodes == widget.zipcodeController.text ? widget.zipCodes
+              .toString() : widget.zipcodeController.text,
+          _selectedLocation.latitude.toString(),
+          _selectedLocation.longitude.toString(),
+          // "37.0902°",
+          // "95.7129°",
+          "");
+      Navigator.pop(context);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CountySuccessPopup(
+            message: 'Save Successfully',
+          );
+        },
+      );
+      setState(() {
+        isLoading = false;
+      });
+    }
+        },
       ),
+
     );
   }
 }
@@ -1318,146 +1239,97 @@ class _AddZonePopupState extends State<AddZonePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
+    return DialogueTemplate(
+     title: widget.title,
           width: AppSize.s400,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
+          height: 350,
+            body: [
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    controller: widget.zoneNumberController,
+                    keyboardType: TextInputType.text,
+                    text: 'Zone Number',
                   ),
-                ),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  if (zoneNumberError != null)
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
+                      padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
-                        widget.title,
-                        style: PopupBlueBarText.customTextStyle(context)
+                        zoneNumberError!,
+                        style:CommonErrorMsg.customTextStyle(context)
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: ColorManager.white,
+                  SizedBox(height: AppSize.s10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FirstSMTextFConst(
+                        enable: false,
+                        controller: widget.countyNameController,
+                        keyboardType: TextInputType.text,
+                        text: AppString.county,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p15,
-                  horizontal: AppPadding.p20,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FirstSMTextFConst(
-                      controller: widget.zoneNumberController,
-                      keyboardType: TextInputType.text,
-                      text: 'Zone Number',
-                    ),
-                    if (zoneNumberError != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          zoneNumberError!,
-                          style:CommonErrorMsg.customTextStyle(context)
-                        ),
-                      ),
-                    SizedBox(height: AppSize.s10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FirstSMTextFConst(
-                          enable: false,
-                          controller: widget.countyNameController,
-                          keyboardType: TextInputType.text,
-                          text: AppString.county,
-                        ),
-                        // Text(
-                        //   AppString.county,
-                        //   style: GoogleFonts.firaSans(
-                        //     fontSize: FontSize.s12,
-                        //     fontWeight: FontWeightManager.bold,
-                        //     color: ColorManager.mediumgrey,
-                        //     //decoration: TextDecoration.none,
-                        //   ),
-                        // ),
-                        // SizedBox(height: AppSize.s5),
-                        // widget.child!,
-                        if (countyError != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: Text(
-                              countyError!,
-                              style: CommonErrorMsg.customTextStyle(context)
-                            ),
+                      // Text(
+                      //   AppString.county,
+                      //   style: GoogleFonts.firaSans(
+                      //     fontSize: FontSize.s12,
+                      //     fontWeight: FontWeightManager.bold,
+                      //     color: ColorManager.mediumgrey,
+                      //     //decoration: TextDecoration.none,
+                      //   ),
+                      // ),
+                      // SizedBox(height: AppSize.s5),
+                      // widget.child!,
+                      if (countyError != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            countyError!,
+                            style: CommonErrorMsg.customTextStyle(context)
                           ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: AppPadding.p24, top: AppPadding.p14),
-                child: isLoading
-                    ? SizedBox(
-                        height: AppSize.s25,
-                        width: AppSize.s25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
-                    : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: widget.buttonTitle,
-                          onPressed: () async {
-                            if (validateFields()) {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              await widget.onSavePressed();
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return CountySuccessPopup(
-                                    message: 'Save Successfully',
-                                  );
-                                },
-                              );
-                              setState(() {
-                                isLoading = false;
-                              });
-                            }
-                          },
                         ),
-                      ),
+                    ],
+                  ),
+                ],
               ),
+
             ],
-          ),
-        ),
+      bottomButtons: isLoading
+          ? SizedBox(
+          height: AppSize.s25,
+          width: AppSize.s25,
+          child: CircularProgressIndicator(
+            color: ColorManager.blueprime,
+          ))
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: widget.buttonTitle,
+        onPressed: () async {
+          if (validateFields()) {
+            setState(() {
+              isLoading = true;
+            });
+            await widget.onSavePressed();
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CountySuccessPopup(
+                  message: 'Save Successfully',
+                );
+              },
+            );
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
       ),
+
     );
   }
 }
