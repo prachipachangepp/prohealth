@@ -55,9 +55,7 @@ class AddOfficeSumbitButton extends StatefulWidget {
 }
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
-
-
- /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
   bool isLoading = false;
 
   List<String> _suggestions = [];
@@ -69,7 +67,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
 
   @override
   void dispose() {
-   // widget.addressController.removeListener(_onCountyNameChanged);
+    // widget.addressController.removeListener(_onCountyNameChanged);
     super.dispose();
   }
 
@@ -80,21 +78,41 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       });
       return;
     }
-    else{
+    final suggestions = await fetchSuggestions(widget.addressController.text);
+    if (suggestions[0] == widget.addressController.text) {
       setState(() {
         _suggestions.clear();
       });
-
+    } else if (widget.addressController.text.isEmpty) {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    } else {
+      setState(() {
+        _suggestions = suggestions;
+      });
     }
-
-    final suggestions = await fetchSuggestions(widget.addressController.text);
-    setState(() {
-      _suggestions = suggestions;
-    });
   }
 
-
-
+  // void _onCountyNameChanged() async {
+  //   if (widget.addressController.text.isEmpty) {
+  //     setState(() {
+  //       _suggestions = [];
+  //     });
+  //     return;
+  //   }
+  //   else{
+  //     setState(() {
+  //       _suggestions.clear();
+  //     });
+  //
+  //   }
+  //
+  //   final suggestions = await fetchSuggestions(widget.addressController.text);
+  //   setState(() {
+  //     _suggestions = suggestions;
+  //   });
+  // }
 
 /////////////////////////////////////////////////////////////////////////////
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
@@ -265,7 +283,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                               ),
                             ),
                           ),
-                        const SizedBox(height: AppSize.s14),
+                        const SizedBox(height: AppSize.s15),
                         Text(
                           'Services',
                           style: AllPopupHeadings.customTextStyle(context),
@@ -331,7 +349,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       children: [
                         const SizedBox(height: AppSize.s7),
                         SMTextFConst(
-
                           controller: widget.addressController,
                           keyboardType: TextInputType.streetAddress,
                           text: AppString.officeaddress,
@@ -399,7 +416,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                               ),
                             ),
                           ),
-                        const SizedBox(height: AppSize.s30),
+                        const SizedBox(height: AppSize.s13),
                         Row(
                           children: [
                             TextButton(
@@ -461,14 +478,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             style: AllPopupHeadings.customTextStyle(context),
                           ),
                           onTap: () {
-
-                             FocusScope.of(context).unfocus(); // Dismiss the keyboard
+                            FocusScope.of(context)
+                                .unfocus(); // Dismiss the keyboard
                             String selectedSuggestion = _suggestions[index];
                             widget.addressController.text = selectedSuggestion;
 
                             setState(() {
-                            _suggestions.clear();
-                             //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                              _suggestions.clear();
+                              //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
                             });
                           },
                         );
