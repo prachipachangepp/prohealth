@@ -350,32 +350,36 @@ class _EducationFormState extends State<EducationForm> {
                             'Graduate',
                             style: onlyFormDataStyle.customTextStyle(context),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                  child: CustomRadioListTile(
-                                    title: 'Yes',
-                                    value: 'Yes',
-                                    groupValue: graduatetype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        graduatetype = value;
-                                      });
-                                    },
-                                  )),
-                              Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'No',
-                                  value: 'No',
-                                  groupValue: graduatetype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      graduatetype = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
+                          StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return Row(
+                                children: [
+                                  Expanded(
+                                      child: CustomRadioListTile(
+                                        title: 'Yes',
+                                        value: 'Yes',
+                                        groupValue: graduatetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            graduatetype = value;
+                                          });
+                                        },
+                                      )),
+                                  Expanded(
+                                    child: CustomRadioListTile(
+                                      title: 'No',
+                                      value: 'No',
+                                      groupValue: graduatetype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          graduatetype = value;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
@@ -538,41 +542,45 @@ class _EducationFormState extends State<EducationForm> {
               value: i.degree,
             ));
           }
-          return Container(
-            height: 32,
-            // margin: EdgeInsets.symmetric(horizontal: 20),
-            padding:
-            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                  color: const Color(0xff686464).withOpacity(0.5),
-                  width: 1), // Black border
-              borderRadius:
-              BorderRadius.circular(6), // Rounded corners
-            ),
-            child: DropdownButtonFormField<String>(
-              focusColor: Colors.transparent,
-              icon: const Icon(
-                Icons.arrow_drop_down_sharp,
-                color: Color(0xff686464),
-              ),
-              decoration: const InputDecoration.collapsed(hintText: ''),
-              items: dropDownList,
-              onChanged: (newValue) {
-                for(var a in snapshot.data!){
-                  if(a.degree == newValue){
-                    selectedDegree = a.degree;
-                    degreeID = a.degreeId;
-                    selectedDegreeId = degreeID;
-                    print("Degree :: ${selectedDegree}");
-                    //empTypeId = docType;
-                  }
-                }
-              },
-              value: dropDownList[0].value,
-              style: onlyFormDataStyle.customTextStyle(context)
-            ),
+          return StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Container(
+                height: 32,
+                // margin: EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                      color: const Color(0xff686464).withOpacity(0.5),
+                      width: 1), // Black border
+                  borderRadius:
+                  BorderRadius.circular(6), // Rounded corners
+                ),
+                child: DropdownButtonFormField<String>(
+                    focusColor: Colors.transparent,
+                    icon: const Icon(
+                      Icons.arrow_drop_down_sharp,
+                      color: Color(0xff686464),
+                    ),
+                    decoration: const InputDecoration.collapsed(hintText: ''),
+                    items: dropDownList,
+                    onChanged: (newValue) {
+                      for(var a in snapshot.data!){
+                        if(a.degree == newValue){
+                          selectedDegree = a.degree;
+                          degreeID = a.degreeId;
+                          selectedDegreeId = degreeID;
+                          print("Degree :: ${selectedDegree}");
+                          //empTypeId = docType;
+                        }
+                      }
+                    },
+                    value: dropDownList[0].value,
+                    style: onlyFormDataStyle.customTextStyle(context)
+                ),
+              );
+            },
           );
         } else {
           return CustomDropdownTextField(

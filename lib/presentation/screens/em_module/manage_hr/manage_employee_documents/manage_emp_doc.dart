@@ -115,7 +115,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
         children: [
           Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 24,
+                      horizontal: AppPadding.p75,
                       vertical: AppPadding.p20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -222,6 +222,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.422,
@@ -348,6 +351,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         // metaDocID = snapshot.data![index].employeeDocMetaDataId;
                       }),
                   InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,

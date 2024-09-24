@@ -111,11 +111,11 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   String getDocTypeText(int DocId) {
     switch (DocId) {
       case AppConfig.corporateAndCompliance:
-        return AppString.corporateAndComplianceDocuments;
+        return AppStringEM.corporateAndComplianceDocuments;
       case AppConfig.policiesAndProcedure:
-        return AppString.policiesAndProcedures;
+        return AppStringEM.policiesAndProcedures;
       case AppConfig.vendorContracts:
-        return AppString.vendorContracts;
+        return AppStringEM.vendorContracts;
       default:
         return "Unknown Document Type";
     }
@@ -136,7 +136,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
           height: 20,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60.0),
+          padding: const EdgeInsets.symmetric(horizontal: 45.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -159,6 +159,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                     children: [
                       Expanded(
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
                             onTap: () {
                               _selectButton(0);
                             },
@@ -173,7 +176,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               ),
                               child: Center(
                                 child: Text(
-                                  AppString.corporateAndComplianceDocuments,
+                                  AppStringEM.corporateAndComplianceDocuments,
                                   style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
                                 ),
                               ),
@@ -181,6 +184,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                           )),
                       Expanded(
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
                             onTap: () {
                               _selectButton(1);
                             },
@@ -195,7 +201,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               ),
                               child: Center(
                                 child: Text(
-                                  AppString.vendorContracts,
+                                  AppStringEM.vendorContracts,
                                   style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
                                 ),
                               ),
@@ -203,6 +209,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                           )),
                       Expanded(
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
                             onTap: () {
                               _selectButton(2);
                             },
@@ -217,7 +226,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               ),
                               child: Center(
                                 child: Text(
-                                  AppString.policiesAndProcedures,
+                                  AppStringEM.policiesAndProcedures,
                                   style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
                                 ),
                               ),

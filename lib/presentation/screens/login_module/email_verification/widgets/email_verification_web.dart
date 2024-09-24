@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
@@ -28,7 +25,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
 
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
-
   Future<void> _verifyOTPAndLogin() async {
     setState(() {
       _isVerifyingOTP = true;
@@ -54,6 +50,23 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     }
   }
 
+  Future<void> _getOtpByEmail() async {
+    try {
+      ApiData response = await AuthManager.getOTP(widget.email, context);
+      print(
+          "Response::::::::${response.data}+${response.statusCode}+${response.message}");
+      if (response.success) {
+        print('Resend OTP is {${response.data}');
+      } else {
+        setState(() {
+          _errorMessage = response.message;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
 
   @override
@@ -66,7 +79,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     }
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -92,18 +104,21 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
               children: [
                 Text(
                   AppString.enter6digitcode,
-                  style: CodeVerficationText.VerifyCode(context),),
+                  style: CodeVerficationText.VerifyCode(context),
+                ),
+
                 ///txtfield
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     6,
-                        (index) {
+                    (index) {
                       return Container(
                         width: MediaQuery.of(context).size.width / 45,
                         height: MediaQuery.of(context).size.height / 19,
                         margin: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width / 150),
+                            horizontal:
+                                MediaQuery.of(context).size.width / 150),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(2.26),
                           border: Border.all(
@@ -114,12 +129,15 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                         child: Focus(
                           onKey: (node, event) {
                             if (event is RawKeyDownEvent) {
-                              if (event.logicalKey == LogicalKeyboardKey.backspace) {
-                                if (_otpControllers[index].text.isEmpty && index > 0) {
+                              if (event.logicalKey ==
+                                  LogicalKeyboardKey.backspace) {
+                                if (_otpControllers[index].text.isEmpty &&
+                                    index > 0) {
                                   // Clear current field and move focus to previous field
                                   _focusNodes[index].unfocus();
                                   _otpControllers[index].clear();
-                                  FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
+                                  FocusScope.of(context)
+                                      .requestFocus(_focusNodes[index - 1]);
                                   return KeyEventResult.handled;
                                 }
                               }
@@ -135,7 +153,8 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                             cursorWidth: 2,
                             cursorRadius: const Radius.circular(1),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]')),
                             ],
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
@@ -152,7 +171,8 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                             onChanged: (value) {
                               if (value.isNotEmpty && index < 5) {
                                 // Move focus to the next field
-                                FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+                                FocusScope.of(context)
+                                    .requestFocus(_focusNodes[index + 1]);
                               } else if (value.isNotEmpty && index == 5) {
                                 // Last field, perform action (e.g., verify OTP)
                                 _verifyOTPAndLogin();
@@ -164,6 +184,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     },
                   ),
                 ),
+
                 ///didnt receive code
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -171,12 +192,15 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     Text(AppString.didntrecieveCode,
                         style: CodeVerficationText.VerifyCode(context)),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _getOtpByEmail();
+                      },
                       child: Text(AppString.resend,
                           style: LoginFlowText.customTextStyle(context)),
                     )
                   ],
                 ),
+
                 ///button
                 CustomButton(
                   borderRadius: 24,
@@ -195,12 +219,11 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                       style: LoginFlowErrorMsg.customTextStyle(context),
                     ),
                   ),
+
                 ///bottomtxt
                 InkWell(
-                  child: Text(
-                    AppString.donthaveauth,
-                    style: LoginFlowText.customTextStyle(context)
-                  ),
+                  child: Text(AppString.donthaveauth,
+                      style: LoginFlowText.customTextStyle(context)),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -232,6 +255,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     );
   }
 }
+
 ///
 // Row(
 //   mainAxisAlignment: MainAxisAlignment.center,

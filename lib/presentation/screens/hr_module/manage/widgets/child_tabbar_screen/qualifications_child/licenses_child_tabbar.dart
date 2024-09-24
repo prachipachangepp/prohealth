@@ -217,7 +217,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                   child: Text(
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w600,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey),
                   ));
@@ -260,11 +260,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   Text(
                                     'License #${index + 1}',
                                     // 'License #${snapshot.data![index].licenseId}',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 13,
-                                      color: Color(0xFF333333),
-                                      fontWeight: FontWeightManager.medium,
-                                    ),),
+                                    style:BoxHeadingStyle.customTextStyle(context)),
                                 ],
                               ),
                                Row(

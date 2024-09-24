@@ -52,12 +52,13 @@ class ManageScreen extends StatefulWidget {
   final int employeeId;
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final PageController pageManageController;
+  final int? employeeEnrollId;
 
   ManageScreen({
     super.key,
     this.searchByEmployeeIdProfileData,
     required this.employeeId,
-    required this.pageManageController,
+    required this.pageManageController,  this.employeeEnrollId,
   });
 
   @override
@@ -85,6 +86,7 @@ class _ManageScreenState extends State<ManageScreen> {
                         });
                       },
                       employeeId: widget.employeeId,
+                // employeeEnrollId: widget.employeeEnrollId!,
                     )
                   : ListView(
                       scrollDirection: Axis.vertical,
@@ -118,7 +120,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                     borderRadius: BorderRadius.circular(13)),
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 labelColor: Color(0xFF50B5E5),
-                                labelStyle: GoogleFonts.firaSans(
+                                labelStyle: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -163,7 +165,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 ],
                                               ),
                                               height: 30,
-                                              width: 620.0,
+                                              width: 640.0,
                                               child: TabBar(
                                                 isScrollable: false,
                                                 tabs: [
@@ -178,30 +180,25 @@ class _ManageScreenState extends State<ManageScreen> {
                                                     boxShadow: [
                                                       BoxShadow(
                                                         // color: Colors.black.withOpacity(0.2),
-                                                        color: Colors.black
-                                                            .withOpacity(0.2),
+                                                        color: Colors.black.withOpacity(0.2),
                                                         spreadRadius: 1,
                                                         blurRadius: 5,
                                                         offset: Offset(0, 3),
                                                       ),
                                                     ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50), // Creates border
+                                                    borderRadius: BorderRadius.circular(50), // Creates border
                                                     color: Colors.white),
-                                                indicatorSize:
-                                                    TabBarIndicatorSize.tab,
+                                                indicatorSize: TabBarIndicatorSize.tab,
                                                 indicatorColor: Colors.white,
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
-                                                    GoogleFonts.firaSans(
+                                                    TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                 ),
-                                                labelStyle:
-                                                    GoogleFonts.firaSans(
+                                                labelStyle: TextStyle(
                                                   fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                                 unselectedLabelColor:
                                                     Colors.white,
@@ -314,14 +311,14 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 indicatorColor: Colors.white,
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
-                                                    GoogleFonts.firaSans(
+                                                    TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                                 labelStyle:
-                                                    GoogleFonts.firaSans(
+                                                TextStyle(
                                                   fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                                 unselectedLabelColor:
                                                     Colors.white,

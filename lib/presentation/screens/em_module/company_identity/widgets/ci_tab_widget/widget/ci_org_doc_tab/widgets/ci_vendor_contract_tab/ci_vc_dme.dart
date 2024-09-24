@@ -100,7 +100,7 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.vendorContracts,
+                          docTypeText: AppStringEM.vendorContracts,
                           subDocTypeText: AppStringEM.dme,
                         );
                       },

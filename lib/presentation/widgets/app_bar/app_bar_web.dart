@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -9,6 +10,7 @@ import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/value_manager.dart';
 import '../../screens/home_module/home_screen.dart';
+import '../../screens/login_module/login/login_screen.dart';
 import '../widgets/const_appbar/controller.dart';
 
 class AppBarWeb extends StatefulWidget {
@@ -448,8 +450,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 3),
+                                          // padding: const EdgeInsets.symmetric(
+                                          //     horizontal: 5, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.notifications_none_outlined,
@@ -461,7 +463,7 @@ class _AppBarWebState extends State<AppBarWeb> {
 
                                       SizedBox(
                                           width: AppSize
-                                              .s15), //width between the notifications_none_outlined & settings_outlined icon
+                                              .s15),
 
                                       AppClickableWidget(
                                         onTap: () {},
@@ -481,45 +483,69 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   ),
                                 ),
 
-                                // SizedBox(
-                                //   width: MediaQuery.of(context).size.width / 50,
-                                // ),
                                 Expanded(
                                   flex: 2,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.white,
+                                      PopupMenuButton<int>(
+                                        icon: Icon(
+                                          Icons.person,
+                                          // size: 10,
+                                          color: Colors.white,
+                                        ),
+                                        onSelected: (value) {
+                                          if (value == 1) {
+                                            print("User logged out");
+                                           showDialog(context: context, builder: (context) =>
+                                               DeletePopup(onCancel: (){
+                                             Navigator.pop(context);
+                                           }, onDelete: (){
+                                             TokenManager.removeAccessToken();
+                                             Navigator.pushNamedAndRemoveUntil(
+                                                 context,
+                                                 LoginScreen.routeName,
+                                                     (route) => false);
+                                           },
+                                             btnText: "Log Out",
+                                             title: "Log Out",text: "Do you really want to logout?",));
+                                          }
+                                        },
+                                        itemBuilder: (context) => [
+                                          PopupMenuItem<int>(
+                                            value: 1,
+                                            child: ListTile(
+                                              leading: Icon(Icons.logout, color: Colors.black),
+                                              title: Text('Logout'),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(height: AppSize.s2),
+                                     // const SizedBox(height: AppSize.s2),
                                       FutureBuilder(
-                                          future: user(),
-                                          builder: (context, snap) {
-                                            if (snap.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return SizedBox();
-                                            }
-                                            return Text(
-                                              loginName!,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: FontSize.s8,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            );
-                                          }),
+                                        future: user(),
+                                        builder: (context, snap) {
+                                          if (snap.connectionState == ConnectionState.waiting) {
+                                            return SizedBox(height: 1,);
+                                          }
+                                          return Text(
+                                            loginName!,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: FontSize.s8,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
                           )
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width / 30,
-                          // ),
                         ],
                       ),
                     ),

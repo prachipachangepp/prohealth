@@ -33,7 +33,7 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
               ReminderThreshold: item['ReminderThreshold'] ?? '--',
             Expiry: item['Expiry'] ?? '--',
             DocumentType: item['DocumentType'] ?? '--',
-              approved: item['approved'])
+              approved: item['approved'], idOfTheDocument: item['idOfDocument']??"--")
            );
         print(".....Get ack Health......$response");
       }

@@ -301,7 +301,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                 width: MediaQuery.of(context).size.width / 9,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(right: 10),
                 child: CustomIconButton(
                     icon: CupertinoIcons.plus,
                     text: "Add Document",

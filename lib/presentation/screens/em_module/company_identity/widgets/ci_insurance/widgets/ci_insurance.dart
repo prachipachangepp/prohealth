@@ -160,7 +160,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                 ///tabbar
                 Padding(
-                  padding: const EdgeInsets.only(right: 250,top: AppPadding.p10),
+                  padding: const EdgeInsets.only(right: 230,top: AppPadding.p10),
                   child: Container(
                    // color: Colors.red,
                     width: MediaQuery.of(context).size.width / 10.2,
@@ -252,7 +252,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             }),
                       )
                     : Padding(
-                      padding: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(right: 10),
                       child: CustomIconButtonConst(
                           width: 130,
                           icon: Icons.add,

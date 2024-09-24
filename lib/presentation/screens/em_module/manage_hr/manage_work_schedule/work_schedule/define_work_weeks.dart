@@ -236,64 +236,64 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 15),
-                                                    child: Container(
-                                                        height: mediaQuery.height / 23,
-                                                        width: mediaQuery.width / 50,
-                                                        decoration: BoxDecoration(
-                                                            color: ColorManager.blueprime,
-                                                            borderRadius: BorderRadius.circular(5)),
-                                                        child: InkWell(
-                                                            onTap: () {
-                                                              showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                                    return DeletePopup(
-                                                                        title: DeletePopupString.deleteworkWeek,
-                                                                        onCancel:
-                                                                            () {
-                                                                          Navigator.pop(context);
-                                                                            },
-                                                                        onDelete:
-                                                                            () async{
-                                                                              setState(() {
-                                                                                _isLoading = true;
-                                                                              });
-                                                                              try {
-                                                                                await deleteWorkWeekSchedule(context, snapshot.data![index].weekScheduleId);
-                                                                                setState(() async {
-                                                                                  await workWeekScheduleGet(context).then((data) {
-                                                                                    workWeekController.add(data);
-                                                                                  }).catchError((error) {
-                                                                                    // Handle error
-                                                                                  });
-                                                                                  Navigator.pop(context);
-                                                                                });
-                                                                              } finally {
-                                                                                setState(() {
-                                                                                  _isLoading = false;
-                                                                                });
-                                                                              }
-                                                                            });
-                                                                  });
-                                                            },
-                                                            child: Icon(
-                                                              Icons
-                                                                  .delete_outline,
-                                                              color:
-                                                                  ColorManager
-                                                                      .white,
-                                                              size: mediaQuery
-                                                                      .width /
-                                                                  70,
-                                                            ))),
-                                                  )
+                                                  // Padding(
+                                                  //   padding:
+                                                  //       const EdgeInsets.only(
+                                                  //           left: 15),
+                                                  //   child: Container(
+                                                  //       height: mediaQuery.height / 23,
+                                                  //       width: mediaQuery.width / 50,
+                                                  //       decoration: BoxDecoration(
+                                                  //           color: ColorManager.blueprime,
+                                                  //           borderRadius: BorderRadius.circular(5)),
+                                                  //       child: InkWell(
+                                                  //           onTap: () {
+                                                  //             showDialog(
+                                                  //                 context:
+                                                  //                     context,
+                                                  //                 builder:
+                                                  //                     (BuildContext
+                                                  //                         context) {
+                                                  //                   return DeletePopup(
+                                                  //                       title: DeletePopupString.deleteworkWeek,
+                                                  //                       onCancel:
+                                                  //                           () {
+                                                  //                         Navigator.pop(context);
+                                                  //                           },
+                                                  //                       onDelete:
+                                                  //                           () async{
+                                                  //                             setState(() {
+                                                  //                               _isLoading = true;
+                                                  //                             });
+                                                  //                             try {
+                                                  //                               await deleteWorkWeekSchedule(context, snapshot.data![index].weekScheduleId);
+                                                  //                               setState(() async {
+                                                  //                                 await workWeekScheduleGet(context).then((data) {
+                                                  //                                   workWeekController.add(data);
+                                                  //                                 }).catchError((error) {
+                                                  //                                   // Handle error
+                                                  //                                 });
+                                                  //                                 Navigator.pop(context);
+                                                  //                               });
+                                                  //                             } finally {
+                                                  //                               setState(() {
+                                                  //                                 _isLoading = false;
+                                                  //                               });
+                                                  //                             }
+                                                  //                           });
+                                                  //                 });
+                                                  //           },
+                                                  //           child: Icon(
+                                                  //             Icons
+                                                  //                 .delete_outline,
+                                                  //             color:
+                                                  //                 ColorManager
+                                                  //                     .white,
+                                                  //             size: mediaQuery
+                                                  //                     .width /
+                                                  //                 70,
+                                                  //           ))),
+                                                  // )
                                                 ],
                                               ),
                                             ),

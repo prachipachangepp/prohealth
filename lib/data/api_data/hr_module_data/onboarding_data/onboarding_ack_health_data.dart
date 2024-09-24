@@ -9,9 +9,10 @@ class OnboardingAckHealthData {
   final String DocumentUrl;
   final int employeeDocumentId;
   final int employeeId;
+  final String idOfTheDocument;
   bool? approved;
 
-  OnboardingAckHealthData({
+  OnboardingAckHealthData({required this.idOfTheDocument,
     required this.DocumentName,
     required this.employeeDocumentId,
     required this.EmployeeDocumentTypeMetaDataId,

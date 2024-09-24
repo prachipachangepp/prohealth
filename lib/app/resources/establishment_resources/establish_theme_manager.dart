@@ -50,13 +50,22 @@ class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
-      fontSize: FontSize.s11,
+      fontSize: FontSize.s10,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
   }
 }
 
+class PopupCompStyle{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+    );
+  }
+}
 ///details screen office name
 class CompanyIdentityManageHeadings {
   static TextStyle customTextStyle(BuildContext context) {

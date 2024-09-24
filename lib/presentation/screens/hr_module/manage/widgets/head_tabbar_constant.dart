@@ -21,7 +21,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-             // color: Colors.green,
+              // color: Colors.green,
               child: TabBar(
                 controller: controller.tabController,
                 tabs: controller.tabs,
@@ -35,9 +35,9 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
                     borderRadius: BorderRadius.circular(13)),
                 indicatorSize: TabBarIndicatorSize.tab,
                 labelColor: ColorManager.calandercolour,
-                labelStyle: GoogleFonts.firaSans(
+                labelStyle: TextStyle(
                   fontSize: FontSize.s12,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                 ),
                 unselectedLabelColor: ColorManager.textPrimaryColor,
                 dividerColor: Colors.transparent,

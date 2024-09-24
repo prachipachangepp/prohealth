@@ -161,11 +161,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               Text(
                                 'References #${index + 1}',
                                 // 'References #${snapshot.data![index].referenceId}',
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 13,
-                                  color: Color(0xFF333333),
-                                  fontWeight: FontWeightManager.medium,
-                                ),),
+                                style:BoxHeadingStyle.customTextStyle(context),),
                             ],
                           ),
                           // SizedBox(height: MediaQuery.of(context).size.height/50,),

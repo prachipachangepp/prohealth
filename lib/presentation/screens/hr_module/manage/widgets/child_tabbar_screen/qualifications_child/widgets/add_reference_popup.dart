@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
@@ -91,12 +92,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                         vertical: 15, horizontal: 15),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: PopupHeadingStyle.customTextStyle(context)
                     ),
                   ),
                   IconButton(
@@ -104,9 +100,9 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                       Navigator.pop(context);
                       _clearControllers();
                     },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
+                    icon: Icon(
+                        Icons.close,
+                        color: IconColorManager.white
                     ),
                   ),
                 ],

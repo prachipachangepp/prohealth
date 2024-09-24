@@ -9,11 +9,13 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/employee_doc_repository.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -119,7 +121,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                 child: Text(
                   AppString.dataNotFound,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w700,
                     fontSize: FontSize.s12,
                     color: ColorManager.mediumgrey,
                   ),
@@ -204,16 +206,11 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('ID:${health.employeeDocumentId}',
+                                      Text('ID:${health.idOfTheDocument}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
                                       Text(health.DocumentName,
-                                          style:TextStyle(
-                                            fontFamily: 'FiraSans',
-                                            fontSize: 10,
-                                            color: Color(0xFF686464),
-                                            fontWeight: FontWeight.w700,
-                                          )),
+                                          style: AknowledgementStyleNormal.customTextStyle(context)),
                                     ],
                                   )
                                 ],
@@ -258,15 +255,12 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                   ///
                                   IconButton(
                                     onPressed: () {
-
-
-
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
 
-                                            return FutureBuilder<List<EmployeeDocSetupModal>>(
-                                                future: getEmployeeDocSetupDropDown(context),
+                                            return FutureBuilder<EmployeeDocumentPrefillData>(
+                                                future: getPrefillEmployeeDocuments( context: context, empDocumentId: health.employeeDocumentId),
                                                 builder: (contex, snapshot) {
                                                   if (snapshot.connectionState ==
                                                       ConnectionState.waiting) {
@@ -274,9 +268,16 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                                         child: CircularProgressIndicator());
                                                   }
                                                   if (snapshot.hasData) {
-
                                                     return CustomDocumedEditPopup(
-                                                      labelName: 'Edit Health Record', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                      labelName: 'Edit Health Record',
+                                                      employeeId: widget.employeeId,
+                                                      docName: health.DocumentName,
+                                                      docMetaDataId: health.EmployeeDocumentTypeMetaDataId,
+                                                      docSetupId: health.EmployeeDocumentTypeSetupId,
+                                                      empDocumentId: health.employeeDocumentId,
+                                                      selectedExpiryType: health.ReminderThreshold,
+                                                      expiryDate: health.Expiry,
+                                                      url: health.DocumentUrl,
                                                     );
 
 
@@ -314,19 +315,12 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     onPressed: () async{
                                       await showDialog(context: context,
                                           builder: (context) => DeletePopup(
-                                            title: 'Delete Vaccine',
+                                            title: 'Delete Health',
                                               onCancel: (){
                                                 Navigator.pop(context);
                                               }, onDelete: (){
                                             setState(() async{
-                                              await employeedoctypeSetupIdDelete(
-                                                  context,
-                                                  snapshot.data![index].employeeDocumentId);
-                                              getAckHealthRecord(context, 1,1,widget.employeeId,'no').then((data) {
-                                                _controller.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
+                                              await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
                                               Navigator.pop(context);
                                             });
                                           },

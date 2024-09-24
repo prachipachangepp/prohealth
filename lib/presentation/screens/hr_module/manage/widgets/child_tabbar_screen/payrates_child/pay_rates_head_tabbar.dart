@@ -92,43 +92,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       }).toList(),
                     ),
                   ),
-///
-                  // Container(
-                  //   height: 25,
-                  //   width: 200,
-                  //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  //   decoration: BoxDecoration(
-                  //       color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(25),
-                  //     border: Border.all(color: const Color(0xff44435E)),
-                  //   ),
-                  //   child: DropdownButton<String>(
-                  //     value: selectedValue,
-                  //     icon: const Padding(
-                  //       padding: EdgeInsets.only(left: 80.0),
-                  //       child: Icon(Icons.arrow_drop_down),
-                  //     ),
-                  //     iconSize: 24,
-                  //     elevation: 16,
-                  //     style: GoogleFonts.firaSans(
-                  //         color: const Color(0xff43425D),
-                  //         fontSize: 12,
-                  //         fontWeight: FontWeight.w500),
-                  //     underline: const SizedBox(),
-                  //     onChanged: (String? newValue) {
-                  //       setState(() {
-                  //         selectedValue = newValue!;
-                  //       });
-                  //     },
-                  //     items: <String>['Per visit', 'Per hour', 'Per day']
-                  //         .map<DropdownMenuItem<String>>((String value) {
-                  //       return DropdownMenuItem<String>(
-                  //         value: value,
-                  //         child: Text(value),
-                  //       );
-                  //     }).toList(),
-                  //   ),
-                  // ),
+
                 ),
               ],
             ),
@@ -152,12 +116,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       child: Center(
                         child: Text(
                           AppString.znNo,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          ),
+                        style: EquipmentStyleHeading.customTextStyle(context)
                         ),
                       ),
                     ),
@@ -165,34 +124,19 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                     Expanded(
                       child: Center(
                         child: Text('Type of Visit',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
+                            style: EquipmentStyleHeading.customTextStyle(context)),
                       ),
                     ),
                     Expanded(
                       child: Center(
                         child: Text('Rate',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
+                            style: EquipmentStyleHeading.customTextStyle(context)),
                       ),
                     ),
                     Expanded(
                       child: Center(
                         child: Text('Action',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
+                            style: EquipmentStyleHeading.customTextStyle(context)),
                       ),
                     ),
                   ],
@@ -226,7 +170,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       child: Text(
                         AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w700,
                           fontSize: FontSize.s12,
                           color: ColorManager.mediumgrey,
                         ),
@@ -281,12 +225,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   "${payRates.zoneId}",
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -295,12 +234,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   payRates.visitType,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: const Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
@@ -308,12 +242,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                               child: Center(
                                                 child: Text(
                                                   "${payRates.payRates}",
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
+                                                    style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
                                             ),
