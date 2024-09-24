@@ -298,25 +298,10 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                 .officeId,
                                                                             widget
                                                                                 .companyID);
-                                                                        getZoneByCounty(
-                                                                                context,
-                                                                                widget
-                                                                                    .officeId,
-                                                                                25,
-                                                                                1,
-                                                                                20)
-                                                                            .then(
-                                                                                (data) {
-                                                                          _zoneController
-                                                                              .add(
-                                                                                  data);
-                                                                        }).catchError(
-                                                                                (error) {});
                                                                         zoneNumberController
                                                                             .clear();
                                                                         countyId = 0;
                                                                       },
-
                                                                       child: FutureBuilder<
                                                                           List<AllCountyGetList>>(
                                                                           future: getCountyZoneList(

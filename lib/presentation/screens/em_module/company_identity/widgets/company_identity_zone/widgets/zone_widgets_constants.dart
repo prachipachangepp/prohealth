@@ -1222,7 +1222,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
     setState(() {
       // Validate zone number field
       zoneNumberError = widget.zoneNumberController.text.isEmpty
-          ? 'Zone number cannot be empty'
+          ? 'Zone Name cannot be empty'
           : null;
 
       // Validate dropdown (assuming 'Select County' is the default unselected value)
@@ -1252,7 +1252,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                   FirstSMTextFConst(
                     controller: widget.zoneNumberController,
                     keyboardType: TextInputType.text,
-                    text: 'Zone Number',
+                    text: 'Zone Name',
                   ),
                   if (zoneNumberError != null)
                     Padding(
