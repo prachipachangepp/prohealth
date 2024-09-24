@@ -271,7 +271,7 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                       style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: AppSize.s5),
-                    widget.child,
+                    // widget.child,
                   ],
                 ),
               ],
