@@ -15,6 +15,8 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'dart:math';
 
+import '../../../../../app/resources/font_manager.dart';
+
 
 
 class CustomDialog extends StatefulWidget {
@@ -80,6 +82,53 @@ class _CustomDialogState extends State<CustomDialog> {
 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+
+  String? _nameDocError;
+  String? _emailDocError;
+  String? _stateDocError;
+  String? _PasswordDocError;
+  String? _pPhoneDocError;
+  String? _sphoneDocError;
+  String? _aphoneDocError;
+  String? _countryDocError;
+
+  bool _isFormValid = true;
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    return null;
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+      _PasswordDocError =
+          _validateTextField(widget.passwordController.text, 'Password');
+      // _pPhoneDocError =
+      //     _validateTextField(widget.mobNumController.text, 'Primary Phone');
+      // _sphoneDocError =
+      //     _validateTextField(widget.secNumController.text, 'Secondary Phone');
+      // _aphoneDocError = _validateTextField(
+      //     widget.OptionalController.text, 'Alternative Phone');
+      // _countryDocError =
+      //     _validateTextField(widget.countryController.text, 'Country');
+    });
+  }
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -91,7 +140,7 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 500,
+            height: 555,
             width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -173,6 +222,17 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'First Name is required',
                               hintText: 'First Name',
                             ),
+                            if (_nameDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _nameDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
 
                           ],
                         ),
@@ -190,6 +250,7 @@ class _CustomDialogState extends State<CustomDialog> {
                                     color:  Color(0xff686464),
                                     fontWeight: FontWeight.w700),
                               ),
+
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
@@ -203,6 +264,18 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'Last Name is required',
                               hintText: 'Last Name',
                             ),
+                            if (_stateDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _stateDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
+
                           ],
                         ),
                       ),
@@ -233,8 +306,12 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),
+                              ),
+
                             ),
+
+
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
 
@@ -249,6 +326,17 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'Email is required',
                               hintText: 'Email',
                             ),
+                            if (_emailDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _emailDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -277,6 +365,17 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'Password is required',
                               onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
                             ),
+                            if (_PasswordDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _PasswordDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -286,10 +385,14 @@ class _CustomDialogState extends State<CustomDialog> {
                         height: 30,
                         width: 120,
                         text: 'Create',
-                        onPressed: (){
-                          widget.onSubmit();
+                        onPressed: () async {
+                          _validateForm();
+                          if (_isFormValid) {
+                            widget.onSubmit();
+                          }
+
                         },
-                        loadingDuration: 2,
+                        loadingDuration: 3,
                       ),
 
               ],

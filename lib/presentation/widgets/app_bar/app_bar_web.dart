@@ -483,67 +483,105 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   ),
                                 ),
 
+                                // Expanded(
+                                //   flex: 2,
+                                //   child: Column(
+                                //     mainAxisSize: MainAxisSize.min,
+                                //     mainAxisAlignment: MainAxisAlignment.start,
+                                //     children: [
+                                //       // Container(
+                                //       //   color: Colors.green,
+                                //       //   height: 30, width: 30,),
+                                //       // Container(
+                                //       //   color: Colors.orange,
+                                //       //   height: 20, width: 30,),
+                                //       ///
+                                //       PopupMenuButton<int>(
+                                //         icon: Icon(
+                                //           Icons.person,
+                                //           // size: 10,
+                                //           color: Colors.white,
+                                //         ),
+                                //         onSelected: (value) {
+                                //           if (value == 1) {
+                                //             print("User logged out");
+                                //            showDialog(context: context, builder: (context) =>
+                                //                DeletePopup(onCancel: (){
+                                //              Navigator.pop(context);
+                                //            }, onDelete: (){
+                                //              TokenManager.removeAccessToken();
+                                //              Navigator.pushNamedAndRemoveUntil(
+                                //                  context,
+                                //                  LoginScreen.routeName,
+                                //                      (route) => false);
+                                //            },
+                                //              btnText: "Log Out",
+                                //              title: "Log Out",text: "Do you really want to logout?",));
+                                //           }
+                                //         },
+                                //         itemBuilder: (context) => [
+                                //           PopupMenuItem<int>(
+                                //             value: 1,
+                                //             child: ListTile(
+                                //               leading: Icon(Icons.logout, color: Colors.black),
+                                //               title: Text('Logout'),
+                                //             ),
+                                //           ),
+                                //         ],
+                                //       ),
+                                //
+                                //       FutureBuilder(
+                                //         future: user(),
+                                //         builder: (context, snap) {
+                                //           if (snap.connectionState == ConnectionState.waiting) {
+                                //             return SizedBox(height: 1,);
+                                //           }
+                                //           return Text(
+                                //             loginName!,
+                                //             textAlign: TextAlign.center,
+                                //             style: TextStyle(
+                                //               color: Colors.white,
+                                //               fontSize: FontSize.s8,
+                                //               fontWeight: FontWeight.w400,
+                                //             ),
+                                //           );
+                                //         },
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                                ///
                                 Expanded(
                                   flex: 2,
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      PopupMenuButton<int>(
-                                        icon: Icon(
-                                          Icons.person,
-                                          // size: 10,
-                                          color: Colors.white,
-                                        ),
-                                        onSelected: (value) {
-                                          if (value == 1) {
-                                            print("User logged out");
-                                           showDialog(context: context, builder: (context) =>
-                                               DeletePopup(onCancel: (){
-                                             Navigator.pop(context);
-                                           }, onDelete: (){
-                                             TokenManager.removeAccessToken();
-                                             Navigator.pushNamedAndRemoveUntil(
-                                                 context,
-                                                 LoginScreen.routeName,
-                                                     (route) => false);
-                                           },
-                                             btnText: "Log Out",
-                                             title: "Log Out",text: "Do you really want to logout?",));
-                                          }
-                                        },
-                                        itemBuilder: (context) => [
-                                          PopupMenuItem<int>(
-                                            value: 1,
-                                            child: ListTile(
-                                              leading: Icon(Icons.logout, color: Colors.black),
-                                              title: Text('Logout'),
-                                            ),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.white,
                                       ),
-                                     // const SizedBox(height: AppSize.s2),
+                                      const SizedBox(height: AppSize.s2),
                                       FutureBuilder(
-                                        future: user(),
-                                        builder: (context, snap) {
-                                          if (snap.connectionState == ConnectionState.waiting) {
-                                            return SizedBox(height: 1,);
-                                          }
-                                          return Text(
-                                            loginName!,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: FontSize.s8,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                          future: user(),
+                                          builder: (context, snap) {
+                                            if (snap.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return SizedBox();
+                                            }
+                                            return Text(
+                                              loginName!,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: FontSize.s8,
+                                                fontWeight:
+                                                FontWeightManager.regular,
+                                              ),
+                                            );
+                                          }),
+                                ]))
                               ],
+
                             ),
                           )
                         ],
