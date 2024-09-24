@@ -404,7 +404,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: DocumentTypeDataStyle.customTextStyle(context),
+          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -582,9 +582,10 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
 
 class HRManageDropdown extends StatefulWidget {
   final TextEditingController controller;
-  final String? labelText;
+   final String? labelText;
   final String? hintText;
-  final TextStyle labelStyle;
+  final Color textColor;
+  final TextStyle? labelStyle;
   final double labelFontSize;
   final List<String> items;
   final String? errorText;
@@ -593,12 +594,12 @@ class HRManageDropdown extends StatefulWidget {
   HRManageDropdown({
     Key? key,
     required this.controller,
-     this.labelText,
-    required this.labelStyle,
+      this.labelText,
+     this.labelStyle,
     required this.labelFontSize,
     required this.items,
     this.errorText,
-    this.onChanged, this.hintText,
+    this.onChanged,  this.hintText,   this.textColor = const  Color(0xff686464),
   }) : super(key: key);
 
   @override
@@ -620,7 +621,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style:DocumentTypeDataStyle.customTextStyle(context),
+                style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -639,17 +640,22 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
           },
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
-                bottom: 3.0, top: 5.0, left: 5.0), // Adjust padding
+                bottom: 3.0, top: 5.0, left: 5.0),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black),
             ),
-            labelText: widget.labelText,
+            hintStyle: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: ColorManager.mediumgrey
+            ),
+            // labelText: widget.labelText,
             hintText: widget.hintText,
-            labelStyle: widget.labelStyle.copyWith(
-                fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
+            // labelStyle: widget.labelStyle!.copyWith(
+            //     fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
 
             // errorText: widget.errorText,
             // validator: validator,

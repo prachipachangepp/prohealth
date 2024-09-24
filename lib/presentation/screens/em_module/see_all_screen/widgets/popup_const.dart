@@ -306,6 +306,7 @@ class CustomTextFieldWithIcon extends StatefulWidget {
   final Icon? suffixIcon;
   final TextInputType keyboardType;
   final String text;
+  final Color textColor;
   final double cursorHeight;
   final String? labelText;
   final String? hintText;
@@ -328,6 +329,7 @@ class CustomTextFieldWithIcon extends StatefulWidget {
     this.errorText,
     this.onSuffixIconPressed,  // Callback for suffix icon
     this.focusNode, this.hintText,
+    this.textColor = const Color(0xff686464),
   }) : super(key: key);
 
   @override
@@ -353,7 +355,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w600, fontSize: 12),
+          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w700, fontSize: 12),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -480,7 +482,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: AppPadding.p23),
+                              padding: const EdgeInsets.only(left: AppPadding.p35),
                               child: Text(
                                 widget.title,
                                 style: PopupBlueBarText.customTextStyle(context),
@@ -508,7 +510,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             HRManageTextField(
                               controller: widget.firstNameController,
@@ -518,7 +523,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                               // labelText: "First Name",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
-                              errorText: 'First Name is required', hintText: 'First Name',
+                              errorText: 'First Name is required',
+                              hintText: 'First Name',
                             ),
                           ],
                         ),
@@ -528,7 +534,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             HRManageTextField(
                               controller: widget.lastNameController,
@@ -548,7 +557,15 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.deptName, style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text(
+                                widget.deptName,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             widget.child,
                           ],
@@ -559,7 +576,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
                               controller: widget.emailController,

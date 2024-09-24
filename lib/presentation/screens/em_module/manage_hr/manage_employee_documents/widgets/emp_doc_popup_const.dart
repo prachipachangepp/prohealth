@@ -169,7 +169,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
                             Row(
                               children: [
