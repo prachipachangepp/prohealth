@@ -231,250 +231,244 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s450,
+      height: AppSize.s400,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: AppPadding.p5,
-            horizontal: AppPadding.p10,
+            horizontal: AppPadding.p12,
           ),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // TextField with Validation Message
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FirstSMTextFConst(
-                      enable: widget.enable,
-                      controller: widget.nameOfDocumentController,
-                      keyboardType: TextInputType.text,
-                      text: 'Type of Visit',
-                    ),
-                    if (!_isNameOfDocumentValid)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          _nameOfDocumentErrorText,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ),
-                      ),
-                  ],
-                ),
-                SizedBox(height: AppSize.s30),
-                ///service dropdown
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // TextField with Validation Message
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    enable: widget.enable,
+                    controller: widget.nameOfDocumentController,
+                    keyboardType: TextInputType.text,
+                    text: 'Type of Visit',
+                  ),
+                  if (!_isNameOfDocumentValid)
                     Text(
-                      'Select services',
-                      style: AllPopupHeadings.customTextStyle(context),
+                      _nameOfDocumentErrorText,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                    SizedBox(height: AppSize.s5),
-                    // widget.dropdownServices
-                    FutureBuilder<List<ServicesMetaData>>(
-                      future: getServicesMetaData(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            width: 354,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(width: AppSize.s8),
-                                Expanded(
-                                  child: Text(
-                                    "Select",
-                                    style:
-                                        MobileMenuText.MenuTextConst(context),
-                                  ),
+                ],
+              ),
+              SizedBox(height: AppSize.s10),
+              ///service dropdown
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Select services',
+                    style: AllPopupHeadings.customTextStyle(context),
+                  ),
+                  SizedBox(height: AppSize.s5),
+                  // widget.dropdownServices
+                  FutureBuilder<List<ServicesMetaData>>(
+                    future: getServicesMetaData(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Container(
+                          width: 354,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorManager.containerBorderGrey,
+                                width: AppSize.s1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: AppSize.s8),
+                              Expanded(
+                                child: Text(
+                                  "Select",
+                                  style:
+                                      MobileMenuText.MenuTextConst(context),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: Icon(Icons.arrow_drop_down),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData && snapshot.data!.isEmpty) {
-                          return Container(
-                            width: 354,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Text(
-                                ErrorMessageString.noserviceAdded,
-                                style:
-                                    AllNoDataAvailable.customTextStyle(context),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Icon(Icons.arrow_drop_down),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      if (snapshot.hasData && snapshot.data!.isEmpty) {
+                        return Container(
+                          width: 354,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorManager.containerBorderGrey,
+                                width: AppSize.s1),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: Text(
+                              ErrorMessageString.noserviceAdded,
+                              style:
+                                  AllNoDataAvailable.customTextStyle(context),
+                            ),
+                          ),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        List<DropdownMenuItem<String>> dropDownServiceList =
+                            [];
+                        for (var service in snapshot.data!) {
+                          dropDownServiceList.add(
+                            DropdownMenuItem<String>(
+                              value: service.serviceName,
+                              child: Text(service.serviceName ?? ''),
                             ),
                           );
                         }
-                        if (snapshot.hasData) {
-                          List<DropdownMenuItem<String>> dropDownServiceList =
-                              [];
-                          for (var service in snapshot.data!) {
-                            dropDownServiceList.add(
-                              DropdownMenuItem<String>(
-                                value: service.serviceName,
-                                child: Text(service.serviceName ?? ''),
+                        selectedServiceName = snapshot.data![0].serviceName;
+                        serviceId = snapshot.data![0].serviceId;
+                        // Store the service ID of the 0th position
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            return CICCDropdown(
+                              initialValue: selectedServiceName,
+                              onChange: (val) {
+                                setState(() {
+                                  selectedServiceName = val;
+                                  for (var service in snapshot.data!) {
+                                    if (service.serviceName == val) {
+                                      serviceId = service.serviceId;
+                                    }
+                                  }
+                                });
+                              },
+                              items: dropDownServiceList,
+                            );
+                          },
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  )
+                ],
+              ),
+              SizedBox(height: AppSize.s14),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Select Eligible Clinician',
+                    style: AllPopupHeadings.customTextStyle(context),
+                  ),
+                  SizedBox(height: AppSize.s5),
+                  //widget.child,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FutureBuilder<List<HRAllData>>(
+                        future: getAllHrDeptWise(context, 1),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            List<DropdownMenuItem<String>> dropDownTypesList = [];
+                            return CICCDropdown(items: [],
+                              hintText: 'Select Clinician',
+                              //initialValue: dropDownTypesList[0].value,
+                            );
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: AllNoDataAvailable.customTextStyle(context),
                               ),
                             );
                           }
-                          selectedServiceName = snapshot.data![0].serviceName;
-                          serviceId = snapshot.data![0].serviceId;
-                          // Store the service ID of the 0th position
-                          return StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function()) setState) {
-                              return CICCDropdown(
-                                initialValue: selectedServiceName,
-                                onChange: (val) {
-                                  setState(() {
-                                    selectedServiceName = val;
-                                    for (var service in snapshot.data!) {
-                                      if (service.serviceName == val) {
-                                        serviceId = service.serviceId;
-                                      }
-                                    }
-                                  });
-                                },
-                                items: dropDownServiceList,
-                              );
-                            },
-                          );
-                        }
-                        return const SizedBox();
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(height: AppSize.s30),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Select Eligible Clinician',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(height: AppSize.s5),
-                    //widget.child,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FutureBuilder<List<HRAllData>>(
-                          future: getAllHrDeptWise(context, 1),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              List<DropdownMenuItem<String>> dropDownTypesList = [];
-                              return CICCDropdown(items: [],
-                                hintText: 'Select Clinician',
-                                //initialValue: dropDownTypesList[0].value,
-                              );
-                            }
-                            if (snapshot.data!.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  AppString.dataNotFound,
-                                  style: AllNoDataAvailable.customTextStyle(context),
+                          if (snapshot.hasData) {
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownTypesList = [];
+                            for (var i in snapshot.data!) {
+                              dropDownTypesList.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.abbrivation!),
+                                  value: i.abbrivation,
                                 ),
                               );
                             }
-                            if (snapshot.hasData) {
-                              int docType = 0;
-                              List<DropdownMenuItem<String>> dropDownTypesList = [];
-                              for (var i in snapshot.data!) {
-                                dropDownTypesList.add(
-                                  DropdownMenuItem<String>(
-                                    child: Text(i.abbrivation!),
-                                    value: i.abbrivation,
-                                  ),
-                                );
-                              }
-                              return CICCDropdown(
-                                initialValue: dropDownTypesList[0].value,
-                                onChange: (val) {
-                                  for (var a in snapshot.data!) {
-                                    if (a.abbrivation == val) {
-                                      docType = a.employeeTypesId;
-                                      empTypeId = docType;
-                                      setState(() {
-                                        if (val.isNotEmpty) {
-                                          editChipValues.add(val);
-                                          selectedEditChips.add(
-                                            Chip(
-                                              backgroundColor: ColorManager.white,
-                                              shape: StadiumBorder(
-                                                side: BorderSide(
-                                                    color: ColorManager.blueprime),
-                                              ),
-                                              deleteIcon: Icon(
-                                                Icons.close,
-                                                color: ColorManager.blueprime,
-                                                size: IconSize.I16,
-                                              ),
-                                              label: Text(
-                                                val,
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: FontSize.s10,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                              onDeleted: () {
-                                                setState(() {
-                                                  editChipValues.remove(val);
-                                                  selectedEditChips.removeWhere(
-                                                          (chip) {
-                                                        final chipText =
-                                                        (chip as Chip).label as Text;
-                                                        return chipText.data == val;
-                                                      });
-                                                  selectedEditChipsId.remove(docType);
-                                                });
-                                              },
+                            return CICCDropdown(
+                              initialValue: dropDownTypesList[0].value,
+                              onChange: (val) {
+                                for (var a in snapshot.data!) {
+                                  if (a.abbrivation == val) {
+                                    docType = a.employeeTypesId;
+                                    empTypeId = docType;
+                                    setState(() {
+                                      if (val.isNotEmpty) {
+                                        editChipValues.add(val);
+                                        selectedEditChips.add(
+                                          Chip(
+                                            backgroundColor: ColorManager.white,
+                                            shape: StadiumBorder(
+                                              side: BorderSide(
+                                                  color: ColorManager.blueprime),
                                             ),
-                                          );
-                                          selectedEditChipsId.add(docType);
-                                        }
-                                      });
-                                    }
+                                            deleteIcon: Icon(
+                                              Icons.close,
+                                              color: ColorManager.blueprime,
+                                              size: IconSize.I16,
+                                            ),
+                                            label: Text(
+                                              val,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: FontSize.s10,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                            onDeleted: () {
+                                              setState(() {
+                                                editChipValues.remove(val);
+                                                selectedEditChips.removeWhere(
+                                                        (chip) {
+                                                      final chipText =
+                                                      (chip as Chip).label as Text;
+                                                      return chipText.data == val;
+                                                    });
+                                                selectedEditChipsId.remove(docType);
+                                              });
+                                            },
+                                          ),
+                                        );
+                                        selectedEditChipsId.add(docType);
+                                      }
+                                    });
                                   }
-                                },
-                                items: dropDownTypesList,
-                              );
-                            }
-                            return SizedBox();
-                          },
-                        ),
-                        SizedBox(height: AppSize.s5),
-                        Wrap(
-                          spacing: 8.0,
-                          children: selectedEditChips,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                                }
+                              },
+                              items: dropDownTypesList,
+                            );
+                          }
+                          return SizedBox();
+                        },
+                      ),
+                      SizedBox(height: AppSize.s5),
+                      Wrap(
+                        spacing: 8.0,
+                        children: selectedEditChips,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ],
@@ -487,7 +481,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
               height: AppSize.s30,
               text: AppStringEM.save,
               onPressed: () async {
-                  Navigator.pop(context);
+                //  Navigator.pop(context);
                   // editChipValues.clear();
                   // selectedEditChipsId.clear();
                   // selectedEditChips.clear();
