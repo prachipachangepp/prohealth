@@ -20,15 +20,16 @@ import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
 class CIDetailsScreen extends StatefulWidget {
-  CIDetailsScreen(
-      {super.key,
+  CIDetailsScreen({
+    super.key,
       required this.officeId,
       required this.docTD,
       required this.companyId,
       required int companyID,
       required this.companyOfficeid,
       required this.stateName,
-      required this.countryName});
+      required this.countryName
+  });
   final String stateName;
   final String countryName;
   final int companyId;
