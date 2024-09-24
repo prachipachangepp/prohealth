@@ -492,7 +492,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                           });
                                                                                                           try {
                                                                                                             await deleteWorkWeekSiftSchedule(context: context, workWeekShiftId: snapshotShift.data![index].weekShiftScheduleId!);
-                                                                                                            workWeekShiftScheduleGet(context, data.weekDays);
+                                                                                                            setState((){
+                                                                                                              workWeekShiftScheduleGet(context, data.weekDays);
+                                                                                                            });
                                                                                                           } finally {
                                                                                                             setState(() {
                                                                                                               _isLoading = false;
