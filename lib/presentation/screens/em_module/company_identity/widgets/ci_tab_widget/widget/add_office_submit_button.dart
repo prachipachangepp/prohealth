@@ -462,13 +462,13 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           ),
                           onTap: () {
 
-                            // FocusScope.of(context).unfocus(); // Dismiss the keyboard
+                             FocusScope.of(context).unfocus(); // Dismiss the keyboard
                             String selectedSuggestion = _suggestions[index];
                             widget.addressController.text = selectedSuggestion;
 
                             setState(() {
-                              _suggestions.clear();
-                              // _suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                            _suggestions.clear();
+                             //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
                             });
                           },
                         );
