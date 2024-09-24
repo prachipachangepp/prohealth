@@ -241,9 +241,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         controller: TextEditingController(
                                             text: ''),
                                         // labelText: 'Select Department',
-                                        labelStyle: MobileMenuText.MenuTextConst(context),
+                                        // labelStyle: MobileMenuText.MenuTextConst(context),
                                         labelFontSize: 12,
-                                        items:  dropDownServiceList,
+                                        items:  dropDownServiceList, hintText: 'Department',
 
                                       )
                                     );
@@ -281,7 +281,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       controller: TextEditingController(
                                           text: selectedDeptName ?? ''),
                                       // labelText: "Select Department",
-                                      labelStyle: MobileMenuText.MenuTextConst(context),
+                                      // labelStyle: MobileMenuText.MenuTextConst(context),
+                                      hintText: "Department",
                                       labelFontSize: 12,
                                       items: dropDownServiceList,
                                       onChanged: (val) {
@@ -580,19 +581,19 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 InkWell(
                                                   child: Container(
                                                     height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            30,
+                                                    MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                        30,
                                                     width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            25,
+                                                    MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                        25,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      BorderRadius.circular(
+                                                          10),
                                                       border: Border.all(
                                                           color: ColorManager
                                                               .bluebottom),
@@ -608,17 +609,17 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     showDialog(
                                                       context: context,
                                                       builder: (BuildContext
-                                                          context) {
+                                                      context) {
                                                         return FutureBuilder<
                                                             UserModalPrefill>(
                                                           future:
-                                                              getUserPrefill(
-                                                                  context,
-                                                                  user.userId),
+                                                          getUserPrefill(
+                                                              context,
+                                                              user.userId),
                                                           builder: (context,
                                                               snapshotPrefill) {
                                                             if (snapshotPrefill
-                                                                    .connectionState ==
+                                                                .connectionState ==
                                                                 ConnectionState
                                                                     .waiting) {
                                                               return Center(
@@ -637,74 +638,74 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             firstNameController =
                                                                 TextEditingController(
                                                                     text: snapshotPrefill
-                                                                            .data!
-                                                                            .firstName ??
+                                                                        .data!
+                                                                        .firstName ??
                                                                         " ");
                                                             lastNameController =
                                                                 TextEditingController(
                                                                     text: snapshotPrefill
-                                                                            .data!
-                                                                            .lastName ??
+                                                                        .data!
+                                                                        .lastName ??
                                                                         "");
                                                             emailController =
                                                                 TextEditingController(
                                                                     text: snapshotPrefill
-                                                                            .data!
-                                                                            .email ??
+                                                                        .data!
+                                                                        .email ??
                                                                         " ");
                                                             companyIdController =
                                                                 TextEditingController(
                                                                     text: snapshotPrefill
-                                                                            .data!
-                                                                            .companyId
-                                                                            .toString() ??
+                                                                        .data!
+                                                                        .companyId
+                                                                        .toString() ??
                                                                         "0");
                                                             return EditUserPopUp(
                                                               title:
-                                                                  "Edit User ",
+                                                              "Edit User ",
                                                               userIdController:
-                                                                  userIdController,
+                                                              userIdController,
                                                               lastNameController:
-                                                                  lastNameController,
+                                                              lastNameController,
                                                               emailController:
-                                                                  emailController,
+                                                              emailController,
                                                               firstNameController:
-                                                                  firstNameController,
+                                                              firstNameController,
                                                               roleController:
-                                                                  roleController,
+                                                              roleController,
                                                               companyIdController:
-                                                                  companyIdController,
+                                                              companyIdController,
                                                               onSubmit:
                                                                   () async {
                                                                 await updateUserPatch(
                                                                   context:
-                                                                      context,
+                                                                  context,
                                                                   userId: user
                                                                       .userId,
                                                                   firstName:
-                                                                      firstNameController
-                                                                          .text,
+                                                                  firstNameController
+                                                                      .text,
                                                                   lastName:
-                                                                      lastNameController
-                                                                          .text,
+                                                                  lastNameController
+                                                                      .text,
                                                                   deptId: selectedDeptId ??
                                                                       snapshotPrefill
                                                                           .data!
                                                                           .deptId,
                                                                   email:
-                                                                      emailController
-                                                                          .text,
+                                                                  emailController
+                                                                      .text,
                                                                 );
                                                                 getUser(context)
                                                                     .then(
                                                                         (data) {
-                                                                  _companyUsersList
-                                                                      .add(
+                                                                      _companyUsersList
+                                                                          .add(
                                                                           data);
-                                                                }).catchError(
+                                                                    }).catchError(
                                                                         (error) {
-                                                                  // Handle error
-                                                                });
+                                                                      // Handle error
+                                                                    });
                                                                 Navigator.pop(
                                                                     context);
                                                                 firstNameController
@@ -725,40 +726,41 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                   List<
                                                                       HRHeadBar>>(
                                                                 future:
-                                                                    companyHRHeadApi(
-                                                                        context,
-                                                                        deptId),
+                                                                companyHRHeadApi(
+                                                                    context,
+                                                                    deptId),
                                                                 builder: (context,
                                                                     snapshot) {
                                                                   if (snapshot
-                                                                          .connectionState ==
+                                                                      .connectionState ==
                                                                       ConnectionState
                                                                           .waiting) {
                                                                     List<String>dropDownServiceList =[];
                                                                     return Container(
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                      child:
-                                                                      HRManageDropdown(
-                                                                        controller: TextEditingController(
-                                                                            text: ''),
-                                                                        labelText: 'Select Department',
-                                                                        labelStyle: MobileMenuText.MenuTextConst(context),
-                                                                        labelFontSize: 12,
-                                                                        items:  dropDownServiceList,
+                                                                        alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                        child:
+                                                                        HRManageDropdown(
+                                                                          controller: TextEditingController(
+                                                                              text: ''),
+                                                                          // labelText: 'Select Department',
+                                                                          // labelStyle: MobileMenuText.MenuTextConst(context),
+                                                                          labelFontSize: 12,
+                                                                          items:  dropDownServiceList,
+                                                                          // hintText: 'Department',
 
-                                                                      )
+                                                                        )
                                                                     );
                                                                   }
                                                                   if (snapshot
-                                                                          .hasData &&
+                                                                      .hasData &&
                                                                       snapshot
                                                                           .data!
                                                                           .isEmpty) {
                                                                     return Center(
                                                                       child:
-                                                                          Text(
+                                                                      Text(
                                                                         ErrorMessageString
                                                                             .noroleAdded,
                                                                         style: AllNoDataAvailable.customTextStyle(context),
@@ -772,7 +774,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId ?? 0 : 0;
 
                                                                     if (selectedDeptName ==
-                                                                            null &&
+                                                                        null &&
                                                                         dropDownServiceList
                                                                             .isNotEmpty) {
                                                                       selectedDeptName =
@@ -782,11 +784,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     }
                                                                     return HRManageDropdown(
                                                                       controller:
-                                                                          TextEditingController(
-                                                                              text: selectedDeptName ?? ''),
-                                                                      labelText:
-                                                                          "Select Department",
-                                                                      labelStyle: MobileMenuText.MenuTextConst(context),
+                                                                      TextEditingController(
+                                                                          text: selectedDeptName ?? ''),
+                                                                      // labelText:
+                                                                      // "Select Department",
+                                                                      // labelStyle: MobileMenuText.MenuTextConst(context),
                                                                       labelFontSize: 12,
                                                                       items: dropDownServiceList,
                                                                       onChanged: (val) {
@@ -797,11 +799,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                           }
                                                                         }
                                                                         setState(
-                                                                            () {
-                                                                          print(
-                                                                              "deptID :::::::${selectedDeptId}");
-                                                                        });
-                                                                      },
+                                                                                () {
+                                                                              print(
+                                                                                  "deptID :::::::${selectedDeptId}");
+                                                                            });
+                                                                      }, hintText: 'Department',
                                                                     );
                                                                   }
                                                                   return const SizedBox();
@@ -814,6 +816,254 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     );
                                                   },
                                                 ),
+///
+
+
+
+
+
+                                                // InkWell(
+                                                //   child: Container(
+                                                //     height:
+                                                //         MediaQuery.of(context)
+                                                //                 .size
+                                                //                 .height /
+                                                //             30,
+                                                //     width:
+                                                //         MediaQuery.of(context)
+                                                //                 .size
+                                                //                 .width /
+                                                //             25,
+                                                //     decoration: BoxDecoration(
+                                                //       borderRadius:
+                                                //           BorderRadius.circular(
+                                                //               10),
+                                                //       border: Border.all(
+                                                //           color: ColorManager
+                                                //               .bluebottom),
+                                                //     ),
+                                                //     child: Center(
+                                                //       child: Text(
+                                                //         "Edit",
+                                                //         style: TextStyle(fontSize: FontSize.s10),
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                //   onTap: () {
+                                                //     showDialog(
+                                                //       context: context,
+                                                //       builder: (BuildContext
+                                                //           context) {
+                                                //         return FutureBuilder<
+                                                //             UserModalPrefill>(
+                                                //           future:
+                                                //               getUserPrefill(
+                                                //                   context,
+                                                //                   user.userId),
+                                                //           builder: (context,
+                                                //               snapshotPrefill) {
+                                                //             if (snapshotPrefill
+                                                //                     .connectionState ==
+                                                //                 ConnectionState
+                                                //                     .waiting) {
+                                                //               return Center(
+                                                //                 child: CircularProgressIndicator(
+                                                //                     color: ColorManager
+                                                //                         .blueprime),
+                                                //               );
+                                                //             }
+                                                //             // userIdController =
+                                                //             //     TextEditingController(
+                                                //             //         text: snapshotPrefill
+                                                //             //                 .data!
+                                                //             //                 .userId
+                                                //             //                 .toString() ??
+                                                //             //             "0");
+                                                //             firstNameController =
+                                                //                 TextEditingController(
+                                                //                     text: snapshotPrefill
+                                                //                             .data!
+                                                //                             .firstName ??
+                                                //                         " ");
+                                                //             lastNameController =
+                                                //                 TextEditingController(
+                                                //                     text: snapshotPrefill
+                                                //                             .data!
+                                                //                             .lastName ??
+                                                //                         "");
+                                                //             emailController =
+                                                //                 TextEditingController(
+                                                //                     text: snapshotPrefill
+                                                //                             .data!
+                                                //                             .email ??
+                                                //                         " ");
+                                                //             companyIdController =
+                                                //                 TextEditingController(
+                                                //                     text: snapshotPrefill
+                                                //                             .data!
+                                                //                             .companyId
+                                                //                             .toString() ??
+                                                //                         "0");
+                                                //             return EditUserPopUp(
+                                                //               title:
+                                                //                   "Edit User ",
+                                                //               userIdController:
+                                                //                   userIdController,
+                                                //               lastNameController:
+                                                //                   lastNameController,
+                                                //               emailController:
+                                                //                   emailController,
+                                                //               firstNameController:
+                                                //                   firstNameController,
+                                                //               roleController:
+                                                //                   roleController,
+                                                //               companyIdController:
+                                                //                   companyIdController,
+                                                //               onSubmit:
+                                                //                   () async {
+                                                //                 await updateUserPatch(
+                                                //                   context:
+                                                //                       context,
+                                                //                   userId: user
+                                                //                       .userId,
+                                                //                   firstName:
+                                                //                       firstNameController
+                                                //                           .text,
+                                                //                   lastName:
+                                                //                       lastNameController
+                                                //                           .text,
+                                                //                   deptId: selectedDeptId ??
+                                                //                       snapshotPrefill
+                                                //                           .data!
+                                                //                           .deptId,
+                                                //                   email:
+                                                //                       emailController
+                                                //                           .text,
+                                                //                 );
+                                                //                 getUser(context)
+                                                //                     .then(
+                                                //                         (data) {
+                                                //                   _companyUsersList
+                                                //                       .add(
+                                                //                           data);
+                                                //                 }).catchError(
+                                                //                         (error) {
+                                                //                   // Handle error
+                                                //                 });
+                                                //                 Navigator.pop(
+                                                //                     context);
+                                                //                 firstNameController
+                                                //                     .clear();
+                                                //                 lastNameController
+                                                //                     .clear();
+                                                //                 roleController
+                                                //                     .clear();
+                                                //                 emailController
+                                                //                     .clear();
+                                                //                 companyIdController
+                                                //                     .clear();
+                                                //               },
+                                                //               // passwordController: passwordController,
+                                                //               ///Role
+                                                //               deptName: 'Select Department',
+                                                //               child: FutureBuilder<
+                                                //                   List<
+                                                //                       HRHeadBar>>(
+                                                //                 future:
+                                                //                     companyHRHeadApi(
+                                                //                         context,
+                                                //                         deptId),
+                                                //                 builder: (context,
+                                                //                     snapshot) {
+                                                //                   if (snapshot
+                                                //                           .connectionState ==
+                                                //                       ConnectionState
+                                                //                           .waiting) {
+                                                //                     List<String>dropDownServiceList =[];
+                                                //                     return Container(
+                                                //                       alignment:
+                                                //                           Alignment
+                                                //                               .center,
+                                                //                       child:
+                                                //                       HRManageDropdown(
+                                                //                         controller: TextEditingController(text: ''),
+                                                //                         // labelText: 'Select Department',
+                                                //                         // labelStyle: MobileMenuText.MenuTextConst(context),
+                                                //                         hintText: "Department",
+                                                //                         labelFontSize: 10,
+                                                //                         items:  dropDownServiceList,
+                                                //                       )
+                                                //                     );
+                                                //                   }
+                                                //                   if (snapshot
+                                                //                           .hasData &&
+                                                //                       snapshot
+                                                //                           .data!
+                                                //                           .isEmpty) {
+                                                //                     return Center(
+                                                //                       child:
+                                                //                           Text(
+                                                //                         ErrorMessageString
+                                                //                             .noroleAdded,
+                                                //                         style: AllNoDataAvailable.customTextStyle(context),
+                                                //                       ),
+                                                //                     );
+                                                //                   }
+                                                //                   if (snapshot
+                                                //                       .hasData) {
+                                                //                     List<String>dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
+                                                //                     String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName ?? "" : " ";
+                                                //                     int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId ?? 0 : 0;
+                                                //
+                                                //                     if (selectedDeptName ==
+                                                //                             null &&
+                                                //                         dropDownServiceList
+                                                //                             .isNotEmpty) {
+                                                //                       selectedDeptName =
+                                                //                           firstDeptName;
+                                                //                       selectedDeptId =
+                                                //                           firstDeptId;
+                                                //                     }
+                                                //                     return HRManageDropdown(
+                                                //                       controller:
+                                                //                           TextEditingController(text: selectedDeptName ?? ''),
+                                                //                       // labelText:
+                                                //                       //     "Select Department",
+                                                //                       // labelStyle: MobileMenuText.MenuTextConst(context),
+                                                //                       labelFontSize: 10,
+                                                //                       hintText: "Department",
+                                                //                       items: dropDownServiceList,
+                                                //                       onChanged: (val) {
+                                                //                         for (var a in snapshot.data!) {
+                                                //                           if (a.deptName == val) {
+                                                //                             selectedDeptName = val;
+                                                //                             selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                                //                           }
+                                                //                         }
+                                                //                         setState(
+                                                //                             () {
+                                                //                           print(
+                                                //                               "deptID :::::::${selectedDeptId}");
+                                                //                         });
+                                                //                       },
+                                                //                     );
+                                                //                   }
+                                                //                   return const SizedBox();
+                                                //                 },
+                                                //               ),
+                                                //             );
+                                                //           },
+                                                //         );
+                                                //       },
+                                                //     );
+                                                //   },
+                                                // ),
+
+
+
+
+
+
                                                 SizedBox(width: AppSize.s10),
 
                                                 /// Delete button
