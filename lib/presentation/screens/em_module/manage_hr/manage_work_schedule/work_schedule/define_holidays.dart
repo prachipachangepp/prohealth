@@ -321,8 +321,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                                title: DeletePopupString.deleteholiday,
                                                                                loadingDuration: _isLoading,
                                                                                onCancel: () {
-                                                                                 Navigator.pop(
-                                                                                     context);
+                                                                                 Navigator.pop(context);
                                                                                }, onDelete:
                                                                                () async {
                                                                              setState(() {
