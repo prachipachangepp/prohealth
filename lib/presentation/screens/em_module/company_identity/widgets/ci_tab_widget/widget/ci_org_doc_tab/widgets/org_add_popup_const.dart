@@ -241,11 +241,12 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                             width: 50,
                             //color: ColorManager.red,
                             child: TextFormField(
+                              textAlign: TextAlign.center,
                               controller:
                                   daysController, // Use the controller initialized with "1"
                               cursorColor: ColorManager.black,
                               cursorWidth: 1,
-                              style: AllHRTableData.customTextStyle(context),
+                              style: DocumentTypeDataStyle.customTextStyle(context),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -287,14 +288,14 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                   value: AppConfig.year,
                                   child: Text(
                                     AppConfig.year,
-                                    style: AllHRTableData.customTextStyle(context),
+                                    style: DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                 ),
                                 DropdownMenuItem(
                                   value: AppConfig.month,
                                   child: Text(
                                     AppConfig.month,
-                                    style: AllHRTableData.customTextStyle(context),
+                                    style:DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                 ),
                               ],
@@ -308,7 +309,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 hintText: AppConfig.year,
-                                hintStyle: AllHRTableData.customTextStyle(context),
+                                hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                                 contentPadding: EdgeInsets.only(bottom: 20),
                               ),
                               icon: Icon(

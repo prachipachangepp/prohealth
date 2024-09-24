@@ -240,9 +240,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                         return FutureBuilder<
                                                             GetEmployeeSetupPrefillData>(
                                                           future: getPrefillEmployeeDocTab(
-                                                              context,
-                                                              employeedoc
-                                                                  .employeeDocTypesetupId),
+                                                              context, employeedoc.employeeDocTypesetupId),
                                                           builder: (context,
                                                               snapshotPrefill) {
                                                             if (snapshotPrefill
