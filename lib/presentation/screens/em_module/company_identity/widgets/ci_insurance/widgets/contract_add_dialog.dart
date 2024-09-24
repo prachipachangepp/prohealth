@@ -186,8 +186,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                             width: 50,
                             //color: ColorManager.red,
                             child: TextFormField(
-                              controller:
-                                  daysController, // Use the controller initialized with "1"
+                              textAlign: TextAlign.center,
+                              controller: daysController, // Use the controller initialized with "1"
                               cursorColor: ColorManager.black,
                               cursorWidth: 1,
                               style:  DocumentTypeDataStyle.customTextStyle(context),
