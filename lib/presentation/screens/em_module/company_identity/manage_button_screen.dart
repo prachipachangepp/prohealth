@@ -91,9 +91,10 @@ class _ManageWidgetState extends State<ManageWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          _selectedIndex != 0
-              ? Container(height: AppSize.s15)
-              : Padding(
+          // _selectedIndex != 0
+          //     ? Container(height: AppSize.s15)
+          //     :
+          Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 130, vertical: AppPadding.p20),
                   child: Row(
@@ -134,7 +135,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 50,),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.182,
+                  width: MediaQuery.of(context).size.width / 1.17,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                       boxShadow: [
@@ -165,13 +166,6 @@ class _ManageWidgetState extends State<ManageWidget> {
                               ManagaeButtonheading.details,
                             textAlign: TextAlign.center,
                               style: BlueBgTabbar.customTextStyle(0, _selectedIndex)
-                            // style: GoogleFonts.firaSans(
-                            //   fontSize: AppSize.s12,
-                            //   fontWeight: FontWeightManager.semiBold,
-                            //   color: _selectedIndex == 0
-                            //       ? ColorManager.mediumgrey
-                            //       : ColorManager.white,
-                            // ),
                           ),
                         ),
                         onTap: () => _selectButton(0),
@@ -179,7 +173,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       InkWell(
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 9.855,
+                          width: MediaQuery.of(context).size.width / 9.4,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
@@ -278,7 +272,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         hoverColor: Colors.transparent,
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 8.398,
+                          width: MediaQuery.of(context).size.width / 8.11,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),

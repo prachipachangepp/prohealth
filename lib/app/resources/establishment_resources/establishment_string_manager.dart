@@ -140,6 +140,9 @@ class ErrorMessageString{
   static const String noMD =  "No available MD!";
   static const String noMISC = "No available MISC!";
   static const String noPolicyProcedure = "No available policies & procedures!";
+
+  static const String noShift =   "No available shift!";
+
   ///company idenetity screen
   static const String noOffice =  "No available offices!";
   static const String noSDepartment =  "No available department!";

@@ -156,6 +156,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                           SizedBox(height: 20,),
                           SMTextFConst(
                             width: 150,
+                            prefixWidget: Text("\$ "),
                             controller: widget.perMilesController,
                             keyboardType: TextInputType.number,
                             text: 'Per Mile',
