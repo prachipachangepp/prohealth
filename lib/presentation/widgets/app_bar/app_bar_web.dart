@@ -489,9 +489,11 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.white,
+                                      GestureDetector(
+                                        child: Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       const SizedBox(height: AppSize.s2),
                                       FutureBuilder(
@@ -524,7 +526,6 @@ class _AppBarWebState extends State<AppBarWeb> {
                                 //       PopupMenuButton<int>(
                                 //         icon: Icon(
                                 //           Icons.person,
-                                //           // size: 10,
                                 //           color: Colors.white,
                                 //         ),
                                 //         onSelected: (value) {
