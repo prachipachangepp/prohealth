@@ -102,7 +102,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.vendorContracts,
+                          docTypeText: AppStringEM.vendorContracts,
                           subDocTypeText: AppStringEM.snf,
                         );
                       },

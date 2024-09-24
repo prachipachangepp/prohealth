@@ -100,7 +100,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.corporateAndComplianceDocuments,
+                          docTypeText: AppStringEM.corporateAndComplianceDocuments,
                           subDocTypeText: AppStringEM.capReport,
                         );
                       },

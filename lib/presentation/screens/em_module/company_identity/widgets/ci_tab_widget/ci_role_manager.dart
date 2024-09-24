@@ -56,6 +56,9 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     onTap: () => _selectButton(0),
                     child: Container(
                       height: 30,
@@ -75,6 +78,9 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                     ),
                   ),
                   InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     onTap: () => _selectButton(1),
                     child: Container(
                       height: 30,

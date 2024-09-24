@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -160,6 +159,9 @@ class _HrWidgetState extends State<HrWidget> {
                                 children: [
 
                                   InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       child: Container(
                                         height: 30,
                                         width:
@@ -206,6 +208,9 @@ class _HrWidgetState extends State<HrWidget> {
                                         // metaDocID = snapshot.data![index].employeeDocMetaDataId;
                                       }),
                                   InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       child: Container(
                                         height: 30,
                                         width:
@@ -290,16 +295,8 @@ class _HrWidgetState extends State<HrWidget> {
                                       List<DropdownMenuItem<String>> dropDownMenuItems = [];
                                       return
                                         CICCDropdown(
-
                                             items:dropDownMenuItems
                                         );
-                                      //   Container(
-                                      //   width: 300,
-                                      //   child: Text(
-                                      //     'Loading...',
-                                      //     style: DocumentTypeDataStyle.customTextStyle(context),
-                                      //   ),
-                                      // );
                                     }
                                     if (snapshot.data!.isEmpty) {
                                       return Center(
@@ -716,7 +713,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                     title: EditPopupString.editEmptype,
                                                                     child: Container(
                                                                       width: 354,
-                                                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                                                                       decoration: BoxDecoration(
                                                                         color: ColorManager.white,
                                                                         borderRadius: BorderRadius.circular(8),
@@ -739,10 +736,10 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                             AppStringEM.administration,
                                                                             style: DocumentTypeDataStyle.customTextStyle(context)
                                                                           ),
-                                                                          Icon(
-                                                                            Icons.arrow_drop_down,
-                                                                            color: ColorManager.mediumgrey,
-                                                                          ),
+                                                                          // Icon(
+                                                                          //   Icons.arrow_drop_down,
+                                                                          //   color: ColorManager.mediumgrey,
+                                                                          // ),
                                                                         ],
                                                                       ),
                                                                     ),

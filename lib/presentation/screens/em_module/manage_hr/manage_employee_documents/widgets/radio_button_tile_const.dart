@@ -27,6 +27,9 @@ class _CustomRadioListTileState extends State<CustomRadioListTile> {
       child: Row(
         children: [
           Radio<String>(
+           splashRadius: 0,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
             value: widget.value,
             groupValue: widget.groupValue,
             onChanged: widget.onChanged,

@@ -156,7 +156,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                       child: Container(
                         height: AppSize.s56,
                         width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 2),
+                        padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
@@ -301,7 +301,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                 width: MediaQuery.of(context).size.width / 9,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(right: 10),
                 child: CustomIconButton(
                     icon: CupertinoIcons.plus,
                     text: "Add Document",

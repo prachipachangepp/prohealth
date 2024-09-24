@@ -106,7 +106,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                             threshhold: snapshotPrefill.data!.threshold,
                             expiryDate: snapshotPrefill.data!.expiryDate,
                             expiryReminder: snapshotPrefill.data!.expiryReminder,
-                            docTypeText: AppString.corporateAndComplianceDocuments,
+                            docTypeText: AppStringEM.corporateAndComplianceDocuments,
                             subDocTypeText: AppString.license,
                           );
                         },

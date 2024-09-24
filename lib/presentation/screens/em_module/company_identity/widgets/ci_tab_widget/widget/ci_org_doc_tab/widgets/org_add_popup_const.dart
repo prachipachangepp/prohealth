@@ -92,7 +92,9 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
       width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
           ? widget.height ?? AppSize.s522
-      :widget.height ??AppSize.s580,
+      : widget.docTypeId == AppConfig.policiesAndProcedure
+       ? widget.height ??AppSize.s522
+      :widget.height ??AppSize.s575 ,
       body: [
         /// ID of the Document
         SMTextFConst(

@@ -100,7 +100,7 @@ class _CICcdADRState extends State<CICcdADR> {
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.corporateAndComplianceDocuments,
+                          docTypeText: AppStringEM.corporateAndComplianceDocuments,
                           subDocTypeText: AppStringEM.ard,
                         );
                       },

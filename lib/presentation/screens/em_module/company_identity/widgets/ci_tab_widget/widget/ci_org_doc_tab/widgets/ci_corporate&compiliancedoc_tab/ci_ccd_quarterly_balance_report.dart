@@ -97,7 +97,7 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                           threshhold: snapshotPrefill.data!.threshold,
                           expiryDate: snapshotPrefill.data!.expiryDate,
                           expiryReminder: snapshotPrefill.data!.expiryReminder,
-                          docTypeText: AppString.corporateAndComplianceDocuments,
+                          docTypeText: AppStringEM.corporateAndComplianceDocuments,
                           subDocTypeText: AppStringEM.qbr,
                         );
                       },
