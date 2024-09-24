@@ -370,7 +370,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                         }),
                   )
                   : _selectedIndex == 1
-                      ? countySortId == 0 ? Offstage():Padding(
+                      ? countySortId == 0 ? SizedBox(width: 79,):Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: CustomIconButtonConst(
                             width: 79,
