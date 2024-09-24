@@ -72,7 +72,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Zone Number',
+                      'Zone Name',
                       style:AllHRTableHeading.customTextStyle(context),
                     ),
                   ),
@@ -186,7 +186,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                               flex: 3,
                                               child: Text(
                                                 textAlign: TextAlign.center,
-                                                zone.zoneId
+                                                zone.zoneName
                                                     .toString(),
                                                 style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),

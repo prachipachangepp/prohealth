@@ -302,7 +302,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     //             }));
                                                   },
                                                   icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
-
                                             ],
                                           ),
                                         ],
