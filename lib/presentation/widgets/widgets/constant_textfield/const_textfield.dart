@@ -462,7 +462,7 @@ class HRManageTextField extends StatefulWidget {
   final double? height;
   final double cursorHeight;
   final String? labelText;
-  final TextStyle labelStyle;
+  final TextStyle? labelStyle;
   final double labelFontSize;
   final Icon? suffixIcon;
   final IconData? prefixIcon;
@@ -487,7 +487,7 @@ class HRManageTextField extends StatefulWidget {
     this.height,
     required this.cursorHeight,
      this.labelText,
-    required this.labelStyle,
+     this.labelStyle,
     required this.labelFontSize,
     this.suffixIcon,
     this.prefixIcon,
@@ -555,7 +555,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
             ),
             labelText: widget.labelText,
             hintText: widget.hintText,
-            labelStyle: widget.labelStyle.copyWith(
+            labelStyle: widget.labelStyle?.copyWith(
               fontSize: widget.labelFontSize,
               color: Colors.grey,
             ),
