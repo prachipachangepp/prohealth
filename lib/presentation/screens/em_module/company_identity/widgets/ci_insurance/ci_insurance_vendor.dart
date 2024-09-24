@@ -244,18 +244,18 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                     try {
                                                                       await deleteVendor(
                                                                           context, vendorData.insuranceVendorId!);
-                                                                      setState(() async {
                                                                         companyVendorGet(context,widget.officeId,1,30).then((data) {
                                                                           _companyVendor.add(data);
                                                                         }).catchError((error) {
                                                                           // Handle error
                                                                         });
-                                                                        Navigator.pop(context);
-                                                                      });
+
+
                                                                     } finally {
                                                                       setState(() {
                                                                         _isLoading = false;
                                                                       });
+                                                                      Navigator.pop(context);
                                                                     }
                                                                   });
                                                                 },
