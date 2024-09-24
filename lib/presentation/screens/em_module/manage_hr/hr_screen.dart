@@ -713,7 +713,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                     title: EditPopupString.editEmptype,
                                                                     child: Container(
                                                                       width: 354,
-                                                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                                                                       decoration: BoxDecoration(
                                                                         color: ColorManager.white,
                                                                         borderRadius: BorderRadius.circular(8),
@@ -736,10 +736,10 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                             AppStringEM.administration,
                                                                             style: DocumentTypeDataStyle.customTextStyle(context)
                                                                           ),
-                                                                          Icon(
-                                                                            Icons.arrow_drop_down,
-                                                                            color: ColorManager.mediumgrey,
-                                                                          ),
+                                                                          // Icon(
+                                                                          //   Icons.arrow_drop_down,
+                                                                          //   color: ColorManager.mediumgrey,
+                                                                          // ),
                                                                         ],
                                                                       ),
                                                                     ),

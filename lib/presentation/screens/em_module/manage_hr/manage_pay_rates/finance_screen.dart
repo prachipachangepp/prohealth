@@ -564,7 +564,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         child: Text(
-                                          "No available zones !!",
+                                          "No available zones!",
                                           //AppString.dataNotFound,
                                           style: CustomTextStylesCommon
                                               .commonStyle(
