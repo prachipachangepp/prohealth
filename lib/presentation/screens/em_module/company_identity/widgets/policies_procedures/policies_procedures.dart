@@ -393,7 +393,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                 builder: (context) => StatefulBuilder(
                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                     return  DeletePopup(
-                                                                        title: 'Delete Vendor',
+                                                                        title: 'Delete Policies',
                                                                         loadingDuration: _isLoading,
                                                                         onCancel: (){
                                                                           Navigator.pop(context);
