@@ -231,11 +231,10 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s450,
+      height: AppSize.s440,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: AppPadding.p5,
             horizontal: AppPadding.p10,
           ),
           child: Center(
@@ -254,12 +253,9 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       text: 'Type of Visit',
                     ),
                     if (!_isNameOfDocumentValid)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          _nameOfDocumentErrorText,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                      Text(
+                        _nameOfDocumentErrorText,
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
                   ],
                 ),
@@ -487,7 +483,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
               height: AppSize.s30,
               text: AppStringEM.save,
               onPressed: () async {
-                  Navigator.pop(context);
+                //  Navigator.pop(context);
                   // editChipValues.clear();
                   // selectedEditChipsId.clear();
                   // selectedEditChips.clear();
