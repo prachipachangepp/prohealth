@@ -483,19 +483,44 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   ),
                                 ),
 
+
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.white,
+                                      ),
+                                      const SizedBox(height: AppSize.s2),
+                                      FutureBuilder(
+                                          future: user(),
+                                          builder: (context, snap) {
+                                            if (snap.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return SizedBox();
+                                            }
+                                            return Text(
+                                              loginName!,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: FontSize.s8,
+                                                fontWeight:
+                                                FontWeightManager.regular,
+                                              ),
+                                            );
+                                          }),
+                                         ],
+                                      ),
+                                    ),
                                 // Expanded(
                                 //   flex: 2,
                                 //   child: Column(
                                 //     mainAxisSize: MainAxisSize.min,
                                 //     mainAxisAlignment: MainAxisAlignment.start,
                                 //     children: [
-                                //       // Container(
-                                //       //   color: Colors.green,
-                                //       //   height: 30, width: 30,),
-                                //       // Container(
-                                //       //   color: Colors.orange,
-                                //       //   height: 20, width: 30,),
-                                //       ///
                                 //       PopupMenuButton<int>(
                                 //         icon: Icon(
                                 //           Icons.person,
@@ -529,7 +554,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                 //           ),
                                 //         ],
                                 //       ),
-                                //
+                                //      // const SizedBox(height: AppSize.s2),
                                 //       FutureBuilder(
                                 //         future: user(),
                                 //         builder: (context, snap) {
@@ -550,38 +575,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                 //     ],
                                 //   ),
                                 // ),
-                                ///
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                      ),
-                                      const SizedBox(height: AppSize.s2),
-                                      FutureBuilder(
-                                          future: user(),
-                                          builder: (context, snap) {
-                                            if (snap.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return SizedBox();
-                                            }
-                                            return Text(
-                                              loginName!,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: FontSize.s8,
-                                                fontWeight:
-                                                FontWeightManager.regular,
-                                              ),
-                                            );
-                                          }),
-                                ]))
                               ],
-
                             ),
                           )
                         ],
