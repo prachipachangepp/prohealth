@@ -68,9 +68,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
   void deleteChip(String chip, int chipId) {
     setState(() {
-    selectedChips.remove(chip);
-    selectedChipsId.remove(chipId);
-    //selectedChipsEmpId.remove(chipEmpId);
+      selectedChips.remove(chip);
+      selectedChipsId.remove(chipId);
+      //selectedChipsEmpId.remove(chipEmpId);
     });
   }
 
@@ -146,7 +146,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 onSavePressed: () async {
                                   print(":::::${_selectedItem}");
                                   await addVisitPost(context:context,
-                                         typeOfVisit: docNamecontroller.text, eligibleClinician: selectedChipsId, serviceId: serviceId!);
+                                      typeOfVisit: docNamecontroller.text, eligibleClinician: selectedChipsId, serviceId: serviceId!);
                                   getVisit(context, 1, 30).then((data) {
                                     _visitController.add(data);
                                   }).catchError((error) {
@@ -157,113 +157,113 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   docNamecontroller.clear();
                                 },
                                 child:Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        FutureBuilder<List<HRAllData>>(
-                                            future: getAllHrDeptWise(context, 1),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                                return Shimmer.fromColors(
-                                                    baseColor: Colors.grey[300]!,
-                                                    highlightColor: Colors.grey[100]!,
-                                                    child: Container(
-                                                      width: 354,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                          color: ColorManager.faintGrey,
-                                                          borderRadius:
-                                                          BorderRadius.circular(10)),
-                                                    ));
-                                              }
-                                              if (snapshot.data!.isEmpty) {
-                                                return Center(
-                                                  child: Text(
-                                                    AppString.dataNotFound,
-                                                    style: AllNoDataAvailable.customTextStyle(context),
-                                                  ),
-                                                );
-                                              }
-                                              if (snapshot.hasData) {
-                                                int docType = 0;
-                                                List<DropdownMenuItem<String>>
-                                                dropDownTypesList = [];
-                                                for (var i in snapshot.data!) {
-                                                  dropDownTypesList.add(
-                                                    DropdownMenuItem<String>(
-                                                      child: Text(i.abbrivation!),
-                                                      value: i.abbrivation,
-                                                    ),
-                                                  );
-                                                }
-                                                return CICCDropdown(
-                                                    initialValue:
-                                                    dropDownTypesList[0].value,
-                                                    onChange: (val) {
-                                                      for (var a in snapshot.data!) {
-                                                        if (a.abbrivation == val) {
-                                                          docType = a.employeeTypesId;
-                                                          empTypeId = docType;
-                                                          setState(() {
-                                                            if (val.isNotEmpty) {
-                                                              chipValues.add(val);
-                                                              selectedChips.add(
-                                                                Chip(
-                                                                  backgroundColor: ColorManager.white,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    FutureBuilder<List<HRAllData>>(
+                                        future: getAllHrDeptWise(context, 1),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor: Colors.grey[100]!,
+                                                child: Container(
+                                                  width: 354,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                      color: ColorManager.faintGrey,
+                                                      borderRadius:
+                                                      BorderRadius.circular(10)),
+                                                ));
+                                          }
+                                          if (snapshot.data!.isEmpty) {
+                                            return Center(
+                                              child: Text(
+                                                AppString.dataNotFound,
+                                                style: AllNoDataAvailable.customTextStyle(context),
+                                              ),
+                                            );
+                                          }
+                                          if (snapshot.hasData) {
+                                            int docType = 0;
+                                            List<DropdownMenuItem<String>>
+                                            dropDownTypesList = [];
+                                            for (var i in snapshot.data!) {
+                                              dropDownTypesList.add(
+                                                DropdownMenuItem<String>(
+                                                  child: Text(i.abbrivation!),
+                                                  value: i.abbrivation,
+                                                ),
+                                              );
+                                            }
+                                            return CICCDropdown(
+                                                initialValue:
+                                                dropDownTypesList[0].value,
+                                                onChange: (val) {
+                                                  for (var a in snapshot.data!) {
+                                                    if (a.abbrivation == val) {
+                                                      docType = a.employeeTypesId;
+                                                      empTypeId = docType;
+                                                      setState(() {
+                                                        if (val.isNotEmpty) {
+                                                          chipValues.add(val);
+                                                          selectedChips.add(
+                                                            Chip(
+                                                              backgroundColor: ColorManager.white,
 
-                                                                  shape: StadiumBorder(
-                                                                      side: BorderSide(
-                                                                          color: ColorManager
-                                                                              .blueprime)),
-                                                                  deleteIcon: Icon(
-                                                                    Icons.close,
-                                                                    color: ColorManager
-                                                                        .blueprime,
-                                                                    size: 17,
-                                                                  ),
-                                                                  label: Text(
-                                                                    val,
-                                                                    style: AllHRTableData.customTextStyle(context),),
-                                                                  onDeleted: () {
-                                                                    setState(() {
-                                                                      // deleteChip(
-                                                                      //     val, docType);
-                                                                      chipValues.remove(val);
-                                                                      selectedChips.removeWhere((chip) {
-                                                                        final chipText = (chip as Chip).label as Text;
-                                                                        return chipText.data == val;
-                                                                      });
-                                                                      selectedChipsId
-                                                                          .remove(docType);
-                                                                      print(":::Chips values ${chipValues}");
-                                                                      print(
-                                                                          ":::Chips name ${selectedChips}");
-                                                                      print(
-                                                                          ":::: Chips Id ${selectedChipsId}");
-                                                                    });
-                                                                  },
-                                                                ),
-                                                              );
-                                                              selectedChipsId
-                                                                  .add(docType);
-                                                              print(
-                                                                  "::${selectedChipsId}");
-                                                              print("::${selectedChips}");
-                                                            }
-                                                          });
+                                                              shape: StadiumBorder(
+                                                                  side: BorderSide(
+                                                                      color: ColorManager
+                                                                          .blueprime)),
+                                                              deleteIcon: Icon(
+                                                                Icons.close,
+                                                                color: ColorManager
+                                                                    .blueprime,
+                                                                size: 17,
+                                                              ),
+                                                              label: Text(
+                                                                val,
+                                                                style: AllHRTableData.customTextStyle(context),),
+                                                              onDeleted: () {
+                                                                setState(() {
+                                                                  // deleteChip(
+                                                                  //     val, docType);
+                                                                  chipValues.remove(val);
+                                                                  selectedChips.removeWhere((chip) {
+                                                                    final chipText = (chip as Chip).label as Text;
+                                                                    return chipText.data == val;
+                                                                  });
+                                                                  selectedChipsId
+                                                                      .remove(docType);
+                                                                  print(":::Chips values ${chipValues}");
+                                                                  print(
+                                                                      ":::Chips name ${selectedChips}");
+                                                                  print(
+                                                                      ":::: Chips Id ${selectedChipsId}");
+                                                                });
+                                                              },
+                                                            ),
+                                                          );
+                                                          selectedChipsId
+                                                              .add(docType);
+                                                          print(
+                                                              "::${selectedChipsId}");
+                                                          print("::${selectedChips}");
                                                         }
-                                                      }
-                                                      print(":::${docType}");
-                                                      print(":::<>${empTypeId}");
-                                                    },
-                                                    items: dropDownTypesList);
-                                              }
-                                              return SizedBox();
-                                            }),
-                                        SizedBox(height: AppSize.s5),
-                                        Wrap(spacing: 8.0, children: listWidget),
-                                      ],
-                                    ),
+                                                      });
+                                                    }
+                                                  }
+                                                  print(":::${docType}");
+                                                  print(":::<>${empTypeId}");
+                                                },
+                                                items: dropDownTypesList);
+                                          }
+                                          return SizedBox();
+                                        }),
+                                    SizedBox(height: AppSize.s5),
+                                    Wrap(spacing: 8.0, children: listWidget),
+                                  ],
+                                ),
                                 dropdownServices:FutureBuilder<List<ServicesMetaData>>(
                                   future: getServicesMetaData(context),
                                   builder: (context, snapshot) {
@@ -358,8 +358,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // Expanded(flex: 2, child: Container()),
-              Padding(
-                padding: const EdgeInsets.only(left: 80),
+              Expanded(
+                flex: 3,
                 child: Text(
                   AppString.srNo,
                   textAlign: TextAlign.center,
@@ -369,26 +369,26 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               ),
 
               ///visit
-              Padding(
-                padding: const EdgeInsets.only(left: 150),
+              Expanded(
+                flex: 3,
                 child: Text(
                   AppString.visit,
                   textAlign: TextAlign.center,
                   style: AllHRTableHeading.customTextStyle(context),
                 ),
               ),
-
+              Expanded(flex: 1, child: Container()),
               ///EL clinician
-              Padding(
-                padding: const EdgeInsets.only(right: 250),
+              Expanded(
+                flex: 3,
                 child: Text(
                   AppString.eligibleClinician,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                   style: AllHRTableHeading.customTextStyle(context),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 75.0),
+              Expanded(
+                flex: 3,
                 child: Text(
                   AppString.actions,
                   textAlign: TextAlign.center,
@@ -482,7 +482,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 child: Column(children: [
                                   Container(
                                       padding: EdgeInsets.only(bottom: AppPadding.p5),
-
                                       decoration: BoxDecoration(
                                         color: ColorManager.white,
                                         borderRadius: BorderRadius.circular(4),
@@ -502,6 +501,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         children: [
                                           // Expanded(flex: 2, child: Container()),
                                           Expanded(
+                                            flex: 3,
                                             child: Text(
                                               formattedSerialNumber,
                                               style: DocumentTypeDataStyle.customTextStyle(context),
@@ -510,15 +510,16 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ),
                                           // Expanded(flex: 1, child: Container()),
                                           Expanded(
+                                            flex: 3,
                                             child: Text(
-                                              visitData.typeofVisit
-                                                  .toString(),
+                                              visitData.typeofVisit.toString(),
                                               textAlign: TextAlign.center,
                                               style:DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
-                                          // Expanded(flex: 1, child: Container()),
+                                          Expanded(flex: 1, child: Container()),
                                           Expanded(
+                                            flex: 3,
                                             child: Row(
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -528,6 +529,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ),
                                           // Expanded(flex: 2, child: Container()),
                                           Expanded(
+                                            flex: 3,
                                             child: Center(
                                               child: Row(
                                                 mainAxisAlignment:
@@ -614,8 +616,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                           context:context,
                                                                           typeVisist: paginatedData[index].visitId,
                                                                           visitType: visitName == docNamecontroller.text
-                                                                            ? visitName.toString()
-                                                                            : docNamecontroller.text,
+                                                                              ? visitName.toString()
+                                                                              : docNamecontroller.text,
                                                                           eligibleClinical: selectedEditChipsId,
                                                                           serviceId: serviceId!,
                                                                         );
