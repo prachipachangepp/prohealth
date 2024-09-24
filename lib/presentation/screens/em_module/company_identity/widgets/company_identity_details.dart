@@ -314,7 +314,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         padding: const EdgeInsets.only(
                             right: 25, left: 25, top: 10, bottom: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
@@ -625,7 +625,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                 ],
                               ),
                             )
-
                             // CIDetailsDropdown(
                             //   initialValue: serviceDetail.serviceName,
                             //   items: dropdownItems.map((item) {

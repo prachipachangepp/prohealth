@@ -1076,7 +1076,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                           StatefulBuilder(
                                                             builder: (BuildContext context, void Function(void Function()) setState) {
                                                               return DeletePopup(
-                                                                  title: DeletePopupString.deleteholiday,
+                                                                  title: "Delete User",
                                                                   loadingDuration: _isLoading,
                                                                   onCancel: () {
                                                                     Navigator.pop(
