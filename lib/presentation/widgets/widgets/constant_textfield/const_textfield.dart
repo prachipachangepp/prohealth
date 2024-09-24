@@ -341,7 +341,8 @@ class HRManageTextFieldEmail extends StatefulWidget {
   final double? width;
   final double? height;
   final double cursorHeight;
-  final String labelText;
+  final String? labelText;
+  final String? hintText;
   final TextStyle labelStyle;
   final double labelFontSize;
   final Icon? suffixIcon;
@@ -366,7 +367,7 @@ class HRManageTextFieldEmail extends StatefulWidget {
     this.width,
     this.height,
     required this.cursorHeight,
-    required this.labelText,
+     this.labelText,
     required this.labelStyle,
     required this.labelFontSize,
     this.suffixIcon,
@@ -375,7 +376,7 @@ class HRManageTextFieldEmail extends StatefulWidget {
     this.errorText,
     this.onChanged,
     this.validator,
-    this.suffix,
+    this.suffix, this.hintText,
     // this.validator,
   }) : super(key: key);
 
@@ -428,6 +429,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
+            hintText: widget.hintText,
             labelStyle: widget.labelStyle.copyWith(
                 fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
@@ -451,6 +453,7 @@ class HRManageTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String text;
+  final String? hintText;
   final Color textColor;
   final Icon? icon;
   final bool? readOnly;
@@ -458,7 +461,7 @@ class HRManageTextField extends StatefulWidget {
   final double? width;
   final double? height;
   final double cursorHeight;
-  final String labelText;
+  final String? labelText;
   final TextStyle labelStyle;
   final double labelFontSize;
   final Icon? suffixIcon;
@@ -483,7 +486,7 @@ class HRManageTextField extends StatefulWidget {
     this.width,
     this.height,
     required this.cursorHeight,
-    required this.labelText,
+     this.labelText,
     required this.labelStyle,
     required this.labelFontSize,
     this.suffixIcon,
@@ -491,7 +494,7 @@ class HRManageTextField extends StatefulWidget {
     this.focusNode,
     this.errorText,
     this.onChanged,
-    this.validator,  this.showDatePicker = false ,
+    this.validator,  this.showDatePicker = false,  this.hintText ,
   }) : super(key: key);
 
   @override
@@ -525,24 +528,24 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
       width: widget.width ?? 320,
       height: widget.height ?? 35,
       child: Padding(
-        padding: const EdgeInsets.all(5.0),  // Assuming you have an AppPadding.p5
+        padding: const EdgeInsets.all(5.0),
         child: TextFormField(
           enabled: widget.enabled ?? true,
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),  // Example of applying text color
+          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: Colors.black,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
-                bottom: 3.0, // Replace with AppPadding.p3 if needed
-                top: 5.0,    // Replace with AppPadding.p5 if needed
-                left: 5.0    // Replace with AppPadding.p5 if needed
+                bottom: 3.0,
+                top: 5.0,
+                left: 5.0
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),  // Customize as needed
+              borderSide: BorderSide(color: Colors.grey),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -551,6 +554,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
               borderSide: BorderSide(color: Colors.grey),
             ),
             labelText: widget.labelText,
+            hintText: widget.hintText,
             labelStyle: widget.labelStyle.copyWith(
               fontSize: widget.labelFontSize,
               color: Colors.grey,
@@ -579,6 +583,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
 class HRManageDropdown extends StatefulWidget {
   final TextEditingController controller;
   final String? labelText;
+  final String? hintText;
   final TextStyle labelStyle;
   final double labelFontSize;
   final List<String> items;
@@ -593,7 +598,7 @@ class HRManageDropdown extends StatefulWidget {
     required this.labelFontSize,
     required this.items,
     this.errorText,
-    this.onChanged,
+    this.onChanged, this.hintText,
   }) : super(key: key);
 
   @override
@@ -642,6 +647,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               borderSide: BorderSide(color: Colors.black),
             ),
             labelText: widget.labelText,
+            hintText: widget.hintText,
             labelStyle: widget.labelStyle.copyWith(
                 fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
 

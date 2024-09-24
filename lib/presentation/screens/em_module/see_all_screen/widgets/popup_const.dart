@@ -153,7 +153,13 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("First Name" ,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700
+                                ),
+                              ),
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
@@ -161,10 +167,11 @@ class _CustomDialogState extends State<CustomDialog> {
                               keyboardType: TextInputType.phone,
                               text: "First Name",
                               cursorHeight: 12,
-                              labelText: "First Name",
+                              // labelText: "First Name",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
                               errorText: 'First Name is required',
+                              hintText: 'First Name',
                             ),
 
                           ],
@@ -178,7 +185,11 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("Last Name",
+                                style: TextStyle(fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
@@ -186,10 +197,11 @@ class _CustomDialogState extends State<CustomDialog> {
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
                               cursorHeight: 12,
-                              labelText: "Last Name",
+                              // labelText: "Last Name",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
                               errorText: 'Last Name is required',
+                              hintText: 'Last Name',
                             ),
                           ],
                         ),
@@ -225,14 +237,17 @@ class _CustomDialogState extends State<CustomDialog> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
-                              controller: widget.emailController,
+
+                              ///
+                              controller:widget.emailController,
                               keyboardType: TextInputType.phone,
                               text: "Email",
                               cursorHeight: 12,
-                              labelText: "Email",
+                              // labelText: "Last Name",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
                               errorText: 'Email is required',
+                              hintText: 'Email',
                             ),
                           ],
                         ),
@@ -255,7 +270,8 @@ class _CustomDialogState extends State<CustomDialog> {
                               keyboardType: TextInputType.text,
                               text: "Password",
                               cursorHeight: 12,
-                              labelText: "Password",
+                              // labelText: "Password",
+                              hintText: "Password",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
                               errorText: 'Password is required',
@@ -291,7 +307,8 @@ class CustomTextFieldWithIcon extends StatefulWidget {
   final TextInputType keyboardType;
   final String text;
   final double cursorHeight;
-  final String labelText;
+  final String? labelText;
+  final String? hintText;
   final TextStyle? labelStyle;
   final double labelFontSize;
   final FocusNode? focusNode;
@@ -305,12 +322,12 @@ class CustomTextFieldWithIcon extends StatefulWidget {
     required this.keyboardType,
     required this.text,
     required this.cursorHeight,
-    required this.labelText,
+     this.labelText,
     this.labelStyle,
     required this.labelFontSize,
     this.errorText,
     this.onSuffixIconPressed,  // Callback for suffix icon
-    this.focusNode,
+    this.focusNode, this.hintText,
   }) : super(key: key);
 
   @override
@@ -498,10 +515,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                               keyboardType: TextInputType.phone,
                               text: "First Name",
                               cursorHeight: 12,
-                              labelText: "First Name",
+                              // labelText: "First Name",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
-                              errorText: 'First Name is required',
+                              errorText: 'First Name is required', hintText: 'First Name',
                             ),
                           ],
                         ),
@@ -518,10 +535,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
                               cursorHeight: 12,
-                              labelText: "Last Name",
+                              // labelText: "Last Name",
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
-                              errorText: 'Last Name is required',
+                              errorText: 'Last Name is required', hintText: 'last Name',
                             ),
                           ],
                         ),
@@ -549,8 +566,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                               keyboardType: TextInputType.phone,
                               text: "Email",
                               cursorHeight: 12,
-                              labelText: "Email",
+                              // labelText: "Email",
+
                               labelStyle: TextStyle(),
+                              hintText: "Email",
                               labelFontSize: 10,
                               errorText: 'Email is required',
                             ),

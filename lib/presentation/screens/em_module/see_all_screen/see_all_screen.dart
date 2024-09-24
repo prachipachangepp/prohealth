@@ -280,7 +280,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     return HRManageDropdown(
                                       controller: TextEditingController(
                                           text: selectedDeptName ?? ''),
-                                      labelText: "Select Department",
+                                      // labelText: "Select Department",
                                       labelStyle: MobileMenuText.MenuTextConst(context),
                                       labelFontSize: 12,
                                       items: dropDownServiceList,
