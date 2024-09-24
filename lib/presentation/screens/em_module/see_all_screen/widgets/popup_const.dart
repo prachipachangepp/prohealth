@@ -110,7 +110,7 @@ class _CustomDialogState extends State<CustomDialog> {
       _emailDocError = _validateTextField(widget.emailController.text, 'Email');
       _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
       _PasswordDocError =
-          _validateTextField(widget.passwordController.text, 'Password ');
+          _validateTextField(widget.passwordController.text, 'Password');
       // _pPhoneDocError =
       //     _validateTextField(widget.mobNumController.text, 'Primary Phone');
       // _sphoneDocError =
@@ -140,7 +140,7 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 500,
+            height: 555,
             width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -264,6 +264,17 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'Last Name is required',
                               hintText: 'Last Name',
                             ),
+                            if (_stateDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _stateDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
 
                           ],
                         ),
