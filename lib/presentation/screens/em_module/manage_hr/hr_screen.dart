@@ -446,6 +446,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
     });
   }
   int flexVal = 2;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -765,24 +766,37 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                     await showDialog(
                                                         context: context,
                                                         builder: (context) =>
-                                                            DeletePopup(
-                                                                title:
-                                                                    DeletePopupString.deleteEmpType,
+                                                        StatefulBuilder(
+                                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                                            return
+                                                              DeletePopup(
+                                                              loadingDuration: _isLoading,
+                                                                title: DeletePopupString.deleteEmpType,
                                                                 onCancel: () {
-                                                                  Navigator.pop(
-                                                                      context);
+                                                                  Navigator.pop(context);
                                                                 },
-                                                                onDelete: () {
-                                                                  setState(() async {
+                                                                onDelete: () async {
+                                                                  setState(() {
+                                                                    _isLoading = true;
+                                                                  });
+                                                                  try {
                                                                     await allfromHrDelete(context, hrdoc.employeeTypesId);
                                                                     getAllHrDeptWise(context, widget.deptId).then(
                                                                             (data) {_hrAllcontroller.add(data);
-                                                                    }).catchError((error) {
-                                                                      // Handle error
+                                                                        }).catchError((error) {
+                                                                    });
+
+                                                                  } finally {
+                                                                    setState(() {
+                                                                      _isLoading = false;
                                                                     });
                                                                     Navigator.pop(context);
-                                                                  });
-                                                                }));
+                                                                  }
+                                                                }
+                                                               );
+                                                          },
+                                                        ),
+                                                    );
                                                   },
                                                   icon: Icon(
                                                     size: IconSize.I18,

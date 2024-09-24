@@ -828,20 +828,41 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     hoverColor: Colors.transparent,
                                                     onPressed: () {
                                                       showDialog(context: context,
-                                                          builder: (context) => DeletePopup(
-                                                              title: 'Delete Visit',
-                                                              onCancel: (){
-                                                                Navigator.pop(context);
+                                                        builder: (context) =>
+                                                            StatefulBuilder(
+                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                return
+                                                                  DeletePopup(
+                                                                      title: 'Delete Visit',
+                                                                      loadingDuration: _isLoading,
+                                                                      onCancel: (){
+                                                                        Navigator.pop(context);
+                                                                      },
+                                                                      onDelete:
+                                                                          () async {
+                                                                        setState(() {
+                                                                          _isLoading = true;
+                                                                        });
+                                                                        try {
+                                                                          await deleteVisit(context, snapshot.data![index].visitId);
+                                                                          getVisit(context, 1, 10).then((data) {
+                                                                            _visitController.add(data);
+                                                                          }).catchError((error) {
+                                                                            // Handle error
+                                                                          });
+
+                                                                        } finally {
+                                                                          setState(() {
+                                                                            _isLoading = false;
+                                                                          });
+                                                                          Navigator.pop(context);
+                                                                        }
+                                                                      }
+
+                                                                  );
                                                               },
-                                                              onDelete: () async {
-                                                                await deleteVisit(context, snapshot.data![index].visitId);
-                                                                getVisit(context, 1, 10).then((data) {
-                                                                  _visitController.add(data);
-                                                                }).catchError((error) {
-                                                                  // Handle error
-                                                                });
-                                                                Navigator.pop(context);
-                                                              }));
+                                                            ),
+                                                      );
 
                                                     },
                                                     icon: Icon(

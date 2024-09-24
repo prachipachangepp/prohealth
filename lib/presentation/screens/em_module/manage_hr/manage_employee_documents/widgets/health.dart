@@ -64,7 +64,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
       currentPage = pageNumber;
     });
   }
- int flexVal = 2;
+
+  int flexVal = 2;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,11 +94,10 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                   }
                   if (snapshot.data!.isEmpty) {
                     return Center(
-                      child: Text(
-                        ErrorMessageString.noEmpDocc,
-                        //AppString.dataNotFound,
-                        style: DocumentTypeDataStyle.customTextStyle(context)
-                      ),
+                      child: Text(ErrorMessageString.noEmpDocc,
+                          //AppString.dataNotFound,
+                          style:
+                              DocumentTypeDataStyle.customTextStyle(context)),
                     );
                   }
                   if (snapshot.hasData) {
@@ -151,33 +151,36 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           child: Center(
                                               child: Text(
                                             formattedSerialNumber,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
+                                            style: DocumentTypeDataStyle
+                                                .customTextStyle(context),
                                             textAlign: TextAlign.start,
                                           )),
                                         ),
                                         Expanded(
                                           flex: flexVal,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(left: 40.0),
+                                            padding: const EdgeInsets.only(
+                                                left: 40.0),
                                             child: Text(
-                                            employeedoc.idOfDocument,
-                                               // snapshot.data![index].name.toString(),
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                            textAlign: TextAlign.center,
-                                             ),
+                                              employeedoc.idOfDocument,
+                                              // snapshot.data![index].name.toString(),
+                                              style: DocumentTypeDataStyle
+                                                  .customTextStyle(context),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
-                                        Expanded(
-                                            flex: 1,
-                                            child: SizedBox()),
+                                        Expanded(flex: 1, child: SizedBox()),
                                         Expanded(
                                           flex: flexVal,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(left: 20.0),
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0),
                                             child: Text(
-                                             employeedoc.docName,
+                                              employeedoc.docName,
                                               textAlign: TextAlign.start,
-                                              style: DocumentTypeDataStyle.customTextStyle(context),
+                                              style: DocumentTypeDataStyle
+                                                  .customTextStyle(context),
                                             ),
                                           ),
                                         ),
@@ -186,7 +189,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           child: Center(
                                               child: Text(
                                             employeedoc.reminderThreshold,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
+                                            style: DocumentTypeDataStyle
+                                                .customTextStyle(context),
                                           )),
                                         ),
 
@@ -204,20 +208,30 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                         expiryType;
                                                     String? selectedDocType;
                                                     int docMetaId = 0;
-                                                    List<DropdownMenuItem<String>>
+                                                    List<
+                                                            DropdownMenuItem<
+                                                                String>>
                                                         dropDownMenuItems = [];
-                                                    final docTypes = await getEmployeeDocTab(context);
+                                                    final docTypes =
+                                                        await getEmployeeDocTab(
+                                                            context);
                                                     if (docTypes.isNotEmpty) {
                                                       for (var i in docTypes) {
                                                         dropDownMenuItems.add(
-                                                          DropdownMenuItem<String>(
-                                                            child: Text(i.employeeDocType),
-                                                            value: i.employeeDocType,
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                            child: Text(i
+                                                                .employeeDocType),
+                                                            value: i
+                                                                .employeeDocType,
                                                           ),
                                                         );
                                                       }
-                                                      selectedDocType = dropDownMenuItems[0].value;
-                                                      docMetaId = docTypes[0].employeeDocMetaDataId;
+                                                      selectedDocType =
+                                                          dropDownMenuItems[0]
+                                                              .value;
+                                                      docMetaId = docTypes[0]
+                                                          .employeeDocMetaDataId;
                                                     }
 
                                                     showDialog(
@@ -289,20 +303,37 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                             return StatefulBuilder(
                                                               builder: (BuildContext
                                                                       context,
-                                                                  void Function(void Function())
+                                                                  void Function(
+                                                                          void
+                                                                              Function())
                                                                       setState) {
                                                                 return EmpDocEditPopup(
-                                                                  title:EditPopupString.editDocument,
-                                                                  expiryType: expiryType,
-                                                                  idOfDocController: idOfDocController,
+                                                                  title: EditPopupString
+                                                                      .editDocument,
+                                                                  expiryType:
+                                                                      expiryType,
+                                                                  idOfDocController:
+                                                                      idOfDocController,
                                                                   enable: true,
-                                                                  nameDocController: docNamecontroller,
-                                                                  calenderController: dateController,
-                                                                  empsetupId: snapshotPrefill.data!.employeeDocTypesetupId,
-                                                                  docname: snapshotPrefill.data!.docName,
-                                                                  empdoctype: snapshotPrefill.data!.employeeDocTypeMetaId ==
-                                                                          AppConfig.healthDocId
-                                                                      ? AppStringEM.health
+                                                                  nameDocController:
+                                                                      docNamecontroller,
+                                                                  calenderController:
+                                                                      dateController,
+                                                                  empsetupId:
+                                                                      snapshotPrefill
+                                                                          .data!
+                                                                          .employeeDocTypesetupId,
+                                                                  docname:
+                                                                      snapshotPrefill
+                                                                          .data!
+                                                                          .docName,
+                                                                  empdoctype: snapshotPrefill
+                                                                              .data!
+                                                                              .employeeDocTypeMetaId ==
+                                                                          AppConfig
+                                                                              .healthDocId
+                                                                      ? AppStringEM
+                                                                          .health
                                                                       : snapshotPrefill.data!.employeeDocTypeMetaId ==
                                                                               AppConfig.certificationDocId
                                                                           ? AppStringEM.certifications
@@ -328,8 +359,12 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                   icon: Icon(
                                                     Icons.edit_outlined,
                                                     size: IconSize.I18,
-                                                    color: IconColorManager.bluebottom,
+                                                    color: IconColorManager
+                                                        .bluebottom,
                                                   ),
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
                                                 ),
                                                 SizedBox(
                                                   width: 3,
@@ -337,46 +372,61 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
 
                                                 ///delete
                                                 IconButton(
-                                                  onPressed: () async {
-                                                    await showDialog(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            DeletePopup(
-                                                                title: DeletePopupString.deleteDocument,
-                                                                onCancel: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                onDelete: () {
-                                                                  setState(
-                                                                      () async {
-                                                                    await employeedoctypeSetupIdDelete(
-                                                                        context,
-                                                                        employeedoc
-                                                                            .employeeDocTypesetupId);
-                                                                    getEmployeeDoc(
-                                                                            context,
-                                                                            widget
-                                                                                .metaDocID,
-                                                                            1,
-                                                                            20)
-                                                                        .then(
-                                                                            (data) {
-                                                                      _controller
-                                                                          .add(
-                                                                              data);
-                                                                    }).catchError(
-                                                                            (error) {
-                                                                      // Handle error
-                                                                    });
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  });
-                                                                }));
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onPressed: ()  {
+                                                     showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          StatefulBuilder(
+                                                        builder: (BuildContext
+                                                                context,
+                                                            void Function(
+                                                                    void
+                                                                        Function())
+                                                                setState) {
+                                                          return DeletePopup(
+                                                              title: DeletePopupString
+                                                                  .deleteDocument,
+                                                              loadingDuration:
+                                                                  _isLoading,
+                                                              onCancel: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                          onDelete:
+                                                          () async {
+                                                          setState(() {
+                                                          _isLoading = true;
+                                                          });
+                                                          try {
+                                                          await employeedoctypeSetupIdDelete(
+                                                          context, employeedoc.employeeDocTypesetupId);
+                                                          getEmployeeDoc(context, widget.metaDocID, 1, 20)
+                                                              .then((data) {
+                                                          _controller
+                                                              .add(
+                                                          data);
+                                                          }).catchError(
+                                                          (error) {
+                                                          // Handle error
+                                                          });
+
+                                                          } finally {
+                                                          setState(() {
+                                                          _isLoading = false;
+                                                          });
+                                                          Navigator.pop(context);
+                                                          }
+                                                          });
+                                                        },
+                                                          ),
+                                                     );
                                                   },
                                                   icon: Icon(
                                                     size: IconSize.I18,
-                                                    Icons.delete_outline_outlined,
+                                                    Icons
+                                                        .delete_outline_outlined,
                                                     color: IconColorManager.red,
                                                   ),
                                                 ),
