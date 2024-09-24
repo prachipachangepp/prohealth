@@ -870,6 +870,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                       Icons.delete_outline,
                                                       color: IconColorManager.red,
                                                     ),
+
                                                   ),
                                                 ],
                                               ),
