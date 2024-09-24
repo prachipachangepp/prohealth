@@ -3,28 +3,12 @@ import 'package:prohealth/app/resources/font_manager.dart';
 
 import 'color.dart';
 
-/// listview table heading
-// class TableHeadingStyle{
-//   static const TextStyle firaSansWhite12Bold = TextStyle(
-//     fontSize: 12,
-//     fontWeight: FontWeight.w600,
-//     color: Colors.white,
-//   );
-// }
-
-// class TableListTextStyle{
-//   static final TextStyle firaSansGray10Bold = TextStyle(
-//     fontSize: 10,
-//     fontWeight: FontWeight.w600,
-//     color: Color(0xff686464),
-//   );
-// }
 
 
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -37,7 +21,7 @@ class ThemeManager {
 ///prajwal
 class ThemeManagerBold {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       //color: Color(0xFF686464),
@@ -52,17 +36,17 @@ class ThemeManagerBold {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width/140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width/140;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -73,7 +57,7 @@ class ThemeManagerDarkFont {
 
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 120;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -84,7 +68,7 @@ class ThemeManagerLightblue {
 
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
@@ -95,7 +79,8 @@ class ThemeManagerWhite {
 
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
+    double fontSize = 12;
+        // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.black,
@@ -106,7 +91,7 @@ class ThemeManagerBlack {
 
 class ThemeManagerAccentblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.blueAccent,
@@ -117,7 +102,7 @@ class ThemeManagerAccentblue {
 
 class ThemeManagerblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 120;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -157,6 +142,15 @@ class AknowledgementStyleConst {
     );
   }
 }
+class AknowledgementStyleNormal {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: 10,
+      color: Color(0xFF000000),
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
 
 ///profile bar
 class ProfileBarConst {
@@ -164,6 +158,7 @@ class ProfileBarConst {
     return TextStyle(
       fontSize: FontSize.s10,
       color: ColorManager.primary,
+
       decoration: TextDecoration.underline,
       decorationColor: Colors.blueAccent,
     );
@@ -193,7 +188,7 @@ class ProfileBarLastColText {
 class ProfileBarClipText {
   static TextStyle profileTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: MediaQuery.of(context).size.width / 140,
+      fontSize: 10,
       color: ColorManager.white,
       fontWeight: FontWeight.w600,
     );
@@ -234,6 +229,75 @@ class MobileMenuText {
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
       fontWeight:FontWeight.w500,
+    );
+  }
+}
+
+
+class BoxHeadingStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 13;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+    );
+  }
+}
+
+class PopupHeadingStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 16;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w700,
+    );
+  }
+}
+///Equipment
+class EquipmentStyleHeading{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class EquipmentStyleRegular{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w600,
+      color: Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///
+class EquipTableRegStyle {
+  static TextStyle  customTextStyle(BuildContext) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      color:  ColorManager.granitegray,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///Time Off
+class TimeOffRegular{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.granitegray,
+      decoration:
+      TextDecoration.none,
     );
   }
 }

@@ -121,7 +121,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                 child: Text(
                   AppString.dataNotFound,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w700,
                     fontSize: FontSize.s12,
                     color: ColorManager.mediumgrey,
                   ),
@@ -210,12 +210,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
                                       Text(health.DocumentName,
-                                          style:TextStyle(
-                                            fontFamily: 'FiraSans',
-                                            fontSize: 10,
-                                            color: Color(0xFF686464),
-                                            fontWeight: FontWeight.w700,
-                                          )),
+                                          style: AknowledgementStyleNormal.customTextStyle(context)),
                                     ],
                                   )
                                 ],

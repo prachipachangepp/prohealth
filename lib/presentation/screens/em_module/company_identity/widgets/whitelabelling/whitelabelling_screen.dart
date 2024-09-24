@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
@@ -13,12 +13,15 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/compan
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../hr_module/register/confirmation_constant.dart';
 import '../../../widgets/button_constant.dart';
+import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/text_form_field_const.dart';
+
 class WhitelabellingScreen extends StatefulWidget {
   final String officeId;
   WhitelabellingScreen({super.key, required this.officeId});
@@ -74,14 +77,18 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   String? _previewImageUrl;
   dynamic filePath;
 
-
   List<PlatformFile>? pickedMobileFiles;
   List<PlatformFile>? pickedWebFiles;
   Future<void> pickMobileLogo() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom, // Custom type to specify allowed extensions
-      allowedExtensions: ['png', 'jpg', 'jpeg'], // Restrict to PNG, JPG, and JPEG
+      allowedExtensions: [
+        'png',
+        'jpg',
+        'jpeg',
+        'pdf'
+      ], // Restrict to PNG, JPG, and JPEG
     );
 
     if (result != null) {
@@ -94,19 +101,22 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     }
   }
 
-
   var maskFormatter = new MaskTextInputFormatter(
       mask: '+# (###) ###-##-##',
-      filter: { "#": RegExp(r'[0-9]') },
-      type: MaskAutoCompletionType.lazy
-  );
-
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   Future<void> pickWebLogo() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
-      type: FileType.custom, // Use custom file type to specify allowed extensions
-      allowedExtensions: ['png', 'jpg', 'jpeg'], // Restrict to PNG, JPG, and JPEG
+      type:
+          FileType.custom, // Use custom file type to specify allowed extensions
+      allowedExtensions: [
+        'png',
+        'jpg',
+        'jpeg',
+        'pdf'
+      ], // Restrict to PNG, JPG, and JPEG
     );
 
     if (result != null) {
@@ -121,12 +131,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
   }
+
   List<String> _suggestions = [];
   @override
   void initState() {
     super.initState();
     addressController.addListener(_onAddressChanged);
   }
+
   ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
 
   void _onAddressChanged() async {
@@ -139,7 +151,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     final suggestions = await fetchSuggestions(addressController.text);
     _suggestionsNotifier.value = suggestions;
   }
-
 
   bool _isEditing = false;
 
@@ -159,9 +170,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(
                       "Logos",
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: FontSize.s12,
-                        fontWeight:FontWeight.w600,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.mediumgrey,
                       ),
                     ),
@@ -170,7 +181,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   Expanded(
                     child: Text(
                       "Details",
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeight.w600,
                         color: ColorManager.mediumgrey,
@@ -182,12 +193,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     width: 90,
                     child: CustomButton(
                       borderRadius: 12,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: BlueButtonTextConst.customTextStyle(context),
                       text: "Save",
                       onPressed: () {
                         showDialog(
@@ -201,7 +207,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 50),
                   Padding(
-                    padding: const EdgeInsets.only(right: 30),
+                    padding: const EdgeInsets.only(right: 20),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomIconButton(
@@ -214,549 +220,526 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(8),
-                                      topRight: Radius.circular(8),
-                                      bottomRight: Radius.circular(8),
-                                      bottomLeft: Radius.circular(8),
-                                    ),
-                                  ),
-
-                                  backgroundColor: Colors.white,
-                                  child: StatefulBuilder(
-                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                      return Container(
-                                        height: 500,
-                                        width: 820,
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                height: 40,
-                                                width: 820,
-                                                padding: EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                  color: ColorManager.blueprime,
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(8),
-                                                    topRight: Radius.circular(8),
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  // mainAxisAlignment: MainAxisAlignment.end,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                return DialogueTemplate(
+                                  title: 'Edit White Labelling',
+                                  height: 600,
+                                  width:800,
+                                  body: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left:30),
-                                                      child: Text(
-                                                        'Edit White Labelling',
-                                                        textAlign: TextAlign.center,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                          FontWeight.w600,
-                                                          color: ColorManager.white,
-                                                          decoration: TextDecoration.none,
-                                                        ),
-                                                      ),
+                                                    ///company app logo title
+                                                    Text(
+                                                      "Company App Logo",
+                                                      style: ConstTextFieldStyles
+                                                          .customTextStyle(
+                                                              textColor: Color(
+                                                                  0xff686464)),
+                                                      // style: GoogleFonts
+                                                      //     .firaSans(
+                                                      //   fontSize:
+                                                      //   FontSize.s12,
+                                                      //   fontWeight:
+                                                      //   FontWeight.w700,
+                                                      //   color:
+                                                      //   Color(0xff686464),
+                                                      // ),
                                                     ),
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      icon: Icon(Icons.close,
-                                                        color: ColorManager.white,),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+
+                                                    ///main
+                                                    Container(
+                                                      width: 354,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                        // color: Colors.green,
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal: 5),
+                                                            child: Text(
+                                                                "Upload Immunization Records from PDF",
+                                                                style: TextStyle(
+                                                                    fontSize: 9,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: Color(
+                                                                        0xff686464))),
+                                                          ),
+
+                                                          ///sub container
+                                                          StreamBuilder<
+                                                              List<PlatformFile>>(
+                                                            stream:
+                                                                _mobileFilesStreamController
+                                                                    .stream,
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(3.0),
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 170,
+                                                                      height: 30,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color: Colors
+                                                                                .grey),
+                                                                        borderRadius:
+                                                                            BorderRadius.all(
+                                                                                Radius.circular(10)),
+                                                                        // color: Colors.pink
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets
+                                                                                .all(
+                                                                                1.0),
+                                                                        child: Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment
+                                                                                  .spaceAround,
+                                                                          children: [
+                                                                            InkWell(
+                                                                              onTap:
+                                                                                  pickMobileLogo,
+                                                                              child:
+                                                                                  Container(
+                                                                                color:
+                                                                                    Color(0xffD9D9D9),
+                                                                                child:
+                                                                                    Text(
+                                                                                  "Choose File",
+                                                                                  style: TextStyle(
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    color: Colors.grey,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            // SizedBox(width: 2,),
+                                                                            if (snapshot
+                                                                                .hasData)
+                                                                              ...snapshot
+                                                                                  .data!
+                                                                                  .map((file) => InkWell(
+                                                                                        child: Container(
+                                                                                          // padding: EdgeInsets.only(t: 15),
+                                                                                          height: 30,
+                                                                                          width: 90,
+                                                                                          child: Text(
+                                                                                            file.name.substring(0, 10) + "...",
+                                                                                            textAlign: TextAlign.center,
+                                                                                            style: TextStyle(
+                                                                                              fontSize: 10,
+                                                                                              fontWeight: FontWeight.w500,
+                                                                                              color: Colors.grey,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        onTap: () => openFile(file),
+                                                                                      ))
+                                                                                  .toList(),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                              SizedBox(height: 20,),
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      Column(
+                                                SizedBox(height: AppSize.s15),
+                                                FirstSMTextFConst(
+                                                  controller: nameController,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.companyName,
+                                                ),
+                                                SizedBox(height: AppSize.s15),
+                                                SMTextFConstPhone(
+                                                  controller: secNumberController,
+                                                  keyboardType: TextInputType.phone,
+                                                  text: AppStringEM.secNum,
+                                                  enable: true,
+                                                ),
+
+                                                // text: 'Phone Number',
+                                                //  icon: Icon(Icons.phone),
+                                                //  enable: true,
+                                                //  validator: (value) {
+                                                //    // Add your validation logic here
+                                                //    return null;
+                                                //  },
+
+                                                // SMTextFConst(
+                                                //
+                                                //   controller:
+                                                //       secNumberController,
+                                                //   keyboardType:
+                                                //       TextInputType.phone,
+                                                //   text: AppStringEM.secNum,
+                                                // ),
+                                                SizedBox(height: AppSize.s15),
+                                                SMTextFConst(
+                                                  controller: faxController,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.fax,
+                                                ),
+                                                SizedBox(height: AppSize.s15),
+                                                SMTextFConst(
+                                                  controller: emailController,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.primarymail,
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    ///Company Web Logo title,
+                                                    Text(
+                                                      "Company Web Logo",
+                                                      style: ConstTextFieldStyles
+                                                          .customTextStyle(
+                                                              textColor: Color(
+                                                                  0xff686464)),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Container(
+                                                      width: 354,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                      ),
+                                                      child: Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                            MainAxisAlignment.start,
                                                         children: [
-                                                          ///company app logo title
-                                                          Text("Company App Logo",
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize:
-                                                                FontSize.s12,
-                                                                fontWeight:
-                                                                FontWeight.w700,
-                                                                color:
-                                                                Color(0xff686464),
-                                                              )),
-                                                          SizedBox(height: 5,),
-                                                          ///main
-                                                          Container(
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal: 10),
+                                                            child: Text(
+                                                                "Upload Immunization Records from PDF",
+                                                                style: TextStyle(
+                                                                    fontSize: 9,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: Color(
+                                                                        0xff686464))),
+                                                          ),
 
-                                                            width: 354,
-                                                            height: 50,
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Colors.grey),
-                                                              borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)),
-                                                              // color: Colors.green,
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsets.symmetric(horizontal:5),
-                                                                  child: Text(
-                                                                      "Upload Immunization Records from PDF",
-                                                                      style: GoogleFonts.firaSans(
-                                                                          fontSize: 9,
-                                                                          fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                          color: Color(0xff686464))),
-                                                                ),
-
-                                                                ///sub container
-                                                                StreamBuilder<List<PlatformFile>>(
-                                                                  stream: _mobileFilesStreamController.stream,
-                                                                  builder: (context,
-                                                                      snapshot) {
-                                                                    return Padding(
-                                                                      padding: const EdgeInsets.all(3.0),
-                                                                      child: Row(
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceAround,
-                                                                        children: [
-                                                                          Container(
-                                                                            width: 170,
-                                                                            height: 30,
-                                                                            decoration:
-                                                                            BoxDecoration(
-                                                                              border: Border.all(
-                                                                                  color:
-                                                                                  Colors.grey),
-                                                                              borderRadius:
-                                                                              BorderRadius.all(
-                                                                                  Radius.circular(10)),
-                                                                              // color: Colors.pink
+                                                          ///sub container
+                                                          StreamBuilder<
+                                                              List<PlatformFile>>(
+                                                            stream:
+                                                                _webFilesStreamController
+                                                                    .stream,
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              return Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 150,
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color: Colors
+                                                                              .grey),
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  10)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              pickWebLogo,
+                                                                          child:
+                                                                              Container(
+                                                                            color: Color(
+                                                                                0xffD9D9D9),
+                                                                            child:
+                                                                                Text(
+                                                                              "Choose File",
+                                                                              style:
+                                                                                  TextStyle(
+                                                                                fontSize:
+                                                                                    10,
+                                                                                fontWeight:
+                                                                                    FontWeight.w500,
+                                                                                color:
+                                                                                    Colors.grey,
+                                                                              ),
                                                                             ),
-                                                                            child: Padding(
-                                                                              padding: const EdgeInsets.all(1.0),
-                                                                              child: Row(
-                                                                                mainAxisAlignment:
-                                                                                MainAxisAlignment
-                                                                                    .spaceAround,
-                                                                                children: [
+                                                                          ),
+                                                                        ),
+                                                                        if (snapshot
+                                                                            .hasData)
+                                                                          ...snapshot
+                                                                              .data!
+                                                                              .map((file) =>
                                                                                   InkWell(
-                                                                                    onTap:
-                                                                                    pickMobileLogo,
-                                                                                    child:
-                                                                                    Container(
-                                                                                      color:
-                                                                                      Color(0xffD9D9D9),
-                                                                                      child:
-                                                                                      Text(
-                                                                                        "Choose File",
-                                                                                        style: GoogleFonts.firaSans(
+                                                                                    child: Container(
+                                                                                      padding: EdgeInsets.only(bottom: 15),
+                                                                                      // height: 30,
+                                                                                      // width: 90,
+                                                                                      child: Text(
+                                                                                        file.name.substring(0, 10) + "..",
+                                                                                        textAlign: TextAlign.start,
+                                                                                        style: TextStyle(
                                                                                           fontSize: 10,
                                                                                           fontWeight: FontWeight.w500,
                                                                                           color: Colors.grey,
                                                                                         ),
                                                                                       ),
                                                                                     ),
-                                                                                  ),
-                                                                                  // SizedBox(width: 2,),
-                                                                                  if (snapshot
-                                                                                      .hasData)
-                                                                                    ...snapshot
-                                                                                        .data!
-                                                                                        .map((file) => InkWell(
-                                                                                      child: Container(
-                                                                                        // padding: EdgeInsets.only(t: 15),
-                                                                                        height: 30,
-                                                                                        width: 90,
-                                                                                        child: Text(
-                                                                                          file.name.substring(0,10) + "...",
-                                                                                          textAlign: TextAlign.center,
-                                                                                          style: GoogleFonts.firaSans(
-                                                                                            fontSize: 10,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            color: Colors.grey,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                      onTap: () => openFile(file),
-                                                                                    ))
-                                                                                        .toList(),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(height: AppSize.s15),
-                                                      FirstSMTextFConst(
-                                                        controller: nameController,
-                                                        keyboardType:
-                                                        TextInputType.text,
-                                                        text: AppStringEM.companyName,
-                                                      ),
-                                                      SizedBox(height: AppSize.s15),
-                                                      SMTextFConstPhone(
-                                                        controller: secNumberController,
-                                                        keyboardType: TextInputType.phone,
-                                                        text: AppStringEM.secNum,
-                                                        enable: true,
-                                                      ),
-
-                                                      // text: 'Phone Number',
-                                                      //  icon: Icon(Icons.phone),
-                                                      //  enable: true,
-                                                      //  validator: (value) {
-                                                      //    // Add your validation logic here
-                                                      //    return null;
-                                                      //  },
-
-                                                      // SMTextFConst(
-                                                      //
-                                                      //   controller:
-                                                      //       secNumberController,
-                                                      //   keyboardType:
-                                                      //       TextInputType.phone,
-                                                      //   text: AppStringEM.secNum,
-                                                      // ),
-                                                      SizedBox(height:AppSize.s15),
-                                                      SMTextFConst(
-                                                        controller: faxController,
-                                                        keyboardType:
-                                                        TextInputType.text,
-                                                        text: AppStringEM.fax,
-                                                      ),
-                                                      SizedBox(height: AppSize.s15),
-                                                      SMTextFConst(
-                                                        controller: emailController,
-                                                        keyboardType:
-                                                        TextInputType.text,
-                                                        text: AppStringEM.primarymail,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                        children: [
-                                                          ///Company Web Logo title,
-                                                          Text("Company Web Logo",
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize:
-                                                                FontSize.s12,
-                                                                fontWeight:
-                                                                FontWeight.w700,
-                                                                color:
-                                                                Color(0xff686464),
-                                                              )),
-                                                          SizedBox(height: 5,),
-                                                          Container(
-                                                            width: 354,
-                                                            height: 50,
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Colors.grey),
-                                                              borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)),
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                                  child: Text(
-                                                                      "Upload Immunization Records from PDF",
-                                                                      style: GoogleFonts.firaSans(
-                                                                          fontSize: 9,
-                                                                          fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                          color: Color(
-                                                                              0xff686464))),
-                                                                ),
-                                                                ///sub container
-                                                                StreamBuilder<
-                                                                    List<PlatformFile>>(
-                                                                  stream: _webFilesStreamController.stream,
-                                                                  builder: (context, snapshot) {
-                                                                    return Row(
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                      children: [
-                                                                        Container(
-                                                                          width: 150,
-                                                                          height: 30,
-                                                                          decoration:
-                                                                          BoxDecoration(
-                                                                            border: Border.all(
-                                                                                color:
-                                                                                Colors.grey),
-                                                                            borderRadius:
-                                                                            BorderRadius.all(
-                                                                                Radius.circular(10)),
-                                                                          ),
-                                                                          child: Row(
-                                                                            mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceAround,
-                                                                            children: [
-                                                                              InkWell(
-                                                                                onTap:
-                                                                                pickWebLogo,
-                                                                                child:
-                                                                                Container(
-                                                                                  color:
-                                                                                  Color(0xffD9D9D9),
-                                                                                  child:
-                                                                                  Text(
-                                                                                    "Choose File",
-                                                                                    style: GoogleFonts.firaSans(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: Colors.grey,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              if (snapshot
-                                                                                  .hasData)
-                                                                                ...snapshot
-                                                                                    .data!
-                                                                                    .map((file) => InkWell(
-                                                                                  child: Container(
-                                                                                    padding: EdgeInsets.only(bottom: 15),
-                                                                                    // height: 30,
-                                                                                    // width: 90,
-                                                                                    child: Text(
-                                                                                      file.name.substring(0,10) + "..",
-                                                                                      textAlign: TextAlign.start,
-                                                                                      style: GoogleFonts.firaSans(
-                                                                                        fontSize: 10,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                        color: Colors.grey,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  onTap: () => openFile(file),
-                                                                                ))
-                                                                                    .toList(),
-                                                                            ],
-                                                                          ),
-                                                                        ),
+                                                                                    onTap: () => openFile(file),
+                                                                                  ))
+                                                                              .toList(),
                                                                       ],
-                                                                    );
-                                                                  },
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(height: AppSize.s15),
-                                                      // SMTextFConst(
-                                                      //   controller: primNumController,
-                                                      //   keyboardType: TextInputType.number,
-                                                      //   text: AppStringEM.primNum,
-                                                      // ),
-                                                      SMTextFConstPhone(
-                                                        controller: primNumController,
-                                                        // codecontroller: primNumController,
-                                                        keyboardType: TextInputType.phone,
-                                                        text: 'Primary Phone Number',
-                                                      ),
-                                                      SizedBox(height: AppSize.s15),
-                                                      SMTextFConstPhone(
-                                                        controller: altNumController,
-                                                        keyboardType:
-                                                        TextInputType.number,
-                                                        text: AppStringEM
-                                                            .alternatephone,
-                                                      ),
-                                                      SizedBox(height: AppSize.s15),
-                                                      // AddressSearchField(
-                                                      //   controller: addressController,
-                                                      //   searchHint: AppStringEM.headofficeaddress,
-                                                      //   onSuggestionSelected: (AddressSearchModel suggestion) {
-                                                      //     // Handle what happens when a suggestion is selected
-                                                      //     addressController.text = suggestion.label;
-                                                      //   },
-                                                      //   noResultsText: 'No results found',
-                                                      //   searchStyle: TextStyle(
-                                                      //     fontSize: 16,
-                                                      //     color: Colors.black,
-                                                      //   ),
-                                                      //   suggestionStyle: TextStyle(
-                                                      //     fontSize: 14,
-                                                      //     color: Colors.grey,
-                                                      //   ),
-                                                      //   decoration: InputDecoration(
-                                                      //     labelText: AppStringEM.headofficeaddress,
-                                                      //     border: OutlineInputBorder(
-                                                      //       borderRadius: BorderRadius.circular(8),
-                                                      //     ),
-                                                      //   ),
-                                                      // ),
-                                                      ///
-                                                      SMTextFConst(
-                                                        controller: addressController,
-                                                        keyboardType:
-                                                        TextInputType.text,
-                                                        text: AppStringEM.headofficeaddress,
-                                                      ),
-                                                      ValueListenableBuilder<List<String>>(
-                                                        valueListenable: _suggestionsNotifier,
-                                                        builder: (context, suggestions, child) {
-                                                          if (suggestions.isEmpty) return SizedBox.shrink();
-                                                          return Container(
-                                                            width:300,
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius: BorderRadius.circular(8),
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  color: Colors.black26,
-                                                                  blurRadius: 4,
-                                                                  offset: Offset(0, 2),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: ListView.builder(
-                                                              //scrollDirection: Axis.vertical,
-                                                              shrinkWrap: true,
-                                                              itemCount: suggestions.length,
-                                                              itemBuilder: (context, index) {
-                                                                return ListTile(
-                                                                  title: Text(
-                                                                    suggestions[index],
-                                                                    style: GoogleFonts.firaSans(
-                                                                      fontSize: FontSize.s12,
-                                                                      fontWeight: FontWeight.w700,
-                                                                      color: ColorManager.mediumgrey,
-                                                                      decoration: TextDecoration.none,
                                                                     ),
                                                                   ),
-                                                                  onTap: () {
-                                                                    addressController.text = suggestions[index];
-                                                                    _suggestionsNotifier.value = [];
-                                                                  },
-                                                                );
-                                                              },
+                                                                ],
+                                                              );
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: AppSize.s22),
+                                                // SMTextFConst(
+                                                //   controller: primNumController,
+                                                //   keyboardType: TextInputType.number,
+                                                //   text: AppStringEM.primNum,
+                                                // ),
+                                                SMTextFConstPhone(
+                                                  controller: primNumController,
+                                                  // codecontroller: primNumController,
+                                                  keyboardType: TextInputType.phone,
+                                                  text: 'Primary Phone Number',
+                                                ),
+                                                SizedBox(height: AppSize.s17),
+                                                SMTextFConstPhone(
+                                                  controller: altNumController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  text: AppStringEM.alternatephone,
+                                                ),
+                                                SizedBox(height: AppSize.s15),
+                                                // AddressSearchField(
+                                                //   controller: addressController,
+                                                //   searchHint: AppStringEM.headofficeaddress,
+                                                //   onSuggestionSelected: (AddressSearchModel suggestion) {
+                                                //     // Handle what happens when a suggestion is selected
+                                                //     addressController.text = suggestion.label;
+                                                //   },
+                                                //   noResultsText: 'No results found',
+                                                //   searchStyle: TextStyle(
+                                                //     fontSize: 16,
+                                                //     color: Colors.black,
+                                                //   ),
+                                                //   suggestionStyle: TextStyle(
+                                                //     fontSize: 14,
+                                                //     color: Colors.grey,
+                                                //   ),
+                                                //   decoration: InputDecoration(
+                                                //     labelText: AppStringEM.headofficeaddress,
+                                                //     border: OutlineInputBorder(
+                                                //       borderRadius: BorderRadius.circular(8),
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                ///
+                                                SMTextFConst(
+                                                  controller: addressController,
+                                                  keyboardType: TextInputType.text,
+                                                  text:
+                                                      AppStringEM.headofficeaddress,
+                                                ),
+                                                ValueListenableBuilder<
+                                                    List<String>>(
+                                                  valueListenable:
+                                                      _suggestionsNotifier,
+                                                  builder: (context, suggestions,
+                                                      child) {
+                                                    if (suggestions.isEmpty)
+                                                      return SizedBox.shrink();
+                                                    return Container(
+                                                      width: 300,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                8),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.black26,
+                                                            blurRadius: 4,
+                                                            offset: Offset(0, 2),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: ListView.builder(
+                                                        //scrollDirection: Axis.vertical,
+                                                        shrinkWrap: true,
+                                                        itemCount:
+                                                            suggestions.length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return ListTile(
+                                                            title: Text(
+                                                              suggestions[index],
+                                                              style: AllPopupHeadings
+                                                                  .customTextStyle(
+                                                                      context),
                                                             ),
-                                                          );
-                                                        },
-                                                      ),
-                                                      SizedBox(
-                                                        width: 354,
-                                                        height: 30,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 354,
-                                                        height: 30,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 30,),
-                                              Align(
-                                                alignment: Alignment.bottomRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5,right:10),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                    children: [
-                                                      CustomButtonTransparent(
-                                                        width: 105,
-                                                        height: 35,
-                                                        text: "Cancel",
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                      CustomElevatedButton(
-                                                        width: 105,
-                                                        height: 35,
-                                                        text: 'Submit',
-                                                        onPressed: () async {
-                                                          await postWhitelabellingAdd(
-                                                            context,
-                                                            widget.officeId,
-                                                            primNumController.text,
-                                                            secNumberController.text,
-                                                            faxController.text,
-                                                            faxController.text,
-                                                            altNumController.text,
-                                                            emailController.text,
-                                                            nameController.text,
-                                                            addressController.text,
-                                                          );
-                                                          await uploadWebAndAppLogo(context: context, type: "web", documentFile: filePath, documentName: fileName);
-                                                          Navigator.pop(context);
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (BuildContext context) {
-                                                              return EditSuccessPopup(message: 'Submitted Successfully',);
+                                                            onTap: () {
+                                                              addressController
+                                                                      .text =
+                                                                  suggestions[
+                                                                      index];
+                                                              _suggestionsNotifier
+                                                                  .value = [];
                                                             },
                                                           );
                                                         },
                                                       ),
-                                                    ],
-                                                  ),
+                                                    );
+                                                  },
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                                // SizedBox(
+                                                //   width: 354,
+                                                //   height: 30,
+                                                // ),
+                                                // SizedBox(
+                                                //   width: 354,
+                                                //   height: 30,
+                                                // )
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      );
-                                    },
+                                      ],
+                                    ),
+                                  ],
+                                  bottomButtons: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CustomButtonTransparent(
+                                        width: 105,
+                                        height: 35,
+                                        text: "Cancel",
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      SizedBox(width: 10),
+                                      CustomElevatedButton(
+                                        width: 105,
+                                        height: 35,
+                                        text: 'Submit',
+                                        onPressed: () async {
+                                          await postWhitelabellingAdd(
+                                            context,
+                                            widget.officeId,
+                                            primNumController.text,
+                                            secNumberController.text,
+                                            faxController.text,
+                                            faxController.text,
+                                            altNumController.text,
+                                            emailController.text,
+                                            nameController.text,
+                                            addressController.text,
+                                          );
+                                          await uploadWebAndAppLogo(
+                                              context: context,
+                                              type: "web",
+                                              documentFile: filePath,
+                                              documentName: fileName);
+                                          Navigator.pop(context);
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return EditSuccessPopup(
+                                                message:
+                                                    'Submitted Successfully',
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
@@ -781,32 +764,39 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                             color: ColorManager.blueprime,
                             // color: Colors.green,
                           ),
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
                       child:
-                        ///old code
-                      StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                        stream: Stream.fromFuture(getWhiteLabellingData(context)),
+
+                          ///old code
+                          StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                        stream:
+                            Stream.fromFuture(getWhiteLabellingData(context)),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var data = snapshot.data!;
-                            var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                            var appLogo = data.logos.firstWhere(
+                                (logo) => logo.type == 'app',
                                 orElse: () => WLLogoModal(
                                     companyLogoId: 3,
                                     companyId: 1,
-                                    url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                    url:
+                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
                                     type: ''));
-                            var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                            var webLogo = data.logos.firstWhere(
+                                (logo) => logo.type == 'web',
                                 orElse: () => WLLogoModal(
                                     companyLogoId: 4,
                                     companyId: 1,
-                                    url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                    url:
+                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
                                     type: ''));
-                            var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                            var mainLogo = data.logos.firstWhere(
+                                (logo) => logo.type == 'main',
                                 orElse: () => WLLogoModal(
                                     companyLogoId: 4,
                                     companyId: 1,
-                                    url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                    url:
+                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
                                     type: ''));
 
                             return Column(
@@ -815,44 +805,53 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                   height: 100,
                                   child: mainLogo.url.isNotEmpty
                                       ? Image.asset(
-                                    'images/formainlogoprohealth.png',
-                                    // mainLogo.url,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                      return Center(
-                                        child: Icon(Icons.error, color: Colors.red),
-                                      );
-                                    },
-                                  )
+                                          'images/formainlogoprohealth.png',
+                                          // mainLogo.url,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return Center(
+                                              child: Icon(Icons.error,
+                                                  color: Colors.red),
+                                            );
+                                          },
+                                        )
                                       : Container(),
                                 ),
                                 Container(
                                   height: 100,
                                   child: webLogo.url.isNotEmpty
-                                      ?     Image.network(
-                          "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
-                          // webLogo.url,
-                          fit: BoxFit.cover,
-                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                          return Center(
-                          child: Icon(Icons.error, color: Colors.red),
-                          );
-                          },
-                          )
-                              : Container(),),
+                                      ? Image.network(
+                                          "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                                          // webLogo.url,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return Center(
+                                              child: Icon(Icons.error,
+                                                  color: Colors.red),
+                                            );
+                                          },
+                                        )
+                                      : Container(),
+                                ),
                                 Container(
                                   height: 100,
-                                  child:
-                                  appLogo.url.isNotEmpty
+                                  child: appLogo.url.isNotEmpty
                                       ? Image.network(
-                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                      return Center(
-                                        child: Icon(Icons.error, color: Colors.red),
-                                      );
-                                    },
-                                  )
+                                          'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return Center(
+                                              child: Icon(Icons.error,
+                                                  color: Colors.red),
+                                            );
+                                          },
+                                        )
                                       : Container(),
                                 ),
                               ],
@@ -866,7 +865,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 35,),
+                  SizedBox(
+                    width: 35,
+                  ),
                   Expanded(
                     flex: 6, //6
                     child: Column(
@@ -884,30 +885,40 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                           height: 320,
                           width: 1100,
                           // color: ColorManager.red,
-                          child: FutureBuilder<WhiteLabellingCompanyDetailModal>(
-                              future:
-                                  getWhiteLabellingData(context),
+                          child: FutureBuilder<
+                                  WhiteLabellingCompanyDetailModal>(
+                              future: getWhiteLabellingData(context),
                               builder: (context, snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
                                   return Center(
                                       child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
-                                  print("NameController : ${data.companyDetail.name}");
-                                  nameController = TextEditingController(text:data.companyDetail.name);
-                                  secNumberController.text = data.contactDetail.secondaryPhone;
-                                  faxController.text = data.contactDetail.primaryFax;
-                                  addressController.text = data.companyDetail.address;
-                                  primNumController.text = data.contactDetail.primaryPhone;
-                                  altNumController.text = data.contactDetail.alternativePhone;
-                                  emailController.text = data.contactDetail.email;
+                                  print(
+                                      "NameController : ${data.companyDetail.name}");
+                                  nameController = TextEditingController(
+                                      text: data.companyDetail.name);
+                                  secNumberController.text =
+                                      data.contactDetail.secondaryPhone;
+                                  faxController.text =
+                                      data.contactDetail.primaryFax;
+                                  addressController.text =
+                                      data.companyDetail.address;
+                                  primNumController.text =
+                                      data.contactDetail.primaryPhone;
+                                  altNumController.text =
+                                      data.contactDetail.alternativePhone;
+                                  emailController.text =
+                                      data.contactDetail.email;
                                   return Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           EditTextField(
                                             enabled: _isEditing,
@@ -931,17 +942,16 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                           ),
                                           SizedBox(height: AppSize.s9),
                                           EditTextField(
-
                                             controller: emailController,
                                             keyboardType: TextInputType.text,
                                             text: AppStringEM.primarymail,
                                             enabled: _isEditing,
                                           ),
-
                                         ],
                                       ),
                                       Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           EditTextFieldPhone(
                                             controller: primNumController,
@@ -957,7 +967,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             enabled: _isEditing,
                                           ),
                                           SizedBox(height: AppSize.s9),
-
                                           EditTextField(
                                             controller: addressController,
                                             keyboardType: TextInputType.text,

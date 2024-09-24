@@ -13,22 +13,27 @@ class MyConstants {
         AppString.age,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.gender,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.ssn,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.phone,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.personalno,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.workno,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
@@ -45,26 +50,33 @@ class MyConstantsColumn {
           AppString.personalEmail,
       style: ProfileBarTextBoldStyle.customEditTextStyle()
     ),
+      SizedBox(height: 1,),
       Text(
         AppString.workemail,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.zonee,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      // SizedBox(height: 1,),
       Text(
         AppString.speciality,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.service,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      SizedBox(height: 1,),
       Text(
         AppString.reportingOffice,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
-      ),Text(
+      ),
+      SizedBox(height: 1,),
+      Text(
         AppString.summary,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),];

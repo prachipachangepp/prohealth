@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -61,11 +62,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                       children: [
                         Text(
                           widget.labelName,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style: DocumentTypeDataStyle.customTextStyle(context),
                         ),
                         IconButton(
                           onPressed: () {
@@ -150,11 +147,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                         children: [
                           Text(
                             'Type',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                            ),
+                           style: DocumentTypeDataStyle.customTextStyle(context),
                           ),
                           SizedBox(height: 5),
                           CICCDropdown(

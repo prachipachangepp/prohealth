@@ -278,7 +278,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         height: MediaQuery.of(context).size.height / 40,
                         width: MediaQuery.of(context).size.width / 10,
                         ///edit button
-                        child: ElevatedButton(
+                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero,
@@ -294,18 +294,34 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ),
                       ),
-                      Row(children: [
-                        Text(
-                            'Employement Type :',
-                            style: ProfileBarTextBoldStyle.customEditTextStyle()),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          widget.searchByEmployeeIdProfileData!.employment,
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                      ]),
+                      // Row(children: [
+                      //   Text(
+                      //       'Employement Type :',
+                      //       style: ProfileBarTextBoldStyle.customEditTextStyle()),
+                      //   SizedBox(
+                      //     width: 20,
+                      //   ),
+                      //   Text(
+                      //     widget.searchByEmployeeIdProfileData!.employment,
+                      //     style: ThemeManagerDark.customTextStyle(context),
+                      //   ),
+                      // ]),
+                      Row(
+                        children: [
+                          Text(
+                            'Employment Type :',
+                            style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            widget.searchByEmployeeIdProfileData!.employment[0].toUpperCase() +
+                                widget.searchByEmployeeIdProfileData!.employment.substring(1),
+                            style: ThemeManagerDark.customTextStyle(context),
+                          ),
+                        ],
+                      ),
 
                       Text(
                         widget.searchByEmployeeIdProfileData!.zone,
@@ -389,11 +405,11 @@ class _ProfileBarState extends State<ProfileBar> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.searchByEmployeeIdProfileData!.workEmail,
+                          Text(widget.searchByEmployeeIdProfileData!.personalEmail,
                               style: ProfileBarConst.profileTextStyle(context)),
                           Text(
                               widget
-                                  .searchByEmployeeIdProfileData!.personalEmail,
+                                  .searchByEmployeeIdProfileData!.workEmail,
                               style: ProfileBarConst.profileTextStyle(context)),
                           Row(
                             children: [
@@ -404,10 +420,13 @@ class _ProfileBarState extends State<ProfileBar> {
                               ),
                               SizedBox(width: 15,),
                               Container(
-                                height: MediaQuery.of(context).size.height / 35,
-                                width: MediaQuery.of(context).size.width / 16,
+                                height: 13,
+                                // MediaQuery.of(context).size.height / 38,
+                                width: 70,
+                                // MediaQuery.of(context).size.width / 16,
                                 margin: EdgeInsets.only(right: AppSize.s40),
                                 child: ElevatedButton(
+
                                   onPressed: () {
                                     showDialog(
                                         context: context,
@@ -417,7 +436,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
-                                                  vertical: AppPadding.p3,
+                                                  vertical: AppPadding.p2,
                                                   horizontal: AppPadding.p20,
                                                 ),
                                                 child: ScrollConfiguration(
@@ -434,7 +453,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                               .spaceEvenly,
                                                       children: [
                                                         Container(
-                                                          height: 30,
+                                                          height: 28,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.grey,
@@ -634,6 +653,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                         });
                                   },
                                   style: ElevatedButton.styleFrom(
+                                      elevation: 4,
                                     padding: EdgeInsets.symmetric(
                                         horizontal: AppSize.s15,
                                         vertical: AppSize.s10),

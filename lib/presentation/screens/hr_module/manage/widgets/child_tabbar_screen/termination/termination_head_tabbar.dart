@@ -107,7 +107,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                       child: Text(
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w700,
                         fontSize: FontSize.s12,
                         color: ColorManager.mediumgrey),
                   ));
@@ -148,11 +148,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                   children: [
                                     Text(
                                       'Employee #${termination.userId}',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s13,
-                                        color: ColorManager.blackfaint,
-                                        fontWeight: FontWeightManager.medium,
-                                      ),
+                                style: BoxHeadingStyle.customTextStyle(context)
                                     ),
                                   ],
                                 ),

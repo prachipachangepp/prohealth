@@ -45,7 +45,7 @@ class IconButtonWidget extends StatelessWidget {
             Icon(
               iconData,
               color: iconColor,
-              size: MediaQuery.of(context).size.width/100,
+              size: 15,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 200,
@@ -53,9 +53,9 @@ class IconButtonWidget extends StatelessWidget {
             Text(
               buttonText,
               style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontWeight: FontWeightManager.bold,
-                fontSize: MediaQuery.of(context).size.width / 145,
+
+                fontWeight: FontWeight.w700,
+                fontSize: 10,
                 color: textColor,
               ),
             ),
@@ -67,7 +67,7 @@ class IconButtonWidget extends StatelessWidget {
             Icon(
               iconData1,
               color: iconColor,
-              size: MediaQuery.of(context).size.width/100,
+              size: 15,
             ),
           ],
         ),
@@ -101,7 +101,7 @@ class BorderIconButton extends StatelessWidget {
               Icon(
                 iconData,
                 color: ColorManager.bluebottom,
-                size: MediaQuery.of(context).size.width/100,
+                size: 15,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 200,
@@ -109,9 +109,8 @@ class BorderIconButton extends StatelessWidget {
               Text(
                 buttonText,
                 style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  fontWeight: FontWeightManager.bold,
-                  fontSize: MediaQuery.of(context).size.width / 145,
+                  fontWeight: FontWeight.w700,
+                  fontSize:10,
                   color: ColorManager.bluebottom,
                 ),
               ),

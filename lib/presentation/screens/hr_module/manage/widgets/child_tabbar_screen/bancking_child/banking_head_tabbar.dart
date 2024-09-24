@@ -137,7 +137,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     child: Text(
                   AppString.dataNotFound,
                   style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w600,
                       fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey),
                 ));
@@ -552,68 +552,6 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                         print('Error generating PDF: $e');
                                       }
                                     },
-                                    // onPressedPrint:  () async {
-                                    //   final pdf = pw.Document();
-                                    //   final bankingData = snapshot.data![index];
-                                    //   pdf.addPage(
-                                    //     pw.Page(
-                                    //       build: (pw.Context context) => pw.Center(
-                                    //         child: pw.Column(
-                                    //           mainAxisAlignment: pw.MainAxisAlignment.center,
-                                    //           children: [
-                                    //             pw.Text(
-                                    //               'Bank #${bankingData.empBankingId.toString()}',
-                                    //             ),
-                                    //             pw.SizedBox(height: 10),
-                                    //             pw.Row(
-                                    //               mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
-                                    //               children: [
-                                    //                 pw.Column(
-                                    //                   crossAxisAlignment: pw.CrossAxisAlignment.start,
-                                    //                   children: [
-                                    //                     pw.Text('Type'),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text('Effective Date'),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text('Bank Name'),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text('Routing/Transit No.'),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text('Account No.'),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text('Requested amount'),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                   ],
-                                    //                 ),
-                                    //                 pw.Column(
-                                    //                   crossAxisAlignment: pw.CrossAxisAlignment.start,
-                                    //                   children: [
-                                    //                     pw.Text(bankingData.type),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text(bankingData.effectiveDate),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text(bankingData.bankName),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text(bankingData.routinNumber),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text(bankingData.accountNumber),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                     pw.Text(bankingData.amountRequested.toString()),
-                                    //                     pw.SizedBox(height: 5),
-                                    //                   ],
-                                    //                 ),
-                                    //               ],
-                                    //             ),
-                                    //           ],
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   );
-                                    //
-                                    //   await Printing.layoutPdf(
-                                    //     onLayout: (PdfPageFormat format) async => pdf.save(),
-                                    //   );
-                                    // },
                                   ),
                                 ],
                               ),
@@ -694,6 +632,7 @@ class BankingContainerConst extends StatelessWidget {
           ],
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ///heading
             Row(
@@ -702,12 +641,7 @@ class BankingContainerConst extends StatelessWidget {
                 Text(
                   'Bank #${index + 1}',
                   // "Bank #${bankId.toString()}",
-                  style: GoogleFonts.firaSans(
-                    fontSize: AppSize.s13,
-                    color: const Color(0xFF333333),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                style: BoxHeadingStyle.customTextStyle(context)),
                 ///Edit
                 Container(
                   // color: Colors.cyan,
@@ -726,7 +660,7 @@ class BankingContainerConst extends StatelessWidget {
                     onPressed: onPressed,
                     child: Text(
                       AppStringHr.edit,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -746,7 +680,7 @@ class BankingContainerConst extends StatelessWidget {
                 ),
               ],
             ),
-
+           // SizedBox(height: 5,),
 
             ///aligment
             Row(
@@ -759,27 +693,27 @@ class BankingContainerConst extends StatelessWidget {
                   children: [
                     Text(AppStringHr.type,
                         textAlign: TextAlign.start,
-                        style: ThemeManager.customTextStyle(context)),
+                        style: ThemeManagerDark.customTextStyle(context)),
                     SizedBox(height: 8,),
                     Text(AppStringHr.effectiveDate,
                         textAlign: TextAlign.start,
-                        style: ThemeManager.customTextStyle(context)),
+                        style: ThemeManagerDark.customTextStyle(context)),
                     SizedBox(height: 8,),
                     Text(AppStringHr.bankName,
                         textAlign: TextAlign.start,
-                        style: ThemeManager.customTextStyle(context)),
+                        style: ThemeManagerDark.customTextStyle(context)),
                     SizedBox(height: 8,),
                     Text(AppStringHr.routingNo,
                         textAlign: TextAlign.start,
-                        style: ThemeManager.customTextStyle(context)),
+                        style: ThemeManagerDark.customTextStyle(context)),
                     SizedBox(height: 8,),
                     Text(AppStringHr.accNo,
                         textAlign: TextAlign.start,
-                        style: ThemeManager.customTextStyle(context)),
+                        style: ThemeManagerDark.customTextStyle(context)),
                     SizedBox(height: 8,),
                     Text(AppStringHr.requestPercent,
                         textAlign: TextAlign.start,
-                        style: ThemeManager.customTextStyle(context)),
+                        style: ThemeManagerDark.customTextStyle(context)),
                   ],
                 ),
                 SizedBox(
@@ -814,24 +748,6 @@ class BankingContainerConst extends StatelessWidget {
                       style: ThemeManagerDarkFont.customTextStyle(context),),
                   ],
                 ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(AppStringHr.accNo,
-                //         style: ThemeManager.customTextStyle(context)),
-                //     Text(AppStringHr.requestPercent,
-                //         style: ThemeManager.customTextStyle(context)),
-                //   ],
-                // ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(acNumber,
-                //         style: ThemeManagerDark.customTextStyle(context)),
-                //     Text('30%',
-                //         style: ThemeManagerDark.customTextStyle(context)),
-                //   ],
-                // ),
               ],
             ),
 
@@ -846,7 +762,7 @@ class BankingContainerConst extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButtonWidget(
-                    width: 100,
+                    width: 110,
                     iconData1: Icons.remove_red_eye_outlined,
                     buttonText: AppStringHr.voidcheck,
                     onPressed: onPressedPrint,
@@ -860,270 +776,3 @@ class BankingContainerConst extends StatelessWidget {
     );
   }
 }
-
-//     () async {
-//   final pdf = pw.Document();
-//
-//   pdf.addPage(
-//     pw.Page(
-//       build: (pw.Context context) => pw.Center(
-//         child: pw.Text('Hello, this is a test print!'),
-//       ),
-//     ),
-//   );
-//
-//   await Printing.layoutPdf(
-//     onLayout: (PdfPageFormat format) async => pdf.save(),
-//   );
-// },
-// SizedBox(width: MediaQuery.of(context).size.width/180),
-// Flexible(
-//   child: Container(
-//     decoration: BoxDecoration(
-//       border: Border.all(color: const Color(0xff1696C8)),
-//       borderRadius: BorderRadius.circular(8),
-//     ),
-//     child: IconButtonWidget(
-//       width: 100,
-//       iconData1: Icons.file_download_outlined,
-//       buttonText: AppStringHr.download,
-//       onPressed:(){},
-//     ),
-//   ),
-// )
-// Container(
-//   decoration: BoxDecoration(
-//     border: Border.all(color: const Color(0xff1696C8)),
-//     borderRadius: BorderRadius.circular(8),
-//   ),
-//   child: IconButtonWidget(
-//     width: 100,
-//     iconData: Icons.remove_red_eye_outlined,
-//     buttonText: AppStringHr.voidcheck,
-//     onPressed:(){},
-//   ),
-// ),
-/// old
-//Padding(
-//               padding: const EdgeInsets.only(right: 30),
-//               child: Row(
-//               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   ///card
-//                   SingleChildScrollView(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//
-//                             ///label
-//                             Text(AppStringHr.type,
-//                                 style: ThemeManager.customTextStyle(context)),
-//                             ///ans
-//                             Text(
-//                               typeName.toString(),
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 10,),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             ///label
-//                             Text(AppStringHr.effectiveDate,
-//                                 style: ThemeManager.customTextStyle(context)
-//                             ),
-//                             ///ans
-//                             Text(
-//                               effectiveDate.toString(),
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 10,),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             ///label
-//                             Text(AppStringHr.bankName,
-//                                 style: ThemeManager.customTextStyle(context)),
-//                             ///ans
-//                             Text(
-//                               bankName.toString(),
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 10,),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             ///label
-//                             Text(
-//                                 AppStringHr.routingNo,
-//                                 style: ThemeManager.customTextStyle(context)),
-//                             ///ans
-//                             Text(
-//                               routinNo,
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   const Spacer(),
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     mainAxisAlignment: MainAxisAlignment.start,
-//                     children: [
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           ///label
-//                           Text(AppStringHr.accNo,
-//                               style: ThemeManager.customTextStyle(context)),
-//                           ///ans
-//                           Text(
-//                             acNumber,
-//                               style: ThemeManagerDark.customTextStyle(context)
-//                           ),
-//                         ],
-//                       ),
-//                       const SizedBox(height: 10,),
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           ///label
-//                           Text(AppStringHr.requestPercent,
-//                               style: ThemeManager.customTextStyle(context)),
-//                           ///ans
-//                           Text(
-//                             '30%',
-//                               style: ThemeManagerDark.customTextStyle(context)
-//                           ),
-//                         ],
-//                       )
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-///
-/// Padding(
-//               padding: const EdgeInsets.only(right: 30),
-//               child: Row(
-//               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   ///card
-//                   SingleChildScrollView(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//
-//                             ///label
-//                             Text(AppStringHr.type,
-//                                 style: ThemeManager.customTextStyle(context)),
-//                             ///ans
-//                             Text(
-//                               typeName.toString(),
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 10,),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             ///label
-//                             Text(AppStringHr.effectiveDate,
-//                                 style: ThemeManager.customTextStyle(context)
-//                             ),
-//                             ///ans
-//                             Text(
-//                               effectiveDate.toString(),
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 10,),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             ///label
-//                             Text(AppStringHr.bankName,
-//                                 style: ThemeManager.customTextStyle(context)),
-//                             ///ans
-//                             Text(
-//                               bankName.toString(),
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 10,),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             ///label
-//                             Text(
-//                                 AppStringHr.routingNo,
-//                                 style: ThemeManager.customTextStyle(context)),
-//                             ///ans
-//                             Text(
-//                               routinNo,
-//                                 style: ThemeManagerDark.customTextStyle(context)
-//                             ),
-//                           ],
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   const Spacer(),
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     mainAxisAlignment: MainAxisAlignment.start,
-//                     children: [
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           ///label
-//                           Text(AppStringHr.accNo,
-//                               style: ThemeManager.customTextStyle(context)),
-//                           ///ans
-//                           Text(
-//                             acNumber,
-//                               style: ThemeManagerDark.customTextStyle(context)
-//                           ),
-//                         ],
-//                       ),
-//                       const SizedBox(height: 10,),
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           ///label
-//                           Text(AppStringHr.requestPercent,
-//                               style: ThemeManager.customTextStyle(context)),
-//                           ///ans
-//                           Text(
-//                             '30%',
-//                               style: ThemeManagerDark.customTextStyle(context)
-//                           ),
-//                         ],
-//                       )
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),

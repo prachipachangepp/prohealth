@@ -555,8 +555,14 @@ class _PopUpState extends State<ProfilePatientPopUp> {
               },
               icon: Icon(
                 Icons.close,
+
                 color: Colors.white,
+
               ),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              visualDensity: VisualDensity.compact,
             ),
           ],
         ),
@@ -566,37 +572,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height / 160),
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: Container(
-            //     width:400,
-            //     child: SingleChildScrollView(
-            //       child: widget.abbrivationWidget
-            //     ),
-            //   ),
-            // ),
             SizedBox(height: MediaQuery.of(context).size.height / 50),
-            // Row(
-            //   children: [
-            //     Text(
-            //       'Office Location',
-            //       style: GoogleFonts.firaSans(
-            //         fontSize: 10,
-            //         fontWeight: FontWeight.w700,
-            //         color: Color(0xff737373),
-            //       ),
-            //     ),
-            //     SizedBox(width: MediaQuery.of(context).size.width / 3.7),
-            //     Text(
-            //       'Zone',
-            //       style: GoogleFonts.firaSans(
-            //         fontSize: 10,
-            //         fontWeight: FontWeight.w700,
-            //         color: Color(0xff737373),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             SizedBox(height: MediaQuery.of(context).size.height / 60),
             Row(
               children: [

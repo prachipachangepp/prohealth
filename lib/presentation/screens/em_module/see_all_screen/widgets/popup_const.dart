@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
@@ -16,6 +19,7 @@ import 'dart:math';
 
 class CustomDialog extends StatefulWidget {
   final String title;
+  final String depTitle;
    VoidCallback onSubmit;
   final TextEditingController userIdController;
   final TextEditingController lastNameController;
@@ -29,6 +33,7 @@ class CustomDialog extends StatefulWidget {
   CustomDialog({
     required this.child,
     required this.title,
+    required this.depTitle,
     required this.onSubmit,
     required this.userIdController,
     required this.lastNameController,
@@ -86,12 +91,12 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 420,
-            width: 360,
+            height: 500,
+            width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black26,
@@ -110,8 +115,8 @@ class _CustomDialogState extends State<CustomDialog> {
                   decoration: BoxDecoration(
                     color: ColorManager.bluebottom,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
                   ),
                   child: Row(
@@ -119,7 +124,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: AppPadding.p23),
+                        padding: const EdgeInsets.only(left: 40),
                         child: Text(
                           widget.title,
                           style: PopupBlueBarText.customTextStyle(context),
@@ -141,75 +146,152 @@ class _CustomDialogState extends State<CustomDialog> {
                   ),
                 ),
                 SizedBox(height: 18),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("First Name" ,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 8,),
+                            HRManageTextField(
+                              controller: widget.firstNameController,
+                              keyboardType: TextInputType.phone,
+                              text: "First Name",
+                              cursorHeight: 12,
+                              // labelText: "First Name",
+                              // labelStyle: TextStyle(),
+                              labelFontSize: 10,
+                              errorText: 'First Name is required',
+                              hintText: 'First Name',
+                            ),
 
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.firstNameController,
-                    keyboardType: TextInputType.phone,
-                    text: "First Name",
-                    cursorHeight: 12,
-                    labelText: "First Name",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'First Name is required',
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.lastNameController,
+                          ],
+                        ),
+                      ),
 
-                    keyboardType: TextInputType.phone,
-                    text: "Last Name",
-                    cursorHeight: 12,
-                    labelText: "Last Name",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'Last Name is required',
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: widget.child,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextFieldEmail(
-                    controller: widget.emailController,
-                    keyboardType: TextInputType.phone,
-                    text: "Email",
-                    cursorHeight: 12,
-                    labelText: "Email",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'Email is required',
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: CustomTextFieldWithIcon(
-                    controller: widget.passwordController,
-                    suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
-                    keyboardType: TextInputType.text,
-                    text: "Password",
-                    cursorHeight: 12,
-                    labelText: "Password",
-                    labelStyle: TextStyle(),
-                    labelFontSize: 12,
-                    errorText: 'Password is required',
-                    onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
-                  ),
-                ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Last Name",
+                                style: TextStyle(fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            SizedBox(height: 8,),
+                            HRManageTextField(
+                              controller: widget.lastNameController,
+                              keyboardType: TextInputType.phone,
+                              text: "Last Name",
+                              cursorHeight: 12,
+                              // labelText: "Last Name",
+                              // labelStyle: TextStyle(),
+                              labelFontSize: 10,
+                              errorText: 'Last Name is required',
+                              hintText: 'Last Name',
+                            ),
+                          ],
+                        ),
+                      ),
 
-                SizedBox(height: 24.0),
-                ReusableLoadingButton(
-                  text: 'Create',
-                  onPressed: (){
-                    widget.onSubmit();
-                  },
-                  loadingDuration: 2,
-                ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0, top: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text(
+                                 widget.depTitle,
+                                style: TextStyle(fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            widget.child,
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            HRManageTextFieldEmail(
+
+                              ///
+                              controller:widget.emailController,
+                              keyboardType: TextInputType.phone,
+                              text: "Email",
+                              cursorHeight: 12,
+                              // labelText: "Last Name",
+                              labelStyle: TextStyle(),
+                              labelFontSize: 10,
+                              errorText: 'Email is required',
+                              hintText: 'Email',
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
+                        child: Column(
+
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            CustomTextFieldWithIcon(
+                              controller: widget.passwordController,
+                              suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
+                              keyboardType: TextInputType.text,
+                              text: "Password",
+                              cursorHeight: 12,
+                              // labelText: "Password",
+                              hintText: "Password",
+                              labelStyle: TextStyle(),
+                              labelFontSize: 10,
+                              errorText: 'Password is required',
+                              onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 24.0),
+                      ReusableLoadingButton(
+                        height: 30,
+                        width: 120,
+                        text: 'Create',
+                        onPressed: (){
+                          widget.onSubmit();
+                        },
+                        loadingDuration: 2,
+                      ),
+
               ],
             ),
           ),
@@ -224,8 +306,10 @@ class CustomTextFieldWithIcon extends StatefulWidget {
   final Icon? suffixIcon;
   final TextInputType keyboardType;
   final String text;
+  final Color textColor;
   final double cursorHeight;
-  final String labelText;
+  final String? labelText;
+  final String? hintText;
   final TextStyle? labelStyle;
   final double labelFontSize;
   final FocusNode? focusNode;
@@ -239,12 +323,13 @@ class CustomTextFieldWithIcon extends StatefulWidget {
     required this.keyboardType,
     required this.text,
     required this.cursorHeight,
-    required this.labelText,
+     this.labelText,
     this.labelStyle,
     required this.labelFontSize,
     this.errorText,
     this.onSuffixIconPressed,  // Callback for suffix icon
-    this.focusNode,
+    this.focusNode, this.hintText,
+    this.textColor = const Color(0xff686464),
   }) : super(key: key);
 
   @override
@@ -270,7 +355,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w600, fontSize: 12),
+          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w700, fontSize: 12),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -318,6 +403,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
 /// edit user
 class EditUserPopUp extends StatefulWidget {
   final String title;
+  final String deptName;
   final VoidCallback onSubmit;
   Widget child;
   final TextEditingController userIdController;
@@ -340,7 +426,7 @@ class EditUserPopUp extends StatefulWidget {
     required this.firstNameController,
      this.roleController,
     required this.companyIdController,  this.passwordController,
-   this.enable});
+   this.enable, required this.deptName});
 
 
   @override
@@ -360,12 +446,12 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 420,
-              width: 360,
+              height: 470,
+              width: 380,
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -387,8 +473,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         decoration: BoxDecoration(
                           color: ColorManager.bluebottom,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            topRight: Radius.circular(8),
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
                           ),
                         ),
                         child: Row(
@@ -396,7 +482,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: AppPadding.p23),
+                              padding: const EdgeInsets.only(left: AppPadding.p35),
                               child: Text(
                                 widget.title,
                                 style: PopupBlueBarText.customTextStyle(context),
@@ -418,83 +504,102 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         ),
                       ),
                       SizedBox(height: 16.0),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: HRManageTextField(
-                      //     readOnly: true,
-                      //     enabled: false,
-                      //     controller: widget.userIdController,
-                      //     keyboardType: TextInputType.phone,
-                      //     text: "User ID",
-                      //     cursorHeight: 12,
-                      //     labelText: "User ID",
-                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      //     labelFontSize: 12,
-                      //     errorText: 'User ID is required',
-                      //   ),
-                      // ),
+
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          controller: widget.firstNameController,
-                          keyboardType: TextInputType.phone,
-                          text: "First Name",
-                          cursorHeight: 12,
-                          labelText: "First Name",
-                          labelStyle: TextStyle(),
-                          labelFontSize: 12,
-                          errorText: 'First Name is required',
+                        padding: const EdgeInsets.only(top: 10, bottom: 10 ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            HRManageTextField(
+                              controller: widget.firstNameController,
+                              keyboardType: TextInputType.phone,
+                              text: "First Name",
+                              cursorHeight: 12,
+                              // labelText: "First Name",
+                              labelStyle: TextStyle(),
+                              labelFontSize: 10,
+                              errorText: 'First Name is required',
+                              hintText: 'First Name',
+                            ),
+                          ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          controller: widget.lastNameController,
-                          keyboardType: TextInputType.phone,
-                          text: "Last Name",
-                          cursorHeight: 12,
-                          labelText: "Last Name",
-                          labelStyle: TextStyle(),
-                          labelFontSize: 12,
-                          errorText: 'Last Name is required',
+                        padding: const EdgeInsets.only(top: 10, bottom: 10 ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            HRManageTextField(
+                              controller: widget.lastNameController,
+                              keyboardType: TextInputType.phone,
+                              text: "Last Name",
+                              cursorHeight: 12,
+                              // labelText: "Last Name",
+                              labelStyle: TextStyle(),
+                              labelFontSize: 10,
+                              errorText: 'Last Name is required', hintText: 'last Name',
+                            ),
+                          ],
                         ),
                       ),
-                      widget.child,
-                      // HRManageDropdown(
-                      //   controller: widget.roleController!,
-                      //   labelText: 'Role',
-                      //   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      //   labelFontSize: 12,
-                      //   items: ['Admin', 'Staff', 'User'],
-                      // ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextFieldEmail(
-                          controller: widget.emailController,
-                          keyboardType: TextInputType.phone,
-                          text: "Email",
-                          cursorHeight: 12,
-                          labelText: "Email",
-                          labelStyle: TextStyle(),
-                          labelFontSize: 12,
-                          errorText: 'Email is required',
+                        padding: const EdgeInsets.only(top: 10, bottom: 10 ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text(
+                                widget.deptName,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            widget.child,
+                          ],
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: HRManageTextField(
-                      //     controller: widget.passwordController,
-                      //     keyboardType: TextInputType.visiblePassword,
-                      //     text: "Password",
-                      //     cursorHeight: 12,
-                      //     labelText: "Password",
-                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      //     labelFontSize: 12,
-                      //     errorText: 'Password is required',
-                      //   ),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10 ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                            ),
+                            SizedBox(height: 8,),
+                            HRManageTextFieldEmail(
+                              controller: widget.emailController,
+                              keyboardType: TextInputType.phone,
+                              text: "Email",
+                              cursorHeight: 12,
+                              // labelText: "Email",
+
+                              labelStyle: TextStyle(),
+                              hintText: "Email",
+                              labelFontSize: 10,
+                              errorText: 'Email is required',
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 35),
                       ReusableLoadingButton(
+                        height: 30,
+                        width: 120,
                         text: 'Submit',
                         onPressed: (){
                           widget.onSubmit();

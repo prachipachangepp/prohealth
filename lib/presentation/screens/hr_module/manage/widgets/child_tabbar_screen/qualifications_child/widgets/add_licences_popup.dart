@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
@@ -90,21 +91,16 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                         vertical: 15, horizontal: 15),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
+                        style: PopupHeadingStyle.customTextStyle(context)
                     ),
                   ),
                   IconButton(
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).pop();
                     },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
+                    icon: Icon(
+                        Icons.close,
+                        color: IconColorManager.white
                     ),
                   ),
                 ],

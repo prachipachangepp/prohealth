@@ -211,7 +211,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     topRight: Radius.circular(12),
                   ),
                 ),
-                height: 35,
+                height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -254,7 +254,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             labelText: 'First Name',
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.firstName,//firstname
-                            labelFontSize: 12,
+                            labelFontSize: 11,
                           ),
                           SizedBox(
                             height: AppSize.s10,
@@ -266,7 +266,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             labelText: 'Speciality',
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: speciality, //firstname
-                            labelFontSize: 12,
+                            labelFontSize: 11,
                           ),
 
                           SizedBox(
@@ -280,7 +280,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             labelText: 'Email',
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.email,
-                            labelFontSize: 12,
+                            labelFontSize: 11,
                           ),
                           SizedBox(
                             height: AppPadding.p10,
@@ -330,7 +330,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 return CustomDropdownTextField(
                                   labelText: 'Clinician',
                                   labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-                                  labelFontSize: 12,
+                                  labelFontSize: 11,
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
@@ -363,7 +363,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             labelText: 'Position',
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: position,
-                            labelFontSize: 12,
+                            labelFontSize: 11,
                           ),
                         ],
                       ),
@@ -372,14 +372,14 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     Flexible(
                       child: Column(
                         children: [
-                          CustomTextField(
+                          CustomTextFieldPhone(
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
                             labelText: 'Phone No',
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: phone,
-                            labelFontSize: 12,
+                            labelFontSize: 11,
                           ),
                           SizedBox(
                             height: AppSize.s10,
@@ -406,7 +406,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 return CustomDropdownTextField(
                                   labelText: 'Reporting Office',
                                   labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-                                  labelFontSize: 12,
+                                  labelFontSize: 11,
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
@@ -468,41 +468,44 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   ),
                 ),
               ),
-              Container(
-                height: 100,
-                child:   FutureBuilder<List<AEClinicalService>>(
-                  future: HrAddEmplyClinicalServiceRadioButtonApi(context,),
-                  builder: (context, snap) {
-                    if (snap.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            color: ColorManager.blueprime,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                  height: 100,
+                  child:   FutureBuilder<List<AEClinicalService>>(
+                    future: HrAddEmplyClinicalServiceRadioButtonApi(context,),
+                    builder: (context, snap) {
+                      if (snap.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: ColorManager.blueprime,
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    if (snap.hasData) {
-                      List<String> serviceName = [];
-                      for (var i in snap.data!) {
-                        serviceName.add(i.serviceName!);
+                        );
                       }
-                      return Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: McqWidget(
-                          title: 'Service',
-                          items: serviceName,
-                          onChanged: (val) {
-                            serviceVal = serviceName[val].toString();
-                            print('Service data $serviceVal');
-                          },
-                        ),
-                      );
-                    }
-                    return SizedBox();
-                  },
+                      if (snap.hasData) {
+                        List<String> serviceName = [];
+                        for (var i in snap.data!) {
+                          serviceName.add(i.serviceName!);
+                        }
+                        return Padding(
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: McqWidget(
+                            title: 'Service',
+                            items: serviceName,
+                            onChanged: (val) {
+                              serviceVal = serviceName[val].toString();
+                              print('Service data $serviceVal');
+                            },
+                          ),
+                        );
+                      }
+                      return SizedBox();
+                    },
+                  ),
                 ),
               ),
               SizedBox(
@@ -610,11 +613,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              //width: MediaQuery.of(context).size.width / 5,
              labelText: 'Country',
              labelStyle: TextStyle(
-               fontSize: 12,
+               fontSize: 11,
                color: Color(0xff575757),
                fontWeight: FontWeight.w400,
              ),
-             labelFontSize: 12,
+             labelFontSize: 11,
              items: ['Error'],
            );
          } else if (snapshot.hasData) {
@@ -629,7 +632,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            return CustomDropdownTextField(
              labelText: 'Country',
              labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 12,
+             labelFontSize: 11,
              dropDownMenuList: dropDownList,
              onChanged: (newValue) {
                for(var a in snapshot.data!){
@@ -647,7 +650,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              // width: MediaQuery.of(context).size.width / 5,
              labelText: 'Country',
              labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 12,
+             labelFontSize: 11,
              items: ['No Data'],
            );
          }
@@ -677,11 +680,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              //width: MediaQuery.of(context).size.width / 5,
              labelText: 'City',
              labelStyle: TextStyle(
-               fontSize: 12,
+               fontSize: 11,
                color: Color(0xff575757),
                fontWeight: FontWeight.w400,
              ),
-             labelFontSize: 12,
+             labelFontSize: 11,
              items: ['Error'],
            );
          } else if (snapshot.hasData) {
@@ -696,7 +699,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            return CustomDropdownTextField(
              labelText: 'City',
              labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 12,
+             labelFontSize: 11,
              dropDownMenuList: dropDownList,
              onChanged: (newValue) {
                for(var a in snapshot.data!){
@@ -714,7 +717,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              // width: MediaQuery.of(context).size.width / 5,
              labelText: 'City',
              labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 12,
+             labelFontSize: 11,
              items: ['No Data'],
            );
          }
@@ -743,11 +746,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              //width: MediaQuery.of(context).size.width / 5,
              labelText: 'Zone',
              labelStyle: TextStyle(
-               fontSize: 12,
+               fontSize: 11,
                color: Color(0xff575757),
                fontWeight: FontWeight.w400,
              ),
-             labelFontSize: 12,
+             labelFontSize: 11,
              items: ['Error'],
            );
          } else if (snapshot.hasData) {
@@ -762,7 +765,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            return CustomDropdownTextField(
              labelText: 'Zone',
              labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 12,
+             labelFontSize: 11,
              dropDownMenuList: dropDownList,
              onChanged: (newValue) {
                for(var a in snapshot.data!){
@@ -782,7 +785,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
              // width: MediaQuery.of(context).size.width / 5,
              labelText: 'Zone',
              labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 12,
+             labelFontSize: 11,
              items: ['No Data'],
            );
          }
@@ -901,7 +904,7 @@ class RegisterEnrollAlertDialog {
                         return null;
                       },
                     ),
-                    CustomTextFieldRegister(
+                    CustomTextFieldRegisterPhone(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: phone,

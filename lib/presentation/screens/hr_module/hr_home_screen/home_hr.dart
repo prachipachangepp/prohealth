@@ -400,9 +400,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 decoration: InputDecoration(
                                     hintText: 'Search User',
                                     alignLabelWithHint: true,
-                                    hintStyle: GoogleFonts.firaSans(
+                                    hintStyle: TextStyle(
                                       fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.regular,
+                                      fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
                                     border: OutlineInputBorder(
@@ -467,7 +467,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Office'],
                                                   labelText: '',
                                                   value: 'Office',
-                                                  labelStyle: GoogleFonts.firaSans(
+                                                  labelStyle: TextStyle(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w700,
                                                     color: Color(0xff737373),
@@ -481,7 +481,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   List<DropdownMenuItem<String>> dropDownList = [];
                                                   for(var i in snapshot.data!){
                                                     dropDownList.add(DropdownMenuItem<String>(
-                                                      child: Text(i.name),
+                                                      child: Text(i.name,style:
+                                                      TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Color(0xff737373),
+                                                      ), ),
                                                       value: i.name,
                                                     ));
                                                   }
@@ -493,7 +498,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                     width: 150,
                                                     // margin: EdgeInsets.symmetric(horizontal: 20),
                                                     padding:
-                                                    const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                                    const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       border: Border.all(
@@ -521,8 +526,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                         }
                                                       },
                                                       value: dropDownList[0].value,
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 12,
+                                                      style: TextStyle(
+                                                        fontSize: 10,
                                                         fontWeight: FontWeight.w600,
                                                         color: const Color(0xff686464),
                                                         decoration: TextDecoration.none,
@@ -544,7 +549,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Full-Time', 'Part-Time'],
                                                   labelText: 'Availability',
                                                   value: 'Full-Time',
-                                                  labelStyle: GoogleFonts.firaSans(
+                                                  labelStyle: TextStyle(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w700,
                                                     color: Color(0xff737373),
@@ -575,9 +580,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Expired','About to Expire','Upto date'],
                                                   labelText: 'License Status',
                                                   value: 'Expired',
-                                                  labelStyle: GoogleFonts.firaSans(
+                                                  labelStyle: TextStyle(
                                                     fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
+                                                    fontWeight: FontWeight.w600,
                                                     color: Color(0xff737373),
                                                   ),
                                                   onChanged: (value) {
@@ -602,9 +607,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Zone'],
                                                   labelText: '',
                                                   value: 'Zone',
-                                                  labelStyle: GoogleFonts.firaSans(
+                                                  labelStyle: TextStyle(
                                                     fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
+                                                    fontWeight: FontWeight.w600,
                                                     color: Color(0xff737373),
                                                   ),
                                                   onChanged: (value) {
@@ -617,7 +622,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                 int zoneId = 0;
                                                 for(var i in snapshot.data!){
                                                   dropDownList.add(DropdownMenuItem<String>(
-                                                    child: Text(i.zoneName),
+                                                    child: Text(i.zoneName, style: TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Color(0xff737373),
+                                                    ),),
                                                     value: i.zoneName,
                                                   ));
                                                 }
@@ -659,7 +668,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                       }
                                                     },
                                                     value: dropDownList[0].value,
-                                                    style: GoogleFonts.firaSans(
+                                                    style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight: FontWeight.w600,
                                                       color: const Color(0xff686464),
@@ -671,10 +680,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                 return CustomDropdownTextField(
                                                   // width: MediaQuery.of(context).size.width / 5,
                                                   labelText: 'Zone',
-                                                  labelStyle: GoogleFonts.firaSans(
+                                                  labelStyle: TextStyle(
                                                     fontSize: 12,
                                                     color: const Color(0xff575757),
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                   labelFontSize: 12,
                                                   items: ['No Data'],
@@ -760,7 +769,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             child: Text(
                               "Select a User by Searching for One!",
                               style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: FontSize.s12,
                                   color: ColorManager.mediumgrey),
                             )),
@@ -776,6 +785,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     searchByEmployeeIdProfileData = snapshot.data!;
                     print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
                     int empID = searchByEmployeeIdProfileData.employeeId!;
+
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),
