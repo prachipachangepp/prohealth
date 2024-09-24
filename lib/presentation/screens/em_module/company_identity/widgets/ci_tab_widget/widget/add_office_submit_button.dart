@@ -467,7 +467,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             widget.addressController.text = selectedSuggestion;
 
                             setState(() {
-                             // _suggestions.clear();
+                              _suggestions.clear();
                               // _suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
                             });
                           },
