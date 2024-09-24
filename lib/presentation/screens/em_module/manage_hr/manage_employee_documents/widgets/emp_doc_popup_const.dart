@@ -178,11 +178,11 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                                   width: 50,
                                   //color: ColorManager.red,
                                   child: TextFormField(
-                                    controller:
-                                        daysController, // Use the controller initialized with "1"
+                                    textAlign: TextAlign.center,
+                                    controller: daysController, // Use the controller initialized with "1"
                                     cursorColor: ColorManager.black,
                                     cursorWidth: 1,
-                                    style:AllHRTableData.customTextStyle(context),
+                                    style:DocumentTypeDataStyle.customTextStyle(context),
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -224,14 +224,14 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                                         value: AppConfig.year,
                                         child: Text(
                                           AppConfig.year,
-                                          style: AllHRTableData.customTextStyle(context),
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                       DropdownMenuItem(
                                         value: AppConfig.month,
                                         child: Text(
                                           AppConfig.month,
-                                          style: AllHRTableData.customTextStyle(context),
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                       ),
                                     ],
@@ -245,7 +245,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                                       enabledBorder: InputBorder.none,
                                       focusedBorder: InputBorder.none,
                                       hintText: AppConfig.year,
-                                      hintStyle: AllHRTableData.customTextStyle(context),
+                                      hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                                       contentPadding: EdgeInsets.only(bottom: 20),
                                     ),
                                     icon: Icon(

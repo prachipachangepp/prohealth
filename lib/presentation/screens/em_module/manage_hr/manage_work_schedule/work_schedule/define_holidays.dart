@@ -315,44 +315,42 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                           showDialog(
                                                               context: context,
                                                               builder: (context) =>
-                                                                  StatefulBuilder(
-                                                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                      return DeletePopup(
-                                                                          title: DeletePopupString.deleteholiday,
-                                                                          loadingDuration: _isLoading,
-                                                                          onCancel: () {
-                                                                            Navigator.pop(
-                                                                                context);
-                                                                          }, onDelete:
-                                                                          () async {
-                                                                        setState(() {
-                                                                          _isLoading = true;
-                                                                        });
-                                                                        try {
-                                                                          await deleteHolidays(
-                                                                              context,
-                                                                              defineData.holidayId);
-                                                                          setState(() async {
-                                                                            await holidaysListGet(
-                                                                                context)
-                                                                                .then((data) {
-                                                                              _controller
-                                                                                  .add(data);
-                                                                            }).catchError(
-                                                                                    (error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                            Navigator.pop(context);
-                                                                          });
-                                                                        } finally {
-                                                                          setState(() {
-                                                                            _isLoading = false;
-                                                                          });
-                                                                        }
-                                                                      });
-                                                                    },
+                                                                       StatefulBuilder(
+                                                                         builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                           return DeletePopup(
+                                                                               title: DeletePopupString.deleteholiday,
+                                                                               loadingDuration: _isLoading,
+                                                                               onCancel: () {
+                                                                                 Navigator.pop(context);
+                                                                               }, onDelete:
+                                                                               () async {
+                                                                             setState(() {
+                                                                               _isLoading = true;
+                                                                             });
+                                                                             try {
+                                                                               await deleteHolidays(
+                                                                                   context,
+                                                                                   defineData.holidayId);
+                                                                               holidaysListGet(
+                                                                                   context)
+                                                                                   .then((data) {
+                                                                                 _controller
+                                                                                     .add(data);
+                                                                               }).catchError(
+                                                                                       (error) {
+                                                                                     // Handle error
+                                                                                   });
 
-                                                                  ));
+                                                                             } finally {
+                                                                               setState(() {
+                                                                                 _isLoading = false;
+                                                                               });
+                                                                               Navigator.pop(context);
+                                                                             }
+                                                                           });
+                                                                         },
+                                                                       ),
+                                                                  );
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,

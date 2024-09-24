@@ -243,7 +243,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         // labelText: 'Select Department',
                                         // labelStyle: MobileMenuText.MenuTextConst(context),
                                         labelFontSize: 12,
-                                        items:  dropDownServiceList, hintText: 'Department',
+                                        items:  dropDownServiceList,
+                                        // hintText: 'Department',
 
                                       )
                                     );
@@ -803,7 +804,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                               print(
                                                                                   "deptID :::::::${selectedDeptId}");
                                                                             });
-                                                                      }, hintText: 'Department',
+                                                                      },
                                                                     );
                                                                   }
                                                                   return const SizedBox();
@@ -1068,35 +1069,75 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
                                                 /// Delete button
                                                 InkWell(
-                                                  onTap: () async {
-                                                    await showDialog(
+                                                  onTap: ()  {
+                                                    showDialog(
                                                       context: context,
                                                       builder: (context) =>
-                                                          DeletePopup(
-                                                        title: 'Delete User',
-                                                        onCancel: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        onDelete: () {
-                                                          setState(() async {
-                                                            await deleteUser(
-                                                                context,
-                                                                user.userId);
-                                                            getUser(context)
-                                                                .then((data) {
-                                                              _companyUsersList
-                                                                  .add(data);
-                                                            }).catchError(
-                                                                    (error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        },
-                                                      ),
+                                                          StatefulBuilder(
+                                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                                              return DeletePopup(
+                                                                  title: DeletePopupString.deleteholiday,
+                                                                  loadingDuration: _isLoading,
+                                                                  onCancel: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  }, onDelete:
+                                                                  () async {
+                                                                setState(() {
+                                                                  _isLoading = true;
+                                                                });
+                                                                try {
+                                                                  await deleteUser(
+                                                                      context,
+                                                                      user.userId);
+                                                                  getUser(context)
+                                                                      .then((data) {
+                                                                    _companyUsersList
+                                                                        .add(data);
+                                                                  }).catchError(
+                                                                          (error) {
+                                                                        // Handle error
+                                                                      });
+
+                                                                } finally {
+                                                                  setState(() {
+                                                                    _isLoading = false;
+                                                                  });
+                                                                  Navigator.pop(context);
+                                                                }
+                                                              });
+                                                            },
+                                                          ),
                                                     );
+                                                    // await showDialog(
+                                                    //   context: context,
+                                                    //   builder: (context) =>
+                                                    //
+                                                    //       DeletePopup(
+                                                    //     title: 'Delete User',
+                                                    //     onCancel: () {
+                                                    //       Navigator.pop(
+                                                    //           context);
+                                                    //     },
+                                                    //     onDelete: () {
+                                                    //       setState(() async {
+                                                    //         await deleteUser(
+                                                    //             context,
+                                                    //             user.userId);
+                                                    //         getUser(context)
+                                                    //             .then((data) {
+                                                    //           _companyUsersList
+                                                    //               .add(data);
+                                                    //         }).catchError(
+                                                    //                 (error) {
+                                                    //           // Handle error
+                                                    //         });
+                                                    //         Navigator.pop(
+                                                    //             context);
+                                                    //       });
+                                                    //     },
+                                                    //   ),
+                                                    // );
                                                   },
                                                   child: Container(
                                                     height: MediaQuery.of(context).size.height / 30,

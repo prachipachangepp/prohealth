@@ -302,12 +302,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             ),
                                             Container(
                                               height: mediaQuery.height / 9,
-                                              child: ScrollConfiguration(
-                                                behavior:
-                                                    ScrollConfiguration.of(
-                                                            context)
-                                                        .copyWith(
-                                                            scrollbars: false),
                                                 child: FutureBuilder<List<WorkWeekShiftScheduleData>>(
                                                     future: workWeekShiftScheduleGet(context,
                                                             //snapshot.data![index].companyId,
@@ -488,6 +482,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 return StatefulBuilder(
                                                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                                                     return DeletePopup(
+                                                                                                      loadingDuration: _isLoading,
                                                                                                         title: DeletePopupString.deleteworkShift,
                                                                                                         onCancel: () {Navigator.pop(context);
                                                                                                         },
@@ -497,14 +492,14 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                           });
                                                                                                           try {
                                                                                                             await deleteWorkWeekSiftSchedule(context: context, workWeekShiftId: snapshotShift.data![index].weekShiftScheduleId!);
-                                                                                                            setState(() {
-                                                                                                               workWeekShiftScheduleGet(context, data.weekDays);
-                                                                                                              Navigator.pop(context);
+                                                                                                            setState((){
+                                                                                                              workWeekShiftScheduleGet(context, data.weekDays);
                                                                                                             });
                                                                                                           } finally {
                                                                                                             setState(() {
                                                                                                               _isLoading = false;
                                                                                                             });
+                                                                                                            Navigator.pop(context);
                                                                                                           }
                                                                                                         });
                                                                                                   },
@@ -529,7 +524,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                       }
                                                       return Offstage();
                                                     }),
-                                              ),
+
                                             ),
                                             const Spacer(),
                                             Padding(

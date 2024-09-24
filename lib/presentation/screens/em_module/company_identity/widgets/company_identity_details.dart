@@ -257,7 +257,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   //   await Future.delayed(Duration(seconds: 1)); // Simulate network delay
   //   return ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']; // Replace with actual logic
   // }
-
+ bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -479,24 +479,54 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                             Colors.transparent,
                                                         onPressed: () async {
                                                           showDialog(
-                                                              context: context,
-                                                              builder: (context) =>
-                                                                  DeletePopup(
-                                                                      title:
-                                                                          'Delete Service',
-                                                                      onCancel:
-                                                                          () {
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                      },
-                                                                      onDelete:
-                                                                          () async {
+                                                            context: context,
+                                                            builder: (context) =>
+                                                                StatefulBuilder(
+                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                    return DeletePopup(
+                                                                        title: DeletePopupString.deleteholiday,
+                                                                        loadingDuration: _isLoading,
+                                                                        onCancel: () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        }, onDelete:
+                                                                        () async {
+                                                                      setState(() {
+                                                                        _isLoading = true;
+                                                                      });
+                                                                      try {
                                                                         await deleteService(
                                                                             serviceDetail.officeServiceId);
                                                                         //companyDetailGetAll(context, widget.officeId);
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                      }));
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    });
+                                                                  },
+                                                                ),
+                                                          );
+                                                          // showDialog(
+                                                          //     context: context,
+                                                          //     builder: (context) =>
+                                                          //         DeletePopup(
+                                                          //             title:
+                                                          //                 'Delete Service',
+                                                          //             onCancel:
+                                                          //                 () {
+                                                          //               Navigator.pop(
+                                                          //                   context);
+                                                          //             },
+                                                          //             onDelete:
+                                                          //                 () async {
+                                                          //               await deleteService(
+                                                          //                   serviceDetail.officeServiceId);
+                                                          //               //companyDetailGetAll(context, widget.officeId);
+                                                          //               Navigator.pop(
+                                                          //                   context);
+                                                          //             }));
                                                         },
                                                         icon: Icon(
                                                             Icons

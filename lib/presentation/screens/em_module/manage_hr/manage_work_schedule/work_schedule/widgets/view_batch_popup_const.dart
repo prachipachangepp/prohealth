@@ -32,6 +32,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
   StreamController<List<ShiftBachesData>>();
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -270,24 +271,53 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                   }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                                                   IconButton(onPressed: (){
                                                                     showDialog(
-                                                                        context: context,
-                                                                        builder: (context) =>
-                                                                            DeletePopup(
-                                                                                title: 'Delete Batch',
-                                                                                onCancel: () {
-                                                                                  Navigator.pop(
-                                                                                      context);
-                                                                                }, onDelete:
-                                                                                () async {
+                                                                      context: context,
+                                                                      builder: (context) =>
+                                                                          StatefulBuilder(
+                                                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                              return DeletePopup(
+                                                                                  title: DeletePopupString.deleteholiday,
+                                                                                  loadingDuration: _isLoading,
+                                                                                  onCancel: () {
+                                                                                    Navigator.pop(
+                                                                                        context);
+                                                                                  }, onDelete:
+                                                                                  () async {
+                                                                                setState(() {
+                                                                                  _isLoading = true;
+                                                                                });
+                                                                                try {
                                                                                   await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
                                                                                   shiftBatchesGet(context,widget.shiftName,widget.weekName).then((data) {
                                                                                     workWeekShiftBatchesController.add(data);
                                                                                   }).catchError((error) {
                                                                                     // Handle error
                                                                                   });
-                                                                                  //
+
+                                                                                } finally {
+                                                                                  setState(() {
+                                                                                    _isLoading = false;
+                                                                                  });
                                                                                   Navigator.pop(context);
-                                                                            }));
+                                                                                }
+                                                                              });
+                                                                            },
+                                                                          ),
+                                                                    );
+                                                                    // showDialog(
+                                                                    //     context: context,
+                                                                    //     builder: (context) =>
+                                                                    //         DeletePopup(
+                                                                    //             title: 'Delete Batch',
+                                                                    //             onCancel: () {
+                                                                    //               Navigator.pop(
+                                                                    //                   context);
+                                                                    //             }, onDelete:
+                                                                    //             () async {
+                                                                    //
+                                                                    //               //
+                                                                    //               Navigator.pop(context);
+                                                                    //         }));
                                                                   }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                                                 ],
                                                               ),

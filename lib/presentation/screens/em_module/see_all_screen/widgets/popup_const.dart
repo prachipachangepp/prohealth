@@ -272,10 +272,10 @@ class _CustomDialogState extends State<CustomDialog> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, top: 8),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 4),
+                              padding: const EdgeInsets.only(right: 220 ),
                               child: Text(
                                  widget.depTitle,
                                 style: TextStyle(fontSize: 10,
@@ -647,10 +647,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 4),
+                              padding: const EdgeInsets.only(right: 220 ),
                               child: Text(
                                 widget.deptName,
                                 style: TextStyle(
