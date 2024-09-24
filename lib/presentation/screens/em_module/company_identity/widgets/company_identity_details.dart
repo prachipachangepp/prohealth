@@ -312,7 +312,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            right: 25, left: 25, top: 10, bottom: 10),
+                            right: 25, left: 0, top: 10, bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -484,7 +484,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                 StatefulBuilder(
                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                     return DeletePopup(
-                                                                        title: DeletePopupString.deleteholiday,
+                                                                        title: "Delete Service",
                                                                         loadingDuration: _isLoading,
                                                                         onCancel: () {
                                                                           Navigator.pop(
