@@ -511,8 +511,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           // Expanded(flex: 1, child: Container()),
                                           Expanded(
                                             child: Text(
-                                              visitData.typeofVisit
-                                                  .toString(),
+                                              visitData.typeofVisit.toString(),
                                               textAlign: TextAlign.center,
                                               style:DocumentTypeDataStyle.customTextStyle(context),
                                             ),
@@ -830,7 +829,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                       showDialog(context: context,
                                                         builder: (context) =>
                                                             StatefulBuilder(
-                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                              builder: (BuildContext context,
+                                                                  void Function(void Function()) setState) {
                                                                 return
                                                                   DeletePopup(
                                                                       title: 'Delete Visit',
