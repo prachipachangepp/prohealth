@@ -76,9 +76,16 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     }
 
     final suggestions = await fetchSuggestions(widget.addressController.text);
-    setState(() {
-      _suggestions = suggestions;
-    });
+    if(suggestions[0] == widget.addressController.text){
+      setState((){
+        _suggestions.clear();
+      });
+    }else{
+      setState(() {
+        _suggestions = suggestions;
+      });
+    }
+
   }
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected'; // Default text
@@ -448,8 +455,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                   title: Text(_suggestions[index],style: AllPopupHeadings.customTextStyle(context),),
                                   onTap: () {
                                     widget.addressController.text = _suggestions[index];
-                                    widget.addressController.removeListener(_onCountyNameChanged);
                                     setState(() {
+                                      widget.addressController.removeListener(_onCountyNameChanged);
                                       _suggestions.clear();
                                     });
                                   },
