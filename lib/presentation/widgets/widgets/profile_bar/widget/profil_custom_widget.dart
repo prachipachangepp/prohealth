@@ -46,6 +46,7 @@ class MyConstantsColumn {
   static List<Widget> personalInfoTexts(BuildContext context) {
     final textStyle = ThemeManager.customTextStyle(context);
     return [
+
       Text(
           AppString.personalEmail,
       style: ProfileBarTextBoldStyle.customEditTextStyle()
@@ -56,11 +57,6 @@ class MyConstantsColumn {
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
       SizedBox(height: 1,),
-      Text(
-        AppString.zonee,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
-      ),
-      // SizedBox(height: 1,),
       Text(
         AppString.speciality,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
@@ -79,6 +75,13 @@ class MyConstantsColumn {
       Text(
         AppString.summary,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
-      ),];
+      ),
+      SizedBox(height: 1,),
+      Text(
+          '',
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
+      ),
+
+    ];
   }
 }

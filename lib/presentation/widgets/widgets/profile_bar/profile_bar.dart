@@ -344,10 +344,276 @@ class _ProfileBarState extends State<ProfileBar> {
                         ],
                       ),
 
-                      Text(
-                        widget.searchByEmployeeIdProfileData!.zone,
-                        style: ThemeManagerDark.customTextStyle(context),
+                      Row(
+                        children: [
+                          Text(
+                            widget.searchByEmployeeIdProfileData!.zone,
+                            style:
+                            ThemeManagerDark.customTextStyle(context),
+                          ),
+                          SizedBox(width: 15,),
+                          Container(
+                            height: 13,
+                            // MediaQuery.of(context).size.height / 38,
+                            width: 70,
+                            // MediaQuery.of(context).size.width / 16,
+                            margin: EdgeInsets.only(right: AppSize.s40),
+                            child: ElevatedButton(
+
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ExpiredLicensePopup(
+                                          title: 'Zones',
+                                          child: Padding(
+                                            padding:
+                                            const EdgeInsets.symmetric(
+                                              vertical: AppPadding.p2,
+                                              horizontal: AppPadding.p20,
+                                            ),
+                                            child: ScrollConfiguration(
+                                              behavior: ScrollBehavior()
+                                                  .copyWith(
+                                                  scrollbars: false),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceEvenly,
+                                                  children: [
+                                                    Container(
+                                                      height: 28,
+                                                      decoration:
+                                                      BoxDecoration(
+                                                        color: Colors.grey,
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            12),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal:
+                                                            15),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'Zn No.',
+                                                                  style: GoogleFonts
+                                                                      .firaSans(
+                                                                    fontSize:
+                                                                    12,
+                                                                    fontWeight:
+                                                                    FontWeight.w700,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    decoration:
+                                                                    TextDecoration.none,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                    'Name Of Zone',
+                                                                    textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize:
+                                                                      12,
+                                                                      fontWeight:
+                                                                      FontWeight.w700,
+                                                                      color:
+                                                                      Colors.white,
+                                                                      decoration:
+                                                                      TextDecoration.none,
+                                                                    )),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                    'Action',
+                                                                    textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize:
+                                                                      12,
+                                                                      fontWeight:
+                                                                      FontWeight.w700,
+                                                                      color:
+                                                                      Colors.white,
+                                                                      decoration:
+                                                                      TextDecoration.none,
+                                                                    )),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Container(
+                                                      height: MediaQuery.of(
+                                                          context)
+                                                          .size
+                                                          .height /
+                                                          2,
+                                                      child:
+                                                      ListView.builder(
+                                                          scrollDirection:
+                                                          Axis
+                                                              .vertical,
+                                                          itemCount: 10,
+                                                          itemBuilder:
+                                                              (context,
+                                                              index) {
+                                                            int serialNumber = index +
+                                                                1 +
+                                                                (currentPage -
+                                                                    1) *
+                                                                    itemsPerPage;
+                                                            String formattedSerialNumber = serialNumber
+                                                                .toString()
+                                                                .padLeft(
+                                                                2,
+                                                                '0');
+                                                            return Column(
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                              children: [
+                                                                // SizedBox(height: 5),
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .all(
+                                                                      4.0),
+                                                                  child: Container(
+                                                                      decoration: BoxDecoration(
+                                                                        color: Colors.white,
+                                                                        borderRadius: BorderRadius.circular(4),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            color: const Color(0xff000000).withOpacity(0.25),
+                                                                            spreadRadius: 0,
+                                                                            blurRadius: 4,
+                                                                            offset: const Offset(0, 2),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      height: 50,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                        child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              child: Center(
+                                                                                child: Text(
+                                                                                  formattedSerialNumber,
+                                                                                  // formattedSerialNumber,
+                                                                                  style: GoogleFonts.firaSans(
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    color: const Color(0xff686464),
+                                                                                    decoration: TextDecoration.none,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            // Text(''),
+                                                                            Expanded(
+                                                                              child: Center(
+                                                                                child: Text(
+                                                                                  'ProHealth San Jose',
+                                                                                  style: GoogleFonts.firaSans(
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    color: const Color(0xff686464),
+                                                                                    decoration: TextDecoration.none,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Center(
+                                                                                child: BorderIconButton(
+                                                                                  iconData: Icons.remove_red_eye_outlined,
+                                                                                  buttonText: 'View',
+                                                                                  onPressed: () async {
+                                                                                    const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
+                                                                                    if (await canLaunchUrlString(googleMapsUrl)) {
+                                                                                      await launchUrlString(googleMapsUrl);
+                                                                                    } else {
+                                                                                      print('Could not open the map.');
+                                                                                    }
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      )),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          }),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ));
+                                    });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                elevation: 4,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppSize.s15,
+                                    vertical: AppSize.s10),
+                                backgroundColor: ColorManager.blueprime,
+                                shadowColor:
+                                ColorManager.grey.withOpacity(0.3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: Text(
+                                AppString.viewzone,
+                                style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s8,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.white,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: ColorManager.white),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      // Text(
+                      //   widget.searchByEmployeeIdProfileData!.zone,
+                      //   style: ThemeManagerDark.customTextStyle(context),
+                      // ),
                       Text(
                         AppString.address,
                         style: ThemeManagerBlack.customTextStyle(context),
@@ -383,6 +649,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp})",
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
+
                           Text(
                             widget.searchByEmployeeIdProfileData!.gender,
                             style: ThemeManagerDark.customTextStyle(context),
@@ -397,10 +664,12 @@ class _ProfileBarState extends State<ProfileBar> {
                             phoneNo: widget
                                 .searchByEmployeeIdProfileData!.primaryPhoneNbr,
                           ),
+
                           ProfileBarPhoneCmtConst(
                             phoneNo: widget.searchByEmployeeIdProfileData!
                                 .secondryPhoneNbr,
                           ),
+
                           ProfileBarPhoneCmtConst(
                             phoneNo: widget
                                 .searchByEmployeeIdProfileData!.workPhoneNbr,
@@ -412,16 +681,14 @@ class _ProfileBarState extends State<ProfileBar> {
                   SizedBox(
                     width: 40,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                  Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: MyConstantsColumn.personalInfoTexts(context),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width/90,),
+                      SizedBox(width: 20),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -432,272 +699,7 @@ class _ProfileBarState extends State<ProfileBar> {
                               widget
                                   .searchByEmployeeIdProfileData!.workEmail,
                               style: ProfileBarConst.profileTextStyle(context)),
-                          Row(
-                            children: [
-                              Text(
-                                widget.searchByEmployeeIdProfileData!.zone,
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
-                              ),
-                              SizedBox(width: 15,),
-                              Container(
-                                height: 13,
-                                // MediaQuery.of(context).size.height / 38,
-                                width: 70,
-                                // MediaQuery.of(context).size.width / 16,
-                                margin: EdgeInsets.only(right: AppSize.s40),
-                                child: ElevatedButton(
 
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return ExpiredLicensePopup(
-                                              title: 'Zones',
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  vertical: AppPadding.p2,
-                                                  horizontal: AppPadding.p20,
-                                                ),
-                                                child: ScrollConfiguration(
-                                                  behavior: ScrollBehavior()
-                                                      .copyWith(
-                                                          scrollbars: false),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Container(
-                                                          height: 28,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.grey,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12),
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        15),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceAround,
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                      'Zn No.',
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        decoration:
-                                                                            TextDecoration.none,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                                Expanded(
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                        'Name Of Zone',
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .start,
-                                                                        style: GoogleFonts
-                                                                            .firaSans(
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          decoration:
-                                                                              TextDecoration.none,
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                        'Action',
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .start,
-                                                                        style: GoogleFonts
-                                                                            .firaSans(
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          decoration:
-                                                                              TextDecoration.none,
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              2,
-                                                          child:
-                                                              ListView.builder(
-                                                                  scrollDirection:
-                                                                      Axis
-                                                                          .vertical,
-                                                                  itemCount: 10,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    int serialNumber = index +
-                                                                        1 +
-                                                                        (currentPage -
-                                                                                1) *
-                                                                            itemsPerPage;
-                                                                    String formattedSerialNumber = serialNumber
-                                                                        .toString()
-                                                                        .padLeft(
-                                                                            2,
-                                                                            '0');
-                                                                    return Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        // SizedBox(height: 5),
-                                                                        Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              4.0),
-                                                                          child: Container(
-                                                                              decoration: BoxDecoration(
-                                                                                color: Colors.white,
-                                                                                borderRadius: BorderRadius.circular(4),
-                                                                                boxShadow: [
-                                                                                  BoxShadow(
-                                                                                    color: const Color(0xff000000).withOpacity(0.25),
-                                                                                    spreadRadius: 0,
-                                                                                    blurRadius: 4,
-                                                                                    offset: const Offset(0, 2),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              height: 50,
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                child: Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                          formattedSerialNumber,
-                                                                                          // formattedSerialNumber,
-                                                                                          style: GoogleFonts.firaSans(
-                                                                                            fontSize: 10,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            color: const Color(0xff686464),
-                                                                                            decoration: TextDecoration.none,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    // Text(''),
-                                                                                    Expanded(
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                          'ProHealth San Jose',
-                                                                                          style: GoogleFonts.firaSans(
-                                                                                            fontSize: 10,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            color: const Color(0xff686464),
-                                                                                            decoration: TextDecoration.none,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Expanded(
-                                                                                      child: Center(
-                                                                                        child: BorderIconButton(
-                                                                                          iconData: Icons.remove_red_eye_outlined,
-                                                                                          buttonText: 'View',
-                                                                                          onPressed: () async {
-                                                                                            const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
-                                                                                            if (await canLaunchUrlString(googleMapsUrl)) {
-                                                                                              await launchUrlString(googleMapsUrl);
-                                                                                            } else {
-                                                                                              print('Could not open the map.');
-                                                                                            }
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              )),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ));
-                                        });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 4,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AppSize.s15,
-                                        vertical: AppSize.s10),
-                                    backgroundColor: ColorManager.blueprime,
-                                    shadowColor:
-                                        ColorManager.grey.withOpacity(0.3),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    AppString.viewzone,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s8,
-                                        fontWeight: FontWeightManager.regular,
-                                        color: ColorManager.white,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: ColorManager.white),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                           Text(
                             widget.searchByEmployeeIdProfileData!.employment,
                             style: ThemeManagerDark.customTextStyle(context),
@@ -714,6 +716,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             AppString.na,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
+                          Text(""),
                         ],
                       ),
                     ],
