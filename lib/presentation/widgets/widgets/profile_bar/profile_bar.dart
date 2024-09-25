@@ -58,6 +58,10 @@ class _ProfileBarState extends State<ProfileBar> {
   }
 
   String? dobTimestamp;
+  String? hiredateCal;
+
+
+  ///
   String _calculateAge(String birthDate) {
     DateTime convertedDate = DateTime.parse(birthDate);
     DateTime today = DateTime.now();
@@ -87,7 +91,41 @@ class _ProfileBarState extends State<ProfileBar> {
 
     return "$dobTimestamp years";
   }
+  ///
+  String _calculateHireDate(String birthDate) {
+    DateTime convertedDate = DateTime.parse(birthDate);
+    DateTime today = DateTime.now();
+    int years = today.year - convertedDate.year;
+    int months = today.month - convertedDate.month;
+    int days = today.day - convertedDate.day;
 
+    if (days < 0) {
+      months--;
+      days += DateTime(today.year, today.month, 0)
+          .day;
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (years > 0) {
+      dobTimestamp = "${years.toString()} year";
+    } else if (months > 0) {
+      dobTimestamp = "${months.toString()} months";
+    } else {
+      dobTimestamp = "${days.toString()} days";
+    }
+    //dobTimestamp = days.toString();
+    print('Timestamp date ${hiredateCal}');
+
+    return "$hiredateCal years";
+  }
+
+
+
+
+  ///
   Future<void> fetchData() async {
     try {
       Map<String, List<LicensesData>> data = await getLicenseStatusWise(
@@ -214,8 +252,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         FutureBuilder<ProfilePercentage>(
                             future: getPercentage(
                                 context,
-                                widget.searchByEmployeeIdProfileData!
-                                    .employeeId!),
+                                widget.searchByEmployeeIdProfileData!.employeeId!),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -693,7 +730,6 @@ class _ProfileBarState extends State<ProfileBar> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -711,7 +747,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(AppString.datetime,
+                                  Text(
+                                      "${widget.searchByEmployeeIdProfileData!.dateofHire} (${hiredateCal})",
                                       style: ThemeManagerDark.customTextStyle(
                                           context)),
                                   SizedBox(height: 10,),
@@ -845,11 +882,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    FutureBuilder<
-                                                            Map<
-                                                                String,
-                                                                List<
-                                                                    LicensesData>>>(
+                                                    FutureBuilder<Map<String, List<LicensesData>>>(
                                                         future: getLicenseStatusWise(
                                                             context,
                                                             widget

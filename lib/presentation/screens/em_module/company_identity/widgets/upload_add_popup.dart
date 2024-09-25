@@ -92,6 +92,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         HeaderContentConst(
           heading: AppString.type_of_the_document,
           content: CICCDropdown(
+            width: 354,
             initialValue: "Select",
             onChange: (val) {
               setState(() {
