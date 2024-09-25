@@ -238,12 +238,15 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       alignment: Alignment.center,
                                       child:
                                       HRManageDropdown(
+                                        height: 38,
+                                        width: 350,
                                         controller: TextEditingController(
                                             text: ''),
                                         // labelText: 'Select Department',
                                         // labelStyle: MobileMenuText.MenuTextConst(context),
                                         labelFontSize: 12,
-                                        items:  dropDownServiceList, hintText: 'Department',
+                                        items:  dropDownServiceList,
+                                        // hintText: 'Department',
 
                                       )
                                     );
@@ -278,6 +281,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     }
 
                                     return HRManageDropdown(
+                                      height: 38,
+                                      width: 350,
                                       controller: TextEditingController(
                                           text: selectedDeptName ?? ''),
                                       // labelText: "Select Department",
@@ -297,7 +302,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       },
                                     );
                                   }
-                                  return const SizedBox(); // Return an empty widget in case of no data
+                                  return const SizedBox();
                                 },
                               ),
 
@@ -742,6 +747,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                             .center,
                                                                         child:
                                                                         HRManageDropdown(
+                                                                          height: 38,
+                                                                          width: 350,
                                                                           controller: TextEditingController(
                                                                               text: ''),
                                                                           // labelText: 'Select Department',
@@ -783,6 +790,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                           firstDeptId;
                                                                     }
                                                                     return HRManageDropdown(
+                                                                      height: 38,
+                                                                      width: 350,
                                                                       controller:
                                                                       TextEditingController(
                                                                           text: selectedDeptName ?? ''),
@@ -803,7 +812,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                               print(
                                                                                   "deptID :::::::${selectedDeptId}");
                                                                             });
-                                                                      }, hintText: 'Department',
+                                                                      },
                                                                     );
                                                                   }
                                                                   return const SizedBox();

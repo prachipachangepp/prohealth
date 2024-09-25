@@ -69,7 +69,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s400,
+        height: AppSize.s450,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -138,42 +138,50 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SMTextFConst(
-                            width: 150,
-                            prefixWidget: Text("\$ "),
-                            controller: widget.fixPayRatesController,
-                            keyboardType: TextInputType.number,
-                            text: 'Fixed Rate',
-                          ),
-                          if (payRatesError != null)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(
-                                payRatesError!,
-                                style: TextStyle(color: Colors.red, fontSize: 12),
+                          Column(
+                            children: [
+                              SMTextFConst(
+                                width: 150,
+                                prefixWidget: Text("\$ "),
+                                controller: widget.fixPayRatesController,
+                                keyboardType: TextInputType.number,
+                                text: 'Fixed Rate',
                               ),
-                            ),
+                              if (payRatesError != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5,right: 35),
+                                  child: Text(
+                                    payRatesError!,
+                                    style: TextStyle(color: Colors.red, fontSize: 12),
+                                  ),
+                                ),
+                            ],
+                          ),
+
                           SizedBox(height: 20,),
-                          SMTextFConst(
-                            width: 150,
-                            prefixWidget: Text("\$ "),
-                            controller: widget.perMilesController,
-                            keyboardType: TextInputType.number,
-                            text: 'Per Mile',
-                          ),
-                          if (perMilesError != null)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(
-                                perMilesError!,
-                                style: TextStyle(color: Colors.red, fontSize: 12),
+                          Column(
+                            children: [
+                              SMTextFConst(
+                                width: 150,
+                                prefixWidget: Text("\$ "),
+                                controller: widget.perMilesController,
+                                keyboardType: TextInputType.number,
+                                text: 'Per Mile',
                               ),
-                            ),
+                              if (perMilesError != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    perMilesError!,
+                                    style: TextStyle(color: Colors.red, fontSize: 12),
+                                  ),
+                                ),
+                            ],
+                          ),
+
 
                         ],
                       ),
-
-                      ///////////////////////
                     ],
                   ),
                 ],

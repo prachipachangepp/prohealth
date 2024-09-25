@@ -231,7 +231,7 @@ class ManagaeButtonheading{
 
   static const String details = 'Details';
   static const String zones = 'Zones';
-  static const String cc = 'Corporate & Compliance Document';
+  static const String cc = 'Corporate & Compliance Documents';
   static const String insurance = 'Insurance';
   static const String vc = 'Vendor Contracts';
   static const String pp = 'Policies & Procedures';

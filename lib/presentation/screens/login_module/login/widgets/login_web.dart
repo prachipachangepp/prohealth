@@ -21,7 +21,7 @@ class LoginWeb extends StatefulWidget {
 }
 
 class _LoginWebState extends State<LoginWeb> {
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
   final _formKey = GlobalKey<FormState>();
@@ -100,7 +100,8 @@ class _LoginWebState extends State<LoginWeb> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                          "Version 1.0.3 (27) demo",
+                          // "Version 1.0.3 (33) demo",
+                          "Version 1.0.3 (35) demo",
                           style: TextStyle(
                             fontSize: 10,
                           ),

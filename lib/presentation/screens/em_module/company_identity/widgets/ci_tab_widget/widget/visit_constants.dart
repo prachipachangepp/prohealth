@@ -278,17 +278,8 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                               future: getAllHrDeptWise(context, 1),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      width: 354,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.faintGrey,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
+                                  return CICCDropdown(
+                                    items: [],
                                   );
                                 }
                                 if (snapshot.data!.isEmpty) {
@@ -347,7 +338,7 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                                                         return chipText.data == val;
                                                       });
                                                       selectedEditChipsId.remove(docType);
-                                                      _validateClinicianSelection(); // Validate after removal
+                                                      _validateClinicianSelection();
                                                     });
                                                   },
                                                 ),
@@ -368,12 +359,12 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                             SizedBox(height: AppSize.s5),
                             Wrap(
                               spacing: 8.0,
-                              children: selectedEditChips, // This now includes prefilled clinicians
+                              children: selectedEditChips,
                             ),
-                            if (!_isClinicianSelectionValid) // Display error if validation fails
+                            if (!_isClinicianSelectionValid)
                               Text(
                                 _clinicianErrorText,
-                                style: CommonErrorMsg.customTextStyle(context), // Customize as needed
+                                style: CommonErrorMsg.customTextStyle(context),
                               ),
                           ],
                         ),

@@ -15,6 +15,8 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'dart:math';
 
+import '../../../../../app/resources/font_manager.dart';
+
 
 
 class CustomDialog extends StatefulWidget {
@@ -80,6 +82,53 @@ class _CustomDialogState extends State<CustomDialog> {
 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+
+  String? _nameDocError;
+  String? _emailDocError;
+  String? _stateDocError;
+  String? _PasswordDocError;
+  String? _pPhoneDocError;
+  String? _sphoneDocError;
+  String? _aphoneDocError;
+  String? _countryDocError;
+
+  bool _isFormValid = true;
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    return null;
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+      _PasswordDocError =
+          _validateTextField(widget.passwordController.text, 'Password');
+      // _pPhoneDocError =
+      //     _validateTextField(widget.mobNumController.text, 'Primary Phone');
+      // _sphoneDocError =
+      //     _validateTextField(widget.secNumController.text, 'Secondary Phone');
+      // _aphoneDocError = _validateTextField(
+      //     widget.OptionalController.text, 'Alternative Phone');
+      // _countryDocError =
+      //     _validateTextField(widget.countryController.text, 'Country');
+    });
+  }
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -91,8 +140,8 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 500,
-            width: 400,
+            height: 555,
+            width: 450,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.rectangle,
@@ -110,7 +159,7 @@ class _CustomDialogState extends State<CustomDialog> {
               children: [
                 Container(
                   height: 40,
-                  width: 440,
+                  width: 450,
                   //padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: ColorManager.bluebottom,
@@ -124,7 +173,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 40),
+                        padding: const EdgeInsets.only(left: 50),
                         child: Text(
                           widget.title,
                           style: PopupBlueBarText.customTextStyle(context),
@@ -133,6 +182,9 @@ class _CustomDialogState extends State<CustomDialog> {
                       Padding(
                         padding: EdgeInsets.only(bottom: 5.0),
                         child: IconButton(
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -163,6 +215,8 @@ class _CustomDialogState extends State<CustomDialog> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.firstNameController,
                               keyboardType: TextInputType.phone,
                               text: "First Name",
@@ -173,6 +227,17 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'First Name is required',
                               hintText: 'First Name',
                             ),
+                            if (_nameDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _nameDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
 
                           ],
                         ),
@@ -190,9 +255,12 @@ class _CustomDialogState extends State<CustomDialog> {
                                     color:  Color(0xff686464),
                                     fontWeight: FontWeight.w700),
                               ),
+
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.lastNameController,
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
@@ -203,6 +271,18 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'Last Name is required',
                               hintText: 'Last Name',
                             ),
+                            if (_stateDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _stateDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
+
                           ],
                         ),
                       ),
@@ -210,10 +290,10 @@ class _CustomDialogState extends State<CustomDialog> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, top: 8),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 4),
+                              padding: const EdgeInsets.only(right: 250 ),
                               child: Text(
                                  widget.depTitle,
                                 style: TextStyle(fontSize: 10,
@@ -233,12 +313,15 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text(
+                                "Email", style: TextStyle(fontSize: 10,
+                                  color:  Color(0xff686464),fontWeight: FontWeight.w700),
+                              ),
                             ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
-
-                              ///
+                              height: 38,
+                              width: 350,
                               controller:widget.emailController,
                               keyboardType: TextInputType.phone,
                               text: "Email",
@@ -249,6 +332,17 @@ class _CustomDialogState extends State<CustomDialog> {
                               errorText: 'Email is required',
                               hintText: 'Email',
                             ),
+                            if (_emailDocError != null) // Display error if any
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _emailDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -261,10 +355,15 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("Password",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),),
                             ),
                             SizedBox(height: 8,),
                             CustomTextFieldWithIcon(
+
                               controller: widget.passwordController,
                               suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
                               keyboardType: TextInputType.text,
@@ -275,8 +374,19 @@ class _CustomDialogState extends State<CustomDialog> {
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
                               errorText: 'Password is required',
-                              onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
+                              onSuffixIconPressed: _copyToClipboard,
                             ),
+                            if (_PasswordDocError != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  _PasswordDocError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -286,10 +396,14 @@ class _CustomDialogState extends State<CustomDialog> {
                         height: 30,
                         width: 120,
                         text: 'Create',
-                        onPressed: (){
-                          widget.onSubmit();
+                        onPressed: () async {
+                          _validateForm();
+                          if (_isFormValid) {
+                            widget.onSubmit();
+                          }
+
                         },
-                        loadingDuration: 2,
+                        loadingDuration: 3,
                       ),
 
               ],
@@ -347,15 +461,18 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320,
-      height: 40,
+      height: 38,
+      width: 350,
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w700, fontSize: 12),
+          style: TextStyle(
+              color: widget.textColor,
+              fontWeight: FontWeight.w500, fontSize: 10
+          ),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -375,19 +492,16 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle?.copyWith(
-                fontSize: widget.labelFontSize,
-                color: ColorManager.mediumgrey
-            ),
+            labelStyle:TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
              errorText: hasError ? widget.errorText : null,
             suffixIcon: IconButton(
               icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),
               onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
             ),
           ),
-          inputFormatters: [
-            CapitalizeFirstLetterFormatter(),
-          ],
+          // inputFormatters: [
+          //   CapitalizeFirstLetterFormatter(),
+          // ],
         ),
       ),
     );
@@ -446,8 +560,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 470,
-              width: 380,
+              height: 490,
+              width: 450,
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
@@ -468,7 +582,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                     children: <Widget>[
                       Container(
                         height: 40,
-                        width: 440,
+                        width: 450,
                         //padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: ColorManager.bluebottom,
@@ -491,6 +605,9 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             Padding(
                               padding: EdgeInsets.only(bottom: 5.0),
                               child: IconButton(
+                                splashColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
@@ -512,10 +629,13 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("First Name" ,
+                                style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.firstNameController,
                               keyboardType: TextInputType.phone,
                               text: "First Name",
@@ -540,6 +660,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.lastNameController,
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
@@ -555,10 +677,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 4),
+                              padding: const EdgeInsets.only(right: 250 ),
                               child: Text(
                                 widget.deptName,
                                 style: TextStyle(
@@ -582,6 +704,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
+                              height: 38,
+                              width: 350,
                               controller: widget.emailController,
                               keyboardType: TextInputType.phone,
                               text: "Email",
