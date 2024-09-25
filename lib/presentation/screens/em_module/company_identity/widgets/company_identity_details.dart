@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -379,16 +380,19 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                   horizontal: 10),
                                               child: Container(
                                                   width: 300,
-                                                  child: CheckboxTileDetails(
-                                                    title: serviceDetail
-                                                        .serviceName,
-                                                    initialValue: isChecked,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        isChecked = !isChecked;
-                                                      });
-                                                    },
-                                                  )),
+                                                  child: Text(serviceDetail
+                                                      .serviceName,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
+                                                  // CheckboxTileDetails(
+                                                  //   title: serviceDetail
+                                                  //       .serviceName,
+                                                  //   initialValue: isChecked,
+                                                  //   onChanged: (value) {
+                                                  //     setState(() {
+                                                  //       isChecked = !isChecked;
+                                                  //     });
+                                                  //   },
+                                                  // )
+                                              ),
                                             ),
                                             Row(
                                               children: [
