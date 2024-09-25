@@ -141,206 +141,209 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 20,
-              ),
-              Container(
-                // color: Colors.greenAccent,
-                padding: EdgeInsets.only(top: AppPadding.p6),
-                width: MediaQuery.of(context).size.width / 1.7,
-                height: AppSize.s60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      child: Container(
-                        height: AppSize.s56,
-                        width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              _selectedIndex == 0 ? Colors.transparent : null,
+             Expanded(
+                 flex: 1,
+                 child: Container()),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  // color: Colors.greenAccent,
+                  padding: EdgeInsets.only(top: AppPadding.p6),
+                  width: MediaQuery.of(context).size.width / 1.7,
+                  height: AppSize.s60,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        child: Container(
+                          height: AppSize.s56,
+                          width: MediaQuery.of(context).size.width / 12,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color:
+                                _selectedIndex == 0 ? Colors.transparent : null,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                  AppStringEM.leases,
+                                   textAlign: TextAlign.center,
+                                  style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
+                              ),
+                              _selectedIndex == 0
+                                  ? Divider(
+                                      color: ColorManager.blueprime,
+                                      thickness: 2,
+                                    )
+                                  : Offstage()
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Text(
-                                AppStringEM.leases,
-                                 textAlign: TextAlign.center,
-                                style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                            ),
-                            _selectedIndex == 0
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
+                        onTap: () => _selectButton(0),
                       ),
-                      onTap: () => _selectButton(0),
-                    ),
-                    InkWell(
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              _selectedIndex == 1 ? Colors.transparent : null,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-    AppStringEM.snf,
-    textAlign: TextAlign.center,
-    style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                      InkWell(
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width / 12,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color:
+                                _selectedIndex == 1 ? Colors.transparent : null,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                    AppStringEM.snf,
+                    textAlign: TextAlign.center,
+                    style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
 
-                            ),
-                            _selectedIndex == 1
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
-                                : Offstage()
-                          ],
+                              ),
+                              _selectedIndex == 1
+                                  ? Divider(
+                                      color: ColorManager.blueprime,
+                                      thickness: 2,
+                                    )
+                                  : Offstage()
+                            ],
+                          ),
                         ),
+                        onTap: () => _selectButton(1),
                       ),
-                      onTap: () => _selectButton(1),
-                    ),
-                    InkWell(
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              _selectedIndex == 2 ? Colors.transparent : null,
+                      InkWell(
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width / 12,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color:
+                                _selectedIndex == 2 ? Colors.transparent : null,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                  AppStringEM.dme,
+                                   textAlign: TextAlign.center,
+                                  style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
+                              ),
+                              _selectedIndex == 2
+                                  ? Divider(
+                                      color: ColorManager.blueprime,
+                                      thickness: 2,
+                                    )
+                                  : Offstage()
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Text(
-                                AppStringEM.dme,
-                                 textAlign: TextAlign.center,
-                                style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
-                            ),
-                            _selectedIndex == 2
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
+                        onTap: () => _selectButton(2),
                       ),
-                      onTap: () => _selectButton(2),
-                    ),
-                    InkWell(
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              _selectedIndex == 3 ? Colors.transparent : null,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-    AppStringEM.md,
-    textAlign: TextAlign.center,
-    style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
+                      InkWell(
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width / 12,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color:
+                                _selectedIndex == 3 ? Colors.transparent : null,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                    AppStringEM.md,
+                    textAlign: TextAlign.center,
+                    style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
 
-                            ),
-                            _selectedIndex == 3
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
-                                : Offstage()
-                          ],
+                              ),
+                              _selectedIndex == 3
+                                  ? Divider(
+                                      color: ColorManager.blueprime,
+                                      thickness: 2,
+                                    )
+                                  : Offstage()
+                            ],
+                          ),
                         ),
+                        onTap: () => _selectButton(3),
                       ),
-                      onTap: () => _selectButton(3),
-                    ),
-                    InkWell(
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 12,
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color:
-                              _selectedIndex == 4 ? Colors.transparent : null,
+                      InkWell(
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width / 12,
+                          padding: EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color:
+                                _selectedIndex == 4 ? Colors.transparent : null,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                  AppStringEM.misc,
+                                  // textAlign: TextAlign.center,
+                                  style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
+                              ),
+                              _selectedIndex == 4
+                                  ? Divider(
+                                      color: ColorManager.blueprime,
+                                      thickness: 2,
+                                    )
+                                  : Offstage()
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Text(
-                                AppStringEM.misc,
-                                // textAlign: TextAlign.center,
-                                style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
-                            ),
-                            _selectedIndex == 4
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
+                        onTap: () => _selectButton(4),
                       ),
-                      onTap: () => _selectButton(4),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 9,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: CustomIconButton(
-                    icon: CupertinoIcons.plus,
-                    text: "Add Document",
-                    onPressed: () async {
-                      String? selectedExpiryType = expiryType;
-                      calenderController.clear();
-                      docIdController.clear();
-                      docNamecontroller.clear();
-                      selectedExpiryType = "";
-                      int? selectedDocTypeId;
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return FutureBuilder<List<TypeofDocpopup>>(
-                                future: getTypeofDoc(
-                                    context, docTypeMetaIdVC, selectedSubDocId),
-                                builder: (contex, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                  if (snapshot.hasData) {
-                                    return UploadDocumentAddPopup(
-                                      loadingDuration: _isLoading,
-                                      title: 'Upload Document',
-                                      officeId: widget.officeId,
-                                      docTypeMetaIdCC: docTypeMetaIdVC,
-                                      selectedSubDocId: selectedSubDocId,
-                                      dataList: snapshot.data!,
-                                    );
-                                  } else {
-                                    return ErrorPopUp(
-                                        title: "Received Error",
-                                        text: snapshot.error.toString());
-                                  }
-                                });
-                          });
-                    }),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: CustomIconButton(
+                      icon: CupertinoIcons.plus,
+                      text: "Add Document",
+                      onPressed: () async {
+                        String? selectedExpiryType = expiryType;
+                        calenderController.clear();
+                        docIdController.clear();
+                        docNamecontroller.clear();
+                        selectedExpiryType = "";
+                        int? selectedDocTypeId;
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return FutureBuilder<List<TypeofDocpopup>>(
+                                  future: getTypeofDoc(
+                                      context, docTypeMetaIdVC, selectedSubDocId),
+                                  builder: (contex, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    }
+                                    if (snapshot.hasData) {
+                                      return UploadDocumentAddPopup(
+                                        loadingDuration: _isLoading,
+                                        title: 'Upload Document',
+                                        officeId: widget.officeId,
+                                        docTypeMetaIdCC: docTypeMetaIdVC,
+                                        selectedSubDocId: selectedSubDocId,
+                                        dataList: snapshot.data!,
+                                      );
+                                    } else {
+                                      return ErrorPopUp(
+                                          title: "Received Error",
+                                          text: snapshot.error.toString());
+                                    }
+                                  });
+                            });
+                      }),
+                ),
               ),
             ],
           ),
