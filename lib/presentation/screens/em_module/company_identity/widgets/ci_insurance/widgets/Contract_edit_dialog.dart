@@ -426,6 +426,14 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
                     //   expiryDateToSend!, // == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
                     // );
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Save Successfully',
+                        );
+                      },
+                    );
                     nameDocController.clear();
                     idDocController.clear();
                   } finally {
