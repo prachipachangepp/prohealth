@@ -273,6 +273,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 } finally {
                   setState(() {
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Save Successfully',
+                        );
+                      },
+                    );
 
 
                     load = false;

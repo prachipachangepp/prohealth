@@ -380,6 +380,14 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                         contractIdController.text,
                         expiryDateController.text);
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Save Successfully',
+                        );
+                      },
+                    );
                   } finally {
                     setState(() {
                       loading = false;

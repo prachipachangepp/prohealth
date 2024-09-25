@@ -7,6 +7,7 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
+import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatefulWidget {
   final TextEditingController namecontroller;
@@ -77,6 +78,14 @@ class _CustomPopupState extends State<CustomPopup> {
           onPressed: () {
             widget.onPressed();
             Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CountySuccessPopup(
+                  message: 'Save Successfully',
+                );
+              },
+            );
           },
         ), title:widget.title,
 
