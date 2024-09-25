@@ -212,7 +212,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                 ),
                                                               );
                                                             }
-
                                                             return StatefulBuilder(
                                                               builder: (BuildContext
                                                               context, void Function(void Function())setState) {
@@ -227,8 +226,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                   expiryType: snapshotPrefill.data!.expiryType,
                                                                   expiryDate: snapshotPrefill.data!.expiryDate,
                                                                   threshhold: snapshotPrefill.data!.threshold,
-
-
                                                                 );
                                                               },
                                                             );
@@ -271,7 +268,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                           },
 
                                                         ));
-
                                                     // showDialog(
                                                     //     context: context,
                                                     //     builder: (context) =>

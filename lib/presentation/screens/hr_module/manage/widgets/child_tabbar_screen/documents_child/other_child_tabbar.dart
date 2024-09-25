@@ -139,19 +139,25 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
             });
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
                 ),
               );
             }
             if (snapshot.data!.isEmpty) {
               return Center(
-                child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: Text(
+                    AppStringHRNoData.othersnNoData,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
                   ),
                 ),
               );
@@ -234,7 +240,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                       Text('ID:${others.idOfTheDocument}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       const SizedBox(height: 5,),
-                                       Text(others.DocumentName,
+                                       Text(others.documentFileName,
                                           style:TextStyle(
                                             fontFamily: 'FiraSans',
                                             fontSize: 10,
@@ -312,6 +318,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     Colors.transparent,
                                     onPressed: () {
                                       DowloadFile().downloadPdfFromBase64(fileExtension,"Other");
+                                      downloadFile(fileUrl);
                                     },
                                     icon: const Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
@@ -326,10 +333,9 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-
                                             return FutureBuilder<EmployeeDocumentPrefillData>(
                                                 future: getPrefillEmployeeDocuments( context: context, empDocumentId: others.employeeDocumentId),
-                                                builder: (contex, snapshot) {
+                                                builder: (contex, snapshotPreFill) {
                                                   if (snapshot.connectionState ==
                                                       ConnectionState.waiting) {
                                                     return Center(
@@ -340,9 +346,8 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                     return CustomDocumedEditPopup(
                                                       labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
                                                       docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,
-                                                      selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: others.Expiry,
+                                                      selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: snapshotPreFill.data!.expiry,
                                                     );
-
 
                                                     // return CustomDocumedAddPopup(
                                                     //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,

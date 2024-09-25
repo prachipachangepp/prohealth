@@ -275,7 +275,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
               expiryDate = datePicked!.toIso8601String() + "Z";
             }
             var response  = await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
-                employeeId: widget.employeeId, documentName: documentTypeName,
+                employeeId: widget.employeeId, documentName: fileName,
                 documentFile: filePath,expiryDate:expiryDate);
 
             if(response.statusCode == 200 || response.statusCode == 201) {

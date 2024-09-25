@@ -111,19 +111,25 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
             });
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
                 ),
               );
             }
             if (snapshot.data!.isEmpty) {
               return Center(
-                child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: Text(
+                    AppStringHRNoData.healthNoData,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
                   ),
                 ),
               );
@@ -209,7 +215,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                       Text('ID:${health.idOfTheDocument}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
-                                      Text(health.DocumentName,
+                                      Text(health.documentFileName,
                                           style: AknowledgementStyleNormal.customTextStyle(context)),
                                     ],
                                   )
@@ -261,7 +267,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
 
                                             return FutureBuilder<EmployeeDocumentPrefillData>(
                                                 future: getPrefillEmployeeDocuments( context: context, empDocumentId: health.employeeDocumentId),
-                                                builder: (contex, snapshot) {
+                                                builder: (contex, snapshotPreFill) {
                                                   if (snapshot.connectionState ==
                                                       ConnectionState.waiting) {
                                                     return Center(
@@ -276,7 +282,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                                       docSetupId: health.EmployeeDocumentTypeSetupId,
                                                       empDocumentId: health.employeeDocumentId,
                                                       selectedExpiryType: health.ReminderThreshold,
-                                                      expiryDate: health.Expiry,
+                                                      expiryDate: snapshotPreFill.data!.expiry,
                                                       url: health.DocumentUrl,
                                                     );
 

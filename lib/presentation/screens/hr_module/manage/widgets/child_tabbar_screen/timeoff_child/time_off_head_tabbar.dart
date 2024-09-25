@@ -70,7 +70,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
           if (snapshot.data!.isEmpty) {
             return Center(
                 child: Text(
-              AppString.dataNotFound,
+              AppStringHRNoData.timeOffNoData,
               style: CustomTextStylesCommon.commonStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: FontSize.s12,

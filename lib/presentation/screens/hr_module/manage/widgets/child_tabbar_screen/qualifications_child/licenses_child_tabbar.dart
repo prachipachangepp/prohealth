@@ -13,6 +13,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
@@ -214,12 +215,15 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
             }
             if (snapshot.data!.isEmpty) {
               return Center(
-                  child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: Text(
+                      AppStringHRNoData.licenseNoData,
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
+                    ),
                   ));
             }
             if(snapshot.hasData){
@@ -227,7 +231,74 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                 spacing: 10,
                   children:
                   List.generate(snapshot.data!.length, (index){
-                    return Padding(
+                    return CardDetails(childWidget: DetailsFormate(
+                      title: 'License #${index + 1}',
+                        row1Child1: [
+                          Text('Licensure/Certification :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: 10,),
+                          Text('Issuing Organization :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: 10,),
+                          Text('Country :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: 10,),
+                          Text('Number/ID :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                        ],
+                        row1Child2: [
+                          Text(snapshot.data![index].licenure,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: 10,),
+                          Text(snapshot.data![index].org,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: 10,),
+                          Text(snapshot.data![index].country,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: 10,),
+                          Text(snapshot.data![index].licenseNumber,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                        ],
+                        row2Child1: [
+                          Text('Issue Date :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: 10,),
+                          Text('End Date :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: 50,)
+                        ],
+                        row2Child2: [
+                          Text(snapshot.data![index].issueDate,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: 10,),
+                          Text(snapshot.data![index].expData,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: 50,)
+
+                        ],
+                        button: SizedBox(height: 1,),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     snapshot.data![index].approved == false ?
+                        //     CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
+                        //       await rejectLicensePatch(context, snapshot.data![index].licenseId);
+                        //     }) :SizedBox() ,
+                        //     const SizedBox(width: 5,),
+                        //     snapshot.data![index].approved == true ?
+                        //     Text('Approved',
+                        //         textAlign: TextAlign.center,
+                        //         style: CustomTextStylesCommon.commonStyle(
+                        //             fontSize: FontSize.s12,
+                        //             fontWeight: FontWeightManager.bold,
+                        //             color: ColorManager.blueprime)) :  CustomIconButton(
+                        //         text: 'Approve', onPressed: () async{
+                        //       await approveLicensePatch(context, snapshot.data![index].licenseId);
+                        //     })
+                        //   ],
+                        // )
+                    ));
+                      Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                       child: Container(
                         //height:300,

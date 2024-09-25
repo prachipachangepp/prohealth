@@ -32,7 +32,8 @@ Future<ApiData> uploadDocuments({
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
       data: {
         'base64':documents,
-        "expiry_date": expiryDate
+        "expiry_date": expiryDate,
+        "documentName":documentName
       },
     );
     print("Response ${response.toString()}");

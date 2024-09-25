@@ -189,16 +189,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                 color: ColorManager.white,
                                 size: AppSize.s50,
                               ) :
-                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".png") ||
-                              widget.searchByEmployeeIdProfileData!.imgurl.contains(".jpg")||
-                                  widget.searchByEmployeeIdProfileData!.imgurl.contains(".webp")?
                               Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
-                                  height: AppSize.s50, width: AppSize.s50):Icon(
-                                Icons.person,
-                                color: ColorManager.white,
-                                size: AppSize.s50,
-                              ),
-                              // you can replace
+                                  height: AppSize.s50, width: AppSize.s50),
                               SizedBox(
                                 height: AppSize.s53,
                                 width: AppSize.s53,
@@ -277,22 +269,14 @@ class _ProfileBarState extends State<ProfileBar> {
                       Container(
                         height: MediaQuery.of(context).size.height / 40,
                         width: MediaQuery.of(context).size.width / 10,
+                        decoration: BoxDecoration(color: ColorManager.faintOrange.withOpacity(0.9)),
                         ///edit button
-                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            ),
-                            backgroundColor:
-                                ColorManager.faintOrange.withOpacity(0.9),
-                            elevation: 4,
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                                widget.searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
-                            style: ThemeManagerWhite.customTextStyle(context),
-                          ),
-                        ),
+                         child: Center(
+                           child: Text(
+                                 widget.searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
+                             style: ThemeManagerWhite.customTextStyle(context),
+                           ),
+                         ),
                       ),
                       // Row(children: [
                       //   Text(

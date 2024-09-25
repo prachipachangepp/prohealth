@@ -100,12 +100,15 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
             }
             if (snapshot.data!.isEmpty) {
               return Center(
-                  child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: Text(
+                      AppStringHRNoData.equpmentNoData,
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
+                    ),
                   ));
             }
             if(snapshot.hasData){

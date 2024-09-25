@@ -104,13 +104,16 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                 }
                 if (snapshot.data!.isEmpty) {
                   return Center(
-                      child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey),
-                  ));
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 100),
+                        child: Text(
+                                            AppStringHRNoData.terminationNoData,
+                                            style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
+                                          ),
+                      ));
                 }
                 if (snapshot.hasData) {
                   return SingleChildScrollView(
