@@ -181,10 +181,10 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     setState(() {
       _isFormValid = true;
       _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
-      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+      _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');
       _stateDocError = _validateTextField(widget.stateController.text, 'State');
       _addressDocError =
-          _validateTextField(widget.addressController.text, 'Address ');
+          _validateTextField(widget.addressController.text, 'Office Address');
       _pPhoneDocError =
           _validateTextField(widget.mobNumController.text, 'Primary Phone');
       _sphoneDocError =
@@ -226,10 +226,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _nameDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -243,10 +240,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 2),
                             child: Text(
                               _emailDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -260,10 +254,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _countryDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style:CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -277,10 +268,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _sphoneDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s14),
@@ -376,10 +364,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _stateDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -393,10 +378,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _pPhoneDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style:CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s14),
@@ -410,10 +392,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _aphoneDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style:CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s12),
