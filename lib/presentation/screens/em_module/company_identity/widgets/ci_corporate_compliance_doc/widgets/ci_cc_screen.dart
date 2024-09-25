@@ -316,50 +316,47 @@ class _CiCorporateComplianceScreenState
               ),
 
              ///button
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 5, right: 25),
-                  child: CustomIconButton(
-                      icon: CupertinoIcons.plus,
-                      text: "Add Document",
-                      onPressed: () async {
-                        String? selectedExpiryType = expiryType;
-                        calenderController.clear();
-                        docIdController.clear();
-                        docNamecontroller.clear();
-                        selectedExpiryType = "";
-                        datePicked = null;
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return FutureBuilder<List<TypeofDocpopup>>(
-                                  future: getTypeofDoc(
-                                      context, docTypeMetaIdCC, selectedSubDocId),
-                                  builder: (contex, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    if (snapshot.hasData) {
-                                      return UploadDocumentAddPopup(
-                                        loadingDuration: _isLoading,
-                                        title: 'Upload Document',
-                                        officeId: widget.officeId,
-                                        docTypeMetaIdCC: docTypeMetaIdCC,
-                                        selectedSubDocId: selectedSubDocId,
-                                        dataList: snapshot.data!,
-                                      );
-                                    } else {
-                                      return ErrorPopUp(
-                                          title: "Received Error",
-                                          text: snapshot.error.toString());
-                                    }
-                                  });
-                            });
-                      }),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5, right: 25),
+                child: CustomIconButton(
+                    icon: CupertinoIcons.plus,
+                    text: "Add Document",
+                    onPressed: () async {
+                      String? selectedExpiryType = expiryType;
+                      calenderController.clear();
+                      docIdController.clear();
+                      docNamecontroller.clear();
+                      selectedExpiryType = "";
+                      datePicked = null;
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return FutureBuilder<List<TypeofDocpopup>>(
+                                future: getTypeofDoc(
+                                    context, docTypeMetaIdCC, selectedSubDocId),
+                                builder: (contex, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  if (snapshot.hasData) {
+                                    return UploadDocumentAddPopup(
+                                      loadingDuration: _isLoading,
+                                      title: 'Upload Document',
+                                      officeId: widget.officeId,
+                                      docTypeMetaIdCC: docTypeMetaIdCC,
+                                      selectedSubDocId: selectedSubDocId,
+                                      dataList: snapshot.data!,
+                                    );
+                                  } else {
+                                    return ErrorPopUp(
+                                        title: "Received Error",
+                                        text: snapshot.error.toString());
+                                  }
+                                });
+                          });
+                    }),
               ),
             ],
           ),

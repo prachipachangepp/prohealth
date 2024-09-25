@@ -137,17 +137,16 @@ class _ProfileBarState extends State<ProfileBar> {
   }
 
   String maskString(String input, int visibleDigits) {
-    // Calculate the number of characters to mask
+
     int maskLength = input.length - visibleDigits;
 
-    // Check if the input length is greater than the number of visible digits
     if (maskLength > 0) {
-      // Create a string of asterisks of the same length as maskLength
+
       String masked = '*' * maskLength;
-      // Append the last 'visibleDigits' number of characters
+
       return masked + input.substring(maskLength);
     } else {
-      // If the input length is less than or equal to visibleDigits, return the input as is
+
       return input;
     }
   }
