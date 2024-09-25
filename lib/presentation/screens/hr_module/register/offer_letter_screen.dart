@@ -1564,7 +1564,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                   );
                                 }
                                 if (snapshotZone.hasData) {
-
+                                  List dropDown = [];
                                   int docType = 0;
                                   List<DropdownMenuItem<String>>
                                   dropDownTypesList = [];
