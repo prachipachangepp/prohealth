@@ -31,13 +31,16 @@ class _CiTempaletsState extends State<CiTempalets> {
             ),
           ),
           Center(child:
-          Text(
-            "No Templates available!",
-            style:  TextStyle(
-            fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: ColorManager.mediumgrey
-          ),)),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 140),
+            child: Text(
+              "No Templates available!",
+              style:  TextStyle(
+              fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: ColorManager.mediumgrey
+            ),),
+          )),
         ],
       ),
     );

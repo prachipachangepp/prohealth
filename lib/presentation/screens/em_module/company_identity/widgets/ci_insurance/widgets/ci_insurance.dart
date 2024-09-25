@@ -90,13 +90,12 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                     if (snapshotZone.connectionState == ConnectionState.waiting &&
                         selectedValue == null) {
                       return Container(
-
-                        width:  354 ,
+                        width:  285,
                         height: 30,
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         child: Row(
                           children: [
@@ -118,13 +117,13 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                     if (snapshotZone.hasError || snapshotZone.data == null) {
                       return Container(
-
-                        width:  354 ,
+                        width:  285,
                         height: 30,
                         decoration: BoxDecoration(
+                         // color: Colors.red,
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         child: Row(
                           children: [
@@ -157,12 +156,12 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         );
                       }
 
-                      // Initialize selectedValue if not already selected
                       if (selectedValue == null && dropDownTypesList.isNotEmpty) {
                         selectedValue = dropDownTypesList[0].value;
                       }
 
                       return CICCDropdown(
+                        width: 285,
                         initialValue: "Select",
                         onChange: (val) {
                           setState(() {
