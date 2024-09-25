@@ -58,11 +58,13 @@ class VisitListDataPrefill {
   final int visitId;
   final bool sucess;
   final String message;
+  final String serviceId;
 final List<EligibleClinician> eligibleClinicia;
   VisitListDataPrefill({required this.eligibleClinicia,
       required this.sucess,
       required this.message,
       required this.visitId,
+    required this.serviceId,
       required this.visitType});
 }
 

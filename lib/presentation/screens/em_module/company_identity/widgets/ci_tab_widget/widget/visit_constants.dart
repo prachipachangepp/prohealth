@@ -24,6 +24,7 @@ import '../../../../widgets/dialogue_template.dart';
 class EditVisitPopup extends StatefulWidget {
   final TextEditingController nameOfDocumentController;
   final TextEditingController idOfDocumentController;
+  final TextEditingController serviceNameSelected;
   //final Future<void> Function() onSavePressed;
  // final Widget child;
   final bool? enable;
@@ -41,7 +42,7 @@ class EditVisitPopup extends StatefulWidget {
     required this.idOfDocumentController,
     required this.title,
     required this.visitId,
-    required this.prefilledClinicians,
+    required this.prefilledClinicians, required this.serviceNameSelected,
    // required this.onClosePressed,
   });
 
@@ -188,71 +189,77 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                         ),
                         SizedBox(height: AppSize.s5),
                         //widget.dropdownServices
-                        FutureBuilder<List<ServicesMetaData>>(
-                          future: getServicesMetaData(context),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return CICCDropdown(items: [],
-                                hintText: 'Select Clinician',
-                                //initialValue: dropDownTypesList[0].value,
-                              );
-                            }
-                            if (snapshot.hasData && snapshot.data!.isEmpty) {
-                              return Container(
-                                width:354,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                                  child: Text(
-                                    ErrorMessageString.noserviceAdded,
-                                    style: AllNoDataAvailable.customTextStyle(context),
-                                  ),
-                                ),
-                              );
-                            }
-                            if (snapshot.hasData) {
-                              List<DropdownMenuItem<String>>
-                              dropDownServiceList = [];
-                              for (var service in snapshot.data!) {
-                                dropDownServiceList.add(
-                                  DropdownMenuItem<String>(
-                                    value: service.serviceName,
-                                    child: Text(service.serviceName ?? ''),
-                                  ),
-                                );
-                              }
-                              selectedServiceName = snapshot.data![0].serviceName;
-                              serviceId = snapshot.data![0].serviceId;
-                              // Store the service ID of the 0th position
-                              return StatefulBuilder(
-                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                  return CICCDropdown(
-                                    initialValue: selectedServiceName,
-                                    onChange: (val) {
-                                      setState(() {
-                                        selectedServiceName = val;
-                                        for (var service in snapshot.data!) {
-                                          if (service.serviceName == val) {
-                                            serviceId =
-                                                service.serviceId;
-                                          }
-                                        }
-                                      });
-                                    },
-                                    items: dropDownServiceList,
-                                  );
-                                },
-                              );
-                            }
-                            return const SizedBox();
-                          },
-                        )
+                        FirstSMTextFConst(
+                          enable: false,
+                          controller: widget.serviceNameSelected,
+                          keyboardType: TextInputType.text,
+                          text: 'Service Name',
+                        ),
+                        // FutureBuilder<List<ServicesMetaData>>(
+                        //   future: getServicesMetaData(context),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.connectionState ==
+                        //         ConnectionState.waiting) {
+                        //       return CICCDropdown(items: [],
+                        //         hintText: 'Select Clinician',
+                        //         //initialValue: dropDownTypesList[0].value,
+                        //       );
+                        //     }
+                        //     if (snapshot.hasData && snapshot.data!.isEmpty) {
+                        //       return Container(
+                        //         width:354,
+                        //         height: 30,
+                        //         decoration: BoxDecoration(
+                        //           border: Border.all(
+                        //               color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                        //           borderRadius: BorderRadius.circular(5),
+                        //         ),
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        //           child: Text(
+                        //             ErrorMessageString.noserviceAdded,
+                        //             style: AllNoDataAvailable.customTextStyle(context),
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }
+                        //     if (snapshot.hasData) {
+                        //       List<DropdownMenuItem<String>>
+                        //       dropDownServiceList = [];
+                        //       for (var service in snapshot.data!) {
+                        //         dropDownServiceList.add(
+                        //           DropdownMenuItem<String>(
+                        //             value: service.serviceName,
+                        //             child: Text(service.serviceName ?? ''),
+                        //           ),
+                        //         );
+                        //       }
+                        //       selectedServiceName = snapshot.data![0].serviceName;
+                        //       serviceId = snapshot.data![0].serviceId;
+                        //       // Store the service ID of the 0th position
+                        //       return StatefulBuilder(
+                        //         builder: (BuildContext context, void Function(void Function()) setState) {
+                        //           return CICCDropdown(
+                        //             initialValue: selectedServiceName,
+                        //             onChange: (val) {
+                        //               setState(() {
+                        //                 selectedServiceName = val;
+                        //                 for (var service in snapshot.data!) {
+                        //                   if (service.serviceName == val) {
+                        //                     serviceId =
+                        //                         service.serviceId;
+                        //                   }
+                        //                 }
+                        //               });
+                        //             },
+                        //             items: dropDownServiceList,
+                        //           );
+                        //         },
+                        //       );
+                        //     }
+                        //     return const SizedBox();
+                        //   },
+                        // )
                       ],
                     ),
                     SizedBox(height: AppSize.s10),

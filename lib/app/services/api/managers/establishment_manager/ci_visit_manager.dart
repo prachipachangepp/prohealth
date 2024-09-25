@@ -133,6 +133,7 @@ Future<VisitListDataPrefill> getVisitListPrefill(
         message: response.statusMessage!,
         visitId: response.data['visitId'] ?? 0,
         visitType: response.data['typeOfVisit']??"",
+        serviceId: response.data['serviceId']??"--",
         eligibleClinicia:
             (response.data['eligibleClinician'] as List<dynamic>?)?.map((item) {
                   return EligibleClinician(

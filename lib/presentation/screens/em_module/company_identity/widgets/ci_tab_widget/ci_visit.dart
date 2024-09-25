@@ -400,6 +400,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                       }
                                                                     }
                                                                     return EditVisitPopup(
+                                                                      serviceNameSelected: TextEditingController(text:snapshotPrefill.data!.serviceId),
                                                                       enable:false,
                                                                       visitId: snapshotPrefill.data!.visitId,
                                                                       nameOfDocumentController: docNamecontroller,
