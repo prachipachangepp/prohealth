@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
@@ -75,7 +76,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             referredBy: referredBController,
                             onpressedClose: () {},
                             onpressedSave: () async {
-                              await addReferencePost(
+                              var response = await addReferencePost(
                                   context,
                                   associationLengthController.text,
                                   'Reference',
@@ -86,6 +87,17 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   nameController.text,
                                   knowPersonController.text,
                                   titlePositionController.text);
+                              Navigator.pop(context);
+                              if(response.statusCode == 200 || response.statusCode == 201){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Reference Added Successfully',
+                                    );
+                                  },
+                                );
+                              }
                             },
                             title: 'Add Reference',
                           );
@@ -240,7 +252,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                           onpressedClose: (){
                                             Navigator.pop(context);
                                           }, onpressedSave: () async{
-                                            await updateReferencePatch(context,
+                                            var response = await updateReferencePatch(context,
                                               snapshot.data![index].referenceId,
                                               association == associationLengthController.text ? association.toString() : associationLengthController.text,
                                               comment.toString(),
@@ -253,6 +265,16 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                               referredby== referredBController.text? referredby.toString():referredBController.text,
                                               title == titlePositionController.text ? title.toString() : titlePositionController.text,
                                             );
+                                            if(response.statusCode == 200 || response.statusCode == 201){
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AddSuccessPopup(
+                                                    message: 'Reference Edit Successfully',
+                                                  );
+                                                },
+                                              );
+                                            }
                                             getReferences(context,5).then((data) {
                                               referenceStreamController.add(data);
                                             }).catchError((error) {

@@ -93,7 +93,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                               countryController: countryController,
 
                               onpressedSave: () async {
-                                await addEmployeement(
+                                var response = await addEmployeement(
                                     context,
                                     widget.employeeId,
                                     employeerController.text,
@@ -106,6 +106,17 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     endDateController.text,
                                     emergencyMobileNumber.text,
                                     countryController.text);
+                                Navigator.pop(context);
+                                if(response.statusCode == 200 || response.statusCode == 201){
+                                   showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(
+                                        message: 'Employement Added Successfully',
+                                      );
+                                    },
+                                  );
+                                }
                                 // if(apiData.statusCode == 200 && apiData.statusCode == 201){
                                 //   return showDialog(
                                 //     context: context,
@@ -362,7 +373,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
                                         countryController: countryController,
                                         onpressedSave: ()async{
-                                          await updateEmployeementPatch(context,
+                                          var response = await updateEmployeementPatch(context,
                                               snapshot.data![index].employmentId,
                                               widget.employeeId,
                                               employeer == employeerController.text ? employeer.toString() : employeerController.text,
@@ -377,6 +388,17 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                               country== countryController.text ?country.toString():countryController.text
                                             // 'USA'
                                           );
+                                          Navigator.pop(context);
+                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                             showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AddSuccessPopup(
+                                                  message: 'Employement Edit Successfully',
+                                                );
+                                              },
+                                            );
+                                          }
                                         }, checkBoxTile:  Padding(
                                           padding:  EdgeInsets.only(left: 25.0),
                                           child: Container(

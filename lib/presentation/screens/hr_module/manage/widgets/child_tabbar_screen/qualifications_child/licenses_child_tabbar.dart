@@ -11,6 +11,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
@@ -124,7 +125,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                               // Navigator.pop(context);
                             },
                             onpressedSave: () async {
-                              await addLicensePost(context,
+                              var response = await addLicensePost(context,
                                   countryController.text,
                                   widget.employeeId!,
                                   expiryDateController.text,
@@ -135,6 +136,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   docName.toString(),
                                   docName.toString());
                                   Navigator.pop(context);
+                              if(response.statusCode == 200 || response.statusCode == 201){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Licenses Added Successfully',
+                                    );
+                                  },
+                                );
+                              }
                             },
                             title: 'Add Licence',
                             child: FutureBuilder<List<CiOrgDocumentCC>>(

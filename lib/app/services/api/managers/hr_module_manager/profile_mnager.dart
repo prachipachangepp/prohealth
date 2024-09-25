@@ -239,6 +239,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
     print("Search response ::: ${response}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       String DOB = convertIsoToDayMonthYear(response.data['dateOfBirth']);
+      String hireDate = convertIsoToDayMonthYear(response.data['dateofHire']);
       itemsData = SearchByEmployeeIdProfileData(
         employeeId: response.data['employeeId'] ?? 0,
         code: response.data['code'] ?? '--',
@@ -271,7 +272,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         createdAt: response.data['createdAt'] ?? "--",
         dateofTermination: response.data['dateofTermination'] ?? "--",
         dateofResignation: response.data['dateofResignation'] ?? "--",
-        dateofHire: response.data['dateofHire'] ?? "--",
+        dateofHire: hireDate ?? "--",
         rehirable: response.data['rehirable'] ?? "--",
         position: response.data['position'] ?? '--',
         finalAddress: response.data['finalAddress'] ?? '--',

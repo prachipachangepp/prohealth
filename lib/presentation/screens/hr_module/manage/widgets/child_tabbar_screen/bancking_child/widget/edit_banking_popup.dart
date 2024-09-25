@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/establishment_resources/establish_theme_
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../custom_icon_button_constant.dart';
@@ -258,6 +259,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 40),
         _buildTextFormField(
+            capitalIsSelect:false,
             widget.routingNumberController, 'Routing Number/ Transit Number'),
         SizedBox(height: MediaQuery.of(context).size.height / 40),
         Text('Requested Amount for this Account (select one)',
@@ -281,7 +283,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         Row(
           children: [
             Expanded(
-              child: _buildTextFormField(widget.specificAmountController, '',
+              child: _buildTextFormField(capitalIsSelect:false,widget.specificAmountController, '',
                   prefixText: '\$'),
             ),
             SizedBox(width: 10),
@@ -315,6 +317,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTextFormField(
+          capitalIsSelect:false,
           widget.effectiveDateController,
           'Effective Date',
           suffixIcon: IconButton(
@@ -327,7 +330,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 30),
-        _buildTextFormField(widget.accountNumberController, 'Account Number'),
+        _buildTextFormField(capitalIsSelect:false,widget.accountNumberController, 'Account Number'),
       ],
     );
   }
@@ -349,9 +352,10 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTextFormField(widget.bankNameController, 'Bank Name'),
+        _buildTextFormField(widget.bankNameController, 'Bank Name',capitalIsSelect:true),
         SizedBox(height: MediaQuery.of(context).size.height / 30),
         _buildTextFormField(
+            capitalIsSelect:false,
             widget.verifyAccountController, 'Verify Account Number'),
       ],
     );
@@ -362,6 +366,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     String labelText, {
     Widget? suffixIcon,
     String? prefixText,
+        required bool capitalIsSelect,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,13 +388,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               ),
               contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
             ),
+            inputFormatters: [if (capitalIsSelect) CapitalizeFirstLetterFormatter(),// Apply formatter conditionally
+            ],
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter ${labelText.toLowerCase()}';
               }
               return null;
             },
-
           ),
         ),
         SizedBox(height: 5),
@@ -426,7 +432,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       ),
       isLoading
           ? SizedBox(
-              height: 25,
+              height: 20,
               width: 25,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
@@ -438,7 +444,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                 width: 100,
                 text: "Save",
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
+                  // if (_formKey.currentState!.validate()) {
                     setState(() {
                       isLoading = true;
                     });
@@ -449,7 +455,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                       setState(() {
                         isLoading = false;
                       });
-                      Navigator.pop(context);
                       widget.effectiveDateController.clear();
                       widget.specificAmountController.clear();
                       widget.bankNameController.clear();
@@ -457,9 +462,9 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                       widget.accountNumberController.clear();
                       widget.verifyAccountController.clear();
                       widget.selectedType = null;
-                      _typeFieldKey.currentState?.reset();
+                      // _typeFieldKey.currentState?.reset();
                     }
-                  }
+                  // }
                 },
                 //         style: ElevatedButton.styleFrom(
                 // backgroundColor: Color(0xFF27A3E0),

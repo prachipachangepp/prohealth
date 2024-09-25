@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +40,7 @@ class _ProfileBarState extends State<ProfileBar> {
   void initState() {
     super.initState();
     _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
+    _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
     sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     fetchData();
   }
@@ -86,6 +88,36 @@ class _ProfileBarState extends State<ProfileBar> {
     print('Timestamp date ${dobTimestamp}');
 
     return "$dobTimestamp years";
+  }
+  String? totalDateStamp;
+  String _calculateHireDateTimeStamp(String hireDate) {
+    DateTime convertedDate = DateTime.parse(hireDate);
+    DateTime today = DateTime.now();
+    int years = today.year - convertedDate.year;
+    int months = today.month - convertedDate.month;
+    int days = today.day - convertedDate.day;
+
+    if (days < 0) {
+      months--;
+      days += DateTime(today.year, today.month, 0)
+          .day;
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (years > 0) {
+      totalDateStamp = "${years.toString()} year";
+    } else if (months > 0) {
+      totalDateStamp = "${months.toString()} months";
+    } else {
+      totalDateStamp = "${days.toString()} days";
+    }
+    //dobTimestamp = days.toString();
+    print('Timestamp Hiredate ${totalDateStamp}');
+
+    return "$totalDateStamp years";
   }
 
   Future<void> fetchData() async {
@@ -189,8 +221,13 @@ class _ProfileBarState extends State<ProfileBar> {
                                 color: ColorManager.white,
                                 size: AppSize.s50,
                               ) :
-                              Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
-                                  height: AppSize.s50, width: AppSize.s50),
+                              CachedNetworkImage(
+                                imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
+                                placeholder: (context, url) => new CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => new Icon(Icons.error),
+                              ),
+                              // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
+                              //     height: AppSize.s50, width: AppSize.s50),
                               SizedBox(
                                 height: AppSize.s53,
                                 width: AppSize.s53,
@@ -259,8 +296,6 @@ class _ProfileBarState extends State<ProfileBar> {
                             hoverColor: Colors.transparent,
                             visualDensity: VisualDensity.compact,
                           ),
-
-
                         ],
                       ),
                       SizedBox(
@@ -403,7 +438,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                     ThemeManagerDark.customTextStyle(context),
                               ),
                               SizedBox(width: 15,),
-                              Container(
+                              widget.searchByEmployeeIdProfileData!.zone == "--"? Offstage():Container(
                                 height: 13,
                                 // MediaQuery.of(context).size.height / 38,
                                 width: 70,
@@ -686,14 +721,12 @@ class _ProfileBarState extends State<ProfileBar> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -711,7 +744,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(AppString.datetime,
+                                  Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp})",
                                       style: ThemeManagerDark.customTextStyle(
                                           context)),
                                   SizedBox(height: 10,),

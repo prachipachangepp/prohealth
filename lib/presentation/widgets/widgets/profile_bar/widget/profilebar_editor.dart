@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -263,8 +264,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     CircleAvatar(
                                       radius: 20,
                                       backgroundColor: ColorManager.faintGrey,
-                                      child:
-                                      Image.network(profileData.imgurl,fit: BoxFit.contain,),
+                                      child:CachedNetworkImage(
+                                        imageUrl: profileData.imgurl,
+                                        placeholder: (context, url) => new CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) => new Icon(Icons.error),
+                                      ),
+                                      //Image.network(profileData.imgurl,fit: BoxFit.contain,),
                                     ),
                                     SizedBox(width: 10,),
                                     CustomIconButton(

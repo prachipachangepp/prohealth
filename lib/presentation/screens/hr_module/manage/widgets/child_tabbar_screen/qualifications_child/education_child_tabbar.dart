@@ -9,6 +9,7 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
@@ -78,7 +79,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
 
                             },
                             onpressedSave: () async {
-                              await addEmployeeEducation(
+                              var response = await addEmployeeEducation(
                                   context,
                                   widget.employeeId,
                                   expiryType.toString(),
@@ -90,6 +91,17 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                   stateController.text,
                                   countryNameController.text,
                                   calenderController.text);
+                              Navigator.pop(context);
+                              if(response.statusCode == 200 || response.statusCode == 201){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Education Added Successfully',
+                                    );
+                                  },
+                                );
+                              }
                             },
                             radioButton: StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
@@ -281,7 +293,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                           countryNameController: countryNameController, onpressedClose: (){
                                             Navigator.pop(context);
                                           }, onpressedSave: () async{
-                                            await updateEmployeeEducation(context,
+                                            var response = await updateEmployeeEducation(context,
                                               snapshot.data![index].educationId,
                                               widget.employeeId,
                                               graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
@@ -294,6 +306,17 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                               country == countryNameController.text ?  country.toString() : countryNameController.text,
                                               startDate == calenderController.text ? startDate : calenderController.text,
                                             );
+                                            Navigator.pop(context);
+                                            if(response.statusCode == 200 || response.statusCode == 201){
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AddSuccessPopup(
+                                                    message: 'Education Edit Successfully',
+                                                  );
+                                                },
+                                              );
+                                            }
                                             expiryType = '';
                                           },
                                           radioButton:Container(
