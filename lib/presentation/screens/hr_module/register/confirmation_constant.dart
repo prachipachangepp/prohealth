@@ -29,7 +29,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s500,
+        width: AppSize.s350,
         height: AppSize.s181,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -50,7 +50,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 15),
                     child: Text(
                       widget.title,
                       style: PopupBlueBarText.customTextStyle(context),
@@ -65,11 +65,16 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                 ],
               ),
             ),
+            // Spacer(),
+            // Container(
+            //   height: AppSize.s50,
+            //   width: AppSize.s210,
+            //   child: Text(widget.containerText,textAlign: TextAlign.start,
+            //     style:ConstTextFieldRegister.customTextStyle(context),),
+            // ),
+         ///
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p20,
-                horizontal: AppPadding.p20,
-              ),
+              padding: const EdgeInsets.only(top: 40,left: 15),
               child: Row(
                 children: [
                   Text(widget.containerText,
@@ -96,7 +101,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                                 width: 1,
                               ),
                             ),),
-                          child: Text('Cancle',
+                          child: Text('Cancel',
                               style: TransparentButtonTextConst.customTextStyle(context)),),
                       )
                   ),
