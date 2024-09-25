@@ -161,12 +161,15 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
             }
             if (snapshot.data!.isEmpty) {
               return Center(
-                  child: Text(
-                    AppStringHRNoData.employeeNoData,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: Text(
+                      AppStringHRNoData.employeeNoData,
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
+                    ),
                   ));
             }
             if(snapshot.hasData){

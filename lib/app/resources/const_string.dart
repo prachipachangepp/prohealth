@@ -311,7 +311,19 @@ class AppStringMobile {
   static const String  summry = 'Summary';
 }
 class AppStringHRNoData {
-  ///login screen
-  static const String employeeNoData = 'No employement avalable!';
+
+  static const String employeeNoData = 'No employement available!';
+  static const String educationNoData = 'No education available!';
+  static const String referenceNoData = 'No references available!';
+  static const String licenseNoData = 'No licenses available!';
+  static const String bankingNoData = 'No banking available!';
+  static const String equpmentNoData = 'No equipment available!';
+  static const String terminationNoData = 'No termination available!';
+  static const String timeOffNoData = 'No time off available!';
+  static const String ackNoData = 'No acknowledgement available!';
+  static const String healthNoData = 'No health record available!';
+  static const String compensationNoData = 'No compensation available!';
+  static const String othersnNoData = 'No others available!';
+  static const String payRatesNoData = 'No pay rates available!';
 
 }

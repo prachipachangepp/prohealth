@@ -133,19 +133,25 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
               });
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
                   ),
                 );
               }
               if (snapshot.data!.isEmpty) {
                 return Center(
-                  child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: Text(
+                      AppStringHRNoData.compensationNoData,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
                     ),
                   ),
                 );
@@ -337,7 +343,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                             builder: (BuildContext context) {
                                               return FutureBuilder<EmployeeDocumentPrefillData>(
                                          future: getPrefillEmployeeDocuments( context: context, empDocumentId: compaensation.employeeDocumentId),
-                                                  builder: (contex, snapshot) {
+                                                  builder: (contex, snapshotPreFill) {
                                                     if (snapshot.connectionState ==
                                                         ConnectionState.waiting) {
                                                       return Center(
@@ -348,7 +354,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                       return CustomDocumedEditPopup(
                                                         labelName: 'Edit Compensation', employeeId: widget.employeeId, docName: compaensation.DocumentName,
                                                         docMetaDataId: compaensation.EmployeeDocumentTypeMetaDataId, docSetupId: compaensation.EmployeeDocumentTypeSetupId, empDocumentId: compaensation.employeeDocumentId,
-                                                        selectedExpiryType: compaensation.ReminderThreshold, url: compaensation.DocumentUrl,expiryDate: compaensation.Expiry,
+                                                        selectedExpiryType: compaensation.ReminderThreshold, url: compaensation.DocumentUrl,expiryDate: snapshotPreFill.data!.expiry,
                                                       );
 
 

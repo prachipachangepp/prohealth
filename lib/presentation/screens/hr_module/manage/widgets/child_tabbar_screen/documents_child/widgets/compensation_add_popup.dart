@@ -650,7 +650,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
       showExpiryDateField = true;
       datePicked = dateTime;
       expiryDateController = TextEditingController(
-          text: DateFormat('MM-dd-yyyy').format(dateTime));
+          text: DateFormat('yyyy-MM-dd').format(dateTime));
     }
     fileName = widget.docName;
     // dropDownMenuItems = widget.dataList
@@ -859,7 +859,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                     employeeDocumentMetaId: widget.docMetaDataId,
                     employeeDocumentTypeSetupId: widget.docSetupId,
                     employeeId: widget.employeeId,
-                    documentName: widget.docName,
+                    documentName: fileName,
                     documentFile: filePath);
                 if (response.statusCode == 200 || response.statusCode == 201) {
                   showDialog(
@@ -1193,7 +1193,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                       employeeDocumentMetaId: documentMetaDataId,
                       employeeDocumentTypeSetupId: documentSetupId,
                       employeeId: widget.employeeId,
-                      documentName: documentTypeName,
+                      documentName: fileName,
                       documentFile: filePath,
                       expiryDate: expiryDate);
                   if (response.statusCode == 200 ||

@@ -115,6 +115,11 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
+            getAckHealthRecord(context, 10, 48, widget.employeeId, "no").then((data) {
+              _controller.add(data);
+            }).catchError((error) {
+              // Handle error
+            });
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(
@@ -124,20 +129,26 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
             }
             if (snapshot.hasError) {
               return Center(
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: Text(
+                    'Error: ${snapshot.error}',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
               );
             }
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return Center(
-                child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: Text(
+                    AppStringHRNoData.ackNoData,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
                   ),
                 ),
               );
@@ -231,7 +242,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    data.DocumentName,
+                                    data.documentFileName,
                                     style: HRDocAckStyle.customTextStyle(context)
                                   ),
                                   Text(

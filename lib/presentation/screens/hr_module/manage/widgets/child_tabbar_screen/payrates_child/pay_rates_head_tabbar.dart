@@ -157,7 +157,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                   });
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 120),
+                      padding: const EdgeInsets.symmetric(vertical: 90),
                       child: Center(
                         child: CircularProgressIndicator(
                           color: ColorManager.blueprime,
@@ -167,12 +167,15 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                   }
                   if (snapshot.data!.isEmpty) {
                     return Center(
-                      child: Text(
-                        AppString.dataNotFound,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 90),
+                        child: Text(
+                          AppStringHRNoData.payRatesNoData,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
                         ),
                       ),
                     );

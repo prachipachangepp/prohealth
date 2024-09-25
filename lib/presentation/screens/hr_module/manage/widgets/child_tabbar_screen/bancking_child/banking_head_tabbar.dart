@@ -127,20 +127,26 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
               });
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
                   ),
                 );
               }
               if (snapshot.data!.isEmpty) {
                 return Center(
-                    child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
-                ));
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 100),
+                      child: Text(
+                                        AppStringHRNoData.bankingNoData,
+                                        style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey),
+                                      ),
+                    ));
               }
               if (snapshot.hasData) {
                 return Padding(
