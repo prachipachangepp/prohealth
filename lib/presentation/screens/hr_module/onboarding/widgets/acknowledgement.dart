@@ -160,7 +160,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 150),
                 child: Text(
-                  AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardAck,
                   style: AllNoDataAvailable.customTextStyle(context)
                 ),
               ));
@@ -231,7 +231,9 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                 GestureDetector(
                                   onTap: (){
                                     print("FileExtension:${fileExtension}");
-                                    DowloadFile().downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                    downloadFile(fileUrl);
+                                    //DowloadFile();
+                                        //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
                                   },
                                   child: Container(
                                     width: AppSize.s62,

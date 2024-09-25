@@ -116,8 +116,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               width: AppSize.s150,
               // margin: EdgeInsets.only(right: AppMargin.m30),
               child: CustomIconButtonConst(
-                // heightContainer: 30,
-                //   widthContainer: 120,
                   text: AppString.addnewvisit,
                   icon: Icons.add,
                   onPressed: () {
@@ -288,7 +286,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 child: Column(children: [
                                   Container(
                                       padding: EdgeInsets.only(bottom: AppPadding.p5),
-
                                       decoration: BoxDecoration(
                                         color: ColorManager.white,
                                         borderRadius: BorderRadius.circular(4),
@@ -322,8 +319,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                               style:DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
-                                          // Expanded(flex: 1, child: Container()),
-                                          // Expanded( child: Container()),
+                                        //  Expanded( child: Container()),
                                           Expanded(
                                             child: Row(
                                                 mainAxisAlignment:
@@ -334,7 +330,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ),
                                           // Expanded(flex: 2, child: Container()),
                                           Expanded(
-                                            child: Center(
                                           child: Center(
                                               child: Row(
                                                 mainAxisAlignment:
@@ -633,7 +628,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                       showDialog(context: context,
                                                         builder: (context) =>
                                                             StatefulBuilder(
-                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                              builder: (BuildContext context, void Function(void Function())
+                                                              setState) {
                                                                 return
                                                                   DeletePopup(
                                                                       title: 'Delete Visit',
@@ -680,7 +676,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             ),
                                           ),
                                           // Expanded(flex: 3, child: Container())
-                                          )],
+                                        ],
                                       ))
                                 ]),
                               );

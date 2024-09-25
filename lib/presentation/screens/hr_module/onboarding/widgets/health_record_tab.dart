@@ -146,7 +146,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 150),
                 child: Text(
-                  AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardHealth,
                   style: AllNoDataAvailable.customTextStyle(context)
                 ),
               ));
@@ -156,7 +156,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 150),
                 child: Text(
-                  AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardHealth,
                   style: AllNoDataAvailable.customTextStyle(context)
                 ),
               ));
@@ -223,7 +223,8 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                                 ),
                                 SizedBox(width: 10),
                                 GestureDetector(
-                                  onTap: () => DowloadFile().downloadPdfFromBase64(fileExtension,"Health"),
+                                  onTap: () =>  downloadFile(fileUrl),
+                                      //DowloadFile().downloadPdfFromBase64(fileExtension,"Health"),
                                   child: Container(
                                     width: 62,
                                     height: 45,
