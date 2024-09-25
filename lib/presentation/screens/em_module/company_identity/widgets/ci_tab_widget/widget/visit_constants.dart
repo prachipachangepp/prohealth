@@ -448,7 +448,7 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                 typeVisist: widget.visitId,//paginatedData[index].visitId,
                 visitType: finalVisitName,
                 eligibleClinical: selectedEditChipsId,
-                serviceId: serviceId!,
+                serviceId: widget.serviceNameSelected.text,
               );
             } finally {
               setState(() {
