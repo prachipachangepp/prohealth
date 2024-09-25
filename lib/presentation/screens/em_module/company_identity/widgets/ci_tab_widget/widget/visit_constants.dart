@@ -183,18 +183,18 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Select services',
-                          style:AllPopupHeadings.customTextStyle(context),
-                        ),
-                        SizedBox(height: AppSize.s5),
+                        // Text(
+                        //   'Select services',
+                        //   style:AllPopupHeadings.customTextStyle(context),
+                        // ),
+                        // SizedBox(height: AppSize.s5),
                         //widget.dropdownServices
-                        FirstSMTextFConst(
-                          enable: false,
-                          controller: widget.serviceNameSelected,
-                          keyboardType: TextInputType.text,
-                          text: 'Service Name',
-                        ),
+                        // FirstSMTextFConst(
+                        //   enable: false,
+                        //   controller: widget.serviceNameSelected,
+                        //   keyboardType: TextInputType.text,
+                        //   text: 'Service Name',
+                        // ),
                         // FutureBuilder<List<ServicesMetaData>>(
                         //   future: getServicesMetaData(context),
                         //   builder: (context, snapshot) {
