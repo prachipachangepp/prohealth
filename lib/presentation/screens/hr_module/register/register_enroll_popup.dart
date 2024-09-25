@@ -468,44 +468,41 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   ),
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Container(
-                  height: 100,
-                  child:   FutureBuilder<List<AEClinicalService>>(
-                    future: HrAddEmplyClinicalServiceRadioButtonApi(context,),
-                    builder: (context, snap) {
-                      if (snap.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
+              Container(
+                height: 100,
+                child:   FutureBuilder<List<EnrollServices>>(
+                  future: EmpServiceRadioButtonApi(context,),
+                  builder: (context, snap) {
+                    if (snap.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime,
                           ),
-                        );
+                        ),
+                      );
+                    }
+                    if (snap.hasData) {
+                      List<String> serviceName = [];
+                      for (var i in snap.data!) {
+                        serviceName.add(i.servicename!);
                       }
-                      if (snap.hasData) {
-                        List<String> serviceName = [];
-                        for (var i in snap.data!) {
-                          serviceName.add(i.serviceName!);
-                        }
-                        return Padding(
-                          padding: EdgeInsets.only(left: 20.0),
-                          child: McqWidget(
-                            title: 'Service',
-                            items: serviceName,
-                            onChanged: (val) {
-                              serviceVal = serviceName[val].toString();
-                              print('Service data $serviceVal');
-                            },
-                          ),
-                        );
-                      }
-                      return SizedBox();
-                    },
-                  ),
+                      return Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: McqWidget(
+                          title: 'Service',
+                          items: serviceName,
+                          onChanged: (val) {
+                            serviceVal = serviceName[val].toString();
+                            print('Service data $serviceVal');
+                          },
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  },
                 ),
               ),
               SizedBox(

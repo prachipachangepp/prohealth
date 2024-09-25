@@ -534,5 +534,38 @@ Future<List<AEClinicalService>> HrAddEmplyClinicalServiceRadioButtonApi(
     return itemsList;
   }
 }
-// companyID: companyID
-// int companyID
+
+
+
+
+///prajwal
+/// service radio button Get Api meta data
+Future<List<EnrollServices>> EmpServiceRadioButtonApi(
+    BuildContext context,
+    ) async {
+  List<EnrollServices> itemsList = [];
+  try {
+    // final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path:
+        HRModuleAEClinicalRepository.getEmpServiceRadiobutton());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+            EnrollServices(
+            serviceMetadataId: item['serviceMetadataId'],
+            servicename: item['service_name'],
+            serviceid: item['service_id'],
+          )
+        );
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

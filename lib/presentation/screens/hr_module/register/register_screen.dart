@@ -262,7 +262,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
                     child: Text(
-                      AppString.dataNotFound,
+                      "No Register Data",
+                      // AppString.dataNotFound,
                       style:DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   ),
@@ -409,6 +410,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   //     },
   //   );
   // }
+  ////////////////////////////////////////////////////////
+
   Widget buildDropdownButton(BuildContext context) {
     return FutureBuilder<List<RegisterEnrollData>>(
       future: RegisterGetData(context),
@@ -444,9 +447,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-                child:
-
-                DropdownButton<String>(
+                child: DropdownButton<String>(
                   value: _selectedValue,
                   onChanged: (String? newValue) {
                     setState(() {
@@ -460,8 +461,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     color: Color(0xff50B5E5),
                   ),
                   iconSize: 20,
+                  focusColor: Colors.transparent,
                   underline: const SizedBox(),
-
+                  selectedItemBuilder: (BuildContext context) {
+                    return <String>[
+                      'Select',
+                      'Opened',
+                      'Notopen',
+                      'Partial',
+                      'Completed',
+                    ].map<Widget>((String value) {
+                      return Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          value,
+                          style: TransparentButtonTextConst.customTextStyle(context),
+                        ),
+                      );
+                    }).toList();
+                  },
                   items: <String>[
                     'Select',
                     'Opened',
@@ -471,21 +489,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(value),
+                      ),
                     );
                   }).toList(),
                 ),
               ),
-              // Expanded(
-              //   child: ListView.builder(
-              //     itemCount: filterData.length,
-              //     itemBuilder: (context, index) {
-              //       return ListTile(
-              //         title: Text(filterData[index].status),
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           );
         } else {
@@ -495,6 +506,102 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+
+
+
+
+
+
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<RegisterEnrollData>>(
+  //     future: RegisterGetData(context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.waiting) {
+  //         return Container(
+  //           width: 300,
+  //           height: 30,
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(10),
+  //           ),
+  //           child: Center(child: Container(
+  //             width: 200,
+  //           )),
+  //         );
+  //       }
+  //
+  //       if (snapshot.hasData) {
+  //         return Column(
+  //           children: [
+  //             Container(
+  //               height: 31,
+  //               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white,
+  //                 border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+  //                 borderRadius: BorderRadius.circular(12.0),
+  //                 boxShadow: [
+  //                   BoxShadow(
+  //                     color: const Color(0xff000000).withOpacity(0.25),
+  //                     blurRadius: 2,
+  //                     offset: const Offset(0, 2),
+  //                   ),
+  //                 ],
+  //               ),
+  //               child:
+  //
+  //               DropdownButton<String>(
+  //                 value: _selectedValue,
+  //                 onChanged: (String? newValue) {
+  //                   setState(() {
+  //                     _selectedValue = newValue!;
+  //                     filterData();
+  //                   });
+  //                 },
+  //                 style: TransparentButtonTextConst.customTextStyle(context),
+  //                 icon: const Icon(
+  //                   Icons.arrow_drop_down,
+  //                   color: Color(0xff50B5E5),
+  //
+  //                 ),
+  //                 iconSize: 20,
+  //                 focusColor: Colors.transparent,
+  //
+  //
+  //                 underline: const SizedBox(),
+  //
+  //                 items: <String>[
+  //                   'Select',
+  //                   'Opened',
+  //                   'Notopen',
+  //                   'Partial',
+  //                   'Completed',
+  //                 ].map<DropdownMenuItem<String>>((String value) {
+  //                   return DropdownMenuItem<String>(
+  //                     value: value,
+  //                     child: Text(value),
+  //                   );
+  //                 }).toList(),
+  //               ),
+  //             ),
+  //             // Expanded(
+  //             //   child: ListView.builder(
+  //             //     itemCount: filterData.length,
+  //             //     itemBuilder: (context, index) {
+  //             //       return ListTile(
+  //             //         title: Text(filterData[index].status),
+  //             //       );
+  //             //     },
+  //             //   ),
+  //             // ),
+  //           ],
+  //         );
+  //       } else {
+  //         return const Offstage();
+  //       }
+  //     },
+  //   );
+  // }
+///////////////////////////////////////////////////////////
   // void filterData() {
   //   if (_selectedValue == 'Select') {
   //     registerController.add(allData); // Show all data
