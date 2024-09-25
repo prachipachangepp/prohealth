@@ -141,7 +141,7 @@ class _CustomDialogState extends State<CustomDialog> {
         children: <Widget>[
           Container(
             height: 555,
-            width: 400,
+            width: 450,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.rectangle,
@@ -159,7 +159,7 @@ class _CustomDialogState extends State<CustomDialog> {
               children: [
                 Container(
                   height: 40,
-                  width: 440,
+                  width: 450,
                   //padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: ColorManager.bluebottom,
@@ -173,7 +173,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 40),
+                        padding: const EdgeInsets.only(left: 50),
                         child: Text(
                           widget.title,
                           style: PopupBlueBarText.customTextStyle(context),
@@ -215,6 +215,8 @@ class _CustomDialogState extends State<CustomDialog> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.firstNameController,
                               keyboardType: TextInputType.phone,
                               text: "First Name",
@@ -257,6 +259,8 @@ class _CustomDialogState extends State<CustomDialog> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.lastNameController,
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
@@ -289,7 +293,7 @@ class _CustomDialogState extends State<CustomDialog> {
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 220 ),
+                              padding: const EdgeInsets.only(right: 250 ),
                               child: Text(
                                  widget.depTitle,
                                 style: TextStyle(fontSize: 10,
@@ -309,16 +313,15 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),
+                              child: Text(
+                                "Email", style: TextStyle(fontSize: 10,
+                                  color:  Color(0xff686464),fontWeight: FontWeight.w700),
                               ),
-
                             ),
-
-
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
-
-                              ///
+                              height: 38,
+                              width: 350,
                               controller:widget.emailController,
                               keyboardType: TextInputType.phone,
                               text: "Email",
@@ -352,10 +355,15 @@ class _CustomDialogState extends State<CustomDialog> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("Password",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color:  Color(0xff686464),
+                                    fontWeight: FontWeight.w700),),
                             ),
                             SizedBox(height: 8,),
                             CustomTextFieldWithIcon(
+
                               controller: widget.passwordController,
                               suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
                               keyboardType: TextInputType.text,
@@ -366,9 +374,9 @@ class _CustomDialogState extends State<CustomDialog> {
                               labelStyle: TextStyle(),
                               labelFontSize: 10,
                               errorText: 'Password is required',
-                              onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
+                              onSuffixIconPressed: _copyToClipboard,
                             ),
-                            if (_PasswordDocError != null) // Display error if any
+                            if (_PasswordDocError != null)
                               Padding(
                                 padding: const EdgeInsets.only(top: 1),
                                 child: Text(
@@ -453,15 +461,18 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320,
-      height: 40,
+      height: 38,
+      width: 350,
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style:TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
+          style: TextStyle(
+              color: widget.textColor,
+              fontWeight: FontWeight.w500, fontSize: 10
+          ),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -549,8 +560,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 470,
-              width: 380,
+              height: 490,
+              width: 450,
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
@@ -571,7 +582,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                     children: <Widget>[
                       Container(
                         height: 40,
-                        width: 440,
+                        width: 450,
                         //padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: ColorManager.bluebottom,
@@ -618,10 +629,13 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("First Name" ,
+                                style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.firstNameController,
                               keyboardType: TextInputType.phone,
                               text: "First Name",
@@ -646,6 +660,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.lastNameController,
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
@@ -664,7 +680,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 220 ),
+                              padding: const EdgeInsets.only(right: 250 ),
                               child: Text(
                                 widget.deptName,
                                 style: TextStyle(
@@ -688,6 +704,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
+                              height: 38,
+                              width: 350,
                               controller: widget.emailController,
                               keyboardType: TextInputType.phone,
                               text: "Email",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -7,7 +8,6 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
-import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatefulWidget {
   final TextEditingController namecontroller;
@@ -40,25 +40,35 @@ class CustomPopup extends StatefulWidget {
 }
 
 class _CustomPopupState extends State<CustomPopup> {
+  bool _isNameValid = true;
+  String _nameErrorText = '';
+  void _validateInputs() {
+    setState(() {
+      final nameText = widget.namecontroller.text;
+
+      if (nameText.isEmpty) {
+        _isNameValid = false;
+        _nameErrorText = 'Please enter vendor name';
+      } else {
+        _isNameValid = true;
+        _nameErrorText = '';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-
-
         width: AppSize.s400,
         height: AppSize.s250,
-
-
           body: [
-
-
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
                 horizontal: AppPadding.p10,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FirstSMTextFConst(
@@ -66,6 +76,11 @@ class _CustomPopupState extends State<CustomPopup> {
                     keyboardType: TextInputType.text,
                     text: 'Vendor Name',
                   ),
+                  if (!_isNameValid) // Show error text if name is invalid
+                    Text(
+                      _nameErrorText,
+                      style:CommonErrorMsg.customTextStyle(context)
+                    ),
                 ],
               ),
             ),
@@ -76,16 +91,11 @@ class _CustomPopupState extends State<CustomPopup> {
           height: AppSize.s30,
           text: widget.buttontxt,
           onPressed: () {
-            widget.onPressed();
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CountySuccessPopup(
-                  message: 'Save Successfully',
-                );
-              },
-            );
+            _validateInputs(); // Perform validation
+            if (_isNameValid) {
+              widget.onPressed(); // Call the onPressed if validation passes
+              Navigator.pop(context);
+            }
           },
         ), title:widget.title,
 

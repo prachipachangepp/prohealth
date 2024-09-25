@@ -72,7 +72,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Zone Number',
+                      'Zone Name',
                       style:AllHRTableHeading.customTextStyle(context),
                     ),
                   ),
@@ -186,7 +186,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                               flex: 3,
                                               child: Text(
                                                 textAlign: TextAlign.center,
-                                                zone.zoneId
+                                                zone.zoneName
                                                     .toString(),
                                                 style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
@@ -298,25 +298,10 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                 .officeId,
                                                                             widget
                                                                                 .companyID);
-                                                                        getZoneByCounty(
-                                                                                context,
-                                                                                widget
-                                                                                    .officeId,
-                                                                                25,
-                                                                                1,
-                                                                                20)
-                                                                            .then(
-                                                                                (data) {
-                                                                          _zoneController
-                                                                              .add(
-                                                                                  data);
-                                                                        }).catchError(
-                                                                                (error) {});
                                                                         zoneNumberController
                                                                             .clear();
                                                                         countyId = 0;
                                                                       },
-
                                                                       child: FutureBuilder<
                                                                           List<AllCountyGetList>>(
                                                                           future: getCountyZoneList(

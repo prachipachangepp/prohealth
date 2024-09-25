@@ -310,3 +310,20 @@ class AppStringMobile {
   static const String  repOff = 'Reporting Office';
   static const String  summry = 'Summary';
 }
+class AppStringHRNoData {
+  ///login screen
+  static const String employeeNoData = 'No employement available!';
+  static const String noOnboardingData = 'No onboarding data available!';
+  static const String noOnboardEmpData = 'No qualification employement available!';
+  static const String noOnboardEdnData = 'No qualification education available!';
+  static const String noOnboardRefData = 'No qualification referance available!';
+  static const String noOnboardLicData = 'No qualification license available!';
+  static const String noOnboardBanking = 'No banking data available!';
+  static const String noOnboardAck = 'No acknowledgment document available!';
+  static const String noOnboardHealth = 'No health document available!';
+  static const String noOnboardFormStatus = 'No status available!';
+  // static const String employeeNoData = 'No employement available!';
+  // static const String employeeNoData = 'No employement available!';
+  // static const String employeeNoData = 'No employement available!';
+
+}

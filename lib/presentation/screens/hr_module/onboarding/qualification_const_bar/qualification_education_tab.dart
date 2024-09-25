@@ -61,7 +61,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Text(
-                    AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardEdnData,
                     style:AllNoDataAvailable.customTextStyle(context),
                   ),
                 ));

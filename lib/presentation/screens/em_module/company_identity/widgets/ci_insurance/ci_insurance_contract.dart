@@ -212,7 +212,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                 ),
                                                               );
                                                             }
-
                                                             return StatefulBuilder(
                                                               builder: (BuildContext
                                                               context, void Function(void Function())setState) {
@@ -227,8 +226,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                   expiryType: snapshotPrefill.data!.expiryType,
                                                                   expiryDate: snapshotPrefill.data!.expiryDate,
                                                                   threshhold: snapshotPrefill.data!.threshold,
-
-
                                                                 );
                                                               },
                                                             );
@@ -247,37 +244,60 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   highlightColor: Colors.transparent,
                                                   hoverColor: Colors.transparent,
                                                   onPressed: () {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            DeletePopup(
-                                                                title:
-                                                                DeletePopupString.deleteContract,
-                                                                onCancel: () {
+                                                    showDialog(context: context,
+                                                        builder: (context) => StatefulBuilder(
+                                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                                            return  DeletePopup(
+                                                                title: 'Delete Contract',
+                                                                loadingDuration: _isLoading,
+                                                                onCancel: (){
                                                                   Navigator.pop(context);
-                                                                },
-                                                                onDelete: () {
-                                                                  Navigator.pop(context);
-                                                                  print("${contract.insuranceVendorContracId}");
-                                                                  setState(() async {
-                                                                    await deleteContract(context, contract.insuranceVendorContracId);
-                                                                    // await companyContractGetByVendorId(
-                                                                    //   context,
-                                                                    //   widget.officeId,
-                                                                    //   widget.insuranceVendorId,
-                                                                    //   currentPage,
-                                                                    //   itemsPerPage,
-                                                                    // ).then((data) {
-                                                                    //   _controller.add(data);
-                                                                    // }).catchError((error) {
-                                                                    //   // Handle error
-                                                                    //   //_controller.addError(error);
-                                                                    // });
-                                                                  });
-                                                                }));
+                                                                }, onDelete: () async{
+                                                              setState(() {
+                                                                _isLoading = true;
+                                                              });
+                                                              try {
+                                                                await deleteContract(context, contract.insuranceVendorContracId);
+                                                              } finally {
+                                                                setState(() {
+                                                                  _isLoading = false;
+                                                                });
+                                                                Navigator.pop(context);
+                                                              }
+                                                            });
+                                                          },
+
+                                                        ));
+                                                    // showDialog(
+                                                    //     context: context,
+                                                    //     builder: (context) =>
+                                                    //         DeletePopup(
+                                                    //             title:
+                                                    //             DeletePopupString.deleteContract,
+                                                    //             onCancel: () {
+                                                    //               Navigator.pop(context);
+                                                    //             },
+                                                    //             onDelete: () {
+                                                    //               Navigator.pop(context);
+                                                    //               print("${contract.insuranceVendorContracId}");
+                                                    //               setState(() async {
+                                                    //                 await deleteContract(context, contract.insuranceVendorContracId);
+                                                    //                 // await companyContractGetByVendorId(
+                                                    //                 //   context,
+                                                    //                 //   widget.officeId,
+                                                    //                 //   widget.insuranceVendorId,
+                                                    //                 //   currentPage,
+                                                    //                 //   itemsPerPage,
+                                                    //                 // ).then((data) {
+                                                    //                 //   _controller.add(data);
+                                                    //                 // }).catchError((error) {
+                                                    //                 //   // Handle error
+                                                    //                 //   //_controller.addError(error);
+                                                    //                 // });
+                                                    //               });
+                                                    //             }));
                                                   },
                                                   icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
-
                                             ],
                                           ),
                                         ],

@@ -390,28 +390,61 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           hoverColor: Colors.transparent,
                                                           onPressed: () {
                                                             showDialog(context: context,
-                                                                builder: (context) =>
-                                                                    DeletePopup(
-                                                                        title: DeletePopupString.deletePolicy,
-                                                                        onCancel:
-                                                                            () {
+                                                                builder: (context) => StatefulBuilder(
+                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                    return  DeletePopup(
+                                                                        title: 'Delete Policies & Procedure',
+                                                                        loadingDuration: _isLoading,
+                                                                        onCancel: (){
                                                                           Navigator.pop(context);
-                                                                        },
-                                                                        onDelete: () {
-                                                                          Navigator.pop(context);
-                                                                          setState(() async {
-                                                                            await deleteOrgDoc(
-                                                                                context: context,
-                                                                                orgDocId: policiesdata.orgOfficeDocumentId);
-                                                                            // await deleteManageCorporate(context,
-                                                                            //     policiesdata.docId);
-                                                                            await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
-                                                                              _controller.add(data);
-                                                                            }).catchError((error) {
-                                                                              // Handle error
-                                                                            });
-                                                                          });
-                                                                        }));
+                                                                        }, onDelete: () async{
+                                                                      setState(() {
+                                                                        _isLoading = true;
+                                                                      });
+                                                                      try {
+                                                                        await deleteOrgDoc(
+                                                                            context: context,
+                                                                            orgDocId: policiesdata.orgOfficeDocumentId);
+                                                                        await getListMCorporateCompliancefetch(context,
+                                                                            AppConfig.corporateAndCompliance, widget.officeId,
+                                                                            AppConfig.subDocId1Licenses, 1, 20).then((data) {
+                                                                          _controller.add(data);
+                                                                        }).catchError((error) {
+                                                                          // Handle error
+                                                                        });
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    });
+                                                                  },
+
+                                                                ));
+                                                            // showDialog(context: context,
+                                                            //     builder: (context) =>
+                                                            //         DeletePopup(
+                                                            //             title: DeletePopupString.deletePolicy,
+                                                            //             onCancel:
+                                                            //                 () {
+                                                            //               Navigator.pop(context);
+                                                            //             },
+                                                            //             onDelete: () {
+                                                            //               Navigator.pop(context);
+                                                            //               setState(() async {
+                                                            //                 await deleteOrgDoc(
+                                                            //                     context: context,
+                                                            //                     orgDocId: policiesdata.orgOfficeDocumentId);
+                                                            //                 // await deleteManageCorporate(context,
+                                                            //                 //     policiesdata.docId);
+                                                            //                 await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
+                                                            //                   _controller.add(data);
+                                                            //                 }).catchError((error) {
+                                                            //                   // Handle error
+                                                            //                 });
+                                                            //               });
+                                                            //             }));
                                                           },
                                                           icon: Icon(
                                                             Icons
