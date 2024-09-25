@@ -322,11 +322,7 @@ class AppStringHRNoData {
   static const String noOnboardAck = 'No acknowledgment document available!';
   static const String noOnboardHealth = 'No health document available!';
   static const String noOnboardFormStatus = 'No status available!';
-  // static const String employeeNoData = 'No employement available!';
-  // static const String employeeNoData = 'No employement available!';
-  // static const String employeeNoData = 'No employement available!';
 
-  static const String employeeNoData = 'No employement available!';
   static const String educationNoData = 'No education available!';
   static const String referenceNoData = 'No references available!';
   static const String licenseNoData = 'No licenses available!';
