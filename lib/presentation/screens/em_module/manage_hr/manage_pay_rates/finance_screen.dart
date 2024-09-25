@@ -673,15 +673,36 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       children: [
                         Expanded(
                           child: ListView.builder(
+                                 // scrollDirection: Axis.vertical,
+                              // itemCount: paginatedData.length,
+                              // itemBuilder: (context, index) {
+                              //   int serialNumber = index +
+                              //       1 +
+                              //       (currentPage - 1) * itemsPerPage;
+                              //   String formattedSerialNumber =
+                              //       serialNumber.toString().padLeft(2, '0');
+                              //   PayRatesGetByServiceId finance = paginatedData[index];
+                                 ///
+                                 //       scrollDirection: Axis.vertical,
+                        //       itemCount: paginatedData.length,
+                        //       itemBuilder: (context, index) {
+                        //         // Reverse the data by using the last index first
+                        //         int reverseIndex = paginatedData.length - 1 - index;
+                        //         int serialNumber = reverseIndex + 1 + (currentPage - 1) * itemsPerPage;
+                        //         String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                        //         PayRatesGetByServiceId finance = paginatedData[reverseIndex];
+                                ///
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                int serialNumber = index +
-                                    1 +
-                                    (currentPage - 1) * itemsPerPage;
-                                String formattedSerialNumber =
-                                    serialNumber.toString().padLeft(2, '0');
-                                PayRatesGetByServiceId finance = paginatedData[index];
+                                // Reverse the data by using the last index first
+                                int reverseIndex = paginatedData.length - 1 - index;
+
+                                // Serial number starts from 1 and increments with each item
+                                int serialNumber = index + 1;
+                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+
+                                PayRatesGetByServiceId finance = paginatedData[reverseIndex];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

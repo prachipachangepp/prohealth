@@ -182,39 +182,75 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     _selectedValue = widget.initialValue;
   }
 
+  // void _showCustomDropdown() async {
+  //   final RenderBox renderBox =
+  //       _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+  //   final offset = renderBox.localToGlobal(Offset.zero);
+  //   final size = renderBox.size;
+  //
+  //   final result = await showMenu<String>(
+  //     context: context,
+  //     position: RelativeRect.fromLTRB(
+  //         offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
+  //     items: widget.items.map((DropdownMenuItem<String> item) {
+  //       return PopupMenuItem<String>(
+  //         textStyle: CustomTextStylesCommon.commonStyle(
+  //           fontWeight: FontWeight.w500,
+  //           fontSize: FontSize.s12,
+  //           color: ColorManager.mediumgrey,
+  //         ),
+  //         value: item.value,
+  //         child: Container(
+  //           width: size.width - 16,
+  //
+  //           ///minus padding/margin
+  //           child: Text(item.value ?? ''),
+  //         ),
+  //       );
+  //     }).toList(),
+  //     color: ColorManager.white,
+  //   );
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       _selectedValue = result;
+  //       widget.onChange!(result);
+  //     });
+  //   }
+  // }
   void _showCustomDropdown() async {
-    final RenderBox renderBox =
-        _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final offset = renderBox.localToGlobal(Offset.zero);
     final size = renderBox.size;
 
     final result = await showMenu<String>(
       context: context,
       position: RelativeRect.fromLTRB(
-          offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
+        offset.dx,
+        offset.dy + size.height,
+        offset.dx + size.width,
+        0,
+      ),
       items: widget.items.map((DropdownMenuItem<String> item) {
         return PopupMenuItem<String>(
-          textStyle: CustomTextStylesCommon.commonStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: FontSize.s12,
-            color: ColorManager.mediumgrey,
-          ),
           value: item.value,
           child: Container(
-            width: size.width - 16,
-
-            ///minus padding/margin
-            child: Text(item.value ?? ''),
+            width: widget.width,
+            child: Text(
+              item.value ?? '',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12),),
           ),
         );
       }).toList(),
-      color: ColorManager.white,
+      color: Colors.white,
     );
 
     if (result != null) {
       setState(() {
         _selectedValue = result;
-        widget.onChange!(result);
+        widget.onChange?.call(result);
       });
     }
   }
@@ -226,13 +262,11 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
         GestureDetector(
           onTap: _showCustomDropdown,
           child: Container(
-            key: _dropdownKey,
-            width: widget.width == null ? 354 : widget.width,
+            width: widget.width,
             height: 30,
             decoration: BoxDecoration(
-              border: Border.all(
-                  color: ColorManager.containerBorderGrey, width: AppSize.s1),
-              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: [
@@ -240,7 +274,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                 Expanded(
                   child: Text(
                     _selectedValue ?? '',
-                    style: DocumentTypeDataStyle.customTextStyle(context)
+                    style: MobileMenuText.MenuTextConst(context),
                   ),
                 ),
                 Padding(
@@ -250,13 +284,41 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
               ],
             ),
           ),
-        ),
+        )
+        ///
+        // GestureDetector(
+        //   onTap: _showCustomDropdown,
+        //   child: Container(
+        //     key: _dropdownKey,
+        //     width: widget.width == null ? 354 : widget.width,
+        //     height: 30,
+        //     decoration: BoxDecoration(
+        //       border: Border.all(
+        //           color: ColorManager.containerBorderGrey, width: AppSize.s1),
+        //       borderRadius: BorderRadius.circular(5),
+        //     ),
+        //     child: Row(
+        //       children: [
+        //         SizedBox(width: AppSize.s8),
+        //         Expanded(
+        //           child: Text(
+        //             _selectedValue ?? '',
+        //             style: DocumentTypeDataStyle.customTextStyle(context)
+        //           ),
+        //         ),
+        //         Padding(
+        //           padding: const EdgeInsets.symmetric(horizontal: 8),
+        //           child: Icon(Icons.arrow_drop_down),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
 }
 
-/////////////////////////////////////////
 ///prajwal
 class CICCDropDownExcel extends StatefulWidget {
   final double? width;
@@ -363,7 +425,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
   }
 }
 
-//////////////////////////////////////////////////
+///
 
 ///edit popup
 class CCScreenEditPopup extends StatefulWidget {

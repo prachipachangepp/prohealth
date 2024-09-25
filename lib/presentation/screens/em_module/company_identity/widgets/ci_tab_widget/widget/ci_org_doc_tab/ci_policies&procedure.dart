@@ -67,7 +67,8 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
         SizedBox(height: AppSize.s10),
         PoliciesProcedureList(
           controller: _policiesandprocedureController,
-          fetchDocuments: (context) => getNewOrgDocfetch(context, AppConfig.policiesAndProcedure, AppConfig.subDocId0, 1, 50,
+          fetchDocuments: (context) => getNewOrgDocfetch(context, AppConfig.policiesAndProcedure,
+            AppConfig.subDocId0, 1, 50,
           ),
           emptyMessage: ErrorMessageString.noPolicyProcedure,
           onEdit: (NewOrgDocument doc) {

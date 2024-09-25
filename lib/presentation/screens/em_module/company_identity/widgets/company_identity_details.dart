@@ -135,38 +135,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
     });
   }
 
-  // ////////////////////////
-  // List<String> _suggestions = [];
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   addressController.addListener(_onCountyNameChanged);
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   addressController.removeListener(_onCountyNameChanged);
-  //   super.dispose();
-  // }
-  //
-  // void _onCountyNameChanged() async {
-  //   final query = addressController.text;
-  //   if (query.isEmpty) {
-  //     setState(() {
-  //       _suggestions.clear();
-  //     });
-  //     return;
-  //   }
-  //
-  //   final suggestions = await fetchSuggestions(query);
-  //   setState(() {
-  //     _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
-  //   });
-  // }
-
-  ///////////////////
-
 
   String latitude = '';
   String longitude = '';
@@ -192,23 +160,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
       companyDetailGetAll(context, widget.officeId);
     });
   }
-  //   try {
-  //     // Fetch suggestions based on the addressController's text
-  //     final suggestions = await fetchSuggestions(addressController.text);
-  //     _suggestionsNotifier.value = suggestions;
-  //   } catch (e) {
-  //     // Handle error if fetching suggestions fails
-  //     print("Error fetching suggestions: $e");
-  //     _suggestionsNotifier.value = [];
-  //   }
-  // }
-
-  // Future<List<String>> fetchSuggestions(String query) async {
-  //   // Your logic to fetch suggestions goes here
-  //   // This is a placeholder implementation
-  //   await Future.delayed(Duration(seconds: 1)); // Simulate network delay
-  //   return ['Suggestion 1', 'Suggestion 2', 'Suggestion 3']; // Replace with actual logic
-  // }
  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -269,30 +220,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // CheckboxConstant(
-                            //   value: i + j == 0
-                            //       ? checkboxValue1
-                            //       : i + j == 1
-                            //       ? checkboxValue2
-                            //       : i + j == 2
-                            //       ? checkboxValue3
-                            //       : checkboxValue4,
-                            //   onChanged: (newValue) {
-                            //     setState(() {
-                            //       if (i + j == 0) {
-                            //         checkboxValue1 = newValue!;
-                            //       } else if (i + j == 1) {
-                            //         checkboxValue2 = newValue!;
-                            //       } else if (i + j == 2) {
-                            //         checkboxValue3 = newValue!;
-                            //       } else {
-                            //         checkboxValue4 = newValue!;
-                            //       }
-                            //     });
-                            //   },
-                            //   text: '',
-                            // ),
-                            // const SizedBox(width: 100),
                             Container(
                               height: 170,
                               width: 400,
@@ -370,8 +297,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                     'HCO Number',
                                                               ),
                                                             ],
-                                                            bottomButtons:
-                                                                CustomElevatedButton(
+                                                            bottomButtons: CustomElevatedButton(
                                                                     width: AppSize
                                                                         .s105,
                                                                     height:
@@ -398,6 +324,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                               .text);
                                                                       hcoNumController
                                                                           .clear();
+                                                                      Navigator.pop(
+                                                                          context);
                                                                       showDialog(
                                                                         context: context,
                                                                         builder: (BuildContext context) {
@@ -406,8 +334,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                           );
                                                                         },
                                                                       );
-                                                                      Navigator.pop(
-                                                                          context);
+
                                                                     }),
                                                             title:
                                                                 'Edit Service',
@@ -421,73 +348,71 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                       color: Colors.white),
                                                 ),
                                                 // SizedBox(width:2),
-                                                isChecked
-                                                    ? IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onPressed: () async {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                StatefulBuilder(
-                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                    return DeletePopup(
-                                                                        title: DeletePopupString.deleteholiday,
-                                                                        loadingDuration: _isLoading,
-                                                                        onCancel: () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        }, onDelete:
-                                                                        () async {
-                                                                      setState(() {
-                                                                        _isLoading = true;
-                                                                      });
-                                                                      try {
-                                                                        await deleteService(
-                                                                            serviceDetail.officeServiceId);
-                                                                        //companyDetailGetAll(context, widget.officeId);
-                                                                      } finally {
-                                                                        setState(() {
-                                                                          _isLoading = false;
-                                                                        });
-                                                                        Navigator.pop(context);
-                                                                      }
-                                                                    });
-                                                                  },
-                                                                ),
-                                                          );
-                                                          // showDialog(
-                                                          //     context: context,
-                                                          //     builder: (context) =>
-                                                          //         DeletePopup(
-                                                          //             title:
-                                                          //                 'Delete Service',
-                                                          //             onCancel:
-                                                          //                 () {
-                                                          //               Navigator.pop(
-                                                          //                   context);
-                                                          //             },
-                                                          //             onDelete:
-                                                          //                 () async {
-                                                          //               await deleteService(
-                                                          //                   serviceDetail.officeServiceId);
-                                                          //               //companyDetailGetAll(context, widget.officeId);
-                                                          //               Navigator.pop(
-                                                          //                   context);
-                                                          //             }));
-                                                        },
-                                                        icon: Icon(
-                                                            Icons
-                                                                .delete_outline_outlined,
-                                                            size: 20,
-                                                            color:
-                                                                Colors.white),
-                                                      )
-                                                    : Offstage()
+                                                IconButton(
+                                                  splashColor:
+                                                  Colors.transparent,
+                                                  hoverColor:
+                                                  Colors.transparent,
+                                                  highlightColor:
+                                                  Colors.transparent,
+                                                  onPressed: () async {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          StatefulBuilder(
+                                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                                              return DeletePopup(
+                                                                  title: DeletePopupString.deleteholiday,
+                                                                  loadingDuration: _isLoading,
+                                                                  onCancel: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  }, onDelete:
+                                                                  () async {
+                                                                setState(() {
+                                                                  _isLoading = true;
+                                                                });
+                                                                try {
+                                                                  await deleteService(
+                                                                      serviceDetail.officeServiceId);
+                                                                  //companyDetailGetAll(context, widget.officeId);
+                                                                } finally {
+                                                                  setState(() {
+                                                                    _isLoading = false;
+                                                                  });
+                                                                  Navigator.pop(context);
+                                                                }
+                                                              });
+                                                            },
+                                                          ),
+                                                    );
+                                                    // showDialog(
+                                                    //     context: context,
+                                                    //     builder: (context) =>
+                                                    //         DeletePopup(
+                                                    //             title:
+                                                    //                 'Delete Service',
+                                                    //             onCancel:
+                                                    //                 () {
+                                                    //               Navigator.pop(
+                                                    //                   context);
+                                                    //             },
+                                                    //             onDelete:
+                                                    //                 () async {
+                                                    //               await deleteService(
+                                                    //                   serviceDetail.officeServiceId);
+                                                    //               //companyDetailGetAll(context, widget.officeId);
+                                                    //               Navigator.pop(
+                                                    //                   context);
+                                                    //             }));
+                                                  },
+                                                  icon: Icon(
+                                                      Icons
+                                                          .delete_outline_outlined,
+                                                      size: 20,
+                                                      color:
+                                                      Colors.white),
+                                                )
                                               ],
                                             )
                                           ],
@@ -691,9 +616,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               text: AppStringEM.stateName,
                             ),
 
-                           // AddressInput(controller: addressController),
-
-
+                            // AddressInput(controller: addressController),
                             // SMTextFConst(
                             //
                             //   controller: addressController,
@@ -864,7 +787,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
 
 
-//////////////////////////////////////////
+///Address suggestion
 
 class AddressInput extends StatefulWidget {
   final TextEditingController controller;
@@ -962,126 +885,4 @@ class _AddressInputState extends State<AddressInput> {
   }
 }
 
-
-
-
-
-/////////////////////////////////////////////////
-// class AddressInput extends StatelessWidget {
-//   final TextEditingController controller;
-//
-//   AddressInput({required this.controller});
-//
-//   // List<String> _suggestions = [];
-//   @override
-//   Widget build(BuildContext context) {
-//     return SMTextFConst(
-//       controller: controller,
-//       keyboardType: TextInputType.text,
-//       text: AppStringEM.address,
-//     );
-//   }
-// }
-////////////////////////////////////////////////////////////////
-//
-// class AddressInput extends StatefulWidget {
-//   final TextEditingController controller;
-//
-//   AddressInput({required this.controller});
-//
-//   @override
-//   _AddressInputState createState() => _AddressInputState();
-// }
-//
-// class _AddressInputState extends State<AddressInput> {
-//   bool isLoading = false;
-//
-//   List<String> _suggestions = [];
-//   @override
-//   void initState() {
-//     super.initState();
-//     widget.controller.addListener(_onCountyNameChanged);
-//   }
-//
-//   @override
-//   void dispose() {
-//     // widget.addressController.removeListener(_onCountyNameChanged);
-//     super.dispose();
-//   }
-//
-//   void _onCountyNameChanged() async {
-//     if ( widget.controller.text.isEmpty) {
-//       setState(() {
-//         _suggestions = [];
-//       });
-//       return;
-//     }
-//     final suggestions = await fetchSuggestions (widget.controller.text);
-//     if (suggestions[0] ==  widget.controller.text) {
-//       setState(() {
-//         _suggestions.clear();
-//       });
-//     } else if ( widget.controller.text.isEmpty) {
-//       setState(() {
-//         _suggestions = suggestions;
-//       });
-//     } else {
-//       setState(() {
-//         _suggestions = suggestions;
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         SMTextFConst(
-//           controller: widget.controller,
-//           keyboardType: TextInputType.text,
-//           text: AppStringEM.address,
-//         ),
-//         if (_suggestions.isNotEmpty)
-//           Positioned(
-//             top: 70, // Adjust as needed
-//             left: 0,
-//             child: Container(
-//               height: 100,
-//               width: 320,
-//               decoration: BoxDecoration(
-//                 color: Colors.red,
-//                 borderRadius: BorderRadius.circular(8),
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Colors.black26,
-//                     blurRadius: 4,
-//                     offset: Offset(0, 2),
-//                   ),
-//                 ],
-//               ),
-//               child: ListView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: _suggestions.length,
-//                 itemBuilder: (context, index) {
-//                   return ListTile(
-//                     title: Text(
-//                       _suggestions[index],
-//                       style: AllPopupHeadings.customTextStyle(context),
-//                     ),
-//                     onTap: () {
-//                       FocusScope.of(context).unfocus();
-//                       widget.controller.text = _suggestions[index];
-//                       setState(() {
-//                         _suggestions.clear();
-//                       });
-//                     },
-//                   );
-//                 },
-//               ),
-//             ),
-//           ),
-//       ],
-//     );
-//   }
-// }
 

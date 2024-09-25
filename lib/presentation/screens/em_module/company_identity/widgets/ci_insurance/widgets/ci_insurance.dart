@@ -70,7 +70,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
   String? expiryType;
   String? selectedValue;
-
+   double dropdownWidth = 354;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,13 +84,15 @@ class _CiOrgDocumentState extends State<CIInsurance> {
               children: [
                 _selectedIndex == 0
                     ? SizedBox(width: 354)
-                    : FutureBuilder<List<ManageVendorData>>(
+                    :
+
+
+                FutureBuilder<List<ManageVendorData>>(
                   future: companyVendorGet(context, widget.officeId, 1, 20),
                   builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting &&
                         selectedValue == null) {
                       return Container(
-
                         width:  354 ,
                         height: 30,
                         decoration: BoxDecoration(
@@ -118,7 +120,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                     if (snapshotZone.hasError || snapshotZone.data == null) {
                       return Container(
-
                         width:  354 ,
                         height: 30,
                         decoration: BoxDecoration(
@@ -144,25 +145,28 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       );
                     }
                     if (snapshotZone.data!.isEmpty) {
-                      return CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
+                      return CICCDropdown(
+                        width:  354,
+
+                        items: [],initialValue: ErrorMessageString.noVendorAdded,);
                     }
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
                       for (var i in snapshotZone.data!) {
                         dropDownTypesList.add(
+
                           DropdownMenuItem<String>(
+
                             value: i.vendorName,
                             child: Text(i.vendorName),
                           ),
                         );
                       }
-
-                      // Initialize selectedValue if not already selected
                       if (selectedValue == null && dropDownTypesList.isNotEmpty) {
                         selectedValue = dropDownTypesList[0].value;
                       }
-
                       return CICCDropdown(
+                       width: 354,
                         initialValue: "Select",
                         onChange: (val) {
                           setState(() {

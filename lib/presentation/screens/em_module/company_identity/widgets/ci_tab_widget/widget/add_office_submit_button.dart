@@ -180,7 +180,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _nameDocError = _validateTextField(widget.nameController.text, ' Name');
+      _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
       _emailDocError = _validateTextField(widget.emailController.text, 'Email');
       _stateDocError = _validateTextField(widget.stateController.text, 'State');
       _addressDocError =
@@ -240,7 +240,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_emailDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 2),
                             child: Text(
                               _emailDocError!,
                               style: TextStyle(
