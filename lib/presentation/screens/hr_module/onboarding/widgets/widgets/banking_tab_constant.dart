@@ -55,7 +55,7 @@ class _BankingTabContainerConstantState
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 150),
               child: Text(
-                AppString.dataNotFound,
+                  AppStringHRNoData.noOnboardBanking,
                 style: AllNoDataAvailable.customTextStyle(context)
               ),
             ));

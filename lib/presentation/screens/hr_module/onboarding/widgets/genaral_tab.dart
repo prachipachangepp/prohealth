@@ -61,7 +61,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardingData,
                     style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 );

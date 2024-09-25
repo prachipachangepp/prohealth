@@ -62,7 +62,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                 child: Padding(
                   padding:  EdgeInsets.symmetric(vertical: 150),
                   child: Text(
-                    AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardLicData,
                     style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ));
