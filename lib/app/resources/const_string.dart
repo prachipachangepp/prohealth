@@ -310,3 +310,8 @@ class AppStringMobile {
   static const String  repOff = 'Reporting Office';
   static const String  summry = 'Summary';
 }
+class AppStringHRNoData {
+  ///login screen
+  static const String employeeNoData = 'No employement avalable!';
+
+}
