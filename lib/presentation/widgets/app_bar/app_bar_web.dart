@@ -27,7 +27,7 @@ class _AppBarWebState extends State<AppBarWeb> {
   String? _selectedValue;
 
   String? loginName = '';
-
+  bool isLoggedIn = true;
   Future<String> user() async {
     loginName = await TokenManager.getUserName();
     //loginName = userName;
@@ -140,7 +140,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10,
-                                                  decoration: TextDecoration.none,
+                                                  decoration:
+                                                      TextDecoration.none,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                             Text("KLIP",
@@ -196,9 +197,11 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           ),
                                           AppClickableWidget(
                                             onTap: () {
-                                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
                                                 "/home", // The target route name you want to go back to
-                                                ModalRoute.withName("/home"), // Condition to pop until the target route
+                                                ModalRoute.withName(
+                                                    "/home"), // Condition to pop until the target route
                                               );
                                               // Navigator.push(
                                               //     context,
@@ -374,7 +377,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   value: value,
                                                   child: Text(
                                                     value,
-                                                    style:TextStyle(
+                                                    style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w400,
@@ -460,11 +463,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           ),
                                         ),
                                       ),
-
-                                      SizedBox(
-                                          width: AppSize
-                                              .s15),
-
+                                      SizedBox(width: AppSize.s15),
                                       AppClickableWidget(
                                         onTap: () {},
                                         onHover: (bool val) {},
@@ -482,41 +481,173 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     ],
                                   ),
                                 ),
-
-
                                 Expanded(
                                   flex: 2,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      GestureDetector(
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Colors.white,
+                                      MouseRegion(
+                                        onEnter: (_) {
+                                          // Handle mouse hover on profile icon
+                                        },
+                                        onExit: (_) {
+                                          // Handle mouse leave
+                                        },
+                                        child: GestureDetector(
+                                          child: Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                          ),
+                                          onTap: () {
+                                            // Optional: Handle tap on the profile icon if needed
+                                          },
                                         ),
                                       ),
-                                      const SizedBox(height: AppSize.s2),
+                                      // const SizedBox(height: AppSize.s2),
                                       FutureBuilder(
-                                          future: user(),
-                                          builder: (context, snap) {
-                                            if (snap.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return SizedBox();
-                                            }
-                                            return Text(
+                                        future: user(),
+                                        builder: (context, snap) {
+                                          if (snap.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return SizedBox();
+                                          }
+
+                                          return MouseRegion(
+                                            onEnter: (_) {
+                                              // Show logout popup when hovering over username
+                                              showMenu(
+                                                context: context,
+                                                position: RelativeRect.fromLTRB(
+                                                    70,
+                                                    70,
+                                                    0,
+                                                    0), // Adjust position as needed
+                                                items: [
+                                                  PopupMenuItem(
+                                                    padding: EdgeInsets.zero,
+                                                    height: 30,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        if (isLoggedIn) {  // Replace 'value' with 'isLoggedIn'
+                                                          print("User logged out");
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) => DeletePopup(
+                                                              onCancel: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                              onDelete: () {
+                                                                TokenManager.removeAccessToken();
+                                                                Navigator.pushNamedAndRemoveUntil(
+                                                                  context,
+                                                                  LoginScreen.routeName,
+                                                                      (route) => false,
+                                                                );
+                                                              },
+                                                              btnText: "Log Out",
+                                                              title: "Log Out",
+                                                              text: "Do you really want to logout?",
+                                                            ),
+                                                          );
+                                                        }
+                                                        print('Logging out');
+                                                      },
+                                                      child: Container(
+                                                        height:
+                                                            25, // Reduced height for the logout button
+                                                        width: 90,
+                                                        // margin: EdgeInsets.symmetric(vertical: 10),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5,
+                                                                vertical: 5),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.logout,
+                                                              size:
+                                                                  12, // Set icon size
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                            // SizedBox(width: 8),
+                                                            Text(
+                                                              'Log Out',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      12, // Set font size
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                            child: Text(
                                               loginName!,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: FontSize.s8,
                                                 fontWeight:
-                                                FontWeightManager.regular,
+                                                    FontWeightManager.regular,
                                               ),
-                                            );
-                                          }),
-                                         ],
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    ),
+                                    ],
+                                  ),
+                                ),
+
+                                ///old
+//                                 Expanded(
+//                                   flex: 2,
+//                                   child: Column(
+//                                     mainAxisAlignment: MainAxisAlignment.center,
+//                                     children: [
+//                                       GestureDetector(
+//                                         child: Icon(
+//                                           Icons.person,
+//                                           color: Colors.white,
+//                                         ),
+//                                       ),
+//                                       const SizedBox(height: AppSize.s2),
+//                                       FutureBuilder(
+//                                           future: user(),
+//                                           builder: (context, snap) {
+//                                             if (snap.connectionState ==
+//                                                 ConnectionState.waiting) {
+//                                               return SizedBox();
+//                                             }
+//                                             return Text(
+//                                               loginName!,
+//                                               textAlign: TextAlign.center,
+//                                               style: TextStyle(
+//                                                 color: Colors.white,
+//                                                 fontSize: FontSize.s8,
+//                                                 fontWeight:
+//                                                 FontWeightManager.regular,
+//                                               ),
+//                                             );
+//                                           }),
+//                                          ],
+//                                       ),
+//                                     ),
+                                ///Saloni
                                 // Expanded(
                                 //   flex: 2,
                                 //   child: Column(
