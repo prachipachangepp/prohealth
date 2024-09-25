@@ -162,7 +162,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
             if (snapshot.data!.isEmpty) {
               return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    AppStringHRNoData.employeeNoData,
                     style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,
