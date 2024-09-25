@@ -122,8 +122,6 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
             //         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
             //       }),
             // ),
-
-
           ],
         ),
         const SizedBox(
@@ -342,7 +340,6 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                         child: CircularProgressIndicator());
                                                   }
                                                   if (snapshot.hasData) {
-
                                                     return CustomDocumedEditPopup(
                                                       labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
                                                       docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,

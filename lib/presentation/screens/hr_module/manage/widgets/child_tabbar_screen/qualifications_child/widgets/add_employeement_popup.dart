@@ -95,7 +95,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 45.0),
+                    padding: EdgeInsets.only(left: 50.0),
                     child: Text(
                       widget.tite,
                         style: PopupHeadingStyle.customTextStyle(context)
@@ -119,16 +119,19 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.positionTitleController,
                   labelText: "Final Position Title",
                   errorKey: 'positionTitle',
                 ),
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.leavingResonController,
                   labelText: "Reason For Leaving",
                   errorKey: 'leavingReason',
                 ),
                 _buildTextField(
+                  capitalIsSelect: false,
                   controller: widget.startDateContoller,
                   labelText: "Start Date",
                   errorKey: 'startDate',
@@ -142,6 +145,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
+                  capitalIsSelect: false,
                   controller: widget.endDateController,
                   labelText: "End Date",
                   errorKey: 'endDate',
@@ -149,11 +153,13 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   onTap: () => _selectDate(widget.endDateController, _selectedEndDate),
                 ),
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.lastSupervisorNameController,
                   labelText: "Last Supervisor's Name",
                   errorKey: 'lastSupervisorName',
                 ),
                 _buildTextField(
+                  capitalIsSelect: false,
                   controller: widget.supervisorMobileNumber,
                   labelText: "Supervisor's Mobile Number",
                   errorKey: 'supervisorMobileNumber',
@@ -173,16 +179,19 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.cityNameController,
                   labelText: AppString.city,
                   errorKey: 'cityName',
                 ),
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.employeerController,
                   labelText: "Employer",
                   errorKey: 'employer',
                 ),
                 _buildTextField(
+                  capitalIsSelect: false,
                   controller: widget.emergencyMobileNumber,
                   labelText: "Emergency Mobile Number",
                   errorKey: 'emergencyMobileNumber',
@@ -194,6 +203,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.countryController,
                   labelText: "Country Name",
                   errorKey: 'countryname',
@@ -245,12 +255,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     required String labelText,
     required String errorKey,
     Widget? suffixIcon,
+    required bool capitalIsSelect,
     VoidCallback? onTap,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
+          capitalIsSelect:capitalIsSelect,
           phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber' ? true : false,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,

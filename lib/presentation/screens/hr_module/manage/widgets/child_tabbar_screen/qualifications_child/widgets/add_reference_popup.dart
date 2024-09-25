@@ -89,7 +89,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
+                        vertical: 15, horizontal: 25),
                     child: Text(
                       widget.title,
                       style: PopupHeadingStyle.customTextStyle(context)
@@ -298,20 +298,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         setState(() {
           isLoading = false;
         });
-        Navigator.pop(context);
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            Future.delayed(Duration(seconds: 3), () {
-              if (Navigator.of(context).canPop()) {
-                Navigator.of(context).pop();
-              }
-            });
-            return AddSuccessPopup(
-              message: 'Added Successfully',
-            );
-          },
-        );
         _clearControllers();
       }
     // }

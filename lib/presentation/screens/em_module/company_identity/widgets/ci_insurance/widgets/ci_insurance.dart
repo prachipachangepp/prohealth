@@ -297,22 +297,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                           return ContractAddDialog(
                                               selectedVendorId :selectedVendorId,
                                             officeid:widget.officeId,
-
-
-
-                                            // onSubmitPressed: () async {
-                                            //   //if (selectedVendorId == 0) {
-                                            //   await addVendorContract(
-                                            //     context,
-                                            //     selectedVendorId,
-                                            //     contractNameController.text,
-                                            //     selectedExpiryType!,
-                                            //     widget.officeId,
-                                            //     contractIdController.text,
-                                            //     calenderController.text
-                                            //   );
-                                            // },
-
                                             title: 'Add Contract',
                                           );
                                         },

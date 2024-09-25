@@ -88,7 +88,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
+                        vertical: 15, horizontal: 55),
                     child: Text(
                       widget.title,
                         style: PopupHeadingStyle.customTextStyle(context)
@@ -160,6 +160,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.LivensureController,
                   labelText: "Livensure/Certification",
                   errorKey: 'Livensure',
@@ -183,16 +184,19 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
+                  capitalIsSelect:true,
                   controller: widget.issuingOrganizationController,
                   labelText: "Issuing Organization",
                   errorKey: 'issuingOrganization',
                 ),
                 _buildTextField(
+                  capitalIsSelect: true,
                   controller: widget.countryController,
                   labelText: "Country",
                   errorKey: 'country',
                 ),
                 _buildTextField(
+                  capitalIsSelect:false,
                   controller: widget.numberIDController,
                   labelText: "Number/ID",
                   errorKey: 'numberID',
@@ -270,11 +274,13 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     required TextEditingController controller,
     required String labelText,
     required String errorKey,
+    required bool capitalIsSelect,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
+          capitalIsSelect: capitalIsSelect,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,

@@ -49,7 +49,7 @@ class AllHRTableHeading {
 class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       fontSize: FontSize.s10,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,

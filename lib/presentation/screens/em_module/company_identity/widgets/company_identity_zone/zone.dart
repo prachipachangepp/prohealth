@@ -152,7 +152,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                         if (snapshotZone.connectionState ==
                             ConnectionState.waiting) {
                           return Container(
-                            width: 350,
+                            width: 354,
                             height: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),

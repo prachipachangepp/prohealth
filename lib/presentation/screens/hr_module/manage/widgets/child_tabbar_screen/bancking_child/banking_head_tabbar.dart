@@ -92,7 +92,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                 specificAmountController:
                                     specificAmountController,
                                 onPressed: () async {
-                                  await addNewEmployeeBanking(
+                                  var response = await addNewEmployeeBanking(
                                       context: context,
                                       employeeId: widget.employeeID,
                                       accountNumber:
@@ -107,6 +107,17 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                           routingNumberController.text,
                                       percentage: 'Na',
                                       type: "Checking");
+                                  Navigator.pop(context);
+                                  if(response.statusCode == 200 || response.statusCode == 201){
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AddSuccessPopup(
+                                          message: 'Banking Added Successfully',
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
                               ));
                     }),
@@ -268,6 +279,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                             .data!
                                                             .amountRequested
                                                             .toString());
+                                                verifyAccountController = TextEditingController(text: snapshotPrefill.data!.accountNumber);
                                                 return EditBankingPopUp(
                                                   title: 'Edit Banking',
                                                   banckId: snapshotPrefill
@@ -279,7 +291,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                   accountNumberController:
                                                       accountNumberController,
                                                   verifyAccountController:
-                                                      verifyAccountController,
+                                                  verifyAccountController,
                                                   routingNumberController:
                                                       routingNumberController,
                                                   specificAmountController:
@@ -332,6 +344,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                       "NA",
                                                       "Checking",
                                                     );
+                                                    Navigator.pop(context);
                                                     if (response.statusCode ==
                                                             200 ||
                                                         response.statusCode ==
@@ -340,21 +353,9 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                         context: context,
                                                         builder: (BuildContext
                                                             context) {
-                                                          Future.delayed(
-                                                              Duration(
-                                                                  seconds: 3),
-                                                              () {
-                                                            if (Navigator.of(
-                                                                    context)
-                                                                .canPop()) {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            }
-                                                          });
                                                           return AddSuccessPopup(
                                                             message:
-                                                                'Banking Added Successfully',
+                                                                'Banking Edit Successfully',
                                                           );
                                                         },
                                                       );
