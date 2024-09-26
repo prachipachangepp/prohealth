@@ -113,7 +113,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: AppSize.s330,
+        height: 370,
         width: AppSize.s350,
         decoration: BoxDecoration(
           color: ColorManager.white,
