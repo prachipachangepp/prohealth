@@ -15,6 +15,7 @@ import '../../../../../../../../../app/services/api/managers/establishment_manag
 import '../../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../widgets/button_constant.dart';
 import '../../../../../../widgets/text_form_field_const.dart';
+import '../../../../whitelabelling/success_popup.dart';
 
 ///Add new popup
 class AddNewOrgDocButton extends StatefulWidget {
@@ -399,6 +400,14 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                         idOfDoc: idDocController.text);
                     // await getNewOrgDocument(context);
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Added Successfully',
+                        );
+                      },
+                    );
                   } finally {
                     setState(() {
                       loading = false;
@@ -822,6 +831,14 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                 idOfDoc: widget.idOfDoc,
               );
               Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Edit Successfully',
+                  );
+                },
+              );
             } finally {
               setState(() {
                 loading = false;
