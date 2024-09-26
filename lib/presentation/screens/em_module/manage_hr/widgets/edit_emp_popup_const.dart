@@ -182,20 +182,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                         return null;
                       },
                     ),
-                    // SizedBox(
-                    //   height: AppSize.s16,
-                    // ),
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Text(
-                    //       'Type of Employee',
-                    //       style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     widget.child,
-                    //   ],
-                    // ),
+
                     SizedBox(
                       height: AppSize.s16,
                     ),

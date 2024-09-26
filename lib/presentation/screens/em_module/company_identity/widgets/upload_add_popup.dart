@@ -96,7 +96,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             initialValue: "Select",
             onChange: (val) {
               setState(() {
-                // Always reset the expiry field visibility to false initially
+
                 showExpiryDateField = false;
 
                 // Loop through the documents and check the selected value

@@ -259,49 +259,144 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return Row(
                                   children: [
-                                    profileData.imgurl == null ? Text(''):
-                                    pickedFilePath ? Text(fileName,style:
-                                    TextStyle(fontSize: 10,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),):
-                                    CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: ColorManager.faintGrey,
-                                      child:CachedNetworkImage(
-                                        imageUrl: profileData.imgurl,
-                                        placeholder: (context, url) => new CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => new Icon(Icons.error),
+                                    // Show the picked image or the network image
+                                    pickedFilePath
+                                        ? Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 3), // Shadow position
+                                          ),
+                                        ],
                                       ),
-                                      //Image.network(profileData.imgurl,fit: BoxFit.contain,),
+                                      child: CircleAvatar(
+                                        radius: 20, // Adjust the size of the avatar
+                                        backgroundColor: ColorManager.faintGrey,
+                                        child: ClipOval(
+                                          child: Image.memory(
+                                            finalPath!, // Display the selected image from gallery
+                                            fit: BoxFit.cover, // Ensure the image fills the avatar
+                                            width: double.infinity, // Ensures the image fills the avatar width
+                                            height: double.infinity, // Ensures the image fills the avatar height
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                        : profileData.imgurl == null
+                                        ? Text('') // Display nothing if no image is available
+                                        : Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 3), // Shadow position
+                                          ),
+                                        ],
+                                      ),
+                                      child: CircleAvatar(
+                                        radius: 20, // Adjust the size of the avatar
+                                        backgroundColor: ColorManager.faintGrey,
+                                        child: ClipOval(
+                                          child: CachedNetworkImage(
+                                            imageUrl: profileData.imgurl,
+                                            fit: BoxFit.cover, // Ensures the image fills the avatar
+                                            width: double.infinity, // Ensures the image fills the avatar width
+                                            height: double.infinity, // Ensures the image fills the avatar height
+                                            placeholder: (context, url) =>
+                                                CircularProgressIndicator(),
+                                            errorWidget: (context, url, error) =>
+                                                Icon(Icons.error),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    SizedBox(width: 10,),
+                                    SizedBox(width: 10),
+                                    // Custom icon button for uploading files
                                     CustomIconButton(
                                       icon: Icons.upload_outlined,
-                                      text: AppString.photo, onPressed: () async {
-                                      // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                      //   allowMultiple: false,
-                                      // );
-                                      FilePickerResult? result =
-                                      await FilePicker.platform.pickFiles();
-                                      if (result != null) {
-                                        print("Result::: ${result}");
+                                      text: AppString.photo,
+                                      onPressed: () async {
+                                        FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                        if (result != null) {
+                                          print("Result::: ${result}");
 
-                                        try {
-                                          print('File picked: ${fileName}');
-                                          //print(String.fromCharCodes(file));
-                                          setState(() {
-                                            pickedFilePath = true;
-                                            fileName = result.files.first.name;
-                                            finalPath = result.files.first.bytes;
-                                          });
-                                        } catch (e) {
-                                          print(e);
+                                          try {
+                                            print('File picked: ${fileName}');
+                                            setState(() {
+                                              pickedFilePath = true;
+                                              fileName = result.files.first.name;
+                                              finalPath = result.files.first.bytes; // Store the picked file bytes
+                                            });
+                                          } catch (e) {
+                                            print(e);
+                                          }
                                         }
-                                      }
-                                    },
+                                      },
                                     ),
                                   ],
                                 );
                               },
                             )
+
+
+
+
+
+                            ///
+                            // StatefulBuilder(
+                            //   builder: (BuildContext context, void Function(void Function()) setState) {
+                            //     return Row(
+                            //       children: [
+                            //         profileData.imgurl == null ? Text(''):
+                            //         pickedFilePath ? Text(fileName,style:
+                            //         TextStyle(fontSize: 10,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),):
+                            //         CircleAvatar(
+                            //           radius: 20,
+                            //           backgroundColor: ColorManager.faintGrey,
+                            //           child:CachedNetworkImage(
+                            //             imageUrl: profileData.imgurl,
+                            //             placeholder: (context, url) => new CircularProgressIndicator(),
+                            //             errorWidget: (context, url, error) => new Icon(Icons.error),
+                            //           ),
+                            //           //Image.network(profileData.imgurl,fit: BoxFit.contain,),
+                            //         ),
+                            //         SizedBox(width: 10,),
+                            //         CustomIconButton(
+                            //           icon: Icons.upload_outlined,
+                            //           text: AppString.photo, onPressed: () async {
+                            //           // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                            //           //   allowMultiple: false,
+                            //           // );
+                            //           FilePickerResult? result =
+                            //           await FilePicker.platform.pickFiles();
+                            //           if (result != null) {
+                            //             print("Result::: ${result}");
+                            //
+                            //             try {
+                            //               print('File picked: ${fileName}');
+                            //               //print(String.fromCharCodes(file));
+                            //               setState(() {
+                            //                 pickedFilePath = true;
+                            //                 fileName = result.files.first.name;
+                            //                 finalPath = result.files.first.bytes;
+                            //               });
+                            //             } catch (e) {
+                            //               print(e);
+                            //             }
+                            //           }
+                            //         },
+                            //         ),
+                            //       ],
+                            //     );
+                            //   },
+                            // )
                           ],
                         ),
                       ),
