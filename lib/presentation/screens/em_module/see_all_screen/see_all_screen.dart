@@ -180,6 +180,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       icon: Icons.add,
                       text: 'Create User',
                       onPressed: () async {
+                        lastNameController.clear();
+                        emailController.clear();
+                        firstNameController.clear();
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
