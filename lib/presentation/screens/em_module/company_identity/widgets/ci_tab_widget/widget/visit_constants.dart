@@ -20,7 +20,6 @@ import '../../../../../../../data/api_data/establishment_data/all_from_hr/all_fr
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import '../../../../../../../data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import '../../../../widgets/dialogue_template.dart';
-import '../../whitelabelling/success_popup.dart';
 
 class EditVisitPopup extends StatefulWidget {
   final TextEditingController nameOfDocumentController;
@@ -184,86 +183,15 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   'Select services',
-                        //   style:AllPopupHeadings.customTextStyle(context),
-                        // ),
-                        // SizedBox(height: AppSize.s5),
-                        //widget.dropdownServices
-                        // FirstSMTextFConst(
-                        //   enable: false,
-                        //   controller: widget.serviceNameSelected,
-                        //   keyboardType: TextInputType.text,
-                        //   text: 'Service Name',
-                        // ),
-                        // FutureBuilder<List<ServicesMetaData>>(
-                        //   future: getServicesMetaData(context),
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.connectionState ==
-                        //         ConnectionState.waiting) {
-                        //       return CICCDropdown(items: [],
-                        //         hintText: 'Select Clinician',
-                        //         //initialValue: dropDownTypesList[0].value,
-                        //       );
-                        //     }
-                        //     if (snapshot.hasData && snapshot.data!.isEmpty) {
-                        //       return Container(
-                        //         width:354,
-                        //         height: 30,
-                        //         decoration: BoxDecoration(
-                        //           border: Border.all(
-                        //               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                        //           borderRadius: BorderRadius.circular(5),
-                        //         ),
-                        //         child: Padding(
-                        //           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                        //           child: Text(
-                        //             ErrorMessageString.noserviceAdded,
-                        //             style: AllNoDataAvailable.customTextStyle(context),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }
-                        //     if (snapshot.hasData) {
-                        //       List<DropdownMenuItem<String>>
-                        //       dropDownServiceList = [];
-                        //       for (var service in snapshot.data!) {
-                        //         dropDownServiceList.add(
-                        //           DropdownMenuItem<String>(
-                        //             value: service.serviceName,
-                        //             child: Text(service.serviceName ?? ''),
-                        //           ),
-                        //         );
-                        //       }
-                        //       selectedServiceName = snapshot.data![0].serviceName;
-                        //       serviceId = snapshot.data![0].serviceId;
-                        //       // Store the service ID of the 0th position
-                        //       return StatefulBuilder(
-                        //         builder: (BuildContext context, void Function(void Function()) setState) {
-                        //           return CICCDropdown(
-                        //             initialValue: selectedServiceName,
-                        //             onChange: (val) {
-                        //               setState(() {
-                        //                 selectedServiceName = val;
-                        //                 for (var service in snapshot.data!) {
-                        //                   if (service.serviceName == val) {
-                        //                     serviceId =
-                        //                         service.serviceId;
-                        //                   }
-                        //                 }
-                        //               });
-                        //             },
-                        //             items: dropDownServiceList,
-                        //           );
-                        //         },
-                        //       );
-                        //     }
-                        //     return const SizedBox();
-                        //   },
-                        // )
-                      ],
+                           FirstSMTextFConst(
+                          enable: false,
+                          controller: widget.serviceNameSelected,
+                          keyboardType: TextInputType.text,
+                          text: 'Service Name',
+                        ),
+                        ],
                     ),
-                    SizedBox(height: AppSize.s10),
+                    SizedBox(height: AppSize.s14),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -447,14 +375,6 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                 isLoading = false;
               });
               Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CountySuccessPopup(
-                    message: 'Save Successfully',
-                  );
-                },
-              );
               widget.idOfDocumentController.clear();
               widget.nameOfDocumentController.clear();
               editChipValues.clear();
@@ -557,7 +477,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     ),
                 ],
               ),
-              SizedBox(height: AppSize.s10),
+              SizedBox(height: AppSize.s14),
               ///service dropdown
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -660,7 +580,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                   )
                 ],
               ),
-              SizedBox(height: AppSize.s14),
+              SizedBox(height: AppSize.s20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -806,14 +726,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       isLoading = false;
                     });
                     Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CountySuccessPopup(
-                          message: 'Save Successfully',
-                        );
-                      },
-                    );
                     widget.idOfDocumentController.clear();
                     widget.nameOfDocumentController.clear();
                   }
