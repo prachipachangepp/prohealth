@@ -20,6 +20,7 @@ import '../../../../app/services/api/managers/establishment_manager/all_from_hr_
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../company_identity/widgets/whitelabelling/success_popup.dart';
 import 'manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HrScreen extends StatefulWidget {
@@ -276,6 +277,14 @@ class _HrWidgetState extends State<HrWidget> {
                                 }).catchError((error){});
 
                                 Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Added Successfully',
+                                    );
+                                  },
+                                );
                                 typeController.clear();
                                 shorthandController.clear();
                               },
@@ -698,6 +707,14 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                         _hrAllcontroller.add(data);
                                                                       }).catchError((error) {});
                                                                       Navigator.pop(context);
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) {
+                                                                          return AddSuccessPopup(
+                                                                            message: 'Added Successfully',
+                                                                          );
+                                                                        },
+                                                                      );
                                                                       typeController.clear();
                                                                       shorthandController.clear();
                                                                       seletedType = "Clinical";
