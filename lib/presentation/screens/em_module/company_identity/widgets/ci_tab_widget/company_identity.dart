@@ -304,11 +304,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     AppStringEM.address,
                     textAlign: TextAlign.start,
                     style:AllHRTableHeading.customTextStyle(context),
-                    // style: GoogleFonts.firaSans(
-                    //   fontSize: 12,
-                    //   fontWeight: FontWeight.w700,
-                    //   color: ColorManager.white,
-                    // ),
                   ),
                 ),
                 Expanded(child: SizedBox()),
@@ -317,11 +312,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     child: Text(
                       AppStringEM.actions,
                       style:AllHRTableHeading.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: 12,
-                      //   fontWeight: FontWeight.w700,
-                      //   color: ColorManager.white,
-                      // ),
+
                     ),
                   ),
                 ),
