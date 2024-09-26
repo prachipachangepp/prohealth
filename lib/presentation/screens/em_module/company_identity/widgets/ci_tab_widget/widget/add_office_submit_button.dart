@@ -255,6 +255,64 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: AllPopupHeadings.customTextStyle(context),
                         ),
                         SizedBox(height: 3),
+
+                        // StatefulBuilder(
+                        //   builder: (BuildContext context,
+                        //       void Function(void Function()) setState) {
+                        //     return Container(
+                        //       height: 100,
+                        //       width: 300,
+                        //       child: StatefulBuilder(
+                        //         builder: (BuildContext context,
+                        //             void Function(void Function()) setState) {
+                        //           return Wrap(
+                        //             children: List.generate(widget.servicesList.length, (index) {
+                        //               String serviceID = widget.servicesList[index].serviceId;
+                        //               bool isSelected = selectedServices.contains(serviceID);
+                        //               return Container(
+                        //                 width: 150,
+                        //                 child: Center(
+                        //                   child: Theme(
+                        //                     data: Theme.of(context).copyWith(
+                        //                      //  unselectedWidgetColor: Colors.transparent,
+                        //                       splashColor: Colors.transparent,
+                        //                       highlightColor: Colors.transparent,
+                        //                       hoverColor: Colors.transparent,
+                        //                     ),
+                        //                     child: CheckboxTile(
+                        //                       title: widget.servicesList[index].serviceName,
+                        //                       initialValue: isSelected,
+                        //                       onChanged: (value) {
+                        //                         setState(() {
+                        //                           if (value == true) {
+                        //                             selectedServices.add(ServiceList(
+                        //                               serviceId: serviceID,
+                        //                               npiNumber: "",
+                        //                               medicareProviderId: "",
+                        //                               hcoNumId: "",
+                        //                             ));
+                        //                           } else {
+                        //                             selectedServices.remove(serviceID);
+                        //                           }
+                        //                         });
+                        //                         print("Service Id List ${selectedServices}");
+                        //                       },
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             }),
+                        //           );
+                        //         },
+                        //       ),
+                        //     );
+                        //   },
+                        // )
+
+
+
+
+                        ////////////////////////
                         StatefulBuilder(
                           builder: (BuildContext context,
                               void Function(void Function()) setState) {
