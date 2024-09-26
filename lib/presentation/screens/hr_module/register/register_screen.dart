@@ -118,119 +118,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: AppSize.s30,
                 width: AppSize.s120,
                 child: CustomIconButton(
-                  // icon: Icons.add,
-                  text: 'Enroll',
+                  icon: Icons.add,
+                  text: 'Create User',
                   onPressed: () async {
-                    userIdController.clear();
-                    firstNameController.clear();
-                    lastNameController.clear();
-                    roleController.clear();
-                    emailController.clear();
-                    companyIdController.clear();
-                    passwordController.clear();
-                    if (selectedDeptId == null){
-                      setState(() {
-                        selectedDeptId = firstDeptId;
-                      });
-                    }
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return CustomDialog(
-                          title: "Create User ",
-                          userIdController: userIdController,
+                          title: "Create User",
+                          //userIdController: userIdController,
                           lastNameController: lastNameController,
                           emailController: emailController,
                           firstNameController: firstNameController,
-                          roleController: roleController,
+                          // roleController: roleController,
                           passwordController: passwordController,
-                          companyIdController: companyIdController,
-                          onSubmit: () async {
-                            await createUserPost(
-                                context,
-                                // userIdController.text,
-                                firstNameController.text,
-                                lastNameController.text,
-                                selectedDeptId!,// roleController.text,
-                                emailController.text,
-                                //1, // int.parse(companyIdController.text),
-                                passwordController.text);
-
-                            getUser(context).then((data) {
-                              _companyUsersList.add(data);
-                            }).catchError((error) {});
-                            Navigator.pop(context);
-                            firstNameController.clear();
-                            lastNameController.clear();
-                            roleController.clear();
-                            emailController.clear();
-                            companyIdController.clear();
-                            passwordController.clear();
-                          },
-                          depTitle: 'Select Department',
-                          child: FutureBuilder<List<HRHeadBar>>(
-                            future: companyHRHeadApi(context, deptId),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return CICCDropdown(
-                                  width: 310,
-                                  initialValue: 'Select',
-                                  items: [],
-                                );
-                              }
-                              if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                return Center(
-                                  child: Text(
-                                    ErrorMessageString.noroleAdded,
-                                    style:DocumentTypeDataStyle.customTextStyle(context),
-                                  ),
-                                );
-                              }
-                              if (snapshot.hasData) {
-                                List<DropdownMenuItem<String>>
-                                dropDownServiceList = [];
-                                for (var dept in snapshot.data!) {
-                                  dropDownServiceList.add(
-                                    DropdownMenuItem<String>(
-                                      value: dept.deptName,
-                                      child: Text(dept.deptName ?? ''),
-                                    ),
-                                  );
-                                }
-
-                                // Store the service ID of the 0th position
-                                if (dropDownServiceList.isNotEmpty) {
-                                  firstDeptId = snapshot.data![0].deptId;
-                                }
-
-                                if (selectedDeptName == null &&
-                                    dropDownServiceList.isNotEmpty) {
-                                  selectedDeptName =
-                                      dropDownServiceList[0].value;
-                                  selectedDeptId = firstDeptId;
-                                }
-
-                                return CICCDropdown(
-                                  width: 310,
-                                  initialValue: selectedDeptName,
-                                  onChange: (val) {
-                                    setState(() {
-                                      selectedDeptName = val;
-                                      for (var dept in snapshot.data!) {
-                                        if (dept.deptName == val) {
-                                          selectedDeptId =
-                                              dept.deptId;
-                                        }
-                                      }
-                                    });
-                                  },
-                                  items: dropDownServiceList,
-                                );
-                              }
-                              return const SizedBox();
-                            },
-                          ),
                         );
                       },
                     );
