@@ -116,10 +116,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ///Enroll Button
               Container(
                 height: AppSize.s30,
-                width: AppSize.s120,
+                width: AppSize.s150,
                 child: CustomIconButton(
                   icon: Icons.add,
-                  text: 'Create User',
+                  text: 'Enroll User',
                   onPressed: () async {
                     showDialog(
                       context: context,
