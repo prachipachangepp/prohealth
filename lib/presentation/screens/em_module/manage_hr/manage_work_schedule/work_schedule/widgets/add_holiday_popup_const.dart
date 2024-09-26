@@ -7,6 +7,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../widgets/dialogue_template.dart';
 
 class AddHolidayPopup extends StatefulWidget {
@@ -87,7 +89,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 height: 30,
                 child: TextFormField(
                   controller: widget.calenderDateController,
-                  style: AllPopupHeadings.customTextStyle(context),
+                  style: DocumentTypeDataStyle.customTextStyle(context),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -100,7 +102,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     hintText: 'mm-dd-yyyy',
-                    hintStyle:AllPopupHeadings.customTextStyle(context),
+                    hintStyle:DocumentTypeDataStyle.customTextStyle(context),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(width: 1),
@@ -177,6 +179,14 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                       isLoading = false;
                     });
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Added Successfully',
+                        );
+                      },
+                    );
                     widget.calenderDateController.clear();
                     widget.controller.clear();
                   }

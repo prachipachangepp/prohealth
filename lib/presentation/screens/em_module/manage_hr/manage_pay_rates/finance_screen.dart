@@ -597,7 +597,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           .data
                                                                           ?.outOfZoneperMile
                                                                           .toString());
-                                                                  return PayRatesPopup(
+                                                                  return PayRatesEditsPopup(
                                                                     visitTypeTextActive:
                                                                         false,
                                                                     title:
