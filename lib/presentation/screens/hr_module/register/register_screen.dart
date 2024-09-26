@@ -59,9 +59,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController positionController = TextEditingController();
   /// Enroll
   TextEditingController userIdController = TextEditingController();
-  // TextEditingController lastNameController = TextEditingController();
-  // TextEditingController emailController = TextEditingController();
-  // TextEditingController firstNameController = TextEditingController();
   TextEditingController roleController = TextEditingController();
   TextEditingController companyIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
