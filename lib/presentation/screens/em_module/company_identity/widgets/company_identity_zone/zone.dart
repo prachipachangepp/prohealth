@@ -143,397 +143,398 @@ class _CiOrgDocumentState extends State<CiZone> {
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width / 50.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _selectedIndex == 1
+              Expanded(
+                flex: 2,
+                child:  _selectedIndex == 1
                   ? FutureBuilder<List<OfficeWiseCountyData>>(
-                      future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
-                      builder: (context, snapshotZone) {
-                        if (snapshotZone.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            width: 350,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          );
-                        }
-                        if (snapshotZone.data!.isEmpty) {
-                          return Container(
-                            width: 354,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: ColorManager
-                                      .containerBorderGrey,
-                                  width: AppSize.s1),
-                              borderRadius:
-                              BorderRadius.circular(4),
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets
-                                    .symmetric(
-                                    horizontal: 10),
-                                child: Text(
-                                  ErrorMessageString
-                                      .noCountyAdded,
-                                  // AppString.dataNotFound,
-                                  style:
-                                  DocumentTypeDataStyle.customTextStyle(context),
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshotZone.hasData) {
-                          List<DropdownMenuItem<String>> dropDownTypesList = [];
-                          int docType = 0;
-
-                          for (var i in snapshotZone.data!) {
-                            dropDownTypesList.add(
-                              DropdownMenuItem<String>(
-                                value: i.countyName,
-                                child: Text(i.countyName),
-                              ),
-                            );
-                          }
-                          if (coyntyNameVal == 'Select County') {
-                            countySortId = snapshotZone.data![0].countyId;
-                            countynameController = TextEditingController(text: coyntyNameVal);
-                          }
-                          return StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function()) setState) {
-                              return CICCDropdown(
-                                initialValue: coyntyNameVal,
-                                onChange: (val) {
-                                  setState(() {
-                                    coyntyNameVal = val!;
-                                    for (var a in snapshotZone.data!) {
-                                      if (a.countyName == val) {
-                                        docType = a.countyId;
-                                        countySortId = docType;
-                                        countynameController = TextEditingController(text: a.countyName);
-                                        _selectButton(1);
-                                        break;
-                                      }
-                                    }
-                                  });
-                                },
-                                items: dropDownTypesList,
-                              );
-                            },
-                          );
-                        }
-                        return const SizedBox();
-                      },
-                    )
-                  : const SizedBox(
+                future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
+                builder: (context, snapshotZone) {
+                  if (snapshotZone.connectionState ==
+                      ConnectionState.waiting) {
+                    return Container(
+                      width: 350,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    );
+                  }
+                  if (snapshotZone.data!.isEmpty) {
+                    return Container(
                       width: 354,
-                    ),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: ColorManager
+                                .containerBorderGrey,
+                            width: AppSize.s1),
+                        borderRadius:
+                        BorderRadius.circular(4),
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets
+                              .symmetric(
+                              horizontal: 10),
+                          child: Text(
+                            ErrorMessageString
+                                .noCountyAdded,
+                            // AppString.dataNotFound,
+                            style:
+                            DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  if (snapshotZone.hasData) {
+                    List<DropdownMenuItem<String>> dropDownTypesList = [];
+                    int docType = 0;
+
+                    for (var i in snapshotZone.data!) {
+                      dropDownTypesList.add(
+                        DropdownMenuItem<String>(
+                          value: i.countyName,
+                          child: Text(i.countyName),
+                        ),
+                      );
+                    }
+                    if (coyntyNameVal == 'Select County') {
+                      countySortId = snapshotZone.data![0].countyId;
+                      countynameController = TextEditingController(text: coyntyNameVal);
+                    }
+                    return StatefulBuilder(
+                      builder: (BuildContext context,
+                          void Function(void Function()) setState) {
+                        return CICCDropdown(
+                          initialValue: coyntyNameVal,
+                          onChange: (val) {
+                            setState(() {
+                              coyntyNameVal = val!;
+                              for (var a in snapshotZone.data!) {
+                                if (a.countyName == val) {
+                                  docType = a.countyId;
+                                  countySortId = docType;
+                                  countynameController = TextEditingController(text: a.countyName);
+                                  _selectButton(1);
+                                  break;
+                                }
+                              }
+                            });
+                          },
+                          items: dropDownTypesList,
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox();
+                },
+              )
+                  : const SizedBox(
+                width: 354,
+              ),),
+
 
               ///tabbar
-              Padding(
-                padding: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width / 6),
-                child: Container(
-                  //color: Colors.greenAccent,
-                  padding: const EdgeInsets.only(top: AppPadding.p10),
-                  width: MediaQuery.of(context).size.width / 5.5,
-                  height: 42,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () => _selectButton(0),
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 20,
-                          child: Column(
-                            children: [
-                              Text(
-                                AppString.county,
-                                style: TransparentBgTabbar.customTextStyle(0, _selectedIndex),
-                                // style: GoogleFonts.firaSans(
-                                //   fontSize: 12,
-                                //   fontWeight: _selectedIndex == 0
-                                //       ? FontWeightManager.bold
-                                //       : FontWeightManager.regular,
-                                //   color: _selectedIndex == 0
-                                //       ? ColorManager.blueprime
-                                //       : ColorManager.mediumgrey,
-                                // ),
-                              ),
-                              _selectedIndex == 0
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : const Offstage()
-                            ],
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width / 6),
+                  child: Container(
+                    //color: Colors.greenAccent,
+                    padding: const EdgeInsets.only(top: AppPadding.p10),
+                    width: MediaQuery.of(context).size.width / 5.5,
+                    height: 42,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () => _selectButton(0),
+                          child: Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 20,
+                            child: Column(
+                              children: [
+                                Text(
+                                  AppString.county,
+                                  style: TransparentBgTabbar.customTextStyle(0, _selectedIndex),
+                                  // style: GoogleFonts.firaSans(
+                                  //   fontSize: 12,
+                                  //   fontWeight: _selectedIndex == 0
+                                  //       ? FontWeightManager.bold
+                                  //       : FontWeightManager.regular,
+                                  //   color: _selectedIndex == 0
+                                  //       ? ColorManager.blueprime
+                                  //       : ColorManager.mediumgrey,
+                                  // ),
+                                ),
+                                _selectedIndex == 0
+                                    ? Divider(
+                                        color: ColorManager.blueprime,
+                                        thickness: 2,
+                                      )
+                                    : const Offstage()
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () => _selectButton(1),
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 20, //80,
-                          child: Column(
-                            children: [
-                              Text(
-                                AppString.zone,
-                                style: TransparentBgTabbar.customTextStyle(1, _selectedIndex),
-                              ),
-                              _selectedIndex == 1
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : const Offstage()
-                            ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          onTap: () => _selectButton(1),
+                          child: Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 20, //80,
+                            child: Column(
+                              children: [
+                                Text(
+                                  AppString.zone,
+                                  style: TransparentBgTabbar.customTextStyle(1, _selectedIndex),
+                                ),
+                                _selectedIndex == 1
+                                    ? Divider(
+                                        color: ColorManager.blueprime,
+                                        thickness: 2,
+                                      )
+                                    : const Offstage()
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () => _selectButton(2),
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 20, // 80,
-                          child: Column(
-                            children: [
-                              Text(
-                                AppString.zip_code,
-                                style: TransparentBgTabbar.customTextStyle(2, _selectedIndex),
-                              ),
-                              _selectedIndex == 2
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : const Offstage()
-                            ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          onTap: () => _selectButton(2),
+                          child: Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 20, // 80,
+                            child: Column(
+                              children: [
+                                Text(
+                                  AppString.zip_code,
+                                  style: TransparentBgTabbar.customTextStyle(2, _selectedIndex),
+                                ),
+                                _selectedIndex == 2
+                                    ? Divider(
+                                        color: ColorManager.blueprime,
+                                        thickness: 2,
+                                      )
+                                    : const Offstage()
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
 
               ///button
-              _selectedIndex == 0
+              Expanded(
+                  flex: 1,
+                  child:  _selectedIndex == 0
                   ? Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: CustomIconButtonConst(
-                        width: 79,
-                        icon: Icons.add,
-                        text: AppStringEM.add,
-                        onPressed: () {
-                          countynameController.clear();
-                          countyController.clear();
-                          stateController.clear();
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return CIZoneAddPopup(
-                                  buttonTitle: AppStringEM.add,
-                                  title: 'Add County',
-                                  onSavePressed: () async {
-                                    await addCounty(
-                                        context,
-                                        countynameController.text,
-                                        widget.stateName,
-                                        widget.countryName,
-                                        "37.0902°",
-                                        "95.7129°",
-                                        widget.officeId);
-                                    Navigator.pop(context);
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return CountySuccessPopup(
-                                          message: 'Save Successfully',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  title1: 'County Name',
-                                  countynameController: countynameController,
-                                  // title2: 'Country Name',
-                                  // zipcodeController: countyController,
-                                  // title3: 'County Name',
-                                  // mapController: countynameController,
-                                );
-                              });
-                        }),
-                  )
+                padding: const EdgeInsets.only(right: 10),
+                child: CustomIconButtonConst(
+                    width: 79,
+                    icon: Icons.add,
+                    text: AppStringEM.add,
+                    onPressed: () {
+                      countynameController.clear();
+                      countyController.clear();
+                      stateController.clear();
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CIZoneAddPopup(
+                              buttonTitle: AppStringEM.add,
+                              title: 'Add County',
+                              onSavePressed: () async {
+                                await addCounty(
+                                    context,
+                                    countynameController.text,
+                                    widget.stateName,
+                                    widget.countryName,
+                                    "37.0902°",
+                                    "95.7129°",
+                                    widget.officeId);
+                                Navigator.pop(context);
+                              },
+                              title1: 'County Name',
+                              countynameController: countynameController,
+                              // title2: 'Country Name',
+                              // zipcodeController: countyController,
+                              // title3: 'County Name',
+                              // mapController: countynameController,
+                            );
+                          });
+                    }),
+              )
                   : _selectedIndex == 1
-                      ? countySortId == 0 ? SizedBox(width: 79,):Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: CustomIconButtonConst(
-                            width: 79,
-                            icon: Icons.add,
-                            text: AppStringEM.add,
-                            onPressed: () {
-                              zoneNumberController.clear();
-                              print('County Name ${countynameController.text}');
-                              print('County id ${countySortId}');
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AddZonePopup(
-                                      countyNameController: countynameController,
-                                      buttonTitle: AppStringEM.add,
-                                      zoneNumberController: zoneNumberController,
-                                      title: 'Add Zone',
-                                      onSavePressed: () async {
-                                        await addZoneCountyData(
-                                            context,
-                                            zoneNumberController.text,
-                                            countySortId,
-                                            widget.officeId);
-                                      },
-                                      child: FutureBuilder<
-                                              List<AllCountyGetList>>(
-                                          future: getCountyZoneList(context),
-                                          builder: (context, snapshotZone) {
-                                            if (snapshotZone.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Container(
-                                                width: 354,
-                                                height: 30,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .containerBorderGrey,
-                                                      width: AppSize.s1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                                child: const Text(
-                                                  "",
-                                                  //AppString.dataNotFound,
-                                                ),
-                                              );
-                                            }
-                                            if (snapshotZone.data!.isEmpty) {
-                                              return Container(
-                                                width: 354,
-                                                height: 30,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .containerBorderGrey,
-                                                      width: AppSize.s1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                                child: Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 10),
-                                                    child: Text(
-                                                      ErrorMessageString
-                                                          .noCounties,
-                                                      //AppString.dataNotFound,
-                                                      style: DocumentTypeDataStyle.customTextStyle(context)
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
+                  ? countySortId == 0 ? SizedBox(width: 79,):Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: CustomIconButtonConst(
+                    width: 79,
+                    icon: Icons.add,
+                    text: AppStringEM.add,
+                    onPressed: () {
+                      zoneNumberController.clear();
+                      print('County Name ${countynameController.text}');
+                      print('County id ${countySortId}');
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AddZonePopup(
+                              countyNameController: countynameController,
+                              buttonTitle: AppStringEM.add,
+                              zoneNumberController: zoneNumberController,
+                              title: 'Add Zone',
+                              onSavePressed: () async {
+                                await addZoneCountyData(
+                                    context,
+                                    zoneNumberController.text,
+                                    countySortId,
+                                    widget.officeId);
+                              },
+                              child: FutureBuilder<
+                                  List<AllCountyGetList>>(
+                                  future: getCountyZoneList(context),
+                                  builder: (context, snapshotZone) {
+                                    if (snapshotZone.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Container(
+                                        width: 354,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager
+                                                  .containerBorderGrey,
+                                              width: AppSize.s1),
+                                          borderRadius:
+                                          BorderRadius.circular(4),
+                                        ),
+                                        child: const Text(
+                                          "",
+                                          //AppString.dataNotFound,
+                                        ),
+                                      );
+                                    }
+                                    if (snapshotZone.data!.isEmpty) {
+                                      return Container(
+                                        width: 354,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager
+                                                  .containerBorderGrey,
+                                              width: AppSize.s1),
+                                          borderRadius:
+                                          BorderRadius.circular(4),
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                            padding: const EdgeInsets
+                                                .symmetric(
+                                                horizontal: 10),
+                                            child: Text(
+                                                ErrorMessageString
+                                                    .noCounties,
+                                                //AppString.dataNotFound,
+                                                style: DocumentTypeDataStyle.customTextStyle(context)
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
 
-                                            if (snapshotZone.hasData) {
-                                              List dropDown = [];
-                                              int docType = 0;
-                                              List<DropdownMenuItem<String>>
-                                                  dropDownTypesList = [];
-                                              dropDownTypesList.add(
-                                                  const DropdownMenuItem<String>(
-                                                child: Text('Select County'),
-                                                value: 'Select County',
-                                              ));
-                                              for (var i in snapshotZone.data!) {
-                                                dropDownTypesList.add(
-                                                  DropdownMenuItem<String>(
-                                                    value: i.countyName,
-                                                    child: Text(i.countyName),
-                                                  ),
-                                                );
+                                    if (snapshotZone.hasData) {
+                                      List dropDown = [];
+                                      int docType = 0;
+                                      List<DropdownMenuItem<String>>
+                                      dropDownTypesList = [];
+                                      dropDownTypesList.add(
+                                          const DropdownMenuItem<String>(
+                                            child: Text('Select County'),
+                                            value: 'Select County',
+                                          ));
+                                      for (var i in snapshotZone.data!) {
+                                        dropDownTypesList.add(
+                                          DropdownMenuItem<String>(
+                                            value: i.countyName,
+                                            child: Text(i.countyName),
+                                          ),
+                                        );
+                                      }
+                                      if (selectedCounty == null) {
+                                        selectedCounty = 'Select County';
+                                      }
+                                      print('County Id : ${countyId}');
+                                      return CICCDropdown(
+                                          initialValue:
+                                          dropDownTypesList[0].value,
+                                          onChange: (val) {
+                                            selectedCounty = val;
+                                            for (var a
+                                            in snapshotZone.data!) {
+                                              if (a.countyName == val) {
+                                                docType = a.countyId;
+                                                print(
+                                                    "County id :: ${a.companyId}");
+                                                countyId = docType;
                                               }
-                                              if (selectedCounty == null) {
-                                                selectedCounty = 'Select County';
-                                              }
-                                              print('County Id : ${countyId}');
-                                              return CICCDropdown(
-                                                  initialValue:
-                                                      dropDownTypesList[0].value,
-                                                  onChange: (val) {
-                                                    selectedCounty = val;
-                                                    for (var a
-                                                        in snapshotZone.data!) {
-                                                      if (a.countyName == val) {
-                                                        docType = a.countyId;
-                                                        print(
-                                                            "County id :: ${a.companyId}");
-                                                        countyId = docType;
-                                                      }
-                                                    }
-                                                    print(":::${docType}");
-                                                    print(":::<>${countyId}");
-                                                  },
-                                                  items: dropDownTypesList);
                                             }
-                                            return const SizedBox();
-                                          }),
-                                    );
-                                  });
-                            }),
-                      )
-                      : Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: CustomIconButtonConst(
-                            width: 79,
-                            icon: Icons.add,
-                            text: "Add",
-                            onPressed: () {
-                              countynameController.clear();
-                              cityController.clear();
-                              zipcodeController.clear();
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    print(
-                                        "Location passed to dialog: $_location");
-                                    return AddZipCodePopup(
-                                      officeId: widget.officeId,
-                                      title: 'Add Zip Code',
-                                      countynameController: countynameController,
-                                      zipcodeController: zipcodeController,
-                                      onPickLocation: _pickLocation,
-                                      onSavePressed: () async {
-                                        setState(() {
-                                          String latlong = _selectedLocation.latitude.toString();
-                                        });
-                                      },
-                                      mapController: mapController,
-                                      locationController: locationController,
-                                    );
-                                  });
-                            }),
-                      )
+                                            print(":::${docType}");
+                                            print(":::<>${countyId}");
+                                          },
+                                          items: dropDownTypesList);
+                                    }
+                                    return const SizedBox();
+                                  }),
+                            );
+                          });
+                    }),
+              )
+                  : Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: CustomIconButtonConst(
+                    width: 79,
+                    icon: Icons.add,
+                    text: "Add",
+                    onPressed: () {
+                      countynameController.clear();
+                      cityController.clear();
+                      zipcodeController.clear();
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            print(
+                                "Location passed to dialog: $_location");
+                            return AddZipCodePopup(
+                              officeId: widget.officeId,
+                              title: 'Add Zip Code',
+                              countynameController: countynameController,
+                              zipcodeController: zipcodeController,
+                              onPickLocation: _pickLocation,
+                              onSavePressed: () async {
+                                setState(() {
+                                  String latlong = _selectedLocation.latitude.toString();
+                                });
+                              },
+                              mapController: mapController,
+                              locationController: locationController,
+                            );
+                          });
+                    }),
+              )),
+
             ],
           ),
         ),

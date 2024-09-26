@@ -150,6 +150,14 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     //   generatedString = "Office ${generated}";
                     // });
                     // print("Generated String ${generatedString}");
+                    nameController.clear();
+                    addressController.clear();
+                    emailController.clear();
+                    stateNameController.clear();
+                    countryNameController.clear();
+                    mobNumController.clear();
+                    secNumController.clear();
+                    OptionalController.clear();
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
