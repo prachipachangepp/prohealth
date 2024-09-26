@@ -255,6 +255,11 @@ class _HrWidgetState extends State<HrWidget> {
                       text: AppString.addemployeetype,
                       icon: Icons.add,
                       onPressed: () {
+                        deptId = _selectedIndex == 0
+                            ? AppConfig.clinicalId
+                            : _selectedIndex == 1
+                            ? AppConfig.salesId
+                            : AppConfig.AdministrationId;
                         typeController.clear();
                         shorthandController.clear();
                         showDialog(
@@ -265,9 +270,9 @@ class _HrWidgetState extends State<HrWidget> {
                               abbreviationController: shorthandController,
                               containerColor: containerColors[1],
                               onAddPressed: () async {
+                                print('$deptId');
                                 await addEmployeeTypePost(context,
                                     deptId,
-                                    // docMetaId,
                                     typeController.text,
                                     color,
                                     shorthandController.text
@@ -297,55 +302,56 @@ class _HrWidgetState extends State<HrWidget> {
                               },
 
                               title: AppStringEM.addEmp,
-                              child: FutureBuilder<List<HRHeadBar>>(
-                                  future: companyHRHeadApi(context,deptId),
-                                  builder: (context,snapshot) {
-                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                      return
-                                        CICCDropdown(
-                                            items:dropDownMenuItems
-                                        );
-                                    }
-                                    if (snapshot.data!.isEmpty) {
-                                      return Center(
-                                        child: Text(
-                                          AppString.dataNotFound,
-                                          style: DocumentTypeDataStyle.customTextStyle(context),
-                                        ),
-                                      );
-                                    }
-                                    if(snapshot.hasData){
-                                      List dropDown = [];
-                                      int docType = 0;
-                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                      for(var i in snapshot.data!){
-                                        dropDownMenuItems.add(
-                                          DropdownMenuItem<String>(
-                                            child: Text(i.deptName),
-                                            value: i.deptName,
-                                          ),
-                                        );
-                                      }
-                                      return CICCDropdown(
-                                          initialValue: dropDownMenuItems[1].value,
-                                          onChange: (val){
-                                            for(var a in snapshot.data!){
-                                              if(a.deptName == val){
-                                                docType = a.deptId;
-                                                deptId = docType;
-                                              }
-                                            }
-                                            print(":::${docType}");
-                                            print(":::<>${deptId}");
-                                          },
-                                          items:dropDownMenuItems
-                                      );
-                                    }else{
-                                      return SizedBox();
-                                    }
-                                  }
-                              ),
+                              ///all from hr dropdown CICCd
+                              // child: FutureBuilder<List<HRHeadBar>>(
+                              //     future: companyHRHeadApi(context,deptId),
+                              //     builder: (context,snapshot) {
+                              //       if(snapshot.connectionState == ConnectionState.waiting){
+                              //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                              //         return
+                              //           CICCDropdown(
+                              //               items:dropDownMenuItems
+                              //           );
+                              //       }
+                              //       if (snapshot.data!.isEmpty) {
+                              //         return Center(
+                              //           child: Text(
+                              //             AppString.dataNotFound,
+                              //             style: DocumentTypeDataStyle.customTextStyle(context),
+                              //           ),
+                              //         );
+                              //       }
+                              //       if(snapshot.hasData){
+                              //         List dropDown = [];
+                              //         int docType = 0;
+                              //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                              //         for(var i in snapshot.data!){
+                              //           dropDownMenuItems.add(
+                              //             DropdownMenuItem<String>(
+                              //               child: Text(i.deptName),
+                              //               value: i.deptName,
+                              //             ),
+                              //           );
+                              //         }
+                              //         return CICCDropdown(
+                              //             initialValue: dropDownMenuItems[1].value,
+                              //             onChange: (val){
+                              //               for(var a in snapshot.data!){
+                              //                 if(a.deptName == val){
+                              //                   docType = a.deptId;
+                              //                   deptId = docType;
+                              //                 }
+                              //               }
+                              //               print(":::${docType}");
+                              //               print(":::<>${deptId}");
+                              //             },
+                              //             items:dropDownMenuItems
+                              //         );
+                              //       }else{
+                              //         return SizedBox();
+                              //       }
+                              //     }
+                              // ),
                             );
                           },
                         );
@@ -729,38 +735,38 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       });
                                                                     },
                                                                     title: EditPopupString.editEmptype,
-                                                                    child: Container(
-                                                                      width: 354,
-                                                                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                                                                      decoration: BoxDecoration(
-                                                                        color: ColorManager.white,
-                                                                        borderRadius: BorderRadius.circular(8),
-                                                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                                      ),
-                                                                      child: Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          snapshot.data!.deptId == AppConfig.clinicalId
-                                                                              ? Text(
-                                                                            AppStringEM.clinical,
-                                                                            style: DocumentTypeDataStyle.customTextStyle(context)
-                                                                          )
-                                                                              : snapshot.data!.deptId == AppConfig.salesId
-                                                                              ? Text(
-                                                                            AppStringEM.sales,
-                                                                            style: DocumentTypeDataStyle.customTextStyle(context)
-                                                                          )
-                                                                              :  Text(
-                                                                            AppStringEM.administration,
-                                                                            style: DocumentTypeDataStyle.customTextStyle(context)
-                                                                          ),
-                                                                          // Icon(
-                                                                          //   Icons.arrow_drop_down,
-                                                                          //   color: ColorManager.mediumgrey,
-                                                                          // ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
+                                                                    // child: Container(
+                                                                    //   width: 354,
+                                                                    //   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                                                    //   decoration: BoxDecoration(
+                                                                    //     color: ColorManager.white,
+                                                                    //     borderRadius: BorderRadius.circular(8),
+                                                                    //     border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                                    //   ),
+                                                                    //   child: Row(
+                                                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    //     children: [
+                                                                    //       snapshot.data!.deptId == AppConfig.clinicalId
+                                                                    //           ? Text(
+                                                                    //         AppStringEM.clinical,
+                                                                    //         style: DocumentTypeDataStyle.customTextStyle(context)
+                                                                    //       )
+                                                                    //           : snapshot.data!.deptId == AppConfig.salesId
+                                                                    //           ? Text(
+                                                                    //         AppStringEM.sales,
+                                                                    //         style: DocumentTypeDataStyle.customTextStyle(context)
+                                                                    //       )
+                                                                    //           :  Text(
+                                                                    //         AppStringEM.administration,
+                                                                    //         style: DocumentTypeDataStyle.customTextStyle(context)
+                                                                    //       ),
+                                                                    //       // Icon(
+                                                                    //       //   Icons.arrow_drop_down,
+                                                                    //       //   color: ColorManager.mediumgrey,
+                                                                    //       // ),
+                                                                    //     ],
+                                                                    //   ),
+                                                                    // ),
                                                                   );
                                                                 });
                                                           });
