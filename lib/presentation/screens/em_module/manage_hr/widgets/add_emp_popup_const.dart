@@ -16,7 +16,7 @@ class CustomPopupWidget extends StatefulWidget {
   final TextEditingController? emailController;
   final Future<void> Function() onAddPressed;
   final Color containerColor;
-  final Widget? child;
+  //final Widget? child;
   final Function(Color)? onColorChanged;
   final String title;
 
@@ -27,7 +27,7 @@ class CustomPopupWidget extends StatefulWidget {
     required this.containerColor,
     required this.onAddPressed,
     required this.onColorChanged,
-    this.child,
+   // this.child,
     required this.title,
   });
 
@@ -113,7 +113,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: AppSize.s400,
+        height: AppSize.s330,
         width: AppSize.s350,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -193,24 +193,27 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                           ),
                       ],
                     ),
-                    SizedBox(height: AppSize.s16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Type of Employee',
-                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
-                        ),
-                        SizedBox(height: 5),
-                        widget.child!,
-                      ],
-                    ),
+                    // SizedBox(height: AppSize.s16),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text(
+                    //       'Type of Employee',
+                    //       style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                    //     ),
+                    //     SizedBox(height: 5),
+                    //     widget.child!,
+                    //   ],
+                    // ),
                     SizedBox(height: AppSize.s16),
                     Row(
                       children: [
-                        Text(
-                          AppStringEM.color,
-                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: Text(
+                            AppStringEM.color,
+                            style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                          ),
                         ),
                         SizedBox(width: AppSize.s25),
                         Container(

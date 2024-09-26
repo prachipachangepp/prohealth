@@ -25,7 +25,7 @@ class EditPopupWidget extends StatefulWidget {
   final TextEditingController? emailController;
   final Future<void> Function() onSavePressed;
   final Color containerColor;
-  final Widget child;
+ // final Widget child;
   final Function(Color)? onColorChanged;
   final String title;
 
@@ -37,7 +37,8 @@ class EditPopupWidget extends StatefulWidget {
     required this.onSavePressed,
     this.onColorChanged,
     this.id,
-    required this.child, required this.title,
+    //required this.child,
+    required this.title,
   });
 
   @override
@@ -111,7 +112,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: AppSize.s400,
+        height: AppSize.s330,
         width: AppSize.s350,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -181,20 +182,20 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                         return null;
                       },
                     ),
-                    SizedBox(
-                      height: AppSize.s16,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Type of Employee',
-                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
-                        ),
-                        SizedBox(height: 5),
-                        widget.child,
-                      ],
-                    ),
+                    // SizedBox(
+                    //   height: AppSize.s16,
+                    // ),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text(
+                    //       'Type of Employee',
+                    //       style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                    //     ),
+                    //     SizedBox(height: 5),
+                    //     widget.child,
+                    //   ],
+                    // ),
                     SizedBox(
                       height: AppSize.s16,
                     ),
