@@ -295,7 +295,8 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                     icon: Icons.add,
                     text: "Add Doctype",
                     onPressed:
-                    isAddButtonEnabled?  () {
+                    isAddButtonEnabled
+                        ? () {
                       //selectedExpiryType = expiryType;
                       showDialog(
                         context: context,

@@ -52,7 +52,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
-      return "Please Enter $fieldName";
+      return "$fieldName";
     }
     return null;
   }
@@ -62,7 +62,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
       _isFormValid = true;
       _idError = _validateTextField(idDocController.text, 'Please Enter ID of Document');
       _nameError = _validateTextField(
-          nameDocController.text, 'Please Enter Name of thr Document ');
+          nameDocController.text, 'Please Enter Name of the Document ');
       if (selectedExpiryType.isEmpty) {
         _expiryTypeError = 'Please select an expiry type';
         _isFormValid = false;
