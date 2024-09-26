@@ -156,6 +156,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                         ),
                         SizedBox(height: 5),
                         CICCDropdown(
+                          width: 354,
                           initialValue: 'Compensation',
                           items: [
                             DropdownMenuItem(value: 'Type 1', child: Text('Physical')),
