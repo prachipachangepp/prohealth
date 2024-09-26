@@ -1173,24 +1173,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                           }
                                                                                           return const SizedBox();
                                                                                         }),
-                                                                                    // CICCDropdown(
-                                                                                    //   hintText: 'Select Zone',
-                                                                                    //   items: zoneDropDownList.isNotEmpty ? zoneDropDownList : [],
-                                                                                    //   initialValue: selectedZone,
-                                                                                    //   width: 150,
-                                                                                    //   onChange: (newValue) {
-                                                                                    //     setState(() {
-                                                                                    //       selectedZone = newValue;
-                                                                                    //       print('Selected Zone: $selectedZone');
-                                                                                    //     });
-                                                                                    //     // for (var zone in zones) {
-                                                                                    //     //   if (county.countyName == newValue) {
-                                                                                    //     //     selectedCountyId = county.countyId;
-                                                                                    //     //     break;
-                                                                                    //     //   }
-                                                                                    //     // }
-                                                                                    //   },
-                                                                                    // ),
                                                                                   ],
                                                                                 );
                                                                               },
@@ -1350,10 +1332,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                             width: 70,
                                                             text: 'Add',
                                                             onPressed: () async {
-                                                              // Uncomment if you need a loading state
-                                                              // setState(() {
-                                                              //   _isLoading = true;
-                                                              // });
                                                               addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
                                                               print('Selected County ID: $selectedCountyId');
                                                               print('Selected Zone ID: $docZoneId');
@@ -1363,29 +1341,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                                               });
                                                               Navigator.pop(context);
-                                                              // print('Salary: $_salary');
-                                                              // print('Salary Type: $dropdownValue');
-                                                              // print('Patient Count: ${patientsController.text}');
-                                                              // try {
-                                                              //   // var coverageResponse = await addEmpEnrollAddCoverage(
-                                                              //   //   context,
-                                                              //   //   0,
-                                                              //   //   widget.employeeId!,
-                                                              //   //   addCovrage,
-                                                              //   // );
-                                                              //   // if (coverageResponse.success) {
-                                                              //   //   print("Coverage added successfully");
-                                                              //   //    } else {
-                                                              //   //  print("Failed To Add Coverage");
-                                                              //   // }
-                                                              // } catch (e) {
-                                                              //   print("Error during adding coverage: $e");
-                                                              // } finally {
-                                                              //
-                                                              //   // setState(() {
-                                                              //   //   _isLoading = false;
-                                                              //   // });
-                                                              // }
+
                                                             },
                                                           ),
                                                           SizedBox(height: 10,)
