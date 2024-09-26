@@ -406,7 +406,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                 decoration: InputDecoration(
                   suffixIcon: widget.icon,
                   prefix: widget.prefixWidget,
-                  prefixStyle:AllHRTableData.customTextStyle(context),
+                  prefixStyle:ZoneDataStyle.customTextStyle(context),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(
                       bottom: 22,

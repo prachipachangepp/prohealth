@@ -1258,7 +1258,10 @@ class _AddZonePopupState extends State<AddZonePopup> {
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         zoneNumberError!,
-                        style:CommonErrorMsg.customTextStyle(context)
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12),
+                        // CommonErrorMsg.customTextStyle(context)
                       ),
                     ),
                   SizedBox(height: AppSize.s10),

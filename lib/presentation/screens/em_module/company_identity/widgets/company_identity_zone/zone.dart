@@ -421,7 +421,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           BorderRadius.circular(4),
                                         ),
                                         child: const Text(
-                                          "",
+                                          "", style:   TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12),
                                           //AppString.dataNotFound,
                                         ),
                                       );
@@ -462,7 +464,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       dropDownTypesList = [];
                                       dropDownTypesList.add(
                                           const DropdownMenuItem<String>(
-                                            child: Text('Select County'),
+                                            child: Text('Select County', ),
                                             value: 'Select County',
                                           ));
                                       for (var i in snapshotZone.data!) {

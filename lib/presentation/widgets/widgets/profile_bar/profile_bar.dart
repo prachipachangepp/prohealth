@@ -162,7 +162,7 @@ class _ProfileBarState extends State<ProfileBar> {
           elevation: 4,
           child: Container(
               height: MediaQuery.of(context).size.height / 4,
-              width: AppSize.s50,
+              width: AppSize.s70,
               decoration: BoxDecoration(
                 color: ColorManager.greenF,
               ),
@@ -216,6 +216,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             children: [
                               widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
                                   widget.searchByEmployeeIdProfileData!.imgurl == null ?
+
                               Icon(
                                 Icons.person,
                                 color: ColorManager.white,
@@ -225,6 +226,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                 imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
                                 placeholder: (context, url) => new CircularProgressIndicator(),
                                 errorWidget: (context, url, error) => new Icon(Icons.error),
+                                width: AppSize.s70,
+                                height: AppSize.s70,
                               ),
                               // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
                               //     height: AppSize.s50, width: AppSize.s50),
@@ -507,12 +510,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp})",
-                                      style: ThemeManagerDark.customTextStyle(
-                                          context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   SizedBox(height: 10,),
-                                  Text('1.2',
-                                      style: ThemeManagerDark.customTextStyle(
-                                          context)),
+                                  Text('1.2', style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               )
                             ]),
