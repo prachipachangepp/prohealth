@@ -219,8 +219,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               Expanded(
                 child: Container(
                   // height: 550,
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.symmetric(horizontal: 100, vertical: 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -247,7 +247,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -260,7 +260,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 return Row(
                                   children: [
                                     profileData.imgurl == null ? Text(''):
-                                    pickedFilePath ? Text(fileName,style: GoogleFonts.firaSans(fontSize: 10,color: ColorManager.mediumgrey,fontWeight: FontWeightManager.medium),):
+                                    pickedFilePath ? Text(fileName,style:
+                                    TextStyle(fontSize: 10,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),):
                                     CircleAvatar(
                                       radius: 20,
                                       backgroundColor: ColorManager.faintGrey,
@@ -309,229 +310,292 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          HRManageTextField(
-                              controller: nameController,
-                              keyboardType: TextInputType.text,
-                              text: AppString.name,
-                              cursorHeight: 12,
-                              labelText: AppString.name,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          FutureBuilder<List<EmployeeTypeModal>>(
-                            future: EmployeeTypeGet(context, deptId),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Container(
-                                  alignment: Alignment.center,
-                                  child: HRManageDropdown(
-                                    controller: TextEditingController(text: ''),
-                                    labelText: 'Select Employee Type',
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                    labelFontSize: 12,
-                                    items: [], // Empty while loading
-                                  ),
-                                );
-                              }
+                          FirstSMTextFConst(
+                            controller: nameController,
+                            keyboardType: TextInputType.text,
+                            text: AppString.name,
 
-                              if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                return HRManageDropdown(
-                                  controller: TextEditingController(text: ''),
-                                  labelText: 'Select Employee Type',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: [],
-                                );
-                              }
-
-                              if (snapshot.hasData) {
-                                List<EmployeeTypeModal> employeeTypeList = snapshot.data!;
-                                List<String> dropDownEmployeeTypes = employeeTypeList
-                                    .map((employeeType) => employeeType.employeeType)
-                                    .toList();
-
-                                String? selectedEmployeeType = dropDownEmployeeTypes.isNotEmpty
-                                    ? dropDownEmployeeTypes[0]
-                                    : null;
-
-                                int? selectedEmployeeTypeId = employeeTypeList.isNotEmpty
-                                    ? employeeTypeList[0].employeeTypeId
-                                    : null;
-
-                                return HRManageDropdown(
-                                  controller: TextEditingController(text: selectedEmployeeType ?? ''),
-                                  labelText: "Select Employee Type",
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownEmployeeTypes,
-                                  onChanged: (val) {
-                                    selectedEmployeeType = val;
-                                    selectedEmployeeTypeId = employeeTypeList
-                                        .firstWhere((employeeType) => employeeType.employeeType == val)
-                                        .employeeTypeId;
-
-                                    print('Selected Employee Type ID: $selectedEmployeeTypeId');
-                                  },
-                                );
-                              }
-                              return const SizedBox();
-                            },
                           ),
-                          FutureBuilder<List<HRHeadBar>>(
-                            future: companyHRHeadApi(context, deptId),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                List<String>dropDownServiceList =[];
-                                return Container(
-                                    alignment: Alignment.center,
-                                    child:
-                                    HRManageDropdown(
-                                      controller: TextEditingController(
-                                          text: ''),
-                                      labelText: 'Select Department',
+                          // HRManageTextField(
+                          //     controller: nameController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppString.name,
+                          //     cursorHeight: 12,
+                          //     labelText: AppString.name,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Select Employee Type',
+                                  //  widget.depTitle,
+                                  style: AllPopupHeadings.customTextStyle(context)),
+                              SizedBox(height: 5,),
+                              FutureBuilder<List<EmployeeTypeModal>>(
+                                future: EmployeeTypeGet(context, deptId),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      child: HRUManageDropdown(
+                                        controller: TextEditingController(text: ''),
+                                        labelText: 'Select Employee Type',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                        labelFontSize: 12,
+                                        items: [], // Empty while loading
+                                      ),
+                                    );
+                                  }
+
+                                  if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                    return HRUManageDropdown(
+                                      controller: TextEditingController(text: ''),
+                                      labelText: 'Select Employee Type',
                                       labelStyle: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: ColorManager.mediumgrey,
                                       ),
                                       labelFontSize: 12,
-                                      items:  dropDownServiceList,
+                                      items: [],
+                                    );
+                                  }
 
-                                    )
-                                );
-                              }
-                              if (snapshot.hasData &&
-                                  snapshot.data!.isEmpty) {
-                                return Center(
-                                  child: Text(
-                                    ErrorMessageString.noroleAdded,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                );
-                              }
-                              if (snapshot.hasData) {
-                                // Extract dropdown items from snapshot
-                                List<String> dropDownServiceList = snapshot
-                                    .data!
-                                    .map((dept) => dept.deptName!)
-                                    .toList();
-                                String? firstDeptName =
-                                snapshot.data!.isNotEmpty
-                                    ? snapshot.data![0].deptName
-                                    : null;
-                                int? firstDeptId = snapshot.data!.isNotEmpty
-                                    ? snapshot.data![0].deptId
-                                    : null;
+                                  if (snapshot.hasData) {
+                                    List<EmployeeTypeModal> employeeTypeList = snapshot.data!;
+                                    List<String> dropDownEmployeeTypes = employeeTypeList
+                                        .map((employeeType) => employeeType.employeeType)
+                                        .toList();
 
-                                if (selectedDeptName == null &&
-                                    dropDownServiceList.isNotEmpty) {
-                                  selectedDeptName = firstDeptName;
-                                  selectedDeptId = firstDeptId;
-                                }
+                                    String? selectedEmployeeType = dropDownEmployeeTypes.isNotEmpty
+                                        ? dropDownEmployeeTypes[0]
+                                        : null;
 
-                                return HRManageDropdown(
-                                  controller: TextEditingController(
-                                      text: selectedDeptName ?? ''),
-                                  labelText: "Select Department",
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownServiceList,
-                                  onChanged: (val) {
-                                    // setState(() {
-                                      selectedDeptName = val;
-                                      selectedDeptId = snapshot.data!
-                                          .firstWhere(
-                                              (dept) => dept.deptName == val)
-                                          .deptId;
-                                    // });
-                                  },
-                                );
-                              }
-                              return const SizedBox();
-                            },
+                                    int? selectedEmployeeTypeId = employeeTypeList.isNotEmpty
+                                        ? employeeTypeList[0].employeeTypeId
+                                        : null;
+
+                                    return HRUManageDropdown(
+                                      controller: TextEditingController(text: selectedEmployeeType ?? ''),
+                                      labelText: "Select Employee Type",
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: dropDownEmployeeTypes,
+                                      onChanged: (val) {
+                                        selectedEmployeeType = val;
+                                        selectedEmployeeTypeId = employeeTypeList
+                                            .firstWhere((employeeType) => employeeType.employeeType == val)
+                                            .employeeTypeId;
+
+                                        print('Selected Employee Type ID: $selectedEmployeeTypeId');
+                                      },
+                                    );
+                                  }
+                                  return const SizedBox();
+                                },
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Select Department',
+                                  //  widget.depTitle,
+                                  style: AllPopupHeadings.customTextStyle(context)),
+                              SizedBox(height: 5,),
+                              FutureBuilder<List<HRHeadBar>>(
+                                future: companyHRHeadApi(context, deptId),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    List<String>dropDownServiceList =[];
+                                    return Container(
+                                        alignment: Alignment.center,
+                                        child:
+                                        HRUManageDropdown(
+                                          controller: TextEditingController(
+                                              text: ''),
+                                          labelText: 'Select Department',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                          labelFontSize: 12,
+                                          items:  dropDownServiceList,
+
+                                        )
+                                    );
+                                  }
+                                  if (snapshot.hasData &&
+                                      snapshot.data!.isEmpty) {
+                                    return Center(
+                                      child: Text(
+                                        ErrorMessageString.noroleAdded,
+                                        style: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: FontSize.s12,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  if (snapshot.hasData) {
+                                    // Extract dropdown items from snapshot
+                                    List<String> dropDownServiceList = snapshot
+                                        .data!
+                                        .map((dept) => dept.deptName!)
+                                        .toList();
+                                    String? firstDeptName =
+                                    snapshot.data!.isNotEmpty
+                                        ? snapshot.data![0].deptName
+                                        : null;
+                                    int? firstDeptId = snapshot.data!.isNotEmpty
+                                        ? snapshot.data![0].deptId
+                                        : null;
+
+                                    if (selectedDeptName == null &&
+                                        dropDownServiceList.isNotEmpty) {
+                                      selectedDeptName = firstDeptName;
+                                      selectedDeptId = firstDeptId;
+                                    }
+
+                                    return HRUManageDropdown(
+                                      controller: TextEditingController(
+                                          text: selectedDeptName ?? ''),
+                                      labelText: "Select Department",
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: dropDownServiceList,
+                                      onChanged: (val) {
+                                        // setState(() {
+                                          selectedDeptName = val;
+                                          selectedDeptId = snapshot.data!
+                                              .firstWhere(
+                                                  (dept) => dept.deptName == val)
+                                              .deptId;
+                                        // });
+                                      },
+                                    );
+                                  }
+                                  return const SizedBox();
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          HRManageTextField(
-                              controller: addressController,
-                              keyboardType: TextInputType.text,
-                              text: AppString.address,
-                              cursorHeight: 12,
-                              labelText: AppString.address,
-                              labelStyle:TextStyle(fontSize: 10),
-                              labelFontSize: 12),
-                          HRManageTextField(
+                          FirstSMTextFConst(
+                            controller: addressController,
+                            keyboardType: TextInputType.text,
+                            text: AppString.address,
+
+                          ),
+                          // HRManageTextField(
+                          //     controller: addressController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppString.address,
+                          //     cursorHeight: 12,
+                          //     labelText: AppString.address,
+                          //     labelStyle:TextStyle(fontSize: 10),
+                          //     labelFontSize: 12),
+                          FirstSMTextFConst(
                             controller: ageController,
                             keyboardType: TextInputType.text,
-                            text: 'Other Field',
-                            cursorHeight: 12,
-                            labelText: 'Other Field',
-                            labelStyle: TextStyle(fontSize: 10),
-                            labelFontSize: 12,
+                            text: 'Age',
                             showDatePicker: true,
                           ),
-                          HRManageTextField(
-                              controller: genderController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.gender,
-                              // suffixIcon: Icon(Icons.calendar_month_outlined),
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.gender,
-                              labelStyle:TextStyle(fontSize: 10),
-                              labelFontSize: 10),
+                          // HRManageTextField(
+                          //   controller: ageController,
+                          //   keyboardType: TextInputType.text,
+                          //   text: 'Other Field',
+                          //   cursorHeight: 12,
+                          //   labelText: 'Other Field',
+                          //   labelStyle: TextStyle(fontSize: 10),
+                          //   labelFontSize: 12,
+                          //   showDatePicker: true,
+                          // ),
+                          // HRManageTextField(
+                          //     controller: genderController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.gender,
+                          //     // suffixIcon: Icon(Icons.calendar_month_outlined),
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.gender,
+                          //     labelStyle:TextStyle(fontSize: 10),
+                          //     labelFontSize: 10),
+                          FirstSMTextFConst(
+                            controller: genderController,
+                            keyboardType: TextInputType.text,
+                            text: 'Gender',
+                            // showDatePicker: true,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-
-                          HRManageTextField(
-                              controller: ssNController,
-                              keyboardType: TextInputType.text,
-                              text: AppString.ssn,
-                              cursorHeight: 12,
-                              labelText: AppString.ssn,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          HRManageTextField(
-                              controller: phoneNController,
-                              keyboardType: TextInputType.text,
-                              text: AppString.phone_number,
-                              cursorHeight: 12,
-                              labelText: AppString.phone_number,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          HRManageTextField(
-                              controller: workPhoneController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.worNo,
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.worNo,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
+                          FirstSMTextFConst(
+                            controller: ssNController,
+                            keyboardType: TextInputType.text,
+                            text: AppString.ssn,
+                            // showDatePicker: true,
+                          ),
+                          //
+                          // HRManageTextField(
+                          //     controller: ssNController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppString.ssn,
+                          //     cursorHeight: 12,
+                          //     labelText: AppString.ssn,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                          // HRManageTextField(
+                          //     controller: phoneNController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppString.phone_number,
+                          //     cursorHeight: 12,
+                          //     labelText: AppString.phone_number,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                          FirstSMTextFConst(
+                            controller: phoneNController,
+                            keyboardType: TextInputType.phone,
+                            text: AppString.phone_number,
+                            // showDatePicker: true,
+                          ),
+                          FirstSMTextFConst(
+                            controller: workPhoneController,
+                            keyboardType: TextInputType.text,
+                            text:  AppStringMobile.worNo,
+                            // showDatePicker: true,
+                          ),
+                          // HRManageTextField(
+                          //     controller: workPhoneController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.worNo,
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.worNo,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
                         ],
                       ),
 
@@ -539,119 +603,163 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          HRManageTextField(
-                              controller: personalEmailController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.perEmail,
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.perEmail,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          HRManageTextField(
-                              controller: workEmailController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.worEmail,
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.worEmail,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
-                          HRManageTextField(
-                              controller: summaryController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringMobile.summry,
-                              cursorHeight: 12,
-                              labelText: AppStringMobile.summry,
-                              labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                              labelFontSize: 12),
+                          FirstSMTextFConst(
+                            controller: personalEmailController,
+                            keyboardType: TextInputType.text,
+                            text: AppStringMobile.perEmail,
+                            // showDatePicker: true,
+                          ),
+                          // HRManageTextField(
+                          //     controller: personalEmailController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.perEmail,
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.perEmail,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                          FirstSMTextFConst(
+                            controller: workEmailController,
+                            keyboardType: TextInputType.text,
+                            text: AppStringMobile.worEmail,
+                            // showDatePicker: true,
+                          ),
+                          // HRManageTextField(
+                          //     controller: workEmailController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.worEmail,
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.worEmail,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                          // HRManageTextField(
+                          //     controller: summaryController,
+                          //     keyboardType: TextInputType.text,
+                          //     text: AppStringMobile.summry,
+                          //     cursorHeight: 12,
+                          //     labelText: AppStringMobile.summry,
+                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
+                          //     labelFontSize: 12),
+                          FirstSMTextFConst(
+                            controller: summaryController,
+                            keyboardType: TextInputType.text,
+                            text: AppStringMobile.summry,
+                            // showDatePicker: true,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          FutureBuilder<List<ServicesMetaData>>(
-                    future: getServicesMetaData(context),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        // Show loading indicator or dummy dropdown
-                        return HRManageDropdown(
-                          controller: TextEditingController(text: ''),
-                          labelText: 'Select Service',
-                          labelStyle: TextStyle(fontSize: 14),
-                          items: [], labelFontSize: 12,
-                        );
-                      }
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Select Service',
+                                  //  widget.depTitle,
+                                  style: AllPopupHeadings.customTextStyle(context)),
+                              SizedBox(height: 5,),
+                              FutureBuilder<List<ServicesMetaData>>(
+                                                  future: getServicesMetaData(context),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                                      // Show loading indicator or dummy dropdown
+                                                      return HRUManageDropdown(
+                              controller: TextEditingController(text: ''),
+                              labelText: 'Select Service',
+                              labelStyle: TextStyle(fontSize: 14),
+                              items: [], labelFontSize: 12,
+                                                      );
+                                                    }
 
-                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                        List<String> serviceNames = snapshot.data!
-                            .map((service) => service.serviceName)
-                            .toList();
+                                                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                                      List<String> serviceNames = snapshot.data!
+                                .map((service) => service.serviceName)
+                                .toList();
 
-                        return HRManageDropdown(
-                          controller: TextEditingController(),
-                          labelText: 'Select Service',
-                          items: serviceNames,
-                          onChanged: (val) {
-                            // Handle selected service
-                            var selectedService = snapshot.data!
-                                .firstWhere((service) => service.serviceName == val);
-                            print('Selected Service ID: ${selectedService.serviceId}');
-                          }, labelStyle:  TextStyle(fontSize: 14),labelFontSize: 12 ,
-                        );
-                      }
+                                                      return HRUManageDropdown(
+                              controller: TextEditingController(),
+                              labelText: 'Select Service',
+                              items: serviceNames,
+                              onChanged: (val) {
+                                // Handle selected service
+                                var selectedService = snapshot.data!
+                                    .firstWhere((service) => service.serviceName == val);
+                                print('Selected Service ID: ${selectedService.serviceId}');
+                              }, labelStyle:  TextStyle(fontSize: 14),labelFontSize: 12 ,
+                                                      );
+                                                    }
 
-                      return const Text('No services available');
-                    }, ),
-                          FutureBuilder<List<CompanyOfficeListData>>(
-                            future: getCompanyOfficeList(context),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return HRManageDropdown(
-                                  // width: 320,
-                                  // height: 40,
-                                  controller: TextEditingController(text: ''),
-                                  items: ['item 1', 'item 2'],
-                                  labelText: 'Reporting Office',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ), labelFontSize: 12,
-                                );
-                              }
-                              if (snapshot.hasData) {
-                                List<String> dropDownList = [];
-                                for (var i in snapshot.data!) {
-                                  dropDownList.add(i.name);
-                                }
-                                return HRManageDropdown(
-                                  labelText: 'Reporting Office',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownList,
-                                  onChanged: (newValue) {
-                                    for (var a in snapshot.data!) {
-                                      if (a.name == newValue) {
-                                        reportingOfficeId = a.name;
-                                        print('Office Name : ${reportingOfficeId}');
-                                        // int docType = a.employeeTypesId;
-                                        // Do something with docType
-                                      }
-                                    }
-                                  },  controller: TextEditingController(text: ''),
-                                );
-                              } else {
-                                return const Offstage();
-                              }
-                            },
+                                                    return const Text('No services available');
+                                                  }, ),
+                            ],
                           ),
-                          Container(
-                            height: 40,
-                            width: 320,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Reporting Office',
+                                  //  widget.depTitle,
+                                  style: AllPopupHeadings.customTextStyle(context)),
+                              SizedBox(height: 5,),
+                              FutureBuilder<List<CompanyOfficeListData>>(
+                                future: getCompanyOfficeList(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return HRUManageDropdown(
+                                      // width: 320,
+                                      // height: 40,
+                                      controller: TextEditingController(text: ''),
+                                      items: ['item 1', 'item 2'],
+                                      labelText: 'Reporting Office',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ), labelFontSize: 12,
+                                    );
+                                  }
+                                  if (snapshot.hasData) {
+                                    List<String> dropDownList = [];
+                                    for (var i in snapshot.data!) {
+                                      dropDownList.add(i.name);
+                                    }
+                                    return HRUManageDropdown(
+                                      labelText: 'Reporting Office',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.name == newValue) {
+                                            reportingOfficeId = a.name;
+                                            print('Office Name : ${reportingOfficeId}');
+                                            // int docType = a.employeeTypesId;
+                                            // Do something with docType
+                                          }
+                                        }
+                                      },  controller: TextEditingController(text: ''),
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+
+                                width:354,
+                                height:30,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -662,7 +770,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             padding: const EdgeInsets.all(20.0),
                             child: Container(
                               height: 20,
-                              width: 320,
+                              width:354,
                               child: Text(
                                 "Coverage",
                                 style: EditProfile.customEditTextStyle(),
@@ -692,7 +800,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         children: [
                           Container(
                             height: 55,
-                            width: 320,
+                            width: 322,
                             // margin: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
@@ -707,8 +815,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text("County :",
-                                        style: EditTextFontStyle
-                                            .customEditTextStyle()),
+                                        style: AllPopupHeadings.customTextStyle(context)),
                                     SizedBox(
                                       width: 5,
                                     ),
@@ -719,8 +826,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       width: 30,
                                     ),
                                     Text('Zone :',
-                                        style: EditTextFontStyle
-                                            .customEditTextStyle()),
+                                        style: AllPopupHeadings.customTextStyle(context)),
                                     SizedBox(
                                       width: 5,
                                     ),

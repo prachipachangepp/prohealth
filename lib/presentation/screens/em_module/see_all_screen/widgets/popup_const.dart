@@ -167,8 +167,10 @@ class _CustomDialogState extends State<CustomDialog> {
                           alignment: Alignment.center,
                           child:
                           HRUManageDropdown(
-                            controller: TextEditingController(
-                                text: ''),
+                            controller:
+                            TextEditingController(
+                                text: ''
+                            ),
                             labelFontSize: 12,
                             items:  dropDownServiceList,
                           )
@@ -184,7 +186,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       );
                     }
                     if (snapshot.hasData) {
-                      // Extract dropdown items from snapshot
+
                       List<String> dropDownServiceList = snapshot
                           .data!
                           .map((dept) => dept.deptName!)
