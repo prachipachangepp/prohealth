@@ -208,9 +208,12 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                     SizedBox(height: AppSize.s16),
                     Row(
                       children: [
-                        Text(
-                          AppStringEM.color,
-                          style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: Text(
+                            AppStringEM.color,
+                            style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                          ),
                         ),
                         SizedBox(width: AppSize.s25),
                         Container(
