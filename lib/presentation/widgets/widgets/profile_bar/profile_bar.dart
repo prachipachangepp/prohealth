@@ -20,6 +20,7 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 
  typedef EditCallback = void Function();
@@ -288,7 +289,7 @@ class _ProfileBarState extends State<ProfileBar> {
                           // ),
                           IconButton(
                             onPressed: widget.onEditPressed,
-                            icon: Icon(Icons.edit_outlined, size: 14),
+                            icon: Icon(Icons.edit_outlined, size: 14, color: IconColorManager.bluebottom,),
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             hoverColor: Colors.transparent,
@@ -339,11 +340,7 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                       Text(widget.searchByEmployeeIdProfileData!.finalAddress,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: AppSize.s12,
-                            color: ColorManager.primary,
-                            fontWeight: FontWeightManager.semiBold,
-                          )),
+                          style: ThemeManagerAddressPB.customTextStyle(context)),
                     ],
                   ),
 
@@ -403,18 +400,56 @@ class _ProfileBarState extends State<ProfileBar> {
                   ),
                   Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: MyConstantsColumn.personalInfoTexts(context),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: MyConstantsColumn.personalInfoTexts(context),
+                        ),
                       ),
                       SizedBox(width: 20),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.searchByEmployeeIdProfileData!.personalEmail,
-                              style: ProfileBarConst.profileTextStyle(context)),
+                          // InkWell(
+                          //   child: Text(widget.searchByEmployeeIdProfileData!.personalEmail,
+                          //       style: ProfileBarConst.profileTextStyle(context)),
+                          //   onTap: () async {
+                          //
+                          //   },
+                          // ),
+                          InkWell(
+                            child: Text(
+                              widget.searchByEmployeeIdProfileData!.personalEmail ?? 'No email provided',
+                              style: ProfileBarConst.profileTextStyle(context),  // Ensure the ProfileBarConst is defined elsewhere
+                            ),
+                            onTap: () async {
+                              String? email = widget.searchByEmployeeIdProfileData!.personalEmail;
+
+                              // Check if the email is not null or empty
+                              if (email != null && email.isNotEmpty) {
+                                // Create a mailto Uri with the email address
+                                final Uri emailUri = Uri(
+                                  scheme: 'mailto',
+                                  path: email,
+                                  queryParameters: {
+                                    'subject': 'Hello!',
+                                    'body': 'I would like to reach out to you.',
+                                  },
+                                );
+
+                                // Launch the email client
+                                if (await canLaunchUrl(emailUri)) {
+                                  await launchUrl(emailUri);
+                                } else {
+                                  print('Could not launch $emailUri');
+                                }
+                              }
+                            },
+                          ),
+
                           Text(
                               widget
                                   .searchByEmployeeIdProfileData!.workEmail,
@@ -436,7 +471,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             AppString.na,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
-                          Text(""),
+                          // Text(""),
                         ],
                       ),
                     ],

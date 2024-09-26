@@ -7,6 +7,7 @@ import '../../../../../../app/resources/theme_manager.dart';
 ///saloni
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
+
     final textStyle = ThemeManager.customTextStyle(context);
     return [
       Text(
@@ -51,36 +52,36 @@ class MyConstantsColumn {
           AppString.personalEmail,
       style: ProfileBarTextBoldStyle.customEditTextStyle()
     ),
-      SizedBox(height: 1,),
+
       Text(
         AppString.workemail,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+
       Text(
         AppString.speciality,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+
       Text(
         AppString.service,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+
       Text(
         AppString.reportingOffice,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+
       Text(
         AppString.summary,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
-      Text(
-          '',
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
-      ),
+
+      // Text(
+      //     '',
+      //     style: ProfileBarTextBoldStyle.customEditTextStyle()
+      // ),
 
     ];
   }
