@@ -395,12 +395,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         }
                                         if (snapshot.hasData && snapshot.data!.isEmpty) {
                                           return HRUManageDropdown(
+
                                             controller: TextEditingController(text: ''),
                                             labelText: 'Select Employee Type',
                                             labelStyle: GoogleFonts.firaSans(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
                                               color: ColorManager.mediumgrey,
+
                                             ),
                                             labelFontSize: 12,
                                             items: [],
@@ -631,8 +633,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         if (snapshot.connectionState == ConnectionState.waiting) {
                                           // Show loading indicator or dummy dropdown
                                           return HRUManageDropdown(
+                                            hintText: 'Select Service',
                                             controller: TextEditingController(text: ''),
-                                            labelText: 'Select Service',
+                                            // labelText: 'Select Service',
                                             labelStyle: TextStyle(fontSize: 14),
                                             items: [], labelFontSize: 12,
                                           );
@@ -645,7 +648,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                           return HRUManageDropdown(
                                             controller: TextEditingController(),
-                                            labelText: 'Select Service',
+                                            // labelText: 'Select Service',
+                                             hintText:    'Select Service',
                                             items: serviceNames,
                                             onChanged: (val) {
                                               // Handle selected service
@@ -674,11 +678,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
                                           return HRUManageDropdown(
+                                            hintText: "Reporting Office",
                                             // width: 320,
                                             // height: 40,
                                             controller: TextEditingController(text: ''),
                                             items: ['item 1', 'item 2'],
-                                            labelText: 'Reporting Office',
+                                            // labelText: 'Reporting Office',
                                             labelStyle: GoogleFonts.firaSans(
                                               fontSize: 12,
                                               color: Color(0xff575757),
@@ -692,8 +697,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             dropDownList.add(i.name);
                                           }
                                           return HRUManageDropdown(
-                                            labelText: 'Reporting Office',
-                                            labelStyle: GoogleFonts.firaSans(
+                                            hintText: "Reporting Office",
+                                            labelStyle: TextStyle(
                                               fontSize: 12,
                                               color: Color(0xff575757),
                                               fontWeight: FontWeight.w400,
@@ -722,7 +727,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-
                                       width:354,
                                       height:30,
                                     ),
@@ -734,7 +738,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Container(
                                     height: 20,
                                     width:354,
