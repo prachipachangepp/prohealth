@@ -132,6 +132,16 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                   ),
                   Text('End Date :',
                       style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
+                      style: ThemeManagerDark.customTextStyle(context)),
                 ],
                 row2Child2: [
                   Text(
@@ -145,6 +155,16 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                     snapshot.data![index].expDate,
                     style: ThemeManagerDarkFont.customTextStyle(context),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
+                      style: ThemeManagerDarkFont.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
+                      style: ThemeManagerDarkFont.customTextStyle(context)),
                 ],
                 button:   Row(
                   mainAxisAlignment: MainAxisAlignment.end,

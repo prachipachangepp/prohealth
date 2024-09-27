@@ -125,12 +125,17 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('How do you know this\nperson ? :',
+                  Text('How do you know this person ? :',
                       style: ThemeManagerDark.customTextStyle(context)),
                   const SizedBox(
                     height: 10,
                   ),
                   Text('Length of Association :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
                       style: ThemeManagerDark.customTextStyle(context)),
                 ],
                 row2Child2: [
@@ -149,6 +154,11 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                     height: 10,
                   ),
                   Text(snapshot.data![index].association.toString(),
+                      style: ThemeManagerDarkFont.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
                       style: ThemeManagerDarkFont.customTextStyle(context)),
                 ],
                 button:  Row(

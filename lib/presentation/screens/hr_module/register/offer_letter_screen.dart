@@ -280,7 +280,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     labelText: 'Verbal Acceptance',
                   ),
                   //SizedBox(width: MediaQuery.of(context).size.width / 80),
-
                   Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width / 5,
@@ -1410,11 +1409,11 @@ class _DynamciContainerState extends State<DynamciContainer> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Row(
+          child: Column(
             children: [
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
+                  child: Row(
                     children: [
                       ///county
                       Column(
@@ -1524,7 +1523,6 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 20),
-
                       ///zone api
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

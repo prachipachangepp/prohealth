@@ -134,6 +134,11 @@ class _QualificationEducationState extends State<QualificationEducation> {
                   ),
                   Text('State :',
                       style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(' ',
+                      style: ThemeManagerDark.customTextStyle(context)),
                 ],
                 row2Child2: [
                   Text(
@@ -151,6 +156,11 @@ class _QualificationEducationState extends State<QualificationEducation> {
                     height: 10,
                   ),
                   Text(snapshot.data![index].state.toString(),
+                      style: ThemeManagerDarkFont.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('',
                       style: ThemeManagerDarkFont.customTextStyle(context)),
                 ],
                 button:  Row(
