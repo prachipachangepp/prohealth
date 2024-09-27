@@ -288,7 +288,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       errorStates['referredBy'] = widget.referredBy.text.isEmpty;
     });
 
-    // if (!errorStates.values.contains(true)) {
+    if (!errorStates.values.contains(true)) {
       try {
         setState(() {
           isLoading = true;
@@ -300,7 +300,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         });
         _clearControllers();
       }
-    // }
+     }
   }
 
   void _clearControllers() {

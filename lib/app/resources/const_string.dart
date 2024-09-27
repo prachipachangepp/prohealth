@@ -326,7 +326,7 @@ class AppStringHRNoData {
   static const String othersnNoData = 'No others available!';
   static const String payRatesNoData = 'No pay rates available!';
   ///login screen
-  static const String employeeNoData = 'No employement available!';
+  // static const String employeeNoData = 'No employement available!';
   static const String noOnboardingData = 'No onboarding data available!';
   static const String noOnboardEmpData = 'No qualification employement available!';
   static const String noOnboardEdnData = 'No qualification education available!';
