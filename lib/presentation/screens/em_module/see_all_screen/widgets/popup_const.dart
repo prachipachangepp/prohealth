@@ -521,7 +521,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 4),
+                    padding: const EdgeInsets.only(left:0),
                     child: Text(
                         'Select Department',
                         //  widget.depTitle,
