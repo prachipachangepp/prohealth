@@ -732,8 +732,6 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(bottom: 18.0),
-
-
           // border: OutlineInputBorder(
           //   borderSide: BorderSide(color: Colors.black),
           // ),

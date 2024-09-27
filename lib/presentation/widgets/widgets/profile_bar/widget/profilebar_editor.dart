@@ -830,11 +830,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                       padding: const EdgeInsets.only( top: 8),
                                                                       child: Text("Edit Coverage", style: EditProfile.customEditTextStyle(),),
                                                                     ),
-
                                                                     Row(
                                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                       children: [
-
                                                                         ///county zone
                                                                         Padding(
                                                                           padding: const EdgeInsets.symmetric(vertical: 20),
@@ -842,7 +840,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                             height: 300,
                                                                             width: 150,
                                                                             child:
-
                                                                             Column(
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
@@ -1280,7 +1277,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           personalEmail: personalEmailController.text,
                                           workEmail: workEmailController.text,
                                           address: addressController.text,
-                                          dateOfBirth: ageController.text,
+                                          dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
                                           emergencyContact:
                                           profileData.emergencyContact,
                                           covreage: profileData.covreage,
@@ -1315,7 +1312,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           rating: profileData.rating,
                                           signatureURL: profileData.signatureURL,
                                         );
-                                        Navigator.pop(context);
                                         if(response.statusCode == 200 || response.statusCode == 201){
                                           var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
                                           showDialog(
@@ -1338,9 +1334,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                   TextButton(
                                                     onPressed: () {
                                                       Navigator.of(context).pop();
-                                                      setState(() {
-
-                                                      });
                                                     },
                                                     child: Text('OK',style: TextStyle(
                                                       fontSize: FontSize.s12,
