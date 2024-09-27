@@ -11,6 +11,7 @@ class SeeAllData {
   final int? countryId;
   final int? zoneId;
   final String? ssnnbr;
+  final String? expertise;
   final String? primaryPhoneNbr;
   final String? secondryPhoneNbr;
   final String? workPhoneNbr;
@@ -77,6 +78,7 @@ class SeeAllData {
     this.countryId,
     this.zoneId,
     this.ssnnbr,
+    this.expertise,
     this.primaryPhoneNbr,
     this.secondryPhoneNbr,
     this.workPhoneNbr,

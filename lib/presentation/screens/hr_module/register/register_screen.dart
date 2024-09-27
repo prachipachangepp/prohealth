@@ -160,9 +160,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
                     child: Text(
-                      "No Register Data",
+                      "No Register available!",
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
                       // AppString.dataNotFound,
-                      style:DocumentTypeDataStyle.customTextStyle(context),
+                      //style:DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   ),
                 );
@@ -408,24 +412,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          //  const url = "http://localhost:58043/#/onBordingWelcome";
-                           const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                           const url = "http://localhost:61517/#/onBordingWelcome";
+                           // const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                        ///////////
                           if (await canLaunch(url)) {
                            await launch(url);
-
+                         ///
+                         //     Navigator.push(
+                         //       context,
+                         //       MaterialPageRoute(
+                         //        builder: (context) => OnBoardingWelcome(),
+                         //      ),
+                         //     );
                            } else {
                             throw 'Could not launch $url';
                           }
+                 ///
                         },
                         child: Text(
                           data.link!,
                           style: RegisterLinkDataStyle.customTextStyle(context),
-                          // style: GoogleFonts.firaSans(
-                          //   fontSize: 10,
-                          //   fontWeight: FontWeight.w400,
-                          //   color: ColorManager.blueprime,
-                          // ),
+
                         ),
                       ),
                       data.status == 'Notopen'

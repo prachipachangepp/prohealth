@@ -489,7 +489,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                         context: context,
                         patientId: widget.patientId!,
                         docTypeId: 1, //  docTypeId,
-                        docName: nameController.text,
+                        docName: widget.nameDocController.text,
                         docUrl: "some_doc_url",
                         // createdAt: calenderController.text,
                         createdAt:  "2024-08-16T09:39:48.030Z",

@@ -11,6 +11,7 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../manage/const_wrap_widget.dart';
+import '../../manage/widgets/const_card_details.dart';
 
 class QualificationEmployment extends StatefulWidget {
   final int employeeId;
@@ -69,316 +70,333 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
         if (snapshot.hasData) {
           return Wrap(
             children: List.generate(snapshot.data!.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 2.3,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+              return CardDetails(childWidget: DetailsFormate(
+                row1Child1: [
+                  Text('Final Position Title :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
                   ),
-                  height: 200,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 80,
-                      vertical: MediaQuery.of(context).size.height / 120,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Employment #${index + 1}',
-                          // 'Employment #${snapshot.data![index].employmentId}',
-                          style: OnboardFlowContainerHeading.customTextStyle(context),
-                        ),
-                        //SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InfoText('Final Position Title'),
-                                InfoText('Start Date'),
-                                InfoText('End Date'),
-                                InfoText('Employer'),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InfoData(snapshot.data![index].title),
-                                InfoData(snapshot.data![index].dateOfJoin),
-                                InfoData(snapshot.data![index].endDate),
-                                InfoData(snapshot.data![index].employer),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InfoText('Reason of Leaving'),
-                                InfoText('Last Supervisor’s Name'),
-                                InfoText('Supervisor’s Phone No.'),
-                                InfoText('City'),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InfoData(snapshot.data![index].reason),
-                                InfoData(snapshot.data![index].supervisor),
-                                InfoData(snapshot.data![index].supMobile),
-                                InfoData(snapshot.data![index].city),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            QualificationActionButtons(
-                              approve: snapshot.data![index].approve,
-                              onRejectPressed: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
-                                      ),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20.0),
+                  Text('Start Date :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('End Date :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Employer :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // Text('Emergency Contact :',
+                  //     style: ThemeManagerDark.customTextStyle(context)),
+                ],
+                row1Child2: [
+
+                  Text(
+                    snapshot.data![index].title,
+                    style: ThemeManagerDarkFont.customTextStyle(context),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    snapshot.data![index].dateOfJoin,
+                    style: ThemeManagerDarkFont.customTextStyle(context),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    snapshot.data![index].endDate,
+                    style: ThemeManagerDarkFont.customTextStyle(context),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    snapshot.data![index].employer,
+                    style: ThemeManagerDarkFont.customTextStyle(context),
+                  ),
+                ],
+                row2Child1: [
+                  Text('Reason of Leaving :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Last Supervisor’s Name :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Supervisor’s Phone No. :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('City :',
+                      style: ThemeManagerDark.customTextStyle(context)),
+                ],
+                row2Child2: [
+                  Text(
+                    snapshot.data![index].reason,
+                    style: ThemeManagerDarkFont.customTextStyle(context),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    snapshot.data![index].supervisor.toString(),
+                    style: ThemeManagerDarkFont.customTextStyle(context),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(snapshot.data![index].supMobile.toString(),
+                      style: ThemeManagerDarkFont.customTextStyle(context)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(snapshot.data![index].city.toString(),
+                      style: ThemeManagerDarkFont.customTextStyle(context)),                  ],
+                button:  Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    QualificationActionButtons(
+                      approve: snapshot.data![index].approve,
+                      onRejectPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                height: 181.0,
+                                width: 500.0,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.bluebottom,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8),
                                         ),
-                                        height: 181.0,
-                                        width: 500.0,
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.bluebottom,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(8),
-                                                  topRight: Radius.circular(8),
+                                      ),
+                                      height: 35,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: Text(
+                                                'Reject',
+                                                style: PopupBlueBarText.customTextStyle(context)
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            icon: Icon(Icons.close, color: ColorManager.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 20.0),
+                                        child: Text(
+                                            "Do you really want to reject this?",
+                                            textAlign: TextAlign.center,
+                                            style: PopupTextConst.customTextStyle(context)
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                elevation: 5,
+                                                backgroundColor: Colors.white,
+                                                foregroundColor: Color(0xff1696C8),
+                                                side: BorderSide(color: Color(0xff1696C8)),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(8),
                                                 ),
                                               ),
-                                              height: 35,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 10.0),
-                                                    child: Text(
-                                                      'Reject',
-                                                      style: PopupBlueBarText.customTextStyle(context)
-                                                    ),
-                                                  ),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    icon: Icon(Icons.close, color: ColorManager.white),
-                                                  ),
-                                                ],
+                                              child: Text(
+                                                  'Cancel',
+                                                  style: TransparentButtonTextConst.customTextStyle(context)
                                               ),
                                             ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 20.0),
-                                                child: Text(
-                                                  "Do you really want to reject this?",
-                                                  textAlign: TextAlign.center,
-                                                  style: PopupTextConst.customTextStyle(context)
+                                            SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                await rejectOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
+                                                getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
+                                                  qualificationempStreamController.add(data);
+                                                }).catchError((error) {});
+                                                Navigator.of(context).pop();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Color(0xff1696C8),
+                                                foregroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(8),
                                                 ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
-                                              child: Align(
-                                                alignment: Alignment.bottomRight,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      style: ElevatedButton.styleFrom(
-                                                        elevation: 5,
-                                                        backgroundColor: Colors.white,
-                                                        foregroundColor: Color(0xff1696C8),
-                                                        side: BorderSide(color: Color(0xff1696C8)),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        'Cancel',
-                                                        style: TransparentButtonTextConst.customTextStyle(context)
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: MediaQuery.of(context).size.width / 75),
-                                                    ElevatedButton(
-                                                      onPressed: () async {
-                                                        await rejectOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                                                        getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
-                                                          qualificationempStreamController.add(data);
-                                                        }).catchError((error) {});
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor: Color(0xff1696C8),
-                                                        foregroundColor: Colors.white,
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        'Yes',
-                                                        style: BlueButtonTextConst.customTextStyle(context),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Text(
+                                                'Yes',
+                                                style: BlueButtonTextConst.customTextStyle(context),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                              onApprovePressed: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
-                                      ),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      onApprovePressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                height: 181.0,
+                                width: 500.0,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.bluebottom,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8),
                                         ),
-                                        height: 181.0,
-                                        width: 500.0,
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.bluebottom,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(8),
-                                                  topRight: Radius.circular(8),
+                                      ),
+                                      height: 35,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 20.0),
+                                            child: Text(
+                                                'Approve',
+                                                style: PopupBlueBarText.customTextStyle(context)
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            icon: Icon(Icons.close, color: ColorManager.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 20.0),
+                                        child: Text(
+                                            "Do you really want to,approve this?",
+                                            textAlign: TextAlign.center,
+                                            style: PopupTextConst.customTextStyle(context)
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                elevation: 5,
+                                                backgroundColor: Colors.white,
+                                                foregroundColor: Color(0xff1696C8),
+                                                side: BorderSide(color: Color(0xff1696C8)),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(8),
                                                 ),
                                               ),
-                                              height: 35,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: Text(
-                                                      'Approve',
-                                                      style: PopupBlueBarText.customTextStyle(context)
-                                                    ),
-                                                  ),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    icon: Icon(Icons.close, color: ColorManager.white),
-                                                  ),
-                                                ],
+                                              child: Text(
+                                                  'Cancel',
+                                                  style: TransparentButtonTextConst.customTextStyle(context)
                                               ),
                                             ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 20.0),
-                                                child: Text(
-                                                  "Do you really want to,approve this?",
-                                                  textAlign: TextAlign.center,
-                                                  style: PopupTextConst.customTextStyle(context)
+                                            SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                await approveOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
+                                                getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
+                                                  qualificationempStreamController.add(data);
+                                                }).catchError((error) {});
+                                                Navigator.of(context).pop();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Color(0xff1696C8),
+                                                foregroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(8),
                                                 ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
-                                              child: Align(
-                                                alignment: Alignment.bottomRight,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      style: ElevatedButton.styleFrom(
-                                                        elevation: 5,
-                                                        backgroundColor: Colors.white,
-                                                        foregroundColor: Color(0xff1696C8),
-                                                        side: BorderSide(color: Color(0xff1696C8)),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        'Cancel',
-                                                        style: TransparentButtonTextConst.customTextStyle(context)
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: MediaQuery.of(context).size.width / 75),
-                                                    ElevatedButton(
-                                                      onPressed: () async {
-                                                        await approveOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                                                        getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
-                                                          qualificationempStreamController.add(data);
-                                                        }).catchError((error) {});
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor: Color(0xff1696C8),
-                                                        foregroundColor: Colors.white,
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        'Yes',
-                                                        style:BlueButtonTextConst.customTextStyle(context),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Text(
+                                                'Yes',
+                                                style:BlueButtonTextConst.customTextStyle(context),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                  ),
+                  ],
                 ),
-              );
+                title: 'Employment #${index + 1}',));
             }),
           );
         } else if (snapshot.hasError) {
@@ -424,3 +442,288 @@ class InfoData extends StatelessWidget {
     );
   }
 }
+// Column(
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   crossAxisAlignment: CrossAxisAlignment.start,
+//   children: [
+//     Text(
+//       'Employment #${index + 1}',
+//       // 'Employment #${snapshot.data![index].employmentId}',
+//       style: OnboardFlowContainerHeading.customTextStyle(context),
+//     ),
+//     //SizedBox(height: 10),
+//     Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         const Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             InfoText('Final Position Title'),
+//             InfoText('Start Date'),
+//             InfoText('End Date'),
+//             InfoText('Employer'),
+//           ],
+//         ),
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             InfoData(snapshot.data![index].title),
+//             InfoData(snapshot.data![index].dateOfJoin),
+//             InfoData(snapshot.data![index].endDate),
+//             InfoData(snapshot.data![index].employer),
+//           ],
+//         ),
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             InfoText('Reason of Leaving'),
+//             InfoText('Last Supervisor’s Name'),
+//             InfoText('Supervisor’s Phone No.'),
+//             InfoText('City'),
+//           ],
+//         ),
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             InfoData(snapshot.data![index].reason),
+//             InfoData(snapshot.data![index].supervisor),
+//             InfoData(snapshot.data![index].supMobile),
+//             InfoData(snapshot.data![index].city),
+//           ],
+//         ),
+//       ],
+//     ),
+//     Row(
+//       mainAxisAlignment: MainAxisAlignment.end,
+//       children: [
+//         QualificationActionButtons(
+//           approve: snapshot.data![index].approve,
+//           onRejectPressed: () async {
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) {
+//                 return Dialog(
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(20.0),
+//                     ),
+//                     height: 181.0,
+//                     width: 500.0,
+//                     child: Stack(
+//                       children: <Widget>[
+//                         Container(
+//                           decoration: BoxDecoration(
+//                             color: ColorManager.bluebottom,
+//                             borderRadius: BorderRadius.only(
+//                               topLeft: Radius.circular(8),
+//                               topRight: Radius.circular(8),
+//                             ),
+//                           ),
+//                           height: 35,
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Padding(
+//                                 padding: const EdgeInsets.only(left: 10.0),
+//                                 child: Text(
+//                                   'Reject',
+//                                   style: PopupBlueBarText.customTextStyle(context)
+//                                 ),
+//                               ),
+//                               IconButton(
+//                                 onPressed: () {
+//                                   Navigator.pop(context);
+//                                 },
+//                                 icon: Icon(Icons.close, color: ColorManager.white),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                         Align(
+//                           alignment: Alignment.centerLeft,
+//                           child: Padding(
+//                             padding: const EdgeInsets.only(left: 20.0),
+//                             child: Text(
+//                               "Do you really want to reject this?",
+//                               textAlign: TextAlign.center,
+//                               style: PopupTextConst.customTextStyle(context)
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+//                           child: Align(
+//                             alignment: Alignment.bottomRight,
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.end,
+//                               children: [
+//                                 ElevatedButton(
+//                                   onPressed: () {
+//                                     Navigator.of(context).pop();
+//                                   },
+//                                   style: ElevatedButton.styleFrom(
+//                                     elevation: 5,
+//                                     backgroundColor: Colors.white,
+//                                     foregroundColor: Color(0xff1696C8),
+//                                     side: BorderSide(color: Color(0xff1696C8)),
+//                                     shape: RoundedRectangleBorder(
+//                                       borderRadius: BorderRadius.circular(8),
+//                                     ),
+//                                   ),
+//                                   child: Text(
+//                                     'Cancel',
+//                                     style: TransparentButtonTextConst.customTextStyle(context)
+//                                   ),
+//                                 ),
+//                                 SizedBox(width: MediaQuery.of(context).size.width / 75),
+//                                 ElevatedButton(
+//                                   onPressed: () async {
+//                                     await rejectOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
+//                                     getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
+//                                       qualificationempStreamController.add(data);
+//                                     }).catchError((error) {});
+//                                     Navigator.of(context).pop();
+//                                   },
+//                                   style: ElevatedButton.styleFrom(
+//                                     backgroundColor: Color(0xff1696C8),
+//                                     foregroundColor: Colors.white,
+//                                     shape: RoundedRectangleBorder(
+//                                       borderRadius: BorderRadius.circular(8),
+//                                     ),
+//                                   ),
+//                                   child: Text(
+//                                     'Yes',
+//                                     style: BlueButtonTextConst.customTextStyle(context),
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 );
+//               },
+//             );
+//           },
+//           onApprovePressed: () async {
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) {
+//                 return Dialog(
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(20.0),
+//                     ),
+//                     height: 181.0,
+//                     width: 500.0,
+//                     child: Stack(
+//                       children: <Widget>[
+//                         Container(
+//                           decoration: BoxDecoration(
+//                             color: ColorManager.bluebottom,
+//                             borderRadius: BorderRadius.only(
+//                               topLeft: Radius.circular(8),
+//                               topRight: Radius.circular(8),
+//                             ),
+//                           ),
+//                           height: 35,
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Padding(
+//                                 padding: const EdgeInsets.only(left: 20.0),
+//                                 child: Text(
+//                                   'Approve',
+//                                   style: PopupBlueBarText.customTextStyle(context)
+//                                 ),
+//                               ),
+//                               IconButton(
+//                                 onPressed: () {
+//                                   Navigator.pop(context);
+//                                 },
+//                                 icon: Icon(Icons.close, color: ColorManager.white),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                         Align(
+//                           alignment: Alignment.centerLeft,
+//                           child: Padding(
+//                             padding: const EdgeInsets.only(left: 20.0),
+//                             child: Text(
+//                               "Do you really want to,approve this?",
+//                               textAlign: TextAlign.center,
+//                               style: PopupTextConst.customTextStyle(context)
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+//                           child: Align(
+//                             alignment: Alignment.bottomRight,
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.end,
+//                               children: [
+//                                 ElevatedButton(
+//                                   onPressed: () {
+//                                     Navigator.of(context).pop();
+//                                   },
+//                                   style: ElevatedButton.styleFrom(
+//                                     elevation: 5,
+//                                     backgroundColor: Colors.white,
+//                                     foregroundColor: Color(0xff1696C8),
+//                                     side: BorderSide(color: Color(0xff1696C8)),
+//                                     shape: RoundedRectangleBorder(
+//                                       borderRadius: BorderRadius.circular(8),
+//                                     ),
+//                                   ),
+//                                   child: Text(
+//                                     'Cancel',
+//                                     style: TransparentButtonTextConst.customTextStyle(context)
+//                                   ),
+//                                 ),
+//                                 SizedBox(width: MediaQuery.of(context).size.width / 75),
+//                                 ElevatedButton(
+//                                   onPressed: () async {
+//                                     await approveOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
+//                                     getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
+//                                       qualificationempStreamController.add(data);
+//                                     }).catchError((error) {});
+//                                     Navigator.of(context).pop();
+//                                   },
+//                                   style: ElevatedButton.styleFrom(
+//                                     backgroundColor: Color(0xff1696C8),
+//                                     foregroundColor: Colors.white,
+//                                     shape: RoundedRectangleBorder(
+//                                       borderRadius: BorderRadius.circular(8),
+//                                     ),
+//                                   ),
+//                                   child: Text(
+//                                     'Yes',
+//                                     style:BlueButtonTextConst.customTextStyle(context),
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 );
+//               },
+//             );
+//           },
+//         ),
+//       ],
+//     ),
+//   ],
+// ),
