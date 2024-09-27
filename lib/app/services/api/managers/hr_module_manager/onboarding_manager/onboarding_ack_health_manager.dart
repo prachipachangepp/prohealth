@@ -8,7 +8,7 @@ import '../../../repository/hr_module_repository/onboarding/onboarding_qualifica
 
 ///get ack health
 Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
-    int EmpDocTypeMetaDataId,int EmpDocTypeSetupId ,int employeeId, String approveOnly
+    int EmpDocTypeMetaDataId,int employeeId, String approveOnly
     ) async {
   List<OnboardingAckHealthData> itemsList = [];
   try {

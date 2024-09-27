@@ -85,7 +85,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
         child: Column(
           children: [
             Container(
-
+              height:AppSize.s50,
               decoration: BoxDecoration(
                 color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
@@ -98,7 +98,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 45),
+                    padding: EdgeInsets.only(left: 44),
                     child: Text(
                       widget.tite,
                         style: PopupHeadingStyle.customTextStyle(context)

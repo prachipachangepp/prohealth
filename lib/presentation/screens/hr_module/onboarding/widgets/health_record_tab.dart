@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
@@ -88,7 +89,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 1, 10, widget.employeeId, 'no');
+      var data = await getAckHealthRecord(context,AppConfig.healthDocId, widget.employeeId, 'no');
       data.sort((a, b) {
         if (a.approved == true && b.approved != true) {
           return -1;

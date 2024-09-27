@@ -264,7 +264,7 @@ class PopupHeadingStyle {
       fontSize: fontSize,
       color: Colors.white,
       decoration: TextDecoration.none,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }
