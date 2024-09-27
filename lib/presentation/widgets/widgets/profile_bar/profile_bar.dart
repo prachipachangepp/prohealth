@@ -246,7 +246,7 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ),
 
-                SizedBox(height: 3,),
+
 
 
                         ///
