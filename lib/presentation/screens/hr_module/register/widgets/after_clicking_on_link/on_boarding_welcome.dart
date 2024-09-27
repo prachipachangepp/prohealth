@@ -106,7 +106,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xff50B5E5),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 32, vertical: 16),
+                                horizontal: 32, vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -115,7 +115,7 @@ class OnBoardingWelcome extends StatelessWidget {
                             'Start',
                             style: TextStyle(
                                 fontSize: 17,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
                         ),
@@ -253,40 +253,44 @@ class OnBoardingCongratulation extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () async{
-                    OfferLetterData offerLetterData = await GetOfferLetter(context, employeeId, 1 );
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
-                    // );
-                    if(offerLetterData.statusCode == 409){
+                Container(
+                  width: 140,
+                  height: 35,
+                  child: ElevatedButton(
+                    onPressed: () async{
+                      OfferLetterData offerLetterData = await GetOfferLetter(context, employeeId, 1 );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
+                      // );
+                      if(offerLetterData.statusCode == 409){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
+                        );
+                      }else if(offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201){
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
-                      );
-                    }else if(offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                 OfferLetterDescriptionScreen(employeeId: employeeId)));
-                    }else{
-                      print("Something went wrong!");
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF50B5E5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                   OfferLetterDescriptionScreen(employeeId: employeeId)));
+                      }else{
+                        print("Something went wrong!");
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF50B5E5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

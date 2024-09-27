@@ -184,9 +184,12 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       ],
                     ),
                   ),
-                  IconButton(
+                  IconButton( splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     icon:
-                        const Icon(Icons.close, color: Colors.white, size: 16),
+                        const Icon(Icons.close, color: Colors.white,// size: 16
+                        ),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

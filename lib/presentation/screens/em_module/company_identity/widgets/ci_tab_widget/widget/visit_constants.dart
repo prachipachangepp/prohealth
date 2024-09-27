@@ -20,6 +20,7 @@ import '../../../../../../../data/api_data/establishment_data/all_from_hr/all_fr
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import '../../../../../../../data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import '../../../../widgets/dialogue_template.dart';
+import '../../whitelabelling/success_popup.dart';
 
 class EditVisitPopup extends StatefulWidget {
   final TextEditingController nameOfDocumentController;
@@ -378,6 +379,14 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                 isLoading = false;
               });
               Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Edit Successfully',
+                  );
+                },
+              );
               widget.idOfDocumentController.clear();
               widget.nameOfDocumentController.clear();
               editChipValues.clear();
@@ -1097,6 +1106,14 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       isLoading = false;
                     });
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Added Successfully',
+                        );
+                      },
+                    );
                     widget.idOfDocumentController.clear();
                     widget.nameOfDocumentController.clear();
                   }

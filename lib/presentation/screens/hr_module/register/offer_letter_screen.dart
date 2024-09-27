@@ -79,8 +79,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
   String _salary = "";
   String generatedURL = '';
-  List<ApiAddCovrageData> addCovrage = [];
-  List<int> zipCodes = [];
+   List<ApiAddCovrageData> addCovrage = [];
+
 
   final List<Map<String, String>> data = [
     {'zipCode': '10001', 'city': 'New York'},
@@ -206,7 +206,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   bool _isLoading = false;
   Map<String, bool> checkedZipCodes = {};
   Map<String, bool> checkedCityName = {};
-  List<String> selectedZipCodes = [];
+  //List<String> selectedZipCodes = [];
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
   String selectedCityString = '';
@@ -1116,11 +1116,37 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
                   ElevatedButton(
-                    onPressed: ()  {
-                       addCovrage.add(ApiAddCovrageData(city: "", countyId: selectedCountyId, zoneId: selectedZoneId,
-                          zipCodes: zipCodes));
-                       print("Added covrage ${addCovrage}");
-                      // await _generateUrlLink(widget.email, widget.userId.toString());
+                    onPressed: ()  async{
+                      for (var key in containerKeys){
+                        final st = key.currentState!;
+
+                        print('County ID: ${st.selectedCountyId}');
+                        print('Zone ID:::::::::=>> ${st.docZoneId}');
+                        print('Zip Codes: ${st.selectedZipCodes}');
+addCovrage.add(await ApiAddCovrageData(city: '',
+    countyId:st.selectedCountyId ,
+    zoneId: st.docZoneId,
+    zipCodes:st.selectedZipCodes
+
+));
+
+                      }
+
+
+
+
+                      // addCovrage.add(
+                      //
+                      //    await ApiAddCovrageData(
+                      //      city: "",
+                      //      countyId: selectedCountyId,
+                      //      zoneId: selectedZoneId,
+                      //     zipCodes: zipCodes
+                      //  ),
+                      //
+                      //  );
+                      print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
+                      await _generateUrlLink(widget.email, widget.userId.toString());
 
 
                       // print("Widget employeeId ${widget.apiData!.employeeId!}");
@@ -1137,8 +1163,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               //   _isLoading = true;
                               // });
                               print('selected county id : ${selectedCountyId}');
-                              print('selected zone id : ${selectedZoneId}');
-                              print('selected zipCode : ${selectedZipCodes}');
+                             //  print('selected zone id : ${st.docZoneId}');
+                             // print('selected zipCode : ${st.selectedZipCodes}');
                               print('selected city : ${selectedCityName}');
                               print('Salari ${_salary}');
                               print('Salari Type ${dropdownValue}');
@@ -1337,14 +1363,14 @@ class _DynamciContainerState extends State<DynamciContainer> {
   bool _isLoading = false;
   Map<String, bool> checkedZipCodes = {};
   Map<String, bool> checkedCityName = {};
-  List<String> selectedZipCodes = [];
+  List<int> selectedZipCodes = [];
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
   String selectedCityString = '';
   List<DropdownMenuItem<String>> dropDownList = [];
   int countyId = 0;
   final StreamController<List<ZipcodeByCountyIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdData>>.broadcast();
-
+  List<int> zipCodes = [];
 
 
 
@@ -1355,6 +1381,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
   String? selectedZipCodeZone;
 
   int docZoneId = 0;
+  List<ApiAddCovrageData> addCovrage = [];
 
   @override
   Widget build(BuildContext context) {
@@ -1588,7 +1615,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                             color: Color(0xff686464),
                                           ),
                                           decoration: const InputDecoration.collapsed(hintText: ''),
-                                          items: dropDownList,
+                                          items: dropDownTypesList,
                                           onChanged: (newValue) {
                                             setState(() {
                                               for (var a
@@ -1748,23 +1775,25 @@ class _DynamciContainerState extends State<DynamciContainer> {
               ///old code tabbar
               Expanded(
                 child: DefaultTabController(
-                  length: 2,
+                  length: 1,
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 180.0, right: 180.0),
-                        child: TabBar(
-
-                          indicatorColor: const Color(0xff1696C8),
-                          labelColor: const Color(0xff686464),
-                          unselectedLabelColor: const Color(0xff686464),
-                          labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                          unselectedLabelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                          tabs: const [
-                            Tab(text: 'Zip Codes'),
-                            // Tab(text: 'Cities'),
-                          ],
+                        child: AbsorbPointer(
+                          child: TabBar(
+                          
+                            indicatorColor: const Color(0xff1696C8),
+                            labelColor: const Color(0xff686464),
+                            unselectedLabelColor: const Color(0xff686464),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            unselectedLabelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            tabs: [
+                              Tab(text: 'Zip Codes'),
+                              // Tab(text: 'Cities'),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
@@ -1810,9 +1839,9 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                                   print('Clicked check box 1');
                                                   checkedZipCodes[zipCode] = val ?? false;
                                                   if (val == true) {
-                                                    selectedZipCodes.add(zipCode);
+                                                    selectedZipCodes.add(int.parse(zipCode));
                                                   } else {
-                                                    selectedZipCodes.remove(zipCode);
+                                                    selectedZipCodes.remove(int.parse(zipCode));
                                                   }
                                                   // Update the string representation
                                                   selectedZipCodesString = selectedZipCodes.join(', ');
