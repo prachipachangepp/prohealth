@@ -242,7 +242,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                             context: context,
                                                             builder: (BuildContext context) {
                                                               return CountySuccessPopup(
-                                                                message: 'Save Successfully',
+                                                                message: 'Edit Successfully',
                                                               );
                                                             },
                                                           );
