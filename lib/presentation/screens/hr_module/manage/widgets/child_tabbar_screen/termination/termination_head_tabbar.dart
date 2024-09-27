@@ -32,9 +32,9 @@ class TerminationHeadTabbar extends StatefulWidget {
 
 class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
   @override
-  void initState() async{
+  void initState() {
     // TODO: implement initState
-   listData=  await getTermination(context);
+
     super.initState();
   }
   List<TerminationData> listData = [];
@@ -43,55 +43,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        children: [
-        listData.isEmpty?Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.25),
-                      //spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                padding: EdgeInsets.only(right: 20),
-                child: CustomIconButtonConst(
-                    width: 110,
-                    text: "Terminate",
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) =>
-                              FutureBuilder<TerminateEmployeePrefillData>(
-                                future:getTerminationEmployeePerfill(context: context, employeeId: widget.employeeId) ,
-                                builder: (context,snapshotPrefill) {
-                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                  }
-                                  if(snapshotPrefill.hasData){
-                                    return TerminatePopup(employeeId: widget.employeeId, preFillData: snapshotPrefill.data!,);
-                                  }else{
-                                    return SizedBox();
-                                  }
-
-                                }
-                              ));
-                    }
-                    ),
-              ),
-            ],
-          ):Offstage(),
-          SizedBox(
-            height: 20,
-          ),
-          StreamBuilder<List<TerminationData>>(
+    return StreamBuilder<List<TerminationData>>(
               stream: terminationStremController.stream,
               builder: (context, snapshot) {
                 getTermination(context).then((data) {
@@ -123,287 +75,335 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                       ));
                 }
                 if (snapshot.hasData) {
-                  return SingleChildScrollView(
-                    child: WrapWidget(
-                        childern: List.generate(snapshot.data!.length, (index) {
-                      var termination = snapshot.data![index];
-                      return
-                        Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 20),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 2.3,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 4,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                            color: ColorManager.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12)),
-                          ),
-                          height: MediaQuery.of(context).size.height / 2.5,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: MediaQuery.of(context).size.width / 120,
-                              vertical: MediaQuery.of(context).size.height / 120,
+                  return Column(
+                    children: [
+                      snapshot.data!.isEmpty?Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            // width: 100,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.25),
+                                  //spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 5),
+                                ),
+                              ],
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Employee #${termination.userId}',
-                                style: BoxHeadingStyle.customTextStyle(context)
-                                    ),
-                                  ],
+                            padding: EdgeInsets.only(right: 20),
+                            child: CustomIconButtonConst(
+                                width: 110,
+                                text: "Terminate",
+                                icon: Icons.add,
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          FutureBuilder<TerminateEmployeePrefillData>(
+                                              future:getTerminationEmployeePerfill(context: context, employeeId: widget.employeeId) ,
+                                              builder: (context,snapshotPrefill) {
+                                                if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                }
+                                                if(snapshotPrefill.hasData){
+                                                  return TerminatePopup(employeeId: widget.employeeId, preFillData: snapshotPrefill.data!,);
+                                                }else{
+                                                  return SizedBox();
+                                                }
+
+                                              }
+                                          ));
+                                }
+                            ),
+                          ),
+                        ],
+                      ):Offstage(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SingleChildScrollView(
+                        child: WrapWidget(
+                            childern: List.generate(snapshot.data!.length, (index) {
+                          var termination = snapshot.data![index];
+                          return
+                            Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 20),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2.3,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                                color: ColorManager.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(12)),
+                              ),
+                              height: MediaQuery.of(context).size.height / 2.5,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: MediaQuery.of(context).size.width / 120,
+                                  vertical: MediaQuery.of(context).size.height / 120,
                                 ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height / 50,
-                                ),
-                                Row(
-                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(AppString.name,
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Date of Termination',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Date of Resignation',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Date of Hire',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(AppString.status,
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(AppString.save,
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Phone No.',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Rehirable',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Final Address',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                          ],
-                                        ),
-                                        const SizedBox(width: AppSize.s25),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${termination.firstName} " +
-                                                  "${termination.lastName}",
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.dateOfTermination,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.dateOfResignation,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.checkDate,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.status,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.service,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.primaryPhoneNo,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.rehirable,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.finalAddress,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                          ],
+                                        Text(
+                                          'Employee #${termination.userId}',
+                                    style: BoxHeadingStyle.customTextStyle(context)
                                         ),
                                       ],
                                     ),
                                     SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 10,
+                                      height: MediaQuery.of(context).size.height / 50,
                                     ),
                                     Row(
+                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                        Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(AppString.type,
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Reason',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Final Paycheck',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(AppString.date,
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Gross Pay',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Net Pay',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Methods',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('Materials',
-                                                style:
-                                                    ThemeManager.customTextStyle(
-                                                        context)),
-                                          ],
-                                        ),
-                                        const SizedBox(width: AppSize.s25),
-                                        Column(
+                                              MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              termination.type,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(AppString.name,
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Date of Termination',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Date of Resignation',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Date of Hire',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(AppString.status,
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(AppString.save,
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Phone No.',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Rehirable',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Final Address',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                              ],
                                             ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              termination.reson,
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
+                                            const SizedBox(width: AppSize.s25),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "${termination.firstName} " +
+                                                      "${termination.lastName}",
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.dateOfTermination,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.dateOfResignation,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.checkDate,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.status,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.service,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.primaryPhoneNo,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.rehirable,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.finalAddress,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                              ],
                                             ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text('\$${termination.finalPayCheck}',
-                                                style: ThemeManagerDark
-                                                    .customTextStyle(context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(termination.checkDate,
-                                                style: ThemeManagerDark
-                                                    .customTextStyle(context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              '\$${termination.grossPay}',
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(
-                                              '\$${termination.netPay}',
-                                              style: ThemeManagerDark
-                                                  .customTextStyle(context),
-                                            ),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(termination.methods,
-                                                style: ThemeManagerDark
-                                                    .customTextStyle(context)),
-                                            const SizedBox(height: AppSize.s10),
-                                            Text(termination.materials,
-                                                style: ThemeManagerDark
-                                                    .customTextStyle(context)),
                                           ],
                                         ),
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width / 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(AppString.type,
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Reason',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Final Paycheck',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(AppString.date,
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Gross Pay',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Net Pay',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Methods',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('Materials',
+                                                    style:
+                                                        ThemeManager.customTextStyle(
+                                                            context)),
+                                              ],
+                                            ),
+                                            const SizedBox(width: AppSize.s25),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  termination.type,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  termination.reson,
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text('\$${termination.finalPayCheck}',
+                                                    style: ThemeManagerDark
+                                                        .customTextStyle(context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(termination.checkDate,
+                                                    style: ThemeManagerDark
+                                                        .customTextStyle(context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  '\$${termination.grossPay}',
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(
+                                                  '\$${termination.netPay}',
+                                                  style: ThemeManagerDark
+                                                      .customTextStyle(context),
+                                                ),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(termination.methods,
+                                                    style: ThemeManagerDark
+                                                        .customTextStyle(context)),
+                                                const SizedBox(height: AppSize.s10),
+                                                Text(termination.materials,
+                                                    style: ThemeManagerDark
+                                                        .customTextStyle(context)),
+                                              ],
+                                            ),
+                                          ],
+                                        )
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    })),
+                          );
+                        })),
+                      ),
+                    ],
                   );
                 }
                 return const SizedBox();
-              }),
-        ],
+              });
 
-    );
   }
 }
 class TerminatePopup extends StatefulWidget {
