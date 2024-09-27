@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import 'color.dart';
 
@@ -41,6 +42,15 @@ class ThemeManagerDark {
       fontSize: fontSize,
       color: ColorManager.black,
       fontWeight: FontWeight.w600,
+    );
+  }
+}
+class ThemeManagerAddressPB {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: AppSize.s12,
+      color: ColorManager.primary,
+      fontWeight: FontWeight.w700,
     );
   }
 }

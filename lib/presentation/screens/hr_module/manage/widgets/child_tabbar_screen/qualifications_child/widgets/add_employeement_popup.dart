@@ -74,28 +74,31 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width / 1.5,
-        height: MediaQuery.of(context).size.height / 1.6,
+        height:460,
+        width: 900,
+        // width: MediaQuery.of(context).size.width / 1.5,
+        // height: MediaQuery.of(context).size.height / 1.6,
         decoration: BoxDecoration(
           color: ColorManager.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
             Container(
-              height: AppSize.s34,
+
               decoration: BoxDecoration(
                 color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 50.0),
+                    padding: EdgeInsets.only(left: 45),
                     child: Text(
                       widget.tite,
                         style: PopupHeadingStyle.customTextStyle(context)
@@ -106,6 +109,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                       Navigator.pop(context);
                       _clearControllers();
                     },
+
                     icon: Icon(
                         Icons.close,
                         color: IconColorManager.white
@@ -114,113 +118,125 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTextField(
-                  capitalIsSelect: true,
-                  controller: widget.positionTitleController,
-                  labelText: "Final Position Title",
-                  errorKey: 'positionTitle',
-                ),
-                _buildTextField(
-                  capitalIsSelect: true,
-                  controller: widget.leavingResonController,
-                  labelText: "Reason For Leaving",
-                  errorKey: 'leavingReason',
-                ),
-                _buildTextField(
-                  capitalIsSelect: false,
-                  controller: widget.startDateContoller,
-                  labelText: "Start Date",
-                  errorKey: 'startDate',
-                  suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                  onTap: () => _selectDate(widget.startDateContoller, _selectedStartDate),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTextField(
-                  capitalIsSelect: false,
-                  controller: widget.endDateController,
-                  labelText: "End Date",
-                  errorKey: 'endDate',
-                  suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                  onTap: () => _selectDate(widget.endDateController, _selectedEndDate),
-                ),
-                _buildTextField(
-                  capitalIsSelect: true,
-                  controller: widget.lastSupervisorNameController,
-                  labelText: "Last Supervisor's Name",
-                  errorKey: 'lastSupervisorName',
-                ),
-                _buildTextField(
-                  capitalIsSelect: false,
-                  controller: widget.supervisorMobileNumber,
-                  labelText: "Supervisor's Mobile Number",
-                  errorKey: 'supervisorMobileNumber',
-                ),
-              ],
-            ),
+            //SizedBox(height: MediaQuery.of(context).size.height / 30),
+
+Padding(
+  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildTextField(
+            capitalIsSelect: true,
+            controller: widget.positionTitleController,
+            labelText: "Final Position Title",
+            errorKey: 'positionTitle',
+          ),
+          _buildTextField(
+            capitalIsSelect: true,
+            controller: widget.leavingResonController,
+            labelText: "Reason For Leaving",
+            errorKey: 'leavingReason',
+          ),
+          _buildTextField(
+            capitalIsSelect: false,
+            controller: widget.startDateContoller,
+            labelText: "Start Date",
+            errorKey: 'startDate',
+            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+            onTap: () => _selectDate(widget.startDateContoller, _selectedStartDate),
+          ),
+        ],
+      ),
+      // SizedBox(height: MediaQuery.of(context).size.height / 30),
+      SizedBox(height: AppSize.s20),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildTextField(
+            capitalIsSelect: false,
+            controller: widget.endDateController,
+            labelText: "End Date",
+            errorKey: 'endDate',
+            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+            onTap: () => _selectDate(widget.endDateController, _selectedEndDate),
+          ),
+          _buildTextField(
+            capitalIsSelect: true,
+            controller: widget.lastSupervisorNameController,
+            labelText: "Last Supervisor's Name",
+            errorKey: 'lastSupervisorName',
+          ),
+          _buildTextField(
+            capitalIsSelect: false,
+            controller: widget.supervisorMobileNumber,
+            labelText: "Supervisor's Mobile Number",
+            errorKey: 'supervisorMobileNumber',
+          ),
+        ],
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 30.0, top: 10, bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            widget.checkBoxTile,
+          ],
+        ),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildTextField(
+            capitalIsSelect: true,
+            controller: widget.cityNameController,
+            labelText: AppString.city,
+            errorKey: 'cityName',
+          ),
+          _buildTextField(
+            capitalIsSelect: true,
+            controller: widget.employeerController,
+            labelText: "Employer",
+            errorKey: 'employer',
+          ),
+          _buildTextField(
+            capitalIsSelect: false,
+            controller: widget.emergencyMobileNumber,
+            labelText: "Emergency Mobile Number",
+            errorKey: 'emergencyMobileNumber',
+          ),
+        ],
+      ),
+      SizedBox(height: AppSize.s20),
+      // SizedBox(height: MediaQuery.of(context).size.height / 30),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildTextField(
+            capitalIsSelect: true,
+            controller: widget.countryController,
+            labelText: "Country Name",
+            errorKey: 'countryname',
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 6,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 6,
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+            SizedBox(height: AppSize.s15),
+
             Padding(
-              padding: EdgeInsets.only(left: 30.0, top: 10, bottom: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  widget.checkBoxTile,
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTextField(
-                  capitalIsSelect: true,
-                  controller: widget.cityNameController,
-                  labelText: AppString.city,
-                  errorKey: 'cityName',
-                ),
-                _buildTextField(
-                  capitalIsSelect: true,
-                  controller: widget.employeerController,
-                  labelText: "Employer",
-                  errorKey: 'employer',
-                ),
-                _buildTextField(
-                  capitalIsSelect: false,
-                  controller: widget.emergencyMobileNumber,
-                  labelText: "Emergency Mobile Number",
-                  errorKey: 'emergencyMobileNumber',
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTextField(
-                  capitalIsSelect: true,
-                  controller: widget.countryController,
-                  labelText: "Country Name",
-                  errorKey: 'countryname',
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 6,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 6,
-                ),
-              ],
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButtonTransparent(
                     text: AppString.cancel,
@@ -269,7 +285,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           controller: controller,
           labelText: labelText,
           keyboardType: TextInputType.text, // Ensure the keyboard type is text except for phone fields
-          padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+          padding: const EdgeInsets.only(bottom: AppPadding.p5, left: 10),
           suffixIcon: suffixIcon,
           onTap: onTap,
           onChanged: (value) {
@@ -290,7 +306,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             padding: const EdgeInsets.only(top: 5.0),
             child: Text(
               'Please fill this field',
-              style: TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: Colors.red, fontSize: 10),
             ),
           ),
       ],

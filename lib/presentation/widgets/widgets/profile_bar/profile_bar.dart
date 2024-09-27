@@ -20,6 +20,7 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 
  typedef EditCallback = void Function();
@@ -137,17 +138,16 @@ class _ProfileBarState extends State<ProfileBar> {
   }
 
   String maskString(String input, int visibleDigits) {
-    // Calculate the number of characters to mask
+
     int maskLength = input.length - visibleDigits;
 
-    // Check if the input length is greater than the number of visible digits
     if (maskLength > 0) {
-      // Create a string of asterisks of the same length as maskLength
+
       String masked = '*' * maskLength;
-      // Append the last 'visibleDigits' number of characters
+
       return masked + input.substring(maskLength);
     } else {
-      // If the input length is less than or equal to visibleDigits, return the input as is
+
       return input;
     }
   }
@@ -162,7 +162,7 @@ class _ProfileBarState extends State<ProfileBar> {
           elevation: 4,
           child: Container(
               height: MediaQuery.of(context).size.height / 4,
-              width: AppSize.s50,
+              width: AppSize.s70,
               decoration: BoxDecoration(
                 color: ColorManager.greenF,
               ),
@@ -216,6 +216,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             children: [
                               widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
                                   widget.searchByEmployeeIdProfileData!.imgurl == null ?
+
                               Icon(
                                 Icons.person,
                                 color: ColorManager.white,
@@ -225,6 +226,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                 imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
                                 placeholder: (context, url) => new CircularProgressIndicator(),
                                 errorWidget: (context, url, error) => new Icon(Icons.error),
+                                width: AppSize.s70,
+                                height: AppSize.s70,
                               ),
                               // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
                               //     height: AppSize.s50, width: AppSize.s50),
@@ -251,8 +254,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         FutureBuilder<ProfilePercentage>(
                             future: getPercentage(
                                 context,
-                                widget.searchByEmployeeIdProfileData!
-                                    .employeeId!),
+                                widget.searchByEmployeeIdProfileData!.employeeId!),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -290,7 +292,7 @@ class _ProfileBarState extends State<ProfileBar> {
                           // ),
                           IconButton(
                             onPressed: widget.onEditPressed,
-                            icon: Icon(Icons.edit_outlined, size: 14),
+                            icon: Icon(Icons.edit_outlined, size: 14, color: IconColorManager.bluebottom,),
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             hoverColor: Colors.transparent,
@@ -313,18 +315,7 @@ class _ProfileBarState extends State<ProfileBar> {
                            ),
                          ),
                       ),
-                      // Row(children: [
-                      //   Text(
-                      //       'Employement Type :',
-                      //       style: ProfileBarTextBoldStyle.customEditTextStyle()),
-                      //   SizedBox(
-                      //     width: 20,
-                      //   ),
-                      //   Text(
-                      //     widget.searchByEmployeeIdProfileData!.employment,
-                      //     style: ThemeManagerDark.customTextStyle(context),
-                      //   ),
-                      // ]),
+
                       Row(
                         children: [
                           Text(
@@ -352,13 +343,10 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                       Text(widget.searchByEmployeeIdProfileData!.finalAddress,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: AppSize.s12,
-                            color: ColorManager.primary,
-                            fontWeight: FontWeightManager.semiBold,
-                          )),
+                          style: ThemeManagerAddressPB.customTextStyle(context)),
                     ],
                   ),
+
                   SizedBox(
                     width: 40,
                   ),
@@ -381,6 +369,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp})",
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
+
                           Text(
                             widget.searchByEmployeeIdProfileData!.gender,
                             style: ThemeManagerDark.customTextStyle(context),
@@ -395,10 +384,12 @@ class _ProfileBarState extends State<ProfileBar> {
                             phoneNo: widget
                                 .searchByEmployeeIdProfileData!.primaryPhoneNbr,
                           ),
+
                           ProfileBarPhoneCmtConst(
                             phoneNo: widget.searchByEmployeeIdProfileData!
                                 .secondryPhoneNbr,
                           ),
+
                           ProfileBarPhoneCmtConst(
                             phoneNo: widget
                                 .searchByEmployeeIdProfileData!.workPhoneNbr,
@@ -410,292 +401,63 @@ class _ProfileBarState extends State<ProfileBar> {
                   SizedBox(
                     width: 40,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                  Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: MyConstantsColumn.personalInfoTexts(context),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: MyConstantsColumn.personalInfoTexts(context),
+                        ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width/90,),
+                      SizedBox(width: 20),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.searchByEmployeeIdProfileData!.personalEmail,
-                              style: ProfileBarConst.profileTextStyle(context)),
+                          // InkWell(
+                          //   child: Text(widget.searchByEmployeeIdProfileData!.personalEmail,
+                          //       style: ProfileBarConst.profileTextStyle(context)),
+                          //   onTap: () async {
+                          //
+                          //   },
+                          // ),
+                          InkWell(
+                            child: Text(
+                              widget.searchByEmployeeIdProfileData!.personalEmail ?? 'No email provided',
+                              style: ProfileBarConst.profileTextStyle(context),  // Ensure the ProfileBarConst is defined elsewhere
+                            ),
+                            onTap: () async {
+                              String? email = widget.searchByEmployeeIdProfileData!.personalEmail;
+
+                              // Check if the email is not null or empty
+                              if (email != null && email.isNotEmpty) {
+                                // Create a mailto Uri with the email address
+                                final Uri emailUri = Uri(
+                                  scheme: 'mailto',
+                                  path: email,
+                                  queryParameters: {
+                                    'subject': 'Hello!',
+                                    'body': 'I would like to reach out to you.',
+                                  },
+                                );
+
+                                // Launch the email client
+                                if (await canLaunchUrl(emailUri)) {
+                                  await launchUrl(emailUri);
+                                } else {
+                                  print('Could not launch $emailUri');
+                                }
+                              }
+                            },
+                          ),
+
                           Text(
                               widget
                                   .searchByEmployeeIdProfileData!.workEmail,
                               style: ProfileBarConst.profileTextStyle(context)),
-                          Row(
-                            children: [
-                              Text(
-                                widget.searchByEmployeeIdProfileData!.zone,
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
-                              ),
-                              SizedBox(width: 15,),
-                              widget.searchByEmployeeIdProfileData!.zone == "--"? Offstage():Container(
-                                height: 13,
-                                // MediaQuery.of(context).size.height / 38,
-                                width: 70,
-                                // MediaQuery.of(context).size.width / 16,
-                                margin: EdgeInsets.only(right: AppSize.s40),
-                                child: ElevatedButton(
 
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return ExpiredLicensePopup(
-                                              title: 'Zones',
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  vertical: AppPadding.p2,
-                                                  horizontal: AppPadding.p20,
-                                                ),
-                                                child: ScrollConfiguration(
-                                                  behavior: ScrollBehavior()
-                                                      .copyWith(
-                                                          scrollbars: false),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Container(
-                                                          height: 28,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.grey,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12),
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        15),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceAround,
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                      'Zn No.',
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        decoration:
-                                                                            TextDecoration.none,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                                Expanded(
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                        'Name Of Zone',
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .start,
-                                                                        style: GoogleFonts
-                                                                            .firaSans(
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          decoration:
-                                                                              TextDecoration.none,
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                        'Action',
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .start,
-                                                                        style: GoogleFonts
-                                                                            .firaSans(
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          decoration:
-                                                                              TextDecoration.none,
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              2,
-                                                          child:
-                                                              ListView.builder(
-                                                                  scrollDirection:
-                                                                      Axis
-                                                                          .vertical,
-                                                                  itemCount: 10,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    int serialNumber = index +
-                                                                        1 +
-                                                                        (currentPage -
-                                                                                1) *
-                                                                            itemsPerPage;
-                                                                    String formattedSerialNumber = serialNumber
-                                                                        .toString()
-                                                                        .padLeft(
-                                                                            2,
-                                                                            '0');
-                                                                    return Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        // SizedBox(height: 5),
-                                                                        Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              4.0),
-                                                                          child: Container(
-                                                                              decoration: BoxDecoration(
-                                                                                color: Colors.white,
-                                                                                borderRadius: BorderRadius.circular(4),
-                                                                                boxShadow: [
-                                                                                  BoxShadow(
-                                                                                    color: const Color(0xff000000).withOpacity(0.25),
-                                                                                    spreadRadius: 0,
-                                                                                    blurRadius: 4,
-                                                                                    offset: const Offset(0, 2),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              height: 50,
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                child: Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                          formattedSerialNumber,
-                                                                                          // formattedSerialNumber,
-                                                                                          style: GoogleFonts.firaSans(
-                                                                                            fontSize: 10,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            color: const Color(0xff686464),
-                                                                                            decoration: TextDecoration.none,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    // Text(''),
-                                                                                    Expanded(
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                          'ProHealth San Jose',
-                                                                                          style: GoogleFonts.firaSans(
-                                                                                            fontSize: 10,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            color: const Color(0xff686464),
-                                                                                            decoration: TextDecoration.none,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Expanded(
-                                                                                      child: Center(
-                                                                                        child: BorderIconButton(
-                                                                                          iconData: Icons.remove_red_eye_outlined,
-                                                                                          buttonText: 'View',
-                                                                                          onPressed: () async {
-                                                                                            const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
-                                                                                            if (await canLaunchUrlString(googleMapsUrl)) {
-                                                                                              await launchUrlString(googleMapsUrl);
-                                                                                            } else {
-                                                                                              print('Could not open the map.');
-                                                                                            }
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              )),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ));
-                                        });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 4,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AppSize.s15,
-                                        vertical: AppSize.s10),
-                                    backgroundColor: ColorManager.blueprime,
-                                    shadowColor:
-                                        ColorManager.grey.withOpacity(0.3),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    AppString.viewzone,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s8,
-                                        fontWeight: FontWeightManager.regular,
-                                        color: ColorManager.white,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: ColorManager.white),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                           Text(
                             widget.searchByEmployeeIdProfileData!.employment,
                             style: ThemeManagerDark.customTextStyle(context),
@@ -712,6 +474,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             AppString.na,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
+                          // Text(""),
                         ],
                       ),
                     ],
@@ -721,12 +484,14 @@ class _ProfileBarState extends State<ProfileBar> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -745,12 +510,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp})",
-                                      style: ThemeManagerDark.customTextStyle(
-                                          context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   SizedBox(height: 10,),
-                                  Text('1.2',
-                                      style: ThemeManagerDark.customTextStyle(
-                                          context)),
+                                  Text('1.2', style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               )
                             ]),
@@ -810,19 +572,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                               child: Center(
                                                                 child: Text(
                                                                   'Sr No.',
-                                                                  style: GoogleFonts
-                                                                      .firaSans(
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                  ),
+                                                                    style:ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                 ),
                                                               ),
                                                             ),
@@ -834,19 +584,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     textAlign:
                                                                         TextAlign
                                                                             .start,
-                                                                    style: GoogleFonts
-                                                                        .firaSans(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .none,
-                                                                    )),
+                                                                    style:ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                               ),
                                                             ),
                                                             Expanded(
@@ -856,19 +594,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     textAlign:
                                                                         TextAlign
                                                                             .start,
-                                                                    style: GoogleFonts
-                                                                        .firaSans(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .none,
-                                                                    )),
+                                                                    style:ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                               ),
                                                             ),
                                                           ],
@@ -878,11 +604,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    FutureBuilder<
-                                                            Map<
-                                                                String,
-                                                                List<
-                                                                    LicensesData>>>(
+                                                    FutureBuilder<Map<String, List<LicensesData>>>(
                                                         future: getLicenseStatusWise(
                                                             context,
                                                             widget
@@ -922,9 +644,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                 AppString
                                                                     .dataNotFound,
                                                                 style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight:
-                                                                        FontWeightManager
-                                                                            .medium,
+                                                                    fontWeight: FontWeight.w400,
                                                                     fontSize:
                                                                         FontSize
                                                                             .s12,
@@ -999,12 +719,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                             child: Text(
                                                                                               formattedSerialNumber,
                                                                                               // formattedSerialNumber,
-                                                                                              style: GoogleFonts.firaSans(
-                                                                                                fontSize: 10,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                color: const Color(0xff686464),
-                                                                                                decoration: TextDecoration.none,
-                                                                                              ),
+                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -1013,12 +728,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                           child: Center(
                                                                                             child: Text(
                                                                                               expiredLicenses[index].org,
-                                                                                              style: GoogleFonts.firaSans(
-                                                                                                fontSize: 10,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                color: const Color(0xff686464),
-                                                                                                decoration: TextDecoration.none,
-                                                                                              ),
+                                                                                                style: ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -1026,14 +736,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                           child: Center(
                                                                                             child: Text(
                                                                                               expiredLicenses[index].issueDate,
-                                                                                              style: GoogleFonts.firaSans(
-                                                                                                fontSize: 10,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                color: const Color(0xff686464),
-                                                                                                decoration: TextDecoration.none,
+                                                                                                style: ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
-                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1108,19 +813,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                 child: Center(
                                                                   child: Text(
                                                                     'Sr No.',
-                                                                    style: GoogleFonts
-                                                                        .firaSans(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .none,
-                                                                    ),
+                                                                    style:ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                   ),
                                                                 ),
                                                               ),
@@ -1132,17 +825,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       textAlign:
                                                                           TextAlign
                                                                               .start,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        decoration:
-                                                                            TextDecoration.none,
-                                                                      )),
+                                                                      style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                 ),
                                                               ),
                                                               Expanded(
@@ -1152,17 +835,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       textAlign:
                                                                           TextAlign
                                                                               .start,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        decoration:
-                                                                            TextDecoration.none,
-                                                                      )),
+                                                                      style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                 ),
                                                               ),
                                                             ],
@@ -1217,9 +890,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                   AppString
                                                                       .dataNotFound,
                                                                   style: CustomTextStylesCommon.commonStyle(
-                                                                      fontWeight:
-                                                                          FontWeightManager
-                                                                              .medium,
+                                                                      fontWeight:FontWeight.w500,
                                                                       fontSize:
                                                                           FontSize
                                                                               .s12,
@@ -1288,12 +959,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                               child: Text(
                                                                                                 formattedSerialNumber,
                                                                                                 // formattedSerialNumber,
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 10,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: const Color(0xff686464),
-                                                                                                  decoration: TextDecoration.none,
-                                                                                                ),
+                                                                                                style:AboutExpiredLStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1302,12 +968,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                             child: Center(
                                                                                               child: Text(
                                                                                                 aboutToExpiredLicenses[index].org,
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 10,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: const Color(0xff686464),
-                                                                                                  decoration: TextDecoration.none,
-                                                                                                ),
+                                                                                                style: AboutExpiredLStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1315,12 +976,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                             child: Center(
                                                                                               child: Text(
                                                                                                 aboutToExpiredLicenses[index].issueDate,
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 10,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: const Color(0xff686464),
-                                                                                                  decoration: TextDecoration.none,
-                                                                                                ),
+                                                                                                style: AboutExpiredLStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1396,19 +1052,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                 child: Center(
                                                                   child: Text(
                                                                     'Sr No.',
-                                                                    style: GoogleFonts
-                                                                        .firaSans(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .none,
-                                                                    ),
+                                                                    style: ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                   ),
                                                                 ),
                                                               ),
@@ -1420,17 +1064,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       textAlign:
                                                                           TextAlign
                                                                               .start,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        decoration:
-                                                                            TextDecoration.none,
-                                                                      )),
+                                                                      style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                 ),
                                                               ),
                                                               Expanded(
@@ -1440,17 +1074,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       textAlign:
                                                                           TextAlign
                                                                               .start,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        decoration:
-                                                                            TextDecoration.none,
-                                                                      )),
+                                                                      style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                 ),
                                                               ),
                                                             ],
@@ -1576,12 +1200,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                               child: Text(
                                                                                                 formattedSerialNumber,
                                                                                                 // formattedSerialNumber,
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 10,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: const Color(0xff686464),
-                                                                                                  decoration: TextDecoration.none,
-                                                                                                ),
+                                                                                                style: ProfileBarZoneStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1590,12 +1209,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                             child: Center(
                                                                                               child: Text(
                                                                                                 upToDateLicenses[index].org,
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 10,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: const Color(0xff686464),
-                                                                                                  decoration: TextDecoration.none,
-                                                                                                ),
+                                                                                                style: ProfileBarZoneStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1603,12 +1217,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                             child: Center(
                                                                                               child: Text(
                                                                                                 upToDateLicenses[index].issueDate,
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 10,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: const Color(0xff686464),
-                                                                                                  decoration: TextDecoration.none,
-                                                                                                ),
+                                                                                                style: ProfileBarZoneStyle.customEditTextStyle()
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -1644,7 +1253,7 @@ class _ProfileBarState extends State<ProfileBar> {
             ),
           ),
         ),
-      ],
+        ],
     );
   }
 }
@@ -1657,6 +1266,36 @@ class ProfileBarTextBoldStyle{
       color: ColorManager.textPrimaryColor,
 
       // decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarZoneStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarNameLicenseStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class AboutExpiredLStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 11,
+      fontWeight: FontWeight.w400,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
     );
   }
 }

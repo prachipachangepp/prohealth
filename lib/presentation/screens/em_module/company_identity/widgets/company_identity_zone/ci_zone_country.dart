@@ -15,6 +15,7 @@ import '../../../../../../data/api_data/establishment_data/ci_manage_button/mana
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import '../whitelabelling/success_popup.dart';
 
 class CIZoneCountry extends StatefulWidget {
   final int companyID;
@@ -237,6 +238,14 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                             _contyController.add(data);
                                                           }).catchError((error){});
                                                           Navigator.pop(context);
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context) {
+                                                              return CountySuccessPopup(
+                                                                message: 'Edit Successfully',
+                                                              );
+                                                            },
+                                                          );
                                                         },
                                                         title: 'Edit County',
                                                         title1: 'County Name',

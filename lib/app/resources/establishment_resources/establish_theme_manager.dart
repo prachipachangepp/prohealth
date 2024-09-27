@@ -90,6 +90,16 @@ class AllHRTableData {
     );
   }
 }
+class ZoneDataStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 
 ///document defination
 class DefineWorkWeekStyle {

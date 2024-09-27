@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -25,6 +26,8 @@ class SMTextFConst extends StatefulWidget {
   final FocusNode? focusNode;
   final double? width;
   final List<TextInputFormatter>? inputFormated;
+  final bool showDatePicker;
+  final Icon? suffixIcon;
 
   SMTextFConst({
     Key? key,
@@ -40,6 +43,7 @@ class SMTextFConst extends StatefulWidget {
     this.validator,
     this.prefixWidget,
     this.width, this.inputFormated,
+    this.showDatePicker = false, this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -48,7 +52,17 @@ class SMTextFConst extends StatefulWidget {
 
 class _SMTextFConstState extends State<SMTextFConst> {
   // late TextEditingController _controller;
-
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null) {
+      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     String? errorText;
@@ -81,7 +95,12 @@ class _SMTextFConstState extends State<SMTextFConst> {
             cursorColor: Colors.black,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
-              suffixIcon: widget.icon,
+              suffixIcon: widget.showDatePicker
+                  ? GestureDetector(
+                onTap: () => _selectDate(context),
+                child: Icon(Icons.calendar_month_outlined),
+              )
+                  : widget.suffixIcon,
               prefix: widget.prefixWidget,
               prefixStyle: AllHRTableData.customTextStyle(context),
               border: InputBorder.none,
@@ -351,6 +370,10 @@ class FirstSMTextFConst extends StatefulWidget {
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormated;
+  final bool showDatePicker;
+  final Icon? suffixIcon;
+
+
 
   FirstSMTextFConst({
     Key? key,
@@ -365,6 +388,7 @@ class FirstSMTextFConst extends StatefulWidget {
     this.enable,
     this.validator,
     this.prefixWidget,
+    this.showDatePicker = false, this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -372,6 +396,17 @@ class FirstSMTextFConst extends StatefulWidget {
 }
 
 class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null) {
+      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     String? errorText;
@@ -404,9 +439,14 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                 cursorColor: Colors.black,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  suffixIcon: widget.icon,
+                  suffixIcon: widget.showDatePicker
+                      ? GestureDetector(
+                    onTap: () => _selectDate(context),
+                    child: Icon(Icons.calendar_month_outlined),
+                  )
+                      : widget.suffixIcon,
                   prefix: widget.prefixWidget,
-                  prefixStyle:AllHRTableData.customTextStyle(context),
+                  prefixStyle:ZoneDataStyle.customTextStyle(context),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(
                       bottom: 22,
@@ -415,6 +455,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                 style: DocumentTypeDataStyle.customTextStyle(context),
                 //validator: widget.validator,
                 onTap: widget.onChange,
+
                 inputFormatters: widget.inputFormated == null
                     ? [
                         CapitalizeFirstLetterFormatter(),

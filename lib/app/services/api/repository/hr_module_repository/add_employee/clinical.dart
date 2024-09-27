@@ -15,6 +15,7 @@ class HRModuleAEClinicalRepository {
       static String addEmployees = "/employees/add";
       static String employees = "/employees";
       static String attachPhoto = "/attach-photo/";
+      static String servicesradiobutton = "/service-metadata";
           // "/company-office-service/";
 
 
@@ -47,6 +48,16 @@ class HRModuleAEClinicalRepository {
     }){
     return "$employees$attachPhoto$employeeID";
    }
+
+
+
+   ////radio button
+
+      static String getEmpServiceRadiobutton(){
+        return "$servicesradiobutton";
+      }
+
+
 }
 // { required int companyID,
 //   required int officeID,

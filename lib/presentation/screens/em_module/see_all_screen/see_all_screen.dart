@@ -559,65 +559,18 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             return EditUserPopUp(
                                                               title:
                                                               "Edit User ",
-                                                              userIdController:
-                                                              userIdController,
-                                                              lastNameController:
-                                                              lastNameController,
-                                                              emailController:
-                                                              emailController,
-                                                              firstNameController:
-                                                              firstNameController,
-                                                              roleController:
-                                                              roleController,
-                                                              companyIdController:
-                                                              companyIdController,
-                                                              onSubmit:
-                                                                  () async {
-                                                                await updateUserPatch(
-                                                                  context:
-                                                                  context,
-                                                                  userId: user
-                                                                      .userId,
-                                                                  firstName:
-                                                                  firstNameController
-                                                                      .text,
-                                                                  lastName:
-                                                                  lastNameController
-                                                                      .text,
-                                                                  deptId: selectedDeptId ??
-                                                                      snapshotPrefill
-                                                                          .data!
-                                                                          .deptId,
-                                                                  email:
-                                                                  emailController
-                                                                      .text,
-                                                                );
-                                                                getUser(context)
-                                                                    .then(
-                                                                        (data) {
-                                                                      _companyUsersList
-                                                                          .add(
-                                                                          data);
-                                                                    }).catchError(
-                                                                        (error) {
-                                                                      // Handle error
-                                                                    });
-                                                                Navigator.pop(
-                                                                    context);
-                                                                firstNameController
-                                                                    .clear();
-                                                                lastNameController
-                                                                    .clear();
-                                                                roleController
-                                                                    .clear();
-                                                                emailController
-                                                                    .clear();
-                                                                companyIdController
-                                                                    .clear();
-                                                              },
+                                                              // lastNameController: lastNameController,
+                                                              // emailController: emailController,
+                                                              // firstNameController: firstNameController,
+
+
                                                               // passwordController: passwordController,
                                                               ///Role
                                                               deptName: 'Select Department',
+                                                              userId: user.userId,
+                                                              firstname: user.firstName,
+                                                              lastname: user.lastName,
+                                                              email:user.email,
                                                               child: FutureBuilder<
                                                                   List<
                                                                       HRHeadBar>>(

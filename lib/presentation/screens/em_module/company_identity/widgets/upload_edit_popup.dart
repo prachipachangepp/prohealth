@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
@@ -286,6 +287,14 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     loading = false;
                   });
                   Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CountySuccessPopup(
+                        message: 'Save Successfully',
+                      );
+                    },
+                  );
                 }
               },
             ),

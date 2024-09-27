@@ -55,7 +55,7 @@ class AddOfficeSumbitButton extends StatefulWidget {
 }
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
-  /////////////////////////////////////////////////////////////////////////
+
   bool isLoading = false;
 
   List<String> _suggestions = [];
@@ -67,7 +67,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
 
   @override
   void dispose() {
-    // widget.addressController.removeListener(_onCountyNameChanged);
     super.dispose();
   }
 
@@ -94,27 +93,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     }
   }
 
-  // void _onCountyNameChanged() async {
-  //   if (widget.addressController.text.isEmpty) {
-  //     setState(() {
-  //       _suggestions = [];
-  //     });
-  //     return;
-  //   }
-  //   else{
-  //     setState(() {
-  //       _suggestions.clear();
-  //     });
-  //
-  //   }
-  //
-  //   final suggestions = await fetchSuggestions(widget.addressController.text);
-  //   setState(() {
-  //     _suggestions = suggestions;
-  //   });
-  // }
-
-/////////////////////////////////////////////////////////////////////////////
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected'; // Default text
   double? _latitude;
@@ -181,10 +159,10 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     setState(() {
       _isFormValid = true;
       _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
-      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+      _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');
       _stateDocError = _validateTextField(widget.stateController.text, 'State');
       _addressDocError =
-          _validateTextField(widget.addressController.text, 'Address ');
+          _validateTextField(widget.addressController.text, 'Office Address');
       _pPhoneDocError =
           _validateTextField(widget.mobNumController.text, 'Primary Phone');
       _sphoneDocError =
@@ -226,10 +204,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _nameDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -243,10 +218,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 2),
                             child: Text(
                               _emailDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -260,10 +232,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _countryDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style:CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -277,10 +246,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _sphoneDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s14),
@@ -289,6 +255,64 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: AllPopupHeadings.customTextStyle(context),
                         ),
                         SizedBox(height: 3),
+
+                        // StatefulBuilder(
+                        //   builder: (BuildContext context,
+                        //       void Function(void Function()) setState) {
+                        //     return Container(
+                        //       height: 100,
+                        //       width: 300,
+                        //       child: StatefulBuilder(
+                        //         builder: (BuildContext context,
+                        //             void Function(void Function()) setState) {
+                        //           return Wrap(
+                        //             children: List.generate(widget.servicesList.length, (index) {
+                        //               String serviceID = widget.servicesList[index].serviceId;
+                        //               bool isSelected = selectedServices.contains(serviceID);
+                        //               return Container(
+                        //                 width: 150,
+                        //                 child: Center(
+                        //                   child: Theme(
+                        //                     data: Theme.of(context).copyWith(
+                        //                      //  unselectedWidgetColor: Colors.transparent,
+                        //                       splashColor: Colors.transparent,
+                        //                       highlightColor: Colors.transparent,
+                        //                       hoverColor: Colors.transparent,
+                        //                     ),
+                        //                     child: CheckboxTile(
+                        //                       title: widget.servicesList[index].serviceName,
+                        //                       initialValue: isSelected,
+                        //                       onChanged: (value) {
+                        //                         setState(() {
+                        //                           if (value == true) {
+                        //                             selectedServices.add(ServiceList(
+                        //                               serviceId: serviceID,
+                        //                               npiNumber: "",
+                        //                               medicareProviderId: "",
+                        //                               hcoNumId: "",
+                        //                             ));
+                        //                           } else {
+                        //                             selectedServices.remove(serviceID);
+                        //                           }
+                        //                         });
+                        //                         print("Service Id List ${selectedServices}");
+                        //                       },
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             }),
+                        //           );
+                        //         },
+                        //       ),
+                        //     );
+                        //   },
+                        // )
+
+
+
+
+                        ////////////////////////
                         StatefulBuilder(
                           builder: (BuildContext context,
                               void Function(void Function()) setState) {
@@ -376,10 +400,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _stateDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s9),
@@ -393,10 +414,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _pPhoneDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style:CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s14),
@@ -410,10 +428,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               _aphoneDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                              style:CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                         const SizedBox(height: AppSize.s12),
@@ -494,45 +509,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                   ),
                 ),
             ]
-
-                ///////////////////////////
-                ///o code
-                // if (_suggestions.isNotEmpty)
-                //   Positioned(
-                //     top: 50,
-                //     right: 50,
-                //     child: Container(
-                //       height:100,
-                //       width:320,
-                //       decoration: BoxDecoration(
-                //         color: Colors.white,
-                //         borderRadius: BorderRadius.circular(8),
-                //         boxShadow: [
-                //           BoxShadow(
-                //             color: Colors.black26,
-                //             blurRadius: 4,
-                //             offset: Offset(0, 2),
-                //           ),
-                //         ],
-                //       ),
-                //       child: ListView.builder(
-                //         shrinkWrap: true,
-                //         itemCount: _suggestions.length,
-                //         itemBuilder: (context, index) {
-                //           return ListTile(
-                //             title: Text(_suggestions[index],style: AllPopupHeadings.customTextStyle(context),),
-                //             onTap: () {
-                //               widget.addressController.text = _suggestions[index];
-                //               widget.addressController.removeListener(_onCountyNameChanged);
-                //               setState(() {
-                //                 _suggestions.clear();
-                //               });
-                //             },
-                //           );
-                //         },
-                //       ),
-                //     ),
-                //   ),]
                 ),
           ],
         ),
@@ -599,7 +575,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       );
                     }
 
-                    // Clear the fields after a successful submission
                     widget.stateController.clear();
                     widget.countryController.clear();
                     widget.nameController.clear();
@@ -614,324 +589,13 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     });
                   }
                 } else {
-                  // Optionally show an error message or highlight invalid fields
                   print(
                       'Validation error: Please fill in all required fields.');
                 }
               },
             ),
-
-      //     :  CustomElevatedButton(
-      //   width: AppSize.s105,
-      //   height: AppSize.s30,
-      //   text: AppStringEM.add,
-      //   onPressed: () async {
-      //     setState(() {
-      //       isLoading = true;
-      //     });
-      //     try {
-      //       print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
-      //       ApiData response = await
-      //       addNewOffice( context:context,
-      //         name: widget.nameController.text,
-      //         address: widget.addressController.text,
-      //         email: widget.emailController.text,
-      //         primaryPhone:  widget.mobNumController.text,
-      //         secondaryPhone:widget.secNumController.text,
-      //         officeId: "",
-      //         lat: _selectedLocation.latitude.toString(),
-      //         long:_selectedLocation.longitude.toString(),
-      //         cityName: "",
-      //         stateName: widget.stateController.text,
-      //         country: widget.countryController.text,
-      //         isHeadOffice: false,
-      //       );
-      //
-      //       Navigator.pop(context);
-      //       if(response.statusCode == 200 || response.statusCode ==201){
-      //         print('Services List ${selectedServices}');
-      //         await addNewOfficeServices(context: context, officeId: response.officeId!,
-      //             serviceList: selectedServices);
-      //       }
-      //       // companyOfficeListGet(context, 1, 30).then((data) {
-      //       //   _companyIdentityController
-      //       //       .add(data);
-      //       // }).catchError((error) {});
-      //
-      //       widget.stateController.clear();
-      //       widget.countryController.clear();
-      //       widget.nameController.clear();
-      //       widget.mobNumController.clear();
-      //       widget.addressController.clear();
-      //       widget.emailController.clear();
-      //       widget.secNumController.clear();
-      //       widget.OptionalController.clear();
-      //
-      //       // if (widget.formKey.currentState!.validate()) {
-      //       //
-      //       // } else {
-      //       //   print('Validation error');
-      //       // }
-      //     } finally {
-      //       setState(() {
-      //         isLoading = false;
-      //       });
-      //
-      //     }
-      //   },
-      // ),
     );
   }
 }
 
-// //
-// import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:prohealth/app/resources/color.dart';
-// import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-// import 'package:prohealth/app/resources/font_manager.dart';
-// import 'package:prohealth/app/resources/value_manager.dart';
-// import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
-// import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-//
-// import '../../../../../../../app/resources/const_string.dart';
-// import '../../whitelabelling/success_popup.dart';
-//
-// class AddOfficeSumbitButton extends StatefulWidget {
-//   final TextEditingController nameController;
-//   final TextEditingController addressController;
-//   final TextEditingController emailController;
-//   final TextEditingController mobNumController;
-//   final TextEditingController secNumController;
-//   final TextEditingController OptionalController;
-//   final Future<void> Function() onPressed;
-//   final GlobalKey<FormState> formKey;
-//
-//   AddOfficeSumbitButton({
-//     super.key,
-//     required this.nameController,
-//     required this.addressController,
-//     required this.emailController,
-//     required this.mobNumController,
-//     required this.secNumController,
-//     required this.OptionalController,
-//     required this.onPressed,
-//     required this.formKey,
-//   });
-//
-//   @override
-//   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
-// }
-//
-// class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
-//   bool isLoading = false;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       backgroundColor: Colors.transparent,
-//       child: Container(
-//         width: AppSize.s390,
-//         height: AppSize.s470,
-//         decoration: BoxDecoration(
-//           color: ColorManager.white,
-//           borderRadius: BorderRadius.circular(8),
-//         ),
-//         child: ListView(
-//           children: [
-//             Container(
-//               height: AppSize.s40,
-//               width: AppSize.s390,
-//               padding: EdgeInsets.all(5),
-//               decoration: BoxDecoration(
-//                 color: ColorManager.bluebottom,
-//                 borderRadius: BorderRadius.only(
-//                   topLeft: Radius.circular(8),
-//                   topRight: Radius.circular(8),
-//                 ),
-//               ),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     'Add New Office',
-//                     textAlign: TextAlign.center,
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 13,
-//                       fontWeight: FontWeightManager.semiBold,
-//                       color: ColorManager.white,
-//                       decoration: TextDecoration.none,
-//                     ),
-//                   ),
-//                   IconButton(
-//                     onPressed: () {
-//                       Navigator.pop(context);
-//                     },
-//                     icon: Icon(Icons.close, color: Colors.white),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(
-//                 vertical: AppPadding.p3,
-//                 horizontal: AppPadding.p15,
-//               ),
-//               child: Form(
-//                 key: widget.formKey,
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                   children: [
-//                     SMTextFConst(
-//                       controller: widget.nameController,
-//                       keyboardType: TextInputType.text,
-//                       text:AppString.name,
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return "Please Enter a name";
-//                         }
-//                         if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(value)) {
-//                           return 'Name must contain only letters';
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     const SizedBox(height: AppSize.s9),
-//                     SMTextFConst(
-//                       controller: widget.addressController,
-//                       keyboardType: TextInputType.streetAddress,
-//                       text: 'Address',
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return "Please Enter an address";
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     const SizedBox(height: AppSize.s9),
-//                     SMTextFConst(
-//                       controller: widget.emailController,
-//                       keyboardType: TextInputType.emailAddress,
-//                       text: AppString.email,
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return "Please enter an email";
-//                         }
-//                         if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$").hasMatch(value)) {
-//                           return "Please enter a valid email";
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     const SizedBox(height: AppSize.s9),
-//                     SMTextFConst(
-//                       controller: widget.mobNumController,
-//                       keyboardType: TextInputType.number,
-//                       text: 'Primary Phone',
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return "Please enter a primary phone number";
-//                         }
-//                         if (!RegExp(r"^\d{10}$").hasMatch(value)) {
-//                           return "Phone number must be 10 digits";
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     const SizedBox(height: AppSize.s9),
-//                     SMTextFConst(
-//                       controller: widget.secNumController,
-//                       keyboardType: TextInputType.number,
-//                       text: 'Secondary Phone',
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return "Please enter a secondary phone number";
-//                         }
-//                         if (!RegExp(r"^\d{10}$").hasMatch(value)) {
-//                           return "Phone number must be 10 digits";
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     const SizedBox(height: AppSize.s9),
-//                     SMTextFConst(
-//                       controller: widget.OptionalController,
-//                       keyboardType: TextInputType.number,
-//                       text: 'Alternative Phone',
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return "Please enter an alternative phone number";
-//                         }
-//                         if (!RegExp(r"^\d{10}$").hasMatch(value)) {
-//                           return "Phone number must be 10 digits";
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             SizedBox(height: AppSize.s30),
-//             Padding(
-//               padding: const EdgeInsets.only(bottom: AppPadding.p10),
-//               child: Center(
-//                 child: isLoading
-//                     ? SizedBox(
-//                   height:  AppSize.s25,
-//                   width:  AppSize.s25,
-//                   child: CircularProgressIndicator(
-//                     color: ColorManager.blueprime,
-//                   ),
-//                 )
-//                     : CustomElevatedButton(
-//                   width: AppSize.s105,
-//                   height: AppSize.s30,
-//                   text: AppStringEM.submit,
-//                   onPressed: () async {
-//                     if (widget.formKey.currentState!.validate()) {
-//                       setState(() {
-//                         isLoading = true;
-//                       });
-//                       try {
-//                         await widget.onPressed();
-//                         Navigator.pop(context);
-//                         showDialog(
-//                           context: context,
-//                           builder: (BuildContext context) {
-//
-//                             return AddSuccessPopup(
-//                               message: 'Added Successfully',
-//                             );
-//                        },
-//                         );
-//                         _clearControllers();
-//                       } finally {
-//                         setState(() {
-//                           isLoading = false;
-//                         });
-//                       }
-//                     } else {
-//                       print('Validation error');
-//                     }
-//                   },
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   void _clearControllers() {
-//     widget.nameController.clear();
-//     widget.mobNumController.clear();
-//     widget.addressController.clear();
-//     widget.emailController.clear();
-//     widget.secNumController.clear();
-//     widget.OptionalController.clear();
-//   }
-// }
-//
+

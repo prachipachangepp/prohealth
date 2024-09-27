@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/profile_bar.dart';
 
 class ExpiredLicensePopup extends StatefulWidget {
   final String title;
@@ -44,12 +45,7 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
                         vertical: 8, horizontal: 20),
                     child: Text(
                       widget.title,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: ProfileBarNameLicenseStyle.customEditTextStyle()
                     ),
                   ),
                   IconButton(

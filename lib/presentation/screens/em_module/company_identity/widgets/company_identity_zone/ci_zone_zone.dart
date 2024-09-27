@@ -90,18 +90,6 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                       style:AllHRTableHeading.customTextStyle(context),),
                   ),
                 ),
-                // Expanded(
-                //   child: Center(
-                //     child: Text('Cities',
-                //         textAlign: TextAlign.start,
-                //         style: GoogleFonts.firaSans(
-                //           fontSize: 12,
-                //           fontWeight: FontWeight.w700,
-                //           color: Colors.white,
-                //           decoration: TextDecoration.none,
-                //         )),
-                //   ),
-                // ),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -150,12 +138,20 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   children: [
                     Expanded(
                       child: ListView.builder(
+                          // scrollDirection: Axis.vertical,
+                          // itemCount: paginatedData.length,
+                          // itemBuilder: (context, index) {
+                          //   int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                          //   String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                          //   AllCountyZoneGet zone = paginatedData[index];
                           scrollDirection: Axis.vertical,
                           itemCount: paginatedData.length,
                           itemBuilder: (context, index) {
-                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            // Reverse the index to show newly added items at the top
+                            int reverseIndex = paginatedData.length - 1 - index;
+                            int serialNumber = reverseIndex + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            AllCountyZoneGet zone = paginatedData[index];
+                            AllCountyZoneGet zone = paginatedData[reverseIndex];  // Use reverseIndex here
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

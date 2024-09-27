@@ -119,6 +119,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         HeaderContentConst(
           heading: AppString.type_of_the_document,
           content: CICCDropdown(
+            width: 354,
               initialValue: "Select Document",
               onChange: (val){
                 setState((){

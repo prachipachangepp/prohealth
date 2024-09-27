@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:prohealth/app/constants/app_config.dart';
+
+
 Future<List<String>> fetchSuggestions(String input) async {
   if (input.isEmpty) return [];
 

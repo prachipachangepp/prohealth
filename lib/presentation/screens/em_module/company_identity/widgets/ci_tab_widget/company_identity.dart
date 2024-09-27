@@ -270,6 +270,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Container(height: 20,width:150),
                 ),
                 Expanded(
+                  flex: 1,
                   child: Center(
                     child: Text(
                       AppStringEM.srno,
@@ -282,7 +283,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     ),
                   ),
                 ),
+                Expanded(child: SizedBox()),
                 Expanded(
+                  flex: 1,
                   child: Text(
                     AppStringEM.officename,
                     textAlign: TextAlign.start,
@@ -294,28 +297,22 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     // ),
                   ),
                 ),
+                Expanded(child: SizedBox()),
                 Expanded(
+                  flex: 1,
                   child: Text(
                     AppStringEM.address,
                     textAlign: TextAlign.start,
                     style:AllHRTableHeading.customTextStyle(context),
-                    // style: GoogleFonts.firaSans(
-                    //   fontSize: 12,
-                    //   fontWeight: FontWeight.w700,
-                    //   color: ColorManager.white,
-                    // ),
                   ),
                 ),
+                Expanded(child: SizedBox()),
                 Expanded(
                   child: Center(
                     child: Text(
                       AppStringEM.actions,
                       style:AllHRTableHeading.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: 12,
-                      //   fontWeight: FontWeight.w700,
-                      //   color: ColorManager.white,
-                      // ),
+
                     ),
                   ),
                 ),
@@ -439,54 +436,11 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                               ),
                                                             ),
                                                           );
-                                                          //   Center(
-                                                          //   child: InkWell(
-                                                          //     onTap: () async{
-                                                          //       String googleMapsUrl =
-                                                          //           'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                          //       if (await canLaunchUrlString(googleMapsUrl)) {
-                                                          //       await launchUrlString(googleMapsUrl);
-                                                          //       } else {
-                                                          //       print('Could not open the map.');
-                                                          //       }
-                                                          //     },
-                                                          //     child: MouseRegion(
-                                                          //       onEnter: (_) {
-                                                          //         setState(() {
-                                                          //           _isHovered = true;
-                                                          //         });
-                                                          //       },
-                                                          //       onExit: (_) {
-                                                          //         setState(() {
-                                                          //           _isHovered = false;
-                                                          //         });
-                                                          //       },
-                                                          //       child: Stack(
-                                                          //         alignment: Alignment.center,
-                                                          //         children: [
-                                                          //           Container(
-                                                          //             height: 100,
-                                                          //             width: 100,
-                                                          //             child: Image.asset(
-                                                          //               "images/mapImage.png",
-                                                          //               fit: BoxFit.cover,
-                                                          //             ),
-                                                          //           ),
-                                                          //           if (_isHovered)
-                                                          //             Icon(
-                                                          //               Icons.map,
-                                                          //               size: 20,
-                                                          //               color: ColorManager.blueprime,
-                                                          //             ),
-                                                          //         ],
-                                                          //       ),
-                                                          //     ),
-                                                          //   ),
-                                                          // );
                                                         },
                                                       ),
                                                     ),
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Center(
                                                         child: Text(
                                                             formattedSerialNumber,
@@ -499,20 +453,25 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                         ),
                                                       ),
                                                     ),
+                                                    Expanded(child: SizedBox()),
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Text(
                                                           paginatedData[index].officeName.toString(),
                                                           textAlign: TextAlign.start,
                                                           style: DocumentTypeDataStyle.customTextStyle(context)
                                                       ),
                                                     ),
+                                                    Expanded(child: SizedBox()),
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Text(
                                                           paginatedData[index].address.toString(),
                                                           textAlign: TextAlign.start,
                                                           style: DocumentTypeDataStyle.customTextStyle(context)
                                                       ),
                                                     ),
+                                                    Expanded(child: SizedBox()),
                                                     Expanded(
                                                       child: Center(
                                                         child: Row(

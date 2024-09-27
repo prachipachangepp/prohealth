@@ -246,7 +246,12 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                           // Navigator.pushNamedAndRemoveUntil(
                                           //     context, '/', (route) => false);
                                         },
-                                        icon: const Icon(Icons.logout))
+                                        icon: const Icon(Icons.logout),
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      visualDensity: VisualDensity.compact,
+                                    )
                                   ],
                                 ),
                               ),

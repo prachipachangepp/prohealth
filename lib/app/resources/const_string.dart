@@ -311,7 +311,7 @@ class AppStringMobile {
   static const String  summry = 'Summary';
 }
 class AppStringHRNoData {
-
+  ///login screen
   static const String employeeNoData = 'No employement available!';
   static const String educationNoData = 'No education available!';
   static const String referenceNoData = 'No references available!';

@@ -15,6 +15,7 @@ import '../../../../../../../../../app/services/api/managers/establishment_manag
 import '../../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../widgets/button_constant.dart';
 import '../../../../../../widgets/text_form_field_const.dart';
+import '../../../../whitelabelling/success_popup.dart';
 
 ///Add new popup
 class AddNewOrgDocButton extends StatefulWidget {
@@ -91,243 +92,271 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
     return DialogueTemplate(
       width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
-          ? widget.height ?? AppSize.s522
+          ? widget.height ?? AppSize.s525
       : widget.docTypeId == AppConfig.policiesAndProcedure
-       ? widget.height ??AppSize.s522
-      :widget.height ??AppSize.s575 ,
+       ? widget.height ??AppSize.s525
+      :widget.height ??AppSize.s580 ,
       body: [
-        /// ID of the Document
-        SMTextFConst(
-          controller: idDocController,
-          keyboardType: TextInputType.text,
-          text: AppString.id_of_the_document,
-        ),
-        if (_idDocError != null)
-          Text(
-            _idDocError!,
-            textAlign: TextAlign.start,
-            style:CommonErrorMsg.customTextStyle(context),
-          ),
+       Padding(
+         padding: const EdgeInsets.symmetric(
+          // vertical: AppPadding.p1,
+           horizontal: AppPadding.p10,
+         ),
+         child: Column(
+           crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+             /// ID of the Document
+             SMTextFConst(
+               controller: idDocController,
+               keyboardType: TextInputType.text,
+               text: AppString.id_of_the_document,
+             ),
+             if (_idDocError != null) // Display error if any
+               Padding(
+                 padding: const EdgeInsets.only(top: 1),
+                 child: Text(
+                   _idDocError!,
+                   style:CommonErrorMsg.customTextStyle(context),
+                 ),
+               ),
+             // if (_idDocError != null)
+             //   Text(
+             //     _idDocError!,
+             //     textAlign: TextAlign.start,
+             //     style:CommonErrorMsg.customTextStyle(context),
+             //   ),
 
-        /// Name of the Document
-        FirstSMTextFConst(
-          controller: nameDocController,
-          keyboardType: TextInputType.text,
-          text: AppString.name_of_the_document,
-        ),
-        if (_nameDocError != null) // Display error if any
-          Text(
-            _nameDocError!,
-            textAlign: TextAlign.start,
-            style: CommonErrorMsg.customTextStyle(context),
-          ),
+             /// Name of the Document
+             FirstSMTextFConst(
+               controller: nameDocController,
+               keyboardType: TextInputType.text,
+               text: AppString.name_of_the_document,
+             ),
 
-        /// Type of the Document
-        HeaderContentConst(
-          heading: AppString.type_of_the_document,
-          content: Container(
-            width: 354,
-            height: 30,
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-            decoration: BoxDecoration(
-              color: ColorManager.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.docTypeText,
-                  style: DocumentTypeDataStyle.customTextStyle(context),
-                ),
-              ],
-            ),
-          ),
-        ),
+             if (_nameDocError != null) // Display error if any
+               Padding(
+                 padding: const EdgeInsets.only(top: 1),
+                 child: Text(
+                   _nameDocError!,
+                   style:CommonErrorMsg.customTextStyle(context),
+                 ),
+               ),
+             // if (_nameDocError != null) // Display error if any
+             //   Text(
+             //     _nameDocError!,
+             //     textAlign: TextAlign.start,
+             //     style: CommonErrorMsg.customTextStyle(context),
+             //   ),
 
-        /// Sub Type of the Document
-        widget.docTypeId == AppConfig.policiesAndProcedure
-            ? SizedBox(
-                height: 1,
-              )
-            : HeaderContentConst(
-                heading: AppString.sub_type_of_the_document,
-                content: Container(
-                  height: 30,
-                  width: 354,
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border:
-                        Border.all(color: ColorManager.fmediumgrey, width: 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.subDocTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-        /// Radio Button Section
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              HeaderContentConst(
-                heading: AppString.expiry_type,
-                content: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    widget.subDocTypeId == AppConfig.subDocId10MISC
-                        ? Offstage()
-                        : CustomRadioListTile(
-                            value: AppConfig.notApplicable,
-                            groupValue: selectedExpiryType,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedExpiryType = value!;
-                              });
-                            },
-                            title: AppConfig.notApplicable,
-                          ),
-                    CustomRadioListTile(
-                      value: AppConfig.scheduled,
-                      groupValue: selectedExpiryType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedExpiryType = value!;
-                        });
-                      },
-                      title: AppConfig.scheduled,
-                    ),
-                    widget.subDocTypeId == AppConfig.subDocId10MISC
-                        ? Offstage()
-                        : CustomRadioListTile(
-                            value: AppConfig.issuer,
-                            groupValue: selectedExpiryType,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedExpiryType = value!;
-                              });
-                            },
-                            title: AppConfig.issuer,
-                          ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: AppPadding.p20,
-                  right: AppPadding.p20,
-                ),
-                child: Visibility(
-                  visible: selectedExpiryType == AppConfig.scheduled,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 50,
-                            //color: ColorManager.red,
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller:
-                                  daysController, // Use the controller initialized with "1"
-                              cursorColor: ColorManager.black,
-                              cursorWidth: 1,
-                              style: DocumentTypeDataStyle.customTextStyle(context),
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ColorManager.fmediumgrey,
-                                      width: 2),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ColorManager.fmediumgrey,
-                                      width: 2),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 10),
-                              ),
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter
-                                    .digitsOnly, // This ensures only digits are accepted
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Container(
-                            height: 30,
-                            width: 80,
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: ColorManager.fmediumgrey),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: DropdownButtonFormField<String>(
-                              value:
-                                  selectedYear, // Initial value (you should define this variable)
-                              items: [
-                                DropdownMenuItem(
-                                  value: AppConfig.year,
-                                  child: Text(
-                                    AppConfig.year,
-                                    style: DocumentTypeDataStyle.customTextStyle(context),
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  value: AppConfig.month,
-                                  child: Text(
-                                    AppConfig.month,
-                                    style:DocumentTypeDataStyle.customTextStyle(context),
-                                  ),
-                                ),
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedYear =
-                                      value; // Update the selected option (Year/Month)
-                                });
-                              },
-                              decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                hintText: AppConfig.year,
-                                hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                contentPadding: EdgeInsets.only(bottom: 20),
-                              ),
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                color: ColorManager.black,
-                                size: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+             /// Type of the Document
+             HeaderContentConst(
+               heading: AppString.type_of_the_document,
+               content: Container(
+                 width: 354,
+                 height: 30,
+                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                 decoration: BoxDecoration(
+                   color: ColorManager.white,
+                   borderRadius: BorderRadius.circular(8),
+                   border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+                 ),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     Text(
+                       widget.docTypeText,
+                       style: DocumentTypeDataStyle.customTextStyle(context),
+                     ),
+                   ],
+                 ),
+               ),
+             ),
+
+             /// Sub Type of the Document
+             widget.docTypeId == AppConfig.policiesAndProcedure
+                 ? SizedBox(
+               height: 1,
+             )
+                 : HeaderContentConst(
+               heading: AppString.sub_type_of_the_document,
+               content: Container(
+                 height: 30,
+                 width: 354,
+                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                 decoration: BoxDecoration(
+                   color: ColorManager.white,
+                   borderRadius: BorderRadius.circular(8),
+                   border:
+                   Border.all(color: ColorManager.fmediumgrey, width: 1),
+                 ),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     Text(
+                       widget.subDocTypeText,
+                       style: DocumentTypeDataStyle.customTextStyle(context),
+                     ),
+                   ],
+                 ),
+               ),
+             ),
+             /// Radio Button Section
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16),
+               child: Row(
+                 children: [
+                   HeaderContentConst(
+                     heading: AppString.expiry_type,
+                     content: Column(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         widget.subDocTypeId == AppConfig.subDocId10MISC
+                             ? Offstage()
+                             : CustomRadioListTile(
+                           value: AppConfig.notApplicable,
+                           groupValue: selectedExpiryType,
+                           onChanged: (value) {
+                             setState(() {
+                               selectedExpiryType = value!;
+                             });
+                           },
+                           title: AppConfig.notApplicable,
+                         ),
+                         CustomRadioListTile(
+                           value: AppConfig.scheduled,
+                           groupValue: selectedExpiryType,
+                           onChanged: (value) {
+                             setState(() {
+                               selectedExpiryType = value!;
+                             });
+                           },
+                           title: AppConfig.scheduled,
+                         ),
+                         widget.subDocTypeId == AppConfig.subDocId10MISC
+                             ? Offstage()
+                             : CustomRadioListTile(
+                           value: AppConfig.issuer,
+                           groupValue: selectedExpiryType,
+                           onChanged: (value) {
+                             setState(() {
+                               selectedExpiryType = value!;
+                             });
+                           },
+                           title: AppConfig.issuer,
+                         ),
+                       ],
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.only(
+                       left: AppPadding.p20,
+                       right: AppPadding.p20,
+                     ),
+                     child: Visibility(
+                       visible: selectedExpiryType == AppConfig.scheduled,
+                       child: Column(
+                         children: [
+                           SizedBox(
+                             height: 20,
+                           ),
+                           Row(
+                             children: [
+                               Container(
+                                 height: 30,
+                                 width: 50,
+                                 //color: ColorManager.red,
+                                 child: TextFormField(
+                                   textAlign: TextAlign.center,
+                                   controller:
+                                   daysController, // Use the controller initialized with "1"
+                                   cursorColor: ColorManager.black,
+                                   cursorWidth: 1,
+                                   style: DocumentTypeDataStyle.customTextStyle(context),
+                                   decoration: InputDecoration(
+                                     enabledBorder: OutlineInputBorder(
+                                       borderSide: BorderSide(
+                                           color: ColorManager.fmediumgrey,
+                                           width: 2),
+                                       borderRadius: BorderRadius.circular(8),
+                                     ),
+                                     focusedBorder: OutlineInputBorder(
+                                       borderSide: BorderSide(
+                                           color: ColorManager.fmediumgrey,
+                                           width: 2),
+                                       borderRadius: BorderRadius.circular(8),
+                                     ),
+                                     contentPadding:
+                                     EdgeInsets.symmetric(horizontal: 10),
+                                   ),
+                                   keyboardType: TextInputType.number,
+                                   inputFormatters: [
+                                     FilteringTextInputFormatter
+                                         .digitsOnly, // This ensures only digits are accepted
+                                   ],
+                                 ),
+                               ),
+                               SizedBox(width: 10),
+                               Container(
+                                 height: 30,
+                                 width: 80,
+                                 padding: EdgeInsets.symmetric(horizontal: 5),
+                                 decoration: BoxDecoration(
+                                   border:
+                                   Border.all(color: ColorManager.fmediumgrey),
+                                   borderRadius: BorderRadius.circular(8),
+                                 ),
+                                 child: DropdownButtonFormField<String>(
+                                   value:
+                                   selectedYear, // Initial value (you should define this variable)
+                                   items: [
+                                     DropdownMenuItem(
+                                       value: AppConfig.year,
+                                       child: Text(
+                                         AppConfig.year,
+                                         style: DocumentTypeDataStyle.customTextStyle(context),
+                                       ),
+                                     ),
+                                     DropdownMenuItem(
+                                       value: AppConfig.month,
+                                       child: Text(
+                                         AppConfig.month,
+                                         style:DocumentTypeDataStyle.customTextStyle(context),
+                                       ),
+                                     ),
+                                   ],
+                                   onChanged: (value) {
+                                     setState(() {
+                                       selectedYear =
+                                           value; // Update the selected option (Year/Month)
+                                     });
+                                   },
+                                   decoration: InputDecoration(
+                                     enabledBorder: InputBorder.none,
+                                     focusedBorder: InputBorder.none,
+                                     hintText: AppConfig.year,
+                                     hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                     contentPadding: EdgeInsets.only(bottom: 20),
+                                   ),
+                                   icon: Icon(
+                                     Icons.arrow_drop_down,
+                                     color: ColorManager.black,
+                                     size: 16,
+                                   ),
+                                 ),
+                               ),
+                             ],
+                           ),
+                         ],
+                       ),
+                     ),
+                   ),
+                 ],
+               ),
+             ),
+           ],
+         ),
+       )
       ],
       bottomButtons: loading == true
           ? SizedBox(
@@ -371,6 +400,14 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                         idOfDoc: idDocController.text);
                     // await getNewOrgDocument(context);
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Added Successfully',
+                        );
+                      },
+                    );
                   } finally {
                     setState(() {
                       loading = false;
@@ -794,6 +831,14 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                 idOfDoc: widget.idOfDoc,
               );
               Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Edit Successfully',
+                  );
+                },
+              );
             } finally {
               setState(() {
                 loading = false;

@@ -12,6 +12,8 @@ import '../../../../../../app/services/api/managers/establishment_manager/ci_vis
 import '../../../../../../app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import '../../../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../widgets/dialogue_template.dart';
 
 class PayRateAddPopup extends StatefulWidget {
   //final Widget child1;
@@ -68,49 +70,18 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
+    return DialogueTemplate(
+
         width: AppSize.s400,
         height: AppSize.s450,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 23.0),
-                    child: Text(
-                      widget.title,
-                      style: PopupBlueBarText.customTextStyle(context),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white,),
-                  ),
-                ],
-              ),
-            ),
+        title: widget.title,
+
+          body: [
+
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p20,
-                horizontal: AppPadding.p20,
+
+                horizontal: AppPadding.p10,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,7 +196,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                                 keyboardType: TextInputType.number,
                                 text: 'Fixed Rate',
                               ),
-                              if (payRatesError != null)
+                              if (fixPayRatesError != null)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5,right: 40),
                                   child: Text(
@@ -265,61 +236,63 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                 ],
               ),
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p25),
-              child: Center(
-                child: isLoading
-                    ? SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: CircularProgressIndicator(color: ColorManager.blueprime,)
-                )
-                    : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.submit,
-                  onPressed: () async {
-                    _validateAndSubmit();
-                    if (payRatesError == null && perMilesError == null && fixPayRatesError == null) {
-                      if (docAddVisitTypeId != null) {
-                        try {
-                          int rate = int.parse(widget.payRatesController.text);
-                          String typeOfVisitId = docAddVisitTypeId.toString();
-                          int perMile = int.parse(widget.perMilesController.text);
-                          String serviceTypeId = widget.serviceId;
-                          int fixedRate = int.parse(widget.fixPayRatesController.text);
-                          await addPayrates(
-                            context,
-                            widget.empTypeId,
-                            rate,
-                            typeOfVisitId,
-                            perMile,
-                            serviceTypeId,
-                            fixedRate,
-                          );
-                          Navigator.pop(context);
-                        } catch (e) {
-                          print("Failed to add pay rates: $e");
-                        }
-                      } else {
-                        print("Required data is missing.");
-                      }
-                    }
-                  },
-              ),
-              ),
-            ),
-          ],
-        ),
-      ),
+
+
+          ], bottomButtons:  isLoading
+        ? SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator(color: ColorManager.blueprime,)
+    )
+        : CustomElevatedButton(
+      width: AppSize.s105,
+      height: AppSize.s30,
+      text: AppStringEM.submit,
+      onPressed: () async {
+        _validateAndSubmit();
+        if (payRatesError == null && perMilesError == null && fixPayRatesError == null) {
+          if (docAddVisitTypeId != null) {
+            try {
+              int rate = int.parse(widget.payRatesController.text);
+              String typeOfVisitId = docAddVisitTypeId.toString();
+              int perMile = int.parse(widget.perMilesController.text);
+              String serviceTypeId = widget.serviceId;
+              int fixedRate = int.parse(widget.fixPayRatesController.text);
+              await addPayrates(
+                context,
+                widget.empTypeId,
+                rate,
+                typeOfVisitId,
+                perMile,
+                serviceTypeId,
+                fixedRate,
+              );
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Added Successfully',
+                  );
+                },
+              );
+            } catch (e) {
+              print("Failed to add pay rates: $e");
+            }
+          } else {
+            print("Required data is missing.");
+          }
+        }
+      },
+    ),
+
     );
   }
 }
 
 
 ///edit
-class PayRatesPopup extends StatefulWidget {
+class PayRatesEditsPopup extends StatefulWidget {
   final Widget child1;
   final Widget child2;
   final String title;
@@ -329,7 +302,7 @@ class PayRatesPopup extends StatefulWidget {
   final TextEditingController perMilesController;
   final bool visitTypeTextActive;
 
-  PayRatesPopup({
+  PayRatesEditsPopup({
     super.key,
     required this.child1,
     required this.child2,
@@ -340,10 +313,10 @@ class PayRatesPopup extends StatefulWidget {
   });
 
   @override
-  State<PayRatesPopup> createState() => _PayRatesPopupState();
+  State<PayRatesEditsPopup> createState() => _PayRatesEditsPopupState();
 }
 
-class _PayRatesPopupState extends State<PayRatesPopup> {
+class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
   bool isLoading = false;
 
   // Error messages
@@ -375,49 +348,18 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
   }
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
+    return DialogueTemplate(
+
         width: AppSize.s400,
         height: AppSize.s450,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 23.0),
-                    child: Text(
-                      widget.title,
-                      style: PopupBlueBarText.customTextStyle(context),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white,),
-                  ),
-                ],
-              ),
-            ),
+        title: widget.title,
+
+          body: [
+
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p20,
-                horizontal: AppPadding.p20,
+
+                horizontal: AppPadding.p10,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -497,32 +439,27 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                 ],
               ),
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p25),
-              child: Center(
-                child: isLoading
-                    ? SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: CircularProgressIndicator(color: ColorManager.blueprime,)
-                )
-                    : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.submit,
-                  onPressed: () async {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    _validateAndSubmit();
-                  },
-                ),
-              ),
-            ),
+
+
           ],
-        ),
-      ),
+       bottomButtons:  isLoading
+           ? SizedBox(
+           height: 25,
+           width: 25,
+           child: CircularProgressIndicator(color: ColorManager.blueprime,)
+       )
+           : CustomElevatedButton(
+         width: AppSize.s105,
+         height: AppSize.s30,
+         text: AppStringEM.submit,
+         onPressed: () async {
+           setState(() {
+             isLoading = true;
+           });
+           _validateAndSubmit();
+
+         },
+       ),
     );
   }
 }

@@ -181,10 +181,18 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     children: [
                       Expanded(
                         child: ListView.builder(
+                            // scrollDirection: Axis.vertical,
+                            // itemCount: paginatedData.length,
+                            // itemBuilder: (context, index) {
+                            //   int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            //   String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            //   DefineHolidayData defineData = paginatedData[index];
                             scrollDirection: Axis.vertical,
                             itemCount: paginatedData.length,
                             itemBuilder: (context, index) {
-                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              // Ensure the serial number starts from 1, with newly added items at the top
+                              int serialNumber = index + 1;
+
                               String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               DefineHolidayData defineData = paginatedData[index];
                               return Column(

@@ -18,6 +18,7 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import '../../../../../../app/services/api/repository/establishment_manager/employee_doc_repository.dart';
+import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/header_content_const.dart';
 
@@ -338,6 +339,14 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                     print(selectedExpiryType.toString());
 
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Added Successfully',
+                        );
+                      },
+                    );
                     nameDocController.clear();
                     dateController.clear();
                   },

@@ -363,6 +363,14 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 "95.7129°",
                                 widget.officeId);
                             Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CountySuccessPopup(
+                                  message: 'Save Successfully',
+                                );
+                              },
+                            );
                           },
                           title1: 'County Name',
                           countynameController: countynameController,
