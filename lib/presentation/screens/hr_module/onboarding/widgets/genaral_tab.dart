@@ -350,8 +350,8 @@ class InfoText extends StatelessWidget {
       children: [
         Text(text, style: TextStyle(
             fontSize: FontSize.s12,
-            fontWeight: FontWeight.w500,
-            color: ColorManager.textBlack),),
+            fontWeight: FontWeight.w600,
+            color: ColorManager.black),),//ColorManager.textBlack
         const SizedBox(height: AppSize.s10),
       ],
     );
@@ -372,7 +372,7 @@ class InfoData extends StatelessWidget {
         Text(text,style: TextStyle(
             fontSize: FontSize.s12,
             fontWeight: FontWeight.w400,
-            color: ColorManager.textBlack),),
+            color: ColorManager.mediumgrey),),//ColorManager.textBlack
         const SizedBox(height: AppSize.s10),
       ],
     );

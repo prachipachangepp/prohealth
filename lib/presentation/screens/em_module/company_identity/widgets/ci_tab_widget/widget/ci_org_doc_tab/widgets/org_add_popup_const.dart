@@ -202,7 +202,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
              ),
              /// Radio Button Section
              Padding(
-               padding: const EdgeInsets.symmetric(horizontal: 16),
+               padding: const EdgeInsets.symmetric(horizontal: 2),
                child: Row(
                  children: [
                    HeaderContentConst(
