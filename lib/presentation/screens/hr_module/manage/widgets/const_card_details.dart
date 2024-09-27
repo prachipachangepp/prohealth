@@ -15,7 +15,7 @@ class _CardDetailsState extends State<CardDetails> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 30),
       child: Container(
-        width: MediaQuery.of(context).size.width/2.5,
+        width: MediaQuery.of(context).size.width/2.3,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         decoration: BoxDecoration(
           boxShadow: [
