@@ -184,7 +184,7 @@ class _OfferLetterDescriptionScreenState
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff1696C8),
+                          backgroundColor: Color(0xff50B5E5),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -297,11 +297,14 @@ class _OfferLetterDescriptionScreenState
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    minimumSize: Size(128, 44),
+                   // minimumSize: Size(128, 44),
                   ),
                   child: Text(
                     'Continue',
-                    style:BlueButtonTextConst.customTextStyle(context)
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
                   ),
                 ),
               ],

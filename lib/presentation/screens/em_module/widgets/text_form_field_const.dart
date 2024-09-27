@@ -110,12 +110,6 @@ class _SMTextFConstState extends State<SMTextFConst> {
             //validator: widget.validator,
             onTap: widget.onChange,
             validator: widget.validator,
-            inputFormatters: widget.inputFormated == null
-                ? [
-              CapitalizeFirstLetterFormatter(),
-            ]
-                : widget.inputFormated,
-
             // onTap: widget.onChange,
           ),
         ),
