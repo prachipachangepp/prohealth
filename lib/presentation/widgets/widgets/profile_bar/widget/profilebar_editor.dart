@@ -555,7 +555,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 FirstSMTextFConst(
                                   controller: ageController,
                                   keyboardType: TextInputType.text,
-                                  text: 'Age',
+                                  text: 'Date of Birth',
                                   showDatePicker: true,
                                 ),
                                 FirstSMTextFConst(
@@ -572,7 +572,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 FirstSMTextFConst(
                                   controller: ssNController,
                                   keyboardType: TextInputType.text,
-                                  text: AppString.ssn,
+                                  text: AppString.ssnN,
                                   // showDatePicker: true,
                                 ),
 
