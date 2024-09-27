@@ -146,46 +146,49 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
-                                                    ///profile image
                                                     CircleAvatar(
                                                       radius: MediaQuery.of(context).size.width / 50,
-                                                     backgroundColor: Colors.white,
-                                                     // backgroundColor: Colors.grey,
-                                                      child: general.imgurl! == 'imgurl' ||
-                                                          general.imgurl! == null ?
-
-                                                      Icon(
+                                                      backgroundColor: Colors.white,
+                                                      child: general.imgurl! == 'imgurl' || general.imgurl! == null
+                                                          ? Icon(
                                                         Icons.person,
                                                         color: ColorManager.bluelight,
                                                         size: AppSize.s50,
-                                                      ) :
-                                                      CachedNetworkImage(
-                                                        imageUrl: general.imgurl!,
-                                                        placeholder: (context, url) => new CircularProgressIndicator(),
-                                                        errorWidget: (context, url, error) => new Icon(Icons.error),
-                                                        width: AppSize.s70,
-                                                        height: AppSize.s70,
+                                                      )
+                                                          : ClipOval(
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: general.imgurl!,
+                                                          placeholder: (context, url) => CircularProgressIndicator(),
+                                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                                          width: double.infinity,  // Ensures the image takes full width
+                                                          height: double.infinity, // Ensures the image takes full height
+                                                          fit: BoxFit.cover,       // Ensures the image covers the entire area
+                                                        ),
                                                       ),
-                                                      // ClipOval(
-                                                      //   child: Builder(
-                                                      //     builder: (context) {
-                                                      //       String imageUrl = Uri.encodeFull(general.imgurl ?? '');
-                                                      //       return Image.asset(
-                                                      //          imageUrl,
-                                                      //        // 'images/profilepic.png',
-                                                      //         height: 70,
-                                                      //         width: 70,
-                                                      //         fit: BoxFit.cover,
-                                                      //         // errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                      //         //   print('Error loading image: $exception');
-                                                      //         //   // return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                      //         //   return Icon(Icons.person,color: ColorManager.mediumgrey,size: 40,);
-                                                      //         // },
-                                                      //       );
-                                                      //     },
-                                                      //   ),
-                                                      // ),
                                                     ),
+
+                                                    ///profile image
+                                                    // CircleAvatar(
+                                                    //   radius: MediaQuery.of(context).size.width / 50,
+                                                    //  backgroundColor: Colors.white,
+                                                    //  // backgroundColor: Colors.grey,
+                                                    //   child: general.imgurl! == 'imgurl' ||
+                                                    //       general.imgurl! == null ?
+                                                    //
+                                                    //   Icon(
+                                                    //     Icons.person,
+                                                    //     color: ColorManager.bluelight,
+                                                    //     size: AppSize.s50,
+                                                    //   ) :
+                                                    //   CachedNetworkImage(
+                                                    //     imageUrl: general.imgurl!,
+                                                    //     placeholder: (context, url) => new CircularProgressIndicator(),
+                                                    //     errorWidget: (context, url, error) => new Icon(Icons.error),
+                                                    //     width: AppSize.s70,
+                                                    //     height: AppSize.s70,
+                                                    //   ),
+                                                    //
+                                                    // ),
                                                     SizedBox(height: MediaQuery.of(context).size.height / 40),
                                                     ///name of the Person
                                                     Container(
