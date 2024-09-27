@@ -257,22 +257,29 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               // }
             });
           },
+          // validator: (value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'Please fill this field';
+          //   }
+          //   return null;
+          // },
         ),
-        // if (errorStates[errorKey]!)
-        //   Padding(
-        //     padding: const EdgeInsets.only(top: 5),
-        //     child: Text(
-        //       errorKey == 'mobileNumber'
-        //           ? 'Please Enter a valid mobile number'
-        //           : errorKey == 'email'
-        //           ? 'Please Enter a valid email'
-        //           : 'Please Enter $labelText',
-        //       style: TextStyle(
-        //         color: ColorManager.red,
-        //         fontSize: FontSize.s10,
-        //       ),
-        //     ),
-        //   ),
+        if (errorStates[errorKey]!)
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Text(
+              // errorKey == 'mobileNumber'
+              //     ? 'Please Enter a valid mobile number'
+              //     :
+              errorKey == 'email'
+                  ? 'Please Enter a valid email'
+                  : 'Please Enter $labelText',
+              style: TextStyle(
+                color: ColorManager.red,
+                fontSize: FontSize.s10,
+              ),
+            ),
+          ),
       ],
     );
   }
@@ -288,7 +295,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       errorStates['referredBy'] = widget.referredBy.text.isEmpty;
     });
 
-    // if (!errorStates.values.contains(true)) {
+    if (!errorStates.values.contains(true)) {
       try {
         setState(() {
           isLoading = true;
@@ -300,7 +307,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         });
         _clearControllers();
       }
-    // }
+     }
   }
 
   void _clearControllers() {
