@@ -61,21 +61,6 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
     return null;
   }
 
-  // @override
-  // void initState() {
-  //   if (expiryDateController == AppConfig.issuer) {
-  //     DateTime dateTime =
-  //     DateTime.parse(expiryDate ?? DateTime.now().toString());
-  //     showExpiryDateField = true;
-  //     datePicked = dateTime;
-  //     expiryDateController = TextEditingController(
-  //         text: DateFormat('MM-dd-yyyy').format(dateTime!));
-  //   }
-  //   // fileName = widget.docName;
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
-
   DateTime? datePicked;
   void _validateForm() {
     setState(() {

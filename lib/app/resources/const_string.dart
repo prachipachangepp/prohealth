@@ -311,13 +311,14 @@ class AppStringMobile {
   static const String  summry = 'Summary';
 }
 class AppStringHRNoData {
-  ///login screen
+  ///manage screen
   static const String employeeNoData = 'No employement available!';
   static const String educationNoData = 'No education available!';
   static const String referenceNoData = 'No references available!';
   static const String licenseNoData = 'No licenses available!';
   static const String bankingNoData = 'No banking available!';
   static const String equpmentNoData = 'No equipment available!';
+  static const String nodevicedesc = 'No Device Description available!';
   static const String terminationNoData = 'No termination available!';
   static const String timeOffNoData = 'No time off available!';
   static const String ackNoData = 'No acknowledgement available!';
@@ -325,7 +326,7 @@ class AppStringHRNoData {
   static const String compensationNoData = 'No compensation available!';
   static const String othersnNoData = 'No others available!';
   static const String payRatesNoData = 'No pay rates available!';
-  ///login screen
+  ///onboarding screen
   // static const String employeeNoData = 'No employement available!';
   static const String noOnboardingData = 'No onboarding data available!';
   static const String noOnboardEmpData = 'No qualification employement available!';

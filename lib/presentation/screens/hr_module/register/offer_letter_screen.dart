@@ -183,20 +183,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
 
 
-
-
-
-
-
-
-
-
-  ///
-
-
-
-
-
   AppLinks? _appLinks;
 
   void _initAppLinks() async {
@@ -1489,7 +1475,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                   labelText: 'County',
                                   labelStyle:DocumentTypeDataStyle.customTextStyle(context),
                                   labelFontSize: 12,
-                                  items: ['No Data'],
+                                  items: ['No County'],
                                 );
                               }
                             },
