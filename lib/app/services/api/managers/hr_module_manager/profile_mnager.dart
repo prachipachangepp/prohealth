@@ -497,6 +497,18 @@ Future<ApiData> getEmployeeEdit({
 /// get prefill API  Employees
 Future<ProfileEditorModal> getEmployeePrefill(
     BuildContext context, int employeeId) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
   var itemsList;
   final companyId = await TokenManager.getCompanyId();
   try {
@@ -505,6 +517,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         path: EstablishmentManagerRepository.employeePrefillPatch(
             employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
+      String dateOfBirth = convertIsoToDayMonthYear(response.data['dateOfBirth']);
       itemsList = ProfileEditorModal(
         employeeId: response.data['employeeId'] ?? 0,
         code: response.data['code'] ?? '',
@@ -524,7 +537,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         regOfficId: response.data['regOfficId'] ?? '',
         personalEmail: response.data['personalEmail'] ?? '',
         workEmail: response.data['workEmail'] ?? '',
-        dateOfBirth: response.data['dateOfBirth'] ?? '',
+        dateOfBirth: dateOfBirth ?? '',
         emergencyContact: response.data['emergencyContact'] ?? '',
         covreage: response.data['covreage'] ?? '',
         employment: response.data['employment'] ?? '',
