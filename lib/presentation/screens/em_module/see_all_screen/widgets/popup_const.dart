@@ -490,118 +490,125 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
       width: 400,
       title: widget.title,
       body: [
-        FirstSMTextFConst(
-          controller: firstnameController,
-          keyboardType: TextInputType.text,
-          text: "First Name",
-        ),
-        // if (_nameDocError != null) // Display error if any
-        //   Text(
-        //     _nameDocError!,
-        //     style: CommonErrorMsg.customTextStyle(context),
-        //   ),
-        SizedBox(height: 5,),
-        ///
-        FirstSMTextFConst(
-          controller:lastnameController,
-          keyboardType: TextInputType.text,
-          text: 'Last Name',
-        ),
-        // if (_stateDocError != null) // Display error if any
-        //   Text(
-        //     _stateDocError!,
-        //     style: CommonErrorMsg.customTextStyle(context),
-        //   ),
-        SizedBox(height: 10,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: Text(
-                  'Select Department',
-                  //  widget.depTitle,
-                  style: AllPopupHeadings.customTextStyle(context)),
-            ),
-          ],
-        ),
-        SizedBox(height: 5,),
-        FutureBuilder<List<HRHeadBar>>(
-          future: companyHRHeadApi(context, deptId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState ==
-                ConnectionState.waiting) {
-              List<String>dropDownServiceList =[];
-              return Container(
-                  alignment: Alignment.center,
-                  child:
-                  HRUManageDropdown(
-                    controller: TextEditingController(
-                        text: ''),
-                    labelFontSize: 12,
-                    items:  dropDownServiceList,
-                  )
-              );
-            }
-            if (snapshot.hasData &&
-                snapshot.data!.isEmpty) {
-              return Center(
-                child: Text(
-                  ErrorMessageString.noroleAdded,
-                  style: AllNoDataAvailable.customTextStyle(context),
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              // Extract dropdown items from snapshot
-              List<String> dropDownServiceList = snapshot
-                  .data!
-                  .map((dept) => dept.deptName!)
-                  .toList();
-              String? firstDeptName =
-              snapshot.data!.isNotEmpty
-                  ? snapshot.data![0].deptName
-                  : null;
-              int? firstDeptId = snapshot.data!.isNotEmpty
-                  ? snapshot.data![0].deptId
-                  : null;
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            children: [
+              FirstSMTextFConst(
+                controller: firstnameController,
+                keyboardType: TextInputType.text,
+                text: "First Name",
+              ),
+              // if (_nameDocError != null) // Display error if any
+              //   Text(
+              //     _nameDocError!,
+              //     style: CommonErrorMsg.customTextStyle(context),
+              //   ),
+              SizedBox(height: 5,),
+              ///
+              FirstSMTextFConst(
+                controller:lastnameController,
+                keyboardType: TextInputType.text,
+                text: 'Last Name',
+              ),
+              // if (_stateDocError != null) // Display error if any
+              //   Text(
+              //     _stateDocError!,
+              //     style: CommonErrorMsg.customTextStyle(context),
+              //   ),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Text(
+                        'Select Department',
+                        //  widget.depTitle,
+                        style: AllPopupHeadings.customTextStyle(context)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5,),
+              FutureBuilder<List<HRHeadBar>>(
+                future: companyHRHeadApi(context, deptId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    List<String>dropDownServiceList =[];
+                    return Container(
+                        alignment: Alignment.center,
+                        child:
+                        HRUManageDropdown(
+                          controller: TextEditingController(
+                              text: ''),
+                          labelFontSize: 12,
+                          items:  dropDownServiceList,
+                        )
+                    );
+                  }
+                  if (snapshot.hasData &&
+                      snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        ErrorMessageString.noroleAdded,
+                        style: AllNoDataAvailable.customTextStyle(context),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    // Extract dropdown items from snapshot
+                    List<String> dropDownServiceList = snapshot
+                        .data!
+                        .map((dept) => dept.deptName!)
+                        .toList();
+                    String? firstDeptName =
+                    snapshot.data!.isNotEmpty
+                        ? snapshot.data![0].deptName
+                        : null;
+                    int? firstDeptId = snapshot.data!.isNotEmpty
+                        ? snapshot.data![0].deptId
+                        : null;
 
-              if (selectedDeptName == null &&
-                  dropDownServiceList.isNotEmpty) {
-                selectedDeptName = firstDeptName;
-                selectedDeptId = firstDeptId;
-              }
+                    if (selectedDeptName == null &&
+                        dropDownServiceList.isNotEmpty) {
+                      selectedDeptName = firstDeptName;
+                      selectedDeptId = firstDeptId;
+                    }
 
-              return HRUManageDropdown(
-                controller: TextEditingController(
-                    text: selectedDeptName ?? ''),
-                hintText: "Department",
-                labelFontSize: 12,
-                items: dropDownServiceList,
-                onChanged: (val) {
-                  setState(() {
-                    selectedDeptName = val;
-                    // Find the corresponding department ID from the snapshot
-                    selectedDeptId = snapshot.data!
-                        .firstWhere(
-                            (dept) => dept.deptName == val)
-                        .deptId;
-                  });
+                    return HRUManageDropdown(
+                      controller: TextEditingController(
+                          text: selectedDeptName ?? ''),
+                      hintText: "Department",
+                      labelFontSize: 12,
+                      items: dropDownServiceList,
+                      onChanged: (val) {
+                        setState(() {
+                          selectedDeptName = val;
+                          // Find the corresponding department ID from the snapshot
+                          selectedDeptId = snapshot.data!
+                              .firstWhere(
+                                  (dept) => dept.deptName == val)
+                              .deptId;
+                        });
+                      },
+                    );
+                  }
+                  return const SizedBox();
                 },
-              );
-            }
-            return const SizedBox();
-          },
-        ),
-        SizedBox(height: 14,),
-        SMTextFConst(controller: emailController,
-            keyboardType: TextInputType.emailAddress,
-            text: 'Email'),
-        // if (_emailDocError != null) // Display error if any
-        //   Text(
-        //     _emailDocError!,
-        //     style: CommonErrorMsg.customTextStyle(context),
-        //   ),
+              ),
+              SizedBox(height: 14,),
+              SMTextFConst(controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  text: 'Email'),
+              // if (_emailDocError != null) // Display error if any
+              //   Text(
+              //     _emailDocError!,
+              //     style: CommonErrorMsg.customTextStyle(context),
+              //   ),
+            ],
+          ),
+        )
       ],
       bottomButtons: ReusableLoadingButton(
         height: 30,

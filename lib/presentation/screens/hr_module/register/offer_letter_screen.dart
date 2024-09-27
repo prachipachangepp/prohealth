@@ -1604,7 +1604,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                             color: Color(0xff686464),
                                           ),
                                           decoration: const InputDecoration.collapsed(hintText: ''),
-                                          items: dropDownList,
+                                          items: dropDownTypesList,
                                           onChanged: (newValue) {
                                             setState(() {
                                               for (var a
@@ -1770,17 +1770,19 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 180.0, right: 180.0),
-                        child: TabBar(
-
-                          indicatorColor: const Color(0xff1696C8),
-                          labelColor: const Color(0xff686464),
-                          unselectedLabelColor: const Color(0xff686464),
-                          labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                          unselectedLabelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                          tabs: const [
-                            Tab(text: 'Zip Codes'),
-                            // Tab(text: 'Cities'),
-                          ],
+                        child: AbsorbPointer(
+                          child: TabBar(
+                          
+                            indicatorColor: const Color(0xff1696C8),
+                            labelColor: const Color(0xff686464),
+                            unselectedLabelColor: const Color(0xff686464),
+                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            unselectedLabelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            tabs: const [
+                              Tab(text: 'Zip Codes'),
+                              // Tab(text: 'Cities'),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
