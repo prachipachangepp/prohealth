@@ -101,7 +101,7 @@ class _LoginWebState extends State<LoginWeb> {
                       children: [
                         const Text(
                           // "Version 1.0.3 (33) demo",
-                          "Version 1.0.3 (41) demo",
+                          "Version 1.0.3 (42) demo",
                           style: TextStyle(
                             fontSize: 10,
                           ),
