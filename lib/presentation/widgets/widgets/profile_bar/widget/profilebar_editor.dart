@@ -1287,14 +1287,29 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Success'),
-                                        content: Text('Employee updated successfully!'),
+                                        title: Text('Success', style:TextStyle(
+                                          fontSize: FontSize.s13,
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorManager.mediumgrey,
+                                          decoration: TextDecoration.none,
+                                        )),
+                                        content: Text('Employee updated successfully!',style: TextStyle(
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.mediumgrey,
+                                          decoration: TextDecoration.none,
+                                        )),
                                         actions: [
                                           TextButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('OK'),
+                                            child: Text('OK',style: TextStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            )),
                                           ),
                                         ],
                                       );
