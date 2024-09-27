@@ -209,42 +209,83 @@ class _ProfileBarState extends State<ProfileBar> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: AppSize.s70,
-                          height: AppSize.s70,
+                          height: 70,
+                          width: 70,
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                                  widget.searchByEmployeeIdProfileData!.imgurl == null ?
-
-                              Icon(
-                                Icons.person,
-                                color: ColorManager.white,
-                                size: AppSize.s50,
-                              ) :
-                              CachedNetworkImage(
-                                imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
-                                placeholder: (context, url) => new CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => new Icon(Icons.error),
-                                width: AppSize.s70,
-                                height: AppSize.s70,
+                              // Circular avatar for the image or icon
+                              ClipOval(
+                                child: widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                    widget.searchByEmployeeIdProfileData!.imgurl == null
+                                    ? Icon(
+                                  Icons.person,
+                                  color: ColorManager.white,
+                                  size: AppSize.s50,
+                                )
+                                    : CachedNetworkImage(
+                                  imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
+                                  placeholder: (context, url) => CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                  height: 67, // Adjust image height for proper fit
+                                  width: 67, // Adjust image width for proper fit
+                                ),
                               ),
-                              // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
-                              //     height: AppSize.s50, width: AppSize.s50),
+                              // Circular progress indicator around the image
                               SizedBox(
-                                height: AppSize.s53,
-                                width: AppSize.s53,
+                                height: AppSize.s70,
+                                width: AppSize.s70,
                                 child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      ColorManager.greenF),
+                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
                                   strokeWidth: 3,
-                                  value: widget.searchByEmployeeIdProfileData!
-                                      .profileScorePercentage,
+                                  value: widget.searchByEmployeeIdProfileData!.profileScorePercentage,
                                 ),
                               ),
                             ],
                           ),
                         ),
+
+
+
+
+                        ///
+                        // SizedBox(
+                        //   height: AppSize.s53,
+                        //   width: AppSize.s53,
+                        //   child: Stack(
+                        //     alignment: Alignment.center,
+                        //     children: [
+                        //       widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                        //           widget.searchByEmployeeIdProfileData!.imgurl == null ?
+                        //
+                        //       Icon(
+                        //         Icons.person,
+                        //         color: ColorManager.white,
+                        //         size: AppSize.s50,
+                        //       ) :
+                        //       CachedNetworkImage(
+                        //         imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
+                        //         placeholder: (context, url) => new CircularProgressIndicator(),
+                        //         errorWidget: (context, url, error) => new Icon(Icons.error),
+                        //         height: AppSize.s53,
+                        //         width: AppSize.s53,
+                        //       ),
+                        //
+                        //       SizedBox(
+                        //         height: AppSize.s53,
+                        //         width: AppSize.s53,
+                        //         child: CircularProgressIndicator(
+                        //           valueColor: AlwaysStoppedAnimation<Color>(
+                        //               ColorManager.greenF),
+                        //           strokeWidth: 3,
+                        //           value: widget.searchByEmployeeIdProfileData!
+                        //               .profileScorePercentage,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         Text(
                           widget.searchByEmployeeIdProfileData!.status
                               .capitalizeFirst!,

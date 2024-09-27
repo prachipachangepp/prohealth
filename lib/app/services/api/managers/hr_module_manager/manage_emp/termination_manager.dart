@@ -31,6 +31,12 @@ Future<List<TerminationData>> getTermination(BuildContext context) async {
 
         String dateOfBirthFormattedDate =
             convertIsoToDayMonthYear(item['dateOfBirth']);
+        String terminationDate =
+        convertIsoToDayMonthYear(item['dateofTermination']);
+        String resignationDate =
+        convertIsoToDayMonthYear(item['dateofResignation']);
+        String checkDate =
+        convertIsoToDayMonthYear(item['checkDate']);
         itemsData.add(TerminationData(
           employeeId: item['employeeId'],
           code: item['code'],
@@ -65,14 +71,14 @@ Future<List<TerminationData>> getTermination(BuildContext context) async {
           companyId: item['companyId'],
           terminationFlag: item['terminationFlag'],
           approved: item['approved'] ?? true,
-          dateOfTermination: item['dateofTermination'] ?? "--",
-          dateOfResignation: item['dateofResignation'] ?? "--",
+          dateOfTermination: terminationDate ?? "--",
+          dateOfResignation: resignationDate ?? "--",
           rehirable: item['rehirable'] ?? "--",
           finalAddress: item['finalAddress'] ?? "--",
           type: item['type'] ?? "--",
           reson: item['reason'] ?? "--",
           finalPayCheck: item['finalPayCheck'] ?? 0,
-          checkDate: item['checkDate'] ?? "--",
+          checkDate: checkDate ?? "--",
           grossPay: item['grossPay'] ?? 0,
           netPay: item['netPay'] ?? 0,
           methods: item['methods'] ?? "--",

@@ -31,6 +31,13 @@ class TerminationHeadTabbar extends StatefulWidget {
 }
 
 class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
+  @override
+  void initState() async{
+    // TODO: implement initState
+   listData=  await getTermination(context);
+    super.initState();
+  }
+  List<TerminationData> listData = [];
   final StreamController<List<TerminationData>> terminationStremController =
       StreamController<List<TerminationData>>();
 
@@ -38,7 +45,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
   Widget build(BuildContext context) {
     return  Column(
         children: [
-          Row(
+        listData.isEmpty?Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
@@ -80,7 +87,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                     ),
               ),
             ],
-          ),
+          ):Offstage(),
           SizedBox(
             height: 20,
           ),
@@ -120,7 +127,8 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                     child: WrapWidget(
                         childern: List.generate(snapshot.data!.length, (index) {
                       var termination = snapshot.data![index];
-                      return Padding(
+                      return
+                        Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 20),
                         child: Container(

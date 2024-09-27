@@ -75,9 +75,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
         child: Column(
           children: [
             Container(
-              height: 50,
-              decoration: const BoxDecoration(
-                color: Color(0xff50B5E5),
+              height:AppSize.s50,
+              decoration:  BoxDecoration(
+                color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
@@ -88,7 +88,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 55),
+                        vertical: 15, horizontal: 58),
                     child: Text(
                       widget.title,
                         style: PopupHeadingStyle.customTextStyle(context)
