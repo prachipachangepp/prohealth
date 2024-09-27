@@ -266,7 +266,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     labelText: 'Verbal Acceptance',
                   ),
                   //SizedBox(width: MediaQuery.of(context).size.width / 80),
-
                   Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width / 5,
