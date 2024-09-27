@@ -604,39 +604,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             text: AppString.address,
 
                           ),
-                          // HRManageTextField(
-                          //     controller: addressController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppString.address,
-                          //     cursorHeight: 12,
-                          //     labelText: AppString.address,
-                          //     labelStyle:TextStyle(fontSize: 10),
-                          //     labelFontSize: 12),
+
                           FirstSMTextFConst(
                             controller: ageController,
                             keyboardType: TextInputType.text,
                             text: 'Age',
                             showDatePicker: true,
                           ),
-                          // HRManageTextField(
-                          //   controller: ageController,
-                          //   keyboardType: TextInputType.text,
-                          //   text: 'Other Field',
-                          //   cursorHeight: 12,
-                          //   labelText: 'Other Field',
-                          //   labelStyle: TextStyle(fontSize: 10),
-                          //   labelFontSize: 12,
-                          //   showDatePicker: true,
-                          // ),
-                          // HRManageTextField(
-                          //     controller: genderController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppStringMobile.gender,
-                          //     // suffixIcon: Icon(Icons.calendar_month_outlined),
-                          //     cursorHeight: 12,
-                          //     labelText: AppStringMobile.gender,
-                          //     labelStyle:TextStyle(fontSize: 10),
-                          //     labelFontSize: 10),
                           FirstSMTextFConst(
                             controller: genderController,
                             keyboardType: TextInputType.text,
@@ -654,23 +628,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             text: AppString.ssn,
                             // showDatePicker: true,
                           ),
-                          //
-                          // HRManageTextField(
-                          //     controller: ssNController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppString.ssn,
-                          //     cursorHeight: 12,
-                          //     labelText: AppString.ssn,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
-                          // HRManageTextField(
-                          //     controller: phoneNController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppString.phone_number,
-                          //     cursorHeight: 12,
-                          //     labelText: AppString.phone_number,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
+
                           FirstSMTextFConst(
                             controller: phoneNController,
                             keyboardType: TextInputType.phone,
@@ -683,14 +641,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             text:  AppStringMobile.worNo,
                             // showDatePicker: true,
                           ),
-                          // HRManageTextField(
-                          //     controller: workPhoneController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppStringMobile.worNo,
-                          //     cursorHeight: 12,
-                          //     labelText: AppStringMobile.worNo,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
                         ],
                       ),
 
@@ -704,36 +654,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             text: AppStringMobile.perEmail,
                             // showDatePicker: true,
                           ),
-                          // HRManageTextField(
-                          //     controller: personalEmailController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppStringMobile.perEmail,
-                          //     cursorHeight: 12,
-                          //     labelText: AppStringMobile.perEmail,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
+
                           FirstSMTextFConst(
                             controller: workEmailController,
                             keyboardType: TextInputType.text,
                             text: AppStringMobile.worEmail,
                             // showDatePicker: true,
                           ),
-                          // HRManageTextField(
-                          //     controller: workEmailController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppStringMobile.worEmail,
-                          //     cursorHeight: 12,
-                          //     labelText: AppStringMobile.worEmail,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
-                          // HRManageTextField(
-                          //     controller: summaryController,
-                          //     keyboardType: TextInputType.text,
-                          //     text: AppStringMobile.summry,
-                          //     cursorHeight: 12,
-                          //     labelText: AppStringMobile.summry,
-                          //     labelStyle: GoogleFonts.firaSans(fontSize: 12),
-                          //     labelFontSize: 12),
                           FirstSMTextFConst(
                             controller: summaryController,
                             keyboardType: TextInputType.text,
@@ -1034,26 +961,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                             break;
                                                                                           }
                                                                                         }
-                                                                                        // Fetch zones for the selected county
-                                                                                        // List<CountyWiseZoneModal> zones =
-                                                                                        // await fetchCountyWiseZone(context, selectedCountyId);
-                                                                                        //
-                                                                                        // // Clear and populate zone dropdown list
-                                                                                        // zoneDropDownList.clear();
-                                                                                        // zoneDropDownList.add(
-                                                                                        //   DropdownMenuItem<String>(
-                                                                                        //     child: Text('Select Zone'),
-                                                                                        //     value: 'Select Zone',
-                                                                                        //   ),
-                                                                                        // );
-                                                                                        // for (var zone in zones) {
-                                                                                        //   zoneDropDownList.add(
-                                                                                        //     DropdownMenuItem<String>(
-                                                                                        //       child: Text(zone.zoneName),
-                                                                                        //       value: zone.zoneName,
-                                                                                        //     ),
-                                                                                        //   );
-                                                                                        // }
+
                                                                                         print("Selected CountyId: $selectedCountyId");
                                                                                       },
                                                                                     ),
@@ -1132,11 +1040,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                             int docType = 0;
                                                                                             List<DropdownMenuItem<String>>
                                                                                             dropDownTypesList = [];
-                                                                                            // dropDownTypesList.add(
-                                                                                            //     const DropdownMenuItem<String>(
-                                                                                            //   child: Text('Select zone'),
-                                                                                            //   value: 'Select zone',
-                                                                                            // ));
+
                                                                                             for (var i in snapshotZone.data!) {
                                                                                               dropDownTypesList.add(
                                                                                                 DropdownMenuItem<String>(
@@ -1173,24 +1077,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                           }
                                                                                           return const SizedBox();
                                                                                         }),
-                                                                                    // CICCDropdown(
-                                                                                    //   hintText: 'Select Zone',
-                                                                                    //   items: zoneDropDownList.isNotEmpty ? zoneDropDownList : [],
-                                                                                    //   initialValue: selectedZone,
-                                                                                    //   width: 150,
-                                                                                    //   onChange: (newValue) {
-                                                                                    //     setState(() {
-                                                                                    //       selectedZone = newValue;
-                                                                                    //       print('Selected Zone: $selectedZone');
-                                                                                    //     });
-                                                                                    //     // for (var zone in zones) {
-                                                                                    //     //   if (county.countyName == newValue) {
-                                                                                    //     //     selectedCountyId = county.countyId;
-                                                                                    //     //     break;
-                                                                                    //     //   }
-                                                                                    //     // }
-                                                                                    //   },
-                                                                                    // ),
+
                                                                                   ],
                                                                                 );
                                                                               },
@@ -1221,9 +1108,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                           unselectedLabelColor:
                                                                           const Color(
                                                                               0xff686464),
-                                                                          labelStyle:
-                                                                          GoogleFonts
-                                                                              .firaSans(
+                                                                          labelStyle: TextStyle
+                                                                         (
                                                                             fontSize:
                                                                             10,
                                                                             fontWeight:
@@ -1231,8 +1117,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                 .w500,
                                                                           ),
                                                                           unselectedLabelStyle:
-                                                                          GoogleFonts
-                                                                              .firaSans(
+                                                                          TextStyle(
                                                                             fontSize:
                                                                             10,
                                                                             fontWeight:
@@ -1400,7 +1285,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       icon: Icon(
                                         Icons.edit_outlined,
                                         size: 15,
-                                        color: ColorManager.mediumgrey,
+                                        color: ColorManager.blueprime,
                                       ),
                                     ),
                                   ],

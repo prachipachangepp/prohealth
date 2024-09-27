@@ -137,7 +137,8 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                             //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                             Expanded(
                               child: Center(
-                                child: Text(AppStringHr.inventoryid,
+                                child: Text(
+                                    AppStringHr.inventoryid,
                                     style: EquipmentStyleHeading.customTextStyle(context)),
                               ),
                             ),
@@ -217,7 +218,8 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                             Expanded(
                                               child: Center(
                                                 child: Text(
-                                                  "${equipmentData.inventoryId}",
+
+                                                   "${equipmentData.inventoryId}",
                                                     style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
@@ -225,7 +227,8 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                             Expanded(
                                               child: Center(
                                                 child: Text(
-                                                  equipmentData.name,
+                                                   equipmentData.name,
+                                                    // "${equipmentData.inventoryId}",
                                                     style: EquipmentStyleRegular.customTextStyle(context)
                                                 ),
                                               ),
