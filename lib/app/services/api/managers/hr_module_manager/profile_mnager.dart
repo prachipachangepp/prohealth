@@ -513,10 +513,8 @@ Future<ProfileEditorModal> getEmployeePrefill(
         lastName: response.data['lastName'] ?? '',
         departmentId: response.data['departmentId'] ?? 0,
         employeeTypeId: response.data['employeeTypeId'] ?? 0,
-
         cityId: response.data['cityId'] ?? 0,
         countryId: response.data['countryId'] ?? 0,
-
         // countyId: response.data['countyId'],
         zoneId: response.data['zoneId'] ?? 0,
         SSNNbr: response.data['SSNNbr'] ?? '',
@@ -526,7 +524,6 @@ Future<ProfileEditorModal> getEmployeePrefill(
         regOfficId: response.data['regOfficId'] ?? '',
         personalEmail: response.data['personalEmail'] ?? '',
         workEmail: response.data['workEmail'] ?? '',
-
         dateOfBirth: response.data['dateOfBirth'] ?? '',
         emergencyContact: response.data['emergencyContact'] ?? '',
         covreage: response.data['covreage'] ?? '',
