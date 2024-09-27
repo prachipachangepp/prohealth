@@ -662,7 +662,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               //                     decoration: const InputDecoration.collapsed(hintText: ''),
               //                     items: dropDownList,
               //                     onChanged: (newValue) {
-              //                       setState(() {
+              //                      setState(() {
               //                         selectedZone = newValue;
               //                         for (var a in snapshot.data!) {
               //                           if (a.zoneName == newValue) {
