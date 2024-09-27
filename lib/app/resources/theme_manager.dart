@@ -49,7 +49,7 @@ class ThemeManagerDarkFont {
     double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
-      color: ColorManager.black,
+      color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,
     );
   }

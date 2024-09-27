@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -182,125 +180,20 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       icon: Icons.add,
                       text: 'Create User',
                       onPressed: () async {
-                        userIdController.clear();
-                        firstNameController.clear();
                         lastNameController.clear();
-                        roleController.clear();
                         emailController.clear();
-                        companyIdController.clear();
-                        passwordController.clear();
-                        if (selectedDeptId == null) {
-                          setState(() {
-                            selectedDeptId = firstDeptId;
-                          });
-                        }
+                        firstNameController.clear();
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return CustomDialog(
                               title: "Create User",
-                              userIdController: userIdController,
+                              //userIdController: userIdController,
                               lastNameController: lastNameController,
                               emailController: emailController,
                               firstNameController: firstNameController,
-                              roleController: roleController,
+                              // roleController: roleController,
                               passwordController: passwordController,
-                              companyIdController: companyIdController,
-                              onSubmit: () async {
-                                await createUserPost(
-                                    context,
-                                    // userIdController.text,
-                                    firstNameController.text,
-                                    lastNameController.text,
-                                    selectedDeptId!, // roleController.text,
-                                    emailController.text,
-                                    // 1, // int.parse(companyIdController.text),
-                                    passwordController.text);
-                                getUser(context).then((data) {
-                                  _companyUsersList.add(data);
-                                }).catchError((error) {});
-                                Navigator.pop(context);
-                                firstNameController.clear();
-                                lastNameController.clear();
-                                roleController.clear();
-                                emailController.clear();
-                                companyIdController.clear();
-                                passwordController.clear();
-                              },
-                              depTitle: 'Select Department',
-                              child: FutureBuilder<List<HRHeadBar>>(
-                                future: companyHRHeadApi(context, deptId),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    List<String>dropDownServiceList =[];
-                                    return Container(
-                                      alignment: Alignment.center,
-                                      child:
-                                      HRManageDropdown(
-                                        controller: TextEditingController(
-                                            text: ''),
-                                        // labelText: 'Select Department',
-                                        // labelStyle: MobileMenuText.MenuTextConst(context),
-                                        labelFontSize: 12,
-                                        items:  dropDownServiceList, hintText: 'Department',
-
-                                      )
-                                    );
-                                  }
-                                  if (snapshot.hasData &&
-                                      snapshot.data!.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        ErrorMessageString.noroleAdded,
-                                        style: AllNoDataAvailable.customTextStyle(context),
-                                      ),
-                                    );
-                                  }
-                                  if (snapshot.hasData) {
-                                    // Extract dropdown items from snapshot
-                                    List<String> dropDownServiceList = snapshot
-                                        .data!
-                                        .map((dept) => dept.deptName!)
-                                        .toList();
-                                    String? firstDeptName =
-                                        snapshot.data!.isNotEmpty
-                                            ? snapshot.data![0].deptName
-                                            : null;
-                                    int? firstDeptId = snapshot.data!.isNotEmpty
-                                        ? snapshot.data![0].deptId
-                                        : null;
-
-                                    if (selectedDeptName == null &&
-                                        dropDownServiceList.isNotEmpty) {
-                                      selectedDeptName = firstDeptName;
-                                      selectedDeptId = firstDeptId;
-                                    }
-
-                                    return HRManageDropdown(
-                                      controller: TextEditingController(
-                                          text: selectedDeptName ?? ''),
-                                      // labelText: "Select Department",
-                                      // labelStyle: MobileMenuText.MenuTextConst(context),
-                                      hintText: "Department",
-                                      labelFontSize: 12,
-                                      items: dropDownServiceList,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          selectedDeptName = val;
-                                          // Find the corresponding department ID from the snapshot
-                                          selectedDeptId = snapshot.data!
-                                              .firstWhere(
-                                                  (dept) => dept.deptName == val)
-                                              .deptId;
-                                        });
-                                      },
-                                    );
-                                  }
-                                  return const SizedBox(); // Return an empty widget in case of no data
-                                },
-                              ),
-
                             );
                           },
                         );
@@ -404,6 +297,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               child: StreamBuilder<List<UserModal>>(
                 stream: _companyUsersList.stream,
                 builder: (BuildContext context, snapshot) {
+    getUser(context).then((data) {
+        _companyUsersList.add(data);
+      }).catchError((error) {});
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -482,7 +378,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               formattedSerialNumber,
 
-                                              style:  DocumentTypeDataStyle.customTextStyle(context),
+                                              style: DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -742,6 +638,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                             .center,
                                                                         child:
                                                                         HRManageDropdown(
+                                                                          height: 38,
+                                                                          width: 350,
                                                                           controller: TextEditingController(
                                                                               text: ''),
                                                                           // labelText: 'Select Department',
@@ -783,6 +681,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                           firstDeptId;
                                                                     }
                                                                     return HRManageDropdown(
+                                                                      height: 38,
+                                                                      width: 350,
                                                                       controller:
                                                                       TextEditingController(
                                                                           text: selectedDeptName ?? ''),
@@ -803,7 +703,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                               print(
                                                                                   "deptID :::::::${selectedDeptId}");
                                                                             });
-                                                                      }, hintText: 'Department',
+                                                                      },
                                                                     );
                                                                   }
                                                                   return const SizedBox();

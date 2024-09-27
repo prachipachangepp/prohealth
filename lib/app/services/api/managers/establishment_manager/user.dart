@@ -159,6 +159,7 @@ Future<ApiData> createUserPost(BuildContext context, String firstName,
       'company_id': companyId,
       'password': password
     });
+    print(response.data);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New User Added");
       return ApiData(

@@ -59,7 +59,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Text(
-                    AppString.dataNotFound,
+                    AppStringHRNoData.noOnboardRefData,
                     style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ));

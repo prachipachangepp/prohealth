@@ -82,34 +82,65 @@ class _CiOrgDocumentState extends State<CIInsurance> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _selectedIndex == 0
-                    ? SizedBox(width: 354)
+                Expanded(
+                  flex: 2,
+                  child:  _selectedIndex == 0
+                    ? SizedBox(width: 285)
                     : FutureBuilder<List<ManageVendorData>>(
                   future: companyVendorGet(context, widget.officeId, 1, 20),
                   builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting &&
                         selectedValue == null) {
-                      return dummeyTextField(
-                        width: 354,
+                      return Container(
+                        width:  285,
                         height: 30,
-                        controller: dummyCtrl,
-                        labelText: 'Select',
-                        suffixIcon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.black,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: AppSize.s8),
+                            Expanded(
+                              child: Text(
+                                "Select",
+                                style: MobileMenuText.MenuTextConst(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Icon(Icons.arrow_drop_down),
+                            ),
+                          ],
                         ),
                       );
                     }
 
                     if (snapshotZone.hasError || snapshotZone.data == null) {
-                      return dummeyTextField(
-                        width: 354,
+                      return Container(
+                        width:  285,
                         height: 30,
-                        controller: dummyCtrl,
-                        labelText: 'Select',
-                        suffixIcon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.black,
+                        decoration: BoxDecoration(
+                          // color: Colors.red,
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: AppSize.s8),
+                            Expanded(
+                              child: Text(
+                                "Select",
+                                style: MobileMenuText.MenuTextConst(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Icon(Icons.arrow_drop_down),
+                            ),
+                          ],
                         ),
                       );
                     }
@@ -127,12 +158,12 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         );
                       }
 
-                      // Initialize selectedValue if not already selected
                       if (selectedValue == null && dropDownTypesList.isNotEmpty) {
                         selectedValue = dropDownTypesList[0].value;
                       }
 
                       return CICCDropdown(
+                        width: 285,
                         initialValue: "Select",
                         onChange: (val) {
                           setState(() {
@@ -155,153 +186,161 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                     return const SizedBox();
                   },
-                ),
-
+                ),),
 
                 ///tabbar
-                Padding(
-                  padding: const EdgeInsets.only(right: 230,top: AppPadding.p10),
-                  child: Container(
-                   // color: Colors.red,
-                    width: MediaQuery.of(context).size.width / 10.2,
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () => _selectButton(0,isAddButtonEnabled),
-                          child: Container(
-                            height: 40,
-                            width: 52,
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Vendor",
-                                    style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                                ),
-                                _selectedIndex == 0
-                                    ? Divider(
-                                        color: ColorManager.blueprime,
-                                        thickness: 2,
-                                      )
-                                    : Offstage()
-                              ],
+                Expanded(
+                  flex: 7,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right:150, top: AppPadding.p10),
+                    child: Container(
+                    // color: Colors.red,
+                      width: MediaQuery.of(context).size.width / 9.8,
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () => _selectButton(0,isAddButtonEnabled),
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width / 12,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Vendor",
+                                      style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
+                                  ),
+                                  _selectedIndex == 0
+                                      ? Divider(
+                                          color: ColorManager.blueprime,
+                                          thickness: 2,
+                                        )
+                                      : Offstage()
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: () => _selectButton(1),
-                          child: Container(
-                            height: 40,
-                            width: 60,
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Contract",
-                                    style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
-                                ),
-                                _selectedIndex == 1
-                                    ? Divider(
-                                        color: ColorManager.blueprime,
-                                        thickness: 2,
-                                      )
-                                    : Offstage()
-                              ],
+                          InkWell(
+                            onTap: () => _selectButton(1),
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width / 12,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Contract",
+                                      style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                                  ),
+                                  _selectedIndex == 1
+                                      ? Divider(
+                                          color: ColorManager.blueprime,
+                                          thickness: 2,
+                                        )
+                                      : Offstage()
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                _selectedIndex == 0
+
+                ///buttons
+                Expanded(
+                  flex: 1,
+                    child: _selectedIndex == 0
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: CustomIconButtonConst(
-                            width: 79,
-                            icon: Icons.add,
-                            text: "Add",
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return CustomPopup(
-                                    title: 'Add Vendor',
-                                    namecontroller: vendorNameController,
-                                    onPressed: () async {
-                                    var response = await addVendors(
-                                        context,
-                                        widget.officeId,
-                                        vendorNameController.text,
-                                      );
-                                    if(response.statusCode == 200 || response.statusCode == 201){
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AddSuccessPopup(message:'Added Successfully');
-                                        },
-                                      );
-                                    }
-                                    vendorNameController.clear();
-                                    },
-                                    buttontxt: AppStringEM.Add,
-                                    successpopuptext: 'Added Successfully',
-                                  );
-                                },
-                              );
-                            }),
-                      )
-                    : Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: CustomIconButtonConst(
-                          width: 130,
-                          icon: Icons.add,
-                          text: "Add Doctype",
-                          onPressed:
-                          isAddButtonEnabled?  () {
-                                  //selectedExpiryType = expiryType;
+                  padding: const EdgeInsets.only(right: 20),
+                  child: CustomIconButtonConst(
+                      width: 79,
+                      icon: Icons.add,
+                      text: "Add",
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomPopup(
+                              title: 'Add Vendor',
+                              namecontroller: vendorNameController,
+                              onPressed: () async {
+                                var response = await addVendors(
+                                  context,
+                                  widget.officeId,
+                                  vendorNameController.text,
+                                );
+                                if(response.statusCode == 200 || response.statusCode == 201){
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return StatefulBuilder(
-                                        builder: (BuildContext context, void Function(void Function()) setState) {
-                                          return ContractAddDialog(
-                                              selectedVendorId :selectedVendorId,
-                                            officeid:widget.officeId,
-
-
-
-                                            // onSubmitPressed: () async {
-                                            //   //if (selectedVendorId == 0) {
-                                            //   await addVendorContract(
-                                            //     context,
-                                            //     selectedVendorId,
-                                            //     contractNameController.text,
-                                            //     selectedExpiryType!,
-                                            //     widget.officeId,
-                                            //     contractIdController.text,
-                                            //     calenderController.text
-                                            //   );
-                                            // },
-
-                                            title: 'Add Contract',
-                                          );
-                                        },
-                                      );
+                                      return AddSuccessPopup(message:'Added Successfully');
                                     },
                                   );
                                 }
-                              : () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return VendorSelectNoti(message: "No Vendor Added.",);
+                                vendorNameController.clear();
                               },
+                              buttontxt: AppStringEM.Add,
+                              successpopuptext: 'Added Successfully',
                             );
-                                },
-                          enabled: isAddButtonEnabled,
-                        ),
-                    ),
+                          },
+                        );
+                      }),
+                )
+                    : Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: CustomIconButtonConst(
+                    width: 130,
+                    icon: Icons.add,
+                    text: "Add Doctype",
+                    onPressed:
+                    isAddButtonEnabled
+                        ? () {
+                      //selectedExpiryType = expiryType;
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return ContractAddDialog(
+                                selectedVendorId :selectedVendorId,
+                                officeid:widget.officeId,
+
+
+
+                                // onSubmitPressed: () async {
+                                //   //if (selectedVendorId == 0) {
+                                //   await addVendorContract(
+                                //     context,
+                                //     selectedVendorId,
+                                //     contractNameController.text,
+                                //     selectedExpiryType!,
+                                //     widget.officeId,
+                                //     contractIdController.text,
+                                //     calenderController.text
+                                //   );
+                                // },
+
+                                title: 'Add Contract',
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }
+                        : () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return VendorSelectNoti(message: "No Vendor Added.",);
+                        },
+                      );
+                    },
+                    enabled: isAddButtonEnabled,
+                  ),
+                ) )
+
               ],
             ),
           ),

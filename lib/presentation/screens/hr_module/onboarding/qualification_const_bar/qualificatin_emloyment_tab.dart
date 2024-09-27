@@ -57,9 +57,12 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
         ////////
         if (snapshot.data!.isEmpty) {
           return Center(
-            child: Text(
-              AppString.dataNotFound,
-              style:AllNoDataAvailable.customTextStyle(context),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: Text(
+                AppStringHRNoData.noOnboardEmpData,
+                style:AllNoDataAvailable.customTextStyle(context),
+              ),
             ),
           );
         }

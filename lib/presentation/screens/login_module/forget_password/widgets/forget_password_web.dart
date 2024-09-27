@@ -112,9 +112,13 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                         child: CustomButton(
                           borderRadius: 24,
                           height: MediaQuery.of(context).size.height / 18,
-                          width: MediaQuery.of(context).size.width / 6,
+                          width: MediaQuery.of(context).size.width / 11,
                           text: AppString.continuet,
-                          style: BlueButtonTextConst.customTextStyle(context),
+                          style: TextStyle(
+                            color: ColorManager.white,
+                            fontSize: MediaQuery.of(context).size.width / 90,
+                            fontWeight: FontWeight.w600,
+                          ),
                           onPressed: submitForm,
                         ),
                       )

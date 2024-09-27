@@ -319,7 +319,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                               style:DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
-                                          Expanded( child: Container()),
+                                        //  Expanded( child: Container()),
                                           Expanded(
                                             child: Row(
                                                 mainAxisAlignment:

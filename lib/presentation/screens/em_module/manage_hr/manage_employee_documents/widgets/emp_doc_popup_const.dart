@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -46,11 +47,12 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   String? _idError;
   String? _nameError;
   bool _isFormValid = true;
+  String? _expiryTypeError;
 
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
-      return "Please Enter $fieldName";
+      return "$fieldName";
     }
     return null;
   }
@@ -58,10 +60,15 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   void _validateFields() {
     setState(() {
       _isFormValid = true;
-      _idError = _validateTextField(
-          idDocController.text, 'Please Enter ID of Document');
+      _idError = _validateTextField(idDocController.text, 'Please Enter ID of Document');
       _nameError = _validateTextField(
-          nameDocController.text, 'Please Enter Name of thr Document ');
+          nameDocController.text, 'Please Enter Name of the Document ');
+      if (selectedExpiryType.isEmpty) {
+        _expiryTypeError = 'Please select an expiry type';
+        _isFormValid = false;
+      } else {
+        _expiryTypeError = null; // Clear error if valid
+      }
     });
   }
 
@@ -77,7 +84,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s480,
+      height: AppSize.s492,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -93,7 +100,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
               if (_idError != null)
                 Text(
                   _idError!,
-                  style: TextStyle(color: Colors.red, fontSize: 10),
+                  style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s8),
               FirstSMTextFConst(
@@ -104,7 +111,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
               if (_nameError != null)
                 Text(
                   _nameError!,
-                  style: TextStyle(color: Colors.red, fontSize: 10),
+                  style:  CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s8),
               // Text(
@@ -156,6 +163,11 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                             },
                             title: AppConfig.issuer,
                           ),
+                          if (_expiryTypeError != null)
+                            Text(
+                              _expiryTypeError!,
+                              style:  CommonErrorMsg.customTextStyle(context),
+                            ),
                         ],
                       ),
                     ),
@@ -283,44 +295,92 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                     width: AppSize.s105,
                     height: AppSize.s30,
                     text: AppStringEM.save,
-                    onPressed: () async {
-                      _validateFields();
+                  onPressed: () async {
+                    // Validate fields
+                    _validateFields();
+
+                    // Stop if form is not valid
+                    if (!_isFormValid) {
                       setState(() {
-                        _isLoading = true;
+                        _isLoading = false;
                       });
+                      return;
+                    }
 
-                      int threshold = 0;
-                      if (selectedExpiryType == AppConfig.scheduled &&
-                          daysController.text.isNotEmpty) {
-                        int enteredValue = int.parse(daysController.text);
-                        if (selectedYear == AppConfig.year) {
-                          threshold = enteredValue * 365;
-                        } else if (selectedYear == AppConfig.month) {
-                          threshold = enteredValue * 30;
-                        }
+                    setState(() {
+                      _isLoading = true;
+                    });
+
+                    int threshold = 0;
+                    if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+                      int enteredValue = int.parse(daysController.text);
+                      if (selectedYear == AppConfig.year) {
+                        threshold = enteredValue * 365;
+                      } else if (selectedYear == AppConfig.month) {
+                        threshold = enteredValue * 30;
                       }
-                      await addEmployeeDocSetup(
-                        context: context,
-                        docName: nameDocController.text,
-                        expiryDate: "", //expiryDate,
-                        remainderThreshold: selectedExpiryType.toString(),
-                        empDocMetaDataId: widget.Subdocid,
-                        idOfDoc: idDocController.text,
-                        expiryType: selectedExpiryType.toString(),
-                        threshold: threshold, // Pass calculated or 0
-                      );
+                    }
 
-                      print(nameDocController.text);
-                      print(idDocController.text);
-                      print(widget.Subdocid);
-                      print(selectedExpiryType.toString());
+                    await addEmployeeDocSetup(
+                      context: context,
+                      docName: nameDocController.text,
+                      expiryDate: "", //expiryDate,
+                      remainderThreshold: selectedExpiryType.toString(),
+                      empDocMetaDataId: widget.Subdocid,
+                      idOfDoc: idDocController.text,
+                      expiryType: selectedExpiryType.toString(),
+                      threshold: threshold, // Pass calculated or 0
+                    );
 
-                      Navigator.pop(context);
-                      nameDocController.clear();
-                      dateController.clear();
+                    print(nameDocController.text);
+                    print(idDocController.text);
+                    print(widget.Subdocid);
+                    print(selectedExpiryType.toString());
 
+                    Navigator.pop(context);
+                    nameDocController.clear();
+                    dateController.clear();
+                  },
 
-                    }),
+                  // onPressed: () async {
+                    //   _validateFields();
+                    //   setState(() {
+                    //     _isLoading = true;
+                    //   });
+                    //
+                    //   int threshold = 0;
+                    //   if (selectedExpiryType == AppConfig.scheduled &&
+                    //       daysController.text.isNotEmpty) {
+                    //     int enteredValue = int.parse(daysController.text);
+                    //     if (selectedYear == AppConfig.year) {
+                    //       threshold = enteredValue * 365;
+                    //     } else if (selectedYear == AppConfig.month) {
+                    //       threshold = enteredValue * 30;
+                    //     }
+                    //   }
+                    //   await addEmployeeDocSetup(
+                    //     context: context,
+                    //     docName: nameDocController.text,
+                    //     expiryDate: "", //expiryDate,
+                    //     remainderThreshold: selectedExpiryType.toString(),
+                    //     empDocMetaDataId: widget.Subdocid,
+                    //     idOfDoc: idDocController.text,
+                    //     expiryType: selectedExpiryType.toString(),
+                    //     threshold: threshold, // Pass calculated or 0
+                    //   );
+                    //
+                    //   print(nameDocController.text);
+                    //   print(idDocController.text);
+                    //   print(widget.Subdocid);
+                    //   print(selectedExpiryType.toString());
+                    //
+                    //   Navigator.pop(context);
+                    //   nameDocController.clear();
+                    //   dateController.clear();
+                    //
+                    //
+                    // }
+                    ),
               ),
             ),
       title: widget.title,

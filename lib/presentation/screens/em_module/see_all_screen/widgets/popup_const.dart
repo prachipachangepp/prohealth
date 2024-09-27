@@ -11,37 +11,44 @@ import 'package:prohealth/app/resources/establishment_resources/establish_theme_
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'dart:math';
 
+import '../../../../../app/constants/app_config.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 
 
 class CustomDialog extends StatefulWidget {
   final String title;
-  final String depTitle;
-   VoidCallback onSubmit;
-  final TextEditingController userIdController;
+ // final String depTitle;
+   //VoidCallback onSubmit;
+  //final TextEditingController userIdController;
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController firstNameController;
-  final TextEditingController roleController;
+ // final TextEditingController roleController;
   final TextEditingController passwordController;
-  final TextEditingController companyIdController ;
-  Widget child;
+ // final TextEditingController companyIdController ;
+  //Widget child;
 
   CustomDialog({
-    required this.child,
+   // required this.child,
     required this.title,
-    required this.depTitle,
-    required this.onSubmit,
-    required this.userIdController,
+   // required this.depTitle,
+   // required this.onSubmit,
+   // required this.userIdController,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
-    required this.roleController,
+    //required this.roleController,
     required this.passwordController,
-    required this.companyIdController,
+   // required this.companyIdController,
   });
 
   @override
@@ -77,230 +84,224 @@ class _CustomDialogState extends State<CustomDialog> {
     });
   }
   final TextEditingController passwordController = TextEditingController();
-
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String? _nameDocError;
+  String? _emailDocError;
+  String? _stateDocError;
+  String? _PasswordDocError;
+  bool isLoading = false;
+
+  bool _isFormValid = true;
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    return null;
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+      _PasswordDocError =
+          _validateTextField(widget.passwordController.text, 'Password');
+     });
+  }
+
+  var deptId = 1;
+  int? firstDeptId;
+  String? selectedDeptName;
+  int? selectedDeptId;
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      elevation: 0.0,
-      backgroundColor: Colors.transparent,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: 500,
-            width: 400,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10.0,
-                  offset: const Offset(0.0, 10.0),
-                ),
-              ],
-            ),
+    return DialogueTemplate(width: 410,
+        height: AppSize.s530,
+        title: "Create User",
+        body: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  height: 40,
-                  width: 440,
-                  //padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: ColorManager.bluebottom,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40),
-                        child: Text(
-                          widget.title,
-                          style: PopupBlueBarText.customTextStyle(context),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 5.0),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                FirstSMTextFConst(
+                  controller: widget.firstNameController,
+                  keyboardType: TextInputType.text,
+                  text: "First Name",
                 ),
-                SizedBox(height: 18),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text("First Name" ,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color:  Color(0xff686464),
-                                    fontWeight: FontWeight.w700
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 8,),
-                            HRManageTextField(
-                              controller: widget.firstNameController,
-                              keyboardType: TextInputType.phone,
-                              text: "First Name",
-                              cursorHeight: 12,
-                              // labelText: "First Name",
-                              // labelStyle: TextStyle(),
-                              labelFontSize: 10,
-                              errorText: 'First Name is required',
-                              hintText: 'First Name',
-                            ),
-
-                          ],
+                if (_nameDocError != null) // Display error if any
+                  Text(
+                    _nameDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                SizedBox(height: 5,),
+                ///
+                FirstSMTextFConst(
+                  controller: widget.lastNameController,
+                  keyboardType: TextInputType.text,
+                  text: 'Last Name',
+                ),
+                if (_stateDocError != null) // Display error if any
+                  Text(
+                    _stateDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                SizedBox(height: 10,),
+                Text(
+                    'Select Department',
+                    //  widget.depTitle,
+                    style: AllPopupHeadings.customTextStyle(context)),
+                SizedBox(height: 5,),
+                FutureBuilder<List<HRHeadBar>>(
+                  future: companyHRHeadApi(context, deptId),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      List<String>dropDownServiceList =[];
+                      return Container(
+                          alignment: Alignment.center,
+                          child:
+                          HRUManageDropdown(
+                            controller: TextEditingController(
+                                text: ''),
+                            labelFontSize: 12,
+                            items:  dropDownServiceList,
+                          )
+                      );
+                    }
+                    if (snapshot.hasData &&
+                        snapshot.data!.isEmpty) {
+                      return Center(
+                        child: Text(
+                          ErrorMessageString.noroleAdded,
+                          style: AllNoDataAvailable.customTextStyle(context),
                         ),
-                      ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      // Extract dropdown items from snapshot
+                      List<String> dropDownServiceList = snapshot
+                          .data!
+                          .map((dept) => dept.deptName!)
+                          .toList();
+                      String? firstDeptName =
+                      snapshot.data!.isNotEmpty
+                          ? snapshot.data![0].deptName
+                          : null;
+                      int? firstDeptId = snapshot.data!.isNotEmpty
+                          ? snapshot.data![0].deptId
+                          : null;
 
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text("Last Name",
-                                style: TextStyle(fontSize: 10,
-                                    color:  Color(0xff686464),
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            SizedBox(height: 8,),
-                            HRManageTextField(
-                              controller: widget.lastNameController,
-                              keyboardType: TextInputType.phone,
-                              text: "Last Name",
-                              cursorHeight: 12,
-                              // labelText: "Last Name",
-                              // labelStyle: TextStyle(),
-                              labelFontSize: 10,
-                              errorText: 'Last Name is required',
-                              hintText: 'Last Name',
-                            ),
-                          ],
-                        ),
-                      ),
+                      if (selectedDeptName == null &&
+                          dropDownServiceList.isNotEmpty) {
+                        selectedDeptName = firstDeptName;
+                        selectedDeptId = firstDeptId;
+                      }
 
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text(
-                                 widget.depTitle,
-                                style: TextStyle(fontSize: 10,
-                                    color:  Color(0xff686464),
-                                    fontWeight: FontWeight.w700),),
-                            ),
-                            SizedBox(height: 8,),
-                            widget.child,
-                          ],
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
-                            ),
-                            SizedBox(height: 8,),
-                            HRManageTextFieldEmail(
-
-                              ///
-                              controller:widget.emailController,
-                              keyboardType: TextInputType.phone,
-                              text: "Email",
-                              cursorHeight: 12,
-                              // labelText: "Last Name",
-                              labelStyle: TextStyle(),
-                              labelFontSize: 10,
-                              errorText: 'Email is required',
-                              hintText: 'Email',
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 10),
-                        child: Column(
-
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text("Password", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
-                            ),
-                            SizedBox(height: 8,),
-                            CustomTextFieldWithIcon(
-                              controller: widget.passwordController,
-                              suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
-                              keyboardType: TextInputType.text,
-                              text: "Password",
-                              cursorHeight: 12,
-                              // labelText: "Password",
-                              hintText: "Password",
-                              labelStyle: TextStyle(),
-                              labelFontSize: 10,
-                              errorText: 'Password is required',
-                              onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      SizedBox(height: 24.0),
-                      ReusableLoadingButton(
-                        height: 30,
-                        width: 120,
-                        text: 'Create',
-                        onPressed: (){
-                          widget.onSubmit();
+                      return HRUManageDropdown(
+                        controller: TextEditingController(
+                            text: selectedDeptName ?? ''),
+                        hintText: "Department",
+                        labelFontSize: 12,
+                        items: dropDownServiceList,
+                        onChanged: (val) {
+                          setState(() {
+                            selectedDeptName = val;
+                            // Find the corresponding department ID from the snapshot
+                            selectedDeptId = snapshot.data!
+                                .firstWhere(
+                                    (dept) => dept.deptName == val)
+                                .deptId;
+                          });
                         },
-                        loadingDuration: 2,
-                      ),
-
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                ),
+                SizedBox(height: 14,),
+                SMTextFConst(controller: widget.emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    text: 'Email'),
+                if (_emailDocError != null) // Display error if any
+                  Text(
+                    _emailDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                SizedBox(height: 14,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 1),
+                  child: Text("Password",
+                      style: AllPopupHeadings.customTextStyle(context)),
+                ),
+                SizedBox(height: 5,),
+                CustomTextFieldWithIcon(
+                  controller: widget.passwordController,
+                  // suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
+                  keyboardType: TextInputType.text,
+                  text: "Password",
+                  cursorHeight: 12,
+                  // labelText: "Password",
+                  hintText: "Password",
+                  labelStyle: TextStyle(),
+                  labelFontSize: 10,
+                  errorText: 'Password is required',
+                  onSuffixIconPressed: _copyToClipboard,
+                ),
+                if (_PasswordDocError != null)
+                  Text(
+                    _PasswordDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
               ],
             ),
-          ),
+          )
+
         ],
-      )
-    );
+        bottomButtons:  isLoading == true
+      ? CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        )
+            : CustomElevatedButton(
+            height: 30,
+            width: 120,
+            text: 'Create',
+            onPressed: () async {
+              _validateForm();
+              print('$selectedDeptId');
+              print('${widget.firstNameController.text}');
+              print('${widget.lastNameController.text}');
+              print('${widget.emailController.text}');
+              print('${widget.passwordController.text}');
+              if (_isFormValid) {
+                await createUserPost(
+                  context,
+                  widget.firstNameController.text,
+                  widget.lastNameController.text,
+                  selectedDeptId!,
+                  widget.emailController.text,
+                  widget.passwordController.text,
+                );
+                widget.firstNameController.clear();
+                widget.lastNameController.clear();
+                widget.emailController.clear();
+                selectedDeptId = AppConfig.AdministrationId;
+                Navigator.pop(context);
+                // }
+              }
+            }
+          //},
+        ),
+        );
   }
 }
 
+///
 class CustomTextFieldWithIcon extends StatefulWidget {
   final TextEditingController controller;
   final Icon? suffixIcon;
@@ -347,55 +348,68 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320,
-      height: 40,
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p5),
-        child: TextFormField(
-          focusNode: widget.focusNode,
-          controller: widget.controller,
-          textAlign: TextAlign.start,
-          style: TextStyle(color: ColorManager.mediumgrey, fontWeight: FontWeight.w700, fontSize: 12),
-          textAlignVertical: TextAlignVertical.center,
-          cursorColor: ColorManager.black,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(
-                bottom: AppPadding.p3,
-                top: AppPadding.p5,
-                left: AppPadding.p5
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-            ),
-            labelText: widget.labelText,
-            labelStyle: widget.labelStyle?.copyWith(
-                fontSize: widget.labelFontSize,
-                color: ColorManager.mediumgrey
-            ),
-             errorText: hasError ? widget.errorText : null,
-            suffixIcon: IconButton(
-              icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),
-              onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
-            ),
-          ),
-          inputFormatters: [
-            CapitalizeFirstLetterFormatter(),
-          ],
+      height: 30,
+      width: 354,
+      child: TextFormField(
+        focusNode: widget.focusNode,
+        controller: widget.controller,
+        textAlign: TextAlign.start,
+        style: TextStyle(
+            color: widget.textColor,
+            fontWeight: FontWeight.w500, fontSize: 10
         ),
+        textAlignVertical: TextAlignVertical.center,
+        cursorColor: ColorManager.black,
+        textInputAction: TextInputAction.next,
+        // decoration: InputDecoration(
+        //   suffixIcon: IconButton(
+        //     icon: Padding(
+        //       padding: const EdgeInsets.only(bottom: 22),
+        //       child: widget.suffixIcon ?? Icon(Icons.copy,size:12, color: Colors.black),
+        //     ),
+        //     onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
+        //   ),
+        //  // prefix: widget.prefixWidget,
+        //   prefixStyle:AllHRTableData.customTextStyle(context),
+        //   border: InputBorder.none,
+        //   contentPadding: EdgeInsets.only(
+        //       bottom: 22,
+        //       left: AppPadding.p15),
+        // ),
+        ///
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(
+              bottom: AppPadding.p3,
+              top: AppPadding.p5,
+              left: AppPadding.p12
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          labelText: widget.labelText,
+          labelStyle:TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
+           errorText: hasError ? widget.errorText : null,
+          suffixIcon: IconButton(
+            icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),
+            onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
+          ),
+        ),
+        inputFormatters: [
+          CapitalizeFirstLetterFormatter(),
+        ],
       ),
     );
   }
 }
-
-
-
 
 
 
@@ -446,8 +460,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 470,
-              width: 380,
+              height: 490,
+              width: 450,
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
@@ -468,7 +482,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                     children: <Widget>[
                       Container(
                         height: 40,
-                        width: 440,
+                        width: 450,
                         //padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: ColorManager.bluebottom,
@@ -491,6 +505,9 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             Padding(
                               padding: EdgeInsets.only(bottom: 5.0),
                               child: IconButton(
+                                splashColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
@@ -512,10 +529,13 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("First Name" , style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
+                              child: Text("First Name" ,
+                                style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.firstNameController,
                               keyboardType: TextInputType.phone,
                               text: "First Name",
@@ -540,6 +560,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextField(
+                              height: 38,
+                              width: 350,
                               controller: widget.lastNameController,
                               keyboardType: TextInputType.phone,
                               text: "Last Name",
@@ -555,10 +577,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 4),
+                              padding: const EdgeInsets.only(right: 250 ),
                               child: Text(
                                 widget.deptName,
                                 style: TextStyle(
@@ -582,6 +604,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                             ),
                             SizedBox(height: 8,),
                             HRManageTextFieldEmail(
+                              height: 38,
+                              width: 350,
                               controller: widget.emailController,
                               keyboardType: TextInputType.phone,
                               text: "Email",
