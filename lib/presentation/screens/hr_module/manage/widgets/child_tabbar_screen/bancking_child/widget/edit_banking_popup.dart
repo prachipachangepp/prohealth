@@ -487,7 +487,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                 width: 100,
                 text: "Save",
                 onPressed: () async {
-                  // if (_formKey.currentState!.validate()) {
+                   if (_formKey.currentState!.validate()) {
                     setState(() {
                       isLoading = true;
                     });
@@ -505,9 +505,9 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                       widget.accountNumberController.clear();
                       widget.verifyAccountController.clear();
                       widget.selectedType = null;
-                      // _typeFieldKey.currentState?.reset();
+                      _typeFieldKey.currentState?.reset();
                     }
-                  // }
+                   }
                 },
                 //         style: ElevatedButton.styleFrom(
                 // backgroundColor: Color(0xFF27A3E0),

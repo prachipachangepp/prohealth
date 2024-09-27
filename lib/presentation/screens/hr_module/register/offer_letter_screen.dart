@@ -363,8 +363,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     key: key,
                     index: index + 1,
                     onRemove: () => removecontainer(key),
-
-
                   );
 
 
