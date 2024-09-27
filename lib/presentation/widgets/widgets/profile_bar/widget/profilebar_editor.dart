@@ -763,7 +763,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ),
                             ///Coverage
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
                                   height: 55,
