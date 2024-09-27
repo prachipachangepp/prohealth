@@ -20,7 +20,6 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   final PageController _onboardPageController = PageController();
   int _selectedIndex = 0;
   int employeeIdCheck = 0;
-
   void _selectButton(int index,int employeeId) {
     setState(() {
       _selectedIndex = index;

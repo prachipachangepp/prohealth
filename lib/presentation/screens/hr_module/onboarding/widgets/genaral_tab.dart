@@ -248,7 +248,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         InfoData(general.dateOfBirth ?? '--'),
-                                                        InfoData(general.employeeType ?? '--'),
+                                                        InfoData(general.expertise ?? '--'),
                                                         InfoData(general.employment ?? '--'),
                                                         InfoData(general.service ?? '--'),
                                                         InfoData(general.race ?? '--'),

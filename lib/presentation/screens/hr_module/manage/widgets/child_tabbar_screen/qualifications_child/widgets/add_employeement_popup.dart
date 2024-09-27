@@ -178,7 +178,7 @@ Padding(
         ],
       ),
       Padding(
-        padding: EdgeInsets.only(left: 30.0, top: 10, bottom: 10),
+        padding: EdgeInsets.only(left: 10.0, top: 10, bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

@@ -92,7 +92,7 @@ class _IntakeNotesMiscellaneousScreenState
                               fileName: fileName,
                               filePath: filePath,
                               idDocController: docIdController,
-                              nameDocController: nameController,
+                              nameDocController: docNamecontroller,
                               calenderController: calenderController,
 
                               // child2: ,
@@ -287,14 +287,14 @@ class _IntakeNotesMiscellaneousScreenState
                                     context: context,
                                     patientId: widget.patientId,
                                     docTypeId: docTypeId, //  docTypeId,
-                                    docName: nameController.text,
+                                    docName: docNamecontroller.text,
                                     docUrl: "some_doc_url",
                                     createdAt: calenderController.text,
                                     docType: selectedDocType!,
                                     // expDate: "${calenderController.text}T09:39:48.030Z",
                                      expDate: "2024-08-16T09:39:48.030Z",
                                   );
-                                  print("DocName${nameController.text}");
+                                  print("DocName${docNamecontroller.text}");
                                 } catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
