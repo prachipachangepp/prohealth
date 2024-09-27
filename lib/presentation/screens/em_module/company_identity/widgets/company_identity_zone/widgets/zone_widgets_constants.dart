@@ -589,10 +589,15 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         text: 'Zip Code',
                       ),
                       if (zipcodeError != null)
-                        Text(
-                          zipcodeError!,
-                          textAlign: TextAlign.start,
-                          style: CommonErrorMsg.customTextStyle(context),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              zipcodeError!,
+                              textAlign: TextAlign.start,
+                              style: CommonErrorMsg.customTextStyle(context),
+                            ),
+                          ],
                         ),
                       SizedBox(height: AppSize.s15),
                       /////
@@ -1254,15 +1259,14 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     text: 'Zone Name',
                   ),
                   if (zoneNumberError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        zoneNumberError!,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12),
-                        // CommonErrorMsg.customTextStyle(context)
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          zoneNumberError!,
+                          style:CommonErrorMsg.customTextStyle(context)
+                        ),
+                      ],
                     ),
                   SizedBox(height: AppSize.s10),
                   Column(
@@ -1286,12 +1290,14 @@ class _AddZonePopupState extends State<AddZonePopup> {
                       // SizedBox(height: AppSize.s5),
                       // widget.child!,
                       if (countyError != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            countyError!,
-                            style: CommonErrorMsg.customTextStyle(context)
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              countyError!,
+                              style: CommonErrorMsg.customTextStyle(context)
+                            ),
+                          ],
                         ),
                     ],
                   ),

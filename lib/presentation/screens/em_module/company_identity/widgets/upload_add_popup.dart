@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
@@ -45,7 +46,6 @@ class UploadDocumentAddPopup extends StatefulWidget {
   @override
   State<UploadDocumentAddPopup> createState() => _UploadDocumentAddPopupState();
 }
-
 class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   int docTypeId = 0;
   String documentTypeName = "";
@@ -54,23 +54,26 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   String fileName = '';
   String _url = "";
   bool showExpiryDateField = false;
+  bool isFileSelected = false;
+  bool isFileErrorVisible = false;
   TextEditingController expiryDateController = TextEditingController();
 
   bool load = false;
   DateTime? datePicked;
   List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
   @override
   void initState() {
     dropDownMenuItems = widget.dataList
         .map((doc) => DropdownMenuItem<String>(
-              value: doc.docname,
-              child: Text(doc.docname),
-            ))
+      value: doc.docname,
+      child: Text(doc.docname),
+    ))
         .toList();
 
     super.initState();
     _url = "";
-    showExpiryDateField; // Reset _url when the popup is initialized
+    showExpiryDateField;
   }
 
   Future<void> _pickFile() async {
@@ -79,6 +82,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+        isFileSelected = true;
+        isFileErrorVisible = false;
       });
     }
   }
@@ -92,20 +97,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         HeaderContentConst(
           heading: AppString.type_of_the_document,
           content: CICCDropdown(
-            width: 354,
             initialValue: "Select",
             onChange: (val) {
               setState(() {
-                // Always reset the expiry field visibility to false initially
                 showExpiryDateField = false;
-
-                // Loop through the documents and check the selected value
                 for (var doc in widget.dataList) {
                   if (doc.docname == val) {
                     docTypeId = doc.orgDocumentSetupid!;
                     documentTypeName = doc.idOfDocument;
-
-                    // Show expiry date field only if expirytype is "issuer expiry"
                     if (doc.expirytype == AppConfig.issuer) {
                       showExpiryDateField = true;
                     }
@@ -118,8 +117,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         ),
         Visibility(
           visible: showExpiryDateField,
-
-          /// Conditionally display expiry date field
           child: HeaderContentConst(
             heading: AppString.expiry_date,
             content: FormField<String>(
@@ -130,7 +127,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   child: TextFormField(
                     controller: expiryDateController,
                     cursorColor: ColorManager.black,
-                      style: DocumentTypeDataStyle.customTextStyle(context),
+                    style: DocumentTypeDataStyle.customTextStyle(context),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -143,7 +140,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       hintText: 'MM-DD-YYYY',
-                      hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                      hintStyle:
+                      DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
@@ -169,7 +167,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'please select date';
+                        return 'Please select a date';
                       }
                       return null;
                     },
@@ -180,116 +178,130 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           ),
         ),
 
-        /// upload  doc
+        /// Upload document
         HeaderContentConst(
           heading: AppString.upload_document,
-          content: Container(
-            height: AppSize.s30,
-            width: AppSize.s354,
-            padding: EdgeInsets.only(left: AppPadding.p15),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ColorManager.containerBorderGrey,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: StatefulBuilder(
-              builder: (BuildContext context,
-                  void Function(void Function()) setState) {
-                return Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          fileName,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                        ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.all(4),
-                        onPressed: _pickFile,
-                        icon: Icon(
-                          Icons.file_upload_outlined,
-                          color: ColorManager.black,
-                          size: 17,
-                        ),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                      ),
-                    ],
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: AppSize.s30,
+                width: AppSize.s354,
+                padding: EdgeInsets.only(left: AppPadding.p15),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: ColorManager.containerBorderGrey,
+                    width: 1,
                   ),
-                );
-              },
-            ),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: StatefulBuilder(
+                  builder: (BuildContext context,
+                      void Function(void Function()) setState) {
+                    return Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              fileName,
+                              style: DocumentTypeDataStyle.customTextStyle(
+                                  context),
+                            ),
+                          ),
+                          IconButton(
+                            padding: EdgeInsets.all(4),
+                            onPressed: _pickFile,
+                            icon: Icon(
+                              Icons.file_upload_outlined,
+                              color: ColorManager.black,
+                              size: 17,
+                            ),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              if (isFileErrorVisible) // Display error if no file is selected
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    'Please upload a document',
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                ),
+            ],
           ),
         )
       ],
       bottomButtons: load
           ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              ),
-            )
+        height: AppSize.s25,
+        width: AppSize.s25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ),
+      )
           : CustomElevatedButton(
-              width: AppSize.s105,
-              height: AppSize.s30,
-              text: AppStringEM.add, //submit
-              onPressed: () async {
-                setState(() {
-                  load = true;
-                });
-                try {
-                  String? expiryDate;
-                  if (expiryDateController.text.isEmpty) {
-                    expiryDate = null;
-                  } else {
-                    expiryDate = datePicked!.toIso8601String() + "Z";
-                  }
-                  ApiData response = await addOrgDocPPPost(
-                    context: context,
-                    orgDocumentSetupid: docTypeId,
-                    idOfDocument: documentTypeName,
-                    expiryDate: expiryDate,
-                    docCreated: DateTime.now().toIso8601String() + "Z",
-                    url: "url",
-                    officeId: widget.officeId,
-                  );
-                  expiryDateController.clear();
-                  if (response.statusCode == 200 ||
-                      response.statusCode == 201) {
-                    await uploadDocumentsoffice(
-                        context: context,
-                        documentFile: filePath,
-                        orgOfficeDocumentId: response.orgOfficeDocumentId!);
-                    setState(() {
-                      load = false;
-                    });
-                  }
-                } finally {
-                  setState(() {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CountySuccessPopup(
-                          message: 'Save Successfully',
-                        );
-                      },
-                    );
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.add, // submit
+        onPressed: () async {
+          setState(() {
+            isFileErrorVisible = !isFileSelected;
+          });
 
+          // Ensure the file is selected before proceeding
+          if (!isFileSelected) {
+            return;
+          }
 
-                    load = false;
-                  });
+          setState(() {
+            load = true;
+          });
 
-                }
-              },
-            ),
+          try {
+            String? expiryDate;
+            if (expiryDateController.text.isEmpty) {
+              expiryDate = null;
+            } else {
+              expiryDate = datePicked!.toIso8601String() + "Z";
+            }
+            ApiData response = await addOrgDocPPPost(
+              context: context,
+              orgDocumentSetupid: docTypeId,
+              idOfDocument: documentTypeName,
+              expiryDate: expiryDate,
+              docCreated: DateTime.now().toIso8601String() + "Z",
+              url: "url",
+              officeId: widget.officeId,
+            );
+            expiryDateController.clear();
+            if (response.statusCode == 200 ||
+                response.statusCode == 201) {
+              await uploadDocumentsoffice(
+                context: context,
+                documentFile: filePath,
+                orgOfficeDocumentId: response.orgOfficeDocumentId!,
+              );
+              setState(() {
+                load = false;
+              });
+            }
+          } finally {
+            setState(() {
+              Navigator.pop(context);
+              load = false;
+            });
+          }
+        },
+      ),
       title: widget.title,
     );
   }
