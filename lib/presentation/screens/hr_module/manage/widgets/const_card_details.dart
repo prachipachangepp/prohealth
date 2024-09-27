@@ -76,14 +76,14 @@ class _DetailsFormateState extends State<DetailsFormate> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row1Child1
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/35,),
+                SizedBox(width: MediaQuery.of(context).size.width/40,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row1Child2
                 ),
               ],
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/13,),
+            SizedBox(width: MediaQuery.of(context).size.width/15,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -91,7 +91,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row2Child1
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/35,),
+                SizedBox(width: MediaQuery.of(context).size.width/40,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row2Child2

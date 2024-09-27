@@ -106,7 +106,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
           Navigator.pop(context);
           },
                 style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           backgroundColor: ColorManager.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

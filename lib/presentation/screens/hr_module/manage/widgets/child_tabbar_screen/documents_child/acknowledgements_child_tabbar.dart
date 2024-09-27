@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -56,7 +57,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, widget.employeeId, "no").then((data) {
+    getAckHealthRecord(context, AppConfig.acknowledgementDocId, widget.employeeId, "no").then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -82,7 +83,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         context: context,
                         builder: (context) {
                          return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(context),
+                              future: getEmployeeDocSetupDropDown(context,AppConfig.acknowledgementDocId),
                               builder: (contex, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -115,7 +116,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-            getAckHealthRecord(context, 10, 48, widget.employeeId, "no").then((data) {
+            getAckHealthRecord(context, AppConfig.acknowledgementDocId, widget.employeeId, "no").then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error

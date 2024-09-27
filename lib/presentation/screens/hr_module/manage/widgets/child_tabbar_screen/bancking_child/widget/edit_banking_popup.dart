@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../custom_icon_button_constant.dart';
@@ -46,6 +48,16 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   final _typeFieldKey = GlobalKey<FormFieldState<String>>();
   String? pickedFileName;
   dynamic pickedFile;
+  Map<String, bool> errorStates = {
+    'name': false,
+    'email': false,
+    'titlePosition': false,
+    'knowPerson': false,
+    'companyName': false,
+    'associationLength': false,
+    'mobileNumber': false,
+    'referredBy': false,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +105,9 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Widget _buildDialogTitle(BuildContext context) {
     return Container(
-      height: 45,
+      height: AppSize.s50,
       decoration: BoxDecoration(
-          color: Color(0xFF27A3E0),
+          color: ColorManager.blueprime,
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0))),
       padding: EdgeInsets.only(left: 25.0),
@@ -104,7 +116,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         children: [
           Text(
             widget.title,
-            style: AllHRTableHeading.customTextStyle(context),
+            style: PopupHeadingStyle.customTextStyle(context),
           ),
           IconButton(
             icon: Icon(Icons.close, color: Colors.white),
@@ -246,6 +258,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
+
                       state.errorText!,
                       style: TextStyle(
                         color: Colors.red,
@@ -366,39 +379,69 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     String labelText, {
     Widget? suffixIcon,
     String? prefixText,
+        TextInputType? keyboardType,
+        Function(String)? validator,
         required bool capitalIsSelect,
-  }) {
+  }){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 36,
-          child: TextFormField(
-            style: TextStyle(
-              fontSize: AppSize.s12,
-            ),
-            controller: controller,
-            decoration: InputDecoration(
-              labelText: labelText,
-              suffixIcon: suffixIcon,
-              prefixText: prefixText,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Color(0xffB1B1B1)),
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-            ),
-            inputFormatters: [if (capitalIsSelect) CapitalizeFirstLetterFormatter(),// Apply formatter conditionally
-            ],
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter ${labelText.toLowerCase()}';
-              }
-              return null;
-            },
-          ),
+        CustomTextFieldRegister(
+          phoneNumberField:  false,
+          height: AppSize.s30,
+          width: MediaQuery.of(context).size.width / 6,
+          controller: controller,
+          labelText: labelText,
+          keyboardType: keyboardType ?? TextInputType.text,
+          padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+          capitalIsSelect: capitalIsSelect, // Pass the parameter here
+          onChanged: (value) {
+            // setState(() {
+            //   if (validator != null) {
+            //     errorStates[errorKey] = validator(value) != null;
+            //   } else {
+            //     errorStates[errorKey] = value.isEmpty;
+            //   }
+            //   // if (errorKey == 'mobileNumber') {
+            //   //   errorStates[errorKey] = value.length != 10;
+            //   // }
+            // });
+          },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter ${labelText.toLowerCase()}';
+            }
+            return null;
+          },
         ),
-        SizedBox(height: 5),
+        // Container(
+        //   height: 36,
+        //   child: TextFormField(
+        //     style: TextStyle(
+        //       fontSize: AppSize.s12,
+        //     ),
+        //     controller: controller,
+        //     decoration: InputDecoration(
+        //       labelText: labelText,
+        //       suffixIcon: suffixIcon,
+        //       prefixText: prefixText,
+        //       border: OutlineInputBorder(
+        //         borderRadius: BorderRadius.circular(8),
+        //         borderSide: BorderSide(color: Color(0xffB1B1B1)),
+        //       ),
+        //       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        //     ),
+        //     inputFormatters: [if (capitalIsSelect) CapitalizeFirstLetterFormatter(),// Apply formatter conditionally
+        //     ],
+        //     validator: (value) {
+        //       if (value == null || value.isEmpty) {
+        //         return 'Please enter ${labelText.toLowerCase()}';
+        //       }
+        //       return null;
+        //     },
+        //   ),
+        // ),
+        // SizedBox(height: 5),
       ],
     );
   }
