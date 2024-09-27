@@ -367,19 +367,19 @@ class CustomTextFieldRegister extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide:  BorderSide(
-                color: ColorManager.mediumgrey,
+                color: Color(0xFFB1B1B1),
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide:  BorderSide(
-                color: ColorManager.mediumgrey,
+                color: Color(0xFFB1B1B1),
               ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide:  BorderSide(
-                color: ColorManager.mediumgrey,
+                color: Color(0xFFB1B1B1),
               ),
             ),
             labelText: labelText,

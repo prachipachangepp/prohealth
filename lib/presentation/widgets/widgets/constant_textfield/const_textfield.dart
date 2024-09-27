@@ -704,7 +704,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
     return Container(
       width:354,
       height:30,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
       decoration: BoxDecoration(
         border: Border.all(
             color: ColorManager.containerBorderGrey, width: AppSize.s1),
@@ -732,8 +732,6 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(bottom: 18.0),
-
-
           // border: OutlineInputBorder(
           //   borderSide: BorderSide(color: Colors.black),
           // ),
