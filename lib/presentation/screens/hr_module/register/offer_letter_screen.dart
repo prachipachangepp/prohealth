@@ -1604,7 +1604,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                             color: Color(0xff686464),
                                           ),
                                           decoration: const InputDecoration.collapsed(hintText: ''),
-                                          items: dropDownList,
+                                          items: dropDownTypesList,
                                           onChanged: (newValue) {
                                             setState(() {
                                               for (var a
