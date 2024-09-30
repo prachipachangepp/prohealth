@@ -9,7 +9,7 @@ import 'color.dart';
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -37,7 +37,7 @@ class ThemeManagerBold {
 /// HR Manage Card Lebal text style
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 13;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -274,7 +274,7 @@ class PopupHeadingStyle {
 class EquipmentStyleHeading{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: FontWeight.w700,
       color: Colors.white,
       decoration: TextDecoration.none,
@@ -305,7 +305,7 @@ class EquipTableRegStyle {
 class TimeOffRegular{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: ColorManager.granitegray,
       decoration:
