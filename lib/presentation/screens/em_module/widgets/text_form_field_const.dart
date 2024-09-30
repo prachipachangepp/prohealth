@@ -104,7 +104,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
               prefix: widget.prefixWidget,
               prefixStyle: AllHRTableData.customTextStyle(context),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom:22, left: AppPadding.p15),
+              contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
             ),
             style: DocumentTypeDataStyle.customTextStyle(context),
             //validator: widget.validator,

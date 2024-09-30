@@ -96,7 +96,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s300,
+        height: AppSize.s330,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),

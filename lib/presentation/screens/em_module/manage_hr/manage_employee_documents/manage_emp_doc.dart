@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/constants/app_config.dart';
@@ -203,7 +201,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Container(
-              height: 28,
+              height: 30,
               width: MediaQuery.of(context).size.width / 1.2025,
               decoration: BoxDecoration(
                 boxShadow: [
@@ -228,7 +226,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.422,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 0
@@ -249,7 +247,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 1
@@ -270,7 +268,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 2
@@ -291,7 +289,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 3
@@ -312,7 +310,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 4
@@ -333,7 +331,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 5
@@ -357,7 +355,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       child: Container(
                         height: 30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 6

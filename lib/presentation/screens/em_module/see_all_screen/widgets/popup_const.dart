@@ -120,7 +120,7 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(width: 410,
-        height: AppSize.s530,
+        height: AppSize.s540,
         title: "Create User",
         body: [
           Padding(

@@ -269,7 +269,7 @@ class CustomTitleButton extends StatelessWidget {
               : null,
           child: Text(
             text,
-            style: TextStyle(
+            style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s14,
               fontWeight: FontWeight.w700,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,

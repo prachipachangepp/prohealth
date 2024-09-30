@@ -115,7 +115,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                 child: Container(
                                   height: AppSize.s30,
                                   width: MediaQuery.of(context).size.width / 8.42,
-                                  padding: EdgeInsets.symmetric(vertical: 6),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key

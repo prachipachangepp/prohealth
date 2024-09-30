@@ -285,7 +285,6 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
         }
       },
     ),
-
     );
   }
 }

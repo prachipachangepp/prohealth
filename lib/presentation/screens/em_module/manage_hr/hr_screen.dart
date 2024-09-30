@@ -735,38 +735,6 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       });
                                                                     },
                                                                     title: EditPopupString.editEmptype,
-                                                                    // child: Container(
-                                                                    //   width: 354,
-                                                                    //   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                                                                    //   decoration: BoxDecoration(
-                                                                    //     color: ColorManager.white,
-                                                                    //     borderRadius: BorderRadius.circular(8),
-                                                                    //     border: Border.all(color: ColorManager.fmediumgrey,width: 1),
-                                                                    //   ),
-                                                                    //   child: Row(
-                                                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                    //     children: [
-                                                                    //       snapshot.data!.deptId == AppConfig.clinicalId
-                                                                    //           ? Text(
-                                                                    //         AppStringEM.clinical,
-                                                                    //         style: DocumentTypeDataStyle.customTextStyle(context)
-                                                                    //       )
-                                                                    //           : snapshot.data!.deptId == AppConfig.salesId
-                                                                    //           ? Text(
-                                                                    //         AppStringEM.sales,
-                                                                    //         style: DocumentTypeDataStyle.customTextStyle(context)
-                                                                    //       )
-                                                                    //           :  Text(
-                                                                    //         AppStringEM.administration,
-                                                                    //         style: DocumentTypeDataStyle.customTextStyle(context)
-                                                                    //       ),
-                                                                    //       // Icon(
-                                                                    //       //   Icons.arrow_drop_down,
-                                                                    //       //   color: ColorManager.mediumgrey,
-                                                                    //       // ),
-                                                                    //     ],
-                                                                    //   ),
-                                                                    // ),
                                                                   );
                                                                 });
                                                           });

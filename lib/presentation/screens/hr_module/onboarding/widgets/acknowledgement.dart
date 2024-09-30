@@ -266,8 +266,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                 Expanded(
                                   child: Text(
                                     data.DocumentName,
-                                    style: AknowledgementStyleConst
-                                        .customTextStyle(context),
+                                    style: AknowledgementStyleConst.customTextStyle(context),
                                   ),
                                 ),
                               ],

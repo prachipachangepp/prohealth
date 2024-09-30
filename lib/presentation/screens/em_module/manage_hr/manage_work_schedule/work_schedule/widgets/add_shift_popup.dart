@@ -101,7 +101,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s360,
+        height: AppSize.s374,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),

@@ -84,14 +84,14 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             return Column(
                               children: [
                                 Material(
-                                  color: ColorManager.white,
+                                  color: ColorManager.red,
                                   elevation: 4,
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: containerWidth,
-                                    height: AppSize.s170,
+                                    height: AppSize.s181,
                                     decoration: BoxDecoration(
-                                      color: ColorManager.white,
+                                      color: ColorManager.green,
                                       borderRadius: BorderRadius.circular(20),
                                       // border: Border.all(
                                       //   width: AppSize.s1,
@@ -192,7 +192,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     SizedBox(height: MediaQuery.of(context).size.height / 40),
                                                     ///name of the Person
                                                     Container(
-                                                      height: AppSize.s30,
+                                                      height: AppSize.s40,
                                                       width: MediaQuery.of(context).size.width/18,
                                                       child: Align(
                                                         alignment: Alignment.center,

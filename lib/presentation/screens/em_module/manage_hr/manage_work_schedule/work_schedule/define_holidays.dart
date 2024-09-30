@@ -181,13 +181,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     children: [
                       Expanded(
                         child: ListView.builder(
-                            // scrollDirection: Axis.vertical,
-                            // itemCount: paginatedData.length,
-                            // itemBuilder: (context, index) {
-                            //   int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                            //   String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            //   DefineHolidayData defineData = paginatedData[index];
-                            scrollDirection: Axis.vertical,
+                        scrollDirection: Axis.vertical,
                             itemCount: paginatedData.length,
                             itemBuilder: (context, index) {
                               // Ensure the serial number starts from 1, with newly added items at the top
@@ -243,7 +237,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                 child: Text(
                                                   defineData.holidayName,
                                                   textAlign: TextAlign.start,
-                                                  style: DocumentTypeDataStyle.customTextStyle(context)
+                                                  style:TableSubHeading.customTextStyle(context),
                                                 ),
                                               ),
                                               Expanded(
@@ -252,7 +246,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                   child: Text(
                                                     defineData.date.toString(),
                                                     textAlign: TextAlign.center,
-                                                    style: DocumentTypeDataStyle.customTextStyle(context)
+                                                    style: TableSubHeading.customTextStyle(context),
                                                   ),
                                                 ),
                                               ),

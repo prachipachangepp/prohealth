@@ -146,9 +146,9 @@ class RegisterTableHead {
 class AknowledgementStyleConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 10,
+      fontSize: FontSize.s12,
       color: Color(0xFF000000),
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
     );
   }
 }
@@ -213,7 +213,7 @@ class CustomTextStylesCommon {
     FontWeight? fontWeight,
   }) {
     return TextStyle(
-      fontSize: fontSize ?? 15,
+      fontSize: fontSize ?? FontSize.s14,
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.w600,
     );
