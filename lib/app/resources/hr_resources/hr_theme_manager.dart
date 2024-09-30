@@ -14,10 +14,6 @@ class OnboardFlowContainerHeading {
   }
 }
 
-
-
-
-
 class FormHeading{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(

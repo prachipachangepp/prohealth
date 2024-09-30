@@ -636,13 +636,11 @@ Future<List<CountyWiseZoneModal>> fetchCountyWiseZone(BuildContext context,
               zoneName: item['zoneName'],
               companyId: item['companyId'],
               officeId: item['officeId'])
-
           );
       }
     } else {
       print('County Wise Zone API Error: ${response.statusCode}');
     }
-
     print("Response:::::${response.data}");
     return itemsList;
   } catch (e) {

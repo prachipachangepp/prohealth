@@ -245,10 +245,6 @@ class _ProfileBarState extends State<ProfileBar> {
                             ],
                           ),
                         ),
-
-
-
-
                         ///
                         // SizedBox(
                         //   height: AppSize.s53,
@@ -541,7 +537,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       style: ProfileBarTextBoldStyle.customEditTextStyle()
                                   ),
                                   SizedBox(height: 10,),
-                                  Text('PTA',
+                                  Text('PTA:',
                                       style: ProfileBarTextBoldStyle.customEditTextStyle()),
                                 ],
                               ),

@@ -256,7 +256,7 @@ void _showPopup(BuildContext context, String title, String message) {
 }
 
 /// update user patch edit
-Future<void> updateUserPatch({
+Future<ApiData> updateUserPatch({
   required BuildContext context,
   required int userId,
   required String firstName,
@@ -282,11 +282,14 @@ Future<void> updateUserPatch({
     print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("User updated successfully");
+      return ApiData(statusCode: response.statusCode!, success: true, message: response.statusMessage!);
     } else {
       print("Failed to update user: ${response.statusCode}");
+      return ApiData(statusCode: response.statusCode!, success: false, message: response.statusMessage!);
     }
   } catch (e) {
     print("Error: $e");
+    return ApiData(statusCode: 500, success: false, message: "Server Error!");
   }
 }
 
