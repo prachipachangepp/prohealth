@@ -244,10 +244,10 @@ class _CiOrgDocumentState extends State<CiZone> {
                   padding: EdgeInsets.only(
                       right: MediaQuery.of(context).size.width / 6),
                   child: Container(
-                    //color: Colors.greenAccent,
+                   // color: Colors.greenAccent,
                     padding: const EdgeInsets.only(top: AppPadding.p10),
                     width: MediaQuery.of(context).size.width / 5.5,
-                    height: 42,
+                    height: 45,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -170,14 +170,14 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                               children: [
                                                 Text(
                                                   formattedSerialNumber,
-                                                  style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                  style:  TableSubHeading.customTextStyle(context),
                                                 ),
                                                 // Text(''),
                                                 Text(
                                                   vendorData.vendorName
                                                       .toString(),
                                                   textAlign: TextAlign.center,
-                                                  style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                  style:  TableSubHeading.customTextStyle(context),
                                                 ),
                                                 //  Text(''),
                                                 Row(

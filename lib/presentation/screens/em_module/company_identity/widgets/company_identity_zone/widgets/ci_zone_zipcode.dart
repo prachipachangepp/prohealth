@@ -214,7 +214,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                         child: Text(
                                           textAlign: TextAlign.center,
                                           zipcode.zipcode.toString(),
-                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                          style:  TableSubHeading.customTextStyle(context),
                                         ),
                                       ),
                                       Expanded(
@@ -231,7 +231,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                           child: Text(
                                             textAlign: TextAlign.center,
                                             'View Map',
-                                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                                            style:  TableSubHeading.customTextStyle(context),
                                           ),
                                         ),
                                       ),

@@ -13,6 +13,7 @@ import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 
@@ -96,7 +97,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s360 : widget.height!,
+      height: widget.height == null ? AppSize.s390 : widget.height!,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,
@@ -113,7 +114,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               children: [
                 Text(
                   widget.docName,
-                  style: ConstTextFieldRegister.customTextStyle(context),
+                  style:  DocumentTypeDataStyle.customTextStyle(context),
                 ),
                 Icon(
                   Icons.arrow_drop_down,
@@ -149,11 +150,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         Expanded(
                           child: Text(
                             fileName,
-                            style: TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w500,
-                              color: ColorManager.greylight,
-                            ),
+                            style:  DocumentTypeDataStyle.customTextStyle(context),
                           ),
                         ),
                         IconButton(
@@ -188,7 +185,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   child: TextFormField(
                     controller: expiryDateController,
                     cursorColor: ColorManager.black,
-                    style: ConstTextFieldRegister.customTextStyle(context),
+                    style:  DocumentTypeDataStyle.customTextStyle(context),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -201,7 +198,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       hintText: 'MM-DD-YYYY',
-                      hintStyle: ConstTextFieldRegister.customTextStyle(context),
+                      hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(

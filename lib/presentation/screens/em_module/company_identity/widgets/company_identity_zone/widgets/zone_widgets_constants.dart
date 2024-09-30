@@ -339,7 +339,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
     return DialogueTemplate(
 
           width: AppSize.s400,
-          height: AppSize.s420,
+          height: AppSize.s440,
          title: widget.title,
 
             body: [
