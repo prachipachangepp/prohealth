@@ -76,7 +76,7 @@ class DropdownItemStyle {
 class BlueButtonTextConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
       color: ColorManager.white,
       decoration: TextDecoration.none,

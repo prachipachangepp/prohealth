@@ -525,6 +525,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                     child: Text(
                         'Select Department',
                         //  widget.depTitle,
+
                         style: AllPopupHeadings.customTextStyle(context)),
                   ),
                 ],

@@ -136,7 +136,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   // borderRadius: 12,
                   text: 'White Labelling  ',
                   //style: PopupBlueBarText.customTextStyle(context),
-                  width: 120,
+                  width: 150,
                   // height: 26,
                   onPressed: showWhitelabellingScreenFunction,
                 ),
@@ -274,7 +274,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       AppStringEM.srno,
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:CIHeading.customTextStyle(context),
                       // style: GoogleFonts.firaSans(
                       //   fontSize: 12,
                       //   fontWeight: FontWeight.w700,
@@ -289,7 +289,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Text(
                     AppStringEM.officename,
                     textAlign: TextAlign.start,
-                    style:AllHRTableHeading.customTextStyle(context),
+                    style:CIHeading.customTextStyle(context),
                     // style: GoogleFonts.firaSans(
                     //   fontSize: 12,
                     //   fontWeight: FontWeight.w700,
@@ -303,7 +303,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Text(
                     AppStringEM.address,
                     textAlign: TextAlign.start,
-                    style:AllHRTableHeading.customTextStyle(context),
+                    style:CIHeading.customTextStyle(context),
                   ),
                 ),
                 Expanded(child: SizedBox()),
@@ -311,7 +311,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       AppStringEM.actions,
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:CIHeading.customTextStyle(context),
 
                     ),
                   ),
@@ -444,7 +444,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Center(
                                                         child: Text(
                                                             formattedSerialNumber,
-                                                            style: DocumentTypeDataStyle.customTextStyle(context)
+                                                            style: CITableStyle.customTextStyle(context)
                                                           // style: GoogleFonts.firaSans(
                                                           //   fontSize: 10,
                                                           //   fontWeight: FontWeight.w700,
@@ -459,7 +459,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Text(
                                                           paginatedData[index].officeName.toString(),
                                                           textAlign: TextAlign.start,
-                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                          style: CITableStyle.customTextStyle(context)
                                                       ),
                                                     ),
                                                     Expanded(child: SizedBox()),
@@ -468,7 +468,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Text(
                                                           paginatedData[index].address.toString(),
                                                           textAlign: TextAlign.start,
-                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                          style: CITableStyle.customTextStyle(context)
                                                       ),
                                                     ),
                                                     Expanded(child: SizedBox()),
