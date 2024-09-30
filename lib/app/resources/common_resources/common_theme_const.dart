@@ -96,17 +96,6 @@ class TransparentButtonTextConst {
   }
 }
 
-// ///all iconbutton
-// class IconButtonTextConst {
-//   static TextStyle customTextStyle(BuildContext context) {
-//     return TextStyle(
-//       fontSize: FontSize.s12,
-//       fontWeight: FontWeight.w600,
-//       color: ColorManager.white,
-//       decoration: TextDecoration.none,
-//     );
-//   }
-// }
 
 ///all popu heading
 class AllPopupHeadings {
