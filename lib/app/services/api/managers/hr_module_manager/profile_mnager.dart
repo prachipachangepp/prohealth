@@ -512,7 +512,6 @@ Future<ProfileEditorModal> getEmployeePrefill(
   var itemsList;
   final companyId = await TokenManager.getCompanyId();
   try {
-
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.employeePrefillPatch(
             employeeId: employeeId));
@@ -546,7 +545,6 @@ Future<ProfileEditorModal> getEmployeePrefill(
         service: response.data['service'] ?? '',
         imgurl: response.data['imgurl'] ?? '',
         resumeurl: response.data['resumeurl'] ?? '',
-
         onboardingStatus: response.data['onboardingStatus'] ?? '',
         driverLicenceNbr: response.data['driverLicenceNbr'] ?? '',
         createdAt: response.data['createdAt'] ?? '',
@@ -611,7 +609,6 @@ Future<List<EmployeeTypeModal>> EmployeeTypeGet(BuildContext context, int depart
     } else {
       print('API Error: ${response.statusCode}');
     }
-
     print("Response:::::${response.data}"); // Debug the response to see what you're getting
     return itemsList;
   } catch (e) {
@@ -639,13 +636,11 @@ Future<List<CountyWiseZoneModal>> fetchCountyWiseZone(BuildContext context,
               zoneName: item['zoneName'],
               companyId: item['companyId'],
               officeId: item['officeId'])
-
           );
       }
     } else {
       print('County Wise Zone API Error: ${response.statusCode}');
     }
-
     print("Response:::::${response.data}");
     return itemsList;
   } catch (e) {

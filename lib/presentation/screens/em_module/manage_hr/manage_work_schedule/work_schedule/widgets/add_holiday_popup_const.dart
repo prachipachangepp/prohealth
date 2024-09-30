@@ -42,115 +42,118 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s330,
+      height: AppSize.s350,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(
             vertical: AppPadding.p3,
             // horizontal: AppPadding.p20,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FirstSMTextFConst(
-                controller: widget.controller,
-                keyboardType: TextInputType.text,
-                text: 'Holiday Name',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    setState(() {
-                      holidayNameError = 'Please enter some text';
-                    });
-                    return null;
-                  }
-                  setState(() {
-                    holidayNameError = null;
-                  });
-                  return null;
-                },
-              ),
-              if (holidayNameError != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    holidayNameError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-                ),
-              SizedBox(height: 20),
-              Text(
-                'Holiday Date',
-                style: AllPopupHeadings.customTextStyle(context),
-              ),
-              SizedBox(height: 5),
-              SizedBox(
-                width: 354,
-                height: 30,
-                child: TextFormField(
-                  controller: widget.calenderDateController,
-                  style: DocumentTypeDataStyle.customTextStyle(context),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    hintText: 'mm-dd-yyyy',
-                    hintStyle:DocumentTypeDataStyle.customTextStyle(context),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(width: 1),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    suffixIcon: Icon(Icons.calendar_month_outlined,
-                        color: ColorManager.blueprime),
-                  ),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedDate,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2101),
-                    );
-                    if (date != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(date);
-                      widget.calenderDateController.text = formattedDate;
-                      setState(() {
-                        holidayDateError = null;
-                      });
-                    }
-                  },
+          child: Form(
+            key:_formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FirstSMTextFConst(
+                  controller: widget.controller,
+                  keyboardType: TextInputType.text,
+                  text: 'Holiday Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       setState(() {
-                        holidayDateError = 'Please select a holiday date';
+                        holidayNameError = 'Please enter holiday name';
                       });
                       return null;
                     }
                     setState(() {
-                      holidayDateError = null;
+                      holidayNameError = null;
                     });
                     return null;
                   },
                 ),
-              ),
-              if (holidayDateError != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    holidayDateError!,
-                    style: CommonErrorMsg.customTextStyle(context),
+                if (holidayNameError != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      holidayNameError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  ),
+                SizedBox(height: 20),
+                Text(
+                  'Holiday Date',
+                  style: AllPopupHeadings.customTextStyle(context),
+                ),
+                SizedBox(height: 5),
+                SizedBox(
+                  width: 354,
+                  height: 30,
+                  child: TextFormField(
+                    controller: widget.calenderDateController,
+                    style: DocumentTypeDataStyle.customTextStyle(context),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      hintText: 'mm-dd-yyyy',
+                      hintStyle:DocumentTypeDataStyle.customTextStyle(context),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(width: 1),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      suffixIcon: Icon(Icons.calendar_month_outlined,
+                          color: ColorManager.blueprime),
+                    ),
+                    readOnly: true,
+                    onTap: () async {
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedDate,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2101),
+                      );
+                      if (date != null) {
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(date);
+                        widget.calenderDateController.text = formattedDate;
+                        setState(() {
+                          holidayDateError = null;
+                        });
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        setState(() {
+                          holidayDateError = 'Please select a holiday date';
+                        });
+                        return null;
+                      }
+                      setState(() {
+                        holidayDateError = null;
+                      });
+                      return null;
+                    },
                   ),
                 ),
-            ],
+                if (holidayDateError != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      holidayDateError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ],
@@ -167,7 +170,8 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
               height: AppSize.s30,
               text: widget.btnTitle,
               onPressed: () async {
-
+              if(_formKey.currentState!.validate()){
+                if(holidayDateError == null){
                   setState(() {
                     isLoading = true;
 
@@ -190,6 +194,12 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                     widget.calenderDateController.clear();
                     widget.controller.clear();
                   }
+                }else {
+                  print('Validation error');
+                }
+
+              }
+
                 }
 
             ),

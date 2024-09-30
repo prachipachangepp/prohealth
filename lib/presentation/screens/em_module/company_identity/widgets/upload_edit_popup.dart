@@ -125,55 +125,53 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
         ),
 
         /// upload  doc
-        HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Container(
-              height: AppSize.s30,
-              width: AppSize.s354,
-              padding: EdgeInsets.only(left: AppPadding.p15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorManager.containerBorderGrey,
-                  width: 1,
+        InkWell(
+          onTap: _pickFile,
+          child: HeaderContentConst(
+              heading: AppString.upload_document,
+              content: Container(
+                height: AppSize.s30,
+                width: AppSize.s354,
+                padding: EdgeInsets.only(left: AppPadding.p15),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: ColorManager.containerBorderGrey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: StatefulBuilder(
-                builder: (BuildContext context,
-                    void Function(void Function()) setState) {
-                  return Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            fileName,
-                            style: TextStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w500,
-                              color: ColorManager.greylight,
+                child: StatefulBuilder(
+                  builder: (BuildContext context,
+                      void Function(void Function()) setState) {
+                    return Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              fileName,
+                              style: TextStyle(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.greylight,
+                              ),
                             ),
                           ),
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile,
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: IconSize.I16,
-                          ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            )),
+                          Icon(
+                              Icons.file_upload_outlined,
+                              color: ColorManager.black,
+                              size: IconSize.I16,
+                            ),
+
+
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              )),
+        ),
         Visibility(
           visible: showExpiryDateField,
 
