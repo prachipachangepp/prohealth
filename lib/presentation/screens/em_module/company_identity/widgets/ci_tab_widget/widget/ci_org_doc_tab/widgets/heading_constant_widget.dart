@@ -22,7 +22,7 @@ class TableHeadingConst extends StatelessWidget {
           Expanded(
             child: Text(
               AppStringEM.srNo,
-              style: AllHRTableHeading.customTextStyle(context),
+              style: TableHeading.customTextStyle(context),
             ),
           ),
           Expanded(
@@ -32,7 +32,7 @@ class TableHeadingConst extends StatelessWidget {
               child: Text(
                 AppStringEM.docID,
                 textAlign: TextAlign.start,
-                style: AllHRTableHeading.customTextStyle(context),
+                style: TableHeading.customTextStyle(context),
               ),
             ),
           ),
@@ -42,7 +42,7 @@ class TableHeadingConst extends StatelessWidget {
               padding: const EdgeInsets.only(right: 55.0),
               child: Text(
                 AppStringEM.name,
-                style: AllHRTableHeading.customTextStyle(context),
+                style: TableHeading.customTextStyle(context),
               ),
             ),
           ),
@@ -52,7 +52,7 @@ class TableHeadingConst extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 AppStringEM.reminderthershold,
-                style: AllHRTableHeading.customTextStyle(context),
+                style: TableHeading.customTextStyle(context),
               ),
             ),
           ),
@@ -60,7 +60,7 @@ class TableHeadingConst extends StatelessWidget {
             child: Text(
               AppStringEM.actions,
               textAlign: TextAlign.center,
-              style: AllHRTableHeading.customTextStyle(context),
+              style: TableHeading.customTextStyle(context),
             ),
           ),
         ],

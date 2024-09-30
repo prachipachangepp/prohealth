@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
       // Optionally show a snackbar or dialog to notify the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Copied to clipboard',  style:AllHRTableHeading.customTextStyle(context))),
+        SnackBar(content: Text('Copied to clipboard',  style:TableHeading.customTextStyle(context))),
       );
     });
   }

@@ -185,7 +185,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 class BlueBgTabbar {
   static TextStyle customTextStyle(int selectedIndex, int currentIndex) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: selectedIndex == currentIndex
           ? FontWeight.w700
           : FontWeight.w500,
@@ -201,7 +201,7 @@ class BlueBgTabbar {
 class TransparentBgTabbar {
   static TextStyle customTextStyle(int selectedIndex, int currentIndex) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: selectedIndex == currentIndex
           ? FontWeight.w700
           : FontWeight.w500,
@@ -214,21 +214,21 @@ class TransparentBgTabbar {
 }
 
 ///listview table listview heading
-class UserHeading {
+// class TableHeading {
+//   static TextStyle customTextStyle(BuildContext context) {
+//     return TextStyle(
+//       fontSize: FontSize.s14,
+//       fontWeight: FontWeight.w600,
+//       color: ColorManager.white,
+//       decoration: TextDecoration.none,
+//     );
+//   }
+// }
+///old
+class TableHeading {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s14,
-      fontWeight: FontWeight.w600,
-      color: ColorManager.white,
-      decoration: TextDecoration.none,
-    );
-  }
-}
-///old
-class AllHRTableHeading {
-  static TextStyle customTextStyle(BuildContext context) {
-    return TextStyle(
-      fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: ColorManager.white,
       decoration: TextDecoration.none,
@@ -271,7 +271,7 @@ class CITableStyle {
     );
   }
 }
-class UserTableStyle {
+class TableSubHeading {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w600,
@@ -281,10 +281,12 @@ class UserTableStyle {
     );
   }
 }
+
+
 class PopupCompStyle{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: ColorManager.mediumgrey,
     );
@@ -307,7 +309,7 @@ class CompanyIdentityManageHeadings {
 class AllHRTableData {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -317,7 +319,7 @@ class AllHRTableData {
 class ZoneDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -329,7 +331,7 @@ class ZoneDataStyle {
 class DefineWorkWeekStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -343,7 +345,7 @@ class RegisterLinkDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
-      fontSize: FontSize.s11,
+      fontSize: FontSize.s13,
       color: ColorManager.blueprime,
       decoration: TextDecoration.none,
     );

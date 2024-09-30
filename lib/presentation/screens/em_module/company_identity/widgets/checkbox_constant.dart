@@ -175,7 +175,7 @@ class _CIDetailsDropdownPopupState extends State<CIDetailsDropdownPopup> {
   void _showCheckboxWarning(BuildContext context) {
     final snackBar = SnackBar(
       content: Text('Please check the checkbox',
-        style: AllHRTableHeading.customTextStyle(context),
+        style: TableHeading.customTextStyle(context),
       ),
       backgroundColor: ColorManager.mediumgrey,
     );

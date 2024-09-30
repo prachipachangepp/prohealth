@@ -88,7 +88,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                 Expanded(
                   child: Center(
                     child: Text('Zip Code',textAlign: TextAlign.start,
-                      style:AllHRTableHeading.customTextStyle(context),),
+                      style:TableHeading.customTextStyle(context),),
                   ),
                 ),
 
@@ -96,7 +96,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                   child: Center(
                     child: Text('Map',
                         textAlign: TextAlign.start,
-                      style:AllHRTableHeading.customTextStyle(context),),
+                      style:TableHeading.customTextStyle(context),),
                   ),
                 ),
                 // Expanded(
@@ -116,7 +116,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                   child: Center(
                     child: Text(
                       'Actions',
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
                     ),
                   ),
                 ),

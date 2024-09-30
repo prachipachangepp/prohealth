@@ -163,7 +163,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   AppString.srNo,
                   textAlign: TextAlign.center,
                   // style: RegisterTableHead.customTextStyle(context),
-                  style: AllHRTableHeading.customTextStyle(context),
+                  style: TableHeading.customTextStyle(context),
                 ),
               ),
 
@@ -173,7 +173,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 child: Text(
                   AppString.visit,
                   textAlign: TextAlign.center,
-                  style: AllHRTableHeading.customTextStyle(context),
+                  style: TableHeading.customTextStyle(context),
                 ),
               ),
 
@@ -183,7 +183,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 child: Text(
                   AppString.eligibleClinician,
                   textAlign: TextAlign.center,
-                  style: AllHRTableHeading.customTextStyle(context),
+                  style: TableHeading.customTextStyle(context),
                 ),
               ),
               Padding(
@@ -191,7 +191,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 child: Text(
                   AppString.actions,
                   textAlign: TextAlign.center,
-                  style: AllHRTableHeading.customTextStyle(context),
+                  style: TableHeading.customTextStyle(context),
                   // style: RegisterTableHead.customTextStyle(context),
                 ),
               ),

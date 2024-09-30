@@ -71,7 +71,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   child: Center(
                     child: Text(
                       'Sr No.',
-                      style: AllHRTableHeading.customTextStyle(context)
+                      style: TableHeading.customTextStyle(context)
                     ),
                   ),
                 ),
@@ -79,7 +79,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   child: Center(
                     child: Text(
                       'Name',
-                      style: AllHRTableHeading.customTextStyle(context)
+                      style: TableHeading.customTextStyle(context)
                     ),
                   ),
                 ),
@@ -87,7 +87,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   child: Center(
                     child: Text(
                       'Zones',
-                      style: AllHRTableHeading.customTextStyle(context)
+                      style: TableHeading.customTextStyle(context)
                     ),
                   ),
                 ),
@@ -95,7 +95,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   child: Center(
                     child: Text(
                       AppStringEM.actions,
-                      style: AllHRTableHeading.customTextStyle(context)
+                      style: TableHeading.customTextStyle(context)
                     ),
                   ),
                 ),

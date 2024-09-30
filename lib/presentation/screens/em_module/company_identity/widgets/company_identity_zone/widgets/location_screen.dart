@@ -48,7 +48,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.blueprime,
-        title: Text('Pick Location',style: AllHRTableHeading.customTextStyle(context)),
+        title: Text('Pick Location',style: TableHeading.customTextStyle(context)),
         actions: [
           IconButton(
             icon: Icon(Icons.check,color: ColorManager.white),

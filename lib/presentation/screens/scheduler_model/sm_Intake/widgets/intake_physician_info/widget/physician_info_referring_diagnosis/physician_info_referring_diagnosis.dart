@@ -277,7 +277,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 80.0),
                                   child: Text(
                                     'Title',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -288,7 +288,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
                                     'Description',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -297,7 +297,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 flex: 3,
                                 child: Text(
                                   'ICD Code',
-                                  style: AllHRTableHeading.customTextStyle(
+                                  style: TableHeading.customTextStyle(
                                       context),
                                 ),
                               ),
@@ -307,7 +307,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 25.0),
                                   child: Text(
                                     AppString.date,
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -469,7 +469,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 274.0),
                                   child: Text(
                                     'Allergies',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -480,7 +480,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
                                     'Start Effective Date',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
