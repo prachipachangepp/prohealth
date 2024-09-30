@@ -397,7 +397,7 @@ class CustomButtonList extends StatelessWidget {
           buttonText,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.bold,
             color: isSelected == docID ? Colors.grey[600] : ColorManager.white,
           ),

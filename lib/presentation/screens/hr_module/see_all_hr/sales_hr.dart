@@ -76,7 +76,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   padding: const EdgeInsets.only(left: 80.0),
                   child: Text(
                     AppStringEM.srno,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -86,7 +86,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   padding: const EdgeInsets.only(left: 5.0),
                   child: Text(
                     AppStringEM.type,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -94,7 +94,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                 flex: 3,
                 child: Text(
                   AppStringEM.name,
-                  style: AllHRTableHeading.customTextStyle(context),
+                  style: TableHeading.customTextStyle(context),
                 ),
               ),
               Expanded(
@@ -103,7 +103,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   padding: const EdgeInsets.only(left: 25.0),
                   child: Text(
                     AppStringEM.location,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -113,7 +113,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   padding: const EdgeInsets.only(left: 50.0),
                   child: Text(
                     AppStringEM.specialization,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -123,7 +123,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   padding: const EdgeInsets.only(left: 50.0),
                   child: Text(
                     AppStringEM.edit,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -158,7 +158,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey,
                     ),
                   ),

@@ -74,7 +74,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                         'Primary',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
@@ -99,7 +99,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                         'Secondary',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey

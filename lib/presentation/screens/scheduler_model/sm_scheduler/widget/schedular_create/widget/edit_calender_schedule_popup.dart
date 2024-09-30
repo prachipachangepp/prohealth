@@ -97,7 +97,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Select Patient',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -115,7 +115,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Assigned Clinician',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -137,7 +137,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Assign Date',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -159,7 +159,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Visit Type',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -282,7 +282,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Start Time',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -305,7 +305,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'End Time',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -332,7 +332,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Details',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -355,7 +355,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                     child: Text('Cancel',
                         style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.bold,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -380,7 +380,7 @@ class _EditCalenderSchedulePopupState extends State<EditCalenderSchedulePopup> {
                           'Add',
                           style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.bold,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: Colors.white,
                           ),
                         ),

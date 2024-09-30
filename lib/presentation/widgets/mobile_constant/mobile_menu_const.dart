@@ -41,7 +41,7 @@ class MobMenuScreenConst extends StatelessWidget {
                   style: GoogleFonts.firaSans(
                     color: ColorManager.mediumgrey,
                    // fontSize: MediaQuery.of(context).size.height / 90,
-                    fontSize: FontSize.s9,
+                    fontSize: FontSize.s10,
                     fontWeight: FontWeightManager.medium,
                   ),
                 ),

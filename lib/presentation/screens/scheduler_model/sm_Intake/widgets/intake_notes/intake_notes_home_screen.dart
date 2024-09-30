@@ -70,7 +70,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Physician',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 0
                           ? ColorManager.mediumgrey
@@ -95,7 +95,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Supervisory',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 1
                           ? ColorManager.mediumgrey
@@ -120,7 +120,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Nurses Clinical',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 2
                           ? ColorManager.mediumgrey
@@ -145,7 +145,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Speech Therapy',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 3
                           ? ColorManager.mediumgrey
@@ -170,7 +170,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Home Health Aid',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 4
                           ? ColorManager.mediumgrey
@@ -195,7 +195,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Spiritual',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 5
                           ? ColorManager.mediumgrey
@@ -220,7 +220,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     'Miscellaneous',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.semiBold,
                       color: selectedIndex == 6
                           ? ColorManager.mediumgrey

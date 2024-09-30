@@ -44,7 +44,7 @@ class QualificationActionButtons extends StatelessWidget {
           'Rejected',
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w600,
             color: ColorManager.mediumgrey,
           ),
@@ -71,7 +71,7 @@ class QualificationActionButtons extends StatelessWidget {
           'Approved',
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w600,
             color: ColorManager.blueprime,
           ),

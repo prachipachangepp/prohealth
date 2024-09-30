@@ -79,7 +79,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                     'Status: Not Completed',
                     style: GoogleFonts.firaSans(
                         decoration: TextDecoration.none,
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.burnt_red),
                   ),
@@ -160,7 +160,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                           Text(
                                             fileName,
                                             style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               fontWeight: FontWeightManager.regular,
                                               color: ColorManager.greylight,
                                             ),
@@ -204,7 +204,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                 .commonStyle(
                                               fontWeight:
                                               FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               color: ColorManager.mediumgrey,
                                             ),
                                           ),
@@ -257,7 +257,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       Text(
                                         "Expiry Type",
                                         style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeight.w700,
                                           color: ColorManager.mediumgrey,
                                           decoration: TextDecoration.none,
@@ -306,7 +306,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                         Text(
                                           "Expiry Date",
                                           style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
+                                            fontSize: FontSize.s14,
                                             fontWeight: FontWeight.w700,
                                             color: ColorManager.mediumgrey,
                                             decoration: TextDecoration.none,
@@ -322,7 +322,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                 controller: calenderController,
                                                 cursorColor: ColorManager.black,
                                                 style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
+                                                  fontSize: FontSize.s14,
                                                   fontWeight: FontWeight.w700,
                                                   color:
                                                       ColorManager.mediumgrey,
@@ -352,7 +352,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                   hintText: 'mm-dd-yyyy',
                                                   hintStyle:
                                                       GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s12,
+                                                    fontSize: FontSize.s14,
                                                     fontWeight: FontWeight.w700,
                                                     color:
                                                         ColorManager.mediumgrey,
@@ -461,7 +461,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                     AppString.dataNotFound,
                                     style: CustomTextStylesCommon.commonStyle(
                                       fontWeight: FontWeightManager.medium,
-                                      fontSize: FontSize.s12,
+                                      fontSize: FontSize.s14,
                                       color: ColorManager.mediumgrey,
                                     ),
                                   ),

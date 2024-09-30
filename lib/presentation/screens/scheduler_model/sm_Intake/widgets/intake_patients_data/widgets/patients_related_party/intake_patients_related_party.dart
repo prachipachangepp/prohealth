@@ -82,7 +82,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       'Status: Partially Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.orangeheading),
                     ),
@@ -153,7 +153,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           Text(
                             'Emergency Contact Information',
                             style: TextStyle(
-                                fontSize: FontSize.s12,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: ColorManager.mediumgrey),
                           )
@@ -584,7 +584,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           Text(
                             'Primary Care Giver',
                             style: TextStyle(
-                                fontSize: FontSize.s12,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: ColorManager.mediumgrey),
                           )

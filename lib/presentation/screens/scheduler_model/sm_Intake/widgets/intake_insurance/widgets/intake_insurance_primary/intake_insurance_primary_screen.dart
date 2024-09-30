@@ -68,7 +68,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),
@@ -113,7 +113,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                       child: Text(
                         AppString.save,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.white,
                         ),
@@ -659,7 +659,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                     ),
                                     Text(AppString.yes,
                                         style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12
+                                            fontSize: FontSize.s14
                                             , fontWeight: FontWeightManager.regular)
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width/100),
@@ -670,7 +670,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                     ),
                                     Text(AppString.no,
                                         style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12
+                                            fontSize: FontSize.s14
                                             , fontWeight: FontWeightManager.regular)
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width/100),

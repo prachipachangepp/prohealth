@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -58,10 +57,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                 builder: (context,snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return  Container(
-                          width: 200,
-                          height: 30,
-                          decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
-                        );
+                      width: 200,
+                      height: 30,
+                      decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                    );
                   }
                   if (snapshot.data!.isEmpty) {
                     return Center(
@@ -135,7 +134,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   numberIDController.text,
                                   docName.toString(),
                                   docName.toString());
-                                  Navigator.pop(context);
+                              Navigator.pop(context);
                               if(response.statusCode == 200 || response.statusCode == 201){
                                 showDialog(
                                   context: context,
@@ -153,10 +152,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
                                     return Container(
-                                          width: 200,
-                                          height: 30,
-                                          decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
-                                        );
+                                      width: 200,
+                                      height: 30,
+                                      decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                                    );
 
                                   }
                                   if (snapshot.data!.isEmpty) {
@@ -207,43 +206,43 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
           height: 1,
         ),
         StreamBuilder<List<QulificationLicensesData>>(
-          stream: streamController.stream,
-          builder: (context,snapshot) {
-            getEmployeeLicenses(context,widget.employeeId).then((data) {
-              streamController.add(data);
-            }).catchError((error) {
-              // Handle error
-            });
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 100),
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                ),
-              );
-            }
-            if (snapshot.data!.isEmpty) {
-              return Center(
+            stream: streamController.stream,
+            builder: (context,snapshot) {
+              getEmployeeLicenses(context,widget.employeeId).then((data) {
+                streamController.add(data);
+              }).catchError((error) {
+                // Handle error
+              });
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 100),
-                    child: Text(
-                      AppStringHRNoData.licenseNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
                     ),
-                  ));
-            }
-            if(snapshot.hasData){
-              return Wrap(
-                spacing: 10,
-                  children:
-                  List.generate(snapshot.data!.length, (index){
-                    return CardDetails(childWidget: DetailsFormate(
-                      title: 'License #${index + 1}',
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 100),
+                      child: Text(
+                        AppStringHRNoData.licenseNoData,
+                        style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeightManager.medium,
+                            fontSize: FontSize.s14,
+                            color: ColorManager.mediumgrey),
+                      ),
+                    ));
+              }
+              if(snapshot.hasData){
+                return Wrap(
+                    spacing: 10,
+                    children:
+                    List.generate(snapshot.data!.length, (index){
+                      return CardDetails(childWidget: DetailsFormate(
+                        title: 'License #${index + 1}',
                         row1Child1: [
                           Text('Licensure/Certification :',
                               style: ThemeManagerDark.customTextStyle(context)),
@@ -308,135 +307,135 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         //     })
                         //   ],
                         // )
-                    ));
+                      ));
                       Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
-                      child: Container(
-                        //height:300,
-                        width: MediaQuery.of(context).size.width/2.5,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 4,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(Radius.circular(12)),
-                        ),
-                        // height:  MediaQuery.of(context).size.height/3.5,
-                        height: MediaQuery.of(context).size.height/3.9,
-                        padding: EdgeInsets.all(5),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width / 80,
-                            vertical: MediaQuery.of(context).size.height / 120,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                               Row(
-                                children: [
-                                  Text(
-                                    'License #${index + 1}',
-                                    // 'License #${snapshot.data![index].licenseId}',
-                                    style:BoxHeadingStyle.customTextStyle(context)),
-                                ],
+                        padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                        child: Container(
+                          //height:300,
+                          width: MediaQuery.of(context).size.width/2.5,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 4,
+                                offset: const Offset(0, 4),
                               ),
-                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Licensure/Certification :',
-                                          style: ThemeManagerDark.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
-                                      Text('Issuing Organization :',
-                                          style: ThemeManagerDark.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
-                                      Text('Country :',
-                                          style: ThemeManagerDark.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
-                                      Text('Number/ID :',
-                                          style: ThemeManagerDark.customTextStyle(context)),
-                                    ],),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(snapshot.data![index].licenure,
-                                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
-                                      Text(snapshot.data![index].org,
-                                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
-                                      Text(snapshot.data![index].country,
-                                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
-                                      Text(snapshot.data![index].licenseNumber,
-                                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text('Issue Date :',
-                                          style: ThemeManagerDark.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
-                                      Text('End Date :',
-                                          style: ThemeManagerDark.customTextStyle(context)),
-                                      const SizedBox(height: 50,)
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(snapshot.data![index].issueDate,
-                                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
-                                      Text(snapshot.data![index].expData,
-                                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                                      const SizedBox(height: 50,)
-
-                                    ],
-                                  ),
-                                ],
-                              ),
-
-                              ///approve reject button
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.end,
-                              //   children: [
-                              //     snapshot.data![index].approved == false ?
-                              //     CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
-                              //       await rejectLicensePatch(context, snapshot.data![index].licenseId);
-                              //     }) :SizedBox() ,
-                              //     const SizedBox(width: 5,),
-                              //     snapshot.data![index].approved == true ?
-                              //     Text('Approved',
-                              //         textAlign: TextAlign.center,
-                              //         style: CustomTextStylesCommon.commonStyle(
-                              //             fontSize: FontSize.s12,
-                              //             fontWeight: FontWeightManager.bold,
-                              //             color: ColorManager.blueprime)) :  CustomIconButton(
-                              //         text: 'Approve', onPressed: () async{
-                              //       await approveLicensePatch(context, snapshot.data![index].licenseId);
-                              //     })
-                              //   ],
-                              // )
                             ],
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(Radius.circular(12)),
+                          ),
+                          // height:  MediaQuery.of(context).size.height/3.5,
+                          height: MediaQuery.of(context).size.height/3.9,
+                          padding: EdgeInsets.all(5),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: MediaQuery.of(context).size.width / 80,
+                              vertical: MediaQuery.of(context).size.height / 120,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                        'License #${index + 1}',
+                                        // 'License #${snapshot.data![index].licenseId}',
+                                        style:BoxHeadingStyle.customTextStyle(context)),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Licensure/Certification :',
+                                            style: ThemeManagerDark.customTextStyle(context)),
+                                        const SizedBox(height: 10,),
+                                        Text('Issuing Organization :',
+                                            style: ThemeManagerDark.customTextStyle(context)),
+                                        const SizedBox(height: 10,),
+                                        Text('Country :',
+                                            style: ThemeManagerDark.customTextStyle(context)),
+                                        const SizedBox(height: 10,),
+                                        Text('Number/ID :',
+                                            style: ThemeManagerDark.customTextStyle(context)),
+                                      ],),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(snapshot.data![index].licenure,
+                                          style: ThemeManagerDarkFont.customTextStyle(context),),
+                                        const SizedBox(height: 10,),
+                                        Text(snapshot.data![index].org,
+                                          style: ThemeManagerDarkFont.customTextStyle(context),),
+                                        const SizedBox(height: 10,),
+                                        Text(snapshot.data![index].country,
+                                          style: ThemeManagerDarkFont.customTextStyle(context),),
+                                        const SizedBox(height: 10,),
+                                        Text(snapshot.data![index].licenseNumber,
+                                          style: ThemeManagerDarkFont.customTextStyle(context),),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text('Issue Date :',
+                                            style: ThemeManagerDark.customTextStyle(context)),
+                                        const SizedBox(height: 10,),
+                                        Text('End Date :',
+                                            style: ThemeManagerDark.customTextStyle(context)),
+                                        const SizedBox(height: 50,)
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(snapshot.data![index].issueDate,
+                                          style: ThemeManagerDarkFont.customTextStyle(context),),
+                                        const SizedBox(height: 10,),
+                                        Text(snapshot.data![index].expData,
+                                          style: ThemeManagerDarkFont.customTextStyle(context),),
+                                        const SizedBox(height: 50,)
+
+                                      ],
+                                    ),
+                                  ],
+                                ),
+
+                                ///approve reject button
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.end,
+                                //   children: [
+                                //     snapshot.data![index].approved == false ?
+                                //     CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
+                                //       await rejectLicensePatch(context, snapshot.data![index].licenseId);
+                                //     }) :SizedBox() ,
+                                //     const SizedBox(width: 5,),
+                                //     snapshot.data![index].approved == true ?
+                                //     Text('Approved',
+                                //         textAlign: TextAlign.center,
+                                //         style: CustomTextStylesCommon.commonStyle(
+                                //             fontSize: FontSize.s12,
+                                //             fontWeight: FontWeightManager.bold,
+                                //             color: ColorManager.blueprime)) :  CustomIconButton(
+                                //         text: 'Approve', onPressed: () async{
+                                //       await approveLicensePatch(context, snapshot.data![index].licenseId);
+                                //     })
+                                //   ],
+                                // )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  })
-              );
+                      );
+                    })
+                );
+              }
+              else{
+                return const SizedBox();
+              }
             }
-            else{
-              return const SizedBox();
-            }
-          }
         ),
       ],
     );

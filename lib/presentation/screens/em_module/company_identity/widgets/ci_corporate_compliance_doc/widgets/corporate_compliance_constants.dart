@@ -365,7 +365,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
         return PopupMenuItem<String>(
           textStyle: CustomTextStylesCommon.commonStyle(
             fontWeight: FontWeight.w500,
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             color: ColorManager.mediumgrey,
           ),
           value: item.value,
@@ -736,7 +736,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         _idDocError!,
                         style: TextStyle(
                           color: Colors.red,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                         ),
                       ),
                     ),
@@ -755,7 +755,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         _nameDocError!,
                         style: TextStyle(
                           color: Colors.red,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                         ),
                       ),
                     ),
@@ -877,7 +877,7 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
           textCapitalization: TextCapitalization.sentences,
           controller: _controller,
           style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w400,
             color: ColorManager.black,
           ),

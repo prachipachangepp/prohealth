@@ -144,7 +144,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     Text(
                       AppString.type_of_the_document,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.textPrimaryColor,
                       ),
@@ -238,7 +238,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                           AppString.dataNotFound,
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey,
                           ),
                         ),
@@ -292,7 +292,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     Text(
                         AppString.name_of_the_document,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.textPrimaryColor,
                       ),
@@ -401,7 +401,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     Text(
                       AppString.upload_document,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.textPrimaryColor,
                       ),
@@ -430,7 +430,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                             Text(
                               fileName,
                               style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.regular,
                                 color: ColorManager.greylight,
                               ),

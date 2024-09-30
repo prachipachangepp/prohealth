@@ -66,7 +66,7 @@ class _IntakeNotesMiscellaneousScreenState
                   'Status: Not Completed',
                   style: GoogleFonts.firaSans(
                     decoration: TextDecoration.none,
-                    fontSize: FontSize.s12,
+                    fontSize: FontSize.s14,
                     fontWeight: FontWeightManager.bold,
                     color: ColorManager.burnt_red,
                   ),
@@ -107,7 +107,7 @@ class _IntakeNotesMiscellaneousScreenState
                                       Text(
                                         AppString.expiry_type,
                                         style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.bold,
                                           color: ColorManager.mediumgrey,
                                           decoration: TextDecoration.none,
@@ -159,7 +159,7 @@ class _IntakeNotesMiscellaneousScreenState
                                             Text(
                                               AppString.expiry_date,
                                               style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s12,
+                                                fontSize: FontSize.s14,
                                                 fontWeight:
                                                     FontWeightManager.bold,
                                                 color: ColorManager.mediumgrey,
@@ -178,7 +178,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                     cursorColor:
                                                         ColorManager.black,
                                                     style: GoogleFonts.firaSans(
-                                                      fontSize: FontSize.s12,
+                                                      fontSize: FontSize.s14,
                                                       fontWeight:
                                                           FontWeightManager
                                                               .bold,
@@ -209,7 +209,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                       hintText: 'mm-dd-yyyy',
                                                       hintStyle:
                                                           GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s12,
+                                                        fontSize: FontSize.s14,
                                                         fontWeight:
                                                             FontWeightManager
                                                                 .bold,
@@ -356,7 +356,7 @@ class _IntakeNotesMiscellaneousScreenState
                                 AppString.dataNotFound,
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   color: ColorManager.mediumgrey,
                                 ),
                               ),
@@ -483,7 +483,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                                 TextDecoration
                                                                     .none,
                                                             fontSize:
-                                                                FontSize.s12,
+                                                                FontSize.s14,
                                                             fontWeight:
                                                                 FontWeightManager
                                                                     .bold,
@@ -818,7 +818,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                           style: GoogleFonts
                                                               .firaSans(
                                                             fontSize:
-                                                                FontSize.s12,
+                                                                FontSize.s14,
                                                             fontWeight:
                                                                 FontWeightManager
                                                                     .bold,

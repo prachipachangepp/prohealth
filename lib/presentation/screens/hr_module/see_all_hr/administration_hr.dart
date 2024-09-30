@@ -75,7 +75,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                   padding: const EdgeInsets.only(left: 80.0),
                   child: Text(
                     AppStringEM.srno,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -85,7 +85,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                   padding: const EdgeInsets.only(left: 5.0),
                   child: Text(
                     AppStringEM.type,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -93,7 +93,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                 flex: 3,
                 child: Text(
                   AppStringEM.name,
-                  style: AllHRTableHeading.customTextStyle(context),
+                  style: TableHeading.customTextStyle(context),
                 ),
               ),
               Expanded(
@@ -102,7 +102,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                   padding: const EdgeInsets.only(left: 25.0),
                   child: Text(
                     AppStringEM.location,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -112,7 +112,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                   padding: const EdgeInsets.only(left: 50.0),
                   child: Text(
                     AppStringEM.specialization,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -122,7 +122,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                   padding: const EdgeInsets.only(left: 50.0),
                   child: Text(
                     AppStringEM.edit,
-                    style: AllHRTableHeading.customTextStyle(context),
+                    style: TableHeading.customTextStyle(context),
                   ),
                 ),
               ),
@@ -157,7 +157,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                     AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey,
                     ),
                   ),

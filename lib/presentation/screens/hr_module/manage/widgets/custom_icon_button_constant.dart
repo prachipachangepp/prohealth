@@ -47,7 +47,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           widget.text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: FontSize.s12,
+              fontSize: FontSize.s14,
               fontWeight: FontWeight.w500,
               color: widget.textColor == null ?ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
@@ -270,7 +270,7 @@ class CustomTitleButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              fontSize: FontSize.s12,
+              fontSize: FontSize.s14,
               fontWeight: FontWeight.w700,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
             ),
@@ -310,7 +310,7 @@ class DZoneButton extends StatelessWidget {
             'DZ',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: FontSize.s11,
+              fontSize: FontSize.s13,
               fontWeight: FontWeight.w300,
               color: isSelected ? ColorManager.white : ColorManager.black,
             ),

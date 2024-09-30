@@ -665,7 +665,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                                             AppString.dataNotFound,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               color: ColorManager.mediumgrey,
                                             ),
                                           ),
@@ -863,7 +863,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                   AppString.dataNotFound,
                   style: CustomTextStylesCommon.commonStyle(
                     fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
+                    fontSize: FontSize.s14,
                     color: ColorManager.mediumgrey,
                   ),
                 ),

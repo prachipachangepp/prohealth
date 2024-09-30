@@ -154,7 +154,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                         AppStringHRNoData.bankingNoData,
                                         style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         color: ColorManager.mediumgrey),
                                       ),
                     ));
@@ -551,9 +551,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                         );
 
                                         await Printing.layoutPdf(
-                                          onLayout:
-                                              (PdfPageFormat format) async =>
-                                                  pdf.save(),
+                                          onLayout: (PdfPageFormat format) async => pdf.save(),
                                         );
                                       } catch (e) {
                                         print('Error generating PDF: $e');
@@ -626,7 +624,7 @@ class BankingContainerConst extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(10),
-        height: MediaQuery.of(context).size.height / 3.6,
+        height: MediaQuery.of(context).size.height / 3.5,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),

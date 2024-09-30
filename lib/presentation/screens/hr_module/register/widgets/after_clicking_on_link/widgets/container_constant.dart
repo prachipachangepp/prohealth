@@ -131,7 +131,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
 
             controller: _dateController,
             style: GoogleFonts.firaSans(
-              fontSize: FontSize.s12,
+              fontSize: FontSize.s14,
             ),
             decoration: InputDecoration(
 
@@ -330,7 +330,7 @@ class _VaccineContainerState extends State<VaccineContainer> {
           child: TextField(
             controller: _dateController,
             style: GoogleFonts.firaSans(
-              fontSize: FontSize.s12,
+              fontSize: FontSize.s14,
             ),
             decoration: InputDecoration(
               hintText: 'dd-mm-yyyy',

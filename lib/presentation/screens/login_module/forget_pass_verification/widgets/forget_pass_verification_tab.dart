@@ -181,7 +181,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                       getTimerString(),
                       style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.orange,
-                        fontSize: FontSize.s8,
+                        fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.semiBold,
                       ),
                     ),

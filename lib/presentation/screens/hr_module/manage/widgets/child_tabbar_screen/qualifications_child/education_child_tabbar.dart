@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -173,7 +171,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                       AppStringHRNoData.educationNoData,
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey),
                     ),
                   ));
@@ -238,7 +236,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                     ],
                     button: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                      children: [snapshot.data![index].approved == null ? Text('Not Approved',style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width/120,
                         color: ColorManager.mediumgrey,
                         fontWeight: FontWeight.w600,

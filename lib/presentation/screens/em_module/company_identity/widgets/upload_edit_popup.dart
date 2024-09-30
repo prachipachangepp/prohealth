@@ -150,7 +150,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                           child: Text(
                             fileName,
                             style: TextStyle(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               fontWeight: FontWeight.w500,
                               color: ColorManager.greylight,
                             ),

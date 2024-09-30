@@ -128,7 +128,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                     AppStringHRNoData.healthNoData,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey,
                     ),
                   ),

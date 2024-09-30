@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
       // Optionally show a snackbar or dialog to notify the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Copied to clipboard',  style:AllHRTableHeading.customTextStyle(context))),
+        SnackBar(content: Text('Copied to clipboard',  style:TableHeading.customTextStyle(context))),
       );
     });
   }
@@ -163,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "No Register available!",
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w700,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey),
                       // AppString.dataNotFound,
                       //style:DocumentTypeDataStyle.customTextStyle(context),
@@ -412,8 +412,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                            const url = "http://localhost:58043/#/onBordingWelcome";
-                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                       // const url = "http://localhost:53988/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///////////
                           if (await canLaunch(url)) {
@@ -483,6 +483,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController = TextEditingController(text: email);
 
                                   return
+                                    // OfferLetterScreen(email: email,
+                                    //   userId: data.employeeId!,
+                                    //   role: firstNameController.text,
+                                    //   status: firstNameController.text,
+                                    //   firstName: firstNameController.text,
+                                    //   lastName: firstNameController.text,
+                                    //   position: firstNameController.text,
+                                    //   phone: firstNameController.text,
+                                    //   reportingOffice: firstNameController.text,
+                                    //   services: firstNameController.text,
+                                    //   employement: firstNameController.text,
+                                    //   soecalityName: firstNameController.text,
+                                    //   clinicalName: firstNameController.text,
+                                    //   employeeId: data.employeeId!);
                                     RegisterEnrollPopup(
                                     employeeId: data.employeeId!,
                                     firstName: firstNameController,

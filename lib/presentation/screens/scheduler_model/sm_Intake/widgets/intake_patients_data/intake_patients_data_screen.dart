@@ -145,7 +145,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       'Info',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 0
                             ? ColorManager.mediumgrey
@@ -168,7 +168,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       'Compliance',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color: patientId == 0
                             ? ColorManager.fmediumgrey
@@ -193,7 +193,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       'Plan of Care',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color: patientId == 0
                             ? ColorManager.fmediumgrey
@@ -218,7 +218,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       'Related Parties',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color: patientId == 0
                             ? ColorManager.fmediumgrey
@@ -243,7 +243,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       'Stay Info',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color:patientId == 0
                             ? ColorManager.fmediumgrey
@@ -367,7 +367,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   child: Text(
                     AppString.save,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.white,
                     ),

@@ -136,7 +136,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   // borderRadius: 12,
                   text: 'White Labelling  ',
                   //style: PopupBlueBarText.customTextStyle(context),
-                  width: 120,
+                  width: 150,
                   // height: 26,
                   onPressed: showWhitelabellingScreenFunction,
                 ),
@@ -180,57 +180,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       mobNumController: mobNumController,
                                       secNumController: secNumController,
                                       OptionalController: OptionalController,
-                                      // checkBoxHeadOffice:StatefulBuilder(
-                                      //   builder: (BuildContext context, void Function(void Function()) setState) {
-                                      //     return Container(
-                                      //         width: 300,
-                                      //         child: CheckboxTile(
-                                      //           title: 'Head Office',
-                                      //           initialValue: false,
-                                      //           onChanged: (value) {
-                                      //             setState(() {
-                                      //               isHeadOffice = true;
-                                      //               print('HeadOffice ${isHeadOffice}');
-                                      //             });
-                                      //           },
-                                      //         ));
-                                      //   },
-                                      // ),
                                       onPressed: () async{
-                                        // print("Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
-                                        // ApiData response = await
-                                        // addNewOffice( context:context,
-                                        //   name: nameController.text,
-                                        //   address: addressController.text,
-                                        //   email: emailController.text,
-                                        //   primaryPhone:  mobNumController.text,
-                                        //   secondaryPhone:secNumController.text,
-                                        //   officeId: "",
-                                        //   lat: _selectedLocation.latitude.toString(),
-                                        //   long:_selectedLocation.longitude.toString(),
-                                        //   cityName: "",
-                                        //   stateName: stateNameController.text,
-                                        //   country: countryNameController.text,
-                                        //   isHeadOffice: false,
-                                        // );
-                                        // nameController.clear();
-                                        // addressController.clear();
-                                        // emailController.clear();
-                                        // mobNumController.clear();
-                                        // secNumController.clear();
-                                        // stateNameController.clear();
-                                        // countryNameController.clear();
-                                        //
-                                        // Navigator.pop(context);
-                                        // if(response.statusCode == 200 || response.statusCode ==201){
-                                        //   print('Services List ${selectedServices}');
-                                        //   await addNewOfficeServices(context: context, officeId: response.officeId!,
-                                        //       serviceList: selectedServices);
-                                        // }
-                                        // companyOfficeListGet(context, 1, 30).then((data) {
-                                        //   _companyIdentityController
-                                        //       .add(data);
-                                        // }).catchError((error) {});
+
                                       }, formKey: _formKey, servicesList: snapshot.data!,);
                                   }
                                   else {
@@ -274,7 +225,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       AppStringEM.srno,
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
                       // style: GoogleFonts.firaSans(
                       //   fontSize: 12,
                       //   fontWeight: FontWeight.w700,
@@ -289,7 +240,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Text(
                     AppStringEM.officename,
                     textAlign: TextAlign.start,
-                    style:AllHRTableHeading.customTextStyle(context),
+                    style:TableHeading.customTextStyle(context),
                     // style: GoogleFonts.firaSans(
                     //   fontSize: 12,
                     //   fontWeight: FontWeight.w700,
@@ -303,7 +254,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Text(
                     AppStringEM.address,
                     textAlign: TextAlign.start,
-                    style:AllHRTableHeading.customTextStyle(context),
+                    style:TableHeading.customTextStyle(context),
                   ),
                 ),
                 Expanded(child: SizedBox()),
@@ -311,7 +262,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       AppStringEM.actions,
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
 
                     ),
                   ),
@@ -395,7 +346,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight:Radius.circular(4))),
                                                       child:Center(
                                                           child:Text('Head Office',
-                                                            style:AllHRTableHeading.customTextStyle(context),))
+                                                            style:TableHeading.customTextStyle(context),))
                                                   ),
                                                 ):Offstage(),
                                                 Row(
@@ -444,7 +395,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Center(
                                                         child: Text(
                                                             formattedSerialNumber,
-                                                            style: DocumentTypeDataStyle.customTextStyle(context)
+                                                            style: TableSubHeading.customTextStyle(context)
                                                           // style: GoogleFonts.firaSans(
                                                           //   fontSize: 10,
                                                           //   fontWeight: FontWeight.w700,
@@ -459,7 +410,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Text(
                                                           paginatedData[index].officeName.toString(),
                                                           textAlign: TextAlign.start,
-                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                          style: TableSubHeading.customTextStyle(context)
                                                       ),
                                                     ),
                                                     Expanded(child: SizedBox()),
@@ -468,7 +419,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Text(
                                                           paginatedData[index].address.toString(),
                                                           textAlign: TextAlign.start,
-                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                          style: TableSubHeading.customTextStyle(context)
                                                       ),
                                                     ),
                                                     Expanded(child: SizedBox()),

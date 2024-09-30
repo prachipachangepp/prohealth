@@ -103,7 +103,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     children: [
                       Text(AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                             color: ColorManager.granitegray
                         ),),
@@ -119,7 +119,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       cursorHeight: 18,
                       controller: _typeDocumentController,
                       style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.regular,
                           color: ColorManager.greylight
                       ),
@@ -127,7 +127,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       decoration: InputDecoration(
                         labelText: 'Miscellaneous',
                         labelStyle: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.greylight
                         ),
@@ -155,7 +155,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                                 value: value,
                                 child: Text(value,
                                   style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
+                                      fontSize: FontSize.s14,
                                       fontWeight: FontWeightManager.regular,
                                       color: ColorManager.greylight
                                   ),),
@@ -174,7 +174,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     children: [
                       Text(AppString.name_of_the_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                             color: ColorManager.textPrimaryColor
                         ),),
@@ -190,7 +190,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       cursorHeight: 18,
                       controller: _nameDocumentController,
                       style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.regular,
                           color: ColorManager.greylight
                       ),
@@ -215,7 +215,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       Text(
                         'Expiry Type',
                         style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.greylight
                         ),
@@ -291,7 +291,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     },
                     child: Text(AppString.submit,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.white,
                       ),

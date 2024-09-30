@@ -73,7 +73,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
               AppStringHRNoData.timeOffNoData,
               style: CustomTextStylesCommon.commonStyle(
                   fontWeight: FontWeight.w700,
-                  fontSize: FontSize.s12,
+                  fontSize: FontSize.s14,
                   color: ColorManager.mediumgrey),
             ));
           }
@@ -111,7 +111,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           label: Text(
                             _controllerStartDate.text == "" ?'Start Date':_controllerStartDate.text,
                             style: GoogleFonts.roboto(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               fontWeight: FontWeightManager.medium,
                               color: ColorManager.granitegray,
                             ),
@@ -147,7 +147,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           label: Text(
                           _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
                             style: TextStyle(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               fontWeight: FontWeight.w600,
                               color: ColorManager.granitegray,
                             ),
@@ -385,7 +385,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                     Text(AppString.approve,
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(
-                                                            fontSize: FontSize.s12,
+                                                            fontSize: FontSize.s14,
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorManager.blueprime)):
                                                     TextInkwellButton(

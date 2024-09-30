@@ -125,7 +125,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                     entry.value,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeight.w600,
                                         color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
                                             ? ColorManager.mediumgrey

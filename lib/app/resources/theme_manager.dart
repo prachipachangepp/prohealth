@@ -237,7 +237,7 @@ class MobileMenuText {
   static TextStyle MenuTextConst(BuildContext context) {
     return TextStyle(
       color: ColorManager.mediumgrey,
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight:FontWeight.w500,
     );
   }

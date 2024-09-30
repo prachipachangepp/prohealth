@@ -136,7 +136,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
                       widget.title,
-                      style:AllHRTableHeading.customTextStyle(context)
+                      style:TableHeading.customTextStyle(context)
                     ),
                   ),
                   IconButton(

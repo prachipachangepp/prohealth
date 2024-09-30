@@ -427,13 +427,11 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
 
                           ProfileBarPhoneCmtConst(
-                            phoneNo: widget.searchByEmployeeIdProfileData!
-                                .secondryPhoneNbr,
+                            phoneNo: widget.searchByEmployeeIdProfileData!.secondryPhoneNbr,
                           ),
 
                           ProfileBarPhoneCmtConst(
-                            phoneNo: widget
-                                .searchByEmployeeIdProfileData!.workPhoneNbr,
+                            phoneNo: widget.searchByEmployeeIdProfileData!.workPhoneNbr,
                           ),
                         ],
                       ),
@@ -457,22 +455,15 @@ class _ProfileBarState extends State<ProfileBar> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // InkWell(
-                          //   child: Text(widget.searchByEmployeeIdProfileData!.personalEmail,
-                          //       style: ProfileBarConst.profileTextStyle(context)),
-                          //   onTap: () async {
-                          //
-                          //   },
-                          // ),
+
                           InkWell(
                             child: Text(
                               widget.searchByEmployeeIdProfileData!.personalEmail ?? 'No email provided',
-                              style: ProfileBarConst.profileTextStyle(context),  // Ensure the ProfileBarConst is defined elsewhere
+                              style: ProfileBarConst.profileTextStyle(context),
                             ),
                             onTap: () async {
                               String? email = widget.searchByEmployeeIdProfileData!.personalEmail;
 
-                              // Check if the email is not null or empty
                               if (email != null && email.isNotEmpty) {
                                 // Create a mailto Uri with the email address
                                 final Uri emailUri = Uri(
@@ -688,7 +679,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     fontWeight: FontWeight.w400,
                                                                     fontSize:
                                                                         FontSize
-                                                                            .s12,
+                                                                            .s14,
                                                                     color: ColorManager
                                                                         .mediumgrey),
                                                               ),
@@ -934,7 +925,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       fontWeight:FontWeight.w500,
                                                                       fontSize:
                                                                           FontSize
-                                                                              .s12,
+                                                                              .s14,
                                                                       color: ColorManager
                                                                           .mediumgrey),
                                                                 ),
@@ -1175,7 +1166,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               .medium,
                                                                       fontSize:
                                                                           FontSize
-                                                                              .s12,
+                                                                              .s14,
                                                                       color: ColorManager
                                                                           .mediumgrey),
                                                                 ),

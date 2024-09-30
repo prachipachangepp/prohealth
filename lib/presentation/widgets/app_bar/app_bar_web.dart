@@ -147,7 +147,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             Text("KLIP",
                                                 style: TextStyle(
                                                   color: ColorManager.white,
-                                                  fontSize: FontSize.s12,
+                                                  fontSize: FontSize.s14,
                                                   fontWeight: FontWeight.w400,
                                                   decoration:
                                                       TextDecoration.none,
@@ -186,7 +186,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           Text(
                                             widget.headingText,
                                             style: TextStyle(
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               fontWeight: FontWeight.w700,
                                               color: const Color(0xff2B647F),
                                               decoration: TextDecoration.none,
@@ -353,16 +353,19 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           child: Center(
                                             child: DropdownButton<String>(
                                               underline: Container(),
-                                              icon: Icon(
-                                                Icons.arrow_drop_down,
-                                                size: 15,
-                                                color: Colors.white,
+                                              icon: Padding(
+                                                padding: const EdgeInsets.only(top: 2),
+                                                child: Icon(
+                                                  Icons.arrow_drop_down,
+                                                  size: 17,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                               value: _selectedValue,
                                               hint: Text(
                                                 'Super User',
                                                 style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.white,
                                                 ),
@@ -378,7 +381,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   child: Text(
                                                     value,
                                                     style: TextStyle(
-                                                      fontSize: 12,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       color: _selectedValue ==
@@ -601,9 +604,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: FontSize.s8,
-                                                fontWeight:
-                                                    FontWeightManager.regular,
+                                                fontSize: FontSize.s10,
+                                                fontWeight: FontWeightManager.regular,
                                               ),
                                             ),
                                           );

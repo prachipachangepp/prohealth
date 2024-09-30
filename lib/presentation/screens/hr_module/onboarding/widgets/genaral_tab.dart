@@ -125,7 +125,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       textAlign: TextAlign.center,
                                                       style: CustomTextStylesCommon.commonStyle(
                                                           color: ColorManager.white,
-                                                          fontSize: FontSize.s11,
+                                                          fontSize: FontSize.s13,
                                                           fontWeight: FontWeight.w700)),
                                                 )),
                                           ],
@@ -146,46 +146,49 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
-                                                    ///profile image
                                                     CircleAvatar(
                                                       radius: MediaQuery.of(context).size.width / 50,
-                                                     backgroundColor: Colors.white,
-                                                     // backgroundColor: Colors.grey,
-                                                      child: general.imgurl! == 'imgurl' ||
-                                                          general.imgurl! == null ?
-
-                                                      Icon(
+                                                      backgroundColor: Colors.white,
+                                                      child: general.imgurl! == 'imgurl' || general.imgurl! == null
+                                                          ? Icon(
                                                         Icons.person,
                                                         color: ColorManager.bluelight,
                                                         size: AppSize.s50,
-                                                      ) :
-                                                      CachedNetworkImage(
-                                                        imageUrl: general.imgurl!,
-                                                        placeholder: (context, url) => new CircularProgressIndicator(),
-                                                        errorWidget: (context, url, error) => new Icon(Icons.error),
-                                                        width: AppSize.s70,
-                                                        height: AppSize.s70,
+                                                      )
+                                                          : ClipOval(
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: general.imgurl!,
+                                                          placeholder: (context, url) => CircularProgressIndicator(),
+                                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                                          width: double.infinity,
+                                                          height: double.infinity,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
-                                                      // ClipOval(
-                                                      //   child: Builder(
-                                                      //     builder: (context) {
-                                                      //       String imageUrl = Uri.encodeFull(general.imgurl ?? '');
-                                                      //       return Image.asset(
-                                                      //          imageUrl,
-                                                      //        // 'images/profilepic.png',
-                                                      //         height: 70,
-                                                      //         width: 70,
-                                                      //         fit: BoxFit.cover,
-                                                      //         // errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                      //         //   print('Error loading image: $exception');
-                                                      //         //   // return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                      //         //   return Icon(Icons.person,color: ColorManager.mediumgrey,size: 40,);
-                                                      //         // },
-                                                      //       );
-                                                      //     },
-                                                      //   ),
-                                                      // ),
                                                     ),
+
+                                                    ///profile image
+                                                    // CircleAvatar(
+                                                    //   radius: MediaQuery.of(context).size.width / 50,
+                                                    //  backgroundColor: Colors.white,
+                                                    //  // backgroundColor: Colors.grey,
+                                                    //   child: general.imgurl! == 'imgurl' ||
+                                                    //       general.imgurl! == null ?
+                                                    //
+                                                    //   Icon(
+                                                    //     Icons.person,
+                                                    //     color: ColorManager.bluelight,
+                                                    //     size: AppSize.s50,
+                                                    //   ) :
+                                                    //   CachedNetworkImage(
+                                                    //     imageUrl: general.imgurl!,
+                                                    //     placeholder: (context, url) => new CircularProgressIndicator(),
+                                                    //     errorWidget: (context, url, error) => new Icon(Icons.error),
+                                                    //     width: AppSize.s70,
+                                                    //     height: AppSize.s70,
+                                                    //   ),
+                                                    //
+                                                    // ),
                                                     SizedBox(height: MediaQuery.of(context).size.height / 40),
                                                     ///name of the Person
                                                     Container(
@@ -198,7 +201,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(
                                                             color: ColorManager.black,
-                                                            fontSize: FontSize.s12,
+                                                            fontSize: FontSize.s14,
                                                             fontWeight: FontWeight.w700,
                                                           ),
                                                         ),
@@ -365,9 +368,9 @@ class InfoText extends StatelessWidget {
     return Column(
       children: [
         Text(text, style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w600,
-            color: ColorManager.black),),//ColorManager.textBlack
+            color: ColorManager.black),),
         const SizedBox(height: AppSize.s10),
       ],
     );
@@ -386,147 +389,11 @@ class InfoData extends StatelessWidget {
     return Column(
       children: [
         Text(text,style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w400,
-            color: ColorManager.mediumgrey),),//ColorManager.textBlack
+            color: ColorManager.mediumgrey),),
         const SizedBox(height: AppSize.s10),
       ],
     );
   }
 }
-//////
-// Padding(
-//   padding: EdgeInsets.only(
-//       left:
-//       MediaQuery.of(context).size.width /
-//           60),
-//   child: InkWell(
-//     onTap: () => widget.selectButton(1,snapshot.data![index].empId!), // Corrected reference
-//     child: Container(
-//         color: Colors.white,
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Expanded(
-//               flex: 1,
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                 children: [
-//                   CircleAvatar(
-//                     radius: MediaQuery.of(context).size.width / 50,
-//                     backgroundColor: Colors.grey,
-//                     child: ClipOval(
-//                       child: Builder(
-//                         builder: (context) {
-//                           String imageUrl = Uri.encodeFull(general.imgurl ?? '');
-//                           return Image.network(
-//                             imageUrl,
-//                             fit: BoxFit.cover,
-//                             errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-//                               print('Error loading image: $exception');
-//                               return Image.asset('images/profile.png', fit: BoxFit.cover);
-//                             },
-//                           );
-//                         },
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: MediaQuery.of(context).size.width / 80,
-//                   ),
-//                   Text(
-//                     '${general.firstName?.capitalizeFirst ?? ''} ${general.lastName?.capitalizeFirst ?? ''}',
-//                     style: CustomTextStylesCommon.commonStyle(
-//                       color: ColorManager.black,
-//                       fontSize: FontSize.s12,
-//                       fontWeight: FontWeightManager.bold,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Expanded(
-//               child: ObGeneralHeadingConstant(
-//                 text1: 'Social Security No.',
-//                 text2: 'Clinician Type',
-//                 text3: 'Phone Number',
-//                 text4: 'Personal Email',
-//               ),
-//             ),
-//             SizedBox(width: 10,),
-//             Column(
-//               children: [
-//                 ObGeneralDataConstant(
-//                   text1: general.ssnnbr ?? '--',
-//                   text2: general.type ?? '--',
-//                   text3: general.primaryPhoneNbr ?? '--',
-//                   text4: general.personalEmail ?? '--',
-//                 ),
-//               ],
-//             ),
-//             SizedBox(width: 20,),
-//             Expanded(
-//               child: ObGeneralHeadingConstant(
-//                 text1: 'Drivers License No.',
-//                 text2: 'Speciality',
-//                 text3: 'City',
-//                 text4: 'Zone',
-//               ),
-//             ),
-//             Expanded(
-//               child: Column(
-//                 children: [
-//                   ObGeneralDataConstant(
-//                     text1: general.driverLicenseNum,
-//                     text2: general.expertise,
-//                     text3: general.city,
-//                     text4: general.zone,
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Expanded(
-//               child: ObGeneralHeadingConstant(
-//                 text1: 'Address',
-//                 text2: 'Employment',
-//                 text3: 'Date of Birth',
-//                 text4: 'Race',
-//               ),
-//             ),
-//             Expanded(
-//               child: Column(
-//                 children: [
-//                   ObGeneralDataConstant(
-//                     text1: general.finalAddress,
-//                     text2: general.employment,
-//                     text3: general.dateOfBirth,
-//                     text4: general.race,
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Expanded(
-//               child: ObGeneralHeadingConstant(
-//                 text1: 'Service',
-//                 text2: '',
-//                 text3: '',
-//                 text4: '',
-//               ),
-//             ),
-//             Expanded(
-//               child: Column(
-//                 children: [
-//                   ObGeneralDataConstant(
-//                     text1: general.service,
-//                     text2: '',
-//                     text3: '',
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         )
-//     ),
-//   ),
-// ),

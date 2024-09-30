@@ -131,7 +131,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                             child: Center(
                                               child: Text(
                                                 AppStringEM.srno,
-                                                style: AllHRTableHeading.customTextStyle(context)
+                                                style: TableHeading.customTextStyle(context)
                                               ),
                                             ),
                                           ),
@@ -140,20 +140,20 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                             child: Center(
                                               child: Text( AppStringEM.startTime,
                                                   textAlign: TextAlign.start,
-                                                  style: AllHRTableHeading.customTextStyle(context)),
+                                                  style: TableHeading.customTextStyle(context)),
                                             ),
                                           ),
                                           Expanded(
                                             child: Center(
                                               child: Text( AppStringEM.endTime,textAlign: TextAlign.start,
-                                                  style: AllHRTableHeading.customTextStyle(context)),
+                                                  style: TableHeading.customTextStyle(context)),
                                             ),
                                           ),
                                           Expanded(
                                             child: Center(
                                               child: Text( AppStringEM.actions,
                                                   textAlign: TextAlign.start,
-                                                  style: AllHRTableHeading.customTextStyle(context)),
+                                                  style: TableHeading.customTextStyle(context)),
                                             ),
                                           ),
                                         ],

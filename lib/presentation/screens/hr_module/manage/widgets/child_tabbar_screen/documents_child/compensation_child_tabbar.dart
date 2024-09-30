@@ -150,7 +150,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                       AppStringHRNoData.compensationNoData,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         color: ColorManager.mediumgrey,
                       ),
                     ),

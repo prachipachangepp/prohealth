@@ -217,7 +217,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                       AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         color: ColorManager.mediumgrey,
                       ),
                     ),

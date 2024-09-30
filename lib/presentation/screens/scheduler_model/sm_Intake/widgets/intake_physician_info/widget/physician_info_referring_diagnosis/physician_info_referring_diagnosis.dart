@@ -187,7 +187,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                   child: Text(
                     AppString.save,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.white,
                     ),
@@ -277,7 +277,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 80.0),
                                   child: Text(
                                     'Title',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -288,7 +288,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
                                     'Description',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -297,7 +297,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 flex: 3,
                                 child: Text(
                                   'ICD Code',
-                                  style: AllHRTableHeading.customTextStyle(
+                                  style: TableHeading.customTextStyle(
                                       context),
                                 ),
                               ),
@@ -307,7 +307,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 25.0),
                                   child: Text(
                                     AppString.date,
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -428,7 +428,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               child: Text(
                                 'Last Inpatient Stay Information',
                                 style: TextStyle(
-                                    fontSize: FontSize.s12,
+                                    fontSize: FontSize.s14,
                                     fontWeight: FontWeightManager.semiBold,
                                     color: ColorManager.textPrimaryColor),
                               ),
@@ -469,7 +469,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 274.0),
                                   child: Text(
                                     'Allergies',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -480,7 +480,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
                                     'Start Effective Date',
-                                    style: AllHRTableHeading.customTextStyle(
+                                    style: TableHeading.customTextStyle(
                                         context),
                                   ),
                                 ),
@@ -668,7 +668,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text(AppString.male,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                   SizedBox(
@@ -682,7 +682,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text(AppString.female,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                 ],
@@ -716,7 +716,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text('Alone',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                   SizedBox(
@@ -730,7 +730,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text('Spouse',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                   SizedBox(
@@ -744,7 +744,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text(AppString.other,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                 ],
@@ -814,7 +814,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               ),
                             ),
                             style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               fontWeight: FontWeightManager.regular,
                               color: ColorManager.black,
                             ),
@@ -967,7 +967,7 @@ class _allergiesState extends State<allergies> {
                       ),
                     ),
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.regular,
                       color: ColorManager.black,
                     ),

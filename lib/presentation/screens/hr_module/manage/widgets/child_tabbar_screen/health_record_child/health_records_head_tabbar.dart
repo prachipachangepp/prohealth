@@ -104,7 +104,7 @@ class _HealthRecordsHeadTabbarState extends State<HealthRecordsHeadTabbar> {
                                                    height: 30,
                                                    child: TextFormField(
                                                      style: GoogleFonts.firaSans(
-                                                       fontSize: FontSize.s12,
+                                                       fontSize: FontSize.s14,
                                                        fontWeight: FontWeight.w600,
                                                        color: ColorManager.mediumgrey,
                                                        //decoration: TextDecoration.none,
@@ -113,7 +113,7 @@ class _HealthRecordsHeadTabbarState extends State<HealthRecordsHeadTabbar> {
                                                      decoration: InputDecoration(
                                                        hintText: 'dd/mm/yyyy',
                                                        hintStyle: GoogleFonts.firaSans(
-                                                         fontSize: FontSize.s12,
+                                                         fontSize: FontSize.s14,
                                                          fontWeight: FontWeight.w600,
                                                          color: ColorManager.mediumgrey,
                                                          //decoration: TextDecoration.none,
