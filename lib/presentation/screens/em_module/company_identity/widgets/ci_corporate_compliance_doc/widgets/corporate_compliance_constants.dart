@@ -227,8 +227,8 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
       context: context,
       position: RelativeRect.fromLTRB(
         offset.dx,
-        offset.dy + size.height,
-        offset.dx + size.width,
+        offset.dy ,
+        offset.dx,
         0,
       ),
       items: widget.items.map((DropdownMenuItem<String> item) {
@@ -253,6 +253,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -264,7 +265,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
             height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: Row(
               children: [

@@ -53,65 +53,65 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: ColorManager.bluebottom,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        ),
-                      ),
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
-                            child: Text("Batches",style: TextStyle(
-                              fontSize: FontSize.s16,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white,
-                              decoration: TextDecoration.none,
-                            ),),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon:  Icon(Icons.close,color: ColorManager.white,),
-                          ),
-                        ],
+        child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: ColorManager.bluebottom,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
                       ),
                     ),
-                    StreamBuilder<List<ShiftBachesData>>(
-                        stream: workWeekShiftBatchesController.stream,
-                        builder: (context, snapshot) {
-                          if(snapshot.connectionState == ConnectionState.waiting){
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 150),
-                              child: Center(child:CircularProgressIndicator(color: ColorManager.blueprime,)),
-                            );
-                          }
-                          if (snapshot.data!.isEmpty) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 100),
-                              child: Center(
-                                child: Text(
-                                  "No available batches!",
-                                  style: DocumentTypeDataStyle.customTextStyle(context)
-                                ),
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
+                          child: Text("Batches",style: TextStyle(
+                            fontSize: FontSize.s16,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white,
+                            decoration: TextDecoration.none,
+                          ),),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon:  Icon(Icons.close,color: ColorManager.white,),
+                        ),
+                      ],
+                    ),
+                  ),
+                  StreamBuilder<List<ShiftBachesData>>(
+                      stream: workWeekShiftBatchesController.stream,
+                      builder: (context, snapshot) {
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 150),
+                            child: Center(child:CircularProgressIndicator(color: ColorManager.blueprime,)),
+                          );
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 100),
+                            child: Center(
+                              child: Text(
+                                "No available batches!",
+                                style: DocumentTypeDataStyle.customTextStyle(context)
                               ),
-                            );
-                          }
-                          if(snapshot.hasData){
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: AppPadding.p10,
-                                horizontal: AppPadding.p20,
-                              ),
+                            ),
+                          );
+                        }
+                        if(snapshot.hasData){
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppPadding.p10,
+                              horizontal: AppPadding.p20,
+                            ),
+                            child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -293,7 +293,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                   }).catchError((error) {
                                                                                     // Handle error
                                                                                   });
-
+                                      
                                                                                 } finally {
                                                                                   setState(() {
                                                                                     _isLoading = false;
@@ -333,17 +333,17 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                   ),
                                 ],
                               ),
-                            );
-                          }
-                          else{
-                            return const SizedBox();
-                          }
-          
-                      }
-                    ),
-                  ],
-                ),
-        ),
+                            ),
+                          );
+                        }
+                        else{
+                          return const SizedBox();
+                        }
+        
+                    }
+                  ),
+                ],
+              ),
       ),
     );
   }
