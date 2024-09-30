@@ -226,7 +226,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             padding: const EdgeInsets.only(left: 90),
                             child:  Text(
                               AppString.srNo,
-                              style:UserHeading.customTextStyle(context),
+                              style:TableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -236,7 +236,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             padding: const EdgeInsets.only(left: 60.0),
                             child: Text(
                               "User ID",
-                              style:UserHeading.customTextStyle(context),
+                              style:TableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -246,7 +246,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               AppString.fname,
-                              style:UserHeading.customTextStyle(context),
+                              style:TableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -257,7 +257,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             child: Text(
                               AppString.lname,
                               textAlign: TextAlign.start,
-                              style:UserHeading.customTextStyle(context),
+                              style:TableHeading.customTextStyle(context),
                             ),
                           ),
                         ),
@@ -265,7 +265,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           flex: 2,
                           child: Text(
                             AppString.role,
-                            style:UserHeading.customTextStyle(context),
+                            style:TableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
@@ -273,7 +273,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           child: Text(
                             AppString.email,
                             textAlign: TextAlign.start,
-                            style:UserHeading.customTextStyle(context),
+                            style:TableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
@@ -283,7 +283,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             child: Text(
                               AppString.actions,
                               textAlign: TextAlign.start,
-                              style:UserHeading.customTextStyle(context),)
+                              style:TableHeading.customTextStyle(context),)
                           ),
                         ),
                       ],
@@ -378,7 +378,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               formattedSerialNumber,
 
-                                              style: UserTableStyle.customTextStyle(context),
+                                              style: TableSubHeading.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -388,7 +388,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
 
-                                              style:  UserTableStyle.customTextStyle(context),
+                                              style:  TableSubHeading.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
@@ -402,7 +402,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               //       FontWeightManager.bold,
                                               //   color: ColorManager.granitegray,
                                               // ),
-                                              style:  UserTableStyle.customTextStyle(context),
+                                              style:  TableSubHeading.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
@@ -414,7 +414,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 user.lastName,
                                                 textAlign: TextAlign.center,
 
-                                                style:  UserTableStyle.customTextStyle(context),
+                                                style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
                                           ),
@@ -433,7 +433,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 //   color:
                                                 //       ColorManager.granitegray,
                                                 // ),
-                                                style:  UserTableStyle.customTextStyle(context),
+                                                style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
                                           ),
@@ -445,7 +445,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,
-                                                style:  UserTableStyle.customTextStyle(context),
+                                                style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
                                           ),

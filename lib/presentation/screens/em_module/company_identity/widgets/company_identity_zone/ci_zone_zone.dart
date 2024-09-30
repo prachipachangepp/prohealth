@@ -73,7 +73,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   child: Center(
                     child: Text(
                       'Zone Name',
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
                     ),
                   ),
                 ),
@@ -81,20 +81,20 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                 Expanded(
                   child: Center(
                     child: Text('Zip Codes',
-                      style:AllHRTableHeading.customTextStyle(context),),
+                      style:TableHeading.customTextStyle(context),),
                   ),
                 ),
                 Expanded(
                   child: Center(
                     child: Text('County',
-                      style:AllHRTableHeading.customTextStyle(context),),
+                      style:TableHeading.customTextStyle(context),),
                   ),
                 ),
                 Expanded(
                   child: Center(
                     child: Text(
                       'Actions',
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
                     ),
                   ),
                 ),

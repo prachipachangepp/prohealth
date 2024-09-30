@@ -80,21 +80,21 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                     // Text(''),
                     Text(
                       AppString.srNo,
-                      style:AllHRTableHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
                     ),
             //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                     Padding(
                       padding: const EdgeInsets.only(right: 25),
                       child: Text('Name    ',
                           textAlign: TextAlign.start,
-                        style:AllHRTableHeading.customTextStyle(context),),
+                        style:TableHeading.customTextStyle(context),),
                     ),
 
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
                       child: Text(AppString.actions,
                           textAlign: TextAlign.start,
-                        style:AllHRTableHeading.customTextStyle(context),),
+                        style:TableHeading.customTextStyle(context),),
                     ),
                   ],
                 ),

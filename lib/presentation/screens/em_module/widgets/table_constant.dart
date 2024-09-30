@@ -28,7 +28,7 @@ class TableHeadConstant extends StatelessWidget {
               child: Text(
                 item.text,
                 textAlign: item.textAlign,
-                style:  AllHRTableHeading.customTextStyle(context),
+                style:  TableHeading.customTextStyle(context),
               ),
             ),
           );

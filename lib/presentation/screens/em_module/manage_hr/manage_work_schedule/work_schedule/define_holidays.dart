@@ -115,7 +115,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     child: Center(
                       child: Text(
                           AppStringEM.srno,
-                        style: AllHRTableHeading.customTextStyle(context)
+                        style: TableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -126,14 +126,14 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     flex: flexVal,
                     child: Text(AppStringEM.holidayName,
                         textAlign: TextAlign.start,
-                        style: AllHRTableHeading.customTextStyle(context)),
+                        style: TableHeading.customTextStyle(context)),
                   ),
                   Expanded(
                     flex: flexVal,
                     child: Center(
                       child: Text(
                           AppStringEM.date,
-                        style:AllHRTableHeading.customTextStyle(context)
+                        style:TableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -143,7 +143,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     child: Center(
                       child: Text(AppStringEM.actions,
                           textAlign: TextAlign.start,
-                          style: AllHRTableHeading.customTextStyle(context)),
+                          style: TableHeading.customTextStyle(context)),
                     ),
                   ),
                 ],
