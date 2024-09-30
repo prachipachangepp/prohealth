@@ -772,7 +772,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 children: [
                                   Container(
                                     height: 55,
-                                    width: 330,
+                                    width: 350,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(14),
                                       border: Border.all(
@@ -1219,30 +1219,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       ),
                                     ),
                                   ),
-                                  // Container(
-                                  //   height: 55,
-                                  //   width: 320,
-                                  //   decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(14),
-                                  //     border: Border.all(
-                                  //       color: ColorManager.white,
-                                  //       width: 2, //width of border
-                                  //     ),
-                                  //   ),
-                                  //   // color: Colors.green,
-                                  // ),
-                                  // Container(
-                                  //   height: 55,
-                                  //   width: 320,
-                                  //   decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(14),
-                                  //     border: Border.all(
-                                  //       color: ColorManager.white, //color of border
-                                  //       width: 2, //width of border
-                                  //     ),
-                                  //   ),
-                                  //   // color: Colors.green,
-                                  // )
+                                  Container(
+                                    height: 55,
+                                    width: 350,
+                                  ),
+                                  Container(
+                                    height: 55,
+                                    width: 350,
+                                  ),
+
+
                                 ],
                               ),
                             ),

@@ -88,7 +88,7 @@ class ProfileBarPhoneCmtConst extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Container(
-          height: 12,
+          height: 13,
           width: 72,
           child: Text(
             formatPhoneNumber(phoneNo),

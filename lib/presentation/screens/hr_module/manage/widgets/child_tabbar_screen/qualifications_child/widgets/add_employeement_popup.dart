@@ -74,7 +74,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height:460,
+        height:490,
         width: 900,
         // width: MediaQuery.of(context).size.width / 1.5,
         // height: MediaQuery.of(context).size.height / 1.6,

@@ -53,29 +53,15 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 60),
-              child: Container(
-                // width: 100,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.25),
-                      //spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                margin: EdgeInsets.only(right: 10),
-                child: CustomIconButtonConst(
-                  width: 100,
-                    text: AppStringHr.addNew,
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
-                    }),
-              ),
+              child: CustomIconButtonConst(
+                width: 100,
+                  text: AppStringHr.addNew,
+                  icon: Icons.add,
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
+                  }),
             ),
           ],
         ),

@@ -9,7 +9,7 @@ import 'color.dart';
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -22,7 +22,7 @@ class ThemeManager {
 ///prajwal
 class ThemeManagerBold {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       //color: Color(0xFF686464),
@@ -67,7 +67,7 @@ class ThemeManagerDarkFont {
 
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -78,7 +78,7 @@ class ThemeManagerLightblue {
 
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
@@ -146,7 +146,7 @@ class RegisterTableHead {
 class AknowledgementStyleConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 10,
+      fontSize: 12,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w400,
     );
@@ -155,7 +155,7 @@ class AknowledgementStyleConst {
 class AknowledgementStyleNormal {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 10,
+      fontSize: 12,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w600,
     );
@@ -166,7 +166,7 @@ class AknowledgementStyleNormal {
 class ProfileBarConst {
   static TextStyle profileTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       color: ColorManager.primary,
 
       decoration: TextDecoration.underline,
@@ -178,7 +178,7 @@ class ProfileBarConst {
 class ProfileBarConstText {
   static TextStyle profileTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w600,
     );
@@ -188,7 +188,7 @@ class ProfileBarConstText {
 class ProfileBarLastColText {
   static TextStyle profileTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       color: ColorManager.bluelight,
       fontWeight: FontWeight.w600,
     );
@@ -272,7 +272,7 @@ class PopupHeadingStyle {
 class EquipmentStyleHeading{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: FontWeight.w700,
       color: Colors.white,
       decoration: TextDecoration.none,
@@ -282,7 +282,7 @@ class EquipmentStyleHeading{
 class EquipmentStyleRegular{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: FontWeight.w600,
       color: Color(0xff686464),
       decoration: TextDecoration.none,
@@ -293,6 +293,7 @@ class EquipmentStyleRegular{
 class EquipTableRegStyle {
   static TextStyle  customTextStyle(BuildContext) {
     return TextStyle(
+      fontSize: 12,
       fontWeight: FontWeight.w700,
       color:  ColorManager.granitegray,
       decoration: TextDecoration.none,

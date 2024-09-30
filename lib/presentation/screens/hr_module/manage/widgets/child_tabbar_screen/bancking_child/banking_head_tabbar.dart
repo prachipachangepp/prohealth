@@ -55,73 +55,59 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              // width: 100,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    //spreadRadius: 1,
-                    blurRadius: 4,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              margin: EdgeInsets.only(right: 10),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: CustomIconButtonConst(
-                    width: 100,
-                    text: AppStringHr.addNew,
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => EditBankingPopUp(
-                                title: "Add Banking",
-                                banckId: 0,
-                                effectiveDateController:
-                                    effectiveDateController,
-                                bankNameController: bankNameController,
-                                accountNumberController:
-                                    accountNumberController,
-                                verifyAccountController:
-                                    verifyAccountController,
-                                routingNumberController:
-                                    routingNumberController,
-                                specificAmountController:
-                                    specificAmountController,
-                                onPressed: () async {
-                                  var response = await addNewEmployeeBanking(
-                                      context: context,
-                                      employeeId: widget.employeeID,
-                                      accountNumber:
-                                          accountNumberController.text,
-                                      bankName: bankNameController.text,
-                                      amountRequested: int.parse(
-                                          specificAmountController.text),
-                                      checkUrl: "",
-                                      effectiveDate:
-                                          effectiveDateController.text,
-                                      routingNumber:
-                                          routingNumberController.text,
-                                      percentage: 'Na',
-                                      type: "Checking");
-                                  Navigator.pop(context);
-                                  if(response.statusCode == 200 || response.statusCode == 201){
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AddSuccessPopup(
-                                          message: 'Banking Added Successfully',
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                              ));
-                    }),
-              ),
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: CustomIconButtonConst(
+                  width: 130,
+                  text: AppStringHr.addNew,
+                  icon: Icons.add,
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => EditBankingPopUp(
+                              title: "Add Banking",
+                              banckId: 0,
+                              effectiveDateController:
+                                  effectiveDateController,
+                              bankNameController: bankNameController,
+                              accountNumberController:
+                                  accountNumberController,
+                              verifyAccountController:
+                                  verifyAccountController,
+                              routingNumberController:
+                                  routingNumberController,
+                              specificAmountController:
+                                  specificAmountController,
+                              onPressed: () async {
+                                var response = await addNewEmployeeBanking(
+                                    context: context,
+                                    employeeId: widget.employeeID,
+                                    accountNumber:
+                                        accountNumberController.text,
+                                    bankName: bankNameController.text,
+                                    amountRequested: int.parse(
+                                        specificAmountController.text),
+                                    checkUrl: "",
+                                    effectiveDate:
+                                        effectiveDateController.text,
+                                    routingNumber:
+                                        routingNumberController.text,
+                                    percentage: 'Na',
+                                    type: "Checking");
+                                Navigator.pop(context);
+                                if(response.statusCode == 200 || response.statusCode == 201){
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(
+                                        message: 'Banking Added Successfully',
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            ));
+                  }),
             ),
           ],
         ),
@@ -623,8 +609,8 @@ class BankingContainerConst extends StatelessWidget {
     );
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(10),
-        height: MediaQuery.of(context).size.height / 3.5,
+        padding: const EdgeInsets.all(20),
+        // height: MediaQuery.of(context).size.height / 3.4,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -659,17 +645,17 @@ class BankingContainerConst extends StatelessWidget {
                       ),
                     ],
                   ),
-                  height: MediaQuery.of(context).size.height / 35,
-                  width: MediaQuery.of(context).size.width / 20,
+                  height: MediaQuery.of(context).size.height / 33,
+                  width: MediaQuery.of(context).size.width / 17,
                   child: ElevatedButton(
                     onPressed: onPressed,
                     child: Text(
                       AppStringHr.edit,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                      )
                     ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
