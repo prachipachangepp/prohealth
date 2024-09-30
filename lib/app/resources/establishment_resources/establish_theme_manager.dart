@@ -35,6 +35,17 @@ class TransparentBgTabbar {
 }
 
 ///listview table listview heading
+class UserHeading {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///old
 class AllHRTableHeading {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
@@ -45,6 +56,11 @@ class AllHRTableHeading {
     );
   }
 }
+
+
+
+
+
 ///apply most of the places for each listview data
 class DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
@@ -56,7 +72,16 @@ class DocumentTypeDataStyle {
     );
   }
 }
-
+class UserTableStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: FontSize.s10,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 class PopupCompStyle{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(

@@ -93,7 +93,7 @@ class _LoginWebState extends State<LoginWeb> {
                 borderRadius: BorderRadius.circular(24),
                 color: ColorManager.white,
               ),
-              child: Form(
+                  child: Form(
                   key: _formKey,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
