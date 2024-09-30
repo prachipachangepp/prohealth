@@ -153,7 +153,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     Text(
                       AppString.type_of_the_document,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.textPrimaryColor,
                       ),
@@ -184,7 +184,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               .commonStyle(
                             fontWeight:
                             FontWeightManager.medium,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey,
                           ),
                         ),
@@ -238,7 +238,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     Text(
                       AppString.name_of_the_document,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.textPrimaryColor,
                       ),
@@ -292,7 +292,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                             Text(
                               "Expiry Type",
                               style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeight.w700,
                                 color: ColorManager.mediumgrey,
                                 decoration: TextDecoration.none,
@@ -342,7 +342,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               Text(
                                 "Expiry Date",
                                 style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeight.w700,
                                   color: ColorManager.mediumgrey,
                                   decoration: TextDecoration.none,
@@ -358,7 +358,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                                       controller: widget.calenderController,
                                       cursorColor: ColorManager.black,
                                       style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeight.w700,
                                         color:
                                         ColorManager.mediumgrey,
@@ -388,7 +388,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                                         hintText: 'mm-dd-yyyy',
                                         hintStyle:
                                         GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeight.w700,
                                           color:
                                           ColorManager.mediumgrey,
@@ -454,7 +454,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     Text(
                       AppString.upload_document,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.textPrimaryColor,
                       ),
@@ -486,7 +486,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     Text(
                       fileName,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.regular,
                         color: ColorManager.greylight,
                       ),

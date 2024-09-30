@@ -114,7 +114,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                                 AppStringHRNoData.terminationNoData,
                                                 style: CustomTextStylesCommon.commonStyle(
                               fontWeight: FontWeight.w700,
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               color: ColorManager.mediumgrey),
                                               ),
                           )),

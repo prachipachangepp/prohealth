@@ -54,7 +54,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                       'Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark),
                     ),

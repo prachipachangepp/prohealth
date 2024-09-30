@@ -163,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "No Register available!",
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w700,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey),
                       // AppString.dataNotFound,
                       //style:DocumentTypeDataStyle.customTextStyle(context),
@@ -483,6 +483,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController = TextEditingController(text: email);
 
                                   return
+                                    // OfferLetterScreen(email: email,
+                                    //   userId: data.employeeId!,
+                                    //   role: firstNameController.text,
+                                    //   status: firstNameController.text,
+                                    //   firstName: firstNameController.text,
+                                    //   lastName: firstNameController.text,
+                                    //   position: firstNameController.text,
+                                    //   phone: firstNameController.text,
+                                    //   reportingOffice: firstNameController.text,
+                                    //   services: firstNameController.text,
+                                    //   employement: firstNameController.text,
+                                    //   soecalityName: firstNameController.text,
+                                    //   clinicalName: firstNameController.text,
+                                    //   employeeId: data.employeeId!);
                                     RegisterEnrollPopup(
                                     employeeId: data.employeeId!,
                                     firstName: firstNameController,

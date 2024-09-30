@@ -75,7 +75,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                         'Info',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
@@ -100,7 +100,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                         'Referring Diagnosis',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey
@@ -125,7 +125,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                         'Physician Orders',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 2
                               ? ColorManager.mediumgrey
@@ -150,7 +150,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                         'Face To Face',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 3
                               ? ColorManager.mediumgrey

@@ -54,7 +54,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
               Text(
                 'Status Completed',
                 style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
+                    fontSize: FontSize.s14,
                     fontWeight: FontWeightManager.bold,
                     color: ColorManager.greenDark),
               ),
@@ -76,7 +76,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                 child: Text(
                   AppString.save,
                   style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
+                    fontSize: FontSize.s14,
                     fontWeight: FontWeightManager.bold,
                     color: ColorManager.white,
                   ),
@@ -149,7 +149,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 ),
                                 Text(AppString.male,
                                     style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                                 SizedBox(
@@ -163,7 +163,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 ),
                                 Text(AppString.female,
                                     style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                               ],
@@ -197,7 +197,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 ),
                                 Text(AppString.yes,
                                     style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                                 SizedBox(
@@ -211,7 +211,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 ),
                                 Text(AppString.no,
                                     style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                                 SizedBox(
@@ -225,7 +225,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 ),
                                 Text(AppString.unknown,
                                     style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                               ],
@@ -326,7 +326,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                             ),
                             Text(AppString.yes,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
+                                    fontSize: FontSize.s14,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.greylight)),
                             SizedBox(
@@ -339,7 +339,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                             ),
                             Text(AppString.no,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
+                                    fontSize: FontSize.s14,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.greylight)),
                             SizedBox(
@@ -352,7 +352,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                             ),
                             Text(AppString.unknown,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
+                                    fontSize: FontSize.s14,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.greylight)),
                             SizedBox(
@@ -365,7 +365,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                             ),
                             Text('N/A',
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s12,
+                                    fontSize: FontSize.s14,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.greylight)),
                           ],

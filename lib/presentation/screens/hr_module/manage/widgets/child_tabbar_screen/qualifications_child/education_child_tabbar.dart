@@ -171,7 +171,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                       AppStringHRNoData.educationNoData,
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey),
                     ),
                   ));

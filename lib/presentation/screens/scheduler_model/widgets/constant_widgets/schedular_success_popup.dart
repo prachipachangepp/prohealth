@@ -39,7 +39,7 @@ class SchedularSuccessPopup extends StatelessWidget {
                     child: Text(
                       title,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,

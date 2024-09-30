@@ -35,7 +35,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
                 indicatorSize: TabBarIndicatorSize.tab,
                 labelColor: ColorManager.calandercolour,
                 labelStyle: TextStyle(
-                  fontSize: FontSize.s12,
+                  fontSize: FontSize.s14,
                   fontWeight: FontWeight.w700,
                 ),
                 unselectedLabelColor: ColorManager.textPrimaryColor,

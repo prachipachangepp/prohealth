@@ -75,7 +75,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                   AppString.enter6digitcode,
                   style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.darkgrey,
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.bold),
                 ),
               ),
@@ -150,7 +150,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                     child: Text(AppString.resend,
                         style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.blueprime,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                         )),
                   )

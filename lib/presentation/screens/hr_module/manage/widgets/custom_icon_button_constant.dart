@@ -310,7 +310,7 @@ class DZoneButton extends StatelessWidget {
             'DZ',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: FontSize.s11,
+              fontSize: FontSize.s13,
               fontWeight: FontWeight.w300,
               color: isSelected ? ColorManager.white : ColorManager.black,
             ),

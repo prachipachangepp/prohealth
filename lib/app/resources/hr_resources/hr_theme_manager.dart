@@ -47,7 +47,7 @@ class onlyFormDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
-      fontSize: FontSize.s11,
+      fontSize: FontSize.s13,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );

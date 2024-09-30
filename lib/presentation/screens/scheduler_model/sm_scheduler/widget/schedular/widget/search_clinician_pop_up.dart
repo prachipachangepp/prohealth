@@ -426,7 +426,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                           'DZ',
                           style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.regular,
-                            fontSize: FontSize.s11,
+                            fontSize: FontSize.s13,
                             color: ColorManager.black,
                           ),
                         ),
@@ -462,7 +462,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                               child: Text(
                                 'Sr.No.',
                                 style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.bold,
                                   color: ColorManager.white,
                                 ),
@@ -479,7 +479,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                               child: Text(
                                 AppString.type,
                                 style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.bold,
                                   color: ColorManager.white,
                                 ),
@@ -496,7 +496,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                               child: Text(
                                 AppString.name,
                                 style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.bold,
                                   color: ColorManager.white,
                                 ),
@@ -513,7 +513,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                               child: Text(
                                 AppString.location,
                                 style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.bold,
                                   color: ColorManager.white,
                                 ),
@@ -530,7 +530,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                               child: Text(
                                 AppString.specialisation,
                                 style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.bold,
                                   color: ColorManager.white,
                                 ),

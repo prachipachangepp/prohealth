@@ -83,7 +83,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'Select Patient',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -101,7 +101,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'Assigned Clinician',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -123,7 +123,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'Assign Date',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -149,7 +149,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'Start Time',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -167,7 +167,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'End Time',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -189,7 +189,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'Details',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -210,7 +210,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                     child: Text('Cancel',
                         style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.bold,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -235,7 +235,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           'Add',
                           style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.bold,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: Colors.white,
                           ),
                         ),

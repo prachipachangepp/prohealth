@@ -437,7 +437,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                         child: Text(
                                           'Resend Otp',
                                           style:TextStyle(
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               color: ColorManager.blueprime,
                                               fontWeight:
                                                   FontWeight.w500),

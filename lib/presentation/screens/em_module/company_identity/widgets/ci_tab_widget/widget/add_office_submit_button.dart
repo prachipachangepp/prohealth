@@ -383,7 +383,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                               child: Text(
                                 'Pick Location',
                                 style: TextStyle(
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   fontWeight: FontWeight.w700,
                                   color: ColorManager.bluelight,
                                   //decoration: TextDecoration.none,
@@ -398,7 +398,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             Text(
                               _location,
                               style: TextStyle(
-                                fontSize: FontSize.s12,
+                                fontSize: FontSize.s14,
                                 color: ColorManager.granitegray,
                               ),
                             ),

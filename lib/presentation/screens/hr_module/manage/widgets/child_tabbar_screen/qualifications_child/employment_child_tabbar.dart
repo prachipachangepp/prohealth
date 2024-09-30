@@ -177,7 +177,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       AppStringHRNoData.employeeNoData,
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey),
                     ),
                   ));

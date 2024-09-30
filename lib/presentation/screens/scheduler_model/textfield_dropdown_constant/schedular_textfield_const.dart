@@ -56,7 +56,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
         textCapitalization: TextCapitalization.sentences,
         controller: _controller,
         style: GoogleFonts.firaSans(
-          fontSize: FontSize.s12,
+          fontSize: FontSize.s14,
           fontWeight: FontWeightManager.regular,
           color: ColorManager.black,
         ),

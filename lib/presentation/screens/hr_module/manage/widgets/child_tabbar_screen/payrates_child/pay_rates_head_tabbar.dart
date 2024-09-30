@@ -173,7 +173,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                           AppStringHRNoData.payRatesNoData,
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey,
                           ),
                         ),

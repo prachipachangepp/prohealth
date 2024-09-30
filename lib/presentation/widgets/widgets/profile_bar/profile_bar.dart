@@ -679,7 +679,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     fontWeight: FontWeight.w400,
                                                                     fontSize:
                                                                         FontSize
-                                                                            .s12,
+                                                                            .s14,
                                                                     color: ColorManager
                                                                         .mediumgrey),
                                                               ),
@@ -925,7 +925,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       fontWeight:FontWeight.w500,
                                                                       fontSize:
                                                                           FontSize
-                                                                              .s12,
+                                                                              .s14,
                                                                       color: ColorManager
                                                                           .mediumgrey),
                                                                 ),
@@ -1166,7 +1166,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               .medium,
                                                                       fontSize:
                                                                           FontSize
-                                                                              .s12,
+                                                                              .s14,
                                                                       color: ColorManager
                                                                           .mediumgrey),
                                                                 ),

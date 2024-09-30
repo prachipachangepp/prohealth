@@ -125,7 +125,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       textAlign: TextAlign.center,
                                                       style: CustomTextStylesCommon.commonStyle(
                                                           color: ColorManager.white,
-                                                          fontSize: FontSize.s11,
+                                                          fontSize: FontSize.s13,
                                                           fontWeight: FontWeight.w700)),
                                                 )),
                                           ],
@@ -201,7 +201,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(
                                                             color: ColorManager.black,
-                                                            fontSize: FontSize.s12,
+                                                            fontSize: FontSize.s14,
                                                             fontWeight: FontWeight.w700,
                                                           ),
                                                         ),
@@ -368,7 +368,7 @@ class InfoText extends StatelessWidget {
     return Column(
       children: [
         Text(text, style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w600,
             color: ColorManager.black),),
         const SizedBox(height: AppSize.s10),
@@ -389,7 +389,7 @@ class InfoData extends StatelessWidget {
     return Column(
       children: [
         Text(text,style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w400,
             color: ColorManager.mediumgrey),),
         const SizedBox(height: AppSize.s10),

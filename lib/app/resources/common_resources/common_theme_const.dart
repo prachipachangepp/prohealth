@@ -88,7 +88,7 @@ class BlueButtonTextConst {
 class TransparentButtonTextConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s14,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: ColorManager.blueprime,
       decoration: TextDecoration.none,
@@ -124,7 +124,7 @@ class AllPopupHeadings {
 class MenuContainerTextStylling {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s14,
+      fontSize: FontSize.s16,
       fontWeight: FontWeight.w600,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -136,7 +136,7 @@ class MenuContainerTextStylling {
 class AllNoDataAvailable {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s14,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,

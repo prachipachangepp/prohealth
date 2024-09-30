@@ -96,7 +96,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       child: Text(
                         'No User Found!',
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.regular,
                           color: ColorManager.mediumgrey,
                         ),
@@ -109,7 +109,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         title: Text(
                           result,
                           style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.mediumgrey,
                           ),
@@ -401,7 +401,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     hintText: 'Search User',
                                     alignLabelWithHint: true,
                                     hintStyle: TextStyle(
-                                      fontSize: FontSize.s12,
+                                      fontSize: FontSize.s14,
                                       fontWeight: FontWeight.w500,
                                       color: ColorManager.mediumgrey,
                                     ),
@@ -770,7 +770,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                               "Select a User by Searching for One!",
                               style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   color: ColorManager.mediumgrey),
                             )),
                         //AddEmployeeHomeScreen(),

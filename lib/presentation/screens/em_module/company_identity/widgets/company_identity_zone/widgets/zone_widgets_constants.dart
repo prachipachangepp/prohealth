@@ -610,7 +610,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             child: Text(
                               'Pick Location',
                               style: TextStyle(
-                                fontSize: FontSize.s12,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeight.w600,
                                 color: ColorManager.bluelight,
                                 //decoration: TextDecoration.none,
@@ -1028,7 +1028,7 @@ title: widget.title,
                           child: Text(
                             'Pick Location',
                             style: TextStyle(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               fontWeight: FontWeight.w600,
                               color: ColorManager.bluelight,
                               //decoration: TextDecoration.none,

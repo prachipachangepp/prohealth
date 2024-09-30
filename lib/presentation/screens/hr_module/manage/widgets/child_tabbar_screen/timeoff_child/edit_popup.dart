@@ -194,7 +194,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
             controller.text.isEmpty ? 'Please Enter some text' : '',
             style: TextStyle(
               color: ColorManager.red,
-              fontSize: FontSize.s12,
+              fontSize: FontSize.s14,
             ),
           ),
         ),

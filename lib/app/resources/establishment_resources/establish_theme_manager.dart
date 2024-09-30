@@ -265,7 +265,7 @@ class CITableStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w600,
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );

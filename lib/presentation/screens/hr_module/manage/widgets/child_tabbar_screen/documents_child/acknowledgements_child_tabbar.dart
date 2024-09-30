@@ -140,7 +140,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                     AppStringHRNoData.ackNoData,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey,
                     ),
                   ),

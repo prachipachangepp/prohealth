@@ -132,7 +132,7 @@ class _CICCADRState extends State<CICCADR> {
                         ErrorMessageString.noADR,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey,
                         ),
                       ),

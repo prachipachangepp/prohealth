@@ -90,7 +90,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Select Patient',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -108,7 +108,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Assigned Clinician',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -130,7 +130,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Assign Date',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -152,7 +152,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Visit Type',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -274,7 +274,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Start Time',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -297,7 +297,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'End Time',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -324,7 +324,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Details',
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -347,7 +347,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                     child: Text('Cancel',
                         style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.bold,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -372,7 +372,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           'Add',
                           style: GoogleFonts.firaSans(
                             fontWeight: FontWeightManager.bold,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: Colors.white,
                           ),
                         ),

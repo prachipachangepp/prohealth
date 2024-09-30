@@ -71,7 +71,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),
@@ -111,7 +111,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                       child: Text(
                         AppString.save,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.white,
                         ),
@@ -637,7 +637,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                     ),
                                     Text(AppString.yes,
                                         style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
+                                            fontSize: FontSize.s14,
                                             fontWeight: FontWeightManager.regular)
                                     ),
                                     SizedBox(width: AppSize.s35),
@@ -656,7 +656,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                       child: Text(
                                         'Clear',
                                         style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
+                                            fontSize: FontSize.s14,
                                             fontWeight: FontWeightManager.regular,
                                             color: ColorManager.greylight
                                         ),
