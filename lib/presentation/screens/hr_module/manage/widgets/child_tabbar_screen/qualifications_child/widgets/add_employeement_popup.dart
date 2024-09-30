@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -76,8 +77,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       child: Container(
         height:460,
         width: 900,
-        // width: MediaQuery.of(context).size.width / 1.5,
-        // height: MediaQuery.of(context).size.height / 1.6,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -120,7 +119,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             ),
             //SizedBox(height: MediaQuery.of(context).size.height / 30),
 
-Padding(
+            Padding(
   padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
   child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -133,18 +132,21 @@ Padding(
             controller: widget.positionTitleController,
             labelText: "Final Position Title",
             errorKey: 'positionTitle',
+            errorMessage: 'Please enter title'
           ),
           _buildTextField(
             capitalIsSelect: true,
             controller: widget.leavingResonController,
             labelText: "Reason For Leaving",
             errorKey: 'leavingReason',
+            errorMessage: 'Please enter leaving reason'
           ),
           _buildTextField(
             capitalIsSelect: false,
             controller: widget.startDateContoller,
             labelText: "Start Date",
             errorKey: 'startDate',
+            errorMessage: 'Please enter start date',
             suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
             onTap: () => _selectDate(widget.startDateContoller, _selectedStartDate),
           ),
@@ -160,6 +162,7 @@ Padding(
             controller: widget.endDateController,
             labelText: "End Date",
             errorKey: 'endDate',
+            errorMessage: 'Please enter end date',
             suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
             onTap: () => _selectDate(widget.endDateController, _selectedEndDate),
           ),
@@ -168,12 +171,14 @@ Padding(
             controller: widget.lastSupervisorNameController,
             labelText: "Last Supervisor's Name",
             errorKey: 'lastSupervisorName',
+            errorMessage: 'Please enter supervisor name'
           ),
           _buildTextField(
             capitalIsSelect: false,
             controller: widget.supervisorMobileNumber,
             labelText: "Supervisor's Mobile Number",
             errorKey: 'supervisorMobileNumber',
+            errorMessage: 'Please enter supervisor mobile number'
           ),
         ],
       ),
@@ -194,18 +199,21 @@ Padding(
             controller: widget.cityNameController,
             labelText: AppString.city,
             errorKey: 'cityName',
+            errorMessage: 'Please enter city name'
           ),
           _buildTextField(
             capitalIsSelect: true,
             controller: widget.employeerController,
             labelText: "Employer",
             errorKey: 'employer',
+            errorMessage: 'Please enter employer'
           ),
           _buildTextField(
             capitalIsSelect: false,
             controller: widget.emergencyMobileNumber,
             labelText: "Emergency Mobile Number",
             errorKey: 'emergencyMobileNumber',
+            errorMessage: 'Please enter mobile number.'
           ),
         ],
       ),
@@ -219,6 +227,7 @@ Padding(
             controller: widget.countryController,
             labelText: "Country Name",
             errorKey: 'countryname',
+            errorMessage: 'Please enter Country'
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width / 6,
@@ -273,45 +282,60 @@ Padding(
     Widget? suffixIcon,
     required bool capitalIsSelect,
     VoidCallback? onTap,
+    required String errorMessage,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
-          capitalIsSelect:capitalIsSelect,
-          phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber' ? true : false,
+          capitalIsSelect: capitalIsSelect,
+          phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber',
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
           labelText: labelText,
-          keyboardType: TextInputType.text, // Ensure the keyboard type is text except for phone fields
+          keyboardType: TextInputType.phone, // Ensure it's phone input for number fields
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: 10),
           suffixIcon: suffixIcon,
           onTap: onTap,
           onChanged: (value) {
             setState(() {
-              // General validation for empty fields
-              errorStates[errorKey] = value.isEmpty;
+              if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+                // Validate phone number fields
+                String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+                errorStates[errorKey] = numericValue.length != 10;
+              } else {
+                // Validate other text fields
+                errorStates[errorKey] = value.isEmpty;
+              }
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please fill this field';
+              return errorMessage;
+            }
+            if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+              String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+              if (numericValue.length != 10) {
+                return 'Please enter a valid 10-digit phone number';
+              }
             }
             return null;
           },
+
         ),
         if (errorStates[errorKey] == true)
           Padding(
-            padding: const EdgeInsets.only(top: 5.0),
+            padding: EdgeInsets.only(top: 1.0),
             child: Text(
-              'Please fill this field',
-              style: TextStyle(color: Colors.red, fontSize: 10),
+              errorMessage,
+              style: CommonErrorMsg.customTextStyle(context),
             ),
           ),
       ],
     );
   }
+
 
   void _handleSave() {
     setState(() {
@@ -319,15 +343,32 @@ Padding(
     });
 
     bool hasError = false;
-    errorStates.forEach((key, value) {
-      if (key != 'supervisorMobileNumber' && key != 'emergencyMobileNumber') {
-        errorStates[key] = controllerByErrorKey(key).text.isEmpty;
-        if (errorStates[key] == true) {
+
+    // Check if any of the fields have errors
+    errorStates.forEach((key, _) {
+      TextEditingController controller = controllerByErrorKey(key);
+
+      if (key == 'supervisorMobileNumber' || key == 'emergencyMobileNumber') {
+        // Validate phone number fields
+        String numericValue = controller.text.replaceAll(RegExp(r'[^0-9]'), '');
+        if (numericValue.length != 10) {
+          errorStates[key] = true;
           hasError = true;
+        } else {
+          errorStates[key] = false;
+        }
+      } else {
+        // Validate other text fields
+        if (controller.text.isEmpty) {
+          errorStates[key] = true;
+          hasError = true;
+        } else {
+          errorStates[key] = false;
         }
       }
     });
 
+    // If there's an error, stop the loading and don't proceed with saving
     if (hasError) {
       setState(() {
         isLoading = false;
@@ -335,8 +376,11 @@ Padding(
       return;
     }
 
+    // Proceed to save when no errors
     widget.onpressedSave();
   }
+
+
 
   TextEditingController controllerByErrorKey(String errorKey) {
     switch (errorKey) {
@@ -387,8 +431,7 @@ Padding(
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
-        selectedDate = picked;
-        controller.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+        controller.text = DateFormat('yyyy-MM-dd').format(picked);
       });
     }
   }

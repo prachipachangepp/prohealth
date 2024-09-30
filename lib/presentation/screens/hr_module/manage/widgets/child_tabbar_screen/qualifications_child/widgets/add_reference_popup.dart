@@ -128,14 +128,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                       : null,
                   capitalIsSelect: false,
                 ),
-                // _buildTextField(
-                //   controller: widget.nameController,
-                //   labelText: "Name",
-                //   errorKey: 'name',
-                //   keyboardType: TextInputType.name,
-                //   validator: (value) => value.isEmpty ? 'Please enter your name' : null,
-                //   capitalIsSelect: true, // Capitalize first letter for name
-                // ),
                 _buildTextField(
                   controller: widget.titlePositionController,
                   labelText: "Title/Position",

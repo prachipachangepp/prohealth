@@ -377,7 +377,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             flex: 1,
                                             child: Text(
                                               formattedSerialNumber,
-
                                               style: DocumentTypeDataStyle.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
@@ -387,7 +386,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
-
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
@@ -396,12 +394,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.firstName,
                                               textAlign: TextAlign.center,
-                                              // style: GoogleFonts.firaSans(
-                                              //   fontSize: FontSize.s10,
-                                              //   fontWeight:
-                                              //       FontWeightManager.bold,
-                                              //   color: ColorManager.granitegray,
-                                              // ),
                                               style:  DocumentTypeDataStyle.customTextStyle(context),
                                             ),
                                           ),
@@ -413,7 +405,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.lastName,
                                                 textAlign: TextAlign.center,
-
                                                 style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
@@ -426,13 +417,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.role,
                                                 textAlign: TextAlign.center,
-                                                // style: GoogleFonts.firaSans(
-                                                //   fontSize: FontSize.s10,
-                                                //   fontWeight:
-                                                //       FontWeightManager.bold,
-                                                //   color:
-                                                //       ColorManager.granitegray,
-                                                // ),
                                                 style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
@@ -445,13 +429,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,
-                                                // style: GoogleFonts.firaSans(
-                                                //   fontSize: FontSize.s10,
-                                                //   fontWeight:
-                                                //       FontWeightManager.bold,
-                                                //   color:
-                                                //       ColorManager.granitegray,
-                                                // ),
                                                 style:  DocumentTypeDataStyle.customTextStyle(context),
                                               ),
                                             ),
