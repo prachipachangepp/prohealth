@@ -13,7 +13,7 @@ class _CardDetailsState extends State<CardDetails> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
       child: Container(
         width: MediaQuery.of(context).size.width/2.3,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -29,7 +29,7 @@ class _CardDetailsState extends State<CardDetails> {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        height: MediaQuery.of(context).size.height/3.8,
+        height: MediaQuery.of(context).size.height/3.6,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 95,
@@ -83,7 +83,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                 ),
               ],
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/20,),
+            SizedBox(width: MediaQuery.of(context).size.width/40,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

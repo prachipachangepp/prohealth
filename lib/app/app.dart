@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../presentation/screens/home_module/home_screen.dart';
 import '../presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
+import 'dart:html' as html;
 
 class App extends StatefulWidget {
   final bool signedIn;
@@ -38,6 +39,14 @@ class _App extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    // bool isChrome = html.window.navigator.userAgent.contains("chrome");
+    // if(!isChrome){
+    //   return MaterialApp(
+    //     home: Scaffold(
+    //       body: Center(child: Text("This Website only supports on Google Chrome"),),
+    //     ),
+    //   );
+    // }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -101,38 +110,34 @@ class _App extends State<App> {
             );
         }
       },
-      // onGenerateRoute: (settings) {
-      //   if ( settings.name != '/') {
-      //     _hasShownSplash = true;
-      //      MaterialPageRoute(
-      //       builder: (context) => SplashScreen(
-      //         onFinish: () => Navigator.of(context).pushReplacementNamed(settings.name!),
-      //       ),
-      //     );
-      //   }else if(widget.signedIn == false){
-      //     return MaterialPageRoute(
-      //       builder: (context) => SplashScreen(
-      //         onFinish: () => Navigator.of(context).pushReplacementNamed(LoginScreen.routeName),
-      //       ),
-      //     );
-      //   }else if(settings.name == "/onBordingWelcome"){
-      //     return MaterialPageRoute(
-      //       builder: (context) => SplashScreen(
-      //         onFinish: () => Navigator.of(context).pushReplacementNamed(OnBoardingWelcome.routeName),
-      //       ),
-      //     );
-      //   }
-      //   else{
-      //     return MaterialPageRoute(
-      //       builder: (context) => SplashScreen(
-      //         onFinish: () => Navigator.of(context).pushReplacementNamed(LoginScreen.routeName),
-      //       ),
-      //     );
-      //   }
-      // },
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class SplashScreen extends StatelessWidget {
   final VoidCallback? onFinish;

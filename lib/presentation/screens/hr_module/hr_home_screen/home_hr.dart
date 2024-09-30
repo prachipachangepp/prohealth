@@ -770,7 +770,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                               "Select a User by Searching for One!",
                               style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: FontSize.s12,
+                                  fontSize: FontSize.s14,
                                   color: ColorManager.mediumgrey),
                             )),
                         //AddEmployeeHomeScreen(),

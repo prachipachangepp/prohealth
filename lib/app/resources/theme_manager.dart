@@ -37,7 +37,7 @@ class ThemeManagerBold {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 11;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -56,7 +56,7 @@ class ThemeManagerAddressPB {
 }
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 11;
+    double fontSize = 12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -246,7 +246,7 @@ class MobileMenuText {
 
 class BoxHeadingStyle {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 13;
+    double fontSize = 15;
     // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,

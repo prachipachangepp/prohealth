@@ -26,28 +26,6 @@ import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 
 
 
-class HrManageScreenHeadingStyle {
-  static TextStyle customEditTextStyle() {
-    return TextStyle(
-      fontSize: FontSize.s14,
-      fontWeight: FontWeight.w700,
-      // : FontWeight.w500,
-      color: ColorManager.mediumgrey,
-      // decoration: TextDecoration.none,
-    );
-  }
-}
-
-class HrManageScreenEditTextFontStyle {
-  static TextStyle customEditTextStyle() {
-    return TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-      color: ColorManager.mediumgrey,
-    );
-  }
-}
-
 class ManageScreen extends StatefulWidget {
   final int employeeId;
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
@@ -121,7 +99,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 labelColor: Color(0xFF50B5E5),
                                 labelStyle: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w700,
                                 ),
                                 unselectedLabelColor: ColorManager.textPrimaryColor,
@@ -150,8 +128,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                           children: [
                                             Container(
                                               decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(24),
+                                                borderRadius: BorderRadius.circular(24),
                                                 color: Color(0xFF50B5E5),
                                                 boxShadow: [
                                                   BoxShadow(
@@ -165,7 +142,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 ],
                                               ),
                                               height: 30,
-                                              width: 640.0,
+                                              width: 720.0,
                                               child: TabBar(
                                                 isScrollable: false,
                                                 tabs: [
@@ -193,21 +170,20 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
                                                     TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                                 labelStyle: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                 ),
-                                                unselectedLabelColor:
-                                                    Colors.white,
+                                                unselectedLabelColor: Colors.white,
                                               ),
                                             ),
                                             SizedBox(height: 5),
                                             SizedBox(
                                               height:
-                                                  265.0, // Adjust height as needed
+                                                  265.0,
                                               child: TabBarView(
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
@@ -312,12 +288,12 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 labelColor: Color(0xFF686464),
                                                 unselectedLabelStyle:
                                                     TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                                 labelStyle:
                                                 TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                                 unselectedLabelColor:
@@ -397,21 +373,21 @@ class _ManageScreenState extends State<ManageScreen> {
                                       ),
                                     ),
 
-                                    // Pay Rates Tab
+                                    /// Pay Rates Tab
                                     PayRatesHeadTabbar(
                                       employeeId: widget
                                           .searchByEmployeeIdProfileData!
                                           .employeeId!,
                                     ),
 
-                                    // Termination Tab
+                                    /// Termination Tab
                                     TerminationHeadTabbar(
                                       employeeId: widget
                                           .searchByEmployeeIdProfileData!
                                           .employeeId!,
                                     ),
 
-                                    // Time Off Tab
+                                    /// Time Off Tab
                                     const TimeOffHeadTabbar(),
                                   ],
                                 ),
@@ -420,15 +396,7 @@ class _ManageScreenState extends State<ManageScreen> {
                           ),
                         ),
                       ],
-
-                      // Bottom row
                     )
-
-              // ValueListenableBuilder<bool>(
-              // valueListenable: _isEditMode,
-              // builder: (context, isEditMode, child) {
-              //   return
-              // }),
               ),
           BottomBarRow(),
         ]));

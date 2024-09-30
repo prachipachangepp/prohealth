@@ -65,7 +65,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 373,
+        height: 385,
         width: 932,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -224,7 +224,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
 
                     SizedBox(height: AppSize.s35),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButtonTransparent(
                           text: AppString.cancel,
