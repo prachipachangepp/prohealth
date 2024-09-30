@@ -124,6 +124,16 @@ class _BankingTabContainerConstantState
               ),
               Text('Requested amount :',
                   style: ThemeManagerDark.customTextStyle(context)),
+              const SizedBox(
+                height: 10,
+              ),
+              Text('',
+                  style: ThemeManagerDark.customTextStyle(context)),
+              const SizedBox(
+                height: 10,
+              ),
+              Text('',
+                  style: ThemeManagerDark.customTextStyle(context)),
             ],
             row2Child2: [
               Text(
@@ -137,6 +147,20 @@ class _BankingTabContainerConstantState
                 snapshot.data![index].amtRequested.toString(),
                 style: ThemeManagerDarkFont.customTextStyle(context),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '',
+                style: ThemeManagerDarkFont.customTextStyle(context),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '',
+                style: ThemeManagerDarkFont.customTextStyle(context),
+              ),
             ],
             button:  Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -148,7 +172,6 @@ class _BankingTabContainerConstantState
                     try {
                       final pdf = pw.Document();
                       final bankingData = snapshot.data![index];
-
                       pdf.addPage(
                         pw.Page(
                           build: (pw.Context context) => pw.Padding(

@@ -225,7 +225,7 @@ class MenuScreenHeadStyle {
   static TextStyle menuHead(BuildContext context) {
     return TextStyle(
         color: ColorManager.darkgrey,
-        fontSize: 14.0,
+        fontSize: FontSize.s14,
         fontWeight: FontWeight.w600);
   }
 }

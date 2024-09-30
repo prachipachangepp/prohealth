@@ -113,7 +113,7 @@ class AllPopupHeadings {
 class MenuContainerTextStylling {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s16,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,

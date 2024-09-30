@@ -230,8 +230,8 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                     Text(
                                       'Select a Module',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 14,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeight.w600,
                                         color: ColorManager.darkgrey,
                                       ),
@@ -266,8 +266,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                       Text(
                                         'Administration',
                                         textAlign: TextAlign.center,
-                                        style: MenuScreenHeadStyle.menuHead(
-                                            context),
+                                        style: MenuScreenHeadStyle.menuHead(context),
                                       ),
                                       // SizedBox(
                                       //   height: 10,

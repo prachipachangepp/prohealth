@@ -84,14 +84,14 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             return Column(
                               children: [
                                 Material(
-                                  color: ColorManager.red,
+                                  color: ColorManager.white,
                                   elevation: 4,
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: containerWidth,
                                     height: AppSize.s181,
                                     decoration: BoxDecoration(
-                                      color: ColorManager.green,
+                                      color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(20),
                                       // border: Border.all(
                                       //   width: AppSize.s1,
