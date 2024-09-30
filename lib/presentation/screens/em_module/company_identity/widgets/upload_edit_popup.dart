@@ -13,7 +13,6 @@ import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
-import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 
@@ -97,7 +96,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s390 : widget.height!,
+      height: widget.height == null ? AppSize.s360 : widget.height!,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,
@@ -114,7 +113,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               children: [
                 Text(
                   widget.docName,
-                  style:  DocumentTypeDataStyle.customTextStyle(context),
+                  style: ConstTextFieldRegister.customTextStyle(context),
                 ),
                 Icon(
                   Icons.arrow_drop_down,
@@ -126,51 +125,58 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
         ),
 
         /// upload  doc
-        HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Container(
-              height: AppSize.s30,
-              width: AppSize.s354,
-              padding: EdgeInsets.only(left: AppPadding.p15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorManager.containerBorderGrey,
-                  width: 1,
+        InkWell(
+          onTap: _pickFile,
+          child: HeaderContentConst(
+              heading: AppString.upload_document,
+              content: Container(
+                height: AppSize.s30,
+                width: AppSize.s354,
+                padding: EdgeInsets.only(left: AppPadding.p15),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: ColorManager.containerBorderGrey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: StatefulBuilder(
-                builder: (BuildContext context,
-                    void Function(void Function()) setState) {
-                  return Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            fileName,
-                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                child: StatefulBuilder(
+                  builder: (BuildContext context,
+                      void Function(void Function()) setState) {
+                    return Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              fileName,
+                              style: TextStyle(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.greylight,
+                              ),
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile,
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: IconSize.I16,
+                          IconButton(
+                            padding: EdgeInsets.all(4),
+                            onPressed: _pickFile,
+                            icon: Icon(
+                              Icons.file_upload_outlined,
+                              color: ColorManager.black,
+                              size: 17,
+                            ),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
                           ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            )),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              )),
+        ),
         Visibility(
           visible: showExpiryDateField,
 
@@ -185,7 +191,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   child: TextFormField(
                     controller: expiryDateController,
                     cursorColor: ColorManager.black,
-                    style:  DocumentTypeDataStyle.customTextStyle(context),
+                    style: ConstTextFieldRegister.customTextStyle(context),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -198,7 +204,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       hintText: 'MM-DD-YYYY',
-                      hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                      hintStyle: ConstTextFieldRegister.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(

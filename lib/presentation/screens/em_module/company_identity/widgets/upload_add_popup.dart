@@ -92,7 +92,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s390 : widget.height!,
+      height: widget.height == null ? AppSize.s360 : widget.height!,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,
@@ -180,73 +180,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         ),
 
         /// Upload document
-        HeaderContentConst(
-          heading: AppString.upload_document,
-          content:
-          // Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Container(
-          //       height: AppSize.s30,
-          //       width: AppSize.s354,
-          //       padding: EdgeInsets.only(left: AppPadding.p15),
-          //       decoration: BoxDecoration(
-          //         border: Border.all(
-          //           color: ColorManager.containerBorderGrey,
-          //           width: 1,
-          //         ),
-          //         borderRadius: BorderRadius.circular(4),
-          //       ),
-          //       child: StatefulBuilder(
-          //         builder: (BuildContext context,
-          //             void Function(void Function()) setState) {
-          //           return Padding(
-          //             padding: const EdgeInsets.all(0),
-          //             child: Row(
-          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //               children: [
-          //                 Expanded(
-          //                   child: Text(
-          //                     fileName,
-          //                     style: DocumentTypeDataStyle.customTextStyle(
-          //                         context),
-          //                   ),
-          //                 ),
-          //                 IconButton(
-          //                   padding: EdgeInsets.all(4),
-          //                   onPressed: _pickFile,
-          //                   icon: Icon(
-          //                     Icons.file_upload_outlined,
-          //                     color: ColorManager.black,
-          //                     size: 17,
-          //                   ),
-          //                   splashColor: Colors.transparent,
-          //                   highlightColor: Colors.transparent,
-          //                   hoverColor: Colors.transparent,
-          //                 ),
-          //               ],
-          //             ),
-          //           );
-          //         },
-          //       ),
-          //     ),
-          //     if (isFileErrorVisible) // Display error if no file is selected
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 5),
-          //         child: Text(
-          //           'Please upload a document',
-          //           style: CommonErrorMsg.customTextStyle(context),
-          //         ),
-          //       ),
-          //   ],
-          // ),
-          ///
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: _pickFile, // Trigger file picking when the whole container is tapped
-                child: Container(
+        InkWell(
+          onTap: _pickFile,
+          child: HeaderContentConst(
+            heading: AppString.upload_document,
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
                   height: AppSize.s30,
                   width: AppSize.s354,
                   padding: EdgeInsets.only(left: AppPadding.p15),
@@ -257,45 +198,50 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     ),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            fileName,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context,
+                        void Function(void Function()) setState) {
+                      return Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                fileName,
+                                style: DocumentTypeDataStyle.customTextStyle(
+                                    context),
+                              ),
+                            ),
+                            IconButton(
+                              padding: EdgeInsets.all(4),
+                              onPressed: _pickFile,
+                              icon: Icon(
+                                Icons.file_upload_outlined,
+                                color: ColorManager.black,
+                                size: 17,
+                              ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile, // Keep file picker here as well for icon press
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: 17,
-                          ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                        ),
-                      ],
+                      );
+                    },
+                  ),
+                ),
+                if (isFileErrorVisible) // Display error if no file is selected
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Text(
+                      'Please upload a document',
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
                   ),
-                ),
-              ),
-              if (isFileErrorVisible)
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    'Please upload a document',
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-                ),
-            ],
-          )
-
+              ],
+            ),
+          ),
         )
       ],
       bottomButtons: load

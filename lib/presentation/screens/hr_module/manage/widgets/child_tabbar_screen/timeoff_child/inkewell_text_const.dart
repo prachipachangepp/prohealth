@@ -16,7 +16,7 @@ class TextInkwellButton extends StatelessWidget {
       child: Text(text,style: TextStyle(
         fontFamily: 'FiraSans',
         fontWeight: FontWeightManager.bold,
-        fontSize: MediaQuery.of(context).size.width / 145,
+        fontSize: FontSize.s12,
         color: ColorManager.blueprime,
       ),),
     );
