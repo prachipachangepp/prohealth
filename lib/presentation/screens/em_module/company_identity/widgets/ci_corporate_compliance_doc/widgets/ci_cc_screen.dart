@@ -154,9 +154,9 @@ class _CiCorporateComplianceScreenState
               Expanded(
                 flex: 5,
                 child: Container(
-                  //color: Colors.greenAccent,
-                  padding: EdgeInsets.only(top: AppPadding.p6),
-                  width: MediaQuery.of(context).size.width / 1.7,
+                // color: Colors.greenAccent,
+                  padding: EdgeInsets.only(top: AppPadding.p4),
+                  width: MediaQuery.of(context).size.width /1.3,
                   height: AppSize.s60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -164,8 +164,8 @@ class _CiCorporateComplianceScreenState
                       InkWell(
                         child: Container(
                           height: AppSize.s56,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          width: MediaQuery.of(context).size.width / 10,
+                          padding: EdgeInsets.symmetric(vertical: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color:
@@ -201,8 +201,8 @@ class _CiCorporateComplianceScreenState
                       InkWell(
                         child: Container(
                           height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          width: MediaQuery.of(context).size.width / 10,
+                          padding: EdgeInsets.symmetric(vertical: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color:
@@ -229,8 +229,8 @@ class _CiCorporateComplianceScreenState
                       InkWell(
                         child: Container(
                           height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          width: MediaQuery.of(context).size.width / 10,
+                          padding: EdgeInsets.symmetric(vertical: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color:
@@ -257,8 +257,8 @@ class _CiCorporateComplianceScreenState
                       InkWell(
                         child: Container(
                           height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          width: MediaQuery.of(context).size.width / 10,
+                          padding: EdgeInsets.symmetric(vertical: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color:
@@ -285,8 +285,8 @@ class _CiCorporateComplianceScreenState
                       InkWell(
                         child: Container(
                           height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 10,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          width: MediaQuery.of(context).size.width / 8,
+                          padding: EdgeInsets.symmetric(vertical: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color:

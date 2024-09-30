@@ -59,7 +59,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           style:FormHeading.customTextStyle(context)
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 6),
+                      SizedBox(height: MediaQuery.of(context).size.height / 10),
                       Text(
                         'Upload Signature',
                         style: BlueButtonTextConst.customTextStyle(context)

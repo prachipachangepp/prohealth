@@ -184,7 +184,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 textAlign: TextAlign.center,
                                                 zone.zoneName
                                                     .toString(),
-                                                style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
                                             // Text(''),
@@ -194,7 +194,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 textAlign: TextAlign.center,
                                                 zone.zipcodes
                                                     .toString(),
-                                                style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
                                             Expanded(

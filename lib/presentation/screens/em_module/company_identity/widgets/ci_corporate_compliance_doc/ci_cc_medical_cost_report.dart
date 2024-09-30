@@ -207,7 +207,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         Text(
                                                           "ID : ${MedicalCostReport.idOfDocument}",
                                                           // MedicalCostReport.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           MedicalCostReport
@@ -215,7 +215,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),

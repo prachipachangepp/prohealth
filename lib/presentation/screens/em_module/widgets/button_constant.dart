@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+
+import '../../../../app/resources/font_manager.dart';
 
 ///button constant with transparent bg, colored text
 class CustomButtonTransparentSM extends StatelessWidget {
@@ -25,10 +28,12 @@ class CustomButtonTransparentSM extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             text,
-            style: TransparentButtonTextConst.customTextStyle(context),
+            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+              fontWeight: FontWeight.w500,
+              color: ColorManager.blueprime,)
           ),
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 23, vertical: 10),
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),

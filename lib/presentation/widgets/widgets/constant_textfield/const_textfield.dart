@@ -739,12 +739,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(bottom: 20),
-          hintStyle: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w500,
-              color: ColorManager.mediumgrey),
-          hintText: widget.hintText,
-        ),
+          hintStyle:  DocumentTypeDataStyle.customTextStyle(context),)
       ),
     );
   }

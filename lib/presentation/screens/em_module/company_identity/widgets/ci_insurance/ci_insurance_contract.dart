@@ -175,14 +175,14 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   Text(
                                                    "ID: ${contract.contractId}",
                                                     textAlign: TextAlign.center,
-                                                    style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                    style:  TableSubHeading.customTextStyle(context),
                                                   ),
                                                   SizedBox(height: AppSize.s5,),
                                                   Text(
                                                     contract.contractName
                                                         .toString(),
                                                     textAlign: TextAlign.center,
-                                                    style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                    style:  TableSubHeading.customTextStyle(context),
                                                   ),
                                                 ],
                                               ),
