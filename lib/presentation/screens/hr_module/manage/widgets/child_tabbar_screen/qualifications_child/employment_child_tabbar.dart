@@ -117,20 +117,6 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     },
                                   );
                                 }
-                                // if(apiData.statusCode == 200 && apiData.statusCode == 201){
-                                //   return showDialog(
-                                //     context: context,
-                                //     builder: (BuildContext context) {
-                                //       Future.delayed(Duration(seconds: 3), () {
-                                //         if (Navigator.of(context).canPop()) {
-                                //           Navigator.of(context).pop();
-                                //         }
-                                //       });
-                                //       return AddSuccessPopup(message: 'Data Added Successfully',);
-                                //     },
-                                //   );
-                                //
-                                // }
 
                               },
                               checkBoxTile: Container(
@@ -197,8 +183,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         index + 1 + (currentPage - 1) * itemsPerPage;
                     String formattedSerialNumber =
                     serialNumber.toString().padLeft(2, '0');
-                    return CardDetails(childWidget: DetailsFormate(
+                    return CardDetails(
+                        childWidget: DetailsFormate(
                       row1Child1: [
+                        SizedBox(height: 5,),
                         Text('Final Position Title :',
                             style: ThemeManagerDark.customTextStyle(context)),
                         const SizedBox(
@@ -223,7 +211,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                             style: ThemeManagerDark.customTextStyle(context)),
                       ],
                       row1Child2: [
-
+                        SizedBox(height: 5,),
                         Text(
                           snapshot.data![index].title,
                           style: ThemeManagerDarkFont.customTextStyle(context),
@@ -258,6 +246,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         ),
                       ],
                       row2Child1: [
+                        SizedBox(height: 5,),
                         Text('Reason of Leaving :',
                             style: ThemeManagerDark.customTextStyle(context)),
                         const SizedBox(
@@ -282,6 +271,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                             style: ThemeManagerDark.customTextStyle(context)),
                       ],
                       row2Child2: [
+                        SizedBox(height: 5,),
                         Text(
                           snapshot.data![index].reason,
                           style: ThemeManagerDarkFont.customTextStyle(context),
