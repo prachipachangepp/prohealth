@@ -158,13 +158,18 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                               ),
                             ),
                           ),
-                          Icon(
+                          IconButton(
+                            padding: EdgeInsets.all(4),
+                            onPressed: _pickFile,
+                            icon: Icon(
                               Icons.file_upload_outlined,
                               color: ColorManager.black,
-                              size: IconSize.I16,
+                              size: 17,
                             ),
-
-
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                          ),
                         ],
                       ),
                     );

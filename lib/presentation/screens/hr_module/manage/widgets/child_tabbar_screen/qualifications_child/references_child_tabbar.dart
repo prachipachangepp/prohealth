@@ -176,7 +176,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                       Text('Email :',
                           style: ThemeManagerDark.customTextStyle(context)),
                       const SizedBox(height: 10,),
-                      Text('How do you know this\nperson ? :',
+                      Text('How do you know this\nperson? :',
                           style: ThemeManagerDark.customTextStyle(context)),
                       const SizedBox(height: 5,),
                       Text('Length of Association :',

@@ -34,10 +34,10 @@ class ThemeManagerBold {
 }
 
 
-
+/// HR Manage Card Lebal text style
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 11;
+    double fontSize = 13;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -54,9 +54,11 @@ class ThemeManagerAddressPB {
     );
   }
 }
+
+/// HR Manage Card Lebal response text style
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 11;
+    double fontSize = 13;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,

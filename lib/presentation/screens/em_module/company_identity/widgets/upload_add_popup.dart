@@ -213,11 +213,18 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                     context),
                               ),
                             ),
-                             Icon(
+                            IconButton(
+                              padding: EdgeInsets.all(4),
+                              onPressed: _pickFile,
+                              icon: Icon(
                                 Icons.file_upload_outlined,
                                 color: ColorManager.black,
                                 size: 17,
                               ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
                           ],
                         ),
                       );

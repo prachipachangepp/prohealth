@@ -207,49 +207,52 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         ),
 
         /// upload  doc
-        HeaderContentConst(
-          heading: AppString.upload_document,
-          content: Container(
-            height: AppSize.s30,
-            width: AppSize.s354,
-            padding: EdgeInsets.only(left: AppPadding.p15),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ColorManager.containerBorderGrey,
-                width: 1,
+        InkWell(
+          onTap: _pickFile,
+          child: HeaderContentConst(
+            heading: AppString.upload_document,
+            content: Container(
+              height: AppSize.s30,
+              width: AppSize.s354,
+              padding: EdgeInsets.only(left: AppPadding.p15),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: ColorManager.containerBorderGrey,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(4),
               ),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: StatefulBuilder(
-              builder: (BuildContext context,
-                  void Function(void Function()) setState) {
-                return Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          fileName,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
+              child: StatefulBuilder(
+                builder: (BuildContext context,
+                    void Function(void Function()) setState) {
+                  return Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            fileName,
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.all(4),
-                        onPressed: _pickFile,
-                        icon: Icon(
-                          Icons.file_upload_outlined,
-                          color: ColorManager.black,
-                          size: 17,
+                        IconButton(
+                          padding: EdgeInsets.all(4),
+                          onPressed: _pickFile,
+                          icon: Icon(
+                            Icons.file_upload_outlined,
+                            color: ColorManager.black,
+                            size: 17,
+                          ),
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
                         ),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         )

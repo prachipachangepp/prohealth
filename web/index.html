@@ -36,11 +36,30 @@
 
   <title>prohealth</title>
   <link rel="manifest" href="manifest.json">
+<!--  <script>-->
+<!--    function isChrome() {-->
+<!--     const userAgent = navigator.userAgent.toLowerCase();-->
+<!--     const isChromeBrowser = userAgent.includes('chrome');-->
+
+<!--     // Further check using vendor property to detect genuine Chrome-->
+<!--     const isChromeVendor = navigator.vendor && navigator.vendor.toLowerCase() === "google inc.";-->
+
+<!--     return isChromeBrowser && isChromeVendor;-->
+<!--   }-->
+
+<!--   // Stop loading if not Chrome-->
+<!--   if (!isChrome()) {-->
+<!--     document.write('<h1>This app only runs on Google Chrome. Please switch to Chrome.</h1>');-->
+<!--     // Prevent the rest of the page from loading-->
+<!--     throw new Error("Non-Chrome browser detected. Stopping further execution.");-->
+<!--   }-->
+<!--  </script>-->
 </head>
 <body>
 <script type="text/javascript">
   window.flutterWebRenderer = "html";
 </script>
+
   <script src="flutter_bootstrap.js" async></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg"></script>
 </body>
