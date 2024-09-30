@@ -487,7 +487,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               ErrorMessageString.noroleAdded,
                                               style: CustomTextStylesCommon.commonStyle(
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: FontSize.s12,
+                                                fontSize: FontSize.s14,
                                                 color: ColorManager.mediumgrey,
                                               ),
                                             ),
@@ -1315,7 +1315,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                   decoration: TextDecoration.none,
                                                 )),
                                                 content: Text('Employee updated successfully!',style: TextStyle(
-                                                  fontSize: FontSize.s12,
+                                                  fontSize: FontSize.s14,
                                                   fontWeight: FontWeight.w400,
                                                   color: ColorManager.mediumgrey,
                                                   decoration: TextDecoration.none,
@@ -1326,7 +1326,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       Navigator.of(context).pop();
                                                     },
                                                     child: Text('OK',style: TextStyle(
-                                                      fontSize: FontSize.s12,
+                                                      fontSize: FontSize.s14,
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorManager.mediumgrey,
                                                       decoration: TextDecoration.none,

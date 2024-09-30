@@ -312,7 +312,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       child: Text(
                         ErrorMessageString.noUser, // "No Data!",
                         style: TextStyle(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
@@ -426,13 +426,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               child: Text(
                                                 user.role,
                                                 textAlign: TextAlign.center,
-                                                // style: GoogleFonts.firaSans(
-                                                //   fontSize: FontSize.s10,
-                                                //   fontWeight:
-                                                //       FontWeightManager.bold,
-                                                //   color:
-                                                //       ColorManager.granitegray,
-                                                // ),
                                                 style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
@@ -456,28 +449,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 /// Edit button
                                                 InkWell(
                                                   child: Container(
-                                                    height:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                        30,
-                                                    width:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                        25,
+                                                    height: MediaQuery.of(context).size.height / 30,
+                                                    width: MediaQuery.of(context).size.width / 25,
                                                     decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          10),
-                                                      border: Border.all(
-                                                          color: ColorManager
-                                                              .bluebottom),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      border: Border.all(color: ColorManager.bluebottom),
                                                     ),
                                                     child: Center(
                                                       child: Text(
                                                         "Edit",
-                                                        style: TextStyle(fontSize: FontSize.s12),
+                                                        style: TextStyle(fontSize: FontSize.s14),
                                                       ),
                                                     ),
                                                   ),
@@ -737,7 +718,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         AppString.delete,
-                                                        style: TextStyle(fontSize: FontSize.s12),
+                                                        style: TextStyle(fontSize: FontSize.s14),
                                                       ),
                                                     ),
                                                   ),

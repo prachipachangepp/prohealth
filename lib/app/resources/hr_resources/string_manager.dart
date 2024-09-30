@@ -36,6 +36,8 @@ class AppStringHr{
   static String inventoryid = "Id of the Inventory";
   static String docName = "Name of the Document";
 
+}
 
+class ValidationMessage{
 
 }

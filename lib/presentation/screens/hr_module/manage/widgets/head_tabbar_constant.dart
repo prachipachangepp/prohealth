@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
@@ -36,7 +35,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
                 indicatorSize: TabBarIndicatorSize.tab,
                 labelColor: ColorManager.calandercolour,
                 labelStyle: TextStyle(
-                  fontSize: FontSize.s12,
+                  fontSize: FontSize.s14,
                   fontWeight: FontWeight.w700,
                 ),
                 unselectedLabelColor: ColorManager.textPrimaryColor,

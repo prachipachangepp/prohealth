@@ -125,7 +125,7 @@ class _CiDmeState extends State<CiDme> {
                         ErrorMessageString.noDME,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey,
                         ),
                       ),

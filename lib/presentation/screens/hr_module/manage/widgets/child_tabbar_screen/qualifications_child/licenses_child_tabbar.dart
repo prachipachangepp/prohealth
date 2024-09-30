@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -232,7 +231,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         AppStringHRNoData.licenseNoData,
                         style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey),
                       ),
                     ));

@@ -120,7 +120,7 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(width: 410,
-        height: AppSize.s530,
+        height: AppSize.s540,
         title: "Create User",
         body: [
           Padding(
@@ -251,7 +251,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   // labelText: "Password",
                   hintText: "Password",
                   labelStyle: TextStyle(),
-                  labelFontSize: 10,
+                  labelFontSize: 12,
                   errorText: 'Password is required',
                   onSuffixIconPressed: _copyToClipboard,
                 ),
@@ -356,10 +356,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
         focusNode: widget.focusNode,
         controller: widget.controller,
         textAlign: TextAlign.start,
-        style: TextStyle(
-            color: widget.textColor,
-            fontWeight: FontWeight.w500, fontSize: 10
-        ),
+        style:  DocumentTypeDataStyle.customTextStyle(context),
         textAlignVertical: TextAlignVertical.center,
         cursorColor: ColorManager.black,
         textInputAction: TextInputAction.next,
@@ -398,7 +395,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
             borderRadius: BorderRadius.circular(8),
           ),
           labelText: widget.labelText,
-          labelStyle:TextStyle(color: widget.textColor, fontWeight: FontWeight.w700, fontSize: 10),
+          labelStyle: DocumentTypeDataStyle.customTextStyle(context),
            errorText: hasError ? widget.errorText : null,
           suffixIcon: IconButton(
             icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),

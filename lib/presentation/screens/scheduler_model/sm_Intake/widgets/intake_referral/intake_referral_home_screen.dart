@@ -75,7 +75,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                         'Referral Info',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
@@ -100,7 +100,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                         'Agency Info',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey

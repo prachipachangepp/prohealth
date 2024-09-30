@@ -34,7 +34,7 @@ class PageViewMenuButtonConst extends StatelessWidget {
             Text(
               heading,
               style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s14,
                 fontWeight: FontWeightManager.bold,
                 color: grpIndex == index
                     ? ColorManager.blueprime

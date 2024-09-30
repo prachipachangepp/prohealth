@@ -169,7 +169,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                           ErrorMessageString.noPolicyProcedure,
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey,
                           ),
                         ),

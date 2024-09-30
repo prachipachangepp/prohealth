@@ -149,7 +149,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                         Text(
                           'Type',
                           style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,
                           ),
@@ -182,7 +182,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                     Text(
                       'Expiry Type',
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeight.w700,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,

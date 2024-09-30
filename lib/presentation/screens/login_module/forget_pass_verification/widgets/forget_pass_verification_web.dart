@@ -176,7 +176,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                   getTimerString(),
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.orange,
-                    fontSize: FontSize.s8,
+                    fontSize: FontSize.s10,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

@@ -177,7 +177,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                       Text(
                         'Expiry Type',
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,

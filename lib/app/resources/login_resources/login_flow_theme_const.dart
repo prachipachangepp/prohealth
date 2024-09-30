@@ -18,7 +18,7 @@ class LoginFlowBase {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       color: ColorManager.bluebottom,
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w500,
       decoration: TextDecoration.none,
     );
@@ -89,7 +89,7 @@ class LoginFlowTheme {
   static TextStyle enterEmail(BuildContext context) {
     return TextStyle(
       color: ColorManager.darkgrey,
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w400,
     );
   }

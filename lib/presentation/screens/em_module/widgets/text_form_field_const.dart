@@ -104,9 +104,9 @@ class _SMTextFConstState extends State<SMTextFConst> {
               prefix: widget.prefixWidget,
               prefixStyle: AllHRTableData.customTextStyle(context),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom:22, left: AppPadding.p15),
+              contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
             ),
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: TableSubHeading.customTextStyle(context),
             //validator: widget.validator,
             onTap: widget.onChange,
             validator: widget.validator,
@@ -211,7 +211,7 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 22, left: 15),
             ),
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: TableSubHeading.customTextStyle(context),
             // style: TextStyle(
             //   fontWeight: FontWeight.w500,
             //   fontSize: 12,
@@ -295,7 +295,7 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 22, left: 15),
             ),
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: TableSubHeading.customTextStyle(context),
             validator: widget.validator,
             onTap: widget.onChange,
           ),
@@ -446,7 +446,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                       bottom: 22,
                       left: AppPadding.p15),
                 ),
-                style: DocumentTypeDataStyle.customTextStyle(context),
+                style: TableSubHeading.customTextStyle(context),
                 //validator: widget.validator,
                 onTap: widget.onChange,
 
@@ -541,7 +541,7 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
       children: [
         Text(
           widget.text,
-          style: ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          style: AllPopupHeadings.customTextStyle(context),
         ),
         SizedBox(
           height: 5,
@@ -569,7 +569,7 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
               contentPadding:
                   EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: TableSubHeading.customTextStyle(context),
 
             inputFormatters: [UppercaseTextFormatter()],
             //validator: widget.validator,

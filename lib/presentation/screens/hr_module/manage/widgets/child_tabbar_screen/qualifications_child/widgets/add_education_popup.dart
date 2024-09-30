@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -47,8 +48,6 @@ class AddEducationPopup extends StatefulWidget {
 class _AddEducationPopupState extends State<AddEducationPopup> {
   final DateTime _selectedStartDate = DateTime.now();
   bool isLoading = false;
-
-  // Error states
   bool _collegeUniversityError = false;
   bool _phoneError = false;
   bool _calendarError = false;
@@ -58,14 +57,14 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
   bool _majorSubjectError = false;
   bool _countryNameError = false;
   bool _isRadioButtonSelected = false;
-  bool _radioButtonError = false;
+ // bool _radioButtonError = false;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 385,
+        height: 390,
         width: 932,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -166,8 +165,8 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             children: [
                               Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
                               widget.radioButton ?? SizedBox.shrink(),
-                              if (_radioButtonError)
-                                Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
+                             // if (_radioButtonError)
+                               // Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
                             ],
                           ),
                         ),
@@ -224,7 +223,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
 
                     SizedBox(height: AppSize.s35),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CustomButtonTransparent(
                           text: AppString.cancel,
@@ -269,23 +268,20 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       children: [
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,
-          phoneNumberField:  labelText == "Phone" ? true : false,
+          phoneNumberField: labelText == "Phone", // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,
           labelText: labelText,
-          keyboardType: TextInputType.phone,
-          padding: EdgeInsets.only(bottom: AppPadding.p5, left: 10),
+          keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
+          padding: EdgeInsets.only(bottom: AppPadding.p1, left: 2),
           suffixIcon: suffixIcon,
           onTap: onTap,
           onChanged: (value) {
             setState(() {
               // Update error state based on the field
               if (labelText == "College/University") _collegeUniversityError = value.isEmpty;
-              // if (labelText == "Phone") {
-              //   _phoneError = value.isEmpty || value.length != 10 || int.tryParse(value) == null;
-              // }
               if (labelText == "City") _cityError = value.isEmpty;
-              //if (labelText == "Degree") _degreeError = value.isEmpty;
+              if (labelText == "Phone") _phoneError = !_isPhoneValid(value); // Use custom phone validation
               if (labelText == "State") _stateError = value.isEmpty;
               if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
               if (labelText == "Country Name") _countryNameError = value.isEmpty;
@@ -295,48 +291,51 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
             if (value == null || value.isEmpty) {
               return AppString.enterText;
             }
-            // if (labelText == "Phone" && (value.length != 10 || int.tryParse(value) == null)) {
-            //   return 'Please enter a valid 10-digit phone number';
-            // }
             return null;
           },
         ),
         if (errorText != null)
           Padding(
-            padding: EdgeInsets.only(left: 10, top: 5),
+            padding: EdgeInsets.only(top: 1),
             child: Text(
               errorText,
-              style: TextStyle(color: Colors.red, fontSize: 10),
+              style: CommonErrorMsg.customTextStyle(context),
             ),
           ),
       ],
     );
   }
 
+  // Method to validate phone number with the USA phone mask
+  bool _isPhoneValid(String phoneNumber) {
+    // Define the regex pattern for (###) ###-####
+    final RegExp phoneRegex = RegExp(r'^\(\d{3}\) \d{3}-\d{4}$');
+    return phoneRegex.hasMatch(phoneNumber); // Checks if the phone number matches the pattern
+  }
+
   void _handleSave() async {
     setState(() {
       isLoading = true;
       _collegeUniversityError = widget.collegeUniversityController.text.isEmpty;
-      // _phoneError = widget.phoneController.text.isEmpty ||
-      //     widget.phoneController.text.length != 10 ||
-      //     int.tryParse(widget.phoneController.text) == null;
+      _phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
       _calendarError = widget.calenderController.text.isEmpty;
       _cityError = widget.cityController.text.isEmpty;
       _degreeError = widget.degreeController.text.isEmpty;
       _stateError = widget.stateController.text.isEmpty;
       _majorSubjectError = widget.majorSubjectController.text.isEmpty;
       _countryNameError = widget.countryNameController.text.isEmpty;
-      //_radioButtonError = !_isRadioButtonSelected;
+     // _radioButtonError = !_isRadioButtonSelected;
     });
 
     if (!_collegeUniversityError &&
-        !_phoneError &&
+        !_phoneError && // Make sure phone error is included
         !_calendarError &&
         !_cityError &&
         !_stateError &&
         !_majorSubjectError &&
-        !_countryNameError &&
-        !_radioButtonError) {
+        !_countryNameError
+       // !_radioButtonError
+    ) {
       try {
         await widget.onpressedSave();
       } finally {
@@ -351,6 +350,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       });
     }
   }
+
 
   void _clearControllers() {
     widget.countryNameController.clear();

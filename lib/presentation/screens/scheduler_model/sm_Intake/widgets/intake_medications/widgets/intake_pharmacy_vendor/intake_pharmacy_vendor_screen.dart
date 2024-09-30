@@ -61,7 +61,7 @@ class _IntakePharmacyVendorScreenState
                       'Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark),
                     ),
@@ -94,7 +94,7 @@ class _IntakePharmacyVendorScreenState
                       child: Text(
                         AppString.save,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.white,
                         ),

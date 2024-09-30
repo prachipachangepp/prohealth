@@ -305,7 +305,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                                   color: ColorManager
                                                       .darkgrey,
                                                   fontSize:
-                                                  FontSize.s12,
+                                                  FontSize.s14,
                                                   fontWeight:
                                                   FontWeightManager
                                                       .medium,
@@ -375,7 +375,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                                 .commonStyle(
                                               color: ColorManager
                                                   .darkgrey,
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               fontWeight:
                                               FontWeightManager
                                                   .medium,

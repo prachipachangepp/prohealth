@@ -105,7 +105,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             Expanded(
                               child: Text(
                                 "Select",
-                                style: MobileMenuText.MenuTextConst(context),
+                                style: TableSubHeading.customTextStyle(context),
                               ),
                             ),
                             Padding(
@@ -133,7 +133,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             Expanded(
                               child: Text(
                                 "Select",
-                                style: MobileMenuText.MenuTextConst(context),
+                                style: TableSubHeading.customTextStyle(context),
                               ),
                             ),
                             Padding(

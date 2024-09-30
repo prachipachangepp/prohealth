@@ -147,7 +147,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             Text("KLIP",
                                                 style: TextStyle(
                                                   color: ColorManager.white,
-                                                  fontSize: FontSize.s12,
+                                                  fontSize: FontSize.s14,
                                                   fontWeight: FontWeight.w400,
                                                   decoration:
                                                       TextDecoration.none,

@@ -84,7 +84,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('Mobile Number :',
+                  Text('Email :',
                       style: ThemeManagerDark.customTextStyle(context)),
                   // const SizedBox(
                   //   height: 10,
@@ -115,12 +115,12 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                     height: 10,
                   ),
                   Text(
-                    snapshot.data![index].mob,
+                    snapshot.data![index].email,
                     style: ThemeManagerDarkFont.customTextStyle(context),
                   ),
                 ],
                 row2Child1: [
-                  Text('Email :',
+                  Text('Mobile Number :',
                       style: ThemeManagerDark.customTextStyle(context)),
                   const SizedBox(
                     height: 10,
@@ -140,7 +140,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                 ],
                 row2Child2: [
                   Text(
-                    snapshot.data![index].email,
+                    snapshot.data![index].mob,
                     style: ThemeManagerDarkFont.customTextStyle(context),
                   ),
                   const SizedBox(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/font_manager.dart';
 
 typedef void OnManuButtonTapCallBack(int index);
 
@@ -28,7 +29,7 @@ class UpperMenuButtons extends StatelessWidget {
           Text(
             heading,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: FontSize.s14,
               fontWeight: FontWeight.w700,
               color: grpIndex == index
                   ? ColorManager.blueprime
@@ -38,7 +39,7 @@ class UpperMenuButtons extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             height: 2,
-            width: 120,
+            width: 150,
             color:
                 grpIndex == index ? ColorManager.blueprime : Colors.transparent,
           ),

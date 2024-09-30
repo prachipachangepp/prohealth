@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -85,7 +84,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s492,
+      height: AppSize.s511,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -480,7 +479,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s390,
+      height: AppSize.s420,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),

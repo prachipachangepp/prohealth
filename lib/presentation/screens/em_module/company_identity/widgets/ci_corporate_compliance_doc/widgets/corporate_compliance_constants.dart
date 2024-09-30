@@ -238,9 +238,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
             width: widget.width,
             child: Text(
               item.value ?? '',
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12),),
+              style:  DocumentTypeDataStyle.customTextStyle(context),),
           ),
         );
       }).toList(),
@@ -274,7 +272,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                 Expanded(
                   child: Text(
                     _selectedValue ?? '',
-                    style: MobileMenuText.MenuTextConst(context),
+                    style:  DocumentTypeDataStyle.customTextStyle(context),
                   ),
                 ),
                 Padding(
@@ -363,11 +361,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
           offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
       items: widget.items.map((DropdownMenuItem<String> item) {
         return PopupMenuItem<String>(
-          textStyle: CustomTextStylesCommon.commonStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: FontSize.s12,
-            color: ColorManager.mediumgrey,
-          ),
+          textStyle: DocumentTypeDataStyle.customTextStyle(context),
           value: item.value,
           child: Container(
             width: size.width - 16,
@@ -409,7 +403,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
                 Expanded(
                   child: Text(
                     _selectedValue ?? '',
-                    style: MobileMenuText.MenuTextConst(context),
+                    style:  DocumentTypeDataStyle.customTextStyle(context),
                   ),
                 ),
                 Padding(
@@ -736,7 +730,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         _idDocError!,
                         style: TextStyle(
                           color: Colors.red,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                         ),
                       ),
                     ),
@@ -755,7 +749,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         _nameDocError!,
                         style: TextStyle(
                           color: Colors.red,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                         ),
                       ),
                     ),
@@ -877,7 +871,7 @@ class _dummeyTextFieldState extends State<dummeyTextField> {
           textCapitalization: TextCapitalization.sentences,
           controller: _controller,
           style: TextStyle(
-            fontSize: FontSize.s12,
+            fontSize: FontSize.s14,
             fontWeight: FontWeight.w400,
             color: ColorManager.black,
           ),

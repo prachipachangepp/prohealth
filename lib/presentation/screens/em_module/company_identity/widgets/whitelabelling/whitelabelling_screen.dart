@@ -171,7 +171,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     child: Text(
                       "Logos",
                       style: TextStyle(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeight.w600,
                         color: ColorManager.mediumgrey,
                       ),
@@ -182,7 +182,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     child: Text(
                       "Details",
                       style: TextStyle(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeight.w600,
                         color: ColorManager.mediumgrey,
                       ),

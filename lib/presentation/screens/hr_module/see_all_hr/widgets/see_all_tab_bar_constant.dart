@@ -44,7 +44,7 @@ class SeeAllHrTabBar extends StatelessWidget {
               indicatorColor: ColorManager.white,
               labelColor: ColorManager.mediumgrey,
               labelStyle: CustomTextStylesCommon.commonStyle(
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s14,
                 color:  ColorManager.mediumgrey,
                 fontWeight: FontWeightManager.semiBold,
               ),

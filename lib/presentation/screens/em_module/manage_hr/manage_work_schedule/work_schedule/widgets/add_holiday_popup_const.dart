@@ -157,7 +157,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
       bottomButtons: isLoading
           ? SizedBox(
         height: AppSize.s25,
-        width: AppSize.s25,
+        width: AppSize.s30,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),

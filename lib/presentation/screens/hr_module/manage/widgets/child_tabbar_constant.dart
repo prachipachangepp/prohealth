@@ -46,11 +46,11 @@ class CenteredTabBarChild extends StatelessWidget {
               indicatorColor: ColorManager.white,
               labelColor: ColorManager.granitegray,
               unselectedLabelStyle: TextStyle(
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s14,
                 fontWeight: FontWeight.w600,
               ),
               labelStyle: TextStyle(
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s14,
                 fontWeight: FontWeight.w700,
               ),
               unselectedLabelColor: ColorManager.white,

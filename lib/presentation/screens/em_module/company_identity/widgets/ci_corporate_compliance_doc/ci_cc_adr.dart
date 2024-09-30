@@ -132,7 +132,7 @@ class _CICCADRState extends State<CICCADR> {
                         ErrorMessageString.noADR,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey,
                         ),
                       ),
@@ -217,7 +217,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         Text(
                                                           "ID : ${manageCCADR.idOfDocument}",
                                                           // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           manageCCADR
@@ -225,7 +225,7 @@ class _CICCADRState extends State<CICCADR> {
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),

@@ -227,7 +227,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                   text: AppString.updatepass,
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,
-                    fontSize: FontSize.s12,
+                    fontSize: FontSize.s14,
                     fontWeight: FontWeightManager.bold,
                   ),
                   backgroundColor: ColorManager.blueprime,

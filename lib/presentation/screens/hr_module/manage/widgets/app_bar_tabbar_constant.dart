@@ -49,7 +49,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                       labelColor: ColorManager.white,
                       labelStyle: const TextStyle(
                         fontFamily: 'FiraSans',
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         color: Color(0xFF686464),
                         fontWeight: FontWeightManager.semiBold,
                       ),
@@ -137,7 +137,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                               child: Text('DZ',
                                 style: TextStyle(
                                   fontFamily: 'FiraSans',
-                                  fontSize: FontSize.s11,
+                                  fontSize: FontSize.s13,
                                   fontWeight: FontWeightManager.regular,
                                 ),textAlign: TextAlign.center,),
                             )),
@@ -152,7 +152,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                             'See All',
                             style: TextStyle(
                                 fontFamily: 'FiraSans',
-                                fontSize: FontSize.s11,
+                                fontSize: FontSize.s13,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: Colors.white),
                           ),

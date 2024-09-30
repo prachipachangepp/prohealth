@@ -269,7 +269,7 @@ class CustomTitleButton extends StatelessWidget {
               : null,
           child: Text(
             text,
-            style: TextStyle(
+            style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s14,
               fontWeight: FontWeight.w700,
               color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
@@ -310,7 +310,7 @@ class DZoneButton extends StatelessWidget {
             'DZ',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: FontSize.s11,
+              fontSize: FontSize.s13,
               fontWeight: FontWeight.w300,
               color: isSelected ? ColorManager.white : ColorManager.black,
             ),

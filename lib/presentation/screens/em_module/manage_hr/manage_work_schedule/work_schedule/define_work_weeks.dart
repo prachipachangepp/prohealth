@@ -6,7 +6,6 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
@@ -19,6 +18,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/font_manager.dart';
 
 class DefineWorkWeek extends StatefulWidget {
   const DefineWorkWeek({super.key});
@@ -118,7 +118,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         child: Text(
                                           data.weekDays,
                                           style: TextStyle(
-                                            fontSize: FontSize.s15,
+                                            fontSize: FontSize.s16,
                                             fontWeight: FontWeight.w600,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,

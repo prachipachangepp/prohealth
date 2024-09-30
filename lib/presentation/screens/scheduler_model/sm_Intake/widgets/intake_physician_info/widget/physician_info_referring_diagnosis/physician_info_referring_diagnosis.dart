@@ -187,7 +187,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                   child: Text(
                     AppString.save,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.white,
                     ),
@@ -428,7 +428,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               child: Text(
                                 'Last Inpatient Stay Information',
                                 style: TextStyle(
-                                    fontSize: FontSize.s12,
+                                    fontSize: FontSize.s14,
                                     fontWeight: FontWeightManager.semiBold,
                                     color: ColorManager.textPrimaryColor),
                               ),
@@ -668,7 +668,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text(AppString.male,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                   SizedBox(
@@ -682,7 +682,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text(AppString.female,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                 ],
@@ -716,7 +716,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text('Alone',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                   SizedBox(
@@ -730,7 +730,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text('Spouse',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                   SizedBox(
@@ -744,7 +744,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   ),
                                   Text(AppString.other,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular,
                                           color: ColorManager.greylight)),
                                 ],
@@ -814,7 +814,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               ),
                             ),
                             style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s14,
                               fontWeight: FontWeightManager.regular,
                               color: ColorManager.black,
                             ),
@@ -967,7 +967,7 @@ class _allergiesState extends State<allergies> {
                       ),
                     ),
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.regular,
                       color: ColorManager.black,
                     ),

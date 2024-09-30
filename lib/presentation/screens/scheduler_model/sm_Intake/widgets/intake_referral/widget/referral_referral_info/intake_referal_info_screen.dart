@@ -57,7 +57,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),),
@@ -211,7 +211,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                   ),
                                   Text('Early',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12, fontWeight: FontWeightManager.regular)
+                                          fontSize: FontSize.s14, fontWeight: FontWeightManager.regular)
                                   ),
                                   SizedBox(width: AppSize.s35),
                                   Radio<String>(
@@ -221,7 +221,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                   ),
                                   Text('Late',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
+                                          fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.regular)
                                   ),
                                 ],

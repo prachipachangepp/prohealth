@@ -12,8 +12,10 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/api_data.dart';
+import '../../../../em_module/widgets/button_constant.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import 'multi_step_form.dart';
 
@@ -33,7 +35,7 @@ class _OfferLetterDescriptionScreenState
     extends State<OfferLetterDescriptionScreen> {
   PlatformFile? _selectedFile;
   Uint8List? _webImage;
-  bool _isChecked = false;
+ // bool _isChecked = false;
   Uint8List? signatureBytes;
 
   @override
@@ -72,7 +74,7 @@ class _OfferLetterDescriptionScreenState
     setState(() {
       _selectedFile = null;
       _webImage = null;
-      _isChecked = false;
+     // _isChecked = false;
     });
   }
 
@@ -82,6 +84,7 @@ class _OfferLetterDescriptionScreenState
     });
   }
 
+  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,6 +106,10 @@ class _OfferLetterDescriptionScreenState
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
+
+
+           // OfferLetterWidget(employeeId: widget.employeeId),
+
             FutureBuilder<OfferLetterData>(
               future:GetOfferLetter(context, widget.employeeId, 1 ),
               builder: (context, snapshot) {
@@ -143,77 +150,120 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 100),
             Padding(
-              padding: const EdgeInsets.only(left: 180.0),
+              padding: const EdgeInsets.only(left: 250),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+
+
+
                   Container(
-                    height: 70,
-                    width: 200,
-                    // color: Colors.yellow,
+                    width:120,
+                    height: 90, // Set height to avoid zero height
+                    //color: Colors.yellow,
                     child: signatureBytes != null
-                        ? Image.memory(signatureBytes!)
-                        : Text(''),
+                        ? Row(
+                          children: [
+                            Image.memory(
+                                                  signatureBytes!,
+
+                                                ),
+                          ],
+                        )
+                        : Center(child: Text('')),
                   ),
+
+                  // Container(
+                  //    height: 70,
+                  //  width: 100,
+                  //    color: Colors.yellow,
+                  //   child: signatureBytes != null
+                  //       ? Image.memory(signatureBytes!)
+                  //       : Text(''),
+                  // ),
                 ],
               ),
             ),
+            SizedBox(height: 10,),
             Padding(
-              padding: const EdgeInsets.only(left: 230.0),
+              padding: const EdgeInsets.only(left: 250),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width / 10,
-                    height: MediaQuery.of(context).size.height / 6,
-                    child:Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignaturePage(
-                                onSignatureSelected: (Uint8List? selectedSignature) {
-                                  setState(() {
-                                    signatureBytes = selectedSignature;
-                                  });
-                                }, employeeId: widget.employeeId,
-                              ),
+                    width: 140,
+                    height: 35,
+                   // color: Colors.cyanAccent,
+                    child:ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignaturePage(
+                              onSignatureSelected: (Uint8List? selectedSignature) {
+                                setState(() {
+                                  signatureBytes = selectedSignature;
+                                });
+                              }, employeeId: widget.employeeId,
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
                           ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff50B5E5),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Text(
-                          'Upload Sign',
-                          style: BlueButtonTextConst.customTextStyle(context)
-                        ),
+                      ),
+                      child: Text(
+                        'Upload Sign',
+                        style: BlueButtonTextConst.customTextStyle(context)
                       ),
                     )
                   ),
                   SizedBox(height: 10,),
-                  Row(
-                    children: [
-                      Checkbox(
-                        activeColor: ColorManager.blueprime,
-                        value: _isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _isChecked = value!;
-                          });
-                        },
-                      ),
-                      Text(
-                        'I agree to the terms & conditions',
-                        style:onlyFormDataStyle.customTextStyle(context)
-                      ),
-                    ],
+                  StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Row(
+                      children: [
+
+
+                        // TermsCheckbox(
+                        //   initialValue: _isChecked,
+                        //   onChanged: (value) {
+                        //     setState(() {
+                        //       _isChecked = value!;
+                        //     });
+                        //   },
+                        // ),
+
+                        // TermsCheckbox(
+                        //   onChanged: (value) {
+                        //     // You can handle the checkbox state here if needed
+                        //     setState(() {
+                        //       _isChecked = value!;
+                        //     });
+                        //   },
+                        // ),
+                        Checkbox(
+                          activeColor: ColorManager.blueprime,
+                          value: _isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _isChecked = value!;
+                            });
+                          },
+                        ),
+                        Text(
+                            'I agree to the terms & conditions',
+                            style:onlyFormDataStyle.customTextStyle(context)
+                        ),
+                      ],
+                    );},
+
                   ),
                 ],
               ),
@@ -237,57 +287,75 @@ class _OfferLetterDescriptionScreenState
                       );
                       if(updateOfferFuture.statusCode == 200 || updateOfferFuture.statusCode == 201){
                         showDialog(context: context, builder: (BuildContext context){
-                          return AlertDialog(
-                            title: Center(
-                              child: Text('Offer Accepted Succefully', style: TextStyle(
-                                  color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
-                              ),),
-                            ),
-                            content: Text( ""
-                              // snapshot.data!.message
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () async {
-                                  //String userid= await TokenManager.getUserID();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                                  );
-                                },
-                                child: Text('OK', style: TextStyle(
-                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
-                                ),),
-                              ),
-                            ],
-                          );
+
+
+                          return  ConfirmationPopup(onCancel: () {  Navigator.pop(context); }, onConfirm: () async {
+            //String userid= await TokenManager.getUserID();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+            );
+          },title: 'Offer Letter', containerText: 'Offer Accepted Succefully',);
+                          // return AlertDialog(
+                          //   title: Center(
+                          //     child: Text('Offer Accepted Succefully', style: TextStyle(
+                          //         color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
+                          //     ),),
+                          //   ),
+                          //   content: Text( ""
+                          //     // snapshot.data!.message
+                          //   ),
+                          //   actions: [
+                          //     TextButton(
+                          //       onPressed: () async {
+                          //         //String userid= await TokenManager.getUserID();
+                          //         Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                          //         );
+                          //       },
+                          //       child: Text('OK', style: TextStyle(
+                          //           color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
+                          //       ),),
+                          //     ),
+                          //   ],
+                          // );
                         });
                       }else{
                         showDialog(context: context, builder: (BuildContext context){
-                          return AlertDialog(
-                            title: Center(
-                              child: Text('Offer Already Accepted', style: TextStyle(
-                                  color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
-                              ),),
-                            ),
-                            content: Text( ""
-                              // snapshot.data!.message
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () async {
-                                  //String userid= await TokenManager.getUserID();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                                  );
-                                },
-                                child: Text('OK', style:TextStyle(
-                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
-                                ),),
-                              ),
-                            ],
-                          );
+                         return ConfirmationPopup(onCancel: () {  Navigator.pop(context); }, onConfirm: () async {
+                            //String userid= await TokenManager.getUserID();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                            );
+                          },title: 'Offer Letter', containerText: 'Offer Already Accepted',);
+
+
+                          // return AlertDialog(
+                          //   title: Center(
+                          //     child: Text('Offer Already Accepted', style: TextStyle(
+                          //         color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
+                          //     ),),
+                          //   ),
+                          //   content: Text( ""
+                          //     // snapshot.data!.message
+                          //   ),
+                          //   actions: [
+                          //     TextButton(
+                          //       onPressed: () async {
+                          //         //String userid= await TokenManager.getUserID();
+                          //         Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                          //         );
+                          //       },
+                          //       child: Text('OK', style:TextStyle(
+                          //           color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
+                          //       ),),
+                          //     ),
+                          //   ],
+                          // );
                         });
                       }
                   },
@@ -344,6 +412,149 @@ class _OfferLetterDescriptionScreenState
         ),
       ),
       bottomNavigationBar: BottomBarRow(),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+class ConfirmationPopup extends StatefulWidget {
+  final VoidCallback onCancel;
+  final VoidCallback onConfirm;
+  final bool? loadingDuration;
+  final String title;
+  final String containerText;
+
+  const ConfirmationPopup({
+    super.key,
+    required this.onCancel,
+    required this.onConfirm,
+    this.loadingDuration,
+    required this.title,
+    required this.containerText,
+  });
+
+  @override
+  State<ConfirmationPopup> createState() => _ConfirmationPopupState();
+}
+
+class _ConfirmationPopupState extends State<ConfirmationPopup> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: AppSize.s350,
+        height: AppSize.s181,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              height: 35,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      widget.title,
+                      style: PopupBlueBarText.customTextStyle(context),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close, color: ColorManager.white),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40, left: 15),
+              child: Row(
+                children: [
+                  Text(
+                    widget.containerText,
+                    textAlign: TextAlign.center,
+                    style: ConstTextFieldRegister.customTextStyle(context),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AppPadding.p24),
+                  child: SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
+                      onPressed: widget.onCancel,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: ColorManager.bluebottom,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        'Cancel',
+                        style: TransparentButtonTextConst.customTextStyle(context),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: AppPadding.p20),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AppPadding.p24, right: AppPadding.p10),
+                  child: Center(
+                    child: widget.loadingDuration == true
+                        ? SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    )
+                        : CustomElevatedButton(
+                      width: AppSize.s105,
+                      height: AppSize.s30,
+                      text: 'Confirm',
+                      onPressed: () {
+                        // Execute the confirm action and navigate
+                        widget.onConfirm();
+
+
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

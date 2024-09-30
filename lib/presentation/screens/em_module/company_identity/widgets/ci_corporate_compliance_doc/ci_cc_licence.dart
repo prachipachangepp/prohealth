@@ -125,7 +125,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                         ErrorMessageString.noLicenses,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey,
                         ),
                       ),
@@ -218,7 +218,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                           "ID : ${manageCCLicence.idOfDocument}",
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                         Text(
                                                           // manageCCLicence.docname.toString(),
@@ -227,7 +227,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
