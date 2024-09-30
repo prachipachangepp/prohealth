@@ -225,7 +225,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       AppStringEM.srno,
-                      style:CIHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
                       // style: GoogleFonts.firaSans(
                       //   fontSize: 12,
                       //   fontWeight: FontWeight.w700,
@@ -240,7 +240,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Text(
                     AppStringEM.officename,
                     textAlign: TextAlign.start,
-                    style:CIHeading.customTextStyle(context),
+                    style:TableHeading.customTextStyle(context),
                     // style: GoogleFonts.firaSans(
                     //   fontSize: 12,
                     //   fontWeight: FontWeight.w700,
@@ -254,7 +254,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Text(
                     AppStringEM.address,
                     textAlign: TextAlign.start,
-                    style:CIHeading.customTextStyle(context),
+                    style:TableHeading.customTextStyle(context),
                   ),
                 ),
                 Expanded(child: SizedBox()),
@@ -262,7 +262,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   child: Center(
                     child: Text(
                       AppStringEM.actions,
-                      style:CIHeading.customTextStyle(context),
+                      style:TableHeading.customTextStyle(context),
 
                     ),
                   ),
@@ -395,7 +395,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Center(
                                                         child: Text(
                                                             formattedSerialNumber,
-                                                            style: CITableStyle.customTextStyle(context)
+                                                            style: TableSubHeading.customTextStyle(context)
                                                           // style: GoogleFonts.firaSans(
                                                           //   fontSize: 10,
                                                           //   fontWeight: FontWeight.w700,
@@ -410,7 +410,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Text(
                                                           paginatedData[index].officeName.toString(),
                                                           textAlign: TextAlign.start,
-                                                          style: CITableStyle.customTextStyle(context)
+                                                          style: TableSubHeading.customTextStyle(context)
                                                       ),
                                                     ),
                                                     Expanded(child: SizedBox()),
@@ -419,7 +419,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       child: Text(
                                                           paginatedData[index].address.toString(),
                                                           textAlign: TextAlign.start,
-                                                          style: CITableStyle.customTextStyle(context)
+                                                          style: TableSubHeading.customTextStyle(context)
                                                       ),
                                                     ),
                                                     Expanded(child: SizedBox()),
