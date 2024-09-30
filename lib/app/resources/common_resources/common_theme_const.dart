@@ -5,7 +5,7 @@ import '../font_manager.dart';
 class AppbarCustomDropdownStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: ColorManager.textPrimaryColor,
       decoration: TextDecoration.none,
@@ -17,7 +17,7 @@ class AppbarCustomDropdownStyle {
 class AppbarCustomDropdownSubItem {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w400,
       color: ColorManager.textPrimaryColor,
       decoration: TextDecoration.none,
@@ -29,7 +29,7 @@ class AppbarCustomDropdownSubItem {
 class ConstTextFieldStyles {
   static TextStyle customTextStyle({required Color textColor}) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: textColor,
       decoration: TextDecoration.none,
@@ -40,7 +40,7 @@ class ConstTextFieldStyles {
 class ConstTextFieldRegister {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -52,7 +52,7 @@ class ConstTextFieldRegister {
 class PopupBlueBarText {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s13,
+      fontSize: FontSize.s15,
       fontWeight: FontWeight.w700,
       color: ColorManager.white,
       decoration: TextDecoration.none,
@@ -76,7 +76,7 @@ class DropdownItemStyle {
 class BlueButtonTextConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
       color: ColorManager.white,
       decoration: TextDecoration.none,
@@ -88,7 +88,7 @@ class BlueButtonTextConst {
 class TransparentButtonTextConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
       color: ColorManager.blueprime,
       decoration: TextDecoration.none,
@@ -112,7 +112,7 @@ class TransparentButtonTextConst {
 class AllPopupHeadings {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -124,7 +124,7 @@ class AllPopupHeadings {
 class MenuContainerTextStylling {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
@@ -136,7 +136,7 @@ class MenuContainerTextStylling {
 class AllNoDataAvailable {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,

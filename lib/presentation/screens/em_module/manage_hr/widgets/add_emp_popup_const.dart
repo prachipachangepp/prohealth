@@ -139,7 +139,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         widget.title,
-                        style: AllHRTableHeading.customTextStyle(context)
+                        style: TableHeading.customTextStyle(context)
                       ),
                     ),
                     IconButton(

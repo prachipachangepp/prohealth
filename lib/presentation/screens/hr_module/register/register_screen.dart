@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
       // Optionally show a snackbar or dialog to notify the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Copied to clipboard',  style:AllHRTableHeading.customTextStyle(context))),
+        SnackBar(content: Text('Copied to clipboard',  style:TableHeading.customTextStyle(context))),
       );
     });
   }
@@ -412,28 +412,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                           const url = "http://localhost:61517/#/onBordingWelcome";
-                           // const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                       // const url = "http://localhost:53988/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///////////
                           if (await canLaunch(url)) {
                            await launch(url);
-                         ///
+                         //////////////////////////////////////////
                          //     Navigator.push(
                          //       context,
                          //       MaterialPageRoute(
                          //        builder: (context) => OnBoardingWelcome(),
                          //      ),
                          //     );
+                 ////////////////////////////
                            } else {
                             throw 'Could not launch $url';
                           }
-                 ///
+                 //
+                        ///////////
                         },
                         child: Text(
                           data.link!,
                           style: RegisterLinkDataStyle.customTextStyle(context),
-
+                          // style: GoogleFonts.firaSans(
+                          //   fontSize: 10,
+                          //   fontWeight: FontWeight.w400,
+                          //   color: ColorManager.blueprime,
+                          // ),
                         ),
                       ),
                       data.status == 'Notopen'

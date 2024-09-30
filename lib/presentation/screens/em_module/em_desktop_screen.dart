@@ -452,7 +452,7 @@ class CustomDropdownButton extends StatelessWidget {
                     item.value ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: FontSize.s12,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeight.w700,
                       color: selectedItem == 'Select a Module'
                           ? ColorManager.textPrimaryColor
