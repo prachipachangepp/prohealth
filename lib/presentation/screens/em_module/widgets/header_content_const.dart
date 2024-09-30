@@ -17,7 +17,7 @@ class HeaderContentConst extends StatelessWidget {
         children: [
           Text(
             heading,
-            style: AppbarCustomDropdownStyle.customTextStyle(context),
+            style: AllPopupHeadings.customTextStyle(context),
           ),
           SizedBox(height: AppSize.s5),
 

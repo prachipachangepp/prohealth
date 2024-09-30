@@ -495,8 +495,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Text(
                                                   formattedSerialNumber,
-                                                  style: AllHRTableData
-                                                      .customTextStyle(context),
+                                                  style:TableSubHeading.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -504,8 +503,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Text(
                                                   finance.typeOfVisitId,
-                                                  style: AllHRTableData
-                                                      .customTextStyle(context),
+                                                  style: TableSubHeading.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -513,8 +511,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Text(
                                                   '\$${finance.rate}',
-                                                  style: AllHRTableData
-                                                      .customTextStyle(context),
+                                                  style: TableSubHeading.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
