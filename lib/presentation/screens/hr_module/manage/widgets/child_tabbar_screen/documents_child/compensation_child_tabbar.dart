@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -67,7 +68,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                         context: context,
                         builder: (context) {
                           return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(context),
+                              future: getEmployeeDocSetupDropDown(context,AppConfig.compensationDocId),
                               builder: (contex, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -126,7 +127,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
         StreamBuilder(
             stream: _controllerCompensation.stream,
             builder: (context, snapshot) {
-              getAckHealthRecord(context, 11, 36, widget.employeeId,'no').then((data) {
+              getAckHealthRecord(context, AppConfig.compensationDocId, widget.employeeId,'no').then((data) {
                 _controllerCompensation.add(data);
               }).catchError((error) {
                 // Handle error

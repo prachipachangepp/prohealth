@@ -97,6 +97,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         HeaderContentConst(
           heading: AppString.type_of_the_document,
           content: CICCDropdown(
+            width: 354,
             initialValue: "Select",
             onChange: (val) {
               setState(() {
@@ -296,7 +297,17 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             }
           } finally {
             setState(() {
+              // Navigator.pop(context);
               Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CountySuccessPopup(
+                    message: 'Save Successfully',
+                  );
+                },
+              );
+
               load = false;
             });
           }

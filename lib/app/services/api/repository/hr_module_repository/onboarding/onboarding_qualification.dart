@@ -83,13 +83,13 @@ class OnboardingQualificationRepo {
     return "$employee_doc$byEmployeeId/$EmpDocTypeMetaDataId/$employeeId/$approveOnly";
   }
   //employee-documents/approve/{employeeDocumentId}
-  static String approveAckHealthRecord({required int employeeDocumentId}) {
-    return "$employee_doc$approve/$employeeDocumentId";
-  }
+  // static String approveAckHealthRecord({required int employeeDocumentId}) {
+  //   return "$employee_doc$approve/$employeeDocumentId";
+  // }
   //employee-documents/reject/{employeeDocumentId}
-  static String rejectAckHealthRecord({required int employeeDocumentId}) {
-    return "$employee_doc$reject/$employeeDocumentId";
-  }
+  // static String rejectAckHealthRecord({required int employeeDocumentId}) {
+  //   return "$employee_doc$reject/$employeeDocumentId";
+  // }
   ///employee-documents/BatchApprove
   static String batchApproveAckHealthRecord() {
     return "$employee_doc$batchApprove";

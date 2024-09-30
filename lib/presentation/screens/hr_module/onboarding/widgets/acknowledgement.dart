@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
@@ -36,7 +37,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 10, 48, widget.employeeId, 'no');
+      var data = await getAckHealthRecord(context, AppConfig.acknowledgementDocId,widget.employeeId, 'no');
       data.sort((a, b) {
         if (a.approved == true && b.approved != true) {
           return -1;
@@ -166,9 +167,10 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
               ));
         }
         return Padding(
-          padding: const EdgeInsets.only(left: 180),
+          padding: const EdgeInsets.only(left: 150.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Wrap(
                 children: [
@@ -208,15 +210,28 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Container(
+                           // color: Colors.greenAccent,
                             width: MediaQuery.of(context).size.width / 3,
                             child: Row(
                               children: [
                                 data.approved == true ?
-                                SizedBox(width: AppSize.s31):Checkbox(
+                                Container(
+                                    width: AppSize.s31,
+                                    child:  CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: Colors.green,
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                    ))
+                                    :Checkbox(
                                   value: _checked[index],
                                   onChanged: data.approved == null ?
                                       (value) {
@@ -259,7 +274,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: AppSize.s10),
+                        const SizedBox(height: AppSize.s25),
                       ],
                     );
                   }),

@@ -74,7 +74,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         child: Column(
           children: [
             Container(
-              height: AppSize.s41,
+              height:AppSize.s50,
               decoration: BoxDecoration(
                 color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
@@ -86,7 +86,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 51),
                     child: Text(
                       widget.title,
                       style: PopupHeadingStyle.customTextStyle(context)

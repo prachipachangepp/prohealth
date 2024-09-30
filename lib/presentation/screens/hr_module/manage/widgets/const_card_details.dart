@@ -15,8 +15,8 @@ class _CardDetailsState extends State<CardDetails> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 30),
       child: Container(
-        width: MediaQuery.of(context).size.width/2.5,
-        padding: EdgeInsets.all(10),
+        width: MediaQuery.of(context).size.width/2.3,
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -32,7 +32,7 @@ class _CardDetailsState extends State<CardDetails> {
         height: MediaQuery.of(context).size.height/3.8,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 80,
+            horizontal: MediaQuery.of(context).size.width / 95,
             vertical: MediaQuery.of(context).size.height / 160,
           ),
           child: widget.childWidget
@@ -76,7 +76,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row1Child1
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/35,),
+                SizedBox(width: MediaQuery.of(context).size.width/41,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row1Child2
@@ -89,11 +89,13 @@ class _DetailsFormateState extends State<DetailsFormate> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: widget.row2Child1
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/35,),
+                SizedBox(width: MediaQuery.of(context).size.width/41,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: widget.row2Child2
                 ),
               ],

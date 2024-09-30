@@ -31,6 +31,7 @@ class EstablishmentManagerRepository {
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
   static String employeedocSetup = "/employee-document-type-setup";
+  static String employeedocSetupByMetaId = "/employee-document-type-setup/ByDocumentTypeMetaDataId";
   static String getEmployeedocTab = "/employee-document-type-meta-data";
   static String payRatesSetup = "/payrates-setup";
   static String payrates = "/payrates";
@@ -364,8 +365,8 @@ class EstablishmentManagerRepository {
     return "$employeedocSetup/$empDocTypeId";
   }
 
-  static String getEmployeDocSetupDropdown() {
-    return "$employeedocSetup";
+  static String getEmployeDocSetupDropdown({required int empDocMetaId}) {
+    return "$employeedocSetupByMetaId/$empDocMetaId";
   }
 
   static String addEmployeDocSetup() {

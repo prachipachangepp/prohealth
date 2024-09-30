@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
@@ -7,6 +8,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import '../approve_reject_dialog_constant.dart';
 import '../download_doc_const.dart';
@@ -88,7 +90,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 1, 10, widget.employeeId, 'no');
+      var data = await getAckHealthRecord(context,AppConfig.healthDocId, widget.employeeId, 'no');
       data.sort((a, b) {
         if (a.approved == true && b.approved != true) {
           return -1;
@@ -162,7 +164,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
               ));
         }
         return Padding(
-          padding: const EdgeInsets.only(left: 180),
+          padding: const EdgeInsets.only(left: 150),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -209,7 +211,17 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                             child: Row(
                               children: [
                                 data.approved == true
-                                    ? SizedBox(width: 31,)
+                                    ? Container(
+                                    width: AppSize.s31,
+                                    child:  CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: Colors.green,
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                    ))
                                     : Checkbox(
                                   value: _checked[index],
                                   onChanged: data.approved == null
@@ -246,7 +258,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: AppSize.s25),
                       ],
                     );
                   }),

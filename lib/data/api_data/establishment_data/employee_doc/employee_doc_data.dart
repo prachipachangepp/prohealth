@@ -64,8 +64,16 @@ class EmployeeDocSetupModal {
   final String expiry;
   final bool success;
   final String message;
+  final String idOfDocument;
+  final String expirtType;
+  final int companyId;
+  final int threshold;
 
   EmployeeDocSetupModal({
+    required this.idOfDocument,
+    required this.expirtType,
+    required this.companyId,
+    required this.threshold,
     required this.employeeDocTypeSetupId,
     required this.employeeDocMetaDataId,
     required this.documentName,

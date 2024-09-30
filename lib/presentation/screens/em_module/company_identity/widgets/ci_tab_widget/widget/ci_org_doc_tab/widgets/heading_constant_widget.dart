@@ -28,7 +28,7 @@ class TableHeadingConst extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(right: 100),
+              padding: const EdgeInsets.only(right: 90),
               child: Text(
                 AppStringEM.docID,
                 textAlign: TextAlign.start,
@@ -39,7 +39,7 @@ class TableHeadingConst extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(right: 40.0),
+              padding: const EdgeInsets.only(right: 55.0),
               child: Text(
                 AppStringEM.name,
                 style: AllHRTableHeading.customTextStyle(context),

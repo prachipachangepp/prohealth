@@ -175,9 +175,9 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 _buildTextField(
                   controller: widget.mobileNumberController,
                   labelText: "Mobile Number",
-                  errorKey: 'mobileNumber',
+                   errorKey: 'mobileNumber',
                   keyboardType: TextInputType.number,
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                 ),
 
                 SizedBox(
@@ -292,7 +292,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       errorStates['companyName'] = widget.companyNameController.text.isEmpty;
       errorStates['associationLength'] = widget.associationLengthController.text.isEmpty;
       //errorStates['mobileNumber'] = widget.mobileNumberController.text.length != 10;
-      errorStates['referredBy'] = widget.referredBy.text.isEmpty;
+      // errorStates['referredBy'] = widget.referredBy.text.isEmpty;
     });
 
     if (!errorStates.values.contains(true)) {

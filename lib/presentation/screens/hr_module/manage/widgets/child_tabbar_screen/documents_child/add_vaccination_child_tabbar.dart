@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -70,7 +71,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                         context: context,
                         builder: (context) {
                           return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(context),
+                              future: getEmployeeDocSetupDropDown(context,AppConfig.healthDocId),
                               builder: (contex, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -104,7 +105,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,10,widget.employeeId,'no').then((data) {
+            getAckHealthRecord(context, AppConfig.healthDocId,widget.employeeId,'no').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error

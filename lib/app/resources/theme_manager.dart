@@ -37,7 +37,7 @@ class ThemeManagerBold {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 11;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -56,7 +56,7 @@ class ThemeManagerAddressPB {
 }
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = 11;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -250,7 +250,7 @@ class BoxHeadingStyle {
     // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,
-      color: Colors.black,
+      color: ColorManager.blackfaint,
       fontWeight: FontWeight.w700,
     );
   }
@@ -264,7 +264,7 @@ class PopupHeadingStyle {
       fontSize: fontSize,
       color: Colors.white,
       decoration: TextDecoration.none,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }

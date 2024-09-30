@@ -29,7 +29,8 @@ class CiInsuranceVendor extends StatefulWidget {
 }
 
 class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
-  TextEditingController vendorNameController = TextEditingController();
+  //TextEditingController vendorNameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();

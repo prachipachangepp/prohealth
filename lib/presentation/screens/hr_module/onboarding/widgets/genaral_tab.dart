@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -150,25 +151,40 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       radius: MediaQuery.of(context).size.width / 50,
                                                      backgroundColor: Colors.white,
                                                      // backgroundColor: Colors.grey,
-                                                      child: ClipOval(
-                                                        child: Builder(
-                                                          builder: (context) {
-                                                            String imageUrl = Uri.encodeFull(general.imgurl ?? '');
-                                                            return Image.asset(
-                                                              // imageUrl,
-                                                              'images/profilepic.png',
-                                                              height: 70,
-                                                              width: 70,
-                                                              fit: BoxFit.cover,
-                                                              // errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                              //   print('Error loading image: $exception');
-                                                              //   // return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                              //   return Icon(Icons.person,color: ColorManager.mediumgrey,size: 40,);
-                                                              // },
-                                                            );
-                                                          },
-                                                        ),
+                                                      child: general.imgurl! == 'imgurl' ||
+                                                          general.imgurl! == null ?
+
+                                                      Icon(
+                                                        Icons.person,
+                                                        color: ColorManager.bluelight,
+                                                        size: AppSize.s50,
+                                                      ) :
+                                                      CachedNetworkImage(
+                                                        imageUrl: general.imgurl!,
+                                                        placeholder: (context, url) => new CircularProgressIndicator(),
+                                                        errorWidget: (context, url, error) => new Icon(Icons.error),
+                                                        width: AppSize.s70,
+                                                        height: AppSize.s70,
                                                       ),
+                                                      // ClipOval(
+                                                      //   child: Builder(
+                                                      //     builder: (context) {
+                                                      //       String imageUrl = Uri.encodeFull(general.imgurl ?? '');
+                                                      //       return Image.asset(
+                                                      //          imageUrl,
+                                                      //        // 'images/profilepic.png',
+                                                      //         height: 70,
+                                                      //         width: 70,
+                                                      //         fit: BoxFit.cover,
+                                                      //         // errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                                      //         //   print('Error loading image: $exception');
+                                                      //         //   // return Image.asset('images/profile.png', fit: BoxFit.cover);
+                                                      //         //   return Icon(Icons.person,color: ColorManager.mediumgrey,size: 40,);
+                                                      //         // },
+                                                      //       );
+                                                      //     },
+                                                      //   ),
+                                                      // ),
                                                     ),
                                                     SizedBox(height: MediaQuery.of(context).size.height / 40),
                                                     ///name of the Person
@@ -248,7 +264,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         InfoData(general.dateOfBirth ?? '--'),
-                                                        InfoData(general.employeeType ?? '--'),
+                                                        InfoData(general.expertise ?? '--'),
                                                         InfoData(general.employment ?? '--'),
                                                         InfoData(general.service ?? '--'),
                                                         InfoData(general.race ?? '--'),
@@ -350,8 +366,8 @@ class InfoText extends StatelessWidget {
       children: [
         Text(text, style: TextStyle(
             fontSize: FontSize.s12,
-            fontWeight: FontWeight.w500,
-            color: ColorManager.textBlack),),
+            fontWeight: FontWeight.w600,
+            color: ColorManager.black),),//ColorManager.textBlack
         const SizedBox(height: AppSize.s10),
       ],
     );
@@ -372,7 +388,7 @@ class InfoData extends StatelessWidget {
         Text(text,style: TextStyle(
             fontSize: FontSize.s12,
             fontWeight: FontWeight.w400,
-            color: ColorManager.textBlack),),
+            color: ColorManager.mediumgrey),),//ColorManager.textBlack
         const SizedBox(height: AppSize.s10),
       ],
     );

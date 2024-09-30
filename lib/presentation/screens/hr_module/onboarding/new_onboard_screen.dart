@@ -20,7 +20,6 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   final PageController _onboardPageController = PageController();
   int _selectedIndex = 0;
   int employeeIdCheck = 0;
-
   void _selectButton(int index,int employeeId) {
     setState(() {
       _selectedIndex = index;
@@ -68,10 +67,12 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
     return Material(
       color: ColorManager.white,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (widget.selectedIndex != 0)
             Padding(
-              padding: const EdgeInsets.only(top: 30, left: 100),
+              padding: const EdgeInsets.only(top: 30, ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
