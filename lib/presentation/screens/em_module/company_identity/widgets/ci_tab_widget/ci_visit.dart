@@ -12,6 +12,7 @@ import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/mana
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
@@ -115,10 +116,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             Container(
               width: AppSize.s150,
               // margin: EdgeInsets.only(right: AppMargin.m30),
-              child: CustomIconButtonConst(
+              child: CustomIconButton(
                   text: AppString.addnewvisit,
                   icon: Icons.add,
-                  onPressed: () {
+                  onPressed: () async {
                     docIdController.clear();
                     docNamecontroller.clear();
                     selectedChips.clear();
