@@ -483,7 +483,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      height: 430,
+      height: 440,
       width: 400,
       title: widget.title,
       body: [
