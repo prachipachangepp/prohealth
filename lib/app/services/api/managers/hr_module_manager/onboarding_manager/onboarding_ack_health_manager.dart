@@ -52,60 +52,60 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
 }
 
 ///reject ack health
-Future<ApiData> rejectOnboardAckHealthPatch(BuildContext context, int employeeDocumentId) async {
-  try {
-    var response = await Api(context).patch(
-      path: OnboardingQualificationRepo.rejectAckHealthRecord(employeeDocumentId: employeeDocumentId),
-      data: {},
-    );
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Ack Health rejected$employeeDocumentId");
-      // orgDocumentGet(context);
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
-    } else {
-      print("Error 1");
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
-    }
-  } catch (e) {
-    print("Error $e");
-    return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  }
-}
+// Future<ApiData> rejectOnboardAckHealthPatch(BuildContext context, int employeeDocumentId) async {
+//   try {
+//     var response = await Api(context).patch(
+//       path: OnboardingQualificationRepo.rejectAckHealthRecord(employeeDocumentId: employeeDocumentId),
+//       data: {},
+//     );
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Ack Health rejected$employeeDocumentId");
+//       // orgDocumentGet(context);
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
 
 ///approve ack health
-Future<ApiData> approveOnboardAckHealthPatch(BuildContext context, int employeeDocumentId) async {
-  try {
-    var response = await Api(context).patch(
-      path: OnboardingQualificationRepo.approveAckHealthRecord(employeeDocumentId: employeeDocumentId),
-      data: {},
-    );
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Ack Health Approved$employeeDocumentId");
-      // orgDocumentGet(context);
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
-    } else {
-      print("Error 1");
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
-    }
-  } catch (e) {
-    print("Error $e");
-    return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  }
-}
+// Future<ApiData> approveOnboardAckHealthPatch(BuildContext context, int employeeDocumentId) async {
+//   try {
+//     var response = await Api(context).patch(
+//       path: OnboardingQualificationRepo.approveAckHealthRecord(employeeDocumentId: employeeDocumentId),
+//       data: {},
+//     );
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Ack Health Approved$employeeDocumentId");
+//       // orgDocumentGet(context);
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
 
 ///batch approve
 Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int> employeeDocumentId) async {
