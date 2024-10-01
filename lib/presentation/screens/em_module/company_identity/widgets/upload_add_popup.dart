@@ -180,11 +180,11 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         ),
 
         /// Upload document
-        InkWell(
-          onTap: _pickFile,
-          child: HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Column(
+        HeaderContentConst(
+          heading: AppString.upload_document,
+          content: InkWell(
+            onTap: _pickFile,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
