@@ -154,36 +154,27 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    @override
    void initState() {
      super.initState();
-     // Add listeners to the text controllers
+
      widget.firstName.addListener(_validateFields);
      widget.lastName.addListener(_validateFields);
      widget.email.addListener(_validateFields);
-     // speciality.addListener(_validateFields);
-    // position.addListener(_validateFields);
-    //  phone.addListener(_validateFields);
-     // Add other controllers if necessary
+
    }
    void _validateFields() {
      setState(() {
-       // Check if any of the required fields are empty
+
        _isButtonEnabled = widget.firstName.text.isNotEmpty &&
            widget.lastName.text.isNotEmpty &&
            widget.email.text.isNotEmpty;
-           // speciality.text.isNotEmpty &&
-           //position.text.isNotEmpty &&
-           // phone.text.isNotEmpty;
-       // Add other conditions if necessary
      });
    }
    @override
    void dispose() {
-     // Dispose of the listeners when the widget is removed
+
      widget.firstName.removeListener(_validateFields);
      widget.lastName.removeListener(_validateFields);
      widget.email.removeListener(_validateFields);
-     // speciality.removeListener(_validateFields);
-     //position.removeListener(_validateFields);
-     // phone.removeListener(_validateFields);
+
      super.dispose();
    }
 
@@ -222,12 +213,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       child: Text(
                         'Enroll',
                         style: PopupBlueBarText.customTextStyle(context),
-                        // style: GoogleFonts.firaSans(
-                        //   fontSize: FontSize.s12,
-                        //   fontWeight: FontWeightManager.semiBold,
-                        //   color: ColorManager.white,
-                        //   decoration: TextDecoration.none,
-                        // ),
+
                       ),
                     ),
                     IconButton(

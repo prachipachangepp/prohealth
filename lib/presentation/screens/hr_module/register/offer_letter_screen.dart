@@ -303,7 +303,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         horizontal: 12.0),
                                     child: Text(
                                       value,
-                                      style: const TextStyle(fontSize: 10.0),
+                                      style: const TextStyle(fontSize: 12.0),
                                     ),
                                   ),
                                 );
@@ -360,7 +360,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
                 child: Row(crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [ElevatedButton(
+                children: [
+                  ElevatedButton(
                   onPressed:addContainer,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff1696C8),
@@ -635,19 +636,6 @@ addCovrage.add(await ApiAddCovrageData(city: '',
 
                       }
 
-
-
-
-                      // addCovrage.add(
-                      //
-                      //    await ApiAddCovrageData(
-                      //      city: "",
-                      //      countyId: selectedCountyId,
-                      //      zoneId: selectedZoneId,
-                      //     zipCodes: zipCodes
-                      //  ),
-                      //
-                      //  );
                       print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
                       await _generateUrlLink(widget.email, widget.userId.toString());
 
@@ -662,9 +650,6 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                               Navigator.pop(context);
                             },
                             onConfirm: ()  async{
-                              // setState(() {
-                              //   _isLoading = true;
-                              // });
                               print('selected county id : ${selectedCountyId}');
                              //  print('selected zone id : ${st.docZoneId}');
                              // print('selected zipCode : ${st.selectedZipCodes}');
@@ -1046,11 +1031,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                               int docType = 0;
                               List<DropdownMenuItem<String>>
                               dropDownTypesList = [];
-                              // dropDownTypesList.add(
-                              //     const DropdownMenuItem<String>(
-                              //   child: Text('Select zone'),
-                              //   value: 'Select zone',
-                              // ));
+
                               for (var i in snapshotZone.data!) {
                                 dropDownTypesList.add(
                                   DropdownMenuItem<String>(
@@ -1199,93 +1180,6 @@ class _DynamciContainerState extends State<DynamciContainer> {
                   ],
                 ),
               )
-              // Expanded(
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       Row(
-              //         // crossAxisAlignment: CrossAxisAlignment.start,
-              //         // mainAxisAlignment: MainAxisAlignment.start,
-              //         children: [
-              //           Text('Zip Codes',
-              //           style: DocumentTypeDataStyle.customTextStyle(context),),
-              //         ],
-              //       ),
-              //       SizedBox(height: 10,),
-              //       Expanded(
-              //         child: Padding(
-              //           padding: const EdgeInsets.only(left: 20.0, right: 100.0),
-              //           child: StreamBuilder<List<ZipcodeByCountyIdData>>(
-              //             stream: _countyStreamController.stream,
-              //             builder: (BuildContext context, snapshot) {
-              //               getZipcodeByCountyId(context: context, countyId: selectedCountyId).then((data) {
-              //                 _countyStreamController.add(data);
-              //               }).catchError((error) {
-              //                 // Handle error
-              //               });
-              //               if (snapshot.connectionState == ConnectionState.waiting) {
-              //                 return SizedBox();
-              //               }
-              //
-              //               if (selectedCountyId == 0) {
-              //                 return Center(
-              //                   child: Text(
-              //                     'Select county',
-              //                     style: DocumentTypeDataStyle.customTextStyle(context),
-              //                   ),
-              //                 );
-              //               }
-              //
-              //               if (snapshot.data!.isEmpty) {
-              //                 return Text(
-              //                   'No ZipCode Found!',
-              //                   style: DocumentTypeDataStyle.customTextStyle(context),
-              //                 );
-              //               }
-              //
-              //               return Row(
-              //                 children: [
-              //                   StatefulBuilder(
-              //                     builder: (BuildContext context, void Function(void Function()) setState) {
-              //                       return Container(
-              //                         width: 200,
-              //                         height: 300,
-              //                         child: ListView.builder(
-              //                           itemCount: snapshot.data!.length,
-              //                           itemBuilder: (BuildContext context, int index) {
-              //                             String zipCode = snapshot.data![index].zipCode;
-              //                             bool isChecked = checkedZipCodes[zipCode] ?? false;
-              //                             return CheckBoxTileConst(
-              //                               text: zipCode,
-              //                               value: isChecked,
-              //                               onChanged: (bool? val) {
-              //                                 setState(() {
-              //                                   print('Clicked check box 1');
-              //                                   checkedZipCodes[zipCode] = val ?? false;
-              //                                   if (val == true) {
-              //                                     selectedZipCodes.add(int.parse(zipCode));
-              //                                   } else {
-              //                                     selectedZipCodes.remove(int.parse(zipCode));
-              //                                   }
-              //                                   selectedZipCodesString = selectedZipCodes.join(', ');
-              //                                 });
-              //                               },
-              //                             );
-              //                           },
-              //                         ),
-              //                       );
-              //                     },
-              //                   ),
-              //                 ],
-              //               );
-              //             },
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // )
             ],
           ),
         ),
