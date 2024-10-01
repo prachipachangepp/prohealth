@@ -68,7 +68,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                     child: DropdownButton<String>(
                       value: selectedValue,
                       icon: const Padding(
-                        padding: EdgeInsets.only(left: 80.0),
+                        padding: EdgeInsets.only(left: 60.0),
                         child: Icon(Icons.arrow_drop_down),
                       ),
                       iconSize: 24,

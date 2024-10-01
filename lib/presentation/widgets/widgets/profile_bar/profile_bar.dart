@@ -491,7 +491,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       style: ProfileBarTextBoldStyle.customEditTextStyle()
                                   ),
                                   SizedBox(height: 10,),
-                                  Text('PTA',
+                                  Text(AppString.pta,
                                       style: ProfileBarTextBoldStyle.customEditTextStyle()),
                                 ],
                               ),

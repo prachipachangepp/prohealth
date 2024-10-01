@@ -25,7 +25,7 @@ class CustomIconButtonConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
       child: InkWell(
         onTap: onPressed,
         child: Material(

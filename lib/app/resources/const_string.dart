@@ -10,6 +10,8 @@ class AppString {
   static const String ssnN = "Social Security No";
   static const String officeaddress = "Head Office Address";
   static const String summary = "Summary:";
+  static const String pta = "PTA:";
+
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";
   static const String dateprofile = "05-03-1997(27)";

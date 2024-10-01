@@ -49,162 +49,165 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FutureBuilder<List<CiOrgDocumentCC>>(
-                future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-                builder: (context,snapshot) {
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                    return  Container(
-                      width: 200,
-                      height: 30,
-                      decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
-                    );
-                  }
-                  if (snapshot.data!.isEmpty) {
-                    return Center(
-                        child: Offstage()
-                    );
-                  }
-                  if(snapshot.hasData){
-                    List dropDown = [];
-                    String docType = '';
-                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                    for(var i in snapshot.data!){
-                      dropDownMenuItems.add(
-                        DropdownMenuItem<String>(
-                          child: Text(i.name),
-                          value: i.name,
-                        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FutureBuilder<List<CiOrgDocumentCC>>(
+                  future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                  builder: (context,snapshot) {
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return  Container(
+                        width: 200,
+                        height: 30,
+                        decoration: BoxDecoration(color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(10)),
                       );
                     }
-                    return CICCDropdown(
-                        width: 200,
-                        initialValue: dropDownMenuItems[0].value,
-                        onChange: (val){
-                          for(var a in snapshot.data!){
-                            if(a.name == val){
-                              docType = a.name;
-                              docName = docType;
-                              //docMetaId = docType;
-                            }
-                          }
-                          print(":::${docType}");
-                          // print(":::<>${docMetaId}");
-                        },
-                        items:dropDownMenuItems
-                    );
-                  }else{
-                    return SizedBox();
-                  }
-                }
-            ),
-            SizedBox(width: 20),
-            ///Add button
-            Container(
-              width: 100,
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  text: AppStringHr.add,
-                  icon: Icons.add,
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddLicencesPopup(
-                            LivensureController: livensureController,
-                            issueDateController: issueDateController,
-                            expiryDateController: expiryDateController,
-                            issuingOrganizationController:
-                            issuingOrganizationController,
-                            countryController: countryController,
-                            numberIDController: numberIDController,
-                            onpressedClose: () {
-                              // Navigator.pop(context);
-                            },
-                            onpressedSave: () async {
-                              var response = await addLicensePost(context,
-                                  countryController.text,
-                                  widget.employeeId!,
-                                  expiryDateController.text,
-                                  issueDateController.text,
-                                  'url',
-                                  livensureController.text,
-                                  numberIDController.text,
-                                  docName.toString(),
-                                  docName.toString());
-                              Navigator.pop(context);
-                              if(response.statusCode == 200 || response.statusCode == 201){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AddSuccessPopup(
-                                      message: 'Licenses Added Successfully',
-                                    );
-                                  },
-                                );
+                    if (snapshot.data!.isEmpty) {
+                      return Center(
+                          child: Offstage()
+                      );
+                    }
+                    if(snapshot.hasData){
+                      List dropDown = [];
+                      String docType = '';
+                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                      for(var i in snapshot.data!){
+                        dropDownMenuItems.add(
+                          DropdownMenuItem<String>(
+                            child: Text(i.name),
+                            value: i.name,
+                          ),
+                        );
+                      }
+                      return CICCDropdown(
+                          width: 200,
+                          initialValue: dropDownMenuItems[0].value,
+                          onChange: (val){
+                            for(var a in snapshot.data!){
+                              if(a.name == val){
+                                docType = a.name;
+                                docName = docType;
+                                //docMetaId = docType;
                               }
-                            },
-                            title: 'Add Licence',
-                            child: FutureBuilder<List<CiOrgDocumentCC>>(
-                                future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-                                builder: (context,snapshot) {
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Container(
-                                      width: 200,
-                                      height: 30,
-                                      decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
-                                    );
+                            }
+                            print(":::${docType}");
+                            // print(":::<>${docMetaId}");
+                          },
+                          items:dropDownMenuItems
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  }
+              ),
+              SizedBox(width: 10),
+              ///Add button
+              Container(
+                width: 100,
+                margin: EdgeInsets.only(right: 60),
+                child: CustomIconButtonConst(
+                    text: AppStringHr.add,
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddLicencesPopup(
+                              LivensureController: livensureController,
+                              issueDateController: issueDateController,
+                              expiryDateController: expiryDateController,
+                              issuingOrganizationController: issuingOrganizationController,
+                              countryController: countryController,
+                              numberIDController: numberIDController,
+                              onpressedClose: () {
+                                // Navigator.pop(context);
+                              },
+                              onpressedSave: () async {
+                                var response = await addLicensePost(context,
+                                    countryController.text,
+                                    widget.employeeId!,
+                                    expiryDateController.text,
+                                    issueDateController.text,
+                                    'url',
+                                    livensureController.text,
+                                    numberIDController.text,
+                                    docName.toString(),
+                                    docName.toString());
+                                Navigator.pop(context);
+                                if(response.statusCode == 200 || response.statusCode == 201){
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(
+                                        message: 'Licenses Added Successfully',
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              title: 'Add Licence',
+                              child: FutureBuilder<List<CiOrgDocumentCC>>(
+                                  future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                                  builder: (context,snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return Container(
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                                      );
 
-                                  }
-                                  if (snapshot.data!.isEmpty) {
-                                    return Center(
-                                        child: Offstage()
-                                    );
-                                  }
-                                  if(snapshot.hasData){
-                                    List dropDown = [];
-                                    String docType = '';
-                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                    for(var i in snapshot.data!){
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          child: Text(i.name),
-                                          value: i.name,
-                                        ),
+                                    }
+                                    if (snapshot.data!.isEmpty) {
+                                      return Center(
+                                          child: Offstage()
                                       );
                                     }
-                                    return CICCDropdown(
-                                        width: 200,
-                                        initialValue: dropDownMenuItems[0].value,
-                                        onChange: (val){
-                                          for(var a in snapshot.data!){
-                                            if(a.name == val){
-                                              docType = a.name;
-                                              docName = docType;
-                                              //docMetaId = docType;
+                                    if(snapshot.hasData){
+                                      List dropDown = [];
+                                      String docType = '';
+                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                      for(var i in snapshot.data!){
+                                        dropDownMenuItems.add(
+                                          DropdownMenuItem<String>(
+                                            child: Text(i.name),
+                                            value: i.name,
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                          width: 200,
+                                          initialValue: dropDownMenuItems[0].value,
+                                          onChange: (val){
+                                            for(var a in snapshot.data!){
+                                              if(a.name == val){
+                                                docType = a.name;
+                                                docName = docType;
+                                                //docMetaId = docType;
+                                              }
                                             }
-                                          }
-                                          print(":::${docType}");
-                                          // print(":::<>${docMetaId}");
-                                        },
-                                        items:dropDownMenuItems
-                                    );
-                                  }else{
-                                    return SizedBox();
+                                            print(":::${docType}");
+                                            // print(":::<>${docMetaId}");
+                                          },
+                                          items:dropDownMenuItems
+                                      );
+                                    }else{
+                                      return SizedBox();
+                                    }
                                   }
-                                }
-                            ),
-                          );
-                        });
-                  }),
-            ),
-          ],
+                              ),
+                            );
+                          });
+                    }),
+              ),
+            ],
+          ),
         ),
-        SizedBox(
-          height: 1,
-        ),
+        // SizedBox(
+        //   height: 1,
+        // ),
         StreamBuilder<List<QulificationLicensesData>>(
             stream: streamController.stream,
             builder: (context,snapshot) {

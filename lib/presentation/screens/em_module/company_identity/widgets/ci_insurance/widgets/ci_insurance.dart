@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -254,11 +255,11 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                     child: _selectedIndex == 0
                     ? Padding(
                   padding: const EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      width: 79,
+                  child: CustomIconButton(
+                      // width: 79,
                       icon: Icons.add,
                       text: "Add",
-                      onPressed: () {
+                      onPressed: () async {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -289,9 +290,9 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       }),
                 )
                     : Padding(
-                  padding: const EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 5),
                   child: CustomIconButtonConst(
-                    width: 130,
+                    // width: 180,
                     icon: Icons.add,
                     text: "Add Doctype",
                     onPressed:

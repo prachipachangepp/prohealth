@@ -18,6 +18,7 @@ import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/establishment_text_const/text_widget_const.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -340,33 +341,29 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       ],
                     ),
                     // SizedBox(width: 10,),
-                    Container(
-                      width: 130,
-                      height: 32,
-                      child: CustomIconButtonConst(
-                        text: 'Add Payrate',
-                        icon: Icons.add,
-                        onPressed: () {
-                          payRatesController.clear();
-                          perMilesController.clear();
-                          fixedPayRatesController.clear();
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              String serviceTypeId = serviceId;
-                              return PayRateAddPopup(
-                                serviceId: serviceTypeId,
-                                empTypeId: empTypeId,
-                                fixPayRatesController: fixedPayRatesController,
-                                visitTypeTextActive: true,
-                                payRatesController: payRatesController,
-                                perMilesController: perMilesController,
-                                title: 'Add Payrates',
-                              );
-                            },
-                          );
-                        },
-                      ),
+                    CustomIconButton(
+                      text: 'Add Payrate',
+                      icon: Icons.add,
+                      onPressed: () async {
+                        payRatesController.clear();
+                        perMilesController.clear();
+                        fixedPayRatesController.clear();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            String serviceTypeId = serviceId;
+                            return PayRateAddPopup(
+                              serviceId: serviceTypeId,
+                              empTypeId: empTypeId,
+                              fixPayRatesController: fixedPayRatesController,
+                              visitTypeTextActive: true,
+                              payRatesController: payRatesController,
+                              perMilesController: perMilesController,
+                              title: 'Add Payrates',
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
