@@ -231,42 +231,42 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Date of Termination',
+                                                Text('Date of Termination :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Date of Resignation',
+                                                Text('Date of Resignation :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Date of Hire',
+                                                Text('Date of Hire :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text(AppString.status,
+                                                Text(AppString.terminationStatus,
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text(AppString.save,
+                                                Text(AppString.terminationPosition,
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Phone No.',
+                                                Text('Phone No. :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Rehirable',
+                                                Text('Rehirable :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Final Address',
+                                                Text('Final Address :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
@@ -309,7 +309,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                                 ),
                                                 const SizedBox(height: AppSize.s10),
                                                 Text(
-                                                  termination.service,
+                                                  termination.employment,
                                                   style: ThemeManagerDark
                                                       .customTextStyle(context),
                                                 ),
@@ -347,42 +347,42 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                Text(AppString.type,
+                                                Text(AppString.terminationType,
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Reason',
+                                                Text('Reason :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Final Paycheck',
+                                                Text('Final Paycheck :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text(AppString.date,
+                                                Text(AppString.terminationDate,
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Gross Pay',
+                                                Text('Gross Pay :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Net Pay',
+                                                Text('Net Pay :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Methods',
+                                                Text('Methods :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
                                                 const SizedBox(height: AppSize.s10),
-                                                Text('Materials',
+                                                Text('Materials :',
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
@@ -694,7 +694,7 @@ class _TerminatePopupState extends State<TerminatePopup> {
                           },
                         ),
                       ),
-                      FirstHRTextFConst(controller: positioncltr, keyboardType: TextInputType.text, text: 'Position'),
+                      FirstHRTextFConst(controller: positioncltr, keyboardType: TextInputType.text, text: 'Position:'),
                       FirstHRTextFConst(controller: phonenocltr, keyboardType: TextInputType.number, text: 'Phone No.'),
                       FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: 'Rehirable'),
                       // FirstHRTextFConst(controller: rehirablecltr, keyboardType: TextInputType.text, text: ''),

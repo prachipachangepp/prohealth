@@ -483,7 +483,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                     dropDownList.add(DropdownMenuItem<String>(
                                                       child: Text(i.name,style:
                                                       TextStyle(
-                                                        fontSize: 10,
+                                                        fontSize: FontSize.s12,
                                                         fontWeight: FontWeight.w600,
                                                         color: Color(0xff737373),
                                                       ), ),
@@ -527,7 +527,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                       },
                                                       value: dropDownList[0].value,
                                                       style: TextStyle(
-                                                        fontSize: 10,
+                                                        fontSize: FontSize.s12,
                                                         fontWeight: FontWeight.w600,
                                                         color: const Color(0xff686464),
                                                         decoration: TextDecoration.none,
@@ -550,7 +550,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   labelText: 'Availability',
                                                   value: 'Full-Time',
                                                   labelStyle: TextStyle(
-                                                    fontSize: 10,
+                                                    fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w700,
                                                     color: Color(0xff737373),
                                                   ),
@@ -581,7 +581,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   labelText: 'License Status',
                                                   value: 'Expired',
                                                   labelStyle: TextStyle(
-                                                    fontSize: 10,
+                                                    fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w600,
                                                     color: Color(0xff737373),
                                                   ),
@@ -608,7 +608,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   labelText: '',
                                                   value: 'Zone',
                                                   labelStyle: TextStyle(
-                                                    fontSize: 10,
+                                                    fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w600,
                                                     color: Color(0xff737373),
                                                   ),
@@ -669,7 +669,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                     },
                                                     value: dropDownList[0].value,
                                                     style: TextStyle(
-                                                      fontSize: 12,
+                                                      fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w600,
                                                       color: const Color(0xff686464),
                                                       decoration: TextDecoration.none,
@@ -681,7 +681,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   // width: MediaQuery.of(context).size.width / 5,
                                                   labelText: 'Zone',
                                                   labelStyle: TextStyle(
-                                                    fontSize: 12,
+                                                    fontSize: FontSize.s12,
                                                     color: const Color(0xff575757),
                                                     fontWeight: FontWeight.w600,
                                                   ),

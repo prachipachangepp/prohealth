@@ -36,8 +36,8 @@ class ProfileBarClipConst extends StatelessWidget {
           SizedBox(width: 20),
           ClipOval(
             child: Container(
-              height: MediaQuery.of(context).size.height / 55,
-              width: MediaQuery.of(context).size.width / 99,
+              height: 20,
+              width: 21,
               decoration: BoxDecoration(
                 color: containerColor,
                 boxShadow: [
@@ -49,10 +49,12 @@ class ProfileBarClipConst extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text(
-                textOval,
-                textAlign: TextAlign.center,
-                style: ProfileBarClipText.profileTextStyle(context),
+              child: Center(
+                child: Text(
+                  textOval,
+                  textAlign: TextAlign.center,
+                  style: ProfileBarClipText.profileTextStyle(context),
+                ),
               ),
             ),
           ),

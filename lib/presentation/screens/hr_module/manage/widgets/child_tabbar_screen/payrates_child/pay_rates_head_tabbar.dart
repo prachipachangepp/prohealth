@@ -73,10 +73,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       ),
                       iconSize: 24,
                       elevation: 16,
-                      style: GoogleFonts.firaSans(
-                          color: const Color(0xff43425D),
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500),
+                      style: EquipmentStyleRegular.customTextStyle(context),
                       underline: const SizedBox(),
                       onChanged: (String? newValue) {
                         setState(() {

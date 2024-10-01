@@ -478,12 +478,18 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       }
                       return Padding(
                         padding: EdgeInsets.only(left: 20.0),
-                        child: McqWidget(
-                          title: 'Service',
-                          items: serviceName,
-                          onChanged: (val) {
-                            serviceVal = serviceName[val].toString();
-                            print('Service data $serviceVal');
+                        child: StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return McqWidget(
+                              title: 'Service',
+                              items: serviceName,
+                              onChanged: (val) {
+                                setState((){
+                                  serviceVal = serviceName[val].toString();
+                                });
+                                print('Service data $serviceVal');
+                              },
+                            );
                           },
                         ),
                       );

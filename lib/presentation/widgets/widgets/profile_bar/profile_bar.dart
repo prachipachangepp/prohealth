@@ -1249,44 +1249,4 @@ class _ProfileBarState extends State<ProfileBar> {
   }
 }
 
-class ProfileBarTextBoldStyle{
-  static TextStyle customEditTextStyle() {
-    return TextStyle(
-      fontSize: FontSize.s12,
-      fontWeight: FontWeight.w600,
-      color: ColorManager.textPrimaryColor,
 
-      // decoration: TextDecoration.none,
-    );
-  }
-}
-class ProfileBarZoneStyle {
-  static TextStyle customEditTextStyle() {
-    return TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-      color: const Color(0xff686464),
-      decoration: TextDecoration.none,
-    );
-  }
-}
-class ProfileBarNameLicenseStyle {
-  static TextStyle customEditTextStyle() {
-    return TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-      decoration: TextDecoration.none,
-    );
-  }
-}
-class AboutExpiredLStyle{
-  static TextStyle customEditTextStyle() {
-    return TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w400,
-      color: const Color(0xff686464),
-      decoration: TextDecoration.none,
-    );
-  }
-}

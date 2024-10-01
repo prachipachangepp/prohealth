@@ -143,10 +143,11 @@ class RegisterTableHead {
   }
 }
 
+/// HR Documents style
 class AknowledgementStyleConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 12,
+      fontSize: FontSize.s14,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w400,
     );
@@ -155,7 +156,7 @@ class AknowledgementStyleConst {
 class AknowledgementStyleNormal {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 12,
+      fontSize: FontSize.s12,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w600,
     );
@@ -198,7 +199,7 @@ class ProfileBarLastColText {
 class ProfileBarClipText {
   static TextStyle profileTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 10,
+      fontSize: FontSize.s12,
       color: ColorManager.white,
       fontWeight: FontWeight.w600,
     );
@@ -272,7 +273,7 @@ class PopupHeadingStyle {
 class EquipmentStyleHeading{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: 14,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: Colors.white,
       decoration: TextDecoration.none,
@@ -282,7 +283,7 @@ class EquipmentStyleHeading{
 class EquipmentStyleRegular{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: 12,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: Color(0xff686464),
       decoration: TextDecoration.none,
@@ -309,6 +310,50 @@ class TimeOffRegular{
       color: ColorManager.granitegray,
       decoration:
       TextDecoration.none,
+    );
+  }
+}
+
+
+/// profile bar in HR
+class ProfileBarZoneStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w500,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarNameLicenseStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class AboutExpiredLStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
     );
   }
 }

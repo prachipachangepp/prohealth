@@ -237,11 +237,12 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 children: [
                                   Text(
                                     data.documentFileName,
-                                    style: HRDocAckStyle.customTextStyle(context)
+                                    style: AknowledgementStyleConst
+                                        .customTextStyle(context)
                                   ),
                                   Text(
                                     data.ReminderThreshold,
-                                   style: HRDocAckStyle.customTextStyle(context)
+                                   style: AknowledgementStyleNormal.customTextStyle(context)
                                   ),
                                 ],
                               ),
