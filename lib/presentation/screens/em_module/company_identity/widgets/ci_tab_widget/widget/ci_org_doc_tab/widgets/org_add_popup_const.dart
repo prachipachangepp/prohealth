@@ -92,10 +92,10 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
     return DialogueTemplate(
       width: AppSize.s420,
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
-          ? widget.height ?? AppSize.s525
+          ? widget.height ?? AppSize.s530
       : widget.docTypeId == AppConfig.policiesAndProcedure
-       ? widget.height ??AppSize.s525
-      :widget.height ??AppSize.s580 ,
+       ? widget.height ??AppSize.s530
+      :widget.height ??AppSize.s598 ,
       body: [
        Padding(
          padding: const EdgeInsets.symmetric(
@@ -511,7 +511,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height ?? AppSize.s420,
+      height: widget.height ?? AppSize.s440,
       body: [
         /// ID of the Document
         HeaderContentConst(
