@@ -83,7 +83,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
         setState(() {
           isLoading = false;
         });
-        Navigator.pop(context);
+
         widget.controller1.clear();
         widget.controller2.clear();
         widget.shiftNameController.clear();

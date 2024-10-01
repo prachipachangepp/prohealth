@@ -82,7 +82,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
         setState(() {
           isLoading = false;
         });
-        Navigator.pop(context);
+        // Navigator.pop(context);
     } else {
       setState(() {
         isLoading = false;

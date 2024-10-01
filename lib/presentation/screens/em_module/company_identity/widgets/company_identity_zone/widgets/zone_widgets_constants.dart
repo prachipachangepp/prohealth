@@ -684,14 +684,17 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
               .toString()} + ${_selectedLocation.longitude.toString()}");
       Navigator.pop(context);
       // Navigator.pop(context);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CountySuccessPopup(
-            message: 'Save Successfully',
-          );
-        },
-      );
+      if(response.statusCode == 200 || response.statusCode == 201){
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddSuccessPopup(
+              message: 'Zip Code Added Successfully',
+            );
+          },
+        );
+      }
+
       // Navigator.pop(context);
       setState(() {
         isLoading = false;
@@ -1104,14 +1107,16 @@ title: widget.title,
           // "95.7129°",
           "");
       Navigator.pop(context);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CountySuccessPopup(
-            message: 'Save Successfully',
-          );
-        },
-      );
+      if(response.statusCode == 200 || response.statusCode == 201){
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddSuccessPopup(
+              message: 'Zip Code Edited Successfully',
+            );
+          },
+        );
+      }
       setState(() {
         isLoading = false;
       });
@@ -1322,15 +1327,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
               isLoading = true;
             });
             await widget.onSavePressed();
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CountySuccessPopup(
-                  message: 'Save Successfully',
-                );
-              },
-            );
+
             setState(() {
               isLoading = false;
             });

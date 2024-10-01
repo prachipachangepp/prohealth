@@ -366,8 +366,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
+                                return AddSuccessPopup(
+                                  message: 'County Added Successfully',
                                 );
                               },
                             );
@@ -404,11 +404,22 @@ class _CiOrgDocumentState extends State<CiZone> {
                           zoneNumberController: zoneNumberController,
                           title: 'Add Zone',
                           onSavePressed: () async {
-                            await addZoneCountyData(
+                            var response = await addZoneCountyData(
                                 context,
                                 zoneNumberController.text,
                                 countySortId,
                                 widget.officeId);
+                            Navigator.pop(context);
+                            if(response.statusCode == 200 || response.statusCode == 201){
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddSuccessPopup(
+                                    message: 'Zone Added Successfully',
+                                  );
+                                },
+                              );
+                            }
                           },
                           child: FutureBuilder<
                               List<AllCountyGetList>>(

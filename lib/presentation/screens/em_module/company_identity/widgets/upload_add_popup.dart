@@ -77,7 +77,12 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+      allowedExtensions: ['pdf']
+    );
+
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
@@ -92,7 +97,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s360 : widget.height!,
+      height: widget.height == null ? AppSize.s367 : widget.height!,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,
@@ -178,7 +183,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             ),
           ),
         ),
-
         /// Upload document
         HeaderContentConst(
           heading: AppString.upload_document,

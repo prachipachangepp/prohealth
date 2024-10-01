@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
@@ -83,13 +84,22 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 title: AddPopupString.addNewHoliday,
                 controller: holidayNameController,
                 onPressed: () async{
-                await addHolidaysPost(context,
+                var response = await addHolidaysPost(context,
                     holidayNameController.text, calenderController.text, 2024,);
                 holidaysListGet(context).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
                 });
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'Holiday Added Successfully',
+                    );
+                  },
+                );
               }, calenderDateController: calenderController,);
             });
           }),
@@ -281,7 +291,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                       calenderDateController:
                                                                       calenderController,
                                                                       onPressed: ()  async{
-                                                                        await updateHolidays(context, defineData.holidayId,
+                                                                        var response = await updateHolidays(context, defineData.holidayId,
                                                                             holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
                                                                             date == calenderController.text ? date! : calenderController.text, 2024, 1);
                                                                         holidaysListGet(
@@ -295,6 +305,15 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                             });
                                                                         holidayNameController.clear();
                                                                         calenderController.clear();
+                                                                        Navigator.pop(context);
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder: (BuildContext context) {
+                                                                            return AddSuccessPopup(
+                                                                              message: 'Holiday Edited Successfully',
+                                                                            );
+                                                                          },
+                                                                        );
                                                                       },
 
                                                                     );
