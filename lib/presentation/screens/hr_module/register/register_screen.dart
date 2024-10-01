@@ -412,34 +412,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                        const url = "http://localhost:53169/#/onBordingWelcome";
-                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                        // const url = "http://localhost:53169/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///////////
                           if (await canLaunch(url)) {
                            await launch(url);
-                         //////////////////////////////////////////
-                         //     Navigator.push(
-                         //       context,
-                         //       MaterialPageRoute(
-                         //        builder: (context) => OnBoardingWelcome(),
-                         //      ),
-                         //     );
-                 ////////////////////////////
                            } else {
                             throw 'Could not launch $url';
                           }
-                 //
-                        ///////////
                         },
                         child: Text(
                           data.link!,
                           style: RegisterLinkDataStyle.customTextStyle(context),
-                          // style: GoogleFonts.firaSans(
-                          //   fontSize: 10,
-                          //   fontWeight: FontWeight.w400,
-                          //   color: ColorManager.blueprime,
-                          // ),
                         ),
                       ),
                       data.status == 'Notopen'
@@ -482,22 +467,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   var email = snapshotPrefill.data!.email.toString();
                                   emailController = TextEditingController(text: email);
 
-                                  return
-                                    // OfferLetterScreen(email: email,
-                                    //   userId: data.employeeId!,
-                                    //   role: firstNameController.text,
-                                    //   status: firstNameController.text,
-                                    //   firstName: firstNameController.text,
-                                    //   lastName: firstNameController.text,
-                                    //   position: firstNameController.text,
-                                    //   phone: firstNameController.text,
-                                    //   reportingOffice: firstNameController.text,
-                                    //   services: firstNameController.text,
-                                    //   employement: firstNameController.text,
-                                    //   soecalityName: firstNameController.text,
-                                    //   clinicalName: firstNameController.text,
-                                    //   employeeId: data.employeeId!);
-                                    RegisterEnrollPopup(
+                                  return RegisterEnrollPopup(
                                     employeeId: data.employeeId!,
                                     firstName: firstNameController,
                                     lastName: lastNameController,
