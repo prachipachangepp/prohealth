@@ -144,7 +144,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
                     text: 'Start Time',
-                    icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 19,),
+                    icon: Icon(Icons.timer_outlined, color: IconColorManager.bluebottom, size: 19,),
                   ),
                   if (startTimeError != null)
                     Padding(

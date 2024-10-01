@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -147,94 +148,85 @@ class _CiOrgDocumentState extends State<CiZone> {
             children: [
               Expanded(
                 flex: 2,
-                child:  _selectedIndex == 1
-                  ? FutureBuilder<List<OfficeWiseCountyData>>(
-                future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
-                builder: (context, snapshotZone) {
-                  if (snapshotZone.connectionState ==
-                      ConnectionState.waiting) {
-                    return Container(
-                      width: 350,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    );
-                  }
-                  if (snapshotZone.data!.isEmpty) {
-                    return Container(
-                      width: 354,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: ColorManager
-                                .containerBorderGrey,
-                            width: AppSize.s1),
-                        borderRadius:
-                        BorderRadius.circular(4),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets
-                              .symmetric(
-                              horizontal: 10),
-                          child: Text(
-                            ErrorMessageString
-                                .noCountyAdded,
-                            // AppString.dataNotFound,
-                            style:
-                            DocumentTypeDataStyle.customTextStyle(context),
-                          ),
+                child: _selectedIndex == 1
+                    ? FutureBuilder<List<OfficeWiseCountyData>>(
+                  future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
+                  builder: (context, snapshotZone) {
+                    if (snapshotZone.connectionState == ConnectionState.waiting) {
+                      return Container(
+                        width: 350,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                      ),
-                    );
-                  }
-                  if (snapshotZone.hasData) {
-                    List<DropdownMenuItem<String>> dropDownTypesList = [];
-                    int docType = 0;
-
-                    for (var i in snapshotZone.data!) {
-                      dropDownTypesList.add(
-                        DropdownMenuItem<String>(
-                          value: i.countyName,
-                          child: Text(i.countyName),
+                        child: Center(
+                          child: Text(
+                            'Loading...',
+                            style: AllNoDataAvailable.customTextStyle(context),
+                          ),
                         ),
                       );
                     }
-                    if (coyntyNameVal == 'Select County') {
-                      countySortId = snapshotZone.data![0].countyId;
-                      countynameController = TextEditingController(text: coyntyNameVal);
+                    if (snapshotZone.data!.isEmpty) {
+                      return Container(
+                        width: 354,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey,
+                              width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              ErrorMessageString.noCountyAdded,
+                              style: DocumentTypeDataStyle.customTextStyle(context),
+                            ),
+                          ),
+                        ),
+                      );
                     }
-                    return StatefulBuilder(
-                      builder: (BuildContext context,
-                          void Function(void Function()) setState) {
-                        return CICCDropdown(
-                          initialValue: coyntyNameVal,
-                          onChange: (val) {
-                            setState(() {
-                              coyntyNameVal = val!;
-                              for (var a in snapshotZone.data!) {
-                                if (a.countyName == val) {
-                                  docType = a.countyId;
-                                  countySortId = docType;
-                                  countynameController = TextEditingController(text: a.countyName);
-                                  isAddButtonEnabled = true;
-                                  _selectButton(1);
-                                  break;
-                                }
-                              }
-                            });
-                          },
-                          items: dropDownTypesList,
+                    if (snapshotZone.hasData) {
+                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+
+                      for (var i in snapshotZone.data!) {
+                        dropDownTypesList.add(
+                          DropdownMenuItem<String>(
+                            value: i.countyName,
+                            child: Text(i.countyName),
+                          ),
                         );
-                      },
-                    );
-                  }
-                  return const SizedBox();
-                },
-              )
-                  : const SizedBox(width: 354,),),
+                      }
+
+                      if (coyntyNameVal == 'Select County') {
+                        countySortId = snapshotZone.data![0].countyId;
+                        countynameController.text = coyntyNameVal;
+                      }
+
+                      return CICCDropdown(
+                        initialValue: coyntyNameVal,
+                        onChange: (val) {
+                          setState(() {
+                            coyntyNameVal = val!;
+                            var selectedCounty = snapshotZone.data!.firstWhere((a) => a.countyName == val);
+                            countySortId = selectedCounty.countyId;
+                            countynameController.text = selectedCounty.countyName;
+                            isAddButtonEnabled = true;
+                            _selectButton(1);
+                          });
+                        },
+                        items: dropDownTypesList,
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                )
+                    : const SizedBox(width: 354),
+              ),
+
 
 
               ///tabbar

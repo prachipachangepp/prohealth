@@ -249,97 +249,95 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 ),
 
                 ///buttons
-                Expanded(
-                  flex: 1,
-                    child: _selectedIndex == 0
-                    ? Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      width: 79,
-                      icon: Icons.add,
-                      text: "Add",
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomPopup(
-                              title: 'Add Vendor',
-                              namecontroller: vendorNameController,
-                              onPressed: () async {
-                                var response = await addVendors(
-                                  context,
-                                  widget.officeId,
-                                  vendorNameController.text,
-                                );
-                                if(response.statusCode == 200 || response.statusCode == 201){
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddSuccessPopup(message:'Added Successfully');
-                                    },
-                                  );
-                                }
-                                vendorNameController.clear();
-                              },
-                              buttontxt: AppStringEM.Add,
-                              successpopuptext: 'Added Successfully',
+                _selectedIndex == 0
+                ? Padding(
+                   padding: const EdgeInsets.only(right: 20),
+                 child: CustomIconButtonConst(
+                  width: 100,
+                  icon: Icons.add,
+                  text: "Add",
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomPopup(
+                          title: 'Add Vendor',
+                          namecontroller: vendorNameController,
+                          onPressed: () async {
+                            var response = await addVendors(
+                              context,
+                              widget.officeId,
+                              vendorNameController.text,
                             );
-                          },
-                        );
-                      }),
-                )
-                    : Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: CustomIconButtonConst(
-                    width: 130,
-                    icon: Icons.add,
-                    text: "Add Doctype",
-                    onPressed:
-                    isAddButtonEnabled
-                        ? () {
-                      //selectedExpiryType = expiryType;
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return ContractAddDialog(
-                                selectedVendorId :selectedVendorId,
-                                officeid:widget.officeId,
-
-
-
-                                // onSubmitPressed: () async {
-                                //   //if (selectedVendorId == 0) {
-                                //   await addVendorContract(
-                                //     context,
-                                //     selectedVendorId,
-                                //     contractNameController.text,
-                                //     selectedExpiryType!,
-                                //     widget.officeId,
-                                //     contractIdController.text,
-                                //     calenderController.text
-                                //   );
-                                // },
-
-                                title: 'Add Contract',
+                            if(response.statusCode == 200 || response.statusCode == 201){
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddSuccessPopup(message:'Added Successfully');
+                                },
                               );
-                            },
+                            }
+                            vendorNameController.clear();
+                          },
+                          buttontxt: AppStringEM.Add,
+                          successpopuptext: 'Added Successfully',
+                        );
+                      },
+                    );
+                  }),
+                                )
+                : Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: CustomIconButtonConst(
+                width: 150,
+                icon: Icons.add,
+                text: "Add Doctype",
+                onPressed:
+                isAddButtonEnabled
+                    ? () {
+                  //selectedExpiryType = expiryType;
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return ContractAddDialog(
+                            selectedVendorId :selectedVendorId,
+                            officeid:widget.officeId,
+
+
+
+                            // onSubmitPressed: () async {
+                            //   //if (selectedVendorId == 0) {
+                            //   await addVendorContract(
+                            //     context,
+                            //     selectedVendorId,
+                            //     contractNameController.text,
+                            //     selectedExpiryType!,
+                            //     widget.officeId,
+                            //     contractIdController.text,
+                            //     calenderController.text
+                            //   );
+                            // },
+
+                            title: 'Add Contract',
                           );
                         },
                       );
-                    }
-                        : () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return VendorSelectNoti(message: "No Vendor Added.",);
-                        },
-                      );
                     },
-                    enabled: isAddButtonEnabled,
-                  ),
-                ) )
+                  );
+                }
+                    : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return VendorSelectNoti(message: "No Vendor Added.",);
+                    },
+                  );
+                },
+                enabled: isAddButtonEnabled,
+                                  ),
+                                )
 
               ],
             ),

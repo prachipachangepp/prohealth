@@ -92,7 +92,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s390 : widget.height!,
+      height: widget.height == null ? AppSize.s374 : widget.height!,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,

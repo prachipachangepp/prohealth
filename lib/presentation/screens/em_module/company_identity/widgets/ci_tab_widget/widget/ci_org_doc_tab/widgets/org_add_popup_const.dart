@@ -47,9 +47,9 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
   TextEditingController idDocController = TextEditingController();
   TextEditingController nameDocController = TextEditingController();
 
-  // Error messages for each text field
   String? _idDocError;
   String? _nameDocError;
+  String? _expiryTypeError;
 
   TextEditingController daysController = TextEditingController(text: "1");
 
@@ -68,6 +68,12 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
           _validateTextField(idDocController.text, 'ID of the Document');
       _nameDocError =
           _validateTextField(nameDocController.text, 'Name of the Document');
+      if (selectedExpiryType.isEmpty) {
+        _expiryTypeError = "Please select an expiry type";
+        _isFormValid = false;
+      } else {
+        _expiryTypeError = null;
+      }
     });
   }
 
@@ -84,9 +90,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
       });
     }
   }
-
-
-
+  
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -94,7 +98,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
       height: widget.subDocTypeId == AppConfig.subDocId10MISC
           ? widget.height ?? AppSize.s530
       : widget.docTypeId == AppConfig.policiesAndProcedure
-       ? widget.height ??AppSize.s530
+       ? widget.height ??AppSize.s540
       :widget.height ??AppSize.s598 ,
       body: [
        Padding(
@@ -112,41 +116,21 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                text: AppString.id_of_the_document,
              ),
              if (_idDocError != null) // Display error if any
-               Padding(
-                 padding: const EdgeInsets.only(top: 1),
-                 child: Text(
-                   _idDocError!,
-                   style:CommonErrorMsg.customTextStyle(context),
-                 ),
+               Text(
+                 _idDocError!,
+                 style:CommonErrorMsg.customTextStyle(context),
                ),
-             // if (_idDocError != null)
-             //   Text(
-             //     _idDocError!,
-             //     textAlign: TextAlign.start,
-             //     style:CommonErrorMsg.customTextStyle(context),
-             //   ),
-
              /// Name of the Document
              FirstSMTextFConst(
                controller: nameDocController,
                keyboardType: TextInputType.text,
                text: AppString.name_of_the_document,
              ),
-
              if (_nameDocError != null) // Display error if any
-               Padding(
-                 padding: const EdgeInsets.only(top: 1),
-                 child: Text(
-                   _nameDocError!,
-                   style:CommonErrorMsg.customTextStyle(context),
-                 ),
+               Text(
+                 _nameDocError!,
+                 style:CommonErrorMsg.customTextStyle(context),
                ),
-             // if (_nameDocError != null) // Display error if any
-             //   Text(
-             //     _nameDocError!,
-             //     textAlign: TextAlign.start,
-             //     style: CommonErrorMsg.customTextStyle(context),
-             //   ),
 
              /// Type of the Document
              HeaderContentConst(
@@ -245,6 +229,11 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                            },
                            title: AppConfig.issuer,
                          ),
+                         if (_expiryTypeError != null)
+                           Text(
+                             _expiryTypeError!,
+                             style: CommonErrorMsg.customTextStyle(context),
+                           ),
                        ],
                      ),
                    ),
@@ -257,9 +246,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                        visible: selectedExpiryType == AppConfig.scheduled,
                        child: Column(
                          children: [
-                           SizedBox(
-                             height: 20,
-                           ),
+                           SizedBox(height: 20,),
                            Row(
                              children: [
                                Container(

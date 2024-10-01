@@ -32,7 +32,7 @@ class _CiTempaletsState extends State<CiTempalets> {
           ),
           Center(child:
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 140),
+            padding: const EdgeInsets.symmetric(vertical: 120),
             child: Text(
               "No Templates available!",
               style:  TextStyle(

@@ -66,7 +66,7 @@ class _CustomPopupState extends State<CustomPopup> {
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
-                horizontal: AppPadding.p10,
+                horizontal: AppPadding.p15,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

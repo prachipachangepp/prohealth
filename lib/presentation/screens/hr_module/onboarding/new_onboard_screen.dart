@@ -112,6 +112,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                 .entries
                                 .map(
                                   (entry) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
                                 child: Container(
                                   height: AppSize.s30,
                                   width: MediaQuery.of(context).size.width / 8.42,
