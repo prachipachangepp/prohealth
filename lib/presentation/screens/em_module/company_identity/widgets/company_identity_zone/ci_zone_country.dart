@@ -229,7 +229,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                       return CIZoneAddPopup(
                                                         buttonTitle: AppStringEM.save,
                                                         onSavePressed: ()async{
-                                                          await updateCounty(context, county.countyId,
+                                                          var response = await updateCounty(context, county.countyId,
                                                               countyName == countynameController.text ? countyName.toString() : countynameController.text,
                                                               stateName.toString(),
                                                               countryName.toString(),
@@ -239,14 +239,17 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                             _contyController.add(data);
                                                           }).catchError((error){});
                                                           Navigator.pop(context);
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (BuildContext context) {
-                                                              return CountySuccessPopup(
-                                                                message: 'Edit Successfully',
-                                                              );
-                                                            },
-                                                          );
+                                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) {
+                                                                return AddSuccessPopup(
+                                                                  message: 'County Edited Successfully',
+                                                                );
+                                                              },
+                                                            );
+                                                          }
+
                                                         },
                                                         title: 'Edit County',
                                                         title1: 'County Name',

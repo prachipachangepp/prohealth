@@ -230,7 +230,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                     Text(
                       'Checking',
                       style: TextStyle(
-                          fontSize: AppSize.s10,
+                          fontSize: AppSize.s12,
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
                     ),
@@ -248,7 +248,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                     Text(
                       'Savings',
                       style: TextStyle(
-                          fontSize: AppSize.s11,
+                          fontSize: AppSize.s12,
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
                     ),
@@ -287,7 +287,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             Text(
               'Specific Amount:',
               style: TextStyle(
-                  fontSize: AppSize.s11,
+                  fontSize: AppSize.s12,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
@@ -487,7 +487,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                 width: 100,
                 text: "Save",
                 onPressed: () async {
-                   if (_formKey.currentState!.validate()) {
+                   //if (_formKey.currentState!.validate()) {
                     setState(() {
                       isLoading = true;
                     });
@@ -507,7 +507,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                       widget.selectedType = null;
                       _typeFieldKey.currentState?.reset();
                     }
-                   }
+                   //}
                 },
                 //         style: ElevatedButton.styleFrom(
                 // backgroundColor: Color(0xFF27A3E0),

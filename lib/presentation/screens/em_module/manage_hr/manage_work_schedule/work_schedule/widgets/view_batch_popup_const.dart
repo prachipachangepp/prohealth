@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_batch_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shimmer/shimmer.dart';
@@ -250,7 +251,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                 controller1: startTimeController,
                                                                                 controller2: endTimeController,
                                                                                 onPressed: () async{
-                                                                                  await updateShiftBatch(context,
+                                                                                 var response =  await updateShiftBatch(context,
                                                                                       widget.shiftName,widget.weekName,
                                                                                       startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
                                                                                       endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
@@ -263,6 +264,16 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                   startTimeController.clear();
                                                                                   endTimeController.clear();
                                                                                   Navigator.pop(context);
+                                                                                 if(response.statusCode == 200 || response.statusCode == 201){
+                                                                                   showDialog(
+                                                                                     context: context,
+                                                                                     builder: (BuildContext context) {
+                                                                                       return AddSuccessPopup(
+                                                                                         message: 'Batch Edited Successfully',
+                                                                                       );
+                                                                                     },
+                                                                                   );
+                                                                                 }
                                                                                 }, title: 'Edit Batches',
                                                                               );
                                                                             }

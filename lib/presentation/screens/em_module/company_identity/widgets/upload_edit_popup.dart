@@ -63,7 +63,10 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   DateTime? datePicked;
   bool loading = false;
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+        allowedExtensions: ['pdf']);
     if (result != null) {
       setState(() {
         fileIsPicked = true;

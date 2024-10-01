@@ -717,7 +717,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                         context: context,
                                                                         builder: (BuildContext context) {
                                                                           return AddSuccessPopup(
-                                                                            message: 'Added Successfully',
+                                                                            message: 'Edit Successfully',
                                                                           );
                                                                         },
                                                                       );

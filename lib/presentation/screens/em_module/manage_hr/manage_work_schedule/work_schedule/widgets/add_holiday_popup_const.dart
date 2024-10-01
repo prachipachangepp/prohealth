@@ -182,15 +182,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                     setState(() {
                       isLoading = false;
                     });
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Added Successfully',
-                        );
-                      },
-                    );
+
                     widget.calenderDateController.clear();
                     widget.controller.clear();
                   }

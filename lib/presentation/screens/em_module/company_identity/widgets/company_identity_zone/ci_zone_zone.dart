@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -277,7 +278,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                           'Edit Zone',
                                                                       onSavePressed:
                                                                           () async {
-                                                                        await updateZoneCountyData(
+                                                                       var response =  await updateZoneCountyData(
                                                                             context,
                                                                            zone.zoneId,
                                                                             zoneNumber ==
@@ -296,6 +297,17 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                         zoneNumberController
                                                                             .clear();
                                                                         countyId = 0;
+                                                                       Navigator.pop(context);
+                                                                       if(response.statusCode == 200 || response.statusCode == 201){
+                                                                         showDialog(
+                                                                           context: context,
+                                                                           builder: (BuildContext context) {
+                                                                             return AddSuccessPopup(
+                                                                               message: 'Zone Edited Successfully',
+                                                                             );
+                                                                           },
+                                                                         );
+                                                                       }
                                                                       },
                                                                       child: FutureBuilder<
                                                                           List<AllCountyGetList>>(

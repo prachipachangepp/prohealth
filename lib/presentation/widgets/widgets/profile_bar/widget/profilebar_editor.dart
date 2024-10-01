@@ -576,16 +576,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   // showDatePicker: true,
                                 ),
 
-                                FirstSMTextFConst(
+                                SMTextFConstPhone(
                                   controller: phoneNController,
                                   keyboardType: TextInputType.phone,
                                   text: AppString.phone_number,
+
                                   // showDatePicker: true,
                                 ),
-                                FirstSMTextFConst(
+                                SMTextFConstPhone(
                                   controller: workPhoneController,
                                   keyboardType: TextInputType.text,
                                   text:  AppStringMobile.worNo,
+
                                   // showDatePicker: true,
                                 ),
                               ],
@@ -595,14 +597,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                FirstSMTextFConst(
+                                SMTextFConst(
                                   controller: personalEmailController,
                                   keyboardType: TextInputType.text,
                                   text: AppStringMobile.perEmail,
                                   // showDatePicker: true,
                                 ),
 
-                                FirstSMTextFConst(
+                               SMTextFConst(
                                   controller: workEmailController,
                                   keyboardType: TextInputType.text,
                                   text: AppStringMobile.worEmail,

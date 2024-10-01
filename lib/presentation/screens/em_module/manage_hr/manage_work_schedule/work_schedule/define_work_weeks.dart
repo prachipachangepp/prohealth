@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_batch_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_shift_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -445,12 +446,23 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                   controller1: startTimeController,
                                                                                                   controller2: endTimeController,
                                                                                                   onPressed: () async{
-                                                                                                    await addShiftBatch(context, snapshotShift.data![index].shiftName,
+                                                                                                    var response = await addShiftBatch(context, snapshotShift.data![index].shiftName,
                                                                                                         snapshotShift
                                                                                                             .data![index].weekDays, startTimeController.text, endTimeController.text);
                                                                                                     setState((){
                                                                                                       shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
                                                                                                     });
+                                                                                                    Navigator.pop(context);
+                                                                                                    if(response.statusCode == 200 || response.statusCode == 201){
+                                                                                                      showDialog(
+                                                                                                        context: context,
+                                                                                                        builder: (BuildContext context) {
+                                                                                                          return AddSuccessPopup(
+                                                                                                            message: 'Batch Added Successfully',
+                                                                                                          );
+                                                                                                        },
+                                                                                                      );
+                                                                                                    }
                                                                                                     startTimeController.clear();
                                                                                                     endTimeController.clear();
                                                                                                     //Navigator.pop(context);
@@ -543,7 +555,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                           controller1: shiftStartTimeController,
                                                           controller2: shiftEndTimeController,
                                                           onPressed: () async{
-                                                            await addWorkWeekShiftPost(context,
+                                                            var response = await addWorkWeekShiftPost(context,
                                                                 data.weekDays,
                                                                 shiftnameController.text,
                                                                 shiftStartTimeController.text,
@@ -555,6 +567,18 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                             }).catchError((error) {
                                                               // Handle error
                                                             });
+                                                            Navigator.pop(context);
+                                                            if(response.statusCode == 200 || response.statusCode == 201){
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return AddSuccessPopup(
+                                                                    message: 'Shift Added Successfully',
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+
                                                           },
                                                           shiftNameController:
                                                           shiftnameController,
