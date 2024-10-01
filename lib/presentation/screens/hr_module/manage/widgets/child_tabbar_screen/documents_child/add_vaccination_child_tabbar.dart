@@ -72,7 +72,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                         builder: (context) {
                           return FutureBuilder<List<EmployeeDocSetupModal>>(
                               future: getEmployeeDocSetupDropDown(context,AppConfig.healthDocId),
-                              builder: (contex, snapshot) {
+                              builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
                                   return Center(
@@ -268,13 +268,13 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
 
                                             return FutureBuilder<EmployeeDocumentPrefillData>(
                                                 future: getPrefillEmployeeDocuments( context: context, empDocumentId: health.employeeDocumentId),
-                                                builder: (contex, snapshotPreFill) {
-                                                  if (snapshot.connectionState ==
+                                                builder: (context, snapshotPreFill) {
+                                                  if (snapshotPreFill.connectionState ==
                                                       ConnectionState.waiting) {
                                                     return Center(
                                                         child: CircularProgressIndicator());
                                                   }
-                                                  if (snapshot.hasData) {
+                                                  if (snapshotPreFill.hasData) {
                                                     return CustomDocumedEditPopup(
                                                       labelName: 'Edit Health Record',
                                                       employeeId: widget.employeeId,
@@ -297,17 +297,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                                         text: snapshot.error.toString());
                                                   }
                                                 });
-                                            // return CustomDocumedAddPopup(
-                                            //   // idController: compensitionAddIdController,
-                                            //   // nameController: compensitionAddNameController,
-                                            //   // expiryType: compensationExpiryType,
-                                            //   labelName: 'Edit Health Record',
-                                            //   AcknowledgementnameController:
-                                            //   nameIdController, onSavePressed: () {  },
-                                            //   employeeId: widget.employeeId,
-                                            //   documentMetaId: 1,
-                                            //   documentSetupId: 10,
-                                            // );
+
                                           });
                                     },
                                     icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),

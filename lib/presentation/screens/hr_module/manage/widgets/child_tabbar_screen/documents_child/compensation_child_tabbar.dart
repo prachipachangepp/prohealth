@@ -340,23 +340,24 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                               return FutureBuilder<EmployeeDocumentPrefillData>(
                                          future: getPrefillEmployeeDocuments( context: context, empDocumentId: compaensation.employeeDocumentId),
                                                   builder: (contex, snapshotPreFill) {
-                                                    if (snapshot.connectionState ==
+                                                    if (snapshotPreFill.connectionState ==
                                                         ConnectionState.waiting) {
                                                       return Center(
                                                           child: CircularProgressIndicator());
                                                     }
-                                                    if (snapshot.hasData) {
+                                                    if (snapshotPreFill.hasData) {
 
                                                       return CustomDocumedEditPopup(
-                                                        labelName: 'Edit Compensation', employeeId: widget.employeeId, docName: compaensation.DocumentName,
-                                                        docMetaDataId: compaensation.EmployeeDocumentTypeMetaDataId, docSetupId: compaensation.EmployeeDocumentTypeSetupId, empDocumentId: compaensation.employeeDocumentId,
-                                                        selectedExpiryType: compaensation.ReminderThreshold, url: compaensation.DocumentUrl,expiryDate: snapshotPreFill.data!.expiry,
+                                                        labelName: 'Edit Compensation',
+                                                        employeeId: widget.employeeId,
+                                                        docName: compaensation.DocumentName,
+                                                        docMetaDataId: compaensation.EmployeeDocumentTypeMetaDataId,
+                                                        docSetupId: compaensation.EmployeeDocumentTypeSetupId,
+                                                        empDocumentId: compaensation.employeeDocumentId,
+                                                        selectedExpiryType: compaensation.ReminderThreshold,
+                                                        url: compaensation.DocumentUrl,
+                                                        expiryDate: snapshotPreFill.data!.expiry,
                                                       );
-
-
-                                                      // return CustomDocumedAddPopup(
-                                                      //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
-                                                      // );
                                                     } else {
                                                       return ErrorPopUp(
                                                           title: "Received Error",

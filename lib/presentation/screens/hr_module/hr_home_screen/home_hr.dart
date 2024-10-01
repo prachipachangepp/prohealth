@@ -495,7 +495,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   //     .toList();
                                                   return Container(
                                                     height: 31,
-                                                    width: 150,
+                                                    width: 170,
                                                     // margin: EdgeInsets.symmetric(horizontal: 20),
                                                     padding:
                                                     const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
@@ -544,8 +544,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                             children: [
                                               Center(
                                                 child:  PatientCustomDropDown(
-                                                  width: 96,
-                                                  height: 27,
+                                                  height: 31,
+                                                  width: 170,
                                                   items: ['Full-Time', 'Part-Time'],
                                                   labelText: 'Availability',
                                                   value: 'Full-Time',
@@ -636,7 +636,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                 print("Zone: ");
                                                 return Container(
                                                   height: 31,
-                                                  width: 150,
+                                                  width: 170,
                                                   // margin: EdgeInsets.symmetric(horizontal: 20),
                                                   padding:
                                                   const EdgeInsets.symmetric(vertical: 6, horizontal: 15),

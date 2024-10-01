@@ -289,13 +289,13 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                           builder: (BuildContext context) {
                                             return FutureBuilder<EmployeeDocumentPrefillData>(
                                                 future: getPrefillEmployeeDocuments( context: context, empDocumentId: others.employeeDocumentId),
-                                                builder: (contex, snapshotPreFill) {
-                                                  if (snapshot.connectionState ==
+                                                builder: (context, snapshotPreFill) {
+                                                  if (snapshotPreFill.connectionState ==
                                                       ConnectionState.waiting) {
                                                     return Center(
                                                         child: CircularProgressIndicator());
                                                   }
-                                                  if (snapshot.hasData) {
+                                                  if (snapshotPreFill.hasData) {
                                                     return CustomDocumedEditPopup(
                                                       labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
                                                       docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,

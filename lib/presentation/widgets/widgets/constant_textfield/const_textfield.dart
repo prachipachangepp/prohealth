@@ -880,7 +880,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 170,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
