@@ -178,7 +178,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s800,
-      height: AppSize.s610,
+      height: AppSize.s620,
       title: 'Add New Office',
       body: [
         Column(
@@ -201,7 +201,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_nameDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 0),
                             child: Text(
                               _nameDocError!,
                               style: CommonErrorMsg.customTextStyle(context),
@@ -215,7 +215,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_emailDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 2),
+                            padding: const EdgeInsets.only(top: 0),
                             child: Text(
                               _emailDocError!,
                               style: CommonErrorMsg.customTextStyle(context),
@@ -229,7 +229,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_countryDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 0),
                             child: Text(
                               _countryDocError!,
                               style:CommonErrorMsg.customTextStyle(context),
@@ -243,7 +243,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_sphoneDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 0),
                             child: Text(
                               _sphoneDocError!,
                               style: CommonErrorMsg.customTextStyle(context),
@@ -321,7 +321,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_addressDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 0),
                             child: Text(
                               _addressDocError!,
                               style: TextStyle(
@@ -339,7 +339,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_stateDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 0.5),
                             child: Text(
                               _stateDocError!,
                               style: CommonErrorMsg.customTextStyle(context),
@@ -353,7 +353,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ),
                         if (_pPhoneDocError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 0.5),
                             child: Text(
                               _pPhoneDocError!,
                               style:CommonErrorMsg.customTextStyle(context),

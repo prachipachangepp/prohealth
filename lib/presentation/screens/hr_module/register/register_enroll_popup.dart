@@ -511,7 +511,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           height: 25,
                           width: 25,
                           child: CircularProgressIndicator(color: ColorManager.blueprime,))
-                          :  Container(
+                          :  Container(width:100,
                             child: CustomIconButton(
                                                     text: AppString.next,
                                                     onPressed: () async{
