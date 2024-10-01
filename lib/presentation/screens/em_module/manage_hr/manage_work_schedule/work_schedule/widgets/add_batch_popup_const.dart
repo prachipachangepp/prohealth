@@ -187,7 +187,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     : CustomElevatedButton(
                     width: AppSize.s120,
                     height: AppSize.s30,
-                    text: "Add Batches",
+                    text: " Save ",
                     onPressed: () {
                       setState(() {
                         isLoading = true;
