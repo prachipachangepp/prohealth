@@ -100,7 +100,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
                 onTap: () => _selectDate(context),
                 child: Icon(Icons.calendar_month_outlined),
               )
-                  : widget.suffixIcon,
+                  : widget.icon,
               prefix: widget.prefixWidget,
               prefixIcon: widget.icon,
               prefixStyle: AllHRTableData.customTextStyle(context),

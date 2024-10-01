@@ -86,108 +86,108 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 Expanded(
                   flex: 2,
                   child:  _selectedIndex == 0
-                    ? SizedBox(width: 285)
-                    : FutureBuilder<List<ManageVendorData>>(
-                  future: companyVendorGet(context, widget.officeId, 1, 20),
-                  builder: (context, snapshotZone) {
-                    if (snapshotZone.connectionState == ConnectionState.waiting &&
-                        selectedValue == null) {
-                      return Container(
-                        width:  285,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(width: AppSize.s8),
-                            Expanded(
-                              child: Text(
-                                "Select",
-                                style: TableSubHeading.customTextStyle(context),
+                      ? SizedBox(width: 285)
+                      : FutureBuilder<List<ManageVendorData>>(
+                    future: companyVendorGet(context, widget.officeId, 1, 20),
+                    builder: (context, snapshotZone) {
+                      if (snapshotZone.connectionState == ConnectionState.waiting &&
+                          selectedValue == null) {
+                        return Container(
+                          width:  285,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: AppSize.s8),
+                              Expanded(
+                                child: Text(
+                                  "Select",
+                                  style: TableSubHeading.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Icon(Icons.arrow_drop_down),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-
-                    if (snapshotZone.hasError || snapshotZone.data == null) {
-                      return Container(
-                        width:  285,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          // color: Colors.red,
-                          border: Border.all(
-                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(width: AppSize.s8),
-                            Expanded(
-                              child: Text(
-                                "Select",
-                                style: TableSubHeading.customTextStyle(context),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Icon(Icons.arrow_drop_down),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Icon(Icons.arrow_drop_down),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                    if (snapshotZone.data!.isEmpty) {
-                      return CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
-                    }
-                    if (snapshotZone.hasData) {
-                      List<DropdownMenuItem<String>> dropDownTypesList = [];
-                      for (var i in snapshotZone.data!) {
-                        dropDownTypesList.add(
-                          DropdownMenuItem<String>(
-                            value: i.vendorName,
-                            child: Text(i.vendorName),
+                            ],
                           ),
                         );
                       }
 
-                      if (selectedValue == null && dropDownTypesList.isNotEmpty) {
-                        selectedValue = dropDownTypesList[0].value;
+                      if (snapshotZone.hasError || snapshotZone.data == null) {
+                        return Container(
+                          width:  285,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            // color: Colors.red,
+                            border: Border.all(
+                                color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: AppSize.s8),
+                              Expanded(
+                                child: Text(
+                                  "Select",
+                                  style: TableSubHeading.customTextStyle(context),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Icon(Icons.arrow_drop_down),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      if (snapshotZone.data!.isEmpty) {
+                        return CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
+                      }
+                      if (snapshotZone.hasData) {
+                        List<DropdownMenuItem<String>> dropDownTypesList = [];
+                        for (var i in snapshotZone.data!) {
+                          dropDownTypesList.add(
+                            DropdownMenuItem<String>(
+                              value: i.vendorName,
+                              child: Text(i.vendorName),
+                            ),
+                          );
+                        }
+
+                        if (selectedValue == null && dropDownTypesList.isNotEmpty) {
+                          selectedValue = dropDownTypesList[0].value;
+                        }
+
+                        return CICCDropdown(
+                          width: 285,
+                          initialValue: "Select",
+                          onChange: (val) {
+                            setState(() {
+                              selectedValue = val;
+                              for (var a in snapshotZone.data!) {
+                                if (a.vendorName == val) {
+                                  int docType = a.insuranceVendorId;
+                                  print("Insurance vendor id :: ${a.insuranceVendorId}");
+                                  selectedVendorId = docType;
+                                  isAddButtonEnabled = true;
+                                  _selectButton(1);
+                                  break;
+                                }
+                              }
+                            });
+                          },
+                          items: dropDownTypesList,
+                        );
                       }
 
-                      return CICCDropdown(
-                        width: 285,
-                        initialValue: "Select",
-                        onChange: (val) {
-                          setState(() {
-                            selectedValue = val;
-                            for (var a in snapshotZone.data!) {
-                              if (a.vendorName == val) {
-                                int docType = a.insuranceVendorId;
-                                print("Insurance vendor id :: ${a.insuranceVendorId}");
-                                selectedVendorId = docType;
-                                isAddButtonEnabled = true;
-                                _selectButton(1);
-                                break;
-                              }
-                            }
-                          });
-                        },
-                        items: dropDownTypesList,
-                      );
-                    }
-
-                    return const SizedBox();
-                  },
-                ),),
+                      return const SizedBox();
+                    },
+                  ),),
 
                 ///tabbar
                 Expanded(
@@ -195,7 +195,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                   child: Padding(
                     padding: const EdgeInsets.only(right:150, top: AppPadding.p10),
                     child: Container(
-                    // color: Colors.red,
+                      // color: Colors.red,
                       width: MediaQuery.of(context).size.width / 9.8,
                       height: 40,
                       child: Row(
@@ -209,14 +209,14 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                               child: Column(
                                 children: [
                                   Text(
-                                    "Vendor",
+                                      "Vendor",
                                       style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
                                   ),
                                   _selectedIndex == 0
                                       ? Divider(
-                                          color: ColorManager.blueprime,
-                                          thickness: 2,
-                                        )
+                                    color: ColorManager.blueprime,
+                                    thickness: 2,
+                                  )
                                       : Offstage()
                                 ],
                               ),
@@ -230,14 +230,14 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                               child: Column(
                                 children: [
                                   Text(
-                                    "Contract",
+                                      "Contract",
                                       style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
                                   ),
                                   _selectedIndex == 1
                                       ? Divider(
-                                          color: ColorManager.blueprime,
-                                          thickness: 2,
-                                        )
+                                    color: ColorManager.blueprime,
+                                    thickness: 2,
+                                  )
                                       : Offstage()
                                 ],
                               ),
@@ -251,96 +251,96 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                 ///buttons
                 Expanded(
-                  flex: 1,
+                    flex: 1,
                     child: _selectedIndex == 0
-                    ? Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
-                      // width: 79,
-                      icon: Icons.add,
-                      text: "Add",
-                      onPressed: () async {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomPopup(
-                              title: 'Add Vendor',
-                              namecontroller: vendorNameController,
-                              onPressed: () async {
-                                var response = await addVendors(
-                                  context,
-                                  widget.officeId,
-                                  vendorNameController.text,
+                        ? Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: CustomIconButton(
+                        // width: 79,
+                          icon: Icons.add,
+                          text: "Add",
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CustomPopup(
+                                  title: 'Add Vendor',
+                                  namecontroller: vendorNameController,
+                                  onPressed: () async {
+                                    var response = await addVendors(
+                                      context,
+                                      widget.officeId,
+                                      vendorNameController.text,
+                                    );
+                                    if(response.statusCode == 200 || response.statusCode == 201){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddSuccessPopup(message:'Added Successfully');
+                                        },
+                                      );
+                                    }
+                                    vendorNameController.clear();
+                                  },
+                                  buttontxt: AppStringEM.Add,
+                                  successpopuptext: 'Added Successfully',
                                 );
-                                if(response.statusCode == 200 || response.statusCode == 201){
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddSuccessPopup(message:'Added Successfully');
-                                    },
-                                  );
-                                }
-                                vendorNameController.clear();
                               },
-                              buttontxt: AppStringEM.Add,
-                              successpopuptext: 'Added Successfully',
                             );
-                          },
-                        );
-                      }),
-                )
-                    : Padding(
-                  padding: const EdgeInsets.only(right: 5),
-                  child: CustomIconButtonConst(
-                    // width: 180,
-                    icon: Icons.add,
-                    text: "Add Doctype",
-                    onPressed:
-                    isAddButtonEnabled
-                        ? () {
-                      //selectedExpiryType = expiryType;
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return ContractAddDialog(
-                                selectedVendorId :selectedVendorId,
-                                officeid:widget.officeId,
+                          }),
+                    )
+                        : Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: CustomIconButtonConst(
+                        // width: 180,
+                        icon: Icons.add,
+                        text: "Add Doctype",
+                        onPressed:
+                        isAddButtonEnabled
+                            ? () {
+                          //selectedExpiryType = expiryType;
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return ContractAddDialog(
+                                    selectedVendorId :selectedVendorId,
+                                    officeid:widget.officeId,
 
 
 
-                                // onSubmitPressed: () async {
-                                //   //if (selectedVendorId == 0) {
-                                //   await addVendorContract(
-                                //     context,
-                                //     selectedVendorId,
-                                //     contractNameController.text,
-                                //     selectedExpiryType!,
-                                //     widget.officeId,
-                                //     contractIdController.text,
-                                //     calenderController.text
-                                //   );
-                                // },
+                                    // onSubmitPressed: () async {
+                                    //   //if (selectedVendorId == 0) {
+                                    //   await addVendorContract(
+                                    //     context,
+                                    //     selectedVendorId,
+                                    //     contractNameController.text,
+                                    //     selectedExpiryType!,
+                                    //     widget.officeId,
+                                    //     contractIdController.text,
+                                    //     calenderController.text
+                                    //   );
+                                    // },
 
-                                title: 'Add Contract',
+                                    title: 'Add Contract',
+                                  );
+                                },
                               );
                             },
                           );
+                        }
+                            : () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VendorSelectNoti(message: "No Vendor Added.",);
+                            },
+                          );
                         },
-                      );
-                    }
-                        : () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return VendorSelectNoti(message: "No Vendor Added.",);
-                        },
-                      );
-                    },
-                    enabled: isAddButtonEnabled,
-                  ),
-                ) )
+                        enabled: isAddButtonEnabled,
+                      ),
+                    ) )
 
               ],
             ),

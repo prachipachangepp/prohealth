@@ -111,9 +111,10 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
           StreamBuilder<List<AllCountyGet>>(
             stream: _contyController.stream,
             builder: (context, snapshot) {
-              getZoneBYcompOffice(context, widget.officeId,1, 20).then((data){
+              getZoneBYcompOffice(context, widget.officeId, 1, 50).then((data) {
+                data.sort((a, b) => b.countyId.compareTo(a.countyId)); // Assuming countyId for sorting
                 _contyController.add(data);
-              }).catchError((error){});
+              }).catchError((error) {});
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
