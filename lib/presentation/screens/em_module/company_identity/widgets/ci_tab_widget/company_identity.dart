@@ -340,8 +340,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                   right:0,
                                                   top:0,
                                                   child: Container(
-                                                      height:20,
-                                                      width:80,
+                                                      height:22,
+                                                      width:100,
                                                       decoration: BoxDecoration(color: ColorManager.faintOrange,
                                                           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight:Radius.circular(4))),
                                                       child:Center(

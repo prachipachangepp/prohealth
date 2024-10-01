@@ -602,7 +602,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SMTextFConst(
+                            FirstSMTextFConst(
                               controller: nameController,
                               keyboardType: TextInputType.text,
                               text: AppStringEM.officename,
@@ -614,7 +614,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               text: AppStringEM.secNum,
                             ),
                             const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
+                            FirstSMTextFConst(
                               controller: stateNameController,
                               keyboardType: TextInputType.text,
                               text: AppStringEM.stateName,
@@ -659,7 +659,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               text: AppStringEM.primarymail,
                             ),
                             const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
+                            FirstSMTextFConst(
                               controller: countryNameController,
                               keyboardType: TextInputType.text,
                               text: AppStringEM.countryName,

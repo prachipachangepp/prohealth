@@ -108,7 +108,12 @@ class CustomTextFieldForEmail extends StatelessWidget {
               labelStyle:onlyFormDataStyle.customTextStyle(context),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
-              contentPadding: padding
+             // contentPadding: padding
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3,
+                top: AppPadding.p4,
+                left: AppPadding.p12
+            ),
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
@@ -198,6 +203,11 @@ class CustomTextFieldRegisterPhone extends StatelessWidget {
           cursorColor: Colors.black,
           cursorWidth: 1.5,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3,
+                top: AppPadding.p4,
+                left: AppPadding.p12
+            ),
             hintText: hintText,
             hintStyle: hintStyle,
             prefixText: prefixText,
@@ -224,7 +234,7 @@ class CustomTextFieldRegisterPhone extends StatelessWidget {
             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
-            contentPadding: padding,
+            //contentPadding: padding,
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
@@ -360,6 +370,11 @@ class CustomTextFieldRegister extends StatelessWidget {
           cursorColor: Colors.black,
           cursorWidth: 1.5,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3,
+                top: AppPadding.p4,
+                left: AppPadding.p12
+            ),
             hintText: hintText,
             hintStyle: hintStyle,
             prefixText: prefixText,
@@ -386,7 +401,7 @@ class CustomTextFieldRegister extends StatelessWidget {
             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
-            contentPadding: padding,
+            //contentPadding: padding,
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
