@@ -125,11 +125,11 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
         ),
 
         /// upload  doc
-        InkWell(
-          onTap: _pickFile,
-          child: HeaderContentConst(
-              heading: AppString.upload_document,
-              content: Container(
+        HeaderContentConst(
+            heading: AppString.upload_document,
+            content: InkWell(
+              onTap: _pickFile,
+              child: Container(
                 height: AppSize.s30,
                 width: AppSize.s354,
                 padding: EdgeInsets.only(left: AppPadding.p15),
@@ -175,8 +175,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     );
                   },
                 ),
-              )),
-        ),
+              ),
+            )),
         Visibility(
           visible: showExpiryDateField,
 
