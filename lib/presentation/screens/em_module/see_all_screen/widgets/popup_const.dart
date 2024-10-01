@@ -413,9 +413,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
             onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
           ),
         ),
-        inputFormatters: [
-          CapitalizeFirstLetterFormatter(),
-        ],
+
       ),
     );
   }
