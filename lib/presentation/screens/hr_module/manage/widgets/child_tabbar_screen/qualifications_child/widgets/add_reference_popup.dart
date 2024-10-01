@@ -241,17 +241,25 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               } else {
                 errorStates[errorKey] = value.isEmpty;
               }
-              // if (errorKey == 'mobileNumber') {
-              //   errorStates[errorKey] = value.length != 10;
-              // }
+              if (errorKey == 'mobileNumber') {
+                // Validate phone number fields
+                String numericValue = value.replaceAll(RegExp(r'^\(\d{3}\) \d{3}-\d{4}$'), '');
+                errorStates[errorKey] = numericValue.length != 10;
+              }
             });
           },
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'Please fill this field';
-          //   }
-          //   return null;
-          // },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please Enter $labelText';
+            }
+            if (errorKey == 'mobileNumber') {
+              String numericValue = value.replaceAll(RegExp(r'^\(\d{3}\) \d{3}-\d{4}$'), '');
+              if (numericValue.length != 10) {
+                return 'Please enter a valid mobile number';
+              }
+            }
+            return null;
+          },
         ),
         if (errorStates[errorKey]!)
           Padding(
@@ -280,7 +288,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       errorStates['knowPerson'] = widget.knowPersonController.text.isEmpty;
       errorStates['companyName'] = widget.companyNameController.text.isEmpty;
       errorStates['associationLength'] = widget.associationLengthController.text.isEmpty;
-      //errorStates['mobileNumber'] = widget.mobileNumberController.text.length != 10;
+      errorStates['mobileNumber'] = widget.mobileNumberController.text.isEmpty;
       // errorStates['referredBy'] = widget.referredBy.text.isEmpty;
     });
 
