@@ -25,6 +25,7 @@ import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../add_employee/widget/mcq_widget_add-employee.dart';
+import '../manage/widgets/custom_icon_button_constant.dart';
 
 class RegisterEnrollPopup extends StatefulWidget {
   final TextEditingController firstName;
@@ -196,7 +197,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  500,
+          height:  515,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -518,67 +519,69 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           height: 25,
                           width: 25,
                           child: CircularProgressIndicator(color: ColorManager.blueprime,))
-                          :  CustomIconButtonConst(
-                        text: AppString.next,
-                        onPressed: () async{
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          await _generateUrlLink(widget.email.text, widget.userId.toString());
-                          ApiData result = await addEmpEnroll(
-                            context: context,
-                            employeeId: widget.employeeId,
-                            code: "",
-                            userId:  widget.userId,
-                            firstName: widget.firstName.text,
-                            lastName: widget.lastName.text,
-                            phoneNbr: phone.text,
-                            email:  widget.email.text,
-                            link: generatedURL,
-                            status: widget.status,
-                            departmentId: clinicalId,
-                            position: position.text,
-                            speciality: speciality.text,
-                            clinicianTypeId: 1,
-                            reportingOfficeId: reportingOfficeId,
-                            cityId: cityId,
-                            countryId: countryId,
-                            countyId: countyId,
-                            zoneId: zoneId,
-                            employment: "Full Time",
-                            service: "Home Health",
-                          );
-                          setState(() {
-                            _isLoading = false;
-                          });
-                          if (result.success) {
-                            Navigator.pop(context);
-                            Navigator.push(
-                                context, MaterialPageRoute(builder: (context) =>
-                                OfferLetterScreen(
-                                  apiData: result,
-                                  employeeId: widget.employeeId,
-                                  email: widget.email.text,
-                                  userId: widget.userId,
-                                  status: widget.status,
-                                  firstName: widget.firstName.text,
-                                  lastName: widget.lastName.text,
-                                  role: widget.role,
-                                  position: position.text,
-                                  phone: phone.text,
-                                  reportingOffice: reportingOfficeId,
-                                  services: serviceVal,
-                                  employement: 'Full Time',
-                                  clinicalName: clinicialName,
-                                  soecalityName: specialityName,
-                                )));
-                          }else {
-                            print('Error');
-                          }
-                          print("${widget.employeeId}");
+                          :  Container(
+                            child: CustomIconButton(
+                                                    text: AppString.next,
+                                                    onPressed: () async{
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            await _generateUrlLink(widget.email.text, widget.userId.toString());
+                            ApiData result = await addEmpEnroll(
+                              context: context,
+                              employeeId: widget.employeeId,
+                              code: "",
+                              userId:  widget.userId,
+                              firstName: widget.firstName.text,
+                              lastName: widget.lastName.text,
+                              phoneNbr: phone.text,
+                              email:  widget.email.text,
+                              link: generatedURL,
+                              status: widget.status,
+                              departmentId: clinicalId,
+                              position: position.text,
+                              speciality: speciality.text,
+                              clinicianTypeId: 1,
+                              reportingOfficeId: reportingOfficeId,
+                              cityId: cityId,
+                              countryId: countryId,
+                              countyId: countyId,
+                              zoneId: zoneId,
+                              employment: "Full Time",
+                              service: "Home Health",
+                            );
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            if (result.success) {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) =>
+                                  OfferLetterScreen(
+                                    apiData: result,
+                                    employeeId: widget.employeeId,
+                                    email: widget.email.text,
+                                    userId: widget.userId,
+                                    status: widget.status,
+                                    firstName: widget.firstName.text,
+                                    lastName: widget.lastName.text,
+                                    role: widget.role,
+                                    position: position.text,
+                                    phone: phone.text,
+                                    reportingOffice: reportingOfficeId,
+                                    services: serviceVal,
+                                    employement: 'Full Time',
+                                    clinicalName: clinicialName,
+                                    soecalityName: specialityName,
+                                  )));
+                            }else {
+                              print('Error');
+                            }
+                            print("${widget.employeeId}");
 
-                        },
-                      ),
+                                                    },
+                                                  ),
+                          ),
                     ],
                   );
                 },

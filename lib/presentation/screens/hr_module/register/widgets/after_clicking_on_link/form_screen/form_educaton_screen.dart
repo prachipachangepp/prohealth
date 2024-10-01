@@ -336,7 +336,7 @@ class _EducationFormState extends State<EducationForm> {
                         children: [
                           Text(
                             'College/University',
-                            style:onlyFormDataStyle.customTextStyle(context),
+                            style:AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
@@ -348,7 +348,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'Graduate',
-                            style: onlyFormDataStyle.customTextStyle(context),
+                            style: AllPopupHeadings.customTextStyle(context),
                           ),
                           StatefulBuilder(
                             builder: (BuildContext context, void Function(void Function()) setState) {
@@ -384,7 +384,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'Degree',
-                            style:onlyFormDataStyle.customTextStyle(context),
+                            style:AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           Container(
@@ -394,7 +394,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'Major Subject',
-                            style: onlyFormDataStyle.customTextStyle(context),
+                            style: AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
@@ -413,10 +413,10 @@ class _EducationFormState extends State<EducationForm> {
                         children: [
                           Text(
                             'Phone ',
-                            style: onlyFormDataStyle.customTextStyle(context),
+                            style: AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          CustomTextFieldRegister(
+                          CustomTextFieldRegisterPhone(
                             controller: phone,
                             hintText: 'Enter Phone Number',
                             hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -425,7 +425,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 30),
                           Text(
                             'City',
-                            style: onlyFormDataStyle.customTextStyle(context),
+                            style: AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
@@ -437,7 +437,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 45),
                           Text(
                             'State',
-                            style:onlyFormDataStyle.customTextStyle(context),
+                            style:AllPopupHeadings.customTextStyle(context),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(

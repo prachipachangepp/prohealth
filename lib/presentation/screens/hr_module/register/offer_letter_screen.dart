@@ -458,10 +458,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   children: [
                                                     dropdownValue == 'Salaried' ?  Text(
                                                       'Salary',
-                                                      style:DefineWorkWeekStyle.customTextStyle(context),
+                                                      style:AllPopupHeadings.customTextStyle(context),
                                                     ) : Text(
                                                       'Per Visit',
-                                                      style: DefineWorkWeekStyle.customTextStyle(context),
+                                                      style: AllPopupHeadings.customTextStyle(context),
                                                     ),
                                                     SizedBox(
                                                       height: MediaQuery.of(context)
@@ -878,7 +878,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     children: [
                       Text(
                         'County',
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: AllPopupHeadings.customTextStyle(context),
                       ),
                       SizedBox(height: 5),
                       FutureBuilder<List<AllCountyGetList>>(
@@ -982,7 +982,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Zone',style: DocumentTypeDataStyle.customTextStyle(context),),
+                      Text('Zone',style: AllPopupHeadings.customTextStyle(context),),
                       SizedBox(height:5),
 
                       StreamBuilder<
@@ -1121,7 +1121,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       children: [
                         Text(
                           'Zip Codes',
-                          style: DocumentTypeDataStyle.customTextStyle(context),
+                          style: AllPopupHeadings.customTextStyle(context),
                         ),
                       ],
                     ),

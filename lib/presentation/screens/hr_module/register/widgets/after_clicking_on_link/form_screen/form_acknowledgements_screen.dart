@@ -201,11 +201,14 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'List Of Documents',
-              style: DefineWorkWeekStyle.customTextStyle(context),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'List Of Documents',
+                style: DefineWorkWeekStyle.customTextStyle(context),
+              ),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 10),

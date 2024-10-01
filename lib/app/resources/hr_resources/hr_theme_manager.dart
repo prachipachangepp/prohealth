@@ -18,7 +18,7 @@ class FormHeading{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       color: ColorManager.blueprime,
-      fontSize: FontSize.s16,
+      fontSize: FontSize.s18,
       fontWeight: FontWeight.w700,
       decoration: TextDecoration.none,
     );
@@ -42,8 +42,8 @@ class formNameText {
 class onlyFormDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: FontSize.s13,
+      fontWeight: FontWeight.w600,
+      fontSize: FontSize.s12,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
@@ -57,7 +57,7 @@ class onlyFormINineDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
-      fontSize: 11,
+      fontSize: 13,
       color: Color(0xFF605F5F).withOpacity(0.50),
       decoration: TextDecoration.none,
     );

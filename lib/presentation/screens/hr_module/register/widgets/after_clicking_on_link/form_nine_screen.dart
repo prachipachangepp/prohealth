@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../manage/widgets/custom_icon_button_constant.dart';
@@ -62,11 +63,11 @@ class _FormNineScreenState extends State<FormNineScreen> {
         if (label.isNotEmpty)
           Text(
             label,
-            style: onlyFormDataStyle.customTextStyle(context)
+            style:  AllPopupHeadings.customTextStyle(context),
           ),
         SizedBox(height: 7),
         CustomTextFieldRegister(
-          height: AppSize.s30,
+          height: AppSize.s31,
           width: width ?? MediaQuery.of(context).size.width / 2.8,
           controller: controller,
           hintText: hintText,
@@ -84,6 +85,85 @@ class _FormNineScreenState extends State<FormNineScreen> {
       ],
     );
   }
+
+
+  ///email field
+  Widget _buildLabeledTextFieldEmail(String label, TextEditingController controller,
+      String hintText, TextInputType keyboardType,
+      {bool isRequired = true, Widget? suffixIcon,double? width,}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label.isNotEmpty)
+          Text(
+            label,
+            style:  AllPopupHeadings.customTextStyle(context),
+          ),
+        SizedBox(height: 7),
+        CustomTextFieldForEmail(
+          height: AppSize.s31,
+          width: width ?? MediaQuery.of(context).size.width / 2.8,
+          controller: controller,
+          hintText: hintText,
+          keyboardType: keyboardType,
+          padding: EdgeInsets.only(left: 10, bottom: AppPadding.p10),
+          onChanged: (value) {},
+          validator: (value) {
+            if (isRequired && (value == null || value.isEmpty)) {
+              return AppString.enterText;
+            }
+            return null;
+          },
+          suffixIcon: suffixIcon,
+        ),
+      ],
+    );
+  }
+
+  ///
+
+
+  ///phone number textfield
+  Widget _buildLabeledTextFieldPhone(String label, TextEditingController controller,
+      String hintText, TextInputType keyboardType,
+      {bool isRequired = true, Widget? suffixIcon,double? width,}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label.isNotEmpty)
+          Text(
+            label,
+            style:  AllPopupHeadings.customTextStyle(context),
+          ),
+        SizedBox(height: 7),
+        CustomTextFieldRegisterPhone(
+          height: AppSize.s31,
+          width: width ?? MediaQuery.of(context).size.width / 2.8,
+          controller: controller,
+          hintText: hintText,
+          keyboardType: keyboardType,
+          padding: EdgeInsets.only(left: 10, bottom: AppPadding.p10),
+          onChanged: (value) {},
+          validator: (value) {
+            if (isRequired && (value == null || value.isEmpty)) {
+              return AppString.enterText;
+            }
+            return null;
+          },
+          suffixIcon: suffixIcon,
+
+        ),
+      ],
+    );
+  }
+
+  ///
+
+
+
+
+
+
 
   Widget _buildCheckboxItem(String text, int index) {
     return Row(
@@ -166,7 +246,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
                 SizedBox(width: 100),
                 Expanded(
-                  child: _buildLabeledTextField(
+                  child: _buildLabeledTextFieldEmail(
                       "Employee's Email",
                       email,
                       "Enter Email",
@@ -187,7 +267,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
                 SizedBox(width: 100),
                 Expanded(
-                  child: _buildLabeledTextField(
+                  child: _buildLabeledTextFieldPhone(
                       "Employee's Phone Number",
                       phoneNumber,
                       "Enter Phone Number",
@@ -261,6 +341,12 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   "dd-mm-yyyy",
                   TextInputType.datetime,
                   suffixIcon: IconButton(
+                    splashColor:
+                    Colors.transparent,
+                    highlightColor:
+                    Colors.transparent,
+                    hoverColor:
+                    Colors.transparent,
                     icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
                     onPressed: () async {
                       DateTime? pickedDate = await showDatePicker(
@@ -281,7 +367,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             SizedBox(height: 20),
             Text(
               'I attest, under penalty of perjury, that I am (Check one of the following boxes.):',
-              style: onlyFormDataStyle.customTextStyle(context),
+              style:  DefineWorkWeekStyle.customTextStyle(context),
             ),
             _buildCheckboxItem('A citizen of the United States', 0),
             _buildCheckboxItem('A noncitizen national of the United States', 1),
@@ -349,7 +435,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             SizedBox(height: 20),
             Text(
               'Aliens authorized to work must provide only one of the following document numbers to complete Form I-9:',
-              style: onlyFormDataStyle.customTextStyle(context)
+              style:  DefineWorkWeekStyle.customTextStyle(context),
             ),
             SizedBox(height: 20),
             Row(

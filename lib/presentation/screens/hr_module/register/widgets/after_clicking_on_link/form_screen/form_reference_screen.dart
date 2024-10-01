@@ -268,7 +268,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                 children: [
                                   Text(
                                     AppString.name,
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -286,7 +286,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.title_position,
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -304,7 +304,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.company_organization,
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -322,13 +322,13 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.mobile_number,
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
                                               60),
-                                  CustomTextFieldRegister(
+                                  CustomTextFieldRegisterPhone(
                                     controller: mobilenumber,
                                     hintText: 'Enter Text',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
@@ -345,7 +345,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                 children: [
                                   Text(
                                     AppString.email,
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -363,7 +363,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.how_do_you_know_this_person,
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -381,7 +381,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               40),
                                   Text(
                                     AppString.length_of_association,
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:

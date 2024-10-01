@@ -290,7 +290,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Legal First Name',
-                              style: onlyFormDataStyle.customTextStyle(context)
+                              style: AllPopupHeadings.customTextStyle(context)
                             ),
                             SizedBox(
                                 height:
@@ -312,7 +312,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Legal Last Name',
-                              style:  onlyFormDataStyle.customTextStyle(context),
+                              style:  AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -334,7 +334,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Social Security Number',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -374,12 +374,12 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Personal Mobile Number',
-                              style:  onlyFormDataStyle.customTextStyle(context),
+                              style:  AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
+                            CustomTextFieldRegisterPhone(
                               controller: phonenumber,
                               keyboardType: TextInputType.name,
                               hintText: 'Enter Text',
@@ -397,12 +397,12 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Personal Email',
-                              style:  onlyFormDataStyle.customTextStyle(context),
+                              style:  AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
+                            CustomTextFieldForEmail(
                               controller: personalemail,
                               hintText: 'Enter Text',
                               hintStyle:  onlyFormDataStyle.customTextStyle(context),
@@ -419,7 +419,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Driver’s License Number',
-                              style:  onlyFormDataStyle.customTextStyle(context),
+                              style:  AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -444,9 +444,10 @@ class _generalFormState extends State<generalForm> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(height: 15,),
                             Text(
                               "Gender",
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -495,7 +496,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'DOB',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -530,7 +531,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Address',
-                              style:onlyFormDataStyle.customTextStyle(context),
+                              style:AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -552,7 +553,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 60),
                             Text(
                               "Race",
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: AllPopupHeadings.customTextStyle(context),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -657,7 +658,7 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 8),
                             Text(
                               'Type of Clinician',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
@@ -746,19 +747,20 @@ class _generalFormState extends State<generalForm> {
                                     MediaQuery.of(context).size.height / 30),
                             Text(
                               'Speciality',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: AllPopupHeadings.customTextStyle(context),
                             ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 60),
 
-                            FutureBuilder<List<AEClinicalDiscipline>>(
-                              future:
-                                  HrAddEmplyClinicalDisciplinApi(context, 1),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) { return FutureBuilder<List<AEClinicalDiscipline>>(
+                                future:
+                                HrAddEmplyClinicalDisciplinApi(context, 1),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 7),
                                       child: Container(
@@ -769,66 +771,68 @@ class _generalFormState extends State<generalForm> {
                                       ),
                                     );
 
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.empType!);
                                   }
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                      return SizedBox(
-                                        height: 32,
-                                        child: DropdownButtonFormField<String>(
-                                          decoration: InputDecoration(
-                                            // hintText: 'Select Clinician',
-                                            hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(4.0),
-                                              borderSide: const BorderSide(
-                                                  color: Colors.grey),
-                                            ),
-                                            contentPadding:
-                                            const EdgeInsets.symmetric(
-                                              //   //  vertical: 5,
-                                                horizontal: 12),
-                                          ),
-                                          // value: selectedCountry,
-                                          icon: Icon(Icons.arrow_drop_down,
-                                              color: Color(0xff9B9B9B)),
-                                          iconSize: 24,
-                                          elevation: 16,
-                                          style: onlyFormDataStyle.customTextStyle(context),
+                                  if (snapshot.hasData) {
+                                    List<String> dropDownList = [];
 
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.empType == newValue) {
-                                                _selectedSpeciality = a.empType!;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          },
-                                          items: dropDownList.map((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: onlyFormDataStyle.customTextStyle(context),
+                                    for (var i in snapshot.data!) {
+                                      dropDownList.add(i.empType!);
+                                    }
+                                    return StatefulBuilder(
+                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                        return SizedBox(
+                                          height: 32,
+                                          child: DropdownButtonFormField<String>(
+                                            decoration: InputDecoration(
+                                              // hintText: 'Select Clinician',
+                                              hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(4.0),
+                                                borderSide: const BorderSide(
+                                                    color: Colors.grey),
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      );
-                                    },
+                                              contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                //   //  vertical: 5,
+                                                  horizontal: 12),
+                                            ),
+                                            // value: selectedCountry,
+                                            icon: Icon(Icons.arrow_drop_down,
+                                                color: Color(0xff9B9B9B)),
+                                            iconSize: 24,
+                                            elevation: 16,
+                                            style: onlyFormDataStyle.customTextStyle(context),
 
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
+                                            onChanged: (newValue) {
+                                              for (var a in snapshot.data!) {
+                                                if (a.empType == newValue) {
+                                                  _selectedSpeciality = a.empType!;
+                                                  //country = a
+                                                  // int? docType = a.companyOfficeID;
+                                                }
+                                              }
+                                            },
+                                            items: dropDownList.map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: onlyFormDataStyle.customTextStyle(context),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        );
+                                      },
+
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ); },
+
                             ),
                           ],
                         ),

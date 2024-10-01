@@ -367,7 +367,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   children: [
                     Text(
                       'Final Position Title',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -380,7 +380,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'Start Date',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -414,7 +414,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'End Date',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -469,7 +469,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'Employer',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -491,7 +491,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   children: [
                     Text(
                       'Reason for Leaving',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -504,7 +504,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'Last Supervisor’s Name',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -517,10 +517,10 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'Supervisor’s Mobile Number',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
-                    CustomTextFieldRegister(
+                    CustomTextFieldRegisterPhone(
                       controller: supervisorMobileNumberController,
                       hintText: 'Enter Mobile Number',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -530,7 +530,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'City',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(

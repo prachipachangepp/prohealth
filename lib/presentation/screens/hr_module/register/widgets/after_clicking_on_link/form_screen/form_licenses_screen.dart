@@ -407,7 +407,7 @@ class _licensesFormState extends State<licensesForm> {
                   children: [
                     Text(
                       'Licensure / Certification',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -425,7 +425,7 @@ class _licensesFormState extends State<licensesForm> {
                             40),
                     Text(
                       'Issuing Organization',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -443,7 +443,7 @@ class _licensesFormState extends State<licensesForm> {
                             30),
                     Text(
                       'Country',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -459,7 +459,7 @@ class _licensesFormState extends State<licensesForm> {
                             30),
                     Text(
                       'Number / ID',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -483,7 +483,7 @@ class _licensesFormState extends State<licensesForm> {
                   children: [
                     Text(
                       'Issue Date',
-                      style:onlyFormDataStyle.customTextStyle(context),
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(
                         height:
@@ -538,7 +538,7 @@ class _licensesFormState extends State<licensesForm> {
                             100),
                     Text(
                       'Expiration Date',
-                      style: onlyFormDataStyle.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(
                         height:

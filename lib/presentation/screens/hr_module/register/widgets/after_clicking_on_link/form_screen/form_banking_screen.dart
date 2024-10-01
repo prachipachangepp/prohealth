@@ -378,7 +378,7 @@ class _BankingFormState extends State<BankingForm> {
                                 children: [
                                   Text(
                                     'Type',
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -417,7 +417,7 @@ class _BankingFormState extends State<BankingForm> {
                                               40),
                                   Text(
                                     'Effective Date',
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -456,7 +456,7 @@ class _BankingFormState extends State<BankingForm> {
                                               30),
                                   Text(
                                     'Bank Name',
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -474,7 +474,7 @@ class _BankingFormState extends State<BankingForm> {
                                               30),
                                   Text(
                                     'Routing/Transit Number ( 9 Digits )',
-                                    style:onlyFormDataStyle.customTextStyle(context),
+                                    style:AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -498,7 +498,7 @@ class _BankingFormState extends State<BankingForm> {
                                 children: [
                                   Text(
                                     'Account Number ',
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -516,7 +516,7 @@ class _BankingFormState extends State<BankingForm> {
                                               30),
                                   Text(
                                     'Verify Account Number',
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
@@ -544,18 +544,22 @@ class _BankingFormState extends State<BankingForm> {
                                               25),
                                   Text(
                                     'Requested amount for this account (select one)',
-                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
-                                  CustomRadioListTile(
-                                    title: 'Specific Amount',
-                                    value: 'Specific Amount',
-                                    groupValue: selectedacc,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedacc = value;
-                                      });
-                                    },
-                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          60),
+                                  // CustomRadioListTile(
+                                  //   title: 'Specific Amount',
+                                  //   value: 'Specific Amount',
+                                  //   groupValue: selectedacc,
+                                  //   onChanged: (value) {
+                                  //     setState(() {
+                                  //       selectedacc = value;
+                                  //     });
+                                  //   },
+                                  // ),
                                   CustomTextFieldRegister(
                                     controller: requestammount,
                                     prefixText: '\$',

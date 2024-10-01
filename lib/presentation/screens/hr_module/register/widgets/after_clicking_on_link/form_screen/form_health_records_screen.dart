@@ -244,7 +244,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                       children: [
                                         Text(
                                           document.docName,
-                                          style: onlyFormDataStyle.customTextStyle(context),
+                                          style: AllPopupHeadings.customTextStyle(context),
                                         ),
                                         SizedBox(height: 8),
                                         Flexible(

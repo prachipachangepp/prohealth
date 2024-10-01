@@ -412,8 +412,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                       // const url = "http://localhost:53988/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                        const url = "http://localhost:51948/#/onBordingWelcome";
+                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///////////
                           if (await canLaunch(url)) {
@@ -458,7 +458,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         width: AppSize.s110,
                         margin: const EdgeInsets.only(right: AppMargin.m30),
-                        child: CustomIconButtonConst(
+                        child:CustomIconButton(
                           text: AppString.enroll,
                           onPressed: () async{
                             List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context,1);
@@ -525,7 +525,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [Container(
                       width: AppSize.s100,
                       margin: const EdgeInsets.only(right: AppMargin.m30),
-                      child: CustomIconButtonConst(
+                      child: CustomIconButton(
                         text: 'Onboard',
                         onPressed: () async{
                           showDialog(context: context, builder: (BuildContext context){
