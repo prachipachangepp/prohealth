@@ -676,7 +676,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
 
                                 var empEnrollOfferResponse = await addEmpEnrollOffers(
                                   context,
-                                  0,
+                                  widget.apiData!.employeeEnrollId!,
                                   widget.apiData!.employeeId!,
                                   int.parse(patientsController.text),
                                   issueDateController.text,
@@ -688,7 +688,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                                 print('Zone id : ${selectedZoneId}');
                                 await addEmpEnrollAddCoverage(
                                   context,
-                                  0,
+                                  widget.apiData!.employeeEnrollId!,
                                   widget.apiData!.employeeId!,
                                   addCovrage
                                   // selectedCityString,
@@ -698,7 +698,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
 
                                 await addEmpEnrollAddCompensation(
                                   context,
-                                  0,
+                                  widget.apiData!.employeeEnrollId!,
                                   widget.apiData!.employeeId!,
                                   dropdownValue.toString(),
                                   int.parse(_salary),

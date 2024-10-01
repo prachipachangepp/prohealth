@@ -107,14 +107,16 @@ Future<ApiData> addEmpEnroll(
       print("Enroll added");
       // orgDocumentGet(context);
       var data = response.data;
-      var employeeEnrollIdVar = data['employeeId'];
+      var employeeIdVar = data['employeeId'];
+      var employeeEnrollId = data['employeeEnrollId'];
 
-      print("EmployeeEmrollId ::: ${employeeEnrollIdVar}");
+      print("EmployeeEmrollId ::: ${employeeIdVar}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!,
-          employeeId:employeeEnrollIdVar);
+          employeeId:employeeIdVar,
+          employeeEnrollId:employeeEnrollId);
     } else {
       print("Error 1");
       return ApiData(

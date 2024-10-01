@@ -246,13 +246,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        Text(compaensation.DocumentName,
-                                            style: TextStyle(
-                                              fontFamily: 'FiraSans',
-                                              fontSize: 10,
-                                              color: Color(0xFF686464),
-                                              fontWeight: FontWeight.w700,
-                                            )),
+                                        Text(compaensation.documentFileName,
+                                        style: AknowledgementStyleNormal.customTextStyle(context)),
                                       ],
                                     )
                                   ],

@@ -184,6 +184,7 @@ class AppString {
   static const String profiled = "Profiled";
   static const String phoneCmt = "PhoneCmt";
   static const String date = "Date";
+  static const String terminationDate = "Date :";
 
   static const String nationality = "Nationality";
   static const String comment = "Comment";
@@ -202,6 +203,9 @@ class AppString {
   static String prefix = "Prefix";
   static String location = "Location";
   static String type = "Type";
+  static String terminationType = "Type :";
+  static const String terminationStatus = "Status :";
+  static const String terminationPosition = "Position :";
   static String upload_document = "Upload Document";
   static String fax = "Fax";
   static String yes = "Yes";
@@ -313,31 +317,31 @@ class AppStringMobile {
 }
 class AppStringHRNoData {
   ///manage screen
-  static const String employeeNoData = 'No employement available!';
-  static const String educationNoData = 'No education available!';
-  static const String referenceNoData = 'No references available!';
-  static const String licenseNoData = 'No licenses available!';
-  static const String bankingNoData = 'No banking available!';
-  static const String equpmentNoData = 'No equipment available!';
-  static const String nodevicedesc = 'No Device Description available!';
-  static const String terminationNoData = 'No termination available!';
-  static const String timeOffNoData = 'No time off available!';
-  static const String ackNoData = 'No acknowledgement available!';
-  static const String healthNoData = 'No health record available!';
-  static const String compensationNoData = 'No compensation available!';
-  static const String othersnNoData = 'No others available!';
-  static const String payRatesNoData = 'No pay rates available!';
+  static const String employeeNoData = 'No available employement!';
+  static const String educationNoData = 'No available education!';
+  static const String referenceNoData = 'No available references!';
+  static const String licenseNoData = 'No available licenses!';
+  static const String bankingNoData = 'No available banking data!';
+  static const String equpmentNoData = 'No available equipment!';
+  static const String nodevicedesc = 'No available Device Description!';
+  static const String terminationNoData = 'No available termination!';
+  static const String timeOffNoData = 'No available time off!';
+  static const String ackNoData = 'No available acknowledgement document!';
+  static const String healthNoData = 'No available health record document!';
+  static const String compensationNoData = 'No available compensation document!';
+  static const String othersnNoData = 'No available others document!';
+  static const String payRatesNoData = 'No available pay rates!';
   ///onboarding screen
   // static const String employeeNoData = 'No employement available!';
-  static const String noOnboardingData = 'No onboarding data available!';
-  static const String noOnboardEmpData = 'No qualification employement available!';
-  static const String noOnboardEdnData = 'No qualification education available!';
-  static const String noOnboardRefData = 'No qualification referance available!';
-  static const String noOnboardLicData = 'No qualification license available!';
-  static const String noOnboardBanking = 'No banking data available!';
-  static const String noOnboardAck = 'No acknowledgment document available!';
-  static const String noOnboardHealth = 'No health document available!';
-  static const String noOnboardFormStatus = 'No status available!';
+  static const String noOnboardingData = 'No available onboarding data!';
+  static const String noOnboardEmpData = 'No available qualification employement!';
+  static const String noOnboardEdnData = 'No available qualification education!';
+  static const String noOnboardRefData = 'No available qualification referance!';
+  static const String noOnboardLicData = 'No available qualification license!';
+  static const String noOnboardBanking = 'No available banking data!';
+  static const String noOnboardAck = 'No available acknowledgment document!';
+  static const String noOnboardHealth = 'No available health document!';
+  static const String noOnboardFormStatus = 'No available status!';
   // static const String employeeNoData = 'No employement available!';
   // static const String employeeNoData = 'No employement available!';
   // static const String employeeNoData = 'No employement available!';

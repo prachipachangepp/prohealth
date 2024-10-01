@@ -163,7 +163,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
+                              Text('Graduate', style: TextStyle(fontSize: FontSize.s12)),
                               widget.radioButton ?? SizedBox.shrink(),
                              // if (_radioButtonError)
                                // Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../app/services/api/managers/hr_module_manager/manage_emp/search_byfilter.dart';
@@ -542,7 +543,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
               child: Text(
                 'Clinician Search Filter',
                 style: GoogleFonts.firaSans(
-                  fontSize: 11,
+                  fontSize: FontSize.s13,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -582,7 +583,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                     Text(
                       'Office Location',
                       style: GoogleFonts.firaSans(
-                        fontSize: 10,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeight.w700,
                         color: Color(0xff737373),
                       ),
@@ -596,7 +597,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Zone', style: GoogleFonts.firaSans(
-                    fontSize: 10,
+                    fontSize: FontSize.s12,
                     fontWeight: FontWeight.w700,
                     color: Color(0xff737373))),
                       widget.zoneDropDown == null ? Offstage() : widget.zoneDropDown!
@@ -611,7 +612,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                 Text(
                   'License status',
                   style: GoogleFonts.firaSans(
-                    fontSize: 10,
+                    fontSize: FontSize.s12,
                     fontWeight: FontWeight.w700,
                     color: Color(0xff737373),
                   ),
@@ -627,7 +628,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                 Text(
                   'Availability',
                   style: GoogleFonts.firaSans(
-                    fontSize: 10,
+                    fontSize: FontSize.s12,
                     fontWeight: FontWeight.w700,
                     color: Color(0xff737373),
                   ),
@@ -644,7 +645,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                 Navigator.pop(context);
               },
               child: Text('Search', style: GoogleFonts.firaSans(
-                fontSize: 10,
+                fontSize: FontSize.s12,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
               ),),

@@ -200,12 +200,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       const SizedBox(height: 5,),
                                        Text(others.documentFileName,
-                                          style:TextStyle(
-                                            fontFamily: 'FiraSans',
-                                            fontSize: 10,
-                                            color: Color(0xFF686464),
-                                            fontWeight: FontWeight.w700,
-                                          )),
+                                           style: AknowledgementStyleNormal.customTextStyle(context)),
                                     ],
                                   )
                                 ],
