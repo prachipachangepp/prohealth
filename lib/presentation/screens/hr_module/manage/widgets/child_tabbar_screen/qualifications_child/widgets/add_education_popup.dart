@@ -223,7 +223,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
 
                     SizedBox(height: AppSize.s35),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButtonTransparent(
                           text: AppString.cancel,
