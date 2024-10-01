@@ -150,42 +150,77 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    int cityId = 0;
    String? selectedZone;
    int zoneId = 0;
+   //
+   // @override
+   // void initState() {
+   //   super.initState();
+   //   // Add listeners to the text controllers
+   //   widget.firstName.addListener(_validateFields);
+   //   widget.lastName.addListener(_validateFields);
+   //   widget.email.addListener(_validateFields);
+   //   // speciality.addListener(_validateFields);
+   //  // position.addListener(_validateFields);
+   //  //  phone.addListener(_validateFields);
+   //   // Add other controllers if necessary
+   // }
+   // void _validateFields() {
+   //   setState(() {
+   //     // Check if any of the required fields are empty
+   //     _isButtonEnabled = widget.firstName.text.isNotEmpty &&
+   //         widget.lastName.text.isNotEmpty &&
+   //         widget.email.text.isNotEmpty;
+   //         // speciality.text.isNotEmpty &&
+   //         //position.text.isNotEmpty &&
+   //         // phone.text.isNotEmpty;
+   //     // Add other conditions if necessary
+   //   });
+   // }
+   // @override
+   // void dispose() {
+   //   // Dispose of the listeners when the widget is removed
+   //   widget.firstName.removeListener(_validateFields);
+   //   widget.lastName.removeListener(_validateFields);
+   //   widget.email.removeListener(_validateFields);
+   //   // speciality.removeListener(_validateFields);
+   //   //position.removeListener(_validateFields);
+   //   // phone.removeListener(_validateFields);
+   //   super.dispose();
+   // }
 
-   @override
-   void initState() {
-     super.initState();
-     // Add listeners to the text controllers
-     widget.firstName.addListener(_validateFields);
-     widget.lastName.addListener(_validateFields);
-     widget.email.addListener(_validateFields);
-     // speciality.addListener(_validateFields);
-    // position.addListener(_validateFields);
-    //  phone.addListener(_validateFields);
-     // Add other controllers if necessary
-   }
-   void _validateFields() {
-     setState(() {
-       // Check if any of the required fields are empty
-       _isButtonEnabled = widget.firstName.text.isNotEmpty &&
-           widget.lastName.text.isNotEmpty &&
-           widget.email.text.isNotEmpty;
-           // speciality.text.isNotEmpty &&
-           //position.text.isNotEmpty &&
-           // phone.text.isNotEmpty;
-       // Add other conditions if necessary
-     });
-   }
-   @override
-   void dispose() {
-     // Dispose of the listeners when the widget is removed
-     widget.firstName.removeListener(_validateFields);
-     widget.lastName.removeListener(_validateFields);
-     widget.email.removeListener(_validateFields);
-     // speciality.removeListener(_validateFields);
-     //position.removeListener(_validateFields);
-     // phone.removeListener(_validateFields);
-     super.dispose();
-   }
+
+
+   String? _idError;
+   String? _nameError;
+   bool _isFormValid = true;
+   // String? _expiryTypeError;
+   //
+   // String? _validateTextField(String value, String fieldName) {
+   //   if (value.isEmpty) {
+   //     _isFormValid = false;
+   //     return "$fieldName";
+   //   }
+   //   return null;
+   // }
+   //
+   // void _validateFields() {
+   //   setState(() {
+   //     _isFormValid = true;
+   //     _idError = _validateTextField(position.text, 'Please Enter Position');
+   //     _nameError = _validateTextField(
+   //         speciality.text, 'Please Enter Speciality');
+   //     //if (selectedExpiryType.isEmpty) {
+   //       serviceVal = 'Please select an Service type';
+   //      // _isFormValid = false;
+   //     // } else {
+   //     //   _expiryTypeError = null; // Clear error if valid
+   //     // }
+   //   });
+   // }
+
+
+
+
+
 
    @override
   Widget build(BuildContext context) {
@@ -366,6 +401,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: position,
                             labelFontSize: 11,
                           ),
+                          // if (_idError != null)
+                          //   Text(
+                          //     _idError!,
+                          //     style:  CommonErrorMsg.customTextStyle(context),
+                          //   ),
                         ],
                       ),
                     ),
