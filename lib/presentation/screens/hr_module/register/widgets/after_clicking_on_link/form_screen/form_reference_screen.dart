@@ -236,6 +236,48 @@ class _ReferencesFormState extends State<ReferencesForm> {
     }
   }
 
+
+
+
+  String? _nameError;
+  String? _emailDocError;
+  String? _lengthError;
+  String? _addressDocError;
+  String? _pPhoneDocError;
+  String? _positionError;
+  String? _OrganizationError;
+  String? _KnowthisError;
+
+  bool _isFormValid = true;
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    return null;
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _nameError = _validateTextField(name.text, ' Name');
+      _positionError = _validateTextField(titleposition.text, 'Position ');
+      _OrganizationError = _validateTextField(companyorganization.text, 'Organization Name');
+      _KnowthisError =
+          _validateTextField(knowthisperson.text, ' Person Name');
+      _pPhoneDocError =
+          _validateTextField(mobilenumber.text, 'Phone Number');
+      _emailDocError =
+          _validateTextField(email.text, 'Email ID');
+      _lengthError = _validateTextField(
+          lengthofassociation.text, 'Length of Association');
+      // _countryDocError =
+      //     _validateTextField(widget.countryController.text, 'Country');
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -280,6 +322,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_nameError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _nameError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -298,6 +348,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_positionError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _positionError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -316,6 +374,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_OrganizationError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _OrganizationError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -334,6 +400,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_pPhoneDocError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _pPhoneDocError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
@@ -357,6 +431,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_emailDocError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _emailDocError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -375,6 +457,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_KnowthisError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _KnowthisError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -393,6 +483,14 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
+                                  if (_lengthError != null) // Display error if any
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Text(
+                                        _lengthError!,
+                                        style: CommonErrorMsg.customTextStyle(context),
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
