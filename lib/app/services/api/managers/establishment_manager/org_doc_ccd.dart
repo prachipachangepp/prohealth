@@ -8,53 +8,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
 ///old
-// Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
-//     int docTypeId,
-//     int docSubTypeID,
-//     int pageNo,
-//     int rowsNo
-//     ) async {
-//   List<CiOrgDocumentCC> itemsList = [];
-//   try {
-//     final companyId = await TokenManager.getCompanyId();
-//     final response = await Api(context)
-//         .get(path: EstablishmentManagerRepository.getCiOrgDLicense(
-//       companyId: companyId,
-//         docTypeID: docTypeId,
-//         docSubTypeID: docSubTypeID,
-//         pageNo: pageNo,
-//         rowsNo: rowsNo
-//     ));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       // print("Org Document response:::::${itemsList}");
-//       print("1");
-//       for(var item in response.data["DocumentList"]){
-//         itemsList.add(
-//           CiOrgDocumentCC(
-//               docId: item['document_id'],
-//               createdAt: item['doc_created_at'],
-//               name: item["doc_name"],
-//               expiry: item["expiry_date"],
-//               reminderThreshold: item["expiry_type"],
-//               sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'],
-//               documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'],
-//               companyId: companyId, officeId: item['office_id']
-//           ),
-//         );
-//       }
-//       print('${response.data['DocumentList']}');
-//        print("Org Sub Document response:::::${itemsList}");
-//     } else {
-//       print('Org Api Error');
-//       return itemsList;
-//     }
-//     // print("Org response:::::${response}");
-//     return itemsList;
-//   } catch (e) {
-//     print("Error for add $e");
-//     return itemsList;
-//   }
-// }
+
 Future<List<CiOrgDocumentCC>> getORGDoc(BuildContext context,
     int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
   List<CiOrgDocumentCC> itemsList = [];

@@ -356,7 +356,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                     Padding(
                                                       padding: const EdgeInsets.only(left: 25,right: 45,top:10,bottom: 10),
                                                       child: snapshot.data![index].lat == null ? SizedBox(height: 100,
-                                                        width: 150,):StatefulBuilder(
+                                                        width: 150,)
+                                                          :
+                                                      StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return InkWell(
                                                             onTap: () async{
