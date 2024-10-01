@@ -48,7 +48,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s850,
-        height: AppSize.s600,
+        height: AppSize.s620,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),

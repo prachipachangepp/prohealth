@@ -96,7 +96,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s360 : widget.height!,
+      height: widget.height == null ? AppSize.s390 : widget.height!,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,
