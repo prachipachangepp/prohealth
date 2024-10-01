@@ -127,7 +127,10 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
         padding: const EdgeInsets.all(AppPadding.p5),
         child: DropdownButtonFormField<String>(
           icon:
-              Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+              ),
           value: _selectedValue,
           items: widget.dropDownMenuList == null
               ? widget.items!.map((String value) {
