@@ -79,10 +79,10 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
     if (startTimeError == null && endTimeError == null) {
       // If no errors, proceed with the onPressed action
       widget.onPressed();
-        setState(() {
-          isLoading = false;
-        });
-        Navigator.pop(context);
+      setState(() {
+        isLoading = false;
+      });
+      // Navigator.pop(context);
     } else {
       setState(() {
         isLoading = false;
@@ -144,7 +144,8 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
                     text: 'Start Time',
-                    icon: Icon(Icons.timer_outlined, color: IconColorManager.bluebottom, size: 19,),
+                    icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
+
                   ),
                   if (startTimeError != null)
                     Padding(
@@ -160,7 +161,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,
                     text: 'End Time',
-                    icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 19,),
+                    icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
                   ),
                   if (endTimeError != null)
                     Padding(

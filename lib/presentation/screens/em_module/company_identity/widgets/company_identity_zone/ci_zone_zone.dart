@@ -109,9 +109,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
           child: StreamBuilder<List<AllCountyZoneGet>>(
             stream: _zoneController.stream,
             builder: (context, snapshot) {
-              getZoneByCounty(
-                      context, widget.officeId,widget.countyId, 1, 20)
-                  .then((data) {
+              getZoneByCounty(context, widget.officeId,widget.countyId, 1, 20).then((data) {
+                data.sort((a, b) => b.countyId.compareTo(a.countyId));
                 _zoneController.add(data);
               }).catchError((error) {});
               print('1111111');
