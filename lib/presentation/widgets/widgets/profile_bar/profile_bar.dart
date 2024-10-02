@@ -398,11 +398,9 @@ class _ProfileBarState extends State<ProfileBar> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: MyConstants.personalInfoTexts(context),
                       ),
-                      SizedBox(
-                        width: 20
-                      ),
+                      SizedBox(width: 20),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ///text john scott
@@ -410,7 +408,6 @@ class _ProfileBarState extends State<ProfileBar> {
                             "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp})",
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
-
                           Text(
                             widget.searchByEmployeeIdProfileData!.gender,
                             style: ThemeManagerDark.customTextStyle(context),
@@ -532,7 +529,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       style: ProfileBarTextBoldStyle.customEditTextStyle()
                                   ),
                                   SizedBox(height: 10,),
-                                  Text('PTA',
+                                  Text('PTA:',
                                       style: ProfileBarTextBoldStyle.customEditTextStyle()),
                                 ],
                               ),

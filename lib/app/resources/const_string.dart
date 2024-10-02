@@ -6,7 +6,7 @@ class AppString {
   static const String physical = "Physical Therapy";
   static const String employmentType = "Employment Type";
   static const String saanJoes = "San joes.24";
-  static const String address = "Address";
+  static const String address = "Address:";
   static const String ssnN = "Social Security No";
   static const String officeaddress = "Head Office Address";
   static const String summary = "Summary:";
@@ -21,7 +21,7 @@ class AppString {
   static const String proheaalthsan = "Prohealth San Joes 74";
   static const String viewzone = "View Zone";
   static const String na = "NA";
-  static const String hideDate = "Hire Date";
+  static const String hideDate = "Hire Date:";
   static const String datetime = "30/08/2024(..)";
   static const String expiredlicense = "Expired License";
   static const String zero = "0";

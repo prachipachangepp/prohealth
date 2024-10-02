@@ -8,33 +8,33 @@ import '../../../../../../app/resources/theme_manager.dart';
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
 
-    final textStyle = ThemeManager.customTextStyle(context);
+   // final textStyle = ThemeManager.customTextStyle(context);
     return [
       Text(
         AppString.age,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+      //SizedBox(height: 1,),
       Text(
         AppString.gender,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+     // SizedBox(height: 1,),
       Text(
         AppString.ssn,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+    //  SizedBox(height: 1,),
       Text(
         AppString.phone,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+    //  SizedBox(height: 1,),
       Text(
         AppString.personalno,
           style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      SizedBox(height: 1,),
+     // SizedBox(height: 1,),
       Text(
         AppString.workno,
           style: ProfileBarTextBoldStyle.customEditTextStyle()

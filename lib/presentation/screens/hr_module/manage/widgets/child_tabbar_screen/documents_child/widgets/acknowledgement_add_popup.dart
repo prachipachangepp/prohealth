@@ -82,7 +82,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
 
-  bool load = false;
+  bool loading = false;
   DateTime? datePicked;
   List<DropdownMenuItem<String>> dropDownMenuItems = [];
   @override
@@ -100,7 +100,10 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
@@ -254,7 +257,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
           ),
         )
       ],
-      bottomButtons: load
+      bottomButtons: loading == true
           ? SizedBox(
         height: AppSize.s25,
         width: AppSize.s25,
@@ -267,8 +270,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         height: AppSize.s30,
         text: AppStringEM.add,
         onPressed: () async{
+
           try{
-            //File filePath = File(finalPath!);
             String? expiryDate;
             if (expiryDateController.text.isEmpty) {
               expiryDate = null;

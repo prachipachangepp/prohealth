@@ -106,40 +106,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+      //  mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              ///Enroll Button
-              Container(
-                height: AppSize.s30,
-                width: AppSize.s140,
-                child:  CustomIconButton(
-                  icon: Icons.add,
-                  text: 'Enroll User',
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialog(
-                          title: "Enroll User",
-                          //userIdController: userIdController,
-                          lastNameController: lastNameController,
-                          emailController: emailController,
-                          firstNameController: firstNameController,
-                          // roleController: roleController,
-                          passwordController: passwordController,
-                        );
-                      },
-                    );
-                  },
+              Padding(
+                padding: const EdgeInsets.only(right: 28.0),
+                child: Container(
+                  width: 300,
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ///Enroll Button
+                      Container(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        child:  CustomIconButton(
+                          icon: Icons.add,
+                          text: 'Enroll User',
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CustomDialog(
+                                  title: "Enroll User",
+                                  //userIdController: userIdController,
+                                  lastNameController: lastNameController,
+                                  emailController: emailController,
+                                  firstNameController: firstNameController,
+                                  // roleController: roleController,
+                                  passwordController: passwordController,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+
+                      SizedBox(width: 10,),
+                      /// Select Dropdown button
+                      buildDropdownButton(context),
+                     // const SizedBox(width: 50),
+                    ],
+                  ),
                 ),
               ),
-
-              SizedBox(width: 10,),
-              /// Select Dropdown button
-              buildDropdownButton(context),
-              const SizedBox(width: 50),
             ],
           ),
           const SizedBox(height: AppSize.s20),
@@ -201,10 +214,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            width: 300,
+            width: 120,
             height: 30,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
+              color: Colors.white
             ),
             child: Center(child: Container(
               width: 200,
@@ -217,6 +231,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               Container(
                 height: 31,
+                width: 120,
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                 decoration: BoxDecoration(
                   color: Colors.white,

@@ -77,7 +77,11 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
@@ -183,64 +187,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         HeaderContentConst(
           heading: AppString.upload_document,
           content:
-          // Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Container(
-          //       height: AppSize.s30,
-          //       width: AppSize.s354,
-          //       padding: EdgeInsets.only(left: AppPadding.p15),
-          //       decoration: BoxDecoration(
-          //         border: Border.all(
-          //           color: ColorManager.containerBorderGrey,
-          //           width: 1,
-          //         ),
-          //         borderRadius: BorderRadius.circular(4),
-          //       ),
-          //       child: StatefulBuilder(
-          //         builder: (BuildContext context,
-          //             void Function(void Function()) setState) {
-          //           return Padding(
-          //             padding: const EdgeInsets.all(0),
-          //             child: Row(
-          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //               children: [
-          //                 Expanded(
-          //                   child: Text(
-          //                     fileName,
-          //                     style: DocumentTypeDataStyle.customTextStyle(
-          //                         context),
-          //                   ),
-          //                 ),
-          //                 IconButton(
-          //                   padding: EdgeInsets.all(4),
-          //                   onPressed: _pickFile,
-          //                   icon: Icon(
-          //                     Icons.file_upload_outlined,
-          //                     color: ColorManager.black,
-          //                     size: 17,
-          //                   ),
-          //                   splashColor: Colors.transparent,
-          //                   highlightColor: Colors.transparent,
-          //                   hoverColor: Colors.transparent,
-          //                 ),
-          //               ],
-          //             ),
-          //           );
-          //         },
-          //       ),
-          //     ),
-          //     if (isFileErrorVisible) // Display error if no file is selected
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 5),
-          //         child: Text(
-          //           'Please upload a document',
-          //           style: CommonErrorMsg.customTextStyle(context),
-          //         ),
-          //       ),
-          //   ],
-          // ),
-          ///
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
