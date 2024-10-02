@@ -93,7 +93,9 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                     routingNumber:
                                         routingNumberController.text,
                                     percentage: 'Na',
-                                    type: "Checking");
+                                    type: "Checking",
+                                    //type:selectedType.toString(),
+                                );
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode == 201){
                                   showDialog(
