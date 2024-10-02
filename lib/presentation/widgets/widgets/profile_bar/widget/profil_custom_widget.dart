@@ -3,8 +3,23 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/profile_bar.d
 
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources//theme_manager.dart';
 
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/font_manager.dart';
 ///saloni
+
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
+    );
+  }
+}
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
 
@@ -45,7 +60,7 @@ class MyConstants {
 
 class MyConstantsColumn {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManager.customTextStyle(context);
+    // final textStyle = ThemeManager.customTextStyle(context);
     return [
 
       Text(
