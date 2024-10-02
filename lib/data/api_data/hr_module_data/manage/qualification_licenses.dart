@@ -9,7 +9,7 @@ class QulificationLicensesData {
   final String licenseNumber;
   final String org;
   final String documentType;
-  final bool approved;
+   bool? approved;
   final bool sucess;
   final String message;
   QulificationLicensesData(

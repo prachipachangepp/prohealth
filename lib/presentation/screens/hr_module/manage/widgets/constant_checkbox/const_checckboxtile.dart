@@ -32,17 +32,24 @@ class _CheckboxTileState extends State<CheckboxTile> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Checkbox(
-          activeColor: ColorManager.blueprime,
-          value: _value,
-          onChanged: (value) {
-            setState(() {
-              _value = value!;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(_value);
-            }
-          },
+        Theme(
+          data:Theme.of(context).copyWith(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent
+    ),
+          child: Checkbox(
+            activeColor: ColorManager.blueprime,
+            value: _value,
+            onChanged: (value) {
+              setState(() {
+                _value = value!;
+              });
+              if (widget.onChanged != null) {
+                widget.onChanged!(_value);
+              }
+            },
+          ),
         ),
         SizedBox(width: 10,),
         Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: ColorManager.mediumgrey,),),

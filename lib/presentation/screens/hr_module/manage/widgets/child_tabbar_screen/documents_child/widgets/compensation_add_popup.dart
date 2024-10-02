@@ -710,11 +710,11 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
         ),
 
         /// upload  doc
-        InkWell(
-          onTap: _pickFile,
-          child: HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Container(
+        HeaderContentConst(
+          heading: AppString.upload_document,
+          content: InkWell(
+            onTap: _pickFile,
+            child: Container(
               height: AppSize.s30,
               width: AppSize.s354,
               padding: EdgeInsets.only(left: AppPadding.p15),
@@ -868,11 +868,6 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      Future.delayed(Duration(seconds: 2), () {
-                        if (Navigator.of(context).canPop()) {
-                          Navigator.of(context).pop();
-                        }
-                      });
                       return AddSuccessPopup(
                         message: 'Document Edit',
                       );
@@ -885,11 +880,6 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    Future.delayed(Duration(seconds: 2), () {
-                      if (Navigator.of(context).canPop()) {
-                        Navigator.of(context).pop();
-                      }
-                    });
                     return AddSuccessPopup(
                       message: 'Document Edit',
                     );
@@ -902,9 +892,10 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
             });
           }finally {
             setState(() {
+              Navigator.pop(context);
               loading = false;
             });
-            Navigator.pop(context);
+
           }
 
         },
@@ -1082,11 +1073,11 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
         ),
 
         /// upload  doc
-        InkWell(
-          onTap:_pickFile,
-          child: HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Container(
+        HeaderContentConst(
+          heading: AppString.upload_document,
+          content: InkWell(
+            onTap: _pickFile,
+            child: Container(
               height: AppSize.s30,
               width: AppSize.s354,
               padding: EdgeInsets.only(left: AppPadding.p15),
@@ -1187,6 +1178,9 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
               //   }
               // },
               onPressed: () async {
+                setState(() {
+                  load = true;
+                });
                 try {
                   //File filePath = File(finalPath!);
                   String? expiryDate;
@@ -1214,11 +1208,14 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                         );
                       },
                     );
-                  } else {
-                    print('Error');
                   }
-                } catch (e) {
-                  print(e);
+                  setState(() {
+                    load = true;
+                  });
+                } finally {
+                  setState(() {
+                    load = true;
+                  });
                 }
               },
             ),

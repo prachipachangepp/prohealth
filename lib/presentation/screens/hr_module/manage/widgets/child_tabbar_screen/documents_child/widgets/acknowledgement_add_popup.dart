@@ -207,11 +207,11 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         ),
 
         /// upload  doc
-        InkWell(
-          onTap: _pickFile,
-          child: HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Container(
+        HeaderContentConst(
+          heading: AppString.upload_document,
+          content: InkWell(
+            onTap: _pickFile,
+            child: Container(
               height: AppSize.s30,
               width: AppSize.s354,
               padding: EdgeInsets.only(left: AppPadding.p15),
@@ -270,6 +270,9 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         height: AppSize.s30,
         text: AppStringEM.add,
         onPressed: () async{
+          setState(() {
+            load = true;
+          });
           try{
             //File filePath = File(finalPath!);
             String? expiryDate;
@@ -291,11 +294,14 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 },
               );
             }
-            else{
-              print('Error');
-            }
-          }catch(e){
-            print(e);
+            setState(() {
+              load = false;
+            });
+          }finally{
+            setState(() {
+              // Navigator.pop(context);
+              load = false;
+            });
           }
         },
       ),

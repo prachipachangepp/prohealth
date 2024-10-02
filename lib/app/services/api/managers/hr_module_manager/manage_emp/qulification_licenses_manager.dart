@@ -41,7 +41,7 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
           licenseNumber: item['licenseNumber'],
           org: item['org'],
           documentType: item['documentType'],
-          approved: item['approved'] ?? false,
+          approved: item['approved'],
           sucess: true,
           message: response.statusMessage!,
         ));
