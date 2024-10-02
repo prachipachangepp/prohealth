@@ -212,7 +212,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(AppString.name,
+                                                Text(AppString.nameTermination,
                                                     style:
                                                         ThemeManager.customTextStyle(
                                                             context)),
@@ -326,12 +326,12 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                               MediaQuery.of(context).size.width / 10,
                                         ),
                                         Row(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
                                               children: [
                                                 Text(AppString.terminationType,
                                                     style:

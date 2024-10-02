@@ -13,7 +13,7 @@ class _WrapWidgetState extends State<WrapWidget> {
   Widget build(BuildContext context) {
     return Padding(padding:EdgeInsets.symmetric(
     horizontal: MediaQuery.of(context).size.width/100,
-    vertical: MediaQuery.of(context).size.height/100),
+    vertical: MediaQuery.of(context).size.height/120),
     child: Container(
       height: MediaQuery.of(context).size.height/1,
       child: Wrap(

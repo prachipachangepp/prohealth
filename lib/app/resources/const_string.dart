@@ -32,7 +32,9 @@ class AppString {
   static const String abouttoexpire = "About To Expired License";
   static const String uptodate = "Up To Date License";
   static const String age = "Age:";
+  static const String nameTermination = "Name :";
   static const String reason = "Reason:";
+  static const String reasonTimeOff = "Reason";
   static const String gender = "Gender:";
   static const String ssn = "Social Security No:";
   static const String personalno = "Personal No:";

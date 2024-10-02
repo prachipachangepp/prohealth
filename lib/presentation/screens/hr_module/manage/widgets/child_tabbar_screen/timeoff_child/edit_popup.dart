@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
@@ -37,6 +38,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
   // Error messages
   String? startTimeError;
   String? endTimeError;
+  bool load = false;
 
   Future<void> _selectStartTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -80,7 +82,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s500,
+        height: AppSize.s550,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -90,7 +92,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
             _buildDialogTitle(),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p15,
                 horizontal: AppPadding.p20,
               ),
               child: Form(
@@ -117,14 +119,27 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
-                child: CustomElevatedButton(
+                child: load ? SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                ):CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: 'Add',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      widget.onPressed();
-                      Navigator.pop(context);
+                      setState(() {
+                        load = true;
+                      });
+                      try{
+                        widget.onPressed();
+                      }finally{
+                        setState(() {
+                          load = false;
+                        });
+
+                      }
                     }
                   },
                 ),
@@ -150,7 +165,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10.0),
+            padding: EdgeInsets.only(left: 25.0),
             child: Text(
               widget.labelName,
               style: GoogleFonts.firaSans(
