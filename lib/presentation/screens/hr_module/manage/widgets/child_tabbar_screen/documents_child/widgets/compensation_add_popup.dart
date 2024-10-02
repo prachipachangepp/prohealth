@@ -967,7 +967,10 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;

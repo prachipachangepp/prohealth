@@ -37,7 +37,7 @@ class ThemeManagerBold {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = 10;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,

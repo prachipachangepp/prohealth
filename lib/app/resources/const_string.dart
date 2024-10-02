@@ -6,7 +6,7 @@ class AppString {
   static const String physical = "Physical Therapy";
   static const String employmentType = "Employment Type";
   static const String saanJoes = "San joes.24";
-  static const String address = "Address";
+  static const String address = "Address:";
   static const String ssnN = "Social Security No";
   static const String officeaddress = "Head Office Address";
   static const String summary = "Summary:";

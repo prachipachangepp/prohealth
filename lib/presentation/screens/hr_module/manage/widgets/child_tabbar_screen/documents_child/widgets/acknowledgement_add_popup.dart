@@ -82,7 +82,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
 
-  bool load = false;
+  bool loading = false;
   DateTime? datePicked;
   List<DropdownMenuItem<String>> dropDownMenuItems = [];
   @override
@@ -100,7 +100,10 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
@@ -209,55 +212,52 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         /// upload  doc
         HeaderContentConst(
           heading: AppString.upload_document,
-          content: InkWell(
-            onTap: _pickFile,
-            child: Container(
-              height: AppSize.s30,
-              width: AppSize.s354,
-              padding: EdgeInsets.only(left: AppPadding.p15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorManager.containerBorderGrey,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(4),
+          content: Container(
+            height: AppSize.s30,
+            width: AppSize.s354,
+            padding: EdgeInsets.only(left: AppPadding.p15),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: ColorManager.containerBorderGrey,
+                width: 1,
               ),
-              child: StatefulBuilder(
-                builder: (BuildContext context,
-                    void Function(void Function()) setState) {
-                  return Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            fileName,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: StatefulBuilder(
+              builder: (BuildContext context,
+                  void Function(void Function()) setState) {
+                return Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          fileName,
+                          style: DocumentTypeDataStyle.customTextStyle(context),
                         ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile,
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: 17,
-                          ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
+                      ),
+                      IconButton(
+                        padding: EdgeInsets.all(4),
+                        onPressed: _pickFile,
+                        icon: Icon(
+                          Icons.file_upload_outlined,
+                          color: ColorManager.black,
+                          size: 17,
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         )
       ],
-      bottomButtons: load
+      bottomButtons: loading == true
           ? SizedBox(
         height: AppSize.s25,
         width: AppSize.s25,
@@ -270,11 +270,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         height: AppSize.s30,
         text: AppStringEM.add,
         onPressed: () async{
-          setState(() {
-            load = true;
-          });
+
           try{
-            //File filePath = File(finalPath!);
             String? expiryDate;
             if (expiryDateController.text.isEmpty) {
               expiryDate = null;
@@ -294,14 +291,11 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 },
               );
             }
-            setState(() {
-              load = false;
-            });
-          }finally{
-            setState(() {
-              // Navigator.pop(context);
-              load = false;
-            });
+            else{
+              print('Error');
+            }
+          }catch(e){
+            print(e);
           }
         },
       ),
