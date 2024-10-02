@@ -122,7 +122,8 @@ class _CustomDialogState extends State<CustomDialog> {
   Widget build(BuildContext context) {
     return DialogueTemplate(width: 410,
         height: AppSize.s540,
-        title: "Create User",
+        //title: "Create User",
+        title: widget.title,
         body: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),

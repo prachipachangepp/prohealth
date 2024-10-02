@@ -716,7 +716,8 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
       ),
       child: DropdownButtonFormField<String>(
         isDense: true, // Makes the dropdown more compact
-        icon: Icon(Icons.arrow_drop_down), // Default dropdown icon
+        icon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
+          // Default dropdown icon
         iconSize: 15, // Icon size
         value: widget.controller.text.isEmpty ? null : widget.controller.text,
         items: widget.items.map((item) {
