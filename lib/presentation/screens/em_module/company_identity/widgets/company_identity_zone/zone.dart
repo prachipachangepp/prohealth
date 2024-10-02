@@ -154,16 +154,27 @@ class _CiOrgDocumentState extends State<CiZone> {
                   builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting) {
                       return Container(
-                        width: 350,
+                        width:  354,
                         height: 30,
                         decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Loading...',
-                            style: AllNoDataAvailable.customTextStyle(context),
-                          ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: AppSize.s8),
+                            Expanded(
+                              child: Text(
+                                "Select",
+                                style: TableSubHeading.customTextStyle(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: Icon(Icons.arrow_drop_down),
+                            ),
+                          ],
                         ),
                       );
                     }
