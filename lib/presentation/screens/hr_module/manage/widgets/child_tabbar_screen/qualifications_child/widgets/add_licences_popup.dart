@@ -207,7 +207,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             Padding(
               padding: const EdgeInsets.only(right: 40),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButtonTransparent(
                       text: AppString.cancel,
