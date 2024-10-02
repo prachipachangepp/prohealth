@@ -245,47 +245,6 @@ class _ProfileBarState extends State<ProfileBar> {
                             ],
                           ),
                         ),
-
-
-
-
-                        ///
-                        // SizedBox(
-                        //   height: AppSize.s53,
-                        //   width: AppSize.s53,
-                        //   child: Stack(
-                        //     alignment: Alignment.center,
-                        //     children: [
-                        //       widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                        //           widget.searchByEmployeeIdProfileData!.imgurl == null ?
-                        //
-                        //       Icon(
-                        //         Icons.person,
-                        //         color: ColorManager.white,
-                        //         size: AppSize.s50,
-                        //       ) :
-                        //       CachedNetworkImage(
-                        //         imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
-                        //         placeholder: (context, url) => new CircularProgressIndicator(),
-                        //         errorWidget: (context, url, error) => new Icon(Icons.error),
-                        //         height: AppSize.s53,
-                        //         width: AppSize.s53,
-                        //       ),
-                        //
-                        //       SizedBox(
-                        //         height: AppSize.s53,
-                        //         width: AppSize.s53,
-                        //         child: CircularProgressIndicator(
-                        //           valueColor: AlwaysStoppedAnimation<Color>(
-                        //               ColorManager.greenF),
-                        //           strokeWidth: 3,
-                        //           value: widget.searchByEmployeeIdProfileData!
-                        //               .profileScorePercentage,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                         Text(
                           widget.searchByEmployeeIdProfileData!.status
                               .capitalizeFirst!,
@@ -1290,7 +1249,7 @@ class _ProfileBarState extends State<ProfileBar> {
 class ProfileBarTextBoldStyle{
   static TextStyle customEditTextStyle() {
     return TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: ColorManager.textPrimaryColor,
 
@@ -1301,7 +1260,7 @@ class ProfileBarTextBoldStyle{
 class ProfileBarZoneStyle {
   static TextStyle customEditTextStyle() {
     return TextStyle(
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: FontWeight.w500,
       color: const Color(0xff686464),
       decoration: TextDecoration.none,

@@ -72,3 +72,13 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
     );
   }
 }
+class ProfileBarNameLicenseStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}

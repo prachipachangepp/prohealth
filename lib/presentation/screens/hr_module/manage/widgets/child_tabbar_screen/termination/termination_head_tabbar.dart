@@ -67,43 +67,29 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                       snapshot.data!.isEmpty?Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                            // width: 100,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.25),
-                                  //spreadRadius: 1,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            padding: EdgeInsets.only(right: 20),
-                            child: CustomIconButtonConst(
-                                width: 110,
-                                text: "Terminate",
-                                icon: Icons.add,
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) =>
-                                          FutureBuilder<TerminateEmployeePrefillData>(
-                                              future:getTerminationEmployeePerfill(context: context, employeeId: widget.employeeId) ,
-                                              builder: (context,snapshotPrefill) {
-                                                if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                }
-                                                if(snapshotPrefill.hasData){
-                                                  return TerminatePopup(employeeId: widget.employeeId, preFillData: snapshotPrefill.data!,);
-                                                }else{
-                                                  return SizedBox();
-                                                }
-
+                          CustomIconButtonConst(
+                              width: 110,
+                              text: "Terminate",
+                              icon: Icons.add,
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) =>
+                                        FutureBuilder<TerminateEmployeePrefillData>(
+                                            future:getTerminationEmployeePerfill(context: context, employeeId: widget.employeeId) ,
+                                            builder: (context,snapshotPrefill) {
+                                              if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                               }
-                                          ));
-                                }
-                            ),
+                                              if(snapshotPrefill.hasData){
+                                                return TerminatePopup(employeeId: widget.employeeId, preFillData: snapshotPrefill.data!,);
+                                              }else{
+                                                return SizedBox();
+                                              }
+
+                                            }
+                                        ));
+                              }
                           ),
                         ],
                       ):Offstage(),
