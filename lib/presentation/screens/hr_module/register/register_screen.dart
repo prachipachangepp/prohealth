@@ -323,20 +323,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  data.firstName.capitalizeFirst!,
-                  style:  DefineWorkWeekStyle.customTextStyle(context),
-                ),
-                SizedBox(width: 4,),
-                Text(
-                  data.lastName.capitalizeFirst!,
-                  style:  DefineWorkWeekStyle.customTextStyle(context),
-                ),
-              ],
+            Padding(
+              padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width / 130),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    data.firstName.capitalizeFirst!,
+                    style:  DefineWorkWeekStyle.customTextStyle(context),
+                  ),
+                  SizedBox(width: 4,),
+                  Text(
+                    data.lastName.capitalizeFirst!,
+                    style:  DefineWorkWeekStyle.customTextStyle(context),
+                  ),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -448,7 +451,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () async{
                             List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context,1);
                             showDialog(
-
                               context: context,
                               builder: (_) => FutureBuilder<RegisterDataUserIDPrefill>(
                                 future: getRegisterEnrollPrefillUserId(context, data.userId),
