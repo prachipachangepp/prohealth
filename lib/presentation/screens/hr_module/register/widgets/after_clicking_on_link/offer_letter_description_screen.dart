@@ -229,8 +229,6 @@ class _OfferLetterDescriptionScreenState
                   StatefulBuilder(
                     builder: (BuildContext context, void Function(void Function()) setState) { return Row(
                       children: [
-
-
                         // TermsCheckbox(
                         //   initialValue: _isChecked,
                         //   onChanged: (value) {
@@ -248,14 +246,20 @@ class _OfferLetterDescriptionScreenState
                         //     });
                         //   },
                         // ),
-                        Checkbox(
-                          activeColor: ColorManager.blueprime,
-                          value: _isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isChecked = value!;
-                            });
-                          },
+                        Theme(
+                          data:Theme.of(context).copyWith(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                          ),
+                          child: Checkbox(
+                            activeColor: ColorManager.blueprime,
+                            value: _isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isChecked = value!;
+                              });
+                            },
+                          ),
                         ),
                         Text(
                             'I agree to the terms & conditions',

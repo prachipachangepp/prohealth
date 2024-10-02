@@ -308,7 +308,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       button: Align(
                           alignment: Alignment.centerRight,
                           child: snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
-                            fontSize: MediaQuery.of(context).size.width/120,
+                            fontSize: 12,
                             color: ColorManager.mediumgrey,
                             fontWeight: FontWeight.w600,
                           )): BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){

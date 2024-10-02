@@ -764,14 +764,20 @@ class CheckBoxTileConst extends StatelessWidget {
     return Container(
       width: 40,
       height: 50,
-      child: CheckboxListTile(
-        title: Text(
-          text,
-          style: DocumentTypeDataStyle.customTextStyle(context),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
-        value: value,
-        onChanged: onChanged,
-        controlAffinity: ListTileControlAffinity.leading, // Checkbox first, then text
+        child: CheckboxListTile(
+          title: Text(
+            text,
+            style: DocumentTypeDataStyle.customTextStyle(context),
+          ),
+          value: value,
+          onChanged: onChanged,
+          controlAffinity: ListTileControlAffinity.leading, // Checkbox first, then text
+        ),
       ),
     );
   }

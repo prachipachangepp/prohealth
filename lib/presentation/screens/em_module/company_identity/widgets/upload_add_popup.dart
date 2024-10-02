@@ -298,9 +298,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 documentFile: filePath,
                 orgOfficeDocumentId: response.orgOfficeDocumentId!,
               );
-              setState(() {
-                load = false;
-              });
+
             }
           } finally {
             setState(() {

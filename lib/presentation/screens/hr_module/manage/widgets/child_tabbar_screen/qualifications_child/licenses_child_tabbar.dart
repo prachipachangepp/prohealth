@@ -6,9 +6,11 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
@@ -54,8 +56,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FutureBuilder<List<CiOrgDocumentCC>>(
-                  future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+              FutureBuilder<List<NewOrgDocument>>(
+                  future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                   builder: (context,snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return  Container(
@@ -77,8 +79,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       for(var i in snapshot.data!){
                         dropDownMenuItems.add(
                           DropdownMenuItem<String>(
-                            child: Text(i.name),
-                            value: i.name,
+                            child: Text(i.docName),
+                            value: i.docName,
                           ),
                         );
                       }
@@ -87,8 +89,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           initialValue: dropDownMenuItems[0].value,
                           onChange: (val){
                             for(var a in snapshot.data!){
-                              if(a.name == val){
-                                docType = a.name;
+                              if(a.docName == val){
+                                docType = a.docName;
                                 docName = docType;
                                 //docMetaId = docType;
                               }
@@ -149,8 +151,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 }
                               },
                               title: 'Add Licence',
-                              child: FutureBuilder<List<CiOrgDocumentCC>>(
-                                  future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                              child: FutureBuilder<List<NewOrgDocument>>(
+                                  future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                   builder: (context,snapshot) {
                                     if(snapshot.connectionState == ConnectionState.waiting){
                                       return Container(
@@ -172,8 +174,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                       for(var i in snapshot.data!){
                                         dropDownMenuItems.add(
                                           DropdownMenuItem<String>(
-                                            child: Text(i.name),
-                                            value: i.name,
+                                            child: Text(i.docName),
+                                            value: i.docName,
                                           ),
                                         );
                                       }
@@ -182,8 +184,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                           initialValue: dropDownMenuItems[0].value,
                                           onChange: (val){
                                             for(var a in snapshot.data!){
-                                              if(a.name == val){
-                                                docType = a.name;
+                                              if(a.docName == val){
+                                                docType = a.docName;
                                                 docName = docType;
                                                 //docMetaId = docType;
                                               }
@@ -289,7 +291,22 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           const SizedBox(height: 50,)
 
                         ],
-                        button: SizedBox(height: 1,),
+                        button: Align(
+                          alignment:Alignment.centerRight,
+                            child: snapshot.data![index].approved == null ? Text('Not Approved',style:TextStyle(
+                              fontSize: 12,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w600,
+                            )):snapshot.data![index].approved == false ?Text('Rejected',style:TextStyle(
+                              fontSize: 12,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w600,
+                            )) :Text('Approved',style:TextStyle(
+                              fontSize: 12,
+                              color: ColorManager.blueprime,
+                              fontWeight: FontWeight.w600,
+                            ))
+                        ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.end,
                         //   children: [
