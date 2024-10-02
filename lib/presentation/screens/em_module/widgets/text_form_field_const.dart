@@ -437,7 +437,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                   suffixIcon: widget.showDatePicker
                       ? GestureDetector(
                     onTap: () => _selectDate(context),
-                    child: Icon(Icons.calendar_month_outlined),
+                    child: Icon(Icons.calendar_month_outlined,color:ColorManager.blueprime),
                   )
                       : widget.suffixIcon,
                   prefix: widget.prefixWidget,

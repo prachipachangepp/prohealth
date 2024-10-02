@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -544,11 +544,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             child: HRUManageDropdown(
                                               controller: TextEditingController(text: ''),
                                               labelText: 'Select Employee Type',
-                                              labelStyle: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                color: ColorManager.mediumgrey,
-                                              ),
+                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w500,),
                                               labelFontSize: 12,
                                               items: [], // Empty while loading
                                             ),
@@ -559,12 +557,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                             controller: TextEditingController(text: ''),
                                             labelText: 'Select Employee Type',
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
+                                            labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                               color: ColorManager.mediumgrey,
-
-                                            ),
+                                              fontWeight: FontWeight.w500,),
                                             labelFontSize: 12,
                                             items: [],
                                           );
@@ -587,11 +582,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           return HRUManageDropdown(
                                             controller: TextEditingController(text: selectedEmployeeType ?? ''),
                                             labelText: "Select Employee Type",
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.mediumgrey,
-                                            ),
+                                            labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                            color: ColorManager.mediumgrey,
+                                            fontWeight: FontWeight.w500,),
                                             labelFontSize: 12,
                                             items: dropDownEmployeeTypes,
                                             onChanged: (val) {
@@ -630,11 +623,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 controller: TextEditingController(
                                                     text: ''),
                                                 labelText: 'Select Department',
-                                                labelStyle: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
+                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                  color: Color(0xff575757),
+                                                  fontWeight: FontWeight.w500,),
                                                 labelFontSize: 12,
                                                 items:  dropDownServiceList,
 
@@ -678,11 +669,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             controller: TextEditingController(
                                                 text: selectedDeptName ?? ''),
                                             labelText: "Select Department",
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.mediumgrey,
-                                            ),
+                                            labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w500,),
                                             labelFontSize: 12,
                                             items: dropDownServiceList,
                                             onChanged: (val) {
@@ -848,11 +837,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             controller: TextEditingController(text: ''),
                                             items: ['item 1', 'item 2'],
                                             // labelText: 'Reporting Office',
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
+                                            labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                               color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ), labelFontSize: 12,
+                                              fontWeight: FontWeight.w400,),
+                                            // GoogleFonts.firaSans(
+                                            //   fontSize: 12,
+                                            //   color: Color(0xff575757),
+                                            //   fontWeight: FontWeight.w400,
+                                            // ),
+                                            labelFontSize: 12,
                                           );
                                         }
                                         if (snapshot.hasData) {
@@ -891,6 +884,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
+                                      //color: Colors.red,
                                       width:354,
                                       height:30,
                                     ),
@@ -899,7 +893,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               ],
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -914,18 +908,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   ),
                                 ),
 
-                                Container(
-                                  height: 55,
-                                  width: 320,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(14),
-                                    border: Border.all(
-                                      color: ColorManager.white,
-                                      width: 2, //width of border
-                                    ),
-                                  ),
-                                  // color: Colors.green,
-                                ),
+                                // Container(
+                                //   height: 55,
+                                //   width: 320,
+                                //   decoration: BoxDecoration(
+                                //     borderRadius: BorderRadius.circular(14),
+                                //     border: Border.all(
+                                //       color: ColorManager.white,
+                                //       width: 2, //width of border
+                                //     ),
+                                //   ),
+                                //   // color: Colors.green,
+                                // ),
                               ],
                             ),
                             ///Coverage
@@ -935,8 +929,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 55,
-                                    width: 350,
+                                    height: 60,
+                                    width: 400,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(14),
                                       border: Border.all(
@@ -1013,11 +1007,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                               children: [
                                                                                 Text(
                                                                                   'County',
-                                                                                  style: GoogleFonts.firaSans(
-                                                                                    fontSize: 12,
+                                                                                  style: CustomTextStylesCommon.commonStyle(fontSize: 12,
                                                                                     fontWeight: FontWeight.w600,
-                                                                                    color: const Color(0xff575757),
-                                                                                  ),
+                                                                                    color: const Color(0xff575757),)
+                                                                                  // GoogleFonts.firaSans(
+                                                                                  //   fontSize: 12,
+                                                                                  //   fontWeight: FontWeight.w600,
+                                                                                  //   color: const Color(0xff575757),
+                                                                                  // ),
                                                                                 ),
                                                                                 const SizedBox(height: 5),
                                                                                 FutureBuilder<List<AllCountyGetList>>(
@@ -1082,11 +1079,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                               // Zone Label
                                                                                               Text(
                                                                                                 'Zone',
-                                                                                                style: GoogleFonts.firaSans(
-                                                                                                  fontSize: 12,
+                                                                                                style: CustomTextStylesCommon.commonStyle(fontSize: 12,
                                                                                                   fontWeight: FontWeight.w600,
-                                                                                                  color: const Color(0xff575757),
-                                                                                                ),
+                                                                                                  color: const Color(0xff575757),)
+                                                                                                // GoogleFonts.firaSans(
+                                                                                                //   fontSize: 12,
+                                                                                                //   fontWeight: FontWeight.w600,
+                                                                                                //   color: const Color(0xff575757),
+                                                                                                // ),
                                                                                               ),
                                                                                               const SizedBox(height: 5),
 
@@ -1282,7 +1282,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                               return Center(
                                                                                                   child: Text(
                                                                                                     'Select county',
-                                                                                                    style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                                                                                      style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500)
                                                                                                   ));
                                                                                             }
                                                                                             if (snapshot
@@ -1291,7 +1291,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                                               return Center(
                                                                                                   child: Text(
                                                                                                     'No Data Found!',
-                                                                                                    style: GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                                                                                    style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500)
+                                                                                                    //GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
                                                                                                   ));
                                                                                             }
                                                                                             return Row(
@@ -1377,20 +1378,31 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                   color: ColorManager.blueprime,
                                                 ),
                                               ),
+                                              // SizedBox(
+                                              //   width: 5,
+                                              // ),
+                                              IconButton(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                icon: Icon(Icons.delete, color: Colors.red,size: 15,),
+                                                //onPressed: widget.onRemove,
+                                                onPressed: (){},
+                                              ),
                                             ],
                                           );
                                         },
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    height: 55,
-                                    width: 350,
-                                  ),
-                                  Container(
-                                    height: 55,
-                                    width: 350,
-                                  ),
+                                  // Container(
+                                  //   height: 55,
+                                  //   width: 350,
+                                  // ),
+                                  // Container(
+                                  //   height: 55,
+                                  //   width: 350,
+                                  // ),
 
 
                                 ],
@@ -1481,11 +1493,14 @@ class ProfileEditCancelButton extends StatelessWidget {
   // bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = GoogleFonts.firaSans(
-      color: textColor,
+    final defaultTextStyle =  CustomTextStylesCommon.commonStyle( color: textColor,
       fontSize: 12,
-      fontWeight: FontWeightManager.bold,
-    );
+      fontWeight: FontWeight.w600,);
+    // GoogleFonts.firaSans(
+    //   color: textColor,
+    //   fontSize: 12,
+    //   fontWeight: FontWeightManager.bold,
+    // );
     final mergedTextStyle = defaultTextStyle.merge(style);
     return Container(
       width: width,
