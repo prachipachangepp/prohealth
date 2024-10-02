@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -10,8 +11,10 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/timeoff_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/timeoff_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/edit_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/inkewell_text_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/approve_reject_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 
 class TimeOffHeadTabbar extends StatefulWidget {
@@ -202,7 +205,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           ),
                           Expanded(
                             child: Center(
-                              child: Text(AppString.reason,
+                              child: Text(AppString.reasonTimeOff,
                                   //textAlign: TextAlign.start,
                                   style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
@@ -297,20 +300,25 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 ),
                                               ),
                                             ),
-                                            // Text(''),
                                             Expanded(
                                               child: Center(
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    // CircleAvatar(
-                                                    //   radius: 10,
-                                                    //   child:  Center(child: Icon(Icons.person,color:Colors.grey,)),
-                                                    // ),
-                                                    Icon(Icons.person,color:Colors.grey,size: 15,
-
+                                                    CircleAvatar(
+                                                      radius: 16,
+                                                      backgroundColor: Colors.white,
+                                                      child:  CachedNetworkImage(
+                                                        imageUrl: "",
+                                                        placeholder: (context, url) => CircularProgressIndicator(),
+                                                        errorWidget: (context, url, error) => Icon(Icons.error),
+                                                        fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                                        height: 16, // Adjust image height for proper fit
+                                                        width: 16, // Adjust image width for proper fit
+                                                      ),
                                                     ),
+                                                    // Icon(Icons.person,color:Colors.grey,size: 15,),
                                                     Text(
                                                       timeOff.employeeName,
                                                       //textAlign: TextAlign.center,
@@ -391,13 +399,29 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                     TextInkwellButton(
                                                       text: 'Approve',
                                                       onTap: () async{
-                                                        await approveTimeOffPatch(context, snapshot.data![index].employeeTimeOffId);
+                                                        showDialog(context: context, builder: (BuildContext context){
+                                                          return ApproveRejectConst(
+                                                            titleName: 'Approve',
+                                                            bodyText: 'Do you really want to,approve leave?',
+                                                            onpressedSave: () async{
+                                                            await approveTimeOffPatch(context, snapshot.data![index].employeeTimeOffId);
+                                                          },);
+                                                        });
                                                       },
                                                     ),
                                                         // :SizedBox(),
                                                     TextInkwellButton(
                                                       text: 'Reject',
-                                                      onTap: () {},
+                                                      onTap: () {
+                                                        showDialog(context: context, builder: (BuildContext context){
+                                                          return ApproveRejectConst(
+                                                            titleName: 'Reject',
+                                                            bodyText: 'Do you really want to,reject leave?',
+                                                            onpressedSave: () async{
+                                                              await rejectTimeOffPatch(context, snapshot.data![index].employeeTimeOffId);
+                                                            },);
+                                                        });
+                                                      },
                                                     ),
                                                     TextInkwellButton(
                                                       text: 'Edit',
@@ -436,10 +460,21 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                                         'Edit Time Off',
                                                                     onPressed:
                                                                         () async{
-                                                                         await updateEmployeeTimeOffPatch(context, snapshotPrefill.data!.employeeTimeOffId, snapshotPrefill.data!.employeeId,
+                                                                         var response = await updateEmployeeTimeOffPatch(context, snapshotPrefill.data!.employeeTimeOffId, snapshotPrefill.data!.employeeId,
                                                                              snapshotPrefill.data!.timeOffRequest, snapshotPrefill.data!.reson, startTime == startTimeController.text ? startTime.toString() :startTimeController.text,
                                                                              endTime == endTimeController.text ? endTime.toString() : endTimeController.text, sickTime == sickTimeController.text ? sickTime.toString() : sickTimeController.text,
                                                                              snapshotPrefill.data!.hours);
+                                                                         if(response.statusCode == 200 || response.statusCode == 201){
+                                                                           Navigator.pop(context);
+                                                                           showDialog(
+                                                                             context: context,
+                                                                             builder: (BuildContext context) {
+                                                                               return AddSuccessPopup(
+                                                                                 message: 'Leave Edited Successfully',
+                                                                               );
+                                                                             },
+                                                                           );
+                                                                         }
                                                                         },
                                                                   );
                                                                 }
@@ -451,7 +486,6 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 ),
                                               ),
                                             )
-                                            //  Text(''),
                                           ],
                                         ),
                                       ),

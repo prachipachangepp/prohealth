@@ -14,7 +14,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';

@@ -14,8 +14,7 @@ import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/mana
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
-
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../company_identity_zone/widgets/location_screen.dart';

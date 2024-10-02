@@ -102,7 +102,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
               )
                   : widget.icon,
               prefix: widget.prefixWidget,
-              prefixIcon: widget.icon,
+              prefixIcon: widget.suffixIcon,
               prefixStyle: AllHRTableData.customTextStyle(context),
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
