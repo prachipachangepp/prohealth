@@ -80,6 +80,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   calenderController.clear();
               showDialog(context: context, builder: (BuildContext context){
                 return AddHolidayPopup(
+                  buttonWidth:  AppSize.s110,
                   btnTitle: "Add holiday",
                   title: AddPopupString.addNewHoliday,
                   controller: holidayNameController,
@@ -276,6 +277,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                     holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
                                                                     calenderController = TextEditingController(text: snapshotPrefill.data?.date);
                                                                     return AddHolidayPopup(
+                                                                      buttonWidth:  AppSize.s70,
                                                                       btnTitle: "Save Changes",
                                                                       title: EditPopupString.editholiday,
                                                                       controller:

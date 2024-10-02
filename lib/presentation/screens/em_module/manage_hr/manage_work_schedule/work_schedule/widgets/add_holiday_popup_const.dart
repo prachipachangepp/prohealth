@@ -17,6 +17,7 @@ class AddHolidayPopup extends StatefulWidget {
   final Future<void> Function() onPressed;
   final String title;
   final String btnTitle;
+  final double buttonWidth;
 
   const AddHolidayPopup({
     super.key,
@@ -25,6 +26,7 @@ class AddHolidayPopup extends StatefulWidget {
     required this.onPressed,
     required this.title,
     required this.btnTitle,
+    required this.buttonWidth,
   });
 
   @override
@@ -47,7 +49,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
         Padding(
           padding: const EdgeInsets.symmetric(
             vertical: AppPadding.p3,
-            // horizontal: AppPadding.p20,
+             horizontal: AppPadding.p15,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +165,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
         ),
       )
           : CustomElevatedButton(
-              width: AppSize.s110,
+              width:  widget.buttonWidth,
               height: AppSize.s30,
               text: widget.btnTitle,
               onPressed: () async {

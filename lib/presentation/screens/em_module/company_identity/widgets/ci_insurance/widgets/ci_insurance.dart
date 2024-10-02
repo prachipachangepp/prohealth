@@ -97,7 +97,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
@@ -109,7 +109,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Icon(Icons.arrow_drop_down),
                             ),
                           ],
@@ -125,7 +125,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           // color: Colors.red,
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
