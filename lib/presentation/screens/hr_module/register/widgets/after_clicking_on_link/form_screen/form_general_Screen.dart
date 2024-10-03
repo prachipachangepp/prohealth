@@ -22,6 +22,7 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/add_emp
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -935,14 +936,30 @@ class _generalFormState extends State<generalForm> {
                   print("Response Body: ${response.data}");
 
                   if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
+                    // );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'User Data Updated',
+                        );
+                      },
                     );
                     _initializeFormWithPrefilledData();
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Failed to update user data")),
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Failed To Update User Data',
+                        );
+                      },
                     );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text("Failed to update user data")),
+                    // );
                   }
 
                   // Clear fields after saving

@@ -43,9 +43,9 @@ class FormEducationManager {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = response.data;
         var educationId = data['employeeId'];
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Education data saved"),backgroundColor: Colors.green,),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text("Education data saved"),backgroundColor: Colors.green,),
+        // );
 
         print("education Added");
 

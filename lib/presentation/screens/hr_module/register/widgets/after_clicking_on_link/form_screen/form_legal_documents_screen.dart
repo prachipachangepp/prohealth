@@ -15,6 +15,7 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../form_nine_screen.dart';
@@ -351,22 +352,34 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       );
 
                       if(response.statusCode == 201 || response.statusCode == 200){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Document uploaded successfully!'),
-                            backgroundColor: Colors.green,
-                          ),
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Document Uploaded Successfully',
+                            );
+                          },
                         );
                       }else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Failed To Upload Document',
+                            );
+                          },
+                        );
                         print('Document upload Error');
                       }
 
                     } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Failed to upload document: $e'),
-                          backgroundColor: Colors.red,
-                        ),
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Failed To Upload Document',
+                          );
+                        },
                       );
                     }
                   }

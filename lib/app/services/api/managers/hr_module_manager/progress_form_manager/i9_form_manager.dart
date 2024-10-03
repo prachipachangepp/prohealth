@@ -111,9 +111,9 @@ Future<ApiDataRegister> legalDocumentAdd({
       print("legal data add");
       var data = response.data;
       var legalDocId = data['EmployeeLegalDocumentId'];
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Legal data saved"),backgroundColor: Colors.green,),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Legal data saved"),backgroundColor: Colors.green,),
+      // );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

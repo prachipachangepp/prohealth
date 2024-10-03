@@ -17,6 +17,7 @@ import '../../../../../../../app/resources/establishment_resources/establish_the
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_banking_data.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -109,20 +110,22 @@ class _BankingScreenState extends State<BankingScreen> {
               empBankingId: result.banckingId!,
               documentFile: documentFile,
               documentName: documentName);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content:
-              Text('Document uploaded successfully!'),
-              backgroundColor: Colors.green,
-            ),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddSuccessPopup(
+                message: 'Banking Data Saved',
+              );
+            },
           );
         } catch (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content:
-              Text('Failed to upload document: $e'),
-              backgroundColor: Colors.red,
-            ),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddSuccessPopup(
+                message: 'Failed To Update Banking Data',
+              );
+            },
           );
         }
     }

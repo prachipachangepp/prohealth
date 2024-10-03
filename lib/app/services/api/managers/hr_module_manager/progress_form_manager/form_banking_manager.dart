@@ -40,9 +40,9 @@ Future<ApiDataRegister> postbankingscreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("banking Added");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Banking data saved"),backgroundColor: Colors.green,),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Banking data saved"),backgroundColor: Colors.green,),
+      // );
       var bankResponse = response.data;
       var banckingId = bankResponse['empBankingId'];
       // orgDocumentGet(context);
