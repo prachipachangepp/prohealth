@@ -728,7 +728,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
               style: TextStyle(
                   color: widget.textColor,
                   fontWeight: FontWeight.w500,
-                  fontSize: 10),
+                  fontSize: 12),
             ),
           );
         }).toList(),

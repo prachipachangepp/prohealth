@@ -41,6 +41,7 @@ class OfferLetterScreen extends StatefulWidget {
   final String clinicalName;
   final int employeeId;
   final ApiData? apiData;
+ final Function() onRefreshRegister;
 
   const OfferLetterScreen(
       {super.key,
@@ -58,7 +59,7 @@ class OfferLetterScreen extends StatefulWidget {
         required this.soecalityName,
         required this.clinicalName,
         required this.employeeId,
-         this.apiData
+         this.apiData, required this.onRefreshRegister
       });
 
   @override
@@ -607,6 +608,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                                   startDateController.text,
                                   verbalAcceptanceController.text,
                                 );
+
                                 print('County id : ${selectedCountyId}');
                                 print('Zone id : ${selectedZoneId}');
                                 await addEmpEnrollAddCoverage(
@@ -628,7 +630,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                                 lastDateController.clear();
                                 startDateController.clear();
                                 verbalAcceptanceController.clear();
-
+                                widget.onRefreshRegister;
                                 if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
                                   Navigator.pop(context);
                                   showDialog(
@@ -638,6 +640,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                                         if (Navigator.of(context).canPop()) {
                                           Navigator.of(context).pop();
                                           popNavigation();
+
                                         }
                                       });
                                       return AddSuccessPopup(message: 'Employee Enrolled Successfully',);

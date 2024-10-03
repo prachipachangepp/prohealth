@@ -796,9 +796,16 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           searchByEmployeeIdProfileData,
                           employeeId: empID,
                           pageManageController: _pageManageController,
+                          onRefresh: () {
+                            setState(() {
+
+                            });
+                          },
                         ),
                         //AddEmployeeHomeScreen(),
-                        RegisterScreen(),
+                        RegisterScreen(
+
+                        ),
                         NewOnboardScreen(),
                       ],
                     );

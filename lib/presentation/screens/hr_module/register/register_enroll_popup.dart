@@ -134,13 +134,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
          employement: 'Full Time',
          clinicalName: clinicialName,
          soecalityName: speciality,
+         onRefreshRegister: () {
+           setState(() {});
+           },
        )));
-     // }
-     // else {
-     //   ScaffoldMessenger.of(context).showSnackBar(
-     //     SnackBar(content: Text('Error: ${result.message}')),
-     //   );
-     // }
    }
    bool _isButtonEnabled = false;
    bool _isLoad = false;
@@ -613,6 +610,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                     employement: 'Full Time',
                                     clinicalName: clinicialName,
                                     soecalityName: specialityName,
+                                    onRefreshRegister: () {
+                                      setState(() {
+
+                                      });
+                                    },
                                   )));
                             }else {
                               print('Error');

@@ -31,11 +31,13 @@ class ManageScreen extends StatefulWidget {
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final PageController pageManageController;
   final int? employeeEnrollId;
+  final Function() onRefresh;
 
   ManageScreen({
     super.key,
     this.searchByEmployeeIdProfileData,
     required this.employeeId,
+    required this.onRefresh,
     required this.pageManageController,  this.employeeEnrollId,
   });
 
@@ -59,6 +61,7 @@ class _ManageScreenState extends State<ManageScreen> {
               child: _isEditMode
                   ? ProfileEditScreen(
                       onCancel: () {
+                        widget.onRefresh();
                         setState(() {
                           _isEditMode = false;
                         });

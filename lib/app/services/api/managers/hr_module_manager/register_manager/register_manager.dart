@@ -416,7 +416,7 @@ Future<ApiData> patchEmpEnrollAddCoverage(
       // "zoneId": zoneId,
     };
     print("Covrage Data ${data}");
-    var response = await Api(context).post(
+    var response = await Api(context).patch(
       path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
       data: {
         "employeeEnrollId": employeeEnrollId,
@@ -429,7 +429,7 @@ Future<ApiData> patchEmpEnrollAddCoverage(
     );
     print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Coverage added");
+      print("Coverage updated");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
