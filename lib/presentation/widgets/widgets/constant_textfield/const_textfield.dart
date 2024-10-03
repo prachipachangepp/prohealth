@@ -537,7 +537,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 10),
+          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.s12),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: Colors.black,
           textInputAction: TextInputAction.next,
@@ -627,7 +627,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 10),
+                style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.s12),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
@@ -728,7 +728,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
               style: TextStyle(
                   color: widget.textColor,
                   fontWeight: FontWeight.w500,
-                  fontSize: 10),
+                  fontSize: FontSize.s12),
             ),
           );
         }).toList(),
