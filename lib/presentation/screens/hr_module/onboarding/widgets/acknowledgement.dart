@@ -284,33 +284,39 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ElevatedButton(
-                      onPressed: _handleRejectSelected,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorManager.white,
-                        foregroundColor: ColorManager.bluebottom,
-                        side: BorderSide(color: ColorManager.bluebottom),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Container(
+                      width: AppSize.s90,
+                      child: ElevatedButton(
+                        onPressed: _handleRejectSelected,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorManager.white,
+                          foregroundColor: ColorManager.bluebottom,
+                          side: BorderSide(color: ColorManager.bluebottom),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
-                      ),
-                      child: Text(AppString.reject,
-                        style:TransparentButtonTextConst.customTextStyle(context)
+                        child: Text(AppString.reject,
+                          style:TransparentButtonTextConst.customTextStyle(context)
+                        ),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 75),
-                    ElevatedButton(
-                      onPressed: _handleApproveSelected,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorManager.bluebottom,
-                        foregroundColor: ColorManager.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Container(
+                      width: AppSize.s90,
+                      child: ElevatedButton(
+                        onPressed: _handleApproveSelected,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorManager.bluebottom,
+                          foregroundColor: ColorManager.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Approve',
-                        style: BlueButtonTextConst.customTextStyle(context),
+                        child: Text(
+                          'Approve',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ),
                       ),
                     ),
                   ],

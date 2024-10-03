@@ -244,23 +244,21 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     topRight: Radius.circular(12),
                   ),
                 ),
+                padding: EdgeInsets.only(left: 35,right: 25),
                 height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ///botton
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        'Enroll',
-                        style: PopupBlueBarText.customTextStyle(context),
-                        // style: GoogleFonts.firaSans(
-                        //   fontSize: FontSize.s12,
-                        //   fontWeight: FontWeightManager.semiBold,
-                        //   color: ColorManager.white,
-                        //   decoration: TextDecoration.none,
-                        // ),
-                      ),
+                    Text(
+                      'Enroll',
+                      style: PopupBlueBarText.customTextStyle(context),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: FontSize.s12,
+                      //   fontWeight: FontWeightManager.semiBold,
+                      //   color: ColorManager.white,
+                      //   decoration: TextDecoration.none,
+                      // ),
                     ),
                     IconButton(
                       onPressed: () {

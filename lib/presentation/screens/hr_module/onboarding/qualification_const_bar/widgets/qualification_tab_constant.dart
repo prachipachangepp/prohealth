@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -24,21 +25,24 @@ class QualificationActionButtons extends StatelessWidget {
     return Row(
       children: [
         approve == false
-            ? ElevatedButton(
-          onPressed: onRejectPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            foregroundColor: Color(0xff1696C8),
-            side: BorderSide(color: Color(0xff1696C8)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: Text(
-            'Reject',
-            style: TransparentButtonTextConst.customTextStyle(context)
-          ),
-        )
+            ? Container(
+              width: AppSize.s90,
+              child: ElevatedButton(
+                        onPressed: onRejectPressed,
+                        style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: Color(0xff1696C8),
+              side: BorderSide(color: Color(0xff1696C8)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+                        ),
+                        child: Text(
+              'Reject',
+              style: TransparentButtonTextConst.customTextStyle(context)
+                        ),
+                      ),
+            )
             : approve == false
             ? Text(
           'Rejected',
@@ -52,20 +56,23 @@ class QualificationActionButtons extends StatelessWidget {
             : Offstage(),
         SizedBox(width: MediaQuery.of(context).size.width / 75),
         approve == false
-            ? ElevatedButton(
-          onPressed: onApprovePressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xff1696C8),
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: Text(
-            'Approve',
-            style: BlueButtonTextConst.customTextStyle(context),
-          ),
-        )
+            ? Container(
+          width: AppSize.s90,
+              child: ElevatedButton(
+                        onPressed: onApprovePressed,
+                        style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xff1696C8),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+                        ),
+                        child: Text(
+              'Approve',
+              style: BlueButtonTextConst.customTextStyle(context),
+                        ),
+                      ),
+            )
             : approve == true
             ? Text(
           'Approved',

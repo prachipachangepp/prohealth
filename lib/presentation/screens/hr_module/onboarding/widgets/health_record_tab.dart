@@ -269,19 +269,22 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ElevatedButton(
-                      onPressed: _handleRejectSelected,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xff1696C8),
-                        side: BorderSide(color: Color(0xff1696C8)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Container(
+                      width: 85,
+                      child: ElevatedButton(
+                        onPressed: _handleRejectSelected,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Color(0xff1696C8),
+                          side: BorderSide(color: Color(0xff1696C8)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Reject',
-                        style: TransparentButtonTextConst.customTextStyle(context)
+                        child: Text(
+                          'Reject',
+                          style: TransparentButtonTextConst.customTextStyle(context)
+                        ),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 75),

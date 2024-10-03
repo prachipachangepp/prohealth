@@ -74,9 +74,9 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Id',
               ),
-              if (_idDocError != null) // Display error if any
+              if (_idDocError != null)
                 Text(
-                  _nameDocError!,
+                  _idDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(
@@ -260,7 +260,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               ),
               if (_dateDocError != null) // Display error if any
                 Text(
-                  _nameDocError!,
+                  _dateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
             ],
