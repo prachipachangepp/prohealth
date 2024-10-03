@@ -82,25 +82,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   String generatedURL = '';
    List<ApiAddCovrageData> addCovrage = [];
 
-
-  final List<Map<String, String>> data = [
-    {'zipCode': '10001', 'city': 'New York'},
-    {'zipCode': '20001', 'city': 'Washington, D.C.'},
-    {'zipCode': '30301', 'city': 'Atlanta'},
-    {'zipCode': '94101', 'city': 'San Francisco'},
-    // Add more data as needed
-  ];
-
   final PageController _pageController = PageController();
   int _currentPageIndex = 0;
 
-  void _goToPage(int pageIndex) {
-    _pageController.animateToPage(
-      pageIndex,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-  }
 
   void popNavigation(){
     setState((){
@@ -119,56 +103,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     });
   }
 
-  // void handleDropdownChange(String? newValue) {
-  //   setState(() {
-  //     dropdownValue = newValue ?? 'Salaried';
-  //   });
-  // }
-
-  List<Widget> _buildCheckboxes() {
-    return checkboxStates.map((data) {
-      return CheckboxListTile(
-        title: Text(
-          data['title'],
-          style:
-          DocumentTypeDataStyle.customTextStyle(context),
-        ),
-        value: data['value'],
-        onChanged: (bool? value) {
-          setState(() {
-            data['value'] = value ?? false;
-          });
-        },
-      );
-    }).toList();
-  }
-
-  List<Widget> _buildCheckboxesCity() {
-    return checkboxStatesCity.map((data) {
-      return CheckboxListTile(
-        title: Text(
-          data['title'],
-          style:
-          DocumentTypeDataStyle.customTextStyle(context),
-        ),
-        value: data['value'],
-        onChanged: (bool? value) {
-          setState(() {
-            data['value'] = value ?? false;
-          });
-        },
-      );
-    }).toList();
-  }
-
-  ///container code
-  ///
-
   List<GlobalKey<_DynamciContainerState>> containerKeys = [];
-
-
-
-
 
   void addContainer() {
     setState(() {
@@ -303,7 +238,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         horizontal: 12.0),
                                     child: Text(
                                       value,
-                                      style: const TextStyle(fontSize: 12.0),
+                                      style: const TextStyle(fontSize: 10.0),
                                     ),
                                   ),
                                 );
@@ -360,8 +295,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
                 child: Row(crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
+                children: [ElevatedButton(
                   onPressed:addContainer,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff1696C8),
@@ -377,6 +311,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 ),],),
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 40),
+              ///salery
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100),
                 child: StatefulBuilder(
@@ -402,6 +337,13 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         SizedBox(width: 30,),
                         Row(
                           children: [
+                            Text(
+                              _salary.isNotEmpty
+                                  ? "\$ ${_salary}"
+                                  : "Not Defined",
+                              style: DropdownItemStyle.customTextStyle(context),
+                            ),
+                            SizedBox(width: 30,),
                             ElevatedButton(
                                 onPressed: () {
                                   showDialog(
@@ -459,10 +401,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   children: [
                                                     dropdownValue == 'Salaried' ?  Text(
                                                       'Salary',
-                                                      style:AllPopupHeadings.customTextStyle(context),
+                                                      style:DefineWorkWeekStyle.customTextStyle(context),
                                                     ) : Text(
                                                       'Per Visit',
-                                                      style: AllPopupHeadings.customTextStyle(context),
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                     ),
                                                     SizedBox(
                                                       height: MediaQuery.of(context)
@@ -580,12 +522,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   style: BlueButtonTextConst.customTextStyle(context),
                                 )
                             ),
-                            SizedBox(width: 10,),
-                            if (_salary.isNotEmpty)
-                              Text(
-                                "\$ ${_salary}",
-                                style:  AllPopupHeadings.customTextStyle(context)
-                              ),
                             SizedBox(width: 15),
 
                           ],
@@ -596,7 +532,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   },
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 12),
+              SizedBox(height: MediaQuery.of(context).size.height / 9),
+              ///bottom button
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -638,8 +575,6 @@ addCovrage.add(await ApiAddCovrageData(city: '',
 
                       print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
                       await _generateUrlLink(widget.email, widget.userId.toString());
-
-
                       // print("Widget employeeId ${widget.apiData!.employeeId!}");
                       showDialog(
                         context: context,
@@ -650,6 +585,9 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                               Navigator.pop(context);
                             },
                             onConfirm: ()  async{
+                              // setState(() {
+                              //   _isLoading = true;
+                              // });
                               print('selected county id : ${selectedCountyId}');
                              //  print('selected zone id : ${st.docZoneId}');
                              // print('selected zipCode : ${st.selectedZipCodes}');
@@ -661,7 +599,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
 
                                 var empEnrollOfferResponse = await addEmpEnrollOffers(
                                   context,
-                                  widget.apiData!.employeeEnrollId!,
+                                  0,
                                   widget.apiData!.employeeId!,
                                   int.parse(patientsController.text),
                                   issueDateController.text,
@@ -673,17 +611,14 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                                 print('Zone id : ${selectedZoneId}');
                                 await addEmpEnrollAddCoverage(
                                   context,
-                                  widget.apiData!.employeeEnrollId!,
+                                  0,
                                   widget.apiData!.employeeId!,
                                   addCovrage
-                                  // selectedCityString,
-                                  // selectedCountyId,
-                                  // selectedZoneId,
                                 );
 
                                 await addEmpEnrollAddCompensation(
                                   context,
-                                  widget.apiData!.employeeEnrollId!,
+                                  0,
                                   widget.apiData!.employeeId!,
                                   dropdownValue.toString(),
                                   int.parse(_salary),
@@ -740,6 +675,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
                   ),
                 ],
               ),
+              SizedBox(height: 10,)
             ],
           ),
         ),
@@ -747,6 +683,7 @@ addCovrage.add(await ApiAddCovrageData(city: '',
     );
   }
 }
+
 class CheckBoxTileConst extends StatelessWidget {
   final String text;
   bool value;
@@ -764,28 +701,18 @@ class CheckBoxTileConst extends StatelessWidget {
     return Container(
       width: 40,
       height: 50,
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+      child: CheckboxListTile(
+        title: Text(
+          text,
+          style: DocumentTypeDataStyle.customTextStyle(context),
         ),
-        child: CheckboxListTile(
-          title: Text(
-            text,
-            style: DocumentTypeDataStyle.customTextStyle(context),
-          ),
-          value: value,
-          onChanged: onChanged,
-          controlAffinity: ListTileControlAffinity.leading, // Checkbox first, then text
-        ),
+        value: value,
+        onChanged: onChanged,
+        controlAffinity: ListTileControlAffinity.leading, // Checkbox first, then text
       ),
     );
   }
 }
-
-
-
-
 
 class DynamciContainer extends StatefulWidget {
   final VoidCallback onRemove;
@@ -797,9 +724,6 @@ class DynamciContainer extends StatefulWidget {
 }
 
 class _DynamciContainerState extends State<DynamciContainer> {
-
-
-
   int selectedZoneId = 0;
   int selectedCountyId = 0;
   int selectedCityId = 0;
@@ -869,7 +793,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     children: [
                       Text(
                         'County',
-                        style: AllPopupHeadings.customTextStyle(context),
+                        style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
                       SizedBox(height: 5),
                       FutureBuilder<List<AllCountyGetList>>(
@@ -973,9 +897,8 @@ class _DynamciContainerState extends State<DynamciContainer> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Zone',style: AllPopupHeadings.customTextStyle(context),),
+                      Text('Zone',style: DocumentTypeDataStyle.customTextStyle(context),),
                       SizedBox(height:5),
-
                       StreamBuilder<
                           List<CountyWiseZoneModal>>(
                           stream: _zoneController.stream,
@@ -1037,7 +960,6 @@ class _DynamciContainerState extends State<DynamciContainer> {
                               int docType = 0;
                               List<DropdownMenuItem<String>>
                               dropDownTypesList = [];
-
                               for (var i in snapshotZone.data!) {
                                 dropDownTypesList.add(
                                   DropdownMenuItem<String>(
@@ -1108,7 +1030,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       children: [
                         Text(
                           'Zip Codes',
-                          style: AllPopupHeadings.customTextStyle(context),
+                          style: DocumentTypeDataStyle.customTextStyle(context),
                         ),
                       ],
                     ),
@@ -1164,13 +1086,11 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         setState(() {
                                           print('Clicked check box 1');
                                           checkedZipCodes[zipCode] = val ?? false;
-
                                           if (val == true) {
                                             selectedZipCodes.add(int.parse(zipCode));
                                           } else {
                                             selectedZipCodes.remove(int.parse(zipCode));
                                           }
-
                                           selectedZipCodesString = selectedZipCodes.join(', ');
                                         });
                                       },
