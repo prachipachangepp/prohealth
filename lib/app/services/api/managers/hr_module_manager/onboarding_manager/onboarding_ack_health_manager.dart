@@ -160,6 +160,7 @@ Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> 
           success: false,
           message: response.data['message']);
     }
+
   } catch (e) {
     print("Error $e");
     return ApiData(
