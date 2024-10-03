@@ -803,7 +803,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           },
                         ),
                         //AddEmployeeHomeScreen(),
-                        RegisterScreen(),
+                        RegisterScreen(
+
+                        ),
                         NewOnboardScreen(),
                       ],
                     );

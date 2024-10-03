@@ -41,7 +41,8 @@ import 'dart:html' as html;
 
 ///saloni
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+
+  const RegisterScreen({Key? key, }) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -127,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           icon: Icons.add,
                           text: 'Enroll User',
                           onPressed: () async {
-                            showDialog(
+                          await showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return CustomDialog(
@@ -138,9 +139,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   firstNameController: firstNameController,
                                   // roleController: roleController,
                                   passwordController: passwordController,
+
                                 );
                               },
                             );
+                          setState((){});
                           },
                         ),
                       ),
@@ -231,7 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               Container(
                 height: 31,
-                width: 120,
+                width: 130,
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -430,8 +433,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                        // const url = "http://localhost:53169/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                         const url = "http://localhost:52632/#/onBordingWelcome";
+                        //   const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///////////
                           if (await canLaunch(url)) {

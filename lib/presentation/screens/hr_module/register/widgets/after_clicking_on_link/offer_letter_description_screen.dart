@@ -23,6 +23,7 @@ import 'multi_step_form.dart';
 class OfferLetterDescriptionScreen extends StatefulWidget {
   final dynamic signatureBytes;
   final int employeeId;
+
   OfferLetterDescriptionScreen({this.signatureBytes, required this.employeeId});
 
 
@@ -150,26 +151,19 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 100),
             Padding(
-              padding: const EdgeInsets.only(left: 250),
+              padding: const EdgeInsets.only(left: 180),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-
-
-
                   Container(
-                    width:120,
+                    width: 120,
                     height: 90, // Set height to avoid zero height
                     //color: Colors.yellow,
                     child: signatureBytes != null
                         ? Row(
                           children: [
-                            Image.memory(
-                                                  signatureBytes!,
-
-                                                ),
+                            Image.memory(signatureBytes!,),
                           ],
                         )
                         : Center(child: Text('')),
@@ -194,8 +188,8 @@ class _OfferLetterDescriptionScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 140,
-                    height: 35,
+                    width: 250,
+                    height: 40,
                    // color: Colors.cyanAccent,
                     child:ElevatedButton(
                       onPressed: () {
@@ -229,23 +223,7 @@ class _OfferLetterDescriptionScreenState
                   StatefulBuilder(
                     builder: (BuildContext context, void Function(void Function()) setState) { return Row(
                       children: [
-                        // TermsCheckbox(
-                        //   initialValue: _isChecked,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       _isChecked = value!;
-                        //     });
-                        //   },
-                        // ),
 
-                        // TermsCheckbox(
-                        //   onChanged: (value) {
-                        //     // You can handle the checkbox state here if needed
-                        //     setState(() {
-                        //       _isChecked = value!;
-                        //     });
-                        //   },
-                        // ),
                         Theme(
                           data:Theme.of(context).copyWith(
                             splashColor: Colors.transparent,
@@ -300,30 +278,7 @@ class _OfferLetterDescriptionScreenState
               MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
             );
           },title: 'Offer Letter', containerText: 'Offer Accepted Succefully',);
-                          // return AlertDialog(
-                          //   title: Center(
-                          //     child: Text('Offer Accepted Succefully', style: TextStyle(
-                          //         color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
-                          //     ),),
-                          //   ),
-                          //   content: Text( ""
-                          //     // snapshot.data!.message
-                          //   ),
-                          //   actions: [
-                          //     TextButton(
-                          //       onPressed: () async {
-                          //         //String userid= await TokenManager.getUserID();
-                          //         Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                          //         );
-                          //       },
-                          //       child: Text('OK', style: TextStyle(
-                          //           color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
-                          //       ),),
-                          //     ),
-                          //   ],
-                          // );
+
                         });
                       }else{
                         showDialog(context: context, builder: (BuildContext context){
