@@ -143,7 +143,7 @@ Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> 
     var response = await Api(context).patch(
       path: OnboardingQualificationRepo.batchRejectAckHealthRecord(),
       data:  {
-        "Ids": employeeDocumentId.map((id) => id.toString()).toList(),
+        "Ids": employeeDocumentId.map((id) => id).toList(),
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -160,7 +160,6 @@ Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> 
           success: false,
           message: response.data['message']);
     }
-
   } catch (e) {
     print("Error $e");
     return ApiData(

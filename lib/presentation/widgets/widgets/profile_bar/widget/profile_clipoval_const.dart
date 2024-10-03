@@ -116,7 +116,7 @@ class ProfileBarPhoneCmtConst extends StatelessWidget {
           height: 12,
           width: 15,
           child: Icon(
-            Icons.comment,
+            Icons.message,
             color: ColorManager.blueprime,
             size: 13,
           ),
