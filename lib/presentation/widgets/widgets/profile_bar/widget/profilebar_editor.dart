@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
@@ -34,6 +35,7 @@ import '../../../../../data/api_data/establishment_data/company_identity/company
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
+import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 
 
 
@@ -244,7 +246,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Container(
-                      height: 750,
+                     // height: 750,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -253,7 +255,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 23,top:10),
+                              padding: const EdgeInsets.only(right: 26,top:10),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -339,38 +341,49 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         );
                                         if(response.statusCode == 200 || response.statusCode == 201){
                                           var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text('Success', style:TextStyle(
-                                                  fontSize: FontSize.s13,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                )),
-                                                content: Text('Employee updated successfully!',style: TextStyle(
-                                                  fontSize: FontSize.s14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration: TextDecoration.none,
-                                                )),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    child: Text('OK',style: TextStyle(
-                                                      fontSize: FontSize.s14,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorManager.mediumgrey,
-                                                      decoration: TextDecoration.none,
-                                                    )),
-                                                  ),
-                                                ],
+                                              return AddSuccessPopup(
+                                                message: 'Employee updated successfully',
                                               );
                                             },
                                           );
+
+
+                                          // showDialog(
+                                          //   context: context,
+                                          //   builder: (BuildContext context) {
+                                          //     return AlertDialog(
+                                          //       title: Text('Success', style:TextStyle(
+                                          //         fontSize: FontSize.s13,
+                                          //         fontWeight: FontWeight.w600,
+                                          //         color: ColorManager.mediumgrey,
+                                          //         decoration: TextDecoration.none,
+                                          //       )),
+                                          //       content: Text('Employee updated successfully!',style: TextStyle(
+                                          //         fontSize: FontSize.s14,
+                                          //         fontWeight: FontWeight.w400,
+                                          //         color: ColorManager.mediumgrey,
+                                          //         decoration: TextDecoration.none,
+                                          //       )),
+                                          //       actions: [
+                                          //         TextButton(
+                                          //           onPressed: () {
+                                          //             Navigator.of(context).pop();
+                                          //           },
+                                          //           child: Text('OK',style: TextStyle(
+                                          //             fontSize: FontSize.s14,
+                                          //             fontWeight: FontWeight.w400,
+                                          //             color: ColorManager.mediumgrey,
+                                          //             decoration: TextDecoration.none,
+                                          //           )),
+                                          //         ),
+                                          //       ],
+                                          //     );
+                                          //   },
+                                          //);
                                           if (patchCoverage.success) {
                                             print("Coverage added successfully");
                                           } else {
@@ -1409,8 +1422,43 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               ),
                             ),
 
+
+
                           ],
                         ),
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: (){} ,
+                                child: Container(
+                                  height: 40,
+                                  width: 200,
+                                  //color: Colors.red,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                  child: Center(
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.add_circle,
+                                          size: 20,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                        SizedBox(width: 3,),
+                                        Text(
+                                          'Add Coverage',
+                                          style: DefineWorkWeekStyle.customTextStyle(context),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
