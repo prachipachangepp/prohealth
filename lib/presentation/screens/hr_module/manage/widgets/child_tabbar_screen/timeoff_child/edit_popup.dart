@@ -128,7 +128,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
                   height: AppSize.s30,
                   text: 'Add',
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
+                   // if (_formKey.currentState!.validate()) {
                       setState(() {
                         load = true;
                       });
@@ -140,7 +140,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
                         });
 
                       }
-                    }
+                    //}
                   },
                 ),
               ),
@@ -196,23 +196,23 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
           controller: controller,
           keyboardType: TextInputType.text,
           text: labelText,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please Enter valid details';
-            }
-            return null;
-          },
+          // validator: (value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'Please Enter valid details';
+          //   }
+          //   return null;
+          // },
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text(
-            controller.text.isEmpty ? 'Please Enter some text' : '',
-            style: TextStyle(
-              color: ColorManager.red,
-              fontSize: FontSize.s14,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 4.0),
+        //   child: Text(
+        //     controller.text.isEmpty ? 'Please Enter some text' : '',
+        //     style: TextStyle(
+        //       color: ColorManager.red,
+        //       fontSize: FontSize.s14,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

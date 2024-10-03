@@ -416,7 +416,7 @@ Future<ApiData> patchEmpEnrollAddCoverage(
       // "zoneId": zoneId,
     };
     print("Covrage Data ${data}");
-    var response = await Api(context).post(
+    var response = await Api(context).patch(
       path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
       data: {
         "employeeEnrollId": employeeEnrollId,

@@ -414,9 +414,9 @@ class CustomTextFieldRegister extends StatelessWidget {
           validator: validator,
           focusNode: focusNode,
           onFieldSubmitted: onFieldSubmitted,
-          inputFormatters: [
+          inputFormatters: capitalIsSelect ? [
             CapitalizeFirstLetterFormatter()
-          ],
+          ]:phoneNumberField! ? [PhoneNumberInputFormatter()] : [],
 
         ),
       ),

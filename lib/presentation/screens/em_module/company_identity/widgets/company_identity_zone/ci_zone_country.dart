@@ -235,9 +235,6 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                               countryName.toString(),
                                                               "37.0902°",
                                                               "95.7129°", widget.companyID, widget.officeId);
-                                                          getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
-                                                            _contyController.add(data);
-                                                          }).catchError((error){});
                                                           Navigator.pop(context);
                                                           if(response.statusCode == 200 || response.statusCode == 201){
                                                             showDialog(
@@ -249,6 +246,9 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                               },
                                                             );
                                                           }
+                                                          getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
+                                                            _contyController.add(data);
+                                                          }).catchError((error){});
 
                                                         },
                                                         title: 'Edit County',

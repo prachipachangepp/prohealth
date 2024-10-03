@@ -201,6 +201,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                     ),
                                     Row(
                                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           mainAxisAlignment:
@@ -211,6 +212,8 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                               children: [
                                                 Text(AppString.nameTermination,
                                                     style:
@@ -262,6 +265,8 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "${termination.firstName} " +
@@ -332,6 +337,8 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                               children: [
                                                 Text(AppString.terminationType,
                                                     style:
@@ -378,6 +385,8 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   termination.type,

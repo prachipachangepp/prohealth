@@ -245,9 +245,11 @@ class _ProfileBarState extends State<ProfileBar> {
                             ],
                           ),
                         ),
-                        Text(
-                          widget.searchByEmployeeIdProfileData!.status
-                              .capitalizeFirst!,
+                        widget.searchByEmployeeIdProfileData!.active ? Text(
+                          "Active",
+                          style: ThemeManagerBlack.customTextStyle(context),
+                        ):Text(
+                          "Inactive",
                           style: ThemeManagerBlack.customTextStyle(context),
                         ),
                         SizedBox(height: 5,),

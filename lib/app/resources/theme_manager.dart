@@ -305,7 +305,7 @@ class EquipTableRegStyle {
 class TimeOffRegular{
   static TextStyle customTextStyle(BuildContext context) {
     return  TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w600,
       color: ColorManager.granitegray,
       decoration:

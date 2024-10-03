@@ -124,6 +124,13 @@ class _CustomDialogState extends State<CustomDialog> {
         height: AppSize.s540,
         //title: "Create User",
         title: widget.title,
+        onClear: (){
+          widget.firstNameController.clear();
+          widget.lastNameController.clear();
+          widget.emailController.clear();
+          selectedDeptId = AppConfig.AdministrationId;
+          Navigator.pop(context);
+        },
         body: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),

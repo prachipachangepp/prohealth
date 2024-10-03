@@ -127,6 +127,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                       ? 'Please enter a valid email'
                       : null,
                   capitalIsSelect: false,
+                  phoneNumberField: false,
                 ),
                 _buildTextField(
                   controller: widget.titlePositionController,
@@ -170,6 +171,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                    errorKey: 'mobileNumber',
                   keyboardType: TextInputType.number,
                   capitalIsSelect: false,
+                  phoneNumberField:true,
                 ),
 
                 SizedBox(
@@ -220,13 +222,14 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
     required String errorKey,
     TextInputType? keyboardType,
     String? Function(String)? validator,
-    bool capitalIsSelect = false, // Add this parameter with a default value
+    bool capitalIsSelect = false,
+    bool phoneNumberField = false,// Add this parameter with a default value
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
-          phoneNumberField:  errorKey == 'mobileNumber' ? true : false,
+          phoneNumberField:  phoneNumberField,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
@@ -244,7 +247,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               if (errorKey == 'mobileNumber') {
                 // Validate phone number fields
                 String numericValue = value.replaceAll(RegExp(r'^\(\d{3}\) \d{3}-\d{4}$'), '');
-                errorStates[errorKey] = numericValue.length != 10;
+                errorStates[errorKey] = numericValue.length != 14;
               }
             });
           },
@@ -254,7 +257,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
             }
             if (errorKey == 'mobileNumber') {
               String numericValue = value.replaceAll(RegExp(r'^\(\d{3}\) \d{3}-\d{4}$'), '');
-              if (numericValue.length != 10) {
+              if (numericValue.length != 14) {
                 return 'Please enter a valid mobile number';
               }
             }

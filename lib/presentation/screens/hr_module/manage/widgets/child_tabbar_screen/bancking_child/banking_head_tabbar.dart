@@ -277,8 +277,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                 verifyAccountController = TextEditingController(text: snapshotPrefill.data!.accountNumber);
                                                 return EditBankingPopUp(
                                                   title: 'Edit Banking',
-                                                  banckId: snapshotPrefill
-                                                      .data!.empBankingId,
+                                                  banckId: index,
                                                   effectiveDateController:
                                                       effectiveDateController,
                                                   bankNameController:

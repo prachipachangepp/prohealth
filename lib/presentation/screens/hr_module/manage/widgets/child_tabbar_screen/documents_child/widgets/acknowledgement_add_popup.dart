@@ -100,7 +100,10 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
@@ -113,36 +116,52 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s360 : widget.height!,
+      height: widget.height == null ? AppSize.s390 : widget.height!,
       body: [
-
         HeaderContentConst(
           heading: AppString.type_of_the_document,
-          content: CICCDropdown(
-            width: 354,
-              initialValue: "Select Document",
-              onChange: (val){
-                setState((){
-                  showExpiryDateField = false;
-                  for(var a in widget.dataList!){
-                    if(a.documentName == val){
-                      documentMetaDataId = a.employeeDocMetaDataId;
-                      documentSetupId = a.employeeDocTypeSetupId;
-                      //docMetaId = docType;
-                      documentTypeName = a.documentName;
-                      if (a.reminderThreshould == AppConfig.issuer) {
-                        showExpiryDateField = true;
+          content: widget.dataList.isEmpty?Container(
+              width: 354,
+              height:30,
+              decoration: BoxDecoration(
+                border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                child: Text('No available document',style: DocumentTypeDataStyle.customTextStyle(context),),
+              )):Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CICCDropdown(
+                width: 354,
+                  initialValue: "Select Document",
+                  onChange: (val){
+                    setState((){
+                      showExpiryDateField = false;
+                      for(var a in widget.dataList!){
+                        if(a.documentName == val){
+                          documentMetaDataId = a.employeeDocMetaDataId;
+                          documentSetupId = a.employeeDocTypeSetupId;
+                          //docMetaId = docType;
+                          documentTypeName = a.documentName;
+                          if (a.reminderThreshould == AppConfig.issuer) {
+                            showExpiryDateField = true;
+                          }
+                        }
                       }
-                    }
-                  }
-                });
-               // print(":::${docType}");
-               //  print(":::<>${docMetaId}");
-              },
-              items:dropDownMenuItems
+                    });
+                   // print(":::${docType}");
+                   //  print(":::<>${docMetaId}");
+                  },
+                  items:dropDownMenuItems
+              ),
+              SizedBox(height: 2,),
+              if(documentTypeName == "")
+              Text('Please select document',style: TextStyle(fontSize: 10,color: ColorManager.red))
+            ],
           )
         ),
-
         Visibility(
           visible: showExpiryDateField,
           /// Conditionally display expiry date field
@@ -205,55 +224,62 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
             ),
           ),
         ),
-
         /// upload  doc
-        InkWell(
-          onTap: _pickFile,
-          child: HeaderContentConst(
-            heading: AppString.upload_document,
-            content: Container(
-              height: AppSize.s30,
-              width: AppSize.s354,
-              padding: EdgeInsets.only(left: AppPadding.p15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorManager.containerBorderGrey,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: StatefulBuilder(
-                builder: (BuildContext context,
-                    void Function(void Function()) setState) {
-                  return Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            fileName,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile,
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: 17,
-                          ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                        ),
-                      ],
+        HeaderContentConst(
+          heading: AppString.upload_document,
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: _pickFile,
+                child: Container(
+                  height: AppSize.s30,
+                  width: AppSize.s354,
+                  padding: EdgeInsets.only(left: AppPadding.p15),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.containerBorderGrey,
+                      width: 1,
                     ),
-                  );
-                },
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context,
+                        void Function(void Function()) setState) {
+                      return Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                fileName,
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ),
+                            IconButton(
+                              padding: EdgeInsets.all(4),
+                              onPressed: _pickFile,
+                              icon: Icon(
+                                Icons.file_upload_outlined,
+                                color: ColorManager.black,
+                                size: 17,
+                              ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 2,),
+              if(filePath == null)
+                Text('Please select document',style: TextStyle(fontSize: 10,color: ColorManager.red),)
+            ],
           ),
         )
       ],
@@ -270,14 +296,17 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         height: AppSize.s30,
         text: AppStringEM.add,
         onPressed: () async{
+          setState(() {
+            load = true;
+          });
+          String? expiryDate;
+          if (expiryDateController.text.isEmpty) {
+            expiryDate = null;
+          } else {
+            expiryDate = datePicked!.toIso8601String() + "Z";
+          }
           try{
             //File filePath = File(finalPath!);
-            String? expiryDate;
-            if (expiryDateController.text.isEmpty) {
-              expiryDate = null;
-            } else {
-              expiryDate = datePicked!.toIso8601String() + "Z";
-            }
             var response  = await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
                 employeeId: widget.employeeId, documentName: fileName,
                 documentFile: filePath,expiryDate:expiryDate);
@@ -291,11 +320,13 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 },
               );
             }
-            else{
-              print('Error');
-            }
-          }catch(e){
-            print(e);
+            setState(() {
+              load = false;
+            });
+          }finally{
+            setState(() {
+              load = false;
+            });
           }
         },
       ),
