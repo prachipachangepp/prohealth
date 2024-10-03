@@ -11,6 +11,7 @@ class AppString {
   static const String officeaddress = "Head Office Address";
   static const String summary = "Summary:";
   static const String pta = "PTA:";
+  static const String addresss = "Address";
 
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";

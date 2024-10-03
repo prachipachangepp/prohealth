@@ -60,7 +60,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s460,
+      height: AppSize.s480,
       title: "Add New Equipment",
       body: [
         Padding(
