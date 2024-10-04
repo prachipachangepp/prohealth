@@ -19,6 +19,7 @@ import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../taxtfield_constant.dart';
 
@@ -195,12 +196,23 @@ class _Employment_screenState extends State<Employment_screen> {
                           documentName: state.fileName ?? '',
                         );
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Document uploaded successfully!'),
-                            backgroundColor: Colors.green,
-                          ),
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Employment Data Saved',
+                            );
+                          },
                         );
+
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //
+                        //   // SnackBar(
+                        //   //   content: Text('Document uploaded successfully!'),
+                        //   //   backgroundColor: Colors.green,
+                        //   // ),
+                        // );
                       } catch (e) {
                         print(e);
                       }

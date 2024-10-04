@@ -6,6 +6,8 @@ import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
+import '../../../../../../presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+
 Future<ApiDataRegister> addEmployeeI9Form({
   required BuildContext context,
   required int employeeId,
@@ -65,9 +67,17 @@ Future<ApiDataRegister> addEmployeeI9Form({
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("i9 form completed");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("I9 form saved"),backgroundColor: Colors.green,),
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddSuccessPopup(
+            message: 'I9 form saved',
+          );
+        },
       );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("I9 form saved"),backgroundColor: Colors.green,),
+      // );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,
@@ -111,9 +121,9 @@ Future<ApiDataRegister> legalDocumentAdd({
       print("legal data add");
       var data = response.data;
       var legalDocId = data['EmployeeLegalDocumentId'];
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Legal data saved"),backgroundColor: Colors.green,),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Legal data saved"),backgroundColor: Colors.green,),
+      // );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

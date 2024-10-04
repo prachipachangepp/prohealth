@@ -25,6 +25,7 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/manage_
 import '../../../../../../../data/api_data/api_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_licenses_data.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
@@ -83,17 +84,24 @@ class _LicensesScreenState extends State<LicensesScreen> {
       documentName: documentName,
       licensedId: result.licenses!,
     );
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Document uploaded successfully!'),
-        backgroundColor: Colors.green,
-      ),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddSuccessPopup(
+          message: 'Licenses data saved',
+        );
+      },
     );
 
     if (result.success) {
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${result.message}')),
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddSuccessPopup(
+            message: 'Failed to update user data',
+          );
+        },
       );
     }
   }

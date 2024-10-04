@@ -4,6 +4,7 @@ import 'package:prohealth/app/services/api/api_offer.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
+import '../../../../../../presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
@@ -36,9 +37,17 @@ Future<ApiDataRegister> postreferencescreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("reference Added");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Reference data saved"),backgroundColor: Colors.green,),
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddSuccessPopup(
+            message: 'Reference Data Saved',
+          );
+        },
       );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Reference data saved"),backgroundColor: Colors.green,),
+      // );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

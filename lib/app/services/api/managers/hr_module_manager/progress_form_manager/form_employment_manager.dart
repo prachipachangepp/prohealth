@@ -40,10 +40,10 @@ Future<ApiDataRegister> postemploymentscreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("employment Added");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Employment data saved"),
-          backgroundColor: Colors.green,),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Employment data saved"),
+      //     backgroundColor: Colors.green,),
+      // );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

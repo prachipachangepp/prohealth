@@ -37,9 +37,9 @@ Future<ApiDataRegister> postlicensesscreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("licenses Added");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Licenses data saved"),backgroundColor: Colors.green,),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Licenses data saved"),backgroundColor: Colors.green,),
+      // );
       var data = response.data;
       var liscenseIdget = data['licenseId'];
       // orgDocumentGet(context);
