@@ -278,7 +278,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                         ),
                                       ],
                                     ),
-                                    height: AppSize.s40,
+                                    height: AppSize.s50,
                                     margin: EdgeInsets.symmetric(horizontal: 9),
                                     child: Stack(children: [
                                       Container(
@@ -305,17 +305,20 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
                                                     CircleAvatar(
                                                       radius: 16,
                                                       backgroundColor: Colors.white,
-                                                      child:  CachedNetworkImage(
-                                                        imageUrl: "",
-                                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                                        fit: BoxFit.cover, // Ensure the image fits inside the circle
-                                                        height: 16, // Adjust image height for proper fit
-                                                        width: 16, // Adjust image width for proper fit
+                                                      child:  Center(
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: "",
+                                                          placeholder: (context, url) => CircularProgressIndicator(),
+                                                          errorWidget: (context, url, error) => Center(child: Icon(Icons.error,size:13)),
+                                                          fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                                          height: 14, // Adjust image height for proper fit
+                                                          width: 14, // Adjust image width for proper fit
+                                                        ),
                                                       ),
                                                     ),
                                                     // Icon(Icons.person,color:Colors.grey,size: 15,),

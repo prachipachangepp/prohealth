@@ -9,8 +9,10 @@ class DialogueTemplate extends StatelessWidget {
   final String title;
   final List<Widget> body;
   final Widget bottomButtons;
-  const DialogueTemplate(
+  VoidCallback? onClear;
+   DialogueTemplate(
       {super.key,
+        this.onClear,
       required this.width,
       required this.height,
       required this.body,
@@ -55,9 +57,9 @@ class DialogueTemplate extends StatelessWidget {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onPressed: () {
+                    onPressed: onClear == null? () {
                       Navigator.pop(context);
-                    },
+                    }:onClear,
                     icon: Icon(
                       Icons.close,
                       color: ColorManager.white,

@@ -49,6 +49,7 @@ class SearchEmployeeProfileData{
   final String driverLicenceNbr;
   final String race;
   final String rating;
+  final bool active;
 
   SearchEmployeeProfileData({
     required this.rating,
@@ -101,6 +102,7 @@ class SearchEmployeeProfileData{
     required this.position,
     required this.driverLicenceNbr,
     required this.race,
+    required this.active,
   });
 }
 
@@ -155,8 +157,10 @@ class SearchByEmployeeIdProfileData{
   final String zone;
   final String race;
   final double profileScorePercentage;
+  final bool active;
 
   SearchByEmployeeIdProfileData({
+    required this.active,
     this.employeeId,
     required this.code,
     required this.userId,

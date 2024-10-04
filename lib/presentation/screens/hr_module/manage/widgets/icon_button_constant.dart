@@ -55,7 +55,7 @@ class IconButtonWidget extends StatelessWidget {
               style: TextStyle(
 
                 fontWeight: FontWeight.w700,
-                fontSize: 10,
+                fontSize: 12,
                 color: textColor,
               ),
             ),

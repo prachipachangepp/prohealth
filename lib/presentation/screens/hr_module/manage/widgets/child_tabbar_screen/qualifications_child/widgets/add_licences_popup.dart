@@ -88,7 +88,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 58),
+                        vertical: 15, horizontal: 64),
                     child: Text(
                       widget.title,
                         style: PopupHeadingStyle.customTextStyle(context)

@@ -667,7 +667,9 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
 
   bool fileIsPicked = false;
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        allowedExtensions: ['pdf']);
     if (result != null) {
       setState(() {
         fileIsPicked = true;
@@ -681,7 +683,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: AppSize.s360,
+      height: AppSize.s390,
       body: [
         HeaderContentConst(
           heading: AppString.type_of_the_document,
@@ -865,6 +867,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                     documentName: fileName,
                     documentFile: filePath);
                 if (response.statusCode == 200 || response.statusCode == 201) {
+                  Navigator.pop(context);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -874,9 +877,11 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                     },
                   );
                 } else {
+                  Navigator.pop(context);
                   print('Error');
                 }
               } else {
+                Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -892,7 +897,6 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
             });
           }finally {
             setState(() {
-              Navigator.pop(context);
               loading = false;
             });
 
@@ -983,37 +987,53 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: widget.height == null ? AppSize.s360 : widget.height!,
+      height: widget.height == null ? AppSize.s390 : widget.height!,
       body: [
         HeaderContentConst(
             heading: AppString.type_of_the_document,
-            content: CICCDropdown(
+            content: widget.dataList.isEmpty?Container(
                 width: 354,
-                initialValue: 'Select Document',
-                onChange: (val) {
-                  setState(() {
-                    showExpiryDateField = false;
-
-                    for (var a in widget.dataList!) {
-                      if (a.documentName == val) {
-                        documentMetaDataId = a.employeeDocMetaDataId;
-                        documentSetupId = a.employeeDocTypeSetupId;
-                        //docMetaId = docType;
-                        documentTypeName = a.documentName;
-                        if (a.reminderThreshould == AppConfig.issuer) {
-                          showExpiryDateField = true;
+                height:30,
+                decoration: BoxDecoration(
+                  border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                  child: Text('No available document',style: DocumentTypeDataStyle.customTextStyle(context),),
+                )) :Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CICCDropdown(
+                    width: 354,
+                    initialValue: 'Select Document',
+                    onChange: (val) {
+                      setState(() {
+                        showExpiryDateField = false;
+                        for (var a in widget.dataList) {
+                          if (a.documentName == val) {
+                            documentMetaDataId = a.employeeDocMetaDataId;
+                            documentSetupId = a.employeeDocTypeSetupId;
+                            //docMetaId = docType;
+                            documentTypeName = a.documentName;
+                            if (a.reminderThreshould == AppConfig.issuer) {
+                              showExpiryDateField = true;
+                            }
+                          }
                         }
-                      }
-                    }
-                  });
-                  // print(":::${docType}");
-                  //  print(":::<>${docMetaId}");
-                },
-                items: dropDownMenuItems)),
+                      });
+                      // print(":::${docType}");
+                      //  print(":::<>${docMetaId}");
+                    },
+                    items: dropDownMenuItems),
+                SizedBox(height: 2,),
+                if(documentTypeName == "")
+                  Text('Please select document',style: TextStyle(fontSize: 10,color: ColorManager.red))
+              ],
+            )),
 
         Visibility(
           visible: showExpiryDateField,
-
           /// Conditionally display expiry date field
           child: HeaderContentConst(
             heading: AppString.expiry_date,
@@ -1078,51 +1098,59 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
         /// upload  doc
         HeaderContentConst(
           heading: AppString.upload_document,
-          content: InkWell(
-            onTap: _pickFile,
-            child: Container(
-              height: AppSize.s30,
-              width: AppSize.s354,
-              padding: EdgeInsets.only(left: AppPadding.p15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorManager.containerBorderGrey,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: StatefulBuilder(
-                builder: (BuildContext context,
-                    void Function(void Function()) setState) {
-                  return Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            fileName,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile,
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: 17,
-                          ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                        ),
-                      ],
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: _pickFile,
+                child: Container(
+                  height: AppSize.s30,
+                  width: AppSize.s354,
+                  padding: EdgeInsets.only(left: AppPadding.p15),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.containerBorderGrey,
+                      width: 1,
                     ),
-                  );
-                },
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context,
+                        void Function(void Function()) setState) {
+                      return Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                fileName,
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ),
+                            IconButton(
+                              padding: EdgeInsets.all(4),
+                              onPressed: _pickFile,
+                              icon: Icon(
+                                Icons.file_upload_outlined,
+                                color: ColorManager.black,
+                                size: 17,
+                              ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 2,),
+              if(filePath == null)
+                Text('Please select document',style: TextStyle(fontSize: 10,color: ColorManager.red),)
+            ],
           ),
         )
       ],
@@ -1181,45 +1209,50 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
               //   }
               // },
               onPressed: () async {
-                setState(() {
-                  load = true;
-                });
-                try {
-                  //File filePath = File(finalPath!);
-                  String? expiryDate;
-                  if (expiryDateController.text.isEmpty) {
-                    expiryDate = null;
-                  } else {
-                    expiryDate = datePicked!.toIso8601String() + "Z";
-                  }
-                  var response = await uploadDocuments(
-                      context: context,
-                      employeeDocumentMetaId: documentMetaDataId,
-                      employeeDocumentTypeSetupId: documentSetupId,
-                      employeeId: widget.employeeId,
-                      documentName: fileName,
-                      documentFile: filePath,
-                      expiryDate: expiryDate);
-                  if (response.statusCode == 200 ||
-                      response.statusCode == 201) {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Document Uploded',
-                        );
-                      },
-                    );
-                  }
+                if(filePath != null && documentTypeName != ""){
                   setState(() {
                     load = true;
                   });
-                } finally {
-                  setState(() {
-                    load = true;
-                  });
+                  try {
+                    //File filePath = File(finalPath!);
+                    String? expiryDate;
+                    if (expiryDateController.text.isEmpty) {
+                      expiryDate = null;
+                    } else {
+                      expiryDate = datePicked!.toIso8601String() + "Z";
+                    }
+                    var response = await uploadDocuments(
+                        context: context,
+                        employeeDocumentMetaId: documentMetaDataId,
+                        employeeDocumentTypeSetupId: documentSetupId,
+                        employeeId: widget.employeeId,
+                        documentName: fileName,
+                        documentFile: filePath,
+                        expiryDate: expiryDate);
+                    if (response.statusCode == 200 ||
+                        response.statusCode == 201) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Document Uploded',
+                          );
+                        },
+                      );
+                    }
+                    setState(() {
+                      load = true;
+                    });
+                  } finally {
+                    setState(() {
+                      load = true;
+                    });
+                  }
+                }else{
+                  print('Validation error');
                 }
+
               },
             ),
       title: widget.title,

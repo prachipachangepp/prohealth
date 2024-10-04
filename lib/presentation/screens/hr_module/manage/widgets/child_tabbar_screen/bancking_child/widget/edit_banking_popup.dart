@@ -164,7 +164,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                 'Upload',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -283,22 +283,19 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           controller:widget.routingNumberController, labelText: 'Routing Number/ Transit Number',
           errorText: rnumber?"Please Enter Routing Number" : null, ),
 
-        SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Text('Requested Amount for this Account (select one)',
-            style: _labelStyle()),
+        SizedBox(height: MediaQuery.of(context).size.height / 30),
+        // Text('Requested Amount for this Account (select one)',
+        //     style: _labelStyle()),
         Row(
           children: [
-            Radio(
-              value: 'Specific Amount',
-              groupValue: 'Specific Amount',
-              onChanged: (value) {},
-            ),
+            // Radio(
+            //   value: 'Specific Amount',
+            //   groupValue: 'Specific Amount',
+            //   onChanged: (value) {},
+            // ),
             Text(
-              'Specific Amount:',
-              style: TextStyle(
-                  fontSize: AppSize.s12,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
+              'Specific Amount',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)
             ),
           ],
         ),
@@ -342,7 +339,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       children: [
         _buildTextField(
           capitalIsSelect:false,
-
           errorText: rnumber?"Please Enter Effective Date" : null,
           suffixIcon: IconButton(
             splashColor: Colors.transparent,

@@ -151,27 +151,29 @@ class _SignaturePageState extends State<SignaturePage> {
                             border: Border.all(color: Colors.grey[300]!),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: ClipRect(
-                            child: _selectedImageBytes != null && !_isDrawing
-                                ? Image.memory(
-                              _selectedImageBytes!,
-                              fit: BoxFit.contain,
-                            )
-                                : GestureDetector(
-                              onPanUpdate: (details) {
-                                setState(() {
-                                  RenderBox renderBox = context.findRenderObject() as RenderBox;
-                                  Offset localPosition = renderBox.globalToLocal(details.localPosition);
-                                  print("Drawing at: $localPosition"); // Debugging
-                                  _points.add(localPosition);
-                                });
-                              },
-                              onPanEnd: (details) {
-                                _points.add(null);
-                              },
-                              child: CustomPaint(
-                                painter: SignaturePainter(points: _points),
-                                size: Size.infinite,
+                          child: Center(
+                            child: ClipRect(
+                              child: _selectedImageBytes != null && !_isDrawing
+                                  ? Image.memory(
+                                _selectedImageBytes!,
+                                fit: BoxFit.contain,
+                              )
+                                  : GestureDetector(
+                                onPanUpdate: (details) {
+                                  setState(() {
+                                    RenderBox renderBox = context.findRenderObject() as RenderBox;
+                                    Offset localPosition = renderBox.globalToLocal(details.localPosition);
+                                    print("Drawing at: $localPosition"); // Debugging
+                                    _points.add(localPosition);
+                                  });
+                                },
+                                onPanEnd: (details) {
+                                  _points.add(null);
+                                },
+                                child: CustomPaint(
+                                  painter: SignaturePainter(points: _points),
+                                  size: Size.infinite,
+                                ),
                               ),
                             ),
                           ),

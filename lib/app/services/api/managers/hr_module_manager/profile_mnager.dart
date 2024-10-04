@@ -99,7 +99,8 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
             position: item['position'] ?? '--',
             driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
             race: item['race'] ?? '--',
-            rating: item["rating"] ?? '--'));
+            rating: item["rating"] ?? '--',
+            active: item['active']??false));
       }
 
       print("search data by Text${itemsData}");
@@ -200,6 +201,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileById(
           driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
           race: item['race'] ?? '--',
           rating: item['rating'] ?? '--',
+          active: item['active']??false,
         ));
       }
       print("search data by Id");
@@ -299,6 +301,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         profileScorePercentage: response.data['profileScorePercentage'] != null
             ? response.data['profileScorePercentage'].toDouble()
             : 0.0,
+        active: response.data['active']??false,
       );
 
       print("search data by Text ${itemsData.toString()}");

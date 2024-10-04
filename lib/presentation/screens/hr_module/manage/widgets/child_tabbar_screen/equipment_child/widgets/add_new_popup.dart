@@ -62,6 +62,14 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
       width: AppSize.s400,
       height: AppSize.s480,
       title: "Add New Equipment",
+      onClear: (){
+        Navigator.pop(context);
+        inventoryId = 0;
+        inventoryName = '';
+        nameController.clear();
+        idController.clear();
+        calenderController.clear();
+      },
       body: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12),

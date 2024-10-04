@@ -315,8 +315,9 @@ Future<ApiData> addHolidaysPost(BuildContext context, String holidayName,
 
 /// Update Holidays
 Future<ApiData> updateHolidays(BuildContext context, int holidayId,
-    String holidayName, String date, int year, int compantId) async {
+    String holidayName, String date, int year,) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.updateHolidaysPatch(
             holidayId: holidayId),
@@ -324,7 +325,7 @@ Future<ApiData> updateHolidays(BuildContext context, int holidayId,
           'date': "${date}T00:00:00Z",
           'holidayName': holidayName,
           'year': year,
-          'CompanyId': compantId
+          'CompanyId': companyId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Holidays Updated");
