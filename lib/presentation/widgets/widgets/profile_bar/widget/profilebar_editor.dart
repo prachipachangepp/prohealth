@@ -194,7 +194,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         }
 
         if (snapshot.hasData) {
-          // Populate controllers with the fetched data
+
           var profileData = snapshot.data!;
 
           nameController.text = profileData.firstName ?? '';
