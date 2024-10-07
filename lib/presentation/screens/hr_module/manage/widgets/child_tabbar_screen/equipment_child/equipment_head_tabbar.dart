@@ -90,7 +90,10 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.equpmentNoData,
-                      style: AllNoDataAvailable.customTextStyle(context),
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: FontSize.s14,
+                          color: ColorManager.mediumgrey),
                   )));
             }
             if(snapshot.hasData){
