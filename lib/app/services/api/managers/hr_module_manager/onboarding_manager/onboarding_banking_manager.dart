@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/onboarding/onboarding_qualification.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_banking_data.dart';
@@ -6,11 +7,24 @@ import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboardin
 Future<List<OnboardingBankingData>> getOnboardingBanking(
 BuildContext context, int employeeId, String approveOnly) async{
   List<OnboardingBankingData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
   try{
     final response = await Api(context).get(path:
     OnboardingQualificationRepo.getOnboardBanking(employeeid: employeeId, approveOnly: approveOnly));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
+        String StartDate = convertIsoToDayMonthYear(item['effectiveDate']);
         itemsData.add(OnboardingBankingData(
             empBankId: item['empBankingId'],
             accNum: item['accountNumber'],
@@ -18,7 +32,7 @@ BuildContext context, int employeeId, String approveOnly) async{
             bankName:  item['bankName'],
             amtRequested:  item['amountRequested'],
             checkUrl:  item['checkUrl'],
-            effectiveDate:  item['effectiveDate'],
+            effectiveDate:  StartDate,//item['effectiveDate'],
             rountingNumber:  item['routingNumber'],
             type:  item['type'],
             approved:  item['approved'] ?? false,
