@@ -506,9 +506,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    onReferesh: (){
-                                      fetchData();
-                                    },
+                                    // onReferesh: (){
+                                    //   fetchData();
+                                    // },
                                     aEClinicalDiscipline: passData,
                                   );
                                 },

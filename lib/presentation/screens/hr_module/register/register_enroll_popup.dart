@@ -399,7 +399,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 return CustomDropdownTextField(
                                   width: textFieldWidth,
                                   height: textFieldHeight,
-                                  items: ['item 1', 'item 2'],
+                                  items: [],
                                   labelText: 'Clinician',
                                   labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                                 );
@@ -497,7 +497,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 return CustomDropdownTextField(
                                   width: textFieldWidth,
                                   height: textFieldHeight,
-                                  items: ['item 1', 'item 2'],
+                                  items: [],
                                   labelText: 'Reporting Office',
                                   labelStyle:DocumentTypeDataStyle.customTextStyle(context),
                                 );
@@ -612,118 +612,119 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               SizedBox(
                 height: AppSize.s6,
               ),
-              StatefulBuilder(
-                builder: (BuildContext context, void Function(void Function()) setState) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _isLoading
-                          ? SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: CircularProgressIndicator(color: ColorManager.blueprime,))
-                          :  Container(width:100,
-                        child: CustomIconButton(
-                            text: AppString.next,
-                            onPressed: () async {
-                              _validateFields();
-                              if (_isFormValid) {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                await _generateUrlLink(
-                                    widget.email.text,
-                                    widget.userId
-                                        .toString());
-                                ApiData result = await addEmpEnroll(
-                                  context: context,
-                                  employeeId: widget
-                                      .employeeId,
-                                  code: "",
-                                  userId: widget.userId,
-                                  firstName: widget
-                                      .firstName.text,
-                                  lastName: widget
-                                      .lastName.text,
-                                  phoneNbr: phone.text,
-                                  email: widget.email
-                                      .text,
-                                  link: generatedURL,
-                                  status: widget.status,
-                                  departmentId: clinicalId,
-                                  position: position
-                                      .text,
-                                  speciality: speciality
-                                      .text,
-                                  clinicianTypeId: 1,
-                                  reportingOfficeId: reportingOfficeId,
-                                  cityId: cityId,
-                                  countryId: countryId,
-                                  countyId: countyId,
-                                  zoneId: zoneId,
-                                  employment: "Full Time",
-                                  service: "Home Health",
-                                );
+              // StatefulBuilder(
+              //   builder: (BuildContext context, void Function(void Function()) setState) {
+              //     return
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _isLoading
+                      ? SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(color: ColorManager.blueprime,))
+                      :  Container(width:100,
+                    child: CustomIconButton(
+                        text: AppString.next,
+                        onPressed: () async {
+                          _validateFields();
+                          if (_isFormValid) {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            await _generateUrlLink(
+                                widget.email.text,
+                                widget.userId
+                                    .toString());
+                            ApiData result = await addEmpEnroll(
+                              context: context,
+                              employeeId: widget
+                                  .employeeId,
+                              code: "",
+                              userId: widget.userId,
+                              firstName: widget
+                                  .firstName.text,
+                              lastName: widget
+                                  .lastName.text,
+                              phoneNbr: phone.text,
+                              email: widget.email
+                                  .text,
+                              link: generatedURL,
+                              status: widget.status,
+                              departmentId: clinicalId,
+                              position: position
+                                  .text,
+                              speciality: speciality
+                                  .text,
+                              clinicianTypeId: 1,
+                              reportingOfficeId: reportingOfficeId,
+                              cityId: cityId,
+                              countryId: countryId,
+                              countyId: countyId,
+                              zoneId: zoneId,
+                              employment: "Full Time",
+                              service: "Home Health",
+                            );
 
-                                setState(() {
-                                  _isLoading = false;
-                                });
+                            setState(() {
+                              _isLoading = false;
+                            });
 
-                                if (result.success) {
-                                  Navigator.pop(
-                                      context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (
-                                              context) =>
-                                              OfferLetterScreen(
-                                                apiData: result,
-                                                employeeId: widget
-                                                    .employeeId,
-                                                email: widget
-                                                    .email
-                                                    .text,
-                                                userId: widget
-                                                    .userId,
-                                                status: widget
-                                                    .status,
-                                                firstName: widget
-                                                    .firstName
-                                                    .text,
-                                                lastName: widget
-                                                    .lastName
-                                                    .text,
-                                                role: widget
-                                                    .role,
-                                                position: position
-                                                    .text,
-                                                phone: phone
-                                                    .text,
-                                                reportingOffice: reportingOfficeId,
-                                                services: serviceVal,
-                                                employement: 'Full Time',
-                                                clinicalName: clinicialName,
-                                                soecalityName: specialityName,
-                                                onRefreshRegister: () {
-                                                  setState(() {
+                            if (result.success) {
+                              Navigator.pop(
+                                  context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (
+                                          context) =>
+                                          OfferLetterScreen(
+                                            apiData: result,
+                                            employeeId: widget
+                                                .employeeId,
+                                            email: widget
+                                                .email
+                                                .text,
+                                            userId: widget
+                                                .userId,
+                                            status: widget
+                                                .status,
+                                            firstName: widget
+                                                .firstName
+                                                .text,
+                                            lastName: widget
+                                                .lastName
+                                                .text,
+                                            role: widget
+                                                .role,
+                                            position: position
+                                                .text,
+                                            phone: phone
+                                                .text,
+                                            reportingOffice: reportingOfficeId,
+                                            services: serviceVal,
+                                            employement: 'Full Time',
+                                            clinicalName: clinicialName,
+                                            soecalityName: specialityName,
+                                            onRefreshRegister: () {
+                                              setState(() {
 
-                                                  });
-                                                },
-                                              )));
-                                } else {
-                                  print('Error');
-                                }
-                                print("${widget
-                                    .employeeId}");
-                              }
+                                              });
+                                            },
+                                          )));
+                            } else {
+                              print('Error');
+                            }
+                            print("${widget
+                                .employeeId}");
+                          }
 
-                            }),
-                      ),
-                    ],
-                  );
-                },
+                        }),
+                  ),
+                ],
               ),
+              // },
+              //),
               SizedBox(height: MediaQuery.of(context).size.height/40)
             ],
           )),
@@ -741,7 +742,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
           return CustomDropdownTextField(
             width: textFieldWidth,
             height: textFieldHeight,
-            items: ['item 1', 'item 2'],
+            items: [],
             labelText: 'Country',
             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
           );
@@ -808,7 +809,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
           return CustomDropdownTextField(
             width: textFieldWidth,
             height: textFieldHeight,
-            items: ['item 1', 'item 2'],
+            items: [],
             labelText: 'City',
             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
           );
@@ -875,7 +876,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
           return  CustomDropdownTextField(
             width: textFieldWidth,
             height: textFieldHeight,
-            items: ['item 1', 'item 2'],
+            items: [],
             labelText: 'Zone',
             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
           );
