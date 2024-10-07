@@ -41,8 +41,9 @@ import 'dart:html' as html;
 
 ///saloni
 class RegisterScreen extends StatefulWidget {
+  final Function() onRefresh;
 
-  const RegisterScreen({Key? key, }) : super(key: key);
+  const RegisterScreen({Key? key, required this.onRefresh, }) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -145,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController: newUserEmailController,
                                   firstNameController: newUserFirstNameController,
                                   // roleController: roleController,
-                                  passwordController: newUserPasswordController,
+                                  passwordController: newUserPasswordController, onCancel: () { fetchData(); },
                                 );
                               },
                             );
@@ -503,7 +504,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     status: snapshotPrefill.data!.status,
                                     onPressed: () {
                                       Navigator.pop(context);
-                                    }, aEClinicalDiscipline: passData,
+                                    },
+                                    onReferesh: (){
+                                      fetchData();
+                                    },
+                                    aEClinicalDiscipline: passData,
                                   );
                                 },
                               ),

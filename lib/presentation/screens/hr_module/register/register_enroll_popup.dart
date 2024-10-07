@@ -30,6 +30,7 @@ import '../manage/widgets/custom_icon_button_constant.dart';
 class RegisterEnrollPopup extends StatefulWidget {
   final TextEditingController firstName;
   final TextEditingController lastName;
+  final VoidCallback onReferesh;
   //final TextEditingController phone;
   final TextEditingController email;
   final List<AEClinicalDiscipline> aEClinicalDiscipline;
@@ -42,6 +43,7 @@ class RegisterEnrollPopup extends StatefulWidget {
   // final TextEditingController position;
   final VoidCallback onPressed;
   RegisterEnrollPopup({super.key,
+    required this.onReferesh,
     required this.firstName, required this.lastName,
     //required this.phone,
     required this.email,
@@ -135,7 +137,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
          clinicalName: clinicialName,
          soecalityName: speciality,
          onRefreshRegister: () {
-           setState(() {});
+           widget.onReferesh();
            },
        )));
    }

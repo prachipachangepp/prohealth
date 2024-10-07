@@ -63,7 +63,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                         builder: (context) {
                           return FutureBuilder<List<EmployeeDocSetupModal>>(
                               future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
-                              builder: (contex, snapshot) {
+                              builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
                                   return Center(

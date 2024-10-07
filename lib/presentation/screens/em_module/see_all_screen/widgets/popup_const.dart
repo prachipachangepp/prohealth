@@ -32,12 +32,14 @@ class CustomDialog extends StatefulWidget {
   final TextEditingController firstNameController;
  // final TextEditingController roleController;
   final TextEditingController passwordController;
+  final VoidCallback? onCancel;
  // final TextEditingController companyIdController ;
   //Widget child;
 
   CustomDialog({
    // required this.child,
     required this.title,
+     this.onCancel,
    // required this.depTitle,
    // required this.onSubmit,
    // required this.userIdController,
@@ -300,6 +302,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 widget.emailController.clear();
                 selectedDeptId = AppConfig.AdministrationId;
                 Navigator.pop(context);
+                widget.onCancel;
                 if(response.statusCode == 200 || response.statusCode == 201){
                   showDialog(
                     context: context,
