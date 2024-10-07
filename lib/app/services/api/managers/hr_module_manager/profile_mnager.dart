@@ -267,6 +267,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         gender: response.data['gender'] ?? '--',
         status: response.data['status'] ?? '--',
         service: response.data['service'] ?? '--',
+        summary: response.data['summary'] ?? '--',
         imgurl: response.data['imgurl'] ?? '--',
         resumeurl: response.data['resumeurl'] ?? '--',
         onboardingStatus: response.data['onboardingStatus'] ?? '',
@@ -350,7 +351,7 @@ Future<ProfilePercentage> getPercentage(
 }
 
 
-Future<ApiData> getEmployeeEdit({
+Future<ApiData> patchEmployeeEdit({
   required BuildContext context,
   required int employeeId,
   required String code,
@@ -379,6 +380,7 @@ Future<ApiData> getEmployeeEdit({
   required String gender,
   required String status,
   required String service,
+  required String summary,
   required String imgurl,
   required String resumeurl,
   // required int companyId,
@@ -431,6 +433,7 @@ Future<ApiData> getEmployeeEdit({
       'gender' : gender,
       'status' : status,
       'service' : service,
+      'summary' : summary,
       'imgurl' : imgurl,
       'resumeurl' : resumeurl,
       'companyId' : companyId,
@@ -575,6 +578,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         country: response.data['country'] ?? '',
         county: response.data['county'] ?? '',
         zone: response.data['zones'] ?? '',
+        summary: response.data['summary'] ?? "",
         profileScorePercentage: response.data['profileScorePercentage'] ?? 0,
         message: response.statusMessage!,
         success: '', employeeEnrollId: response.data['employeeEnrollId']??0,

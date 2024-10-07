@@ -461,7 +461,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           Text(
-                            AppString.na,
+                          widget.searchByEmployeeIdProfileData!.summary,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           // Text(""),

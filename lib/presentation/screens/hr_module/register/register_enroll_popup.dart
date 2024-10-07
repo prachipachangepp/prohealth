@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
@@ -58,178 +59,182 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   // final TextEditingController controller = TextEditingController();
   // final TextEditingController firstName = TextEditingController();
   // final TextEditingController lastName = TextEditingController();
-   final TextEditingController phone = TextEditingController();
-   final TextEditingController position = TextEditingController();
-   final TextEditingController speciality = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController position = TextEditingController();
+  final TextEditingController speciality = TextEditingController();
   // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
-   int country = 0;
-   int countyId =0;
-   String reportingOfficeId ='';
-   String specialityName = '';
-   String clinicialName ='';
-   int clinicalId = 1;
-   String cityName = '';
-   String serviceVal ='';
-   String generatedURL = '';
-   bool _isLoading = false;
+  int country = 0;
+  int countyId =0;
+  String reportingOfficeId ='';
+  String specialityName = '';
+  String clinicialName ='';
+  int clinicalId = 1;
+  String cityName = '';
+  String serviceVal ='';
+  String generatedURL = '';
+  bool _isLoading = false;
 
-   Future<String> _generateUrlLink(String email, String Id) async {
-     final String user = email;
-     final String id = Id;
-     final String url = 'https://staging.symmetry.care/#/onBordingWelcome';
-     generatedURL = url;
-     print('Generated URL: $generatedURL');
-     return url;
-   }
+  Future<String> _generateUrlLink(String email, String Id) async {
+    final String user = email;
+    final String id = Id;
+    final String url = 'https://staging.symmetry.care/#/onBordingWelcome';
+    generatedURL = url;
+    print('Generated URL: $generatedURL');
+    return url;
+  }
 
-   Future<void> performEnroll({
-     required BuildContext context,
-     required int employeeId,
-     required String code,
-     required int userId,
-     required String firstName,
-     required String lastName,
-     required String phoneNbr,
-     required String email,
-     required String link,
-     required String status,
-     required int departmentId,
-     required String position,
-     required String speciality,
-     required int clinicianTypeId,
-     required String reportingOfficeId,
-     required int cityId,
-     required int countryId,
-     required int countyId,
-     required int zoneId,
-     required String employment,
-     required String service
-   }) async {
-     setState(() {
-       _isLoading = true;
-     });
+  Future<void> performEnroll({
+    required BuildContext context,
+    required int employeeId,
+    required String code,
+    required int userId,
+    required String firstName,
+    required String lastName,
+    required String phoneNbr,
+    required String email,
+    required String link,
+    required String status,
+    required int departmentId,
+    required String position,
+    required String speciality,
+    required int clinicianTypeId,
+    required String reportingOfficeId,
+    required int cityId,
+    required int countryId,
+    required int countyId,
+    required int zoneId,
+    required String employment,
+    required String service
+  }) async {
+    setState(() {
+      _isLoading = true;
+    });
 
-     Future.delayed(Duration(seconds: 2));
-     setState(() {
-       _isLoading = false;
-     });
-     // if (result.success) {
-     // await _generateUrlLink(email, userId.toString());
-       Navigator.pop(context);
-       Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
-         //apiData: (),
-         employeeId: widget.employeeId,
-         email: widget.email.text,
-         userId: widget.userId,
-         status: widget.status,
-         firstName: widget.firstName.text,
-         lastName: widget.lastName.text,
-         role: widget.role,
-         position: position,
-         phone: phone.text,
-         reportingOffice: reportingOfficeId,
-         services: serviceVal,
-         employement: 'Full Time',
-         clinicalName: clinicialName,
-         soecalityName: speciality,
-         onRefreshRegister: () {
-           setState(() {});
-           },
-       )));
-   }
-   bool _isButtonEnabled = false;
-   bool _isLoad = false;
-   String? selectedCountry;
-   int countryId = 0;
-   String? selectedCity;
-   int cityId = 0;
-   String? selectedZone;
-   int zoneId = 0;
-   //
-   // @override
-   // void initState() {
-   //   super.initState();
-   //   // Add listeners to the text controllers
-   //   widget.firstName.addListener(_validateFields);
-   //   widget.lastName.addListener(_validateFields);
-   //   widget.email.addListener(_validateFields);
-   //   // speciality.addListener(_validateFields);
-   //  // position.addListener(_validateFields);
-   //  //  phone.addListener(_validateFields);
-   //   // Add other controllers if necessary
-   // }
-   // void _validateFields() {
-   //   setState(() {
-   //     // Check if any of the required fields are empty
-   //     _isButtonEnabled = widget.firstName.text.isNotEmpty &&
-   //         widget.lastName.text.isNotEmpty &&
-   //         widget.email.text.isNotEmpty;
-   //         // speciality.text.isNotEmpty &&
-   //         //position.text.isNotEmpty &&
-   //         // phone.text.isNotEmpty;
-   //     // Add other conditions if necessary
-   //   });
-   // }
-   // @override
-   // void dispose() {
-   //   // Dispose of the listeners when the widget is removed
-   //   widget.firstName.removeListener(_validateFields);
-   //   widget.lastName.removeListener(_validateFields);
-   //   widget.email.removeListener(_validateFields);
-   //   // speciality.removeListener(_validateFields);
-   //   //position.removeListener(_validateFields);
-   //   // phone.removeListener(_validateFields);
-   //   super.dispose();
-   // }
-
-
-
-   String? _idError;
-   String? _nameError;
-   bool _isFormValid = true;
-   // String? _expiryTypeError;
-   //
-   // String? _validateTextField(String value, String fieldName) {
-   //   if (value.isEmpty) {
-   //     _isFormValid = false;
-   //     return "$fieldName";
-   //   }
-   //   return null;
-   // }
-   //
-   // void _validateFields() {
-   //   setState(() {
-   //     _isFormValid = true;
-   //     _idError = _validateTextField(position.text, 'Please Enter Position');
-   //     _nameError = _validateTextField(
-   //         speciality.text, 'Please Enter Speciality');
-   //     //if (selectedExpiryType.isEmpty) {
-   //       serviceVal = 'Please select an Service type';
-   //      // _isFormValid = false;
-   //     // } else {
-   //     //   _expiryTypeError = null; // Clear error if valid
-   //     // }
-   //   });
-   // }
+    Future.delayed(Duration(seconds: 2));
+    setState(() {
+      _isLoading = false;
+    });
+    // if (result.success) {
+    // await _generateUrlLink(email, userId.toString());
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
+      //apiData: (),
+      employeeId: widget.employeeId,
+      email: widget.email.text,
+      userId: widget.userId,
+      status: widget.status,
+      firstName: widget.firstName.text,
+      lastName: widget.lastName.text,
+      role: widget.role,
+      position: position,
+      phone: phone.text,
+      reportingOffice: reportingOfficeId,
+      services: serviceVal,
+      employement: 'Full Time',
+      clinicalName: clinicialName,
+      soecalityName: speciality,
+      onRefreshRegister: () {
+        setState(() {});
+      },
+    )));
+  }
+  bool _isButtonEnabled = false;
+  bool _isLoad = false;
+  String? selectedCountry;
+  int countryId = 0;
+  String? selectedCity;
+  int cityId = 0;
+  String? selectedZone;
+  int zoneId = 0;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Add listeners to the text controllers
+  //   widget.firstName.addListener(_validateFields);
+  //   widget.lastName.addListener(_validateFields);
+  //   widget.email.addListener(_validateFields);
+  //   // speciality.addListener(_validateFields);
+  //  // position.addListener(_validateFields);
+  //  //  phone.addListener(_validateFields);
+  //   // Add other controllers if necessary
+  // }
+  // void _validateFields() {
+  //   setState(() {
+  //     // Check if any of the required fields are empty
+  //     _isButtonEnabled = widget.firstName.text.isNotEmpty &&
+  //         widget.lastName.text.isNotEmpty &&
+  //         widget.email.text.isNotEmpty;
+  //         // speciality.text.isNotEmpty &&
+  //         //position.text.isNotEmpty &&
+  //         // phone.text.isNotEmpty;
+  //     // Add other conditions if necessary
+  //   });
+  // }
+  // @override
+  // void dispose() {
+  //   // Dispose of the listeners when the widget is removed
+  //   widget.firstName.removeListener(_validateFields);
+  //   widget.lastName.removeListener(_validateFields);
+  //   widget.email.removeListener(_validateFields);
+  //   // speciality.removeListener(_validateFields);
+  //   //position.removeListener(_validateFields);
+  //   // phone.removeListener(_validateFields);
+  //   super.dispose();
+  // }
 
 
 
+  String? _PositionError;
+  String? _PhoneError;
+  String? _firstnameError;
+  String? _lastnameError;
+  String? _emailError;
+  String? _SpecialityError;
+  bool _isFormValid = true;
+  String? _expiryTypeError;
+
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "$fieldName";
+    }
+    return null;
+  }
+
+  void _validateFields() {
+    setState(() {
+      _isFormValid = true;
+      _PositionError = _validateTextField(position.text, 'Please Enter Position');
+      _PhoneError = _validateTextField(phone.text, 'Please Enter Phone Number');
+      _SpecialityError = _validateTextField(speciality.text, 'Please Enter Speciality');
+      _firstnameError = _validateTextField(widget.firstName.text, 'Please Enter First Name');
+      _lastnameError = _validateTextField(widget.lastName.text, 'Please Enter Last Name');
+      _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
 
 
 
-   @override
+    });
+  }
+
+
+
+
+
+
+  @override
   Widget build(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12)
+          borderRadius: BorderRadius.circular(12)
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  515,
+          height:  535,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -244,7 +249,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     topRight: Radius.circular(12),
                   ),
                 ),
-                padding: EdgeInsets.only(left: 35,right: 25),
+                padding: EdgeInsets.only(left: 22,right: 18),
                 height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -263,6 +268,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                        // );
                       },
                       icon: Icon(Icons.close,color: ColorManager.white,),
                     ),
@@ -286,7 +295,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.firstName,//firstname
                             labelFontSize: 11,
-                          ),
+                          ), if (_firstnameError != null) // Display error if any
+                            Padding(
+                              padding: const EdgeInsets.only(right:140),
+                              child: Text(
+                                _firstnameError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -299,6 +318,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: speciality, //firstname
                             labelFontSize: 11,
                           ),
+                          if (_SpecialityError != null) // Display error if any
+                            Padding(
+                              padding: const EdgeInsets.only(right:140),
+                              child: Text(
+                                _SpecialityError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ),
 
                           SizedBox(
                             height: AppSize.s10,
@@ -313,12 +343,23 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.email,
                             labelFontSize: 11,
                           ),
+                          if (_emailError != null) // Display error if any
+                            Padding(
+                              padding: const EdgeInsets.only(right:150),
+                              child: Text(
+                                _emailError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ),
                           SizedBox(
                             height: AppPadding.p10,
                           ),
                           ///zone
                           buildZoneDropdownButton(context),
-                      
+
                         ],
                       ),
                     ),
@@ -334,7 +375,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.lastName,
                             labelFontSize: 12,
-                          ),
+                          ), if (_lastnameError != null) // Display error if any
+                            Padding(
+                              padding: const EdgeInsets.only(right:140),
+                              child: Text(
+                                _lastnameError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ),
 
                           SizedBox(
                             height: AppSize.s10,
@@ -396,11 +447,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: position,
                             labelFontSize: 11,
                           ),
-                          // if (_idError != null)
-                          //   Text(
-                          //     _idError!,
-                          //     style:  CommonErrorMsg.customTextStyle(context),
-                          //   ),
+                          if (_PositionError != null) // Display error if any
+                            Padding(
+                              padding: const EdgeInsets.only(right:140),
+                              child: Text(
+                                _PositionError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
@@ -417,6 +474,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: phone,
                             labelFontSize: 11,
                           ),
+                          if (_PhoneError != null) // Display error if any
+                            Padding(
+                              padding: const EdgeInsets.only(right:120),
+                              child: Text(
+                                _PhoneError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -555,73 +623,103 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           width: 25,
                           child: CircularProgressIndicator(color: ColorManager.blueprime,))
                           :  Container(width:100,
-                            child: CustomIconButton(
-                                                    text: AppString.next,
-                                                    onPressed: () async{
-                            setState(() {
-                              _isLoading = true;
-                            });
-                            await _generateUrlLink(widget.email.text, widget.userId.toString());
-                            ApiData result = await addEmpEnroll(
-                              context: context,
-                              employeeId: widget.employeeId,
-                              code: "",
-                              userId:  widget.userId,
-                              firstName: widget.firstName.text,
-                              lastName: widget.lastName.text,
-                              phoneNbr: phone.text,
-                              email:  widget.email.text,
-                              link: generatedURL,
-                              status: widget.status,
-                              departmentId: clinicalId,
-                              position: position.text,
-                              speciality: speciality.text,
-                              clinicianTypeId: 1,
-                              reportingOfficeId: reportingOfficeId,
-                              cityId: cityId,
-                              countryId: countryId,
-                              countyId: countyId,
-                              zoneId: zoneId,
-                              employment: "Full Time",
-                              service: "Home Health",
-                            );
-                            setState(() {
-                              _isLoading = false;
-                            });
-                            if (result.success) {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) =>
-                                  OfferLetterScreen(
-                                    apiData: result,
-                                    employeeId: widget.employeeId,
-                                    email: widget.email.text,
-                                    userId: widget.userId,
-                                    status: widget.status,
-                                    firstName: widget.firstName.text,
-                                    lastName: widget.lastName.text,
-                                    role: widget.role,
-                                    position: position.text,
-                                    phone: phone.text,
-                                    reportingOffice: reportingOfficeId,
-                                    services: serviceVal,
-                                    employement: 'Full Time',
-                                    clinicalName: clinicialName,
-                                    soecalityName: specialityName,
-                                    onRefreshRegister: () {
-                                      setState(() {
+                        child: CustomIconButton(
+                            text: AppString.next,
+                            onPressed: () async {
+                              _validateFields();
+                              if (_isFormValid) {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                await _generateUrlLink(
+                                    widget.email.text,
+                                    widget.userId
+                                        .toString());
+                                ApiData result = await addEmpEnroll(
+                                  context: context,
+                                  employeeId: widget
+                                      .employeeId,
+                                  code: "",
+                                  userId: widget.userId,
+                                  firstName: widget
+                                      .firstName.text,
+                                  lastName: widget
+                                      .lastName.text,
+                                  phoneNbr: phone.text,
+                                  email: widget.email
+                                      .text,
+                                  link: generatedURL,
+                                  status: widget.status,
+                                  departmentId: clinicalId,
+                                  position: position
+                                      .text,
+                                  speciality: speciality
+                                      .text,
+                                  clinicianTypeId: 1,
+                                  reportingOfficeId: reportingOfficeId,
+                                  cityId: cityId,
+                                  countryId: countryId,
+                                  countyId: countyId,
+                                  zoneId: zoneId,
+                                  employment: "Full Time",
+                                  service: "Home Health",
+                                );
 
-                                      });
-                                    },
-                                  )));
-                            }else {
-                              print('Error');
-                            }
-                            print("${widget.employeeId}");
+                                setState(() {
+                                  _isLoading = false;
+                                });
 
-                                                    },
-                                                  ),
-                          ),
+                                if (result.success) {
+                                  Navigator.pop(
+                                      context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (
+                                              context) =>
+                                              OfferLetterScreen(
+                                                apiData: result,
+                                                employeeId: widget
+                                                    .employeeId,
+                                                email: widget
+                                                    .email
+                                                    .text,
+                                                userId: widget
+                                                    .userId,
+                                                status: widget
+                                                    .status,
+                                                firstName: widget
+                                                    .firstName
+                                                    .text,
+                                                lastName: widget
+                                                    .lastName
+                                                    .text,
+                                                role: widget
+                                                    .role,
+                                                position: position
+                                                    .text,
+                                                phone: phone
+                                                    .text,
+                                                reportingOffice: reportingOfficeId,
+                                                services: serviceVal,
+                                                employement: 'Full Time',
+                                                clinicalName: clinicialName,
+                                                soecalityName: specialityName,
+                                                onRefreshRegister: () {
+                                                  setState(() {
+
+                                                  });
+                                                },
+                                              )));
+                                } else {
+                                  print('Error');
+                                }
+                                print("${widget
+                                    .employeeId}");
+                              }
+
+                            }),
+                      ),
                     ],
                   );
                 },
@@ -632,206 +730,206 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
     );
   }
   /// Country dropdown
-   Widget buildDropdownButton(BuildContext context) {
-     double textFieldWidth = MediaQuery.of(context).size.width/10;
-     double textFieldHeight = 38;
-     return FutureBuilder<List<CountryGetData>>(
-       future: getCountry(context: context),
-       builder: (context, snapshot) {
-         if (snapshot.connectionState ==
-             ConnectionState.waiting) {
-           return CustomDropdownTextField(
-             width: textFieldWidth,
-             height: textFieldHeight,
-             items: ['item 1', 'item 2'],
-             labelText: 'Country',
-             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-           );
+  Widget buildDropdownButton(BuildContext context) {
+    double textFieldWidth = MediaQuery.of(context).size.width/10;
+    double textFieldHeight = 38;
+    return FutureBuilder<List<CountryGetData>>(
+      future: getCountry(context: context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState ==
+            ConnectionState.waiting) {
+          return CustomDropdownTextField(
+            width: textFieldWidth,
+            height: textFieldHeight,
+            items: ['item 1', 'item 2'],
+            labelText: 'Country',
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+          );
 
-         } else if (snapshot.hasError) {
-           return const CustomDropdownTextField(
-             //width: MediaQuery.of(context).size.width / 5,
-             labelText: 'Country',
-             labelStyle: TextStyle(
-               fontSize: 11,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
-             labelFontSize: 11,
-             items: ['Error'],
-           );
-         } else if (snapshot.hasData) {
-           List<DropdownMenuItem<String>> dropDownList = [];
-           int degreeID = 0;
-           for(var i in snapshot.data!){
-             dropDownList.add(DropdownMenuItem<String>(
-               value: i.name,
-               child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
-               ));
-           }
-           return CustomDropdownTextField(
-             labelText: 'Country',
-             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 11,
-             dropDownMenuList: dropDownList,
-             onChanged: (newValue) {
-               for(var a in snapshot.data!){
-                 if(a.name == newValue){
-                   selectedCountry = a.name;
-                   countryId = a.countryId;
-                   print("country :: ${selectedCountry}");
-                   //empTypeId = docType;
-                 }
-               }
-             },
-           );
-         } else {
-           return CustomDropdownTextField(
-             // width: MediaQuery.of(context).size.width / 5,
-             labelText: 'Country',
-             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 11,
-             items: ['No Data'],
-           );
-         }
-       },
-     );
-   }
+        } else if (snapshot.hasError) {
+          return const CustomDropdownTextField(
+            //width: MediaQuery.of(context).size.width / 5,
+            labelText: 'Country',
+            labelStyle: TextStyle(
+              fontSize: 11,
+              color: Color(0xff575757),
+              fontWeight: FontWeight.w400,
+            ),
+            labelFontSize: 11,
+            items: ['Error'],
+          );
+        } else if (snapshot.hasData) {
+          List<DropdownMenuItem<String>> dropDownList = [];
+          int degreeID = 0;
+          for(var i in snapshot.data!){
+            dropDownList.add(DropdownMenuItem<String>(
+              value: i.name,
+              child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
+            ));
+          }
+          return CustomDropdownTextField(
+            labelText: 'Country',
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            dropDownMenuList: dropDownList,
+            onChanged: (newValue) {
+              for(var a in snapshot.data!){
+                if(a.name == newValue){
+                  selectedCountry = a.name;
+                  countryId = a.countryId;
+                  print("country :: ${selectedCountry}");
+                  //empTypeId = docType;
+                }
+              }
+            },
+          );
+        } else {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            labelText: 'Country',
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            items: ['No Data'],
+          );
+        }
+      },
+    );
+  }
 
-   /// City dropDown
-   Widget buildCityDropdownButton(BuildContext context) {
-     double textFieldWidth = MediaQuery.of(context).size.width/10;
-     double textFieldHeight = 38;
-     return FutureBuilder<List<AEClinicalCity>>(
-       future: HrAddEmplyClinicalCityApi(context),
-       builder: (context, snapshot) {
-         if (snapshot.connectionState ==
-             ConnectionState.waiting) {
-           return CustomDropdownTextField(
-             width: textFieldWidth,
-             height: textFieldHeight,
-             items: ['item 1', 'item 2'],
-             labelText: 'City',
-             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-           );
+  /// City dropDown
+  Widget buildCityDropdownButton(BuildContext context) {
+    double textFieldWidth = MediaQuery.of(context).size.width/10;
+    double textFieldHeight = 38;
+    return FutureBuilder<List<AEClinicalCity>>(
+      future: HrAddEmplyClinicalCityApi(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState ==
+            ConnectionState.waiting) {
+          return CustomDropdownTextField(
+            width: textFieldWidth,
+            height: textFieldHeight,
+            items: ['item 1', 'item 2'],
+            labelText: 'City',
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+          );
 
-         } else if (snapshot.hasError) {
-           return const CustomDropdownTextField(
-             //width: MediaQuery.of(context).size.width / 5,
-             labelText: 'City',
-             labelStyle: TextStyle(
-               fontSize: 11,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
-             labelFontSize: 11,
-             items: ['Error'],
-           );
-         } else if (snapshot.hasData) {
-           List<DropdownMenuItem<String>> dropDownList = [];
-           int degreeID = 0;
-           for(var i in snapshot.data!){
-             dropDownList.add(DropdownMenuItem<String>(
-               child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
-               value: i.cityName!,
-             ));
-           }
-           return CustomDropdownTextField(
-             labelText: 'City',
-             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 11,
-             dropDownMenuList: dropDownList,
-             onChanged: (newValue) {
-               for(var a in snapshot.data!){
-                 if(a.cityName == newValue){
-                   selectedCity= a.cityName;
-                   cityId = a.cityID!;
-                   print("City :: ${selectedCity}");
-                   //empTypeId = docType;
-                 }
-               }
-             },
-           );
-         } else {
-           return CustomDropdownTextField(
-             // width: MediaQuery.of(context).size.width / 5,
-             labelText: 'City',
-             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 11,
-             items: ['No Data'],
-           );
-         }
-       },
-     );
-   }
+        } else if (snapshot.hasError) {
+          return const CustomDropdownTextField(
+            //width: MediaQuery.of(context).size.width / 5,
+            labelText: 'City',
+            labelStyle: TextStyle(
+              fontSize: 11,
+              color: Color(0xff575757),
+              fontWeight: FontWeight.w400,
+            ),
+            labelFontSize: 11,
+            items: ['Error'],
+          );
+        } else if (snapshot.hasData) {
+          List<DropdownMenuItem<String>> dropDownList = [];
+          int degreeID = 0;
+          for(var i in snapshot.data!){
+            dropDownList.add(DropdownMenuItem<String>(
+              child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
+              value: i.cityName!,
+            ));
+          }
+          return CustomDropdownTextField(
+            labelText: 'City',
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            dropDownMenuList: dropDownList,
+            onChanged: (newValue) {
+              for(var a in snapshot.data!){
+                if(a.cityName == newValue){
+                  selectedCity= a.cityName;
+                  cityId = a.cityID!;
+                  print("City :: ${selectedCity}");
+                  //empTypeId = docType;
+                }
+              }
+            },
+          );
+        } else {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            labelText: 'City',
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            items: ['No Data'],
+          );
+        }
+      },
+    );
+  }
 
-   /// Zone dropDown
-   Widget buildZoneDropdownButton(BuildContext context) {
-     double textFieldWidth = MediaQuery.of(context).size.width/10;
-     double textFieldHeight = 38;
-     return FutureBuilder<List<AEClinicalZone>>(
-       future: HrAddEmplyClinicalZoneApi(context),
-       builder: (context, snapshot) {
-         if (snapshot.connectionState ==
-             ConnectionState.waiting) {
-           return  CustomDropdownTextField(
-             width: textFieldWidth,
-             height: textFieldHeight,
-             items: ['item 1', 'item 2'],
-             labelText: 'Zone',
-             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-           );
-         } else if (snapshot.hasError) {
-           return const CustomDropdownTextField(
-             //width: MediaQuery.of(context).size.width / 5,
-             labelText: 'Zone',
-             labelStyle: TextStyle(
-               fontSize: 11,
-               color: Color(0xff575757),
-               fontWeight: FontWeight.w400,
-             ),
-             labelFontSize: 11,
-             items: ['Error'],
-           );
-         } else if (snapshot.hasData) {
-           List<DropdownMenuItem<String>> dropDownList = [];
-           int degreeID = 0;
-           for(var i in snapshot.data!){
-             dropDownList.add(DropdownMenuItem<String>(
-               child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
-               value: i.zoneName!,
-             ));
-           }
-           return CustomDropdownTextField(
-             labelText: 'Zone',
-             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 11,
-             dropDownMenuList: dropDownList,
-             onChanged: (newValue) {
-               for(var a in snapshot.data!){
-                 if(a.zoneName == newValue){
-                   selectedZone= a.zoneName;
-                   zoneId = a.zoneID!;
-                   countyId = a.countyID!;
-                   print("Zone :: ${selectedZone}");
-                   print("county Id :: ${countyId}");
-                   //empTypeId = docType;
-                 }
-               }
-             },
-           );
-         } else {
-           return CustomDropdownTextField(
-             // width: MediaQuery.of(context).size.width / 5,
-             labelText: 'Zone',
-             labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-             labelFontSize: 11,
-             items: ['No Data'],
-           );
-         }
-       },
-     );
-   }
+  /// Zone dropDown
+  Widget buildZoneDropdownButton(BuildContext context) {
+    double textFieldWidth = MediaQuery.of(context).size.width/10;
+    double textFieldHeight = 38;
+    return FutureBuilder<List<AEClinicalZone>>(
+      future: HrAddEmplyClinicalZoneApi(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState ==
+            ConnectionState.waiting) {
+          return  CustomDropdownTextField(
+            width: textFieldWidth,
+            height: textFieldHeight,
+            items: ['item 1', 'item 2'],
+            labelText: 'Zone',
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+          );
+        } else if (snapshot.hasError) {
+          return const CustomDropdownTextField(
+            //width: MediaQuery.of(context).size.width / 5,
+            labelText: 'Zone',
+            labelStyle: TextStyle(
+              fontSize: 11,
+              color: Color(0xff575757),
+              fontWeight: FontWeight.w400,
+            ),
+            labelFontSize: 11,
+            items: ['Error'],
+          );
+        } else if (snapshot.hasData) {
+          List<DropdownMenuItem<String>> dropDownList = [];
+          int degreeID = 0;
+          for(var i in snapshot.data!){
+            dropDownList.add(DropdownMenuItem<String>(
+              child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
+              value: i.zoneName!,
+            ));
+          }
+          return CustomDropdownTextField(
+            labelText: 'Zone',
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            dropDownMenuList: dropDownList,
+            onChanged: (newValue) {
+              for(var a in snapshot.data!){
+                if(a.zoneName == newValue){
+                  selectedZone= a.zoneName;
+                  zoneId = a.zoneID!;
+                  countyId = a.countyID!;
+                  print("Zone :: ${selectedZone}");
+                  print("county Id :: ${countyId}");
+                  //empTypeId = docType;
+                }
+              }
+            },
+          );
+        } else {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            labelText: 'Zone',
+            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            items: ['No Data'],
+          );
+        }
+      },
+    );
+  }
 }
 
 ///
@@ -962,7 +1060,7 @@ class RegisterEnrollAlertDialog {
                     ),
                     Center(
                       child: CustomIconButtonConst(
-                        width: AppSize.s100,
+                          width: AppSize.s100,
                           text: AppString.enroll, onPressed: () {
 
 

@@ -91,32 +91,32 @@ class _generalFormState extends State<generalForm> {
   Future<void> _initializeFormWithPrefilledData() async {
     try {
       OnlinkGeneralData onlinkGeneralData = await getGeneralIdPrefill(context, widget.employeeID);
-     // if (onlinkGeneralData) {
+      // if (onlinkGeneralData) {
       fetchedData = onlinkGeneralData;
-        var data = onlinkGeneralData; // Assuming index matches the data list
-        setState(() {
-          print("Inside function");
-          dobcontroller.text = data.dateOfBirth ?? '';
-          firstname.text = data.firstName ?? '';
-          lastname.text = data.lastName ?? '';
-          ssecuritynumber.text = data.SSNNbr ?? '';
-          phonenumber.text = data.primaryPhoneNbr ?? '';
-          personalemail.text = data.personalEmail ?? '';
-          driverlicensenumb.text = data.driverLicenceNbr ?? '';
-          address.text = data.finalAddress ?? '';
-          racetype = data.race ?? "";
-          //isChecked = data.endDate == null;
-          gendertype = data.gender ?? "";
-          generalId = data.employeeId ?? 0;
-          signatureUrl = data.signatureURL ?? "";
-          fileName = data.imgurl.split("/").last??"";
-        });
+      var data = onlinkGeneralData; // Assuming index matches the data list
+      setState(() {
+        print("Inside function");
+        dobcontroller.text = data.dateOfBirth ?? '';
+        firstname.text = data.firstName ?? '';
+        lastname.text = data.lastName ?? '';
+        ssecuritynumber.text = data.SSNNbr ?? '';
+        phonenumber.text = data.primaryPhoneNbr ?? '';
+        personalemail.text = data.personalEmail ?? '';
+        driverlicensenumb.text = data.driverLicenceNbr ?? '';
+        address.text = data.finalAddress ?? '';
+        racetype = data.race ?? "";
+        //isChecked = data.endDate == null;
+        gendertype = data.gender ?? "";
+        generalId = data.employeeId ?? 0;
+        signatureUrl = data.signatureURL ?? "";
+        fileName = data.imgurl.split("/").last??"";
+      });
       //}
     } catch (e) {
       print('Failed to load prefilled data: $e');
     }
   }
-
+////
   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
     final blob = html.Blob(bytes);
@@ -155,7 +155,7 @@ class _generalFormState extends State<generalForm> {
       throw Exception('File not found');
     }
   }
-
+/////
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -165,8 +165,8 @@ class _generalFormState extends State<generalForm> {
             child: Align(
               alignment: Alignment.topCenter,
               child: Text(
-                "General",
-                style: FormHeading.customTextStyle(context)
+                  "General",
+                  style: FormHeading.customTextStyle(context)
               ),
             ),
           ),
@@ -191,454 +191,386 @@ class _generalFormState extends State<generalForm> {
             height: AppSize.s13,
           ),
           Padding(
-              padding: const EdgeInsets.only(left: 140, right: 140, top: 20),
-              child:
-              Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+            padding: const EdgeInsets.only(left: 140, right: 140, top: 20),
+            child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: AppSize.s5,
-                            ),
-                            Text(
-                              "Upload Photo",
-                              style: BlueButtonTextConst.customTextStyle(context)
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff50B5E5),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              onPressed: () async {
-                                // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                //   allowMultiple: false,
-                                // );
-                                FilePickerResult? result =
-                                    await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  print("Result::: ${result}");
+                      const SizedBox(
+                        height: AppSize.s5,
+                      ),
+                      Text(
+                          "Upload Photo",
+                          style: BlueButtonTextConst.customTextStyle(context)
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff50B5E5),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: () async {
+                          // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          //   allowMultiple: false,
+                          // );
+                          FilePickerResult? result =
+                          await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            print("Result::: ${result}");
 
-                                  try {
-                                    Uint8List? bytes = result.files.first.bytes;
-                                    XFile xlfile =
-                                        XFile(result.xFiles.first.path);
-                                    xfileToFile = File(xlfile.path);
+                            try {
+                              Uint8List? bytes = result.files.first.bytes;
+                              XFile xlfile =
+                              XFile(result.xFiles.first.path);
+                              xfileToFile = File(xlfile.path);
 
-                                    print(
-                                        "::::XFile To File ${xfileToFile.toString()}");
-                                    XFile xFile = await convertBytesToXFile(
-                                        bytes!, result.xFiles.first.name);
-                                    // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                                    // html.File file = webFile.file;
-                                    //  print("XFILE ${xFile.path}");
-                                    //  //filePath = xfileToFile as XFile?;
-                                    //  print("L::::::${filePath}");
-                                    // _fileNames.addAll(
-                                    //     result.files.map((file) => file.name!));
-                                    print('File picked: ${fileName}');
-                                    //print(String.fromCharCodes(file));
-                                    fileName = result.files.first.name;
-                                    finalPath = result.files.first.bytes;
-                                    setState(() {
-                                      _fileNames;
-                                      _documentUploaded = true;
-                                    });
-                                  } catch (e) {
-                                    print(e);
-                                  }
-                                }
-                              }, //_pickFiles,
+                              print(
+                                  "::::XFile To File ${xfileToFile.toString()}");
+                              XFile xFile = await convertBytesToXFile(
+                                  bytes!, result.xFiles.first.name);
+                              // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                              // html.File file = webFile.file;
+                              //  print("XFILE ${xFile.path}");
+                              //  //filePath = xfileToFile as XFile?;
+                              //  print("L::::::${filePath}");
+                              // _fileNames.addAll(
+                              //     result.files.map((file) => file.name!));
+                              print('File picked: ${fileName}');
+                              //print(String.fromCharCodes(file));
+                              fileName = result.files.first.name;
+                              finalPath = result.files.first.bytes;
+                              setState(() {
+                                _fileNames;
+                                _documentUploaded = true;
+                              });
+                            } catch (e) {
+                              print(e);
+                            }
+                          }
+                        }, //_pickFiles,
 
-                              label: Text(
-                                "Choose File",
-                                style:BlueButtonTextConst.customTextStyle(context),
-                              ),
-                              icon: const Icon(Icons.file_upload_outlined),
-                            ),
-                            _loading
-                                ? SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: CircularProgressIndicator(
-                                      color: ColorManager
-                                          .blueprime, // Loader color
-                                      // Loader size
-                                    ),
-                                  )
-                                : fileName != null
-                                    ? Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'File picked: $fileName',
-                                                    style: onlyFormDataStyle.customTextStyle(context)
-                                                  ),
-                                                )
-                                    :  SizedBox(height: 40,width: 10,), // Display file names if picked
+                        label: Text(
+                          "Choose File",
+                          style:BlueButtonTextConst.customTextStyle(context),
+                        ),
+                        icon: const Icon(Icons.file_upload_outlined),
+                      ),
+                      _loading
+                          ? SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager
+                              .blueprime, // Loader color
+                          // Loader size
+                        ),
+                      )
+                          : fileName != null
+                          ? Padding(
+                        padding:
+                        const EdgeInsets.all(8.0),
+                        child: Text(
+                            'File picked: $fileName',
+                            style: onlyFormDataStyle.customTextStyle(context)
+                        ),
+                      )
+                          :  SizedBox(height: 40,width: 10,), // Display file names if picked
 
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Legal First Name',
-                              style: AllPopupHeadings.customTextStyle(context)
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                          'Legal First Name',
+                          style: AllPopupHeadings.customTextStyle(context)
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegister(
+                        controller: firstname,
+                        hintText: 'Enter Text',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Legal Last Name',
+                        style:  AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegister(
+                        controller: lastname,
+                        hintText: 'Enter Text',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Social Security Number',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldRegister(
+                          controller: ssecuritynumber,
+                          hintText: 'Enter Text',
+                          obscureText: !_passwordVisible,
+                          hintStyle: onlyFormDataStyle.customTextStyle(context),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              color: const Color(0xff50B5E5),
+                              size: 16,
+                              // Based on passwordVisible state choose the icon
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              //color: Theme.of(context).primaryColorDark,
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: firstname,
-                              hintText: 'Enter Text',
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Legal Last Name',
-                              style:  AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: lastname,
-                              hintText: 'Enter Text',
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Social Security Number',
-                              style: AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: ssecuritynumber,
-                              hintText: 'Enter Text',
-                              obscureText: !_passwordVisible,
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  color: const Color(0xff50B5E5),
-                                  size: 16,
-                                  // Based on passwordVisible state choose the icon
-                                  _passwordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  //color: Theme.of(context).primaryColorDark,
-                                ),
-                                onPressed: () {
-                                  // Update the state i.e. toogle the state of passwordVisible variable
+                            onPressed: () {
+                              // Update the state i.e. toogle the state of passwordVisible variable
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                          ),
+                          height: 32,
+                        ); },
+
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Personal Mobile Number',
+                        style:  AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegisterPhone(
+                        controller: phonenumber,
+                        keyboardType: TextInputType.name,
+                        hintText: 'Enter Text',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Personal Email',
+                        style:  AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldForEmail(
+                        controller: personalemail,
+                        hintText: 'Enter Text',
+                        hintStyle:  onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Driver’s License Number',
+                        style:  AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegister(
+                        controller: driverlicensenumb,
+                        hintText: 'Enter Text',
+                        hintStyle:  onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 15),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 15,),
+                      Text(
+                        "Gender",
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
+                          width: 400,
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Male',
+                                value: 'male',
+                                groupValue: gendertype,
+                                onChanged: (value) {
                                   setState(() {
-                                    _passwordVisible = !_passwordVisible;
+                                    gendertype = value;
                                   });
                                 },
                               ),
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Personal Mobile Number',
-                              style:  AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegisterPhone(
-                              controller: phonenumber,
-                              keyboardType: TextInputType.name,
-                              hintText: 'Enter Text',
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Personal Email',
-                              style:  AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldForEmail(
-                              controller: personalemail,
-                              hintText: 'Enter Text',
-                              hintStyle:  onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Driver’s License Number',
-                              style:  AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: driverlicensenumb,
-                              hintText: 'Enter Text',
-                              hintStyle:  onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              height: 32,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 15),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 15,),
-                            Text(
-                              "Gender",
-                              style: AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            Container(
-                              width: 400,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomRadioListTile(
-                                    title: 'Male',
-                                    value: 'male',
-                                    groupValue: gendertype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gendertype = value;
-                                      });
-                                    },
-                                  ),
-                                  CustomRadioListTile(
-                                    title: 'Female',
-                                    value: 'Female',
-                                    groupValue: gendertype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gendertype = value;
-                                      });
-                                    },
-                                  ),
-                                  CustomRadioListTile(
-                                    title: 'Other',
-                                    value: 'Other',
-                                    groupValue: gendertype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gendertype = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'DOB',
-                              style: AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: dobcontroller,
-                              hintText: 'yyyy-mm-dd',
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              height: 32,
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.calendar_month_outlined,
-                                  color: Color(0xff50B5E5),
-                                  size: 16,
-                                ),
-                                onPressed: () async {
-                                  DateTime? pickedDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1901),
-                                    lastDate: DateTime(2101),
-                                  );
-                                  if (pickedDate != null) {
-                                    dobcontroller.text =
-                                        "${pickedDate.toLocal()}".split(' ')[0];
-                                  }
+                              CustomRadioListTile(
+                                title: 'Female',
+                                value: 'Female',
+                                groupValue: gendertype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gendertype = value;
+                                  });
                                 },
                               ),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Address',
-                              style:AllPopupHeadings.customTextStyle(context),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: address,
-                              hintText: 'Enter Text',
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            Text(
-                              "Race",
-                              style: AllPopupHeadings.customTextStyle(context),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'Asian',
-                                      value: 'Asian',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   width: 3,
-                                // ),
+                              CustomRadioListTile(
+                                title: 'Other',
+                                value: 'Other',
+                                groupValue: gendertype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gendertype = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        );  },
 
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'White',
-                                      value: 'White',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   width: 5,
-                                // ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'Black or African American',
-                                      value: 'Black or African American',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'Other',
-                                      value: 'Other',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   width: 3,
-                                // ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'DOB',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegister(
+                        controller: dobcontroller,
+                        hintText: 'yyyy-mm-dd',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        height: 32,
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.calendar_month_outlined,
+                            color: Color(0xff50B5E5),
+                            size: 16,
+                          ),
+                          onPressed: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1901),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              dobcontroller.text =
+                              "${pickedDate.toLocal()}".split(' ')[0];
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Address',
+                        style:AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegister(
+                        controller: address,
+                        hintText: 'Enter Text',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      Text(
+                        "Race",
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return  Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               children: [
                                 CustomRadioListTile(
-                                  title: 'Hispanic or Latino',
-                                  value: 'Hispanic or Latino',
+                                  title: 'Asian',
+                                  value: 'Asian',
                                   groupValue: racetype,
                                   onChanged: (value) {
                                     setState(() {
@@ -646,200 +578,283 @@ class _generalFormState extends State<generalForm> {
                                     });
                                   },
                                 ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const SizedBox(
-                                  width: 3,
+                              ],
+                            ),
+                            // const SizedBox(
+                            //   width: 3,
+                            // ),
+
+                            Column(
+                              children: [
+                                CustomRadioListTile(
+                                  title: 'White',
+                                  value: 'White',
+                                  groupValue: racetype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      racetype = value;
+                                    });
+                                  },
                                 ),
                               ],
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 8),
-                            Text(
-                              'Type of Clinician',
-                              style: AllPopupHeadings.customTextStyle(context),
+                            // const SizedBox(
+                            //   width: 5,
+                            // ),
+                          ],
+                        ); },
+
+                      ),
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                CustomRadioListTile(
+                                  title: 'Black or African American',
+                                  value: 'Black or African American',
+                                  groupValue: racetype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      racetype = value;
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
 
-                            ///clinician
-                            FutureBuilder<List<AEClinicalDiscipline>>(
-                              future:
-                                  HrAddEmplyClinicalDisciplinApi(context, 1),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s32,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                      ),
-                                    );
+                            Column(
+                              children: [
+                                CustomRadioListTile(
+                                  title: 'Other',
+                                  value: 'Other',
+                                  groupValue: racetype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      racetype = value;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            // const SizedBox(
+                            //   width: 3,
+                            // ),
+                          ],
+                        ); },
 
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.empType!);
-                                  }
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                      return  SizedBox(
-                                        height: 32,
-                                        child: DropdownButtonFormField<String>(
-                                          decoration: InputDecoration(
-                                            // hintText: 'Select Clinician',
-                                            hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(4.0),
-                                              borderSide: const BorderSide(
-                                                  color: Colors.grey),
-                                            ),
-                                            contentPadding:
-                                            const EdgeInsets.symmetric(
-                                              //   //  vertical: 5,
-                                                horizontal: 12),
-                                          ),
-                                          // value: selectedCountry,
-                                          icon: Icon(Icons.arrow_drop_down,
-                                              color: Color(0xff9B9B9B)),
-                                          iconSize: 24,
-                                          elevation: 16,
-                                          style:onlyFormDataStyle.customTextStyle(context),
-
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.empType == newValue) {
-                                                _selectedClinician = a.empType!;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          },
-                                          items: dropDownList.map((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: onlyFormDataStyle.customTextStyle(context),
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      );
-                                    },
-
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
+                      ),
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomRadioListTile(
+                              title: 'Hispanic or Latino',
+                              value: 'Hispanic or Latino',
+                              groupValue: racetype,
+                              onChanged: (value) {
+                                setState(() {
+                                  racetype = value;
+                                });
                               },
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 30),
-                            Text(
-                              'Speciality',
-                              style: AllPopupHeadings.customTextStyle(context),
+                            const SizedBox(
+                              width: 5,
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-
-                            StatefulBuilder(
-                              builder: (BuildContext context, void Function(void Function()) setState) { return FutureBuilder<List<AEClinicalDiscipline>>(
-                                future:
-                                HrAddEmplyClinicalDisciplinApi(context, 1),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s32,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                      ),
-                                    );
-
-                                  }
-                                  if (snapshot.hasData) {
-                                    List<String> dropDownList = [];
-
-                                    for (var i in snapshot.data!) {
-                                      dropDownList.add(i.empType!);
-                                    }
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                        return SizedBox(
-                                          height: 32,
-                                          child: DropdownButtonFormField<String>(
-                                            decoration: InputDecoration(
-                                              // hintText: 'Select Clinician',
-                                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(4.0),
-                                                borderSide: const BorderSide(
-                                                    color: Colors.grey),
-                                              ),
-                                              contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                //   //  vertical: 5,
-                                                  horizontal: 12),
-                                            ),
-                                            // value: selectedCountry,
-                                            icon: Icon(Icons.arrow_drop_down,
-                                                color: Color(0xff9B9B9B)),
-                                            iconSize: 24,
-                                            elevation: 16,
-                                            style: onlyFormDataStyle.customTextStyle(context),
-
-                                            onChanged: (newValue) {
-                                              for (var a in snapshot.data!) {
-                                                if (a.empType == newValue) {
-                                                  _selectedSpeciality = a.empType!;
-                                                  //country = a
-                                                  // int? docType = a.companyOfficeID;
-                                                }
-                                              }
-                                            },
-                                            items: dropDownList.map((String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(
-                                                  value,
-                                                  style: onlyFormDataStyle.customTextStyle(context),
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        );
-                                      },
-
-                                    );
-                                  } else {
-                                    return const Offstage();
-                                  }
-                                },
-                              ); },
-
+                            const SizedBox(
+                              width: 3,
                             ),
                           ],
-                        ),
+                        ); },
+
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 8),
+                      Text(
+                        'Type of Clinician',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+
+                      ///clinician
+                      FutureBuilder<List<AEClinicalDiscipline>>(
+                        future:
+                        HrAddEmplyClinicalDisciplinApi(context, 1),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7),
+                              child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s32,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.white),
+                              ),
+                            );
+
+                          }
+                          if (snapshot.hasData) {
+                            List<String> dropDownList = [];
+                            for (var i in snapshot.data!) {
+                              dropDownList.add(i.empType!);
+                            }
+                            return StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                return  SizedBox(
+                                  height: 32,
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      // hintText: 'Select Clinician',
+                                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(4.0),
+                                        borderSide: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      contentPadding:
+                                      const EdgeInsets.symmetric(
+                                        //   //  vertical: 5,
+                                          horizontal: 12),
+                                    ),
+                                    // value: selectedCountry,
+                                    icon: Icon(Icons.arrow_drop_down,
+                                        color: Color(0xff9B9B9B)),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style:onlyFormDataStyle.customTextStyle(context),
+
+                                    onChanged: (newValue) {
+                                      for (var a in snapshot.data!) {
+                                        if (a.empType == newValue) {
+                                          _selectedClinician = a.empType!;
+                                          //country = a
+                                          // int? docType = a.companyOfficeID;
+                                        }
+                                      }
+                                    },
+                                    items: dropDownList.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                          style: onlyFormDataStyle.customTextStyle(context),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                );
+                              },
+
+                            );
+                          } else {
+                            return const Offstage();
+                          }
+                        },
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Speciality',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return FutureBuilder<List<AEClinicalDiscipline>>(
+                          future:
+                          HrAddEmplyClinicalDisciplinApi(context, 1),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7),
+                                child: Container(
+                                  width: AppSize.s250,
+                                  height: AppSize.s32,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager.white),
+                                ),
+                              );
+
+                            }
+                            if (snapshot.hasData) {
+                              List<String> dropDownList = [];
+
+                              for (var i in snapshot.data!) {
+                                dropDownList.add(i.empType!);
+                              }
+                              return StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return SizedBox(
+                                    height: 32,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        // hintText: 'Select Clinician',
+                                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(Icons.arrow_drop_down,
+                                          color: Color(0xff9B9B9B)),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: onlyFormDataStyle.customTextStyle(context),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.empType == newValue) {
+                                            _selectedSpeciality = a.empType!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: onlyFormDataStyle.customTextStyle(context),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                },
+
+                              );
+                            } else {
+                              return const Offstage();
+                            }
+                          },
+                        ); },
+
                       ),
                     ],
-                  ),),
+                  ),
+                ),
+              ],
+            ),),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -980,4 +995,8 @@ class _generalFormState extends State<generalForm> {
     );
   }
 }
+
+
+
+
 

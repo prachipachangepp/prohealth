@@ -131,6 +131,7 @@ class SearchByEmployeeIdProfileData{
   final String gender;
   final String status;
   final String service;
+  final String summary;
   final String imgurl;
   final String resumeurl;
   final String onboardingStatus;
@@ -185,6 +186,7 @@ class SearchByEmployeeIdProfileData{
     required this.gender,
     required this.status,
     required this.service,
+    required this.summary,
     required this.imgurl,
     required this.resumeurl,
     required this.onboardingStatus,

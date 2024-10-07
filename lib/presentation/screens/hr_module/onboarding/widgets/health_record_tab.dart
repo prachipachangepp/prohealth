@@ -250,7 +250,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                                 SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
-                                    data.DocumentName,
+                                    data.documentFileName,
                                     style: AknowledgementStyleConst.customTextStyle(context),
                                   ),
                                 ),

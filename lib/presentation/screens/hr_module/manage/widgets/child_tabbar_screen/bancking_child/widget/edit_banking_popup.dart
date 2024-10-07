@@ -371,18 +371,23 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     }
   }
 
-  Widget _buildThirdColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildTextField(controller:widget.bankNameController,labelText :'Bank Name',capitalIsSelect:true,errorText: bankname?"Please Enter Bank Name ":null),
-        SizedBox(height: MediaQuery.of(context).size.height / 22),
-        _buildTextField(
-            capitalIsSelect:false,
-          controller:  widget.verifyAccountController, labelText: 'Verify Account Number', errorText:vac ? "Please Enter Verify Account Number":null  ),
-      ],
-    );
-  }
+  // Widget _buildThirdColumn() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       _buildTextField(controller:widget.bankNameController,
+  //           labelText :'Bank Name',
+  //           capitalIsSelect:true,errorText: bankname?"Please Enter Bank Name ":null),
+  //       SizedBox(height: MediaQuery.of(context).size.height / 22),
+  //       _buildTextField(
+  //           capitalIsSelect:false,
+  //         controller:  widget.verifyAccountController,
+  //           labelText: 'Verify Account Number',
+  //         errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildTextField({
     required TextEditingController controller,
@@ -437,34 +442,36 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     );
   }
 
-
+ String? errorVerifyAccountMessage = "Account Number does not match";
   void _handleSave() async {
     setState(() {
       isLoading = true;
-     // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
-      //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
       eDate = widget.effectiveDateController.text.isEmpty;
       bankname = widget.bankNameController.text.isEmpty;
       vac = widget.verifyAccountController.text.isEmpty;
       rnumber = widget.routingNumberController.text.isEmpty;
       sac = widget.specificAmountController.text.isEmpty;
       ac = widget.accountNumberController.text.isEmpty;
-      // _radioButtonError = !_isRadioButtonSelected;
+
+      // Add this check to see if the account numbers match
+      if (widget.accountNumberController.text != widget.verifyAccountController.text) {
+        vac = true; // Set error for Verify Account Number
+        errorVerifyAccountMessage;
+      } else {
+        errorVerifyAccountMessage = null;
+      }
     });
 
     if (!rnumber &&
-        !eDate && // Make sure phone error is included
+        !eDate &&
         !bankname &&
         !sac &&
         !ac &&
-        !vac
-        //!_countryNameError
-    // !_radioButtonError
-    ) {
+        !vac && // Ensure this is only true when both account numbers match
+        errorVerifyAccountMessage == null) {
       try {
         await widget.onPressed();
-
-        await uploadBanckingDocument(context,widget.banckId,pickedFile);
+        await uploadBanckingDocument(context, widget.banckId, pickedFile);
       } finally {
         setState(() {
           isLoading = false;
@@ -476,6 +483,27 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         isLoading = false;
       });
     }
+  }
+
+  Widget _buildThirdColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildTextField(
+          controller: widget.bankNameController,
+          labelText: 'Bank Name',
+          capitalIsSelect: true,
+          errorText: bankname ? "Please Enter Bank Name" : null,
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 22),
+        _buildTextField(
+          capitalIsSelect: false,
+          controller: widget.verifyAccountController,
+          labelText: 'Verify Account Number',
+          errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+        ),
+      ],
+    );
   }
 
 

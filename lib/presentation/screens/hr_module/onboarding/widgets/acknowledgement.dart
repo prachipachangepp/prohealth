@@ -265,7 +265,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                 SizedBox(width: AppSize.s10),
                                 Expanded(
                                   child: Text(
-                                    data.DocumentName,
+                                    data.documentFileName,
                                     style: AknowledgementStyleConst.customTextStyle(context),
                                   ),
                                 ),

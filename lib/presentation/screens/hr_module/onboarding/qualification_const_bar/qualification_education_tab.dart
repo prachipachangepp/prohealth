@@ -68,7 +68,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                 ));
           }
           if(snapshot.hasData){
-            return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
+            return Wrap(children: List.generate(snapshot.data!.length, (index){
               return CardDetails(childWidget: DetailsFormate(
                 row1Child1: [
                   Text('College/University :',

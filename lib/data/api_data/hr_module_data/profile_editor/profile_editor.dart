@@ -26,6 +26,7 @@ class ProfileEditorModal {
   final String gender;
   final String status;
   final String service;
+  final String summary;
   final String imgurl;
   final String resumeurl;
   final int employeeEnrollId;
@@ -72,6 +73,7 @@ class ProfileEditorModal {
       required this.countryId,
       required this.zoneId,
       required this.SSNNbr,
+      required this.summary,
       required this.primaryPhoneNbr,
       required this.secondryPhoneNbr,
       required this.workPhoneNbr,

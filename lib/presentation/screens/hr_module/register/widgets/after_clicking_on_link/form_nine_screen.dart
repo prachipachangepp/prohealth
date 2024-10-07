@@ -407,12 +407,18 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: Visibility(
                     visible: isAuthoRiseToWork,
                     child: _buildLabeledTextField(
-                        '',
-                        workAuthorizationExpirationDate,
-                        'Enter Text',
-                        TextInputType.text,
-                        width: MediaQuery.of(context).size.width/5,
+                      '',
+                      workAuthorizationExpirationDate,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5,
                       suffixIcon: IconButton(
+                        splashColor:
+                        Colors.transparent,
+                        highlightColor:
+                        Colors.transparent,
+                        hoverColor:
+                        Colors.transparent,
                         icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
                         onPressed: () async {
                           DateTime? pickedDate = await showDatePicker(
@@ -547,40 +553,40 @@ class _FormNineScreenState extends State<FormNineScreen> {
               children: [
 
                 InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: Container(
-                    height: 30,
-                    width: 125,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Color(0xFF50B5E5),
-                        width: 1.0,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    child: Container(
+                      height: 30,
+                      width: 125,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Color(0xFF50B5E5),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.arrow_back,
+                              color: Color(0xFF50B5E5),
+                              size: 16,
+                            ),
+                            SizedBox(width: 3),
+                            Text(
+                              'Back',
+                              style: TransparentButtonTextConst.customTextStyle(context),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.arrow_back,
-                            color: Color(0xFF50B5E5),
-                            size: 16,
-                          ),
-                          SizedBox(width: 3),
-                          Text(
-                            'Back',
-                            style: TransparentButtonTextConst.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-    Navigator.pop(context);
-    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
-    }
+                    onTap: () {
+                      Navigator.pop(context);
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+                    }
                 ),
                 // ElevatedButton(
                 //   onPressed: () {

@@ -21,8 +21,9 @@ import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
 class ProfileBarAddPopup extends StatefulWidget {
   final int  employeeId;
+  final int  employeeEnrollId;
 
-  const ProfileBarAddPopup({super.key, required this.employeeId,});
+  const ProfileBarAddPopup({super.key, required this.employeeId, required this.employeeEnrollId,});
 
   @override
   State<ProfileBarAddPopup> createState() => _ProfileBarAddPopupState();
@@ -392,7 +393,7 @@ print('Zip Codes:====== ${zipCodes}');
 
           await addEmpEnrollAddCoverage(
               context,
-              0,
+              widget.employeeEnrollId,
               widget.employeeId!,
               addCovrage
           );

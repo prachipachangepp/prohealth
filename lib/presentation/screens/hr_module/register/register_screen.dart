@@ -487,7 +487,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   var email = snapshotPrefill.data!.email.toString();
                                   emailController = TextEditingController(text: email);
 
-                                  return RegisterEnrollPopup(
+                                  return
+                                    RegisterEnrollPopup(
                                     employeeId: data.employeeId!,
                                     firstName: firstNameController,
                                     lastName: lastNameController,
