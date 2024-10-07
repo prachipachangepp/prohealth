@@ -10,8 +10,10 @@ class CustomTextFieldOfferScreen extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final double? height;
+  final FormFieldValidator<String>? validator;
+  final ValueChanged<String>? onChanged;
 
-  CustomTextFieldOfferScreen({required this.controller, required this.labelText, this.height});
+  CustomTextFieldOfferScreen({required this.controller, required this.labelText, this.height,this.validator,this.onChanged});
 
   @override
   State<CustomTextFieldOfferScreen> createState() => _CustomTextFieldOfferScreenState();
@@ -26,7 +28,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
       child: TextFormField(
         readOnly: true,
         style:DocumentTypeDataStyle.customTextStyle(context) ,
-
+        onChanged: widget.onChanged,
         cursorColor: Colors.black,
         controller: widget.controller,
         decoration: InputDecoration(

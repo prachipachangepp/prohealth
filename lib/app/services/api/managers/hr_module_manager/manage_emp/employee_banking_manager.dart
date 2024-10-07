@@ -15,7 +15,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -29,7 +29,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
         .get(path: ManageReposotory.getBankingEmployee(employeeId: employeeId, approveOnly: 'no'));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data!) {
-        //String effectiveFormattedDate = convertIsoToDayMonthYear(item['effectiveDate']);
+        String effectiveFormattedDate = convertIsoToDayMonthYear(item['effectiveDate']);
         // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData.add(EmployeeBankingData(
             empBankingId: item['empBankingId'],
@@ -38,7 +38,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
             bankName: item['bankName'],
             amountRequested: item['amountRequested'],
             checkUrl: item['checkUrl'],
-            effectiveDate: item['effectiveDate'],
+            effectiveDate: effectiveFormattedDate,
             routinNumber: item['routingNumber'],
             type: item['type'],
             approve: item['approved'] ?? false,

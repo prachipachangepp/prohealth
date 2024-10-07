@@ -148,8 +148,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   String selectedZipCodesString = '';
   String selectedCityString = '';
   List<DropdownMenuItem<String>> dropDownList = [];
+  final _formKey = GlobalKey<FormState>();
   int countyId = 0;
   String? selectedZipCodeZone;
+  bool issueDate= false;
+  bool verbalAcceptanceDate= false;
+  bool startDate= false;
+  bool lastDate= false;
+  bool pervisitDate = false;
+  bool noOfPatientDate = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,532 +164,616 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 20),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Offer Letter',
-                    style: FormHeading.customTextStyle(context)
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomTextFieldOfferScreen(
-                      height: 36,
-                      controller: issueDateController,
-                      labelText: 'Issue Date'),
-                  //SizedBox(width: MediaQuery.of(context).size.width / 80),
-                  CustomTextFieldOfferScreen(
-                    height: 36,
-                    controller: lastDateController,
-                    labelText: 'Last Date',
-                  ),
-                  // SizedBox(width: MediaQuery.of(context).size.width / 80),
-                  CustomTextFieldOfferScreen(
-                    height: 36,
-                    controller: startDateController,
-                    labelText: 'Anticipated Start Date',
-                  )
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
-              ///blue container
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomTextFieldOfferScreen(
-                    height: 36,
-                    controller: verbalAcceptanceController,
-                    labelText: 'Verbal Acceptance',
-                  ),
-                  //SizedBox(width: MediaQuery.of(context).size.width / 80),
-                  Container(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width / 5,
-                    child: StatefulBuilder(
+          child: Form(
+            key:_formKey,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Offer Letter',
+                      style: FormHeading.customTextStyle(context)
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return TextField(
-                          cursorColor: Colors.black,
-                          controller: patientsController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                            ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            labelText: 'No. of Patients',
-                            labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                            suffixIcon: DropdownButton<String>(
-                              value: selectedDropdownValue,
-                              items: ['Per day', 'Per week', 'Per month']
-                                  .map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12.0),
-                                    child: Text(
-                                      value,
-                                      style: const TextStyle(fontSize: 10.0),
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (String? value) {
-                                if (value != null) {
-                                  setState(() {
-                                    selectedDropdownValue = value;
-                                  });
-                                }
-                              },
-                              underline: const SizedBox(),
-                              icon: const Icon(Icons.arrow_drop_down,
-                                  color: Colors.blue),
-                            ),
-                            contentPadding:
-                            const EdgeInsets.only(left: 20, bottom: 5),
-                          ),
-                          style: DocumentTypeDataStyle.customTextStyle(context),);
+                        return _buildTextField(labelText: 'Issue Date', controller: issueDateController,errorText: issueDate ? "Please enter issue date":null);
                       },
                     ),
-                  ),
-                  //SizedBox(width: MediaQuery.of(context).size.width / 10),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 5,
-                  ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: Divider(
-                  color: ColorManager.cream,
-                  thickness: 4,
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 40),
-              Column(
-                children: containerKeys.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  GlobalKey<_DynamciContainerState> key =entry.value;
-                  return DynamciContainer(
-                    key: key,
-                    index: index + 1,
-                    onRemove: () => removecontainer(key),
-                  );
-
-
-                }).toList(),
-
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [ElevatedButton(
-                  onPressed:addContainer,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff1696C8),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    //SizedBox(width: MediaQuery.of(context).size.width / 80),
+                    StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                        return _buildTextField(labelText: 'Last Date', controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
+                      },
                     ),
-                  ),
-                  child: Text(
-                    'Add New Coverage',
-                    style: BlueButtonTextConst.customTextStyle(context),
-                  ),
-                ),],),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 40),
-              ///salery
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: StatefulBuilder(
-
-                  builder: (BuildContext context, void Function(void Function()) setState) {
-                    return  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    // SizedBox(width: MediaQuery.of(context).size.width / 80),
+                    StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                        return _buildTextField(labelText: 'Anticipated Start Date', controller: startDateController,errorText: startDate ? "Please enter anticipated start date":null);
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 60),
+                ///blue container
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                        return _buildTextField(labelText: 'Verbal Acceptance', controller: verbalAcceptanceController,errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
+                      },
+                    ),
+                    // CustomTextFieldOfferScreen(
+                    //   height: 36,
+                    //   controller: verbalAcceptanceController,
+                    //   labelText: 'Verbal Acceptance',
+                    // ),
+                    //SizedBox(width: MediaQuery.of(context).size.width / 80),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        Container(
                           height: 30,
-                          width: 300,
-                          child: CustomDropdownFormField(
-                              hintText: 'Salaried',
-                              items: ['Salaried', 'Per Visit'],
-                              value: dropdownValue,
-                              onChanged: (newValue){
-                                setState(() {
-                                  dropdownValue = newValue! ?? 'Salaried';
-                                  print('dropDownValue ${dropdownValue}');
-                                });
-                              }),
-                        ),
-                        SizedBox(width: 30,),
-                        Row(
-                          children: [
-                            Text(
-                              _salary.isNotEmpty
-                                  ? "\$ ${_salary}"
-                                  : "Not Defined",
-                              style: DropdownItemStyle.customTextStyle(context),
-                            ),
-                            SizedBox(width: 30,),
-                            ElevatedButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        titlePadding: EdgeInsets.zero,
-                                        title: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(12),
-                                              bottomLeft: Radius.circular(12),
-                                              bottomRight: Radius.circular(12),
-                                              topRight: Radius.circular(12),
-                                            ),
-                                          ),
-                                          width: 302,
-                                          height: 230,
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height: 35,
-                                                width: double.infinity,
-                                                decoration: const BoxDecoration(
-                                                  color: Color(0xff1696C8),
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(12.0),
-                                                    topRight: Radius.circular(12.0),
-                                                  ),
-                                                ),
-                                                padding: EdgeInsets.only(right: 5,bottom: 5),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    IconButton(
-                                                      icon: const Icon(Icons.close,
-                                                          color: Colors.white),
-                                                      onPressed: () {
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 15.0, horizontal: 16.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    dropdownValue == 'Salaried' ?  Text(
-                                                      'Salary',
-                                                      style:DefineWorkWeekStyle.customTextStyle(context),
-                                                    ) : Text(
-                                                      'Per Visit',
-                                                      style: DefineWorkWeekStyle.customTextStyle(context),
-                                                    ),
-                                                    SizedBox(
-                                                      height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                          30,
-                                                    ),
-                                                    Container(
-                                                      height: 30,
-                                                      child: TextFormField(
-                                                        cursorColor: Colors.black,
-                                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                                        decoration: InputDecoration(
-                                                          prefix:Text("\$ "),
-                                                          hintText: '0.00',
-                                                          hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                                                          enabledBorder:
-                                                          OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                8.0),
-                                                            borderSide: const BorderSide(
-                                                              color: Color(0xff51B5E6),
-                                                              width: 1.0,
-                                                            ),
-                                                          ),
-                                                          focusedBorder:
-                                                          OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                8.0),
-                                                            borderSide: const BorderSide(
-                                                              color: Color(0xff51B5E6),
-                                                              width: 1.0,
-                                                            ),
-                                                          ),
-                                                          border: OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                8.0),
-                                                            borderSide: const BorderSide(
-                                                              color: Color(0xff51B5E6),
-                                                              width: 1.0,
-                                                            ),
-                                                          ),
-                                                          contentPadding:
-                                                          const EdgeInsets.symmetric(
-                                                              horizontal: 16.0,
-                                                              vertical: 12.0),
-                                                        ),
-                                                        keyboardType:
-                                                        TextInputType.number,
-                                                        onChanged: (value) {
-                                                          setState((){
-                                                            _salary = value;
-                                                          });
-                                                          print("Salary:: ${_salary}");
-                                                        },
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                            20),
-                                                    Center(
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          // Handle the submit action
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                          const Color(0xff1696C8),
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                12),
-                                                          ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding: const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 24.0,
-                                                              vertical: 8.0),
-                                                          child: Text(
-                                                            'Submit',
-                                                            style: BlueButtonTextConst.customTextStyle(context),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
+                          width: MediaQuery.of(context).size.width / 5,
+                          child: StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return TextField(
+                                cursorColor: Colors.black,
+                                controller: patientsController,
+                                onChanged: (value){
+                                  setState(() {
+                                    // Update error state based on the field
+                                    if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;
+
+                                    // if (labelText == "Routing Number/ Transit Number") rnumber = value.isEmpty;
+                                    // if (labelText == "Account Number") ac = value.isEmpty;
+                                    // //if (labelText == "Phone") sac = !_isPhoneValid(value); // Use custom phone validation
+                                    // if (labelText == "Effective Date") eDate = value.isEmpty;
+                                    // if (labelText == "Bank Name") bankname = value.isEmpty;
+                                    // if (labelText == "Verify Account Number") vac = value.isEmpty;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  labelText: 'No. of Patients',
+                                  labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                                  suffixIcon: DropdownButton<String>(
+                                    value: selectedDropdownValue,
+                                    items: ['Per day', 'Per week', 'Per month']
+                                        .map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12.0),
+                                          child: Text(
+                                            value,
+                                            style: const TextStyle(fontSize: 10.0),
                                           ),
                                         ),
                                       );
+                                    }).toList(),
+                                    onChanged: (String? value) {
+                                      if (value != null) {
+                                        setState(() {
+                                          selectedDropdownValue = value;
+                                        });
+                                      }
                                     },
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff1696C8),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    underline: const SizedBox(),
+                                    icon: const Icon(Icons.arrow_drop_down,
+                                        color: Colors.blue),
                                   ),
+                                  contentPadding:
+                                  const EdgeInsets.only(left: 20, bottom: 5),
                                 ),
-                                child: dropdownValue == 'Salaried' ? Text(
-                                  'Add',
-                                  style: BlueButtonTextConst.customTextStyle(context),
-                                ) : Text(
-                                  'Add Visit',
-                                  style: BlueButtonTextConst.customTextStyle(context),
-                                )
-                            ),
-                            SizedBox(width: 15),
-
-                          ],
+                                style: DocumentTypeDataStyle.customTextStyle(context),);
+                            },
+                          ),
                         ),
-
+                        if (noOfPatientDate == true)
+                          Padding(
+                            padding: EdgeInsets.only(top: 1),
+                            child: Text(
+                              "Please enter no. of Patients",
+                              style: CommonErrorMsg.customTextStyle(context),
+                            ),
+                          ),
                       ],
-                    );
-                  },
+                    ),
+                    //SizedBox(width: MediaQuery.of(context).size.width / 10),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 5,
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 9),
-              ///bottom button
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xff1696C8),
-                      side: const BorderSide(color: Color(0xff1696C8)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Back',
-                      style: TransparentButtonTextConst.customTextStyle(context)
-                    ),
+                SizedBox(height: MediaQuery.of(context).size.height / 50),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: Divider(
+                    color: ColorManager.cream,
+                    thickness: 4,
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 75),
-                  ElevatedButton(
-                    onPressed: ()  async{
-                      for (var key in containerKeys){
-                        final st = key.currentState!;
-
-                        print('County ID: ${st.selectedCountyId}');
-                        print('Zone ID:::::::::=>> ${st.docZoneId}');
-                        print('Zip Codes: ${st.selectedZipCodes}');
-addCovrage.add(await ApiAddCovrageData(city: '',
-    countyId:st.selectedCountyId ,
-    zoneId: st.docZoneId,
-    zipCodes:st.selectedZipCodes
-
-));
-
-                      }
-
-                      print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
-                      await _generateUrlLink(widget.email, widget.userId.toString());
-                      // print("Widget employeeId ${widget.apiData!.employeeId!}");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ConfirmationPopup(
-                            // loadingDuration: _isLoading,
-                            onCancel: () {
-                              Navigator.pop(context);
-                            },
-                            onConfirm: ()  async{
-                              // setState(() {
-                              //   _isLoading = true;
-                              // });
-                              print('selected county id : ${selectedCountyId}');
-                             //  print('selected zone id : ${st.docZoneId}');
-                             // print('selected zipCode : ${st.selectedZipCodes}');
-                              print('selected city : ${selectedCityName}');
-                              print('Salari ${_salary}');
-                              print('Salari Type ${dropdownValue}');
-                              print('PatianCount ${patientsController.text}');
-                              try {
-
-                                var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                  context,
-                                  0,
-                                  widget.apiData!.employeeId!,
-                                  int.parse(patientsController.text),
-                                  issueDateController.text,
-                                  lastDateController.text,
-                                  startDateController.text,
-                                  verbalAcceptanceController.text,
-                                );
-
-                                print('County id : ${selectedCountyId}');
-                                print('Zone id : ${selectedZoneId}');
-                                await addEmpEnrollAddCoverage(
-                                  context,
-                                  0,
-                                  widget.apiData!.employeeId!,
-                                  addCovrage
-                                );
-
-                                await addEmpEnrollAddCompensation(
-                                  context,
-                                  0,
-                                  widget.apiData!.employeeId!,
-                                  dropdownValue.toString(),
-                                  int.parse(_salary),
-                                );
-                                // Clear controllers
-                                issueDateController.clear();
-                                lastDateController.clear();
-                                startDateController.clear();
-                                verbalAcceptanceController.clear();
-                                widget.onRefreshRegister;
-                                if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      Future.delayed(Duration(seconds: 2), () {
-                                        if (Navigator.of(context).canPop()) {
-                                          Navigator.of(context).pop();
-                                          popNavigation();
-
-                                        }
-                                      });
-                                      return AddSuccessPopup(message: 'Employee Enrolled Successfully',);
-                                    },
-                                  );
-                                }
-                              } catch (e) {
-                                print("Error during enrollment: $e");
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Enrollment failed: $e')),
-                                );
-                              } finally {
-                                // setState(() {
-                                //   _isLoading = false;
-                                // });
-                              }
-                            },
-                            title: 'Confirm Enrollment',
-                            containerText: 'Do you really want to enroll?',
-                          );
-                        },
-                      );
-                    },
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 40),
+                Column(
+                  children: containerKeys.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    GlobalKey<_DynamciContainerState> key =entry.value;
+                    return DynamciContainer(
+                      key: key,
+                      index: index + 1,
+                      onRemove: () => removecontainer(key),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 40),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                  child: Row(crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [ElevatedButton(
+                    onPressed:addContainer,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff1696C8),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(
-                      'Enroll',
-                      style: BlueButtonTextConst.customTextStyle(context)
+                      'Add New Coverage',
+                      style: BlueButtonTextConst.customTextStyle(context),
                     ),
+                  ),],),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 40),
+                ///salery
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) {
+                      return  Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 30,
+                            width: 300,
+                            child: CustomDropdownFormField(
+                                hintText: 'Salaried',
+                                items: ['Salaried', 'Per Visit'],
+                                value: dropdownValue,
+                                onChanged: (newValue){
+                                  setState(() {
+                                    dropdownValue = newValue! ?? 'Salaried';
+                                    print('dropDownValue ${dropdownValue}');
+                                  });
+                                }),
+                          ),
+                          SizedBox(width: 30,),
+                          Row(
+                            children: [
+                              Text(
+                                _salary.isNotEmpty
+                                    ? "\$ ${_salary}"
+                                    : "Not Defined",
+                                style: DropdownItemStyle.customTextStyle(context),
+                              ),
+                              SizedBox(width: 30,),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                          ),
+                                          titlePadding: EdgeInsets.zero,
+                                          title: Container(
+                                            decoration: const BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(12),
+                                                bottomLeft: Radius.circular(12),
+                                                bottomRight: Radius.circular(12),
+                                                topRight: Radius.circular(12),
+                                              ),
+                                            ),
+                                            width: 302,
+                                            height: 230,
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: 35,
+                                                  width: double.infinity,
+                                                  decoration: const BoxDecoration(
+                                                    color: Color(0xff1696C8),
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(12.0),
+                                                      topRight: Radius.circular(12.0),
+                                                    ),
+                                                  ),
+                                                  padding: EdgeInsets.only(right: 5,bottom: 5),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      IconButton(
+                                                        icon: const Icon(Icons.close,
+                                                            color: Colors.white),
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(
+                                                      vertical: 15.0, horizontal: 16.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      dropdownValue == 'Salaried' ?  Text(
+                                                        'Salary',
+                                                        style:DefineWorkWeekStyle.customTextStyle(context),
+                                                      ) : Text(
+                                                        'Per Visit',
+                                                        style: DefineWorkWeekStyle.customTextStyle(context),
+                                                      ),
+                                                      SizedBox(
+                                                        height: MediaQuery.of(context)
+                                                            .size
+                                                            .height /
+                                                            30,
+                                                      ),
+                                                      Container(
+                                                        height: 30,
+                                                        child: TextFormField(
+                                                          cursorColor: Colors.black,
+                                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                                          decoration: InputDecoration(
+                                                            prefix:Text("\$ "),
+                                                            hintText: '0.00',
+                                                            hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                                                            enabledBorder:
+                                                            OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  8.0),
+                                                              borderSide: const BorderSide(
+                                                                color: Color(0xff51B5E6),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                            focusedBorder:
+                                                            OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  8.0),
+                                                              borderSide: const BorderSide(
+                                                                color: Color(0xff51B5E6),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                            border: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  8.0),
+                                                              borderSide: const BorderSide(
+                                                                color: Color(0xff51B5E6),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                            contentPadding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 16.0,
+                                                                vertical: 12.0),
+                                                          ),
+                                                          keyboardType:
+                                                          TextInputType.number,
+                                                          onChanged: (value) {
+                                                            setState((){
+                                                              _salary = value;
+                                                            });
+                                                            print("Salary:: ${_salary}");
+                                                          },
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                          height: MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                              20),
+                                                      Center(
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            // Handle the submit action
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          style: ElevatedButton.styleFrom(
+                                                            backgroundColor:
+                                                            const Color(0xff1696C8),
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  12),
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 24.0,
+                                                                vertical: 8.0),
+                                                            child: Text(
+                                                              'Submit',
+                                                              style: BlueButtonTextConst.customTextStyle(context),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff1696C8),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                  child: dropdownValue == 'Salaried' ? Text(
+                                    'Add',
+                                    style: BlueButtonTextConst.customTextStyle(context),
+                                  ) : Text(
+                                    'Add Visit',
+                                    style: BlueButtonTextConst.customTextStyle(context),
+                                  )
+                              ),
+                              SizedBox(width: 15),
+
+                            ],
+                          ),
+
+                        ],
+                      );
+                    },
                   ),
-                ],
-              ),
-              SizedBox(height: 10,)
-            ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 9),
+                ///bottom button
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: const Color(0xff1696C8),
+                        side: const BorderSide(color: Color(0xff1696C8)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Back',
+                        style: TransparentButtonTextConst.customTextStyle(context)
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width / 75),
+                    ElevatedButton(
+                      onPressed: ()  async{
+                        setState(() {
+                          // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
+                          //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
+                          issueDate = issueDateController.text.isEmpty;
+                          startDate = startDateController.text.isEmpty;
+                          lastDate = lastDateController.text.isEmpty;
+                          verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
+                          noOfPatientDate = patientsController.text.isEmpty;
+                          // _radioButtonError = !_isRadioButtonSelected;
+                        });
+                        if(!issueDate && !startDate && !lastDate && !verbalAcceptanceDate && !noOfPatientDate){
+                          for (var key in containerKeys){
+                            final st = key.currentState!;
+
+                            print('County ID: ${st.selectedCountyId}');
+                            print('Zone ID:::::::::=>> ${st.docZoneId}');
+                            print('Zip Codes: ${st.selectedZipCodes}');
+                            print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
+                            addCovrage.add( ApiAddCovrageData(
+                                city: '',
+                                countyId:st.selectedCountyId ,
+                                zoneId: st.docZoneId,
+                                zipCodes:st.selectedZipCodes
+
+                            ));
+                          }
+                          print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
+                          await _generateUrlLink(widget.email, widget.userId.toString());
+                          // print("Widget employeeId ${widget.apiData!.employeeId!}");
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ConfirmationPopup(
+                                // loadingDuration: _isLoading,
+                                onCancel: () {
+                                  Navigator.pop(context);
+                                },
+                                onConfirm: ()  async{
+                                  // setState(() {
+                                  //   _isLoading = true;
+                                  // });
+                                  print('selected county id : ${selectedCountyId}');
+                                  //  print('selected zone id : ${st.docZoneId}');
+                                  // print('selected zipCode : ${st.selectedZipCodes}');
+                                  print('selected city : ${selectedCityName}');
+                                  print('Salari ${_salary}');
+                                  print('Salari Type ${dropdownValue}');
+                                  print('PatianCount ${patientsController.text}');
+                                  try {
+
+                                    var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                      context,
+                                      widget.apiData!.employeeEnrollId!,
+                                      widget.apiData!.employeeId!,
+                                      int.parse(patientsController.text),
+                                      issueDateController.text,
+                                      lastDateController.text,
+                                      startDateController.text,
+                                      verbalAcceptanceController.text,
+                                    );
+
+                                    print('County id : ${selectedCountyId}');
+                                    print('Zone id : ${selectedZoneId}');
+                                    await addEmpEnrollAddCoverage(
+                                        context,
+                                        widget.apiData!.employeeEnrollId!,
+                                        widget.apiData!.employeeId!,
+                                        addCovrage
+                                    );
+
+                                    await addEmpEnrollAddCompensation(
+                                      context,
+                                      widget.apiData!.employeeEnrollId!,
+                                      widget.apiData!.employeeId!,
+                                      dropdownValue.toString(),
+                                      int.parse(_salary),
+                                    );
+                                    // Clear controllers
+                                    issueDateController.clear();
+                                    lastDateController.clear();
+                                    startDateController.clear();
+                                    verbalAcceptanceController.clear();
+                                    widget.onRefreshRegister;
+                                    Navigator.pop(context);
+                                    if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          Future.delayed(Duration(seconds: 2),(){
+                                            if(Navigator.of(context).canPop()) {
+                                              popNavigation();
+                                            }
+                                          });
+                                          return AddSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                        },
+                                      );
+                                    }
+                                  } catch (e) {
+                                    print("Error during enrollment: $e");
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Enrollment failed: $e')),
+                                    );
+                                  } finally {
+                                    // setState(() {
+                                    //   _isLoading = false;
+                                    // });
+                                  }
+                                },
+                                title: 'Confirm Enrollment',
+                                containerText: 'Do you really want to enroll?',
+                              );
+                            },
+                          );
+                        }
+
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff1696C8),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Enroll',
+                        style: BlueButtonTextConst.customTextStyle(context)
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10,)
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+  Widget _buildTextField({required String labelText, required TextEditingController controller,String? errorText}){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomTextFieldOfferScreen(
+          height: 36,
+          controller: controller,
+          labelText: labelText,
+          onChanged: (value){
+            setState(() {
+              // Update error state based on the field
+              if (labelText == "Issue Date") issueDate = value.isEmpty;
+              if (labelText == "Last Date") lastDate = value.isEmpty;
+              if (labelText == "Anticipated Start Date") startDate = value.isEmpty;
+              if (labelText == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
+
+              // if (labelText == "Routing Number/ Transit Number") rnumber = value.isEmpty;
+              // if (labelText == "Account Number") ac = value.isEmpty;
+              // //if (labelText == "Phone") sac = !_isPhoneValid(value); // Use custom phone validation
+              // if (labelText == "Effective Date") eDate = value.isEmpty;
+              // if (labelText == "Bank Name") bankname = value.isEmpty;
+              // if (labelText == "Verify Account Number") vac = value.isEmpty;
+            });
+          },
+          validator: (value){
+            if(value!.isEmpty){
+              return "Please enter $labelText";
+            }else{
+              return null;
+            }
+          },),
+        if (errorText != null)
+          Padding(
+            padding: EdgeInsets.only(top: 1),
+            child: Text(
+              errorText,
+              style: CommonErrorMsg.customTextStyle(context),
+            ),
+          ),
+      ],
     );
   }
 }

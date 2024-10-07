@@ -774,7 +774,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   color: ColorManager.mediumgrey),
                             )),
                         //AddEmployeeHomeScreen(),
-                        RegisterScreen(),
+                        RegisterScreen(onRefresh: () { setState(() {
+
+                        }); },),
                         NewOnboardScreen(),
                         //SeeAllHrScreen()
                       ],
@@ -804,7 +806,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         ),
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(
+                          onRefresh: () {
+                          setState(() {
 
+                           });
+                          },
                         ),
                         NewOnboardScreen(),
                       ],

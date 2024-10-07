@@ -41,8 +41,9 @@ import 'dart:html' as html;
 
 ///saloni
 class RegisterScreen extends StatefulWidget {
+  final Function() onRefresh;
 
-  const RegisterScreen({Key? key, }) : super(key: key);
+  const RegisterScreen({Key? key, required this.onRefresh, }) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -53,6 +54,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  /// register enroll user
+  TextEditingController newUserFirstNameController = TextEditingController();
+  TextEditingController newUserLastNameController = TextEditingController();
+  TextEditingController newUserEmailController = TextEditingController();
+  TextEditingController newUserPasswordController = TextEditingController();
+
+  /// Enroll
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -134,12 +142,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return CustomDialog(
                                   title: "Enroll User",
                                   //userIdController: userIdController,
-                                  lastNameController: lastNameController,
-                                  emailController: emailController,
-                                  firstNameController: firstNameController,
+                                  lastNameController: newUserLastNameController,
+                                  emailController: newUserEmailController,
+                                  firstNameController: newUserFirstNameController,
                                   // roleController: roleController,
-                                  passwordController: passwordController,
-
+                                  passwordController: newUserPasswordController, onCancel: () { fetchData(); },
                                 );
                               },
                             );
@@ -498,7 +505,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     status: snapshotPrefill.data!.status,
                                     onPressed: () {
                                       Navigator.pop(context);
-                                    }, aEClinicalDiscipline: passData,
+                                    },
+                                    onReferesh: (){
+                                      fetchData();
+                                    },
+                                    aEClinicalDiscipline: passData,
                                   );
                                 },
                               ),
