@@ -123,7 +123,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                               Icons.arrow_back,
                               size: 15,
                               color: ColorManager.mediumgrey,
+
                             ),
+
                             SizedBox(width: 1,),
                             Text(
                               'Go Back',

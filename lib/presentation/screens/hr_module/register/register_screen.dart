@@ -436,7 +436,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                          // const url = "http://localhost:52632/#/onBordingWelcome";
                           const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                        ///////////
+                        ///
                           if (await canLaunch(url)) {
                            await launch(url);
                            } else {
