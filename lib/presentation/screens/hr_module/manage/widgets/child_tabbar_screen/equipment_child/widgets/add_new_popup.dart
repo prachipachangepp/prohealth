@@ -90,12 +90,13 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               SizedBox(
                 height: AppSize.s16,
               ),
-              SMTextFConst(
+              FirstSMTextFConst(
                 controller: nameController,
                 keyboardType: TextInputType.streetAddress,
                 text: 'Name',
+
               ),
-              if (_nameDocError != null) // Display error if any
+              if (_nameDocError != null)
                 Text(
                   _nameDocError!,
                   style: CommonErrorMsg.customTextStyle(context),

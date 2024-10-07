@@ -62,6 +62,12 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
+                    effectiveDateController.clear();
+                    bankNameController.clear();
+                    accountNumberController.clear();
+                    verifyAccountController.clear();
+                    routingNumberController.clear();
+                    specificAmountController.clear();
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => EditBankingPopUp(
@@ -96,12 +102,6 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                     type: "Checking",
                                     //type:selectedType.toString(),
                                 );
-                                effectiveDateController.clear();
-                                bankNameController.clear();
-                                accountNumberController.clear();
-                                verifyAccountController.clear();
-                                routingNumberController.clear();
-                                specificAmountController.clear();
 
                                 Navigator.pop(context);
                                 if(response.statusCode == 200 || response.statusCode == 201){
