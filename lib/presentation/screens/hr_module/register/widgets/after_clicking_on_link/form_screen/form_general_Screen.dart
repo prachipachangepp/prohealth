@@ -116,7 +116,7 @@ class _generalFormState extends State<generalForm> {
       print('Failed to load prefilled data: $e');
     }
   }
-
+////
   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
     final blob = html.Blob(bytes);
@@ -155,7 +155,7 @@ class _generalFormState extends State<generalForm> {
       throw Exception('File not found');
     }
   }
-
+/////
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -340,35 +340,38 @@ class _generalFormState extends State<generalForm> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 60),
-                            CustomTextFieldRegister(
-                              controller: ssecuritynumber,
-                              hintText: 'Enter Text',
-                              obscureText: !_passwordVisible,
-                              hintStyle: onlyFormDataStyle.customTextStyle(context),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  color: const Color(0xff50B5E5),
-                                  size: 16,
-                                  // Based on passwordVisible state choose the icon
-                                  _passwordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  //color: Theme.of(context).primaryColorDark,
-                                ),
-                                onPressed: () {
-                                  // Update the state i.e. toogle the state of passwordVisible variable
-                                  setState(() {
-                                    _passwordVisible = !_passwordVisible;
-                                  });
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldRegister(
+                                controller: ssecuritynumber,
+                                hintText: 'Enter Text',
+                                obscureText: !_passwordVisible,
+                                hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
                                 },
-                              ),
-                              height: 32,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    color: const Color(0xff50B5E5),
+                                    size: 16,
+                                    // Based on passwordVisible state choose the icon
+                                    _passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    //color: Theme.of(context).primaryColorDark,
+                                  ),
+                                  onPressed: () {
+                                    // Update the state i.e. toogle the state of passwordVisible variable
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
+                                ),
+                                height: 32,
+                              ); },
+
                             ),
                             SizedBox(
                                 height:
@@ -453,44 +456,47 @@ class _generalFormState extends State<generalForm> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 60),
-                            Container(
-                              width: 400,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomRadioListTile(
-                                    title: 'Male',
-                                    value: 'male',
-                                    groupValue: gendertype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gendertype = value;
-                                      });
-                                    },
-                                  ),
-                                  CustomRadioListTile(
-                                    title: 'Female',
-                                    value: 'Female',
-                                    groupValue: gendertype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gendertype = value;
-                                      });
-                                    },
-                                  ),
-                                  CustomRadioListTile(
-                                    title: 'Other',
-                                    value: 'Other',
-                                    groupValue: gendertype,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gendertype = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
+                                width: 400,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomRadioListTile(
+                                      title: 'Male',
+                                      value: 'male',
+                                      groupValue: gendertype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gendertype = value;
+                                        });
+                                      },
+                                    ),
+                                    CustomRadioListTile(
+                                      title: 'Female',
+                                      value: 'Female',
+                                      groupValue: gendertype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gendertype = value;
+                                        });
+                                      },
+                                    ),
+                                    CustomRadioListTile(
+                                      title: 'Other',
+                                      value: 'Other',
+                                      groupValue: gendertype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gendertype = value;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );  },
+
                             ),
                             SizedBox(
                                 height:
@@ -556,103 +562,112 @@ class _generalFormState extends State<generalForm> {
                               "Race",
                               style: AllPopupHeadings.customTextStyle(context),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'Asian',
-                                      value: 'Asian',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   width: 3,
-                                // ),
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) { return  Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'Asian',
+                                        value: 'Asian',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // const SizedBox(
+                                  //   width: 3,
+                                  // ),
 
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'White',
-                                      value: 'White',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   width: 5,
-                                // ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'Black or African American',
-                                      value: 'Black or African American',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'White',
+                                        value: 'White',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // const SizedBox(
+                                  //   width: 5,
+                                  // ),
+                                ],
+                              ); },
 
-                                Column(
-                                  children: [
-                                    CustomRadioListTile(
-                                      title: 'Other',
-                                      value: 'Other',
-                                      groupValue: racetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          racetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                // const SizedBox(
-                                //   width: 3,
-                                // ),
-                              ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CustomRadioListTile(
-                                  title: 'Hispanic or Latino',
-                                  value: 'Hispanic or Latino',
-                                  groupValue: racetype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      racetype = value;
-                                    });
-                                  },
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                              ],
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) { return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'Black or African American',
+                                        value: 'Black or African American',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'Other',
+                                        value: 'Other',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // const SizedBox(
+                                  //   width: 3,
+                                  // ),
+                                ],
+                              ); },
+
+                            ),
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) { return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomRadioListTile(
+                                    title: 'Hispanic or Latino',
+                                    value: 'Hispanic or Latino',
+                                    groupValue: racetype,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        racetype = value;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const SizedBox(
+                                    width: 3,
+                                  ),
+                                ],
+                              ); },
+
                             ),
                             SizedBox(
                                 height:
@@ -980,4 +995,8 @@ class _generalFormState extends State<generalForm> {
     );
   }
 }
+
+
+
+
 

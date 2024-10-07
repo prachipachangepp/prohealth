@@ -413,6 +413,12 @@ class _FormNineScreenState extends State<FormNineScreen> {
                         TextInputType.text,
                         width: MediaQuery.of(context).size.width/5,
                       suffixIcon: IconButton(
+                        splashColor:
+                        Colors.transparent,
+                        highlightColor:
+                        Colors.transparent,
+                        hoverColor:
+                        Colors.transparent,
                         icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
                         onPressed: () async {
                           DateTime? pickedDate = await showDatePicker(
