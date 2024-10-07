@@ -36,6 +36,7 @@ import '../../../../../data/api_data/establishment_data/company_identity/company
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
+import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../screens/em_module/widgets/dialogue_template.dart';
 import 'add_coverage_popup.dart';
 
@@ -348,18 +349,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                           ///
 
-                                          // if(response.statusCode == 200 || response.statusCode == 201){
-                                          // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-                                          //
-                                          //
-                                          // showDialog(
-                                          // context: context,
-                                          // builder: (BuildContext context) {
-                                          // return AddSuccessPopup(
-                                          // message: 'Employee updated successfully',
-                                          // );
-                                          // },
-                                          // );
+                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                          var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+
+
+                                          showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                          return AddSuccessPopup(
+                                          message: 'Employee updated successfully',
+                                          );
+                                          },
+                                          );
                                           ///
                                           // if(response.statusCode == 200 || response.statusCode == 201){
                                           //   var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
@@ -395,17 +396,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           //       );
                                           //     },
                                           //   );
-                                          //   if (patchCoverage.success) {
-                                          //     print("Coverage added successfully");
-                                          //   } else {
-                                          //     print("Failed To Add Coverage");
-                                          //   }
-                                          //   if(pickedFilePath){
-                                          //     var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
-                                          //   }else{
-                                          //     print('Document Error');
-                                          //   }
-                                          // }
+                                            if (patchCoverage.success) {
+                                              print("Coverage added successfully");
+                                            } else {
+                                              print("Failed To Add Coverage");
+                                            }
+                                            if(pickedFilePath){
+                                              var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
+                                            }else{
+                                              print('Document Error');
+                                            }
+                                          }
                                           widget.onCancel();
                                           nameController.clear();
                                           deptController.clear();

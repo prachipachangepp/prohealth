@@ -79,7 +79,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
             children: [
               SMTextFConst(
                 controller: idController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 text: 'Id',
               ),
               if (_idDocError != null)
