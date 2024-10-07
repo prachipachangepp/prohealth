@@ -53,6 +53,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  /// register enroll user
+  TextEditingController newUserFirstNameController = TextEditingController();
+  TextEditingController newUserLastNameController = TextEditingController();
+  TextEditingController newUserEmailController = TextEditingController();
+  TextEditingController newUserPasswordController = TextEditingController();
+
+  /// Enroll
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -134,12 +141,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return CustomDialog(
                                   title: "Enroll User",
                                   //userIdController: userIdController,
-                                  lastNameController: lastNameController,
-                                  emailController: emailController,
-                                  firstNameController: firstNameController,
+                                  lastNameController: newUserLastNameController,
+                                  emailController: newUserEmailController,
+                                  firstNameController: newUserFirstNameController,
                                   // roleController: roleController,
-                                  passwordController: passwordController,
-
+                                  passwordController: newUserPasswordController,
                                 );
                               },
                             );

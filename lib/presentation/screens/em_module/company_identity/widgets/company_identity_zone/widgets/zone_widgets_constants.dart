@@ -663,14 +663,17 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
               "",
             );
             Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CountySuccessPopup(
-                  message: 'Save Successfully',
-                );
-              },
-            );
+            if(response.statusCode == 200 || response.statusCode == 201){
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Save Successfully',
+                  );
+                },
+              );
+            }
+
             setState(() {
               isLoading = false;
             });
@@ -1495,14 +1498,16 @@ title: widget.title,
           // "95.7129°",
           "");
       Navigator.pop(context);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CountySuccessPopup(
-            message: 'Save Successfully',
-          );
-        },
-      );
+      if(response.statusCode == 200 || response.statusCode == 201){
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddSuccessPopup(
+              message: 'Zipcode Edited Successfully',
+            );
+          },
+        );
+      }
       setState(() {
         isLoading = false;
       });
@@ -1716,15 +1721,6 @@ class _AddZonePopupState extends State<AddZonePopup> {
               isLoading = true;
             });
             await widget.onSavePressed();
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CountySuccessPopup(
-                  message: 'Save Successfully',
-                );
-              },
-            );
             setState(() {
               isLoading = false;
             });

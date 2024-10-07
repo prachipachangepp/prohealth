@@ -565,13 +565,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         print('County ID: ${st.selectedCountyId}');
                         print('Zone ID:::::::::=>> ${st.docZoneId}');
                         print('Zip Codes: ${st.selectedZipCodes}');
-addCovrage.add(await ApiAddCovrageData(city: '',
-    countyId:st.selectedCountyId ,
-    zoneId: st.docZoneId,
-    zipCodes:st.selectedZipCodes
+                        addCovrage.add(await ApiAddCovrageData(city: '',
+                            countyId:st.selectedCountyId ,
+                            zoneId: st.docZoneId,
+                            zipCodes:st.selectedZipCodes
 
-));
-
+                        ));
                       }
 
                       print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
