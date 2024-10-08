@@ -20,10 +20,14 @@ import '../../../../screens/hr_module/manage/widgets/custom_icon_button_constant
 import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
 class ProfileBarAddPopup extends StatefulWidget {
-  final int  employeeId;
-  final int  employeeEnrollId;
+  final int employeeId;
+  final int employeeEnrollId;
 
-  const ProfileBarAddPopup({super.key, required this.employeeId, required this.employeeEnrollId,});
+  const ProfileBarAddPopup({
+    super.key,
+    required this.employeeId,
+    required this.employeeEnrollId,
+  });
 
   @override
   State<ProfileBarAddPopup> createState() => _ProfileBarAddPopupState();
@@ -47,17 +51,16 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
   String selectedCovrageCounty = "Select County";
   String selectedCovrageZone = "Select Zone";
   final StreamController<List<CountyWiseZoneModal>> _zoneController =
-  StreamController<List<CountyWiseZoneModal>>.broadcast();
- // List<ApiPatchCovrageData> addCovrage = [];
+      StreamController<List<CountyWiseZoneModal>>.broadcast();
+  // List<ApiPatchCovrageData> addCovrage = [];
   final StreamController<List<ZipcodeByCountyIdAndZoneIdData>>
-  _countyStreamController =
-  StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
+      _countyStreamController =
+      StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
 
   String countyName = "";
   String zoneName = "";
 
   List<ApiAddCovrageData> addCovrage = [];
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,26 +74,26 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
           children: [
             ///county zone
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Container(
                 //  color: ColorManager.red,
                 height: 150,
                 width: 354,
-                child:
-                Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                        'County',
-                        style: CustomTextStylesCommon.commonStyle(fontSize: 12,
+                    Text('County',
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xff575757),)
-                    ),
+                          color: const Color(0xff575757),
+                        )),
                     const SizedBox(height: 5),
                     FutureBuilder<List<AllCountyGetList>>(
                       future: getCountyZoneList(context),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 7),
                             child: CICCDropdown(
@@ -118,7 +121,8 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                           }
 
                           return StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
+                            builder:
+                                (BuildContext context, StateSetter setState) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -142,30 +146,33 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                         }
                                       }
 
-                                      print("Selected CountyId: $selectedCountyId");
+                                      print(
+                                          "Selected CountyId: $selectedCountyId");
                                     },
                                   ),
                                   const SizedBox(height: 10),
 
                                   // Zone Label
-                                  Text(
-                                      'Zone',
-                                      style: CustomTextStylesCommon.commonStyle(fontSize: 12,
+                                  Text('Zone',
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600,
-                                        color: const Color(0xff575757),)
-                                    // GoogleFonts.firaSans(
-                                    //   fontSize: 12,
-                                    //   fontWeight: FontWeight.w600,
-                                    //   color: const Color(0xff575757),
-                                    // ),
-                                  ),
+                                        color: const Color(0xff575757),
+                                      )
+                                      // GoogleFonts.firaSans(
+                                      //   fontSize: 12,
+                                      //   fontWeight: FontWeight.w600,
+                                      //   color: const Color(0xff575757),
+                                      // ),
+                                      ),
                                   const SizedBox(height: 5),
 
                                   // Zone Dropdown with hint text
                                   StreamBuilder<List<CountyWiseZoneModal>>(
                                       stream: _zoneController.stream,
                                       builder: (context, snapshotZone) {
-                                        fetchCountyWiseZone(context, selectedCountyId)
+                                        fetchCountyWiseZone(
+                                                context, selectedCountyId)
                                             .then((data) {
                                           _zoneController.add(data);
                                         }).catchError((error) {});
@@ -180,7 +187,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                                       .containerBorderGrey,
                                                   width: AppSize.s1),
                                               borderRadius:
-                                              BorderRadius.circular(4),
+                                                  BorderRadius.circular(4),
                                             ),
                                             child: const Text(
                                               "",
@@ -198,20 +205,20 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                                       .containerBorderGrey,
                                                   width: AppSize.s1),
                                               borderRadius:
-                                              BorderRadius.circular(4),
+                                                  BorderRadius.circular(4),
                                             ),
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Padding(
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                    horizontal: 10),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
                                                 child: Text(
                                                   ErrorMessageString
                                                       .noZoneAdded,
                                                   //  AppString.dataNotFound,
-                                                  style:
-                                                  AllNoDataAvailable.customTextStyle(context),
+                                                  style: AllNoDataAvailable
+                                                      .customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -221,7 +228,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                           List dropDown = [];
                                           int docType = 0;
                                           List<DropdownMenuItem<String>>
-                                          dropDownTypesList = [];
+                                              dropDownTypesList = [];
 
                                           for (var i in snapshotZone.data!) {
                                             dropDownTypesList.add(
@@ -235,19 +242,22 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                             selectedZipCodeZone =
                                                 snapshotZone.data![0].zoneName;
                                           }
-                                          docZoneId = snapshotZone.data![0].zone_id;
+                                          docZoneId =
+                                              snapshotZone.data![0].zone_id;
                                           return CICCDropdown(
                                               width: 354,
                                               initialValue:
-                                              dropDownTypesList[0].value,
+                                                  dropDownTypesList[0].value,
                                               onChange: (val) {
                                                 selectedZipCodeZone = val;
                                                 selectedCovrageZone = val;
-                                                for (var a in snapshotZone.data!) {
+                                                for (var a
+                                                    in snapshotZone.data!) {
                                                   if (a.zoneName == val) {
                                                     docType = a.zone_id;
                                                     zoneName = a.zoneName;
-                                                    print("ZONE id :: ${a.zone_id}");
+                                                    print(
+                                                        "ZONE id :: ${a.zone_id}");
                                                     docZoneId = docType;
                                                   }
                                                 }
@@ -258,7 +268,6 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                         }
                                         return const SizedBox();
                                       }),
-
                                 ],
                               );
                             },
@@ -275,7 +284,8 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
           ],
         ),
         Row(
-          children: [  ///Zipcode
+          children: [
+            ///Zipcode
             Container(
               height: 200,
               width: 300,
@@ -284,18 +294,20 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                        'Zip Codes',
-                        style: CustomTextStylesCommon.commonStyle(fontSize: 12,
+                    child: Text('Zip Codes',
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xff575757),)
-                    ),
+                          color: const Color(0xff575757),
+                        )),
                   ),
+
                   /// Removed TabBar code
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
+                      child:
+                          StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
                         stream: _countyStreamController.stream,
                         builder: (BuildContext context, snapshot) {
                           getZipcodeByCountyIdAndZoneId(
@@ -308,7 +320,8 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                             // Handle error
                           });
 
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return SizedBox();
                           }
 
@@ -316,7 +329,9 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                             return Center(
                               child: Text(
                                 'Select county',
-                                style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                style: CustomTextStylesCommon.commonStyle(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w500),
                               ),
                             );
                           }
@@ -325,7 +340,9 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                             return Center(
                               child: Text(
                                 'No Data Found!',
-                                style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
+                                style: CustomTextStylesCommon.commonStyle(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w500),
                               ),
                             );
                           }
@@ -333,30 +350,40 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                           return Row(
                             children: [
                               StatefulBuilder(
-                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
                                   return Container(
                                     width: 200,
                                     height: 300,
                                     child: ListView.builder(
                                       itemCount: snapshot.data!.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        String zipCode = snapshot.data![index].zipCode;
-                                        bool isChecked = checkedZipCodes[zipCode] ?? false;
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        String zipCode =
+                                            snapshot.data![index].zipCode;
+                                        bool isChecked =
+                                            checkedZipCodes[zipCode] ?? false;
                                         return CheckBoxTileConst(
                                           text: zipCode,
                                           value: isChecked,
                                           onChanged: (bool? val) {
                                             setState(() {
                                               print('Clicked check box 1');
-                                              checkedZipCodes[zipCode] = val ?? false;
+                                              checkedZipCodes[zipCode] =
+                                                  val ?? false;
                                               if (val == true) {
                                                 selectedZipCodes.add(zipCode);
-                                                zipCodes.add(int.parse(snapshot.data![index].zipCode));
+                                                zipCodes.add(int.parse(snapshot
+                                                    .data![index].zipCode));
                                               } else {
-                                                selectedZipCodes.remove(zipCode);
-                                                zipCodes.remove(int.parse(snapshot.data![index].zipCode));
+                                                selectedZipCodes
+                                                    .remove(zipCode);
+                                                zipCodes.remove(int.parse(
+                                                    snapshot
+                                                        .data![index].zipCode));
                                               }
-                                              selectedZipCodesString = selectedZipCodes.join(', ');
+                                              selectedZipCodesString =
+                                                  selectedZipCodes.join(', ');
                                             });
                                           },
                                         );
@@ -377,26 +404,24 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
           ],
         )
       ],
-      bottomButtons:   CustomButton(
-        height: 28,
-        width: 70,
-        text: 'Add',
+      bottomButtons: CustomButton(
+        height: AppPadding.p30,
+        width: AppSize.s100,
+        text: 'Save',
         onPressed: () async {
 
-addCovrage.add(await ApiAddCovrageData(city: '', countyId:selectedCountyId ,
-    zoneId:docZoneId,
-    zipCodes:zipCodes) );
+          addCovrage.add(await ApiAddCovrageData(
+              city: '',
+              countyId: selectedCountyId,
+              zoneId: docZoneId,
+              zipCodes: zipCodes));
 
-print('County ID:===== ${selectedCountyId}');
-print('Zone ID:::::::::=>> ${docZoneId}');
-print('Zip Codes:====== ${zipCodes}');
+          print('County ID:===== ${selectedCountyId}');
+          print('Zone ID:::::::::=>> ${docZoneId}');
+          print('Zip Codes:====== ${zipCodes}');
 
           await addEmpEnrollAddCoverage(
-              context,
-              widget.employeeEnrollId,
-              widget.employeeId!,
-              addCovrage
-          );
+              context, widget.employeeEnrollId, widget.employeeId!, addCovrage);
           // Uncomment if you need a loading state
           // setState(() {
           //   _isLoading = true;
@@ -410,9 +435,12 @@ print('Zip Codes:====== ${zipCodes}');
           // print('Selected City: $selectedCityName');
           // setState((){
 
-         // });
-          Navigator.pop(context,);
+          // });
+          Navigator.pop(
+            context,
+          );
         },
-      ),);
+      ),
+    );
   }
 }

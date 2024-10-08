@@ -205,7 +205,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         if (snapshot.hasData) {
           // Populate controllers with the fetched data
           var profileData = snapshot.data!;
-
           nameController.text = profileData.firstName ?? '';
           deptController.text = profileData.department ?? '';
           empTypeController.text = profileData.employeType ?? '';
@@ -346,13 +345,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             rating: profileData.rating,
                                             signatureURL: profileData.signatureURL,
                                           );
-                                          // if(response.statusCode == 200 || response.statusCode == 201){
-                                          //   var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-
-
-
-                                          ///
-
                                           if(response.statusCode == 200 || response.statusCode == 201){
                                           var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
                                           showDialog(
@@ -1009,7 +1001,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               ),
                               ///Coverage
                               ///
-                      FutureBuilder <EmployeeModel>(future: getCoverageList(context: context, employeeId: widget.employeeId, employeeEnrollId:profileData.employeeEnrollId ),
+                           FutureBuilder <EmployeeModel>(future: getCoverageList(context: context, employeeId: widget.employeeId,
+                          employeeEnrollId:profileData.employeeEnrollId ),
                           builder: (context ,snapshot){
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Center(
@@ -1421,8 +1414,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                     // setState(() {
                                                                     //   _isLoading = true;
                                                                     // });
-                                                                    addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
+                                                                    addCovrage.add(ApiPatchCovrageData(employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
+                                                                        city: "",
+                                                                        countyId: selectedCountyId,
+                                                                        countyName: countyName,
+                                                                        zoneId: docZoneId,
+                                                                        zoneName: zoneName, zipCodes: zipCodes)
+                                                                      //  ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes)
+                                                                    );
                                                                     print('Selected County ID: $selectedCountyId');
+                                                                    print('Selected coverage ID::::::::::::::::: ${snapshot.data!.coverageDetails[index].employeeEnrollCoverageId} ...................,');
                                                                     print('Selected Zone ID: $docZoneId');
                                                                     print('Selected Zip Codes: $selectedZipCodes');
                                                                     print('Selected City: $selectedCityName');

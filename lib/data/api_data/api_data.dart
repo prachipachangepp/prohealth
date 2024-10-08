@@ -178,21 +178,35 @@ class ApiAddCovrageData {
 }
 
 class ApiPatchCovrageData {
+  final int employeeEnrollCoverageId;
   final String city;
   final int countyId;
+  final String countyName; // New field for countyName
   final int zoneId;
+  final String zoneName; // New field for zoneName
   final List<int> zipCodes;
-  ApiPatchCovrageData(
-      {required this.city,
-        required this.countyId,
-        required this.zoneId,
-        required this.zipCodes});
+
+  ApiPatchCovrageData({
+    required this.employeeEnrollCoverageId, // Added employeeEnrollCoverageId
+    required this.city,
+    required this.countyId,
+    required this.countyName, // Added countyName
+    required this.zoneId,
+    required this.zoneName, // Added zoneName
+    required this.zipCodes,
+  });
+
+  // Convert the model to JSON format
   Map<String, dynamic> toJson() {
     return {
+      'employeeEnrollCoverageId': employeeEnrollCoverageId, // Added to JSON
       'city': city,
       'countyId': countyId,
+      'countyName': countyName, // Added to JSON
       'zoneId': zoneId,
-      'zipCode': zipCodes,
+      'zoneName': zoneName, // Added to JSON
+      'zipCodes': zipCodes, // Fixed to match the field name 'zipCodes'
     };
   }
 }
+

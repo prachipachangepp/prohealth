@@ -399,57 +399,99 @@ Future<ApiData> addEmpEnrollAddCoverage(
 
 /// Patch employee-enroll
 ///employee-enroll/addCoverage
-Future<ApiData> patchEmpEnrollAddCoverage(
-    BuildContext context,
+Future<ApiData> patchEmpEnrollAddCoverage(BuildContext context,
     int employeeEnrollId,
     int employeeId,
-    List<ApiPatchCovrageData> addCovrage,
-    // String city,
-    // int countyId,
-    // int zoneId,
-    ) async {
+    List<ApiPatchCovrageData> coverageDetails,) async {
+
   try {
     var data = {
       "employeeEnrollId": employeeEnrollId,
       "employeeId": employeeId,
-      "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
-      // "city": city,
-      // "countyId": countyId,
-      // "zoneId": zoneId,
+      "coverageDetails": coverageDetails.map((item) => item.toJson()).toList(),
     };
-    print("Covrage Data ${data}");
+
+    print("Coverage Data: $data");
+
     var response = await Api(context).patch(
       path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
-      data: {
-        "employeeEnrollId": employeeEnrollId,
-        "employeeId": employeeId,
-        "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
-        // "city": city,
-        // "countyId": countyId,
-        // "zoneId": zoneId,
-      },
+      data: data,
     );
+
     print(response);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Coverage updated");
-      // orgDocumentGet(context);
+      print("Coverage updated successfully");
       return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!,
+      );
     } else {
-      print("Error 1");
+      print("Error: Coverage update failed");
       return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
+        statusCode: response.statusCode!,
+        success: false,
+        message: response.data['message'],
+      );
     }
   } catch (e) {
-    print("Error $e");
+    print("Error: $e");
     return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+      statusCode: 404,
+      success: false,
+      message: AppString.somethingWentWrong,
+    );
   }
 }
+// Future<ApiData> patchEmpEnrollAddCoverage(
+//     BuildContext context,
+//     int employeeEnrollId,
+//     int employeeId,
+//     List<ApiPatchCovrageData> addCovrage,
+//     ) async {
+//   try {
+//     var data = {
+//       "employeeEnrollId": employeeEnrollId,
+//       "employeeId": employeeId,
+//       "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
+//       // "city": city,
+//       // "countyId": countyId,
+//       // "zoneId": zoneId,
+//     };
+//     print("Covrage Data ${data}");
+//     var response = await Api(context).patch(
+//       path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
+//       data: {
+//         "employeeEnrollId": employeeEnrollId,
+//         "employeeId": employeeId,
+//         "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
+//         // "city": city,
+//         // "countyId": countyId,
+//         // "zoneId": zoneId,
+//       },
+//     );
+//     print(response);
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Coverage updated");
+//       // orgDocumentGet(context);
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
 
 /// Onboard User Patch
 Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async {
