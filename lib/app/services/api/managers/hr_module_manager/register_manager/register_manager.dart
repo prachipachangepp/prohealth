@@ -3,8 +3,10 @@ import 'package:prohealth/app/services/api/repository/hr_module_repository/Regis
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import '../../../../../../data/api_data/api_data.dart';
+import '../../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
+import '../../../repository/hr_module_repository/profile_repo.dart';
 
 ///register enroll get
 Future<List<RegisterEnrollData>> RegisterGetData(
@@ -397,40 +399,61 @@ Future<ApiData> addEmpEnrollAddCoverage(
 
 /// Patch employee-enroll
 ///employee-enroll/addCoverage
-Future<ApiData> patchEmpEnrollAddCoverage(
-    BuildContext context,
+Future<ApiData> patchEmpEnrollAddCoverage(BuildContext context,
     int employeeEnrollId,
     int employeeId,
-    List<ApiPatchCovrageData> addCovrage,
-    // String city,
-    // int countyId,
-    // int zoneId,
-    ) async {
+    List<ApiPatchCovrageData> coverageDetails,) async {
+
   try {
     var data = {
       "employeeEnrollId": employeeEnrollId,
       "employeeId": employeeId,
-      "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
-      // "city": city,
-      // "countyId": countyId,
-      // "zoneId": zoneId,
+      "coverageDetails": coverageDetails.map((item) => item.toJson()).toList(),
     };
-    print("Covrage Data ${data}");
+
+    print("Coverage Data: $data");
+
     var response = await Api(context).patch(
       path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
-      data: {
-        "employeeEnrollId": employeeEnrollId,
-        "employeeId": employeeId,
-        "coverageDetails": addCovrage.map((item) => item.toJson()).toList()
-        // "city": city,
-        // "countyId": countyId,
-        // "zoneId": zoneId,
-      },
+      data: data,
     );
+
     print(response);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Coverage updated");
-      // orgDocumentGet(context);
+      print("Coverage updated successfully");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!,
+      );
+    } else {
+      print("Error: Coverage update failed");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: false,
+        message: response.data['message'],
+      );
+    }
+  } catch (e) {
+    print("Error: $e");
+    return ApiData(
+      statusCode: 404,
+      success: false,
+      message: AppString.somethingWentWrong,
+    );
+  }
+}
+
+
+///delete
+Future<ApiData> deleteCoverageEditor(
+    BuildContext context, int employeeEnrollCoverageId) async {
+  try {
+    var response = await Api(context).delete(
+        path: ProfileRepository.deleteCoverage(employeeEnrollCoverageId: employeeEnrollCoverageId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Deleted coverage :::${employeeEnrollCoverageId}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -444,10 +467,12 @@ Future<ApiData> patchEmpEnrollAddCoverage(
     }
   } catch (e) {
     print("Error $e");
+    print("Error 2");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
 
 /// Onboard User Patch
 Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async {
@@ -476,3 +501,47 @@ Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async 
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
+
+
+/////////////////////////
+
+
+Future<EmployeeModel> getCoverageList({required BuildContext context,
+  required int employeeId ,required int employeeEnrollId }) async {
+  // Initialize EmployeeModel with default values
+  EmployeeModel employeeModel = EmployeeModel(
+    employeeEnrollId: employeeEnrollId, // Default value; can be modified as needed
+    employeeId: employeeId,
+    coverageDetails: [],
+  );
+
+  try {
+    final response = await Api(context).get(path: ProfileRepository.getlistcoverage(employeeId: employeeId));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Process coverage details from the response
+      for (var item in response.data['coverageDetails']) {
+        employeeModel.coverageDetails.add(CoverageDetail(
+          employeeEnrollCoverageId: item['employeeEnrollCoverageId'],
+          city: item['city'] ?? '',
+          countyId: item['countyId'],
+          countyName: item['countyName'],
+          zoneId: item['zoneId'],
+          zoneName: item['zoneName'],
+          zipCodes: List<int>.from(item['zipCodes']),
+        ));
+      }
+      print("Coverage details fetched successfully.");
+    } else {
+      print('Org Api Error: ${response.statusMessage}');
+    }
+
+  } catch (e) {
+    print("Error: $e");
+  }
+
+  return employeeModel;
+}
+

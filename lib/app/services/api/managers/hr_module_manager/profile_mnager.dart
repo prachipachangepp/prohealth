@@ -533,7 +533,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         employeeTypeId: response.data['employeeTypeId'] ?? 0,
         cityId: response.data['cityId'] ?? 0,
         countryId: response.data['countryId'] ?? 0,
-        // countyId: response.data['countyId'],
+        countyId: response.data['countyId'] ?? 1,
         zoneId: response.data['zoneId'] ?? 0,
         SSNNbr: response.data['SSNNbr'] ?? '',
         primaryPhoneNbr: response.data['primaryPhoneNbr'] ?? '',

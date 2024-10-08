@@ -4,6 +4,9 @@ class ProfileRepository {
   static String score = "GetProfileScore";
   static String zone = "/zone";
   static String countyWiseZone = "/zoneByCounty/";
+  static String covergaelist = "/employee-enroll/coverageArea/byEmployee/";
+  static String gender = "/gender-dropdown";
+  static String enroll = "/employee-enroll";
 
 
   /// search employee profile
@@ -26,5 +29,21 @@ class ProfileRepository {
     required int countyId
    }){
     return "$zone$countyWiseZone$countyId";
+  }
+
+  ///employee-enroll/{employeeEnrollCoverageId}
+  static String deleteCoverage({
+    required int employeeEnrollCoverageId
+  }){
+    return "$enroll/$employeeEnrollCoverageId";
+  }
+
+  ////co
+  static String getlistcoverage({required int employeeId}){
+    return "$covergaelist/$employeeId";
+  }
+///gender
+  static String getGender(){
+    return "$gender";
   }
 }
