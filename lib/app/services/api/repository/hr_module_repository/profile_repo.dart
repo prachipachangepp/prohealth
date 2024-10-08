@@ -4,6 +4,7 @@ class ProfileRepository {
   static String score = "GetProfileScore";
   static String zone = "/zone";
   static String countyWiseZone = "/zoneByCounty/";
+  static String gender = "/gender-dropdown";
 
 
   /// search employee profile
@@ -26,5 +27,9 @@ class ProfileRepository {
     required int countyId
    }){
     return "$zone$countyWiseZone$countyId";
+  }
+///gender
+  static String getGender(){
+    return "$gender";
   }
 }

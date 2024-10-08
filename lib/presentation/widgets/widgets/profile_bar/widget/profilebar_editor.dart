@@ -11,6 +11,8 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
+import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/gender_api.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/gender_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -71,6 +73,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   int selectedCountyId = 0;
   int selectedCityId = 0;
   String reportingOfficeId ='';
+  String genderId ='';
   Map<String, bool> checkedZipCodes = {};
   Map<String, bool> checkedCityName = {};
   List<String> selectedZipCodes = [];
@@ -125,6 +128,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String selectedCovrageZone = "Select Zone";
   String? selectedServiceId;
   String? selectedOfficeId;
+  String? selectedGenderId;
 
 
   @override
@@ -299,7 +303,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             expertise: 'Expert',
                                             cityId: profileData.cityId,
                                             countryId: profileData.countryId,
-                                            countyId: 1,
+                                            countyId: profileData.countyId,
                                             zoneId: profileData.zoneId,
                                             SSNNbr: ssNController.text,
                                             primaryPhoneNbr: phoneNController.text,
@@ -315,7 +319,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             profileData.emergencyContact,
                                             covreage: profileData.covreage,
                                             employment: profileData.employment,
-                                            gender: genderController.text,
+                                            gender: selectedGenderId ?? genderController.text,
                                             status: profileData.status,
                                             service: selectedServiceId ?? serviceController.text,
                                             summary: summaryController.text,
@@ -351,8 +355,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                           if(response.statusCode == 200 || response.statusCode == 201){
                                           var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-
-
                                           showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
@@ -399,7 +401,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             if (patchCoverage.success) {
                                               print("Coverage added successfully");
                                             } else {
-                                              print("Failed To Add Coverage");
+                                              print("Failed To Add Coverage........");
                                             }
                                             if(pickedFilePath){
                                               var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
@@ -736,12 +738,76 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     text: 'DOB',
                                     showDatePicker: true,
                                   ),
-                                  FirstSMTextFConst(
-                                    controller: genderController,
-                                    keyboardType: TextInputType.text,
-                                    text: 'Gender',
-                                    // showDatePicker: true,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          'Gender',
+                                          //  widget.depTitle,
+                                          style: AllPopupHeadings.customTextStyle(context)),
+                                      SizedBox(height: 5,),
+                                      FutureBuilder<List<GenderData>>(
+                                        future: getGenderDropdown(context),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return HRUManageDropdown(
+
+                                              hintText: "Gender",
+                                              // width: 320,
+                                              // height: 40,
+                                              controller: TextEditingController(text: ''),
+                                              items: ['item 1', 'item 2'],
+                                              // labelText: 'Reporting Office',
+                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,),
+                                              // GoogleFonts.firaSans(
+                                              //   fontSize: 12,
+                                              //   color: Color(0xff575757),
+                                              //   fontWeight: FontWeight.w400,
+                                              // ),
+                                              labelFontSize: 12,
+                                            );
+                                          }
+                                          if (snapshot.hasData) {
+                                            List<String> dropDownList = [];
+                                            for (var i in snapshot.data!) {
+                                              dropDownList.add(i.gender);
+                                            }
+                                            return HRUManageDropdown(
+                                              hintText: "Gender",
+                                              labelStyle: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: dropDownList,
+                                              onChanged: (newValue) {
+                                                for (var a in snapshot.data!) {
+                                                  if (a.gender == newValue) {
+                                                    selectedGenderId = a.gender;
+                                                    print('Gender Name : ${genderId}');
+                                                    // int docType = a.employeeTypesId;
+                                                    // Do something with docType
+                                                  }
+                                                }
+                                              },  controller: TextEditingController(text: ''),
+                                            );
+                                          } else {
+                                            return const Offstage();
+                                          }
+                                        },
+                                      ),
+                                    ],
                                   ),
+                                  // FirstSMTextFConst(
+                                  //   controller: genderController,
+                                  //   keyboardType: TextInputType.text,
+                                  //   text: 'Gender',
+                                  //   // showDatePicker: true,
+                                  // ),
                                 ],
                               ),
                               ///row 3
@@ -1308,14 +1374,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                               )
                                                             ],
                                                             bottomButtons:   CustomButton(
-                                                              height: 28,
-                                                              width: 70,
-                                                              text: 'Add',
+                                                              height: AppSize.s30,
+                                                              width: AppSize.s100,
+                                                              text: 'Save',
                                                               onPressed: () {
-                                                                // Uncomment if you need a loading state
-                                                                // setState(() {
-                                                                //   _isLoading = true;
-                                                                // });
                                                                 addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
                                                                 print('Selected County ID: $selectedCountyId');
                                                                 print('Selected Zone ID: $docZoneId');

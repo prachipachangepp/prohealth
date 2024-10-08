@@ -9,6 +9,7 @@ class ProfileEditorModal {
 
   final int cityId;
   final int countryId;
+  final int countyId;
 
   final int zoneId;
   final String SSNNbr;
@@ -71,6 +72,7 @@ class ProfileEditorModal {
       required this.employeeTypeId,
       required this.cityId,
       required this.countryId,
+      required this.countyId,
       required this.zoneId,
       required this.SSNNbr,
       required this.summary,
