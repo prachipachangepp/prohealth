@@ -31,6 +31,7 @@ import '../../../../../data/api_data/establishment_data/company_identity/company
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../screens/em_module/widgets/dialogue_template.dart';
 import 'add_coverage_popup.dart';
 
@@ -121,6 +122,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String? selectedServiceId;
   String? selectedOfficeId;
   String? selectedGenderId;
+  bool _isLoading = false;
 
 
   @override
@@ -996,8 +998,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                               return Container(
                                                 width: MediaQuery.of(context).size.width / 1,
-                                                // height: MediaQuery.of(context).size.width / 2.2,
-                                                // color: ColorManager.red,
                                                 child: Wrap(
                                                   spacing: 2.0,
                                                   children: List.generate((snapshot.data!.coverageDetails.length / 2).ceil(), (index) {
@@ -1005,12 +1005,38 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     int secondItemIndex = firstItemIndex + 1;
                                                     return Padding(
                                                       padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
-                                                      child: StatefulBuilder(
-                                                        builder: (BuildContext context, void Function(void Function()) setState) {
-                                                          return CoverageRowWidget(
+                                                      child: CoverageRowWidget(
                                                               countyName: snapshot.data!.coverageDetails[index].countyName,
                                                               zoneName: snapshot.data!.coverageDetails[index].zoneName,
-                                                              onDelete: () {},
+                                                              onDelete: () {
+                                                                showDialog(
+                                                                    context: context,
+                                                                    builder: (context) => DeletePopup(
+                                                                            title: DeletePopupString.deleteCoverage,
+                                                                            loadingDuration: _isLoading,
+                                                                            onCancel: () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            onDelete: () async {
+                                                                              setState(() {
+                                                                                _isLoading = true;
+                                                                              });
+                                                                              try {
+                                                                                await deleteCoverageEditor(context, snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                                setState(() {
+                                                                                  getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                                      employeeEnrollId:profileData.employeeEnrollId );
+
+                                                                                });
+                                                                              } finally {
+                                                                                setState(() {
+                                                                                  _isLoading = false;
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              }
+                                                                            }),
+                                                                     );
+                                                              },
                                                               onEdit: () {
                                                                 showDialog(
                                                                   context: context,
@@ -1021,9 +1047,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   },
                                                                 );
                                                               }
-                                                          );
-                                                        },
-                                                      ),
+                                                          ),
+
                                                     );
                                                   }),
                                                 ),
@@ -1048,6 +1073,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           employeeEnrollId:profileData.employeeEnrollId );
                                                     });
                                                 },));} ,
+
                                             child: Container(
                                                 height: 40,
                                                 width: 200,
