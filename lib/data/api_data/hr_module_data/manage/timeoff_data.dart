@@ -8,9 +8,11 @@ class TimeOfffData {
   final String endTime;
   final String sickTime;
   final String hours;
+  final String imageUrl;
   bool? approved;
   TimeOfffData({
     this.approved,
+    required this.imageUrl,
     required this.employeeTimeOffId,
     required this.employeeId,
     required this.employeeName,
