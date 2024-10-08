@@ -218,7 +218,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             right: 25, left: 25, top: 10, bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               height: 170,
@@ -505,7 +505,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                 ],
                               ),
                             )
-
                             // CIDetailsDropdown(
                             //   initialValue: serviceDetail.serviceName,
                             //   items: dropdownItems.map((item) {

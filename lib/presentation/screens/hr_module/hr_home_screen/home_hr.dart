@@ -774,9 +774,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   color: ColorManager.mediumgrey),
                             )),
                         //AddEmployeeHomeScreen(),
-                        RegisterScreen(onRefresh: () { setState(() {
-
-                        }); },),
+                        RegisterScreen(onRefresh: () {
+                          // myController.selectButton(2);
+                          },),
                         NewOnboardScreen(),
                         //SeeAllHrScreen()
                       ],
@@ -799,17 +799,16 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           employeeId: empID,
                           pageManageController: _pageManageController,
                           onRefresh: () {
-                            setState(() {
 
-                            });
                           },
                         ),
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(
                           onRefresh: () {
-                          setState(() {
-
-                           });
+                            myController.selectButton(2);
+                          // setState(() {
+                          //
+                          //  });
                           },
                         ),
                         NewOnboardScreen(),

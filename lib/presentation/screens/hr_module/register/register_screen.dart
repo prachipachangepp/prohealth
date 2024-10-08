@@ -146,7 +146,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController: newUserEmailController,
                                   firstNameController: newUserFirstNameController,
                                   // roleController: roleController,
-                                  passwordController: newUserPasswordController, onCancel: () { fetchData(); },
+                                  passwordController: newUserPasswordController,
+                                  onCancel: () {
+                                    //widget.onRefresh();
+                                    setState(() {
+                                      fetchData();
+                                    });},
                                 );
                               },
                             );
@@ -506,9 +511,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    // onReferesh: (){
-                                    //   fetchData();
-                                    // },
+                                    onReferesh: (){
+                                      setState(() {
+                                        fetchData();
+                                      });
+                                    },
                                     aEClinicalDiscipline: passData,
                                   );
                                 },

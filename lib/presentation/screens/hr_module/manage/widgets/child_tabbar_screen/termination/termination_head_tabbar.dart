@@ -755,14 +755,14 @@ class _TerminatePopupState extends State<TerminatePopup> {
              return showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  Future.delayed(
-                    const Duration(seconds: 3),
-                        () {
-                      if (Navigator.of(context).canPop()) {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                  );
+                  // Future.delayed(
+                  //   const Duration(seconds: 3),
+                  //       () {
+                  //     if (Navigator.of(context).canPop()) {
+                  //       Navigator.of(context).pop();
+                  //     }
+                  //   },
+                  // );
                   return const AddSuccessPopup(
                     message: 'Employee Terminated Successfully',
                   );
