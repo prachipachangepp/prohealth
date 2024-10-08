@@ -7,6 +7,7 @@ import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -223,11 +224,17 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                               color: ColorManager.blueprime)
                               : CustomButton(
                             width:
-                            MediaQuery.of(context).size.width / 7,
+                            MediaQuery.of(context).size.width / 4,
                             height:
                             MediaQuery.of(context).size.height /
                                 25,
                             text: AppString.updatepass,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            ),
                             backgroundColor: ColorManager.blueprime,
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
@@ -298,7 +305,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                                   color: ColorManager
                                                       .darkgrey,
                                                   fontSize:
-                                                  FontSize.s12,
+                                                  FontSize.s14,
                                                   fontWeight:
                                                   FontWeightManager
                                                       .medium,
@@ -307,8 +314,13 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                               CustomButton(
                                                 width: AppSize.s181,
                                                 height: AppSize.s45,
-                                                text: AppString
-                                                    .continuebutton,
+                                                text: AppString.continuebutton,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeightManager.semiBold,
+                                                  color: ColorManager.white,
+                                                  decoration: TextDecoration.none,
+                                                ),
                                                 borderRadius: 24,
                                                 onPressed: () {
                                                   Navigator.push(
@@ -363,7 +375,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                                 .commonStyle(
                                               color: ColorManager
                                                   .darkgrey,
-                                              fontSize: FontSize.s12,
+                                              fontSize: FontSize.s14,
                                               fontWeight:
                                               FontWeightManager
                                                   .medium,

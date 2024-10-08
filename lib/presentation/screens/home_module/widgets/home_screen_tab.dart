@@ -1,15 +1,19 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/presentation/widgets/tablet_constant/tab_menu_const.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/provider/navigation_provider.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
-import '../../em_module/responsive_screen_sm.dart';
+import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 
 class HomeScreenTab extends StatelessWidget {
   const HomeScreenTab({super.key});
@@ -90,7 +94,7 @@ class HomeScreenTab extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 14,
-                                        fontWeight: FontWeightManager.bold,
+                                        fontWeight: FontWeight.w700,
                                         color: ColorManager.darkgrey,
                                       ),
                                     ),
@@ -100,8 +104,10 @@ class HomeScreenTab extends StatelessWidget {
                               Expanded(
                                   flex: 2,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         'Administration',
@@ -154,8 +160,10 @@ class HomeScreenTab extends StatelessWidget {
                               Expanded(
                                   flex: 2,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         'Business',
@@ -189,11 +197,13 @@ class HomeScreenTab extends StatelessWidget {
                                           ),
                                           InkWell(
                                               onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ResponsiveScreenEM()));
+                                                Provider.of<RouteProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .setRoute('/detail');
+                                                // Navigate to the detail page
+                                                Navigator.pushNamed(context,
+                                                    RouteStrings.emDesktop);
                                               },
                                               child: TabMenuConst(
                                                 text: 'Establishment Manager',
@@ -207,8 +217,10 @@ class HomeScreenTab extends StatelessWidget {
                               Expanded(
                                   flex: 4,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         'Patient Related',
@@ -298,7 +310,7 @@ class HomeScreenTab extends StatelessWidget {
               style: GoogleFonts.firaSans(
                 color: ColorManager.black,
                 fontSize: FontSize.s10,
-                fontWeight: FontWeightManager.regular,
+                fontWeight: FontWeight.w400,
               ),
             ),
             SizedBox(

@@ -1,36 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/profile_bar.dart';
 
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources//theme_manager.dart';
 
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/font_manager.dart';
 ///saloni
+
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
+    );
+  }
+}
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManagerDark.customTextStyle(context);
+
+   // final textStyle = ThemeManager.customTextStyle(context);
     return [
       Text(
         AppString.age,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+      //SizedBox(height: 1,),
       Text(
         AppString.gender,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+     // SizedBox(height: 1,),
       Text(
         AppString.ssn,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+    //  SizedBox(height: 1,),
       Text(
         AppString.phone,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+    //  SizedBox(height: 1,),
       Text(
         AppString.personalno,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+     // SizedBox(height: 1,),
       Text(
         AppString.workno,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
     ];
   }
@@ -38,31 +60,44 @@ class MyConstants {
 
 class MyConstantsColumn {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManagerDark.customTextStyle(context);
+    // final textStyle = ThemeManager.customTextStyle(context);
     return [
+
       Text(
           AppString.personalEmail,
-      style: textStyle
+      style: ProfileBarTextBoldStyle.customEditTextStyle()
     ),
+
       Text(
         AppString.workemail,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
-      Text(
-        AppString.zone,
-        style: textStyle,
-      ),
+
       Text(
         AppString.speciality,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+
       Text(
         AppString.service,
-        style: textStyle,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
       ),
+
       Text(
-        AppString.workno,
-        style: textStyle,
-      ),];
+        AppString.reportingOffice,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
+      ),
+
+      Text(
+        AppString.summary,
+          style: ProfileBarTextBoldStyle.customEditTextStyle()
+      ),
+
+      // Text(
+      //     '',
+      //     style: ProfileBarTextBoldStyle.customEditTextStyle()
+      // ),
+
+    ];
   }
 }

@@ -29,6 +29,7 @@ class AddEmployeeTabBar extends StatelessWidget {
             height: 30,
             width: controller.tabBarViewWidth,
             child: TabBar(
+              isScrollable: false,
               tabs: controller.tabs,
               dividerColor: Colors.transparent,
               indicator: BoxDecoration(
@@ -50,6 +51,7 @@ class AddEmployeeTabBar extends StatelessWidget {
           Container(
             height: controller.tabBarViewHeight,
             child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
               children: controller.tabViews,
             ),
           ),

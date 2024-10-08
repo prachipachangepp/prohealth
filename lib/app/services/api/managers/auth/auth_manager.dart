@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/api_offer.dart';
 import 'package:prohealth/app/services/api/repository/auth/auth_repository.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 
 import '../../../../resources/const_string.dart';
 
@@ -18,15 +18,19 @@ class AuthManager {
           data: {"email": email, "password": password});
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
-        TokenManager.setAccessToken(token: access ?? "");
+        String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
+        int companyID = response.data['user']['company_id'];
+        int userId = response.data['user']['userId'];
+        TokenManager.setAccessToken(token: access ?? "",username: userName, companyId: companyID,userID: userId);
         return ApiData(
             success: true,
-            message: response.statusMessage!,
-            statusCode: response.statusCode!);
+            message: response.statusMessage ?? "",
+            statusCode: response.statusCode!,
+            data: userName);
       } else {
         return ApiData(
             success: false,
-            message: response.data["message"]!,
+            message: response.data["message"] ?? "",
             statusCode: response.statusCode!);
       }
     } catch (e) {
@@ -49,15 +53,14 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
-      print('Error occurred: $e');
       return ApiData(
           statusCode: 404,
           success: false,
@@ -76,12 +79,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
       return ApiData(
@@ -103,12 +106,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
       print(e);
@@ -120,7 +123,7 @@ class AuthManager {
   }
 
   ///Sign In otp Verification
-  static Future<ApiData> verifyOTPAndLogin(
+   static Future<ApiData> verifyOTPAndLogin(
       {required String email,
       required String otp,
       required BuildContext context}) async {
@@ -128,22 +131,24 @@ class AuthManager {
       var response = await Api(context).post(
           path: AuthenticationRepository.verifyOtpMail,
           data: {"email": email, "otp": int.parse(otp)});
-      print(response.data["accessToken"]);
-      print(response.statusCode);
+      print(response);
       if (response.statusCode == 201 || response.statusCode == 200) {
-        String accessToken = response.data["accessToken"];
-        TokenManager.setAccessToken(token: accessToken);
+        String accessToken = response.data["accessToken"] ?? "";
+        String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
+        int companyID = response.data['user']['company_id'];
+        int userId = response.data['user']['userId'];
+        TokenManager.setAccessToken(token: accessToken, username: userName, companyId: companyID, userID: userId);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.data['message']);
+            message: response.data['message'] ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data['message']);
+            message: response.data['message'] ?? "");
       }
     } catch (e) {
       return ApiData(statusCode: 404, success: false, message: e.toString());
@@ -165,18 +170,53 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       }
     } catch (e) {
       return ApiData(
           statusCode: 404,
           success: false,
           message: AppString.somethingWentWrong);
+    }
+  }
+
+  /// Authentication on reguster screen HR
+  static Future <ApiDataRegister> verifyOTPAndRegister(
+      {required String email,
+        required String otp,
+        required BuildContext context}) async {
+    try {
+      var response = await ApiOffer(context).post(
+          path: AuthenticationRepository.verifyOtpForOffer,
+          data: {"email": email, "otp": int.parse(otp)});
+      print(response);
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        String accessToken = response.data["accessToken"] ?? "";
+        String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
+        int companyID = response.data['user']['company_id'];
+        String emailId = response.data['user']['email'];
+        int userId = response.data['user']['userId'];
+
+        TokenManager.setAccessRegisterToken(token: accessToken, username: userName, companyId: companyID, emailId: emailId, userID: userId);
+        // Navigator.pushNamed(context, HomeScreen.routeName);
+
+        return ApiDataRegister(
+            statusCode: response.statusCode!,
+            success: true,
+            message: response.data['message'] ?? "");
+      } else {
+        return ApiDataRegister(
+            statusCode: response.statusCode!,
+            success: false,
+            message: response.data['message'] ?? "");
+      }
+    } catch (e) {
+      return ApiDataRegister(statusCode: 404, success: false, message: e.toString());
     }
   }
 }

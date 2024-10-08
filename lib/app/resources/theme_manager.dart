@@ -1,27 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import 'color.dart';
+
+
 
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 150;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+    return TextStyle(
       fontSize: fontSize,
-      color: Color(0xFF686464),
+      color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,
     );
   }
 }
 
+
+///prajwal
+class ThemeManagerBold {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 12;
+    return TextStyle(
+      fontSize: fontSize,
+      //color: Color(0xFF686464),
+      color: Colors.black,
+      //fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w400,
+    );
+  }
+}
+
+
+
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 150;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+    return TextStyle(
       fontSize: fontSize,
-      color: Color(0xFF2A2827),
+      color: ColorManager.black,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
+class ThemeManagerAddressPB {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: AppSize.s12,
+      color: ColorManager.primary,
+      fontWeight: FontWeight.w700,
+    );
+  }
+}
+class ThemeManagerDarkFont {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 12;
+    return TextStyle(
+      fontSize: fontSize,
+      color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,
     );
   }
@@ -29,41 +67,42 @@ class ThemeManagerDark {
 
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 120;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+    return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+        // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
 class ThemeManagerAccentblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 130;
-    return GoogleFonts.firaSans(
+    double fontSize = 10;
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.blueAccent,
       fontWeight: FontWeight.w200,
@@ -73,11 +112,11 @@ class ThemeManagerAccentblue {
 
 class ThemeManagerblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 120;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+    return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -85,31 +124,41 @@ class ThemeManagerblue {
 class ThemeManageWhitebold {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 99;
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 100;
-    return GoogleFonts.firaSans(
+    double fontSize = 12;
+    return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
+/// HR Documents style
 class AknowledgementStyleConst {
   static TextStyle customTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
-      fontSize: 10,
+    return TextStyle(
+      fontSize: FontSize.s14,
       color: Color(0xFF000000),
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
+    );
+  }
+}
+class AknowledgementStyleNormal {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      color: Color(0xFF000000),
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -117,9 +166,10 @@ class AknowledgementStyleConst {
 ///profile bar
 class ProfileBarConst {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
-      fontSize: FontSize.s8,
+    return TextStyle(
+      fontSize: FontSize.s12,
       color: ColorManager.primary,
+
       decoration: TextDecoration.underline,
       decorationColor: Colors.blueAccent,
     );
@@ -128,30 +178,30 @@ class ProfileBarConst {
 
 class ProfileBarConstText {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
-      fontSize: FontSize.s10,
+    return TextStyle(
+      fontSize: FontSize.s12,
       color: ColorManager.mediumgrey,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
 class ProfileBarLastColText {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
-      fontSize: FontSize.s10,
+    return TextStyle(
+      fontSize: FontSize.s12,
       color: ColorManager.bluelight,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
 
 class ProfileBarClipText {
   static TextStyle profileTextStyle(BuildContext context) {
-    return GoogleFonts.firaSans(
-      fontSize: MediaQuery.of(context).size.width / 140,
+    return TextStyle(
+      fontSize: FontSize.s12,
       color: ColorManager.white,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeight.w600,
     );
   }
 }
@@ -163,10 +213,10 @@ class CustomTextStylesCommon {
     Color? color,
     FontWeight? fontWeight,
   }) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       fontSize: fontSize ?? 15,
       color: color ?? Color(0xff4B89BA),
-      fontWeight: fontWeight ?? FontWeight.bold,
+      fontWeight: fontWeight ?? FontWeight.w600,
     );
   }
 }
@@ -174,43 +224,136 @@ class CustomTextStylesCommon {
 ///menu screen
 class MenuScreenHeadStyle {
   static TextStyle menuHead(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
         color: ColorManager.darkgrey,
         fontSize: 14.0,
-        fontWeight: FontWeightManager.bold);
+        fontWeight: FontWeight.w600);
   }
 }
 
-///email theme
-class EmailTextStyle {
-  static TextStyle enterEmail(BuildContext context) {
-    return GoogleFonts.firaSans(
-      color: Color(0xff000000).withOpacity(0.3),
-      fontSize: FontSize.s14,
-      fontWeight: FontWeightManager.lightbold,
-    );
-  }
-}
 
-///didnt receive code
-class CodeVerficationText {
-  static TextStyle VerifyCode(BuildContext context) {
-    return GoogleFonts.firaSans(
-      color: ColorManager.darkgrey,
-      //fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width / 120,
-      fontWeight: FontWeightManager.semiBold,
-    );
-  }
-}
 
-///mobile menu screen text head
+///Human Resource screen textField email only
 class MobileMenuText {
   static TextStyle MenuTextConst(BuildContext context) {
-    return GoogleFonts.firaSans(
+    return TextStyle(
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight:FontWeight.w500,
+    );
+  }
+}
+
+
+class BoxHeadingStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 15;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: ColorManager.blackfaint,
+      fontWeight: FontWeight.w700,
+    );
+  }
+}
+
+class PopupHeadingStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = 16;
+    // MediaQuery.of(context).size.width / 130;
+    return TextStyle(
+      fontSize: fontSize,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
+///Equipment
+class EquipmentStyleHeading{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class EquipmentStyleRegular{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///
+class EquipTableRegStyle {
+  static TextStyle  customTextStyle(BuildContext) {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color:  ColorManager.granitegray,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+///Time Off
+class TimeOffRegular{
+  static TextStyle customTextStyle(BuildContext context) {
+    return  TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.granitegray,
+      decoration:
+      TextDecoration.none,
+    );
+  }
+}
+
+
+/// profile bar in HR
+class ProfileBarZoneStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w500,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarNameLicenseStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class AboutExpiredLStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
     );
   }
 }

@@ -33,7 +33,7 @@ class MobMenuScreenConst extends StatelessWidget {
                 width: 19.39,
                 height: 20.39,
               ),
-              SizedBox(height: 5),
+              SizedBox(height:  AppSize.s5),
               Flexible(
                 child: Text(
                   text,
@@ -41,7 +41,7 @@ class MobMenuScreenConst extends StatelessWidget {
                   style: GoogleFonts.firaSans(
                     color: ColorManager.mediumgrey,
                    // fontSize: MediaQuery.of(context).size.height / 90,
-                    fontSize: FontSize.s9,
+                    fontSize: FontSize.s10,
                     fontWeight: FontWeightManager.medium,
                   ),
                 ),

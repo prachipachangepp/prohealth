@@ -6,15 +6,23 @@ import 'package:prohealth/presentation/widgets/responsive_screen.dart';
 
 class EmailVerification extends StatelessWidget {
   static const String routeName = "/emailVerification";
-
-  const EmailVerification({super.key,
+  final String email;
+  const EmailVerification({
+    super.key,
+    required this.email,
   });
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveScreen(
-        mobile: const EmailVerifyMobile(),
-        web: const EmailVerifyWeb(),
-        tablet: const EmailVerifyTab());
+        mobile: EmailVerifyMobile(
+          email: email,
+        ),
+        web: EmailVerifyWeb(
+          email: email,
+        ),
+        tablet: EmailVerifyTab(
+          email: email,
+        ));
   }
 }

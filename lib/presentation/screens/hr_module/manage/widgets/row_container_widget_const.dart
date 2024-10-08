@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 class TwoContainersRow extends StatelessWidget {
   final Widget child1;
   final Widget child2;
+  final double? height;
 
-  const TwoContainersRow({Key? key, required this.child1, required this.child2})
+  const TwoContainersRow({Key? key, required this.child1, required this.child2, this.height})
       : super(key: key);
 
   @override
@@ -26,11 +28,11 @@ class TwoContainersRow extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
-            height: 200,
+            height: height == null ? 200 : height,
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 80,
-                vertical: MediaQuery.of(context).size.width / 120,
+                vertical: MediaQuery.of(context).size.height / 120,
               ),
               child: child1,
             ),
@@ -48,14 +50,14 @@ class TwoContainersRow extends StatelessWidget {
                   offset: Offset(0, 4),
                 ),
               ],
-              color: Colors.white,
+              color: ColorManager.white,
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
-            height: 200,
+            height: height == null ? 200 : height,
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 80,
-                vertical: MediaQuery.of(context).size.width / 120,
+                vertical: MediaQuery.of(context).size.height / 120,
               ),
               child: child2,
             ),
