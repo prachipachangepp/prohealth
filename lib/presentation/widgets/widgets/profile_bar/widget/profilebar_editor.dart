@@ -2,41 +2,36 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/gender_api.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/gender_data.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_bar_editor_popup.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/manage_details_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/zone_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import '../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
-import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../screens/em_module/widgets/dialogue_template.dart';
 import 'add_coverage_popup.dart';
 
@@ -71,6 +66,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   int selectedCountyId = 0;
   int selectedCityId = 0;
   String reportingOfficeId ='';
+  String genderId ='';
   Map<String, bool> checkedZipCodes = {};
   Map<String, bool> checkedCityName = {};
   List<String> selectedZipCodes = [];
@@ -125,6 +121,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String selectedCovrageZone = "Select Zone";
   String? selectedServiceId;
   String? selectedOfficeId;
+  String? selectedGenderId;
+  bool _isLoading = false;
 
 
   @override
@@ -188,12 +186,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       future: getEmployeePrefill(context, widget.employeeId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Error fetching profile data'),
           );
         }
@@ -201,7 +199,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         if (snapshot.hasData) {
           // Populate controllers with the fetched data
           var profileData = snapshot.data!;
-
           nameController.text = profileData.firstName ?? '';
           deptController.text = profileData.department ?? '';
           empTypeController.text = profileData.employeType ?? '';
@@ -226,8 +223,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               Expanded(
                 child: Container(
 
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                  padding: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -238,13 +235,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.blue.withOpacity(0.5),
-                        offset: Offset(0, -4),
+                        offset: const Offset(0, -4),
                         // blurRadius: 8.0,
                         spreadRadius: 1.0,
                       ),
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
-                        offset: Offset(0, 4),
+                        offset: const Offset(0, 4),
                         spreadRadius: 1.0,
                       ),
                     ],
@@ -267,18 +264,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
 
-                                    ProfileEditCancelButton(
-                                      height: AppSize.s30,
-                                      width: AppSize.s100,
-                                      text: AppString.cancel,
-                                      onPressed: () {
-                                        print("Edit Mode Cancel :::::::::::::::::::::::############");
-                                        widget.onCancel();
-                                      },
-                                    ),
+                                      ProfileEditCancelButton(
+                                        height: AppSize.s30,
+                                        width: AppSize.s100,
+                                        text: AppString.cancel,
+                                        onPressed: () {
+                                          print("Edit Mode Cancel :::::::::::::::::::::::############");
+                                          widget.onCancel();
+                                        },
+                                      ),
 
 
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 30,
                                     ),
                                     CustomButton(
@@ -299,7 +296,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             expertise: 'Expert',
                                             cityId: profileData.cityId,
                                             countryId: profileData.countryId,
-                                            countyId: 1,
+                                            countyId: profileData.countyId,
                                             zoneId: profileData.zoneId,
                                             SSNNbr: ssNController.text,
                                             primaryPhoneNbr: phoneNController.text,
@@ -315,7 +312,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             profileData.emergencyContact,
                                             covreage: profileData.covreage,
                                             employment: profileData.employment,
-                                            gender: genderController.text,
+                                            gender: selectedGenderId ?? genderController.text,
                                             status: profileData.status,
                                             service: selectedServiceId ?? serviceController.text,
                                             summary: summaryController.text,
@@ -342,65 +339,22 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             rating: profileData.rating,
                                             signatureURL: profileData.signatureURL,
                                           );
-                                          // if(response.statusCode == 200 || response.statusCode == 201){
-                                          //   var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-
-
-
-                                          ///
-
                                           if(response.statusCode == 200 || response.statusCode == 201){
-                                          var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-
-
+                                        // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
                                           showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                          return AddSuccessPopup(
+                                          return const AddSuccessPopup(
                                           message: 'Employee updated successfully',
                                           );
                                           },
                                           );
                                           ///
-                                          // if(response.statusCode == 200 || response.statusCode == 201){
-                                          //   var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-                                          //   showDialog(
-                                          //     context: context,
-                                          //     builder: (BuildContext context) {
-                                          //       return AlertDialog(
-                                          //         title: Text('Success', style:TextStyle(
-                                          //           fontSize: FontSize.s13,
-                                          //           fontWeight: FontWeight.w600,
-                                          //           color: ColorManager.mediumgrey,
-                                          //           decoration: TextDecoration.none,
-                                          //         )),
-                                          //         content: Text('Employee updated successfully!',style: TextStyle(
-                                          //           fontSize: FontSize.s14,
-                                          //           fontWeight: FontWeight.w400,
-                                          //           color: ColorManager.mediumgrey,
-                                          //           decoration: TextDecoration.none,
-                                          //         )),
-                                          //         actions: [
-                                          //           TextButton(
-                                          //             onPressed: () {
-                                          //               Navigator.of(context).pop();
-                                          //             },
-                                          //             child: Text('OK',style: TextStyle(
-                                          //               fontSize: FontSize.s14,
-                                          //               fontWeight: FontWeight.w400,
-                                          //               color: ColorManager.mediumgrey,
-                                          //               decoration: TextDecoration.none,
-                                          //             )),
-                                          //           ),
-                                          //         ],
-                                          //       );
-                                          //     },
-                                          //   );
-                                            if (patchCoverage.success) {
-                                              print("Coverage added successfully");
-                                            } else {
-                                              print("Failed To Add Coverage");
-                                            }
+                                          //   if (patchCoverage.success) {
+                                          //     print("Coverage added successfully");
+                                          //   } else {
+                                          //     print("Failed To Add Coverage........");
+                                          //   }
                                             if(pickedFilePath){
                                               var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
                                             }else{
@@ -432,7 +386,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
                               ///upload file
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
@@ -462,7 +416,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       color: Colors.black.withOpacity(0.2),
                                                       spreadRadius: 2,
                                                       blurRadius: 5,
-                                                      offset: Offset(0, 3), // Shadow position
+                                                      offset: const Offset(0, 3), // Shadow position
                                                     ),
                                                   ],
                                                 ),
@@ -480,7 +434,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 ),
                                               )
                                                   : profileData.imgurl == null
-                                                  ? Text('') // Display nothing if no image is available
+                                                  ? const Text('') // Display nothing if no image is available
                                                   : Container(
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
@@ -489,7 +443,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       color: Colors.black.withOpacity(0.2),
                                                       spreadRadius: 2,
                                                       blurRadius: 5,
-                                                      offset: Offset(0, 3), // Shadow position
+                                                      offset: const Offset(0, 3), // Shadow position
                                                     ),
                                                   ],
                                                 ),
@@ -503,14 +457,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       width: double.infinity, // Ensures the image fills the avatar width
                                                       height: double.infinity, // Ensures the image fills the avatar height
                                                       placeholder: (context, url) =>
-                                                          CircularProgressIndicator(),
+                                                          const CircularProgressIndicator(),
                                                       errorWidget: (context, url, error) =>
-                                                          Icon(Icons.error),
+                                                          const Icon(Icons.error),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(width: 10),
+                                              const SizedBox(width: 10),
                                               // Custom icon button for uploading files
                                               CustomIconButton(
                                                 icon: Icons.upload_outlined,
@@ -692,41 +646,41 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               selectedDeptId = firstDeptId;
                                             }
 
-                                            return HRUManageDropdown(
-                                              controller: TextEditingController(
-                                                  text: selectedDeptName ?? ''),
-                                              labelText: "Select Department",
-                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: Color(0xff575757),
-                                                fontWeight: FontWeight.w500,),
-                                              labelFontSize: 12,
-                                              items: dropDownServiceList,
-                                              onChanged: (val) {
-                                                // setState(() {
-                                                selectedDeptName = val;
-                                                selectedDeptId = snapshot.data!
-                                                    .firstWhere(
-                                                        (dept) => dept.deptName == val)
-                                                    .deptId;
-                                                // });
-                                              },
-                                            );
-                                          }
-                                          return const SizedBox();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              ///row 2
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  FirstSMTextFConst(
-                                    controller: addressController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppString.address,
+                                              return HRUManageDropdown(
+                                                controller: TextEditingController(
+                                                    text: selectedDeptName ?? ''),
+                                                labelText: "Select Department",
+                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                  color: const Color(0xff575757),
+                                                  fontWeight: FontWeight.w500,),
+                                                labelFontSize: 12,
+                                                items: dropDownServiceList,
+                                                onChanged: (val) {
+                                                  // setState(() {
+                                                  selectedDeptName = val;
+                                                  selectedDeptId = snapshot.data!
+                                                      .firstWhere(
+                                                          (dept) => dept.deptName == val)
+                                                      .deptId;
+                                                  // });
+                                                },
+                                              );
+                                            }
+                                            return const SizedBox();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                ///row 2
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FirstSMTextFConst(
+                                      controller: addressController,
+                                      keyboardType: TextInputType.text,
+                                      text: AppString.address,
 
                                   ),
 
@@ -736,52 +690,116 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     text: 'DOB',
                                     showDatePicker: true,
                                   ),
-                                  FirstSMTextFConst(
-                                    controller: genderController,
-                                    keyboardType: TextInputType.text,
-                                    text: 'Gender',
-                                    // showDatePicker: true,
-                                  ),
-                                ],
-                              ),
-                              ///row 3
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  FirstSMTextFConst(
-                                    controller: ssNController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppString.ssnN,
-                                    // showDatePicker: true,
-                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          'Gender',
+                                          //  widget.depTitle,
+                                          style: AllPopupHeadings.customTextStyle(context)),
+                                      const SizedBox(height: 5,),
+                                      FutureBuilder<List<GenderData>>(
+                                        future: getGenderDropdown(context),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return HRUManageDropdown(
 
-                                  SMTextFConstPhone(
-                                    controller: phoneNController,
-                                    keyboardType: TextInputType.phone,
-                                    text: AppString.phone_number,
+                                                hintText: "Gender",
+                                                // width: 320,
+                                                // height: 40,
+                                                controller: TextEditingController(text: ''),
+                                                items: ['item 1', 'item 2'],
+                                                // labelText: 'Reporting Office',
+                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                  color: const Color(0xff575757),
+                                                  fontWeight: FontWeight.w400,),
+                                                // GoogleFonts.firaSans(
+                                                //   fontSize: 12,
+                                                //   color: Color(0xff575757),
+                                                //   fontWeight: FontWeight.w400,
+                                                // ),
+                                                labelFontSize: 12,
+                                              );
+                                            }
+                                            if (snapshot.hasData) {
+                                              List<String> dropDownList = [];
+                                              for (var i in snapshot.data!) {
+                                                dropDownList.add(i.gender);
+                                              }
+                                              return HRUManageDropdown(
+                                                hintText: "Gender",
+                                                labelStyle: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xff575757),
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelFontSize: 12,
+                                                items: dropDownList,
+                                                onChanged: (newValue) {
+                                                  for (var a in snapshot.data!) {
+                                                    if (a.gender == newValue) {
+                                                      selectedGenderId = a.gender;
+                                                      print('Gender Name : ${genderId}');
+                                                      // int docType = a.employeeTypesId;
+                                                      // Do something with docType
+                                                    }
+                                                  }
+                                                },  controller: TextEditingController(text: ''),
+                                              );
+                                            } else {
+                                              return const Offstage();
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    // FirstSMTextFConst(
+                                    //   controller: genderController,
+                                    //   keyboardType: TextInputType.text,
+                                    //   text: 'Gender',
+                                    //   // showDatePicker: true,
+                                    // ),
+                                  ],
+                                ),
+                                ///row 3
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FirstSMTextFConst(
+                                      controller: ssNController,
+                                      keyboardType: TextInputType.text,
+                                      text: AppString.ssnN,
+                                      // showDatePicker: true,
+                                    ),
 
-                                    // showDatePicker: true,
-                                  ),
-                                  SMTextFConstPhone(
-                                    controller: workPhoneController,
-                                    keyboardType: TextInputType.text,
-                                    text:  AppStringMobile.worNo,
+                                    SMTextFConstPhone(
+                                      controller: phoneNController,
+                                      keyboardType: TextInputType.phone,
+                                      text: AppString.phone_number,
 
-                                    // showDatePicker: true,
-                                  ),
-                                ],
-                              ),
+                                      // showDatePicker: true,
+                                    ),
+                                    SMTextFConstPhone(
+                                      controller: workPhoneController,
+                                      keyboardType: TextInputType.text,
+                                      text:  AppStringMobile.worNo,
 
-                              /// row 4
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  SMTextFConst(
-                                    controller: personalEmailController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppStringMobile.perEmail,
-                                    // showDatePicker: true,
-                                  ),
+                                      // showDatePicker: true,
+                                    ),
+                                  ],
+                                ),
+
+                                /// row 4
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SMTextFConst(
+                                      controller: personalEmailController,
+                                      keyboardType: TextInputType.text,
+                                      text: AppStringMobile.perEmail,
+                                      // showDatePicker: true,
+                                    ),
 
                                   SMTextFConst(
                                     controller: workEmailController,
@@ -823,10 +841,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             );
                                           }
 
-                                          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                            List<String> serviceNames = snapshot.data!
-                                                .map((service) => service.serviceName)
-                                                .toList();
+                                            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                              List<String> serviceNames = snapshot.data!
+                                                  .map((service) => service.serviceName)
+                                                  .toList();
 
                                             return HRUManageDropdown(
                                               controller: TextEditingController(),
@@ -839,7 +857,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     .firstWhere((service) => service.serviceName == val);
                                                 selectedServiceId = selectedService.serviceName;
                                                 print('Selected Service ID: ${selectedService.serviceId}');
-                                              }, labelStyle:  TextStyle(fontSize: 14),labelFontSize: 12 ,
+                                              }, labelStyle:  const TextStyle(fontSize: 14),labelFontSize: 12 ,
                                             );
                                           }
 
@@ -854,7 +872,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           'Reporting Office',
                                           //  widget.depTitle,
                                           style: AllPopupHeadings.customTextStyle(context)),
-                                      SizedBox(height: 5,),
+                                      const SizedBox(height: 5,),
                                       FutureBuilder<List<CompanyOfficeListData>>(
                                         future: getCompanyOfficeList(context),
                                         builder: (context, snapshot) {
@@ -869,7 +887,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               items: ['item 1', 'item 2'],
                                               // labelText: 'Reporting Office',
                                               labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: Color(0xff575757),
+                                                color: const Color(0xff575757),
                                                 fontWeight: FontWeight.w400,),
                                               // GoogleFonts.firaSans(
                                               //   fontSize: 12,
@@ -886,7 +904,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             }
                                             return HRUManageDropdown(
                                               hintText: "Reporting Office",
-                                              labelStyle: TextStyle(
+                                              labelStyle: const TextStyle(
                                                 fontSize: 12,
                                                 color: Color(0xff575757),
                                                 fontWeight: FontWeight.w400,
@@ -924,882 +942,176 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 ],
                               ),
                               ///coverage head
-                              Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 45),
-                                    child: Container(
-                                      height: 20,
-                                      width:354,
-                                      child: Text(
-                                          "Coverage",
-                                          style: AllPopupHeadings.customTextStyle(context)
-                                      ),
-                                      // color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              ///Coverage
-                              Padding(
-                                padding: const EdgeInsets.only(left: 50),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 60,
-                                      width: 400,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(14),
-                                        border: Border.all(
-                                          color: ColorManager.blueprime,
-                                          width: 2, //width of border
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: StatefulBuilder(
-                                          builder: (BuildContext context, void Function(void Function()) setState) {
-                                            return Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text("County :",
-                                                    style: AllPopupHeadings.customTextStyle(context)),
-                                                SizedBox(
-                                                  width: 3,
-                                                ),
-                                                Text(selectedCovrageCounty,
-                                                    style: EditTextFontStyle
-                                                        .customEditTextStyle()),
-                                                SizedBox(
-                                                  width: 30,
-                                                ),
-                                                Text('Zone :',
-                                                    style: AllPopupHeadings.customTextStyle(context)),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  selectedCovrageZone,
-                                                  style:
-                                                  EditTextFontStyle.customEditTextStyle(),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext context) {
-                                                        return
-                                                          DialogueTemplate(
-                                                            width: 420,
-                                                            height: 580,
-                                                            title: 'Edit Coverage',
-                                                            body: [
-                                                              Row(
-                                                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                children: [
-                                                                  ///county zone
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 15),
-                                                                    child: Container(
-                                                                      //  color: ColorManager.red,
-                                                                      height: 150,
-                                                                      width: 354,
-                                                                      child:
-                                                                      Column(
-                                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                              'County',
-                                                                              style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                color: const Color(0xff575757),)
-                                                                          ),
-                                                                          const SizedBox(height: 5),
-                                                                          FutureBuilder<List<AllCountyGetList>>(
-                                                                            future: getCountyZoneList(context),
-                                                                            builder: (context, snapshot) {
-                                                                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                                return const Padding(
-                                                                                  padding: EdgeInsets.symmetric(horizontal: 7),
-                                                                                  child: CICCDropdown(
-                                                                                    hintText: 'Select County',
-                                                                                    items: [],
-                                                                                  ),
-                                                                                );
-                                                                              } else if (snapshot.hasError) {
-                                                                                return const Text("Error fetching counties");
-                                                                              } else if (snapshot.hasData) {
-                                                                                countyDropDownList.clear();
-                                                                                countyDropDownList.add(
-                                                                                  DropdownMenuItem<String>(
-                                                                                    child: Text('Select County'),
-                                                                                    value: 'Select County',
-                                                                                  ),
-                                                                                );
-                                                                                for (var county in snapshot.data!) {
-                                                                                  countyDropDownList.add(
-                                                                                    DropdownMenuItem<String>(
-                                                                                      child: Text(county.countyName),
-                                                                                      value: county.countyName,
-                                                                                    ),
-                                                                                  );
-                                                                                }
-
-                                                                                return StatefulBuilder(
-                                                                                  builder: (BuildContext context, StateSetter setState) {
-                                                                                    return Column(
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        // County Dropdown
-                                                                                        CICCDropdown(
-                                                                                          items: countyDropDownList,
-                                                                                          initialValue: selectedCounty,
-                                                                                          width: 354,
-                                                                                          onChange: (newValue) async {
-                                                                                            setState(() {
-                                                                                              selectedCounty = newValue;
-                                                                                              selectedCovrageCounty = newValue;
-                                                                                            });
-
-                                                                                            // Get the county ID for the selected county
-                                                                                            for (var county in snapshot.data!) {
-                                                                                              if (county.countyName == newValue) {
-                                                                                                selectedCountyId = county.countyId;
-                                                                                                countyName = county.countyName;
-                                                                                                // break;
-                                                                                              }
-                                                                                            }
-
-                                                                                            print("Selected CountyId: $selectedCountyId");
-                                                                                          },
-                                                                                        ),
-                                                                                        const SizedBox(height: 10),
-
-                                                                                        // Zone Label
-                                                                                        Text(
-                                                                                            'Zone',
-                                                                                            style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                                                                                              fontWeight: FontWeight.w600,
-                                                                                              color: const Color(0xff575757),)
-                                                                                          // GoogleFonts.firaSans(
-                                                                                          //   fontSize: 12,
-                                                                                          //   fontWeight: FontWeight.w600,
-                                                                                          //   color: const Color(0xff575757),
-                                                                                          // ),
-                                                                                        ),
-                                                                                        const SizedBox(height: 5),
-
-                                                                                        // Zone Dropdown with hint text
-                                                                                        StreamBuilder<List<CountyWiseZoneModal>>(
-                                                                                            stream: _zoneController.stream,
-                                                                                            builder: (context, snapshotZone) {
-                                                                                              fetchCountyWiseZone(context, selectedCountyId)
-                                                                                                  .then((data) {
-                                                                                                _zoneController.add(data);
-                                                                                              }).catchError((error) {});
-                                                                                              if (snapshotZone.connectionState ==
-                                                                                                  ConnectionState.waiting) {
-                                                                                                return Container(
-                                                                                                  width: 354,
-                                                                                                  height: 30,
-                                                                                                  decoration: BoxDecoration(
-                                                                                                    border: Border.all(
-                                                                                                        color: ColorManager
-                                                                                                            .containerBorderGrey,
-                                                                                                        width: AppSize.s1),
-                                                                                                    borderRadius:
-                                                                                                    BorderRadius.circular(4),
-                                                                                                  ),
-                                                                                                  child: const Text(
-                                                                                                    "",
-                                                                                                    //AppString.dataNotFound,
-                                                                                                  ),
-                                                                                                );
-                                                                                              }
-                                                                                              if (snapshotZone.data!.isEmpty) {
-                                                                                                return Container(
-                                                                                                  width: 354,
-                                                                                                  height: 30,
-                                                                                                  decoration: BoxDecoration(
-                                                                                                    border: Border.all(
-                                                                                                        color: ColorManager
-                                                                                                            .containerBorderGrey,
-                                                                                                        width: AppSize.s1),
-                                                                                                    borderRadius:
-                                                                                                    BorderRadius.circular(4),
-                                                                                                  ),
-                                                                                                  child: Align(
-                                                                                                    alignment: Alignment.centerLeft,
-                                                                                                    child: Padding(
-                                                                                                      padding: const EdgeInsets
-                                                                                                          .symmetric(
-                                                                                                          horizontal: 10),
-                                                                                                      child: Text(
-                                                                                                        ErrorMessageString
-                                                                                                            .noZoneAdded,
-                                                                                                        //  AppString.dataNotFound,
-                                                                                                        style:
-                                                                                                        AllNoDataAvailable.customTextStyle(context),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                );
-                                                                                              }
-                                                                                              if (snapshotZone.hasData) {
-                                                                                                List dropDown = [];
-                                                                                                int docType = 0;
-                                                                                                List<DropdownMenuItem<String>>
-                                                                                                dropDownTypesList = [];
-
-                                                                                                for (var i in snapshotZone.data!) {
-                                                                                                  dropDownTypesList.add(
-                                                                                                    DropdownMenuItem<String>(
-                                                                                                      value: i.zoneName,
-                                                                                                      child: Text(i.zoneName),
-                                                                                                    ),
-                                                                                                  );
-                                                                                                }
-                                                                                                if (selectedZipCodeZone == null) {
-                                                                                                  selectedZipCodeZone =
-                                                                                                      snapshotZone.data![0].zoneName;
-                                                                                                }
-                                                                                                docZoneId = snapshotZone.data![0].zone_id;
-                                                                                                return CICCDropdown(
-                                                                                                    width: 354,
-                                                                                                    initialValue:
-                                                                                                    dropDownTypesList[0].value,
-                                                                                                    onChange: (val) {
-                                                                                                      selectedZipCodeZone = val;
-                                                                                                      selectedCovrageZone = val;
-                                                                                                      for (var a in snapshotZone.data!) {
-                                                                                                        if (a.zoneName == val) {
-                                                                                                          docType = a.zone_id;
-                                                                                                          zoneName = a.zoneName;
-                                                                                                          print("ZONE id :: ${a.zone_id}");
-                                                                                                          docZoneId = docType;
-                                                                                                        }
-                                                                                                      }
-                                                                                                      print(":::${docType}");
-                                                                                                      print(":::<>${docZoneId}");
-                                                                                                    },
-                                                                                                    items: dropDownTypesList);
-                                                                                              }
-                                                                                              return const SizedBox();
-                                                                                            }),
-
-                                                                                      ],
-                                                                                    );
-                                                                                  },
-                                                                                );
-                                                                              } else {
-                                                                                return const Text('No Data available');
-                                                                              }
-                                                                            },
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: [  ///Zipcode
-                                                                  Container(
-                                                                    height: 200,
-                                                                    width: 300,
-                                                                    child: Column(
-                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.only(left: 20.0),
-                                                                          child: Text(
-                                                                              'Zip Codes',
-                                                                              style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                color: const Color(0xff575757),)
-                                                                          ),
-                                                                        ),
-                                                                        /// Removed TabBar code
-                                                                        Expanded(
-                                                                          child: StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
-                                                                            stream: _countyStreamController.stream,
-                                                                            builder: (BuildContext context, snapshot) {
-                                                                              getZipcodeByCountyIdAndZoneId(
-                                                                                context: context,
-                                                                                countyId: selectedCountyId,
-                                                                                zoneId: docZoneId,
-                                                                              ).then((data) {
-                                                                                _countyStreamController.add(data);
-                                                                              }).catchError((error) {
-                                                                                // Handle error
-                                                                              });
-
-                                                                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                                return SizedBox();
-                                                                              }
-
-                                                                              if (selectedCountyId == 0) {
-                                                                                return Center(
-                                                                                  child: Text(
-                                                                                    'Select county',
-                                                                                    style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
-                                                                                  ),
-                                                                                );
-                                                                              }
-
-                                                                              if (snapshot.data!.isEmpty) {
-                                                                                return Center(
-                                                                                  child: Text(
-                                                                                    'No Data Found!',
-                                                                                    style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
-                                                                                  ),
-                                                                                );
-                                                                              }
-
-                                                                              return Row(
-                                                                                children: [
-                                                                                  StatefulBuilder(
-                                                                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                                      return Container(
-                                                                                        width: 200,
-                                                                                        height: 300,
-                                                                                        child: ListView.builder(
-                                                                                          itemCount: snapshot.data!.length,
-                                                                                          itemBuilder: (BuildContext context, int index) {
-                                                                                            String zipCode = snapshot.data![index].zipCode;
-                                                                                            bool isChecked = checkedZipCodes[zipCode] ?? false;
-                                                                                            return CheckBoxTileConst(
-                                                                                              text: zipCode,
-                                                                                              value: isChecked,
-                                                                                              onChanged: (bool? val) {
-                                                                                                setState(() {
-                                                                                                  print('Clicked check box 1');
-                                                                                                  checkedZipCodes[zipCode] = val ?? false;
-                                                                                                  if (val == true) {
-                                                                                                    selectedZipCodes.add(zipCode);
-                                                                                                    zipCodes.add(int.parse(snapshot.data![index].zipCode));
-                                                                                                  } else {
-                                                                                                    selectedZipCodes.remove(zipCode);
-                                                                                                    zipCodes.remove(int.parse(snapshot.data![index].zipCode));
-                                                                                                  }
-                                                                                                  selectedZipCodesString = selectedZipCodes.join(', ');
-                                                                                                });
-                                                                                              },
-                                                                                            );
-                                                                                          },
-                                                                                        ),
-                                                                                      );
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                              );
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              )
-                                                            ],
-                                                            bottomButtons:   CustomButton(
-                                                              height: 28,
-                                                              width: 70,
-                                                              text: 'Add',
-                                                              onPressed: () {
-                                                                // Uncomment if you need a loading state
-                                                                // setState(() {
-                                                                //   _isLoading = true;
-                                                                // });
-                                                                addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
-                                                                print('Selected County ID: $selectedCountyId');
-                                                                print('Selected Zone ID: $docZoneId');
-                                                                print('Selected Zip Codes: $selectedZipCodes');
-                                                                print('Selected City: $selectedCityName');
-                                                                setState((){
-
-                                                                });
-                                                                Navigator.pop(context);
-                                                              },
-                                                            ),);
-                                                        //ProfileBarEditPopup();
-                                                        ///
-                                                        // Dialog(
-                                                        //   shape: RoundedRectangleBorder(
-                                                        //     borderRadius: BorderRadius.circular(10),
-                                                        //     side: BorderSide(color: Colors.blue, width: 2,),),
-                                                        //   child: SizedBox(
-                                                        //     height: 350,
-                                                        //     width: 730,
-                                                        //     child: SingleChildScrollView(
-                                                        //       child: Padding(
-                                                        //         padding: EdgeInsets.symmetric(horizontal: 30),
-                                                        //         child: Column(
-                                                        //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        //           crossAxisAlignment: CrossAxisAlignment.start,
-                                                        //           children: [
-                                                        //             Padding(
-                                                        //               padding: const EdgeInsets.only( top: 8),
-                                                        //               child: Text("Edit Coverage", style: EditProfile.customEditTextStyle(),),
-                                                        //             ),
-                                                        //             Row(
-                                                        //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        //               children: [
-                                                        //                 ///county zone
-                                                        //                 Padding(
-                                                        //                   padding: const EdgeInsets.symmetric(vertical: 20),
-                                                        //                   child: Container(
-                                                        //                     height: 300,
-                                                        //                     width: 150,
-                                                        //                     child:
-                                                        //                     Column(
-                                                        //                       crossAxisAlignment: CrossAxisAlignment.start,
-                                                        //                       children: [
-                                                        //                         Text(
-                                                        //                           'County',
-                                                        //                           style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                                                        //                             fontWeight: FontWeight.w600,
-                                                        //                             color: const Color(0xff575757),)
-                                                        //                         ),
-                                                        //                         const SizedBox(height: 5),
-                                                        //                         FutureBuilder<List<AllCountyGetList>>(
-                                                        //                           future: getCountyZoneList(context),
-                                                        //                           builder: (context, snapshot) {
-                                                        //                             if (snapshot.connectionState == ConnectionState.waiting) {
-                                                        //                               return const Padding(
-                                                        //                                 padding: EdgeInsets.symmetric(horizontal: 7),
-                                                        //                                 child: CICCDropdown(
-                                                        //                                   hintText: 'Select County',
-                                                        //                                   items: [],
-                                                        //                                 ),
-                                                        //                               );
-                                                        //                             } else if (snapshot.hasError) {
-                                                        //                               return const Text("Error fetching counties");
-                                                        //                             } else if (snapshot.hasData) {
-                                                        //                               countyDropDownList.clear();
-                                                        //                               countyDropDownList.add(
-                                                        //                                 DropdownMenuItem<String>(
-                                                        //                                   child: Text('Select County'),
-                                                        //                                   value: 'Select County',
-                                                        //                                 ),
-                                                        //                               );
-                                                        //                               for (var county in snapshot.data!) {
-                                                        //                                 countyDropDownList.add(
-                                                        //                                   DropdownMenuItem<String>(
-                                                        //                                     child: Text(county.countyName),
-                                                        //                                     value: county.countyName,
-                                                        //                                   ),
-                                                        //                                 );
-                                                        //                               }
-                                                        //
-                                                        //                               return StatefulBuilder(
-                                                        //                                 builder: (BuildContext context, StateSetter setState) {
-                                                        //                                   return Column(
-                                                        //                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                                        //                                     children: [
-                                                        //                                       // County Dropdown
-                                                        //                                       CICCDropdown(
-                                                        //                                         items: countyDropDownList,
-                                                        //                                         initialValue: selectedCounty,
-                                                        //                                         width: 150,
-                                                        //                                         onChange: (newValue) async {
-                                                        //                                           setState(() {
-                                                        //                                             selectedCounty = newValue;
-                                                        //                                             selectedCovrageCounty = newValue;
-                                                        //                                           });
-                                                        //
-                                                        //                                           // Get the county ID for the selected county
-                                                        //                                           for (var county in snapshot.data!) {
-                                                        //                                             if (county.countyName == newValue) {
-                                                        //                                               selectedCountyId = county.countyId;
-                                                        //                                               break;
-                                                        //                                             }
-                                                        //                                           }
-                                                        //
-                                                        //                                           print("Selected CountyId: $selectedCountyId");
-                                                        //                                         },
-                                                        //                                       ),
-                                                        //                                       const SizedBox(height: 10),
-                                                        //
-                                                        //                                       // Zone Label
-                                                        //                                       Text(
-                                                        //                                         'Zone',
-                                                        //                                         style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                                                        //                                           fontWeight: FontWeight.w600,
-                                                        //                                           color: const Color(0xff575757),)
-                                                        //                                         // GoogleFonts.firaSans(
-                                                        //                                         //   fontSize: 12,
-                                                        //                                         //   fontWeight: FontWeight.w600,
-                                                        //                                         //   color: const Color(0xff575757),
-                                                        //                                         // ),
-                                                        //                                       ),
-                                                        //                                       const SizedBox(height: 5),
-                                                        //
-                                                        //                                       // Zone Dropdown with hint text
-                                                        //                                       StreamBuilder<
-                                                        //                                           List<CountyWiseZoneModal>>(
-                                                        //                                           stream: _zoneController.stream,
-                                                        //                                           builder: (context, snapshotZone) {
-                                                        //                                             fetchCountyWiseZone(context, selectedCountyId)
-                                                        //                                                 .then((data) {
-                                                        //                                               _zoneController.add(data);
-                                                        //                                             }).catchError((error) {});
-                                                        //                                             if (snapshotZone.connectionState ==
-                                                        //                                                 ConnectionState.waiting) {
-                                                        //                                               return Container(
-                                                        //                                                 width: 150,
-                                                        //                                                 height: 30,
-                                                        //                                                 decoration: BoxDecoration(
-                                                        //                                                   border: Border.all(
-                                                        //                                                       color: ColorManager
-                                                        //                                                           .containerBorderGrey,
-                                                        //                                                       width: AppSize.s1),
-                                                        //                                                   borderRadius:
-                                                        //                                                   BorderRadius.circular(4),
-                                                        //                                                 ),
-                                                        //                                                 child: const Text(
-                                                        //                                                   "",
-                                                        //                                                   //AppString.dataNotFound,
-                                                        //                                                 ),
-                                                        //                                               );
-                                                        //                                             }
-                                                        //                                             if (snapshotZone.data!.isEmpty) {
-                                                        //                                               return Container(
-                                                        //                                                 width: 150,
-                                                        //                                                 height: 30,
-                                                        //                                                 decoration: BoxDecoration(
-                                                        //                                                   border: Border.all(
-                                                        //                                                       color: ColorManager
-                                                        //                                                           .containerBorderGrey,
-                                                        //                                                       width: AppSize.s1),
-                                                        //                                                   borderRadius:
-                                                        //                                                   BorderRadius.circular(4),
-                                                        //                                                 ),
-                                                        //                                                 child: Align(
-                                                        //                                                   alignment: Alignment.centerLeft,
-                                                        //                                                   child: Padding(
-                                                        //                                                     padding: const EdgeInsets
-                                                        //                                                         .symmetric(
-                                                        //                                                         horizontal: 10),
-                                                        //                                                     child: Text(
-                                                        //                                                       ErrorMessageString
-                                                        //                                                           .noZoneAdded,
-                                                        //                                                       //  AppString.dataNotFound,
-                                                        //                                                       style:
-                                                        //                                                       AllNoDataAvailable.customTextStyle(context),
-                                                        //                                                     ),
-                                                        //                                                   ),
-                                                        //                                                 ),
-                                                        //                                               );
-                                                        //                                             }
-                                                        //                                             if (snapshotZone.hasData) {
-                                                        //                                               List dropDown = [];
-                                                        //                                               int docType = 0;
-                                                        //                                               List<DropdownMenuItem<String>>
-                                                        //                                               dropDownTypesList = [];
-                                                        //
-                                                        //                                               for (var i in snapshotZone.data!) {
-                                                        //                                                 dropDownTypesList.add(
-                                                        //                                                   DropdownMenuItem<String>(
-                                                        //                                                     value: i.zoneName,
-                                                        //                                                     child: Text(i.zoneName),
-                                                        //                                                   ),
-                                                        //                                                 );
-                                                        //                                               }
-                                                        //                                               if (selectedZipCodeZone == null) {
-                                                        //                                                 selectedZipCodeZone =
-                                                        //                                                     snapshotZone.data![0].zoneName;
-                                                        //                                               }
-                                                        //                                               docZoneId = snapshotZone.data![0].zone_id;
-                                                        //                                               return CICCDropdown(
-                                                        //                                                   width: 150,
-                                                        //                                                   initialValue:
-                                                        //                                                   dropDownTypesList[0].value,
-                                                        //                                                   onChange: (val) {
-                                                        //                                                     selectedZipCodeZone = val;
-                                                        //                                                     selectedCovrageZone = val;
-                                                        //                                                     for (var a
-                                                        //                                                     in snapshotZone.data!) {
-                                                        //                                                       if (a.zoneName == val) {
-                                                        //                                                         docType = a.zone_id;
-                                                        //                                                         print(
-                                                        //                                                             "ZONE id :: ${a.zone_id}");
-                                                        //                                                         docZoneId = docType;
-                                                        //                                                       }
-                                                        //                                                     }
-                                                        //                                                     print(":::${docType}");
-                                                        //                                                     print(":::<>${docZoneId}");
-                                                        //                                                   },
-                                                        //                                                   items: dropDownTypesList);
-                                                        //                                             }
-                                                        //                                             return const SizedBox();
-                                                        //                                           }),
-                                                        //
-                                                        //                                     ],
-                                                        //                                   );
-                                                        //                                 },
-                                                        //                               );
-                                                        //                             } else {
-                                                        //                               return const Text('No Data available');
-                                                        //                             }
-                                                        //                           },
-                                                        //                         ),
-                                                        //                       ],
-                                                        //                     ),
-                                                        //                   ),
-                                                        //                 ),
-                                                        //                 ///Zipcode
-                                                        //                 Container(
-                                                        //                   height: 290,
-                                                        //                   width: 300,
-                                                        //                   // color:  Colors.green,
-                                                        //                   child:
-                                                        //                   DefaultTabController(
-                                                        //                     length: 1,
-                                                        //                     child: Column(
-                                                        //                       children: [
-                                                        //                         Padding(padding: EdgeInsets.symmetric(horizontal: 5),
-                                                        //                           child: TabBar(
-                                                        //                             indicatorColor: const Color(0xff1696C8),
-                                                        //                             labelColor: const Color(0xff686464),
-                                                        //                             unselectedLabelColor:
-                                                        //                             const Color(
-                                                        //                                 0xff686464),
-                                                        //                             labelStyle: TextStyle
-                                                        //                               (
-                                                        //                               fontSize:
-                                                        //                               10,
-                                                        //                               fontWeight:
-                                                        //                               FontWeight
-                                                        //                                   .w500,
-                                                        //                             ),
-                                                        //                             unselectedLabelStyle:
-                                                        //                             TextStyle(
-                                                        //                               fontSize:
-                                                        //                               10,
-                                                        //                               fontWeight:
-                                                        //                               FontWeight
-                                                        //                                   .w500,
-                                                        //                             ),
-                                                        //                             tabs: const [
-                                                        //                               Tab(
-                                                        //                                   text:
-                                                        //                                   'Zip Codes'),
-                                                        //                               // Tab(text: 'Cities'),
-                                                        //                             ],
-                                                        //                           ),
-                                                        //                         ),
-                                                        //                         ///
-                                                        //                         Expanded(
-                                                        //                           child: Padding(
-                                                        //                             padding: const EdgeInsets
-                                                        //                                 .only(
-                                                        //                                 left:
-                                                        //                                 20.0,
-                                                        //                                 right:
-                                                        //                                 20.0),
-                                                        //                             child:
-                                                        //                             TabBarView(
-                                                        //                               physics:
-                                                        //                               const NeverScrollableScrollPhysics(),
-                                                        //                               children: [
-                                                        //                                 StreamBuilder<
-                                                        //                                     List<
-                                                        //                                         ZipcodeByCountyIdAndZoneIdData>>(
-                                                        //                                   stream:
-                                                        //                                   _countyStreamController.stream,
-                                                        //                                   builder:
-                                                        //                                       (BuildContext context,
-                                                        //                                       snapshot) {
-                                                        //                                     getZipcodeByCountyIdAndZoneId(context: context, countyId: selectedCountyId, zoneId: docZoneId).then(
-                                                        //                                             (data) {
-                                                        //                                           _countyStreamController.add(data);
-                                                        //                                         }).catchError(
-                                                        //                                             (error) {
-                                                        //                                           // Handle error
-                                                        //                                         });
-                                                        //                                     if (snapshot.connectionState ==
-                                                        //                                         ConnectionState.waiting) {
-                                                        //                                       return SizedBox();
-                                                        //                                     }
-                                                        //                                     if (selectedCountyId ==
-                                                        //                                         0) {
-                                                        //                                       return Center(
-                                                        //                                           child: Text(
-                                                        //                                             'Select county',
-                                                        //                                               style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500)
-                                                        //                                           ));
-                                                        //                                     }
-                                                        //                                     if (snapshot
-                                                        //                                         .data!
-                                                        //                                         .isEmpty) {
-                                                        //                                       return Center(
-                                                        //                                           child: Text(
-                                                        //                                             'No Data Found!',
-                                                        //                                             style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500)
-                                                        //                                             //GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
-                                                        //                                           ));
-                                                        //                                     }
-                                                        //                                     return Row(
-                                                        //                                       children: [
-                                                        //                                         StatefulBuilder(
-                                                        //                                           builder: (BuildContext context, void Function(void Function()) setState) {
-                                                        //                                             return Container(
-                                                        //                                               width: 200,
-                                                        //                                               height: 300,
-                                                        //                                               child: ListView.builder(
-                                                        //                                                 itemCount: snapshot.data!.length,
-                                                        //                                                 itemBuilder: (BuildContext context, int index) {
-                                                        //                                                   String zipCode = snapshot.data![index].zipCode;
-                                                        //                                                   bool isChecked = checkedZipCodes[zipCode] ?? false;
-                                                        //                                                   return CheckBoxTileConst(
-                                                        //                                                       text: zipCode,
-                                                        //                                                       value: isChecked,
-                                                        //                                                       onChanged: (bool? val) {
-                                                        //                                                         setState(() {
-                                                        //                                                           print('Clicked check box 1');
-                                                        //                                                           checkedZipCodes[zipCode] = val ?? false;
-                                                        //                                                           if (val == true) {
-                                                        //                                                             selectedZipCodes.add(zipCode);
-                                                        //                                                             zipCodes.add(int.parse(snapshot.data![index].zipCode));
-                                                        //                                                           } else {
-                                                        //                                                             selectedZipCodes.remove(zipCode);
-                                                        //                                                             zipCodes.remove(int.parse(snapshot.data![index].zipCode));
-                                                        //                                                           }
-                                                        //                                                           selectedZipCodesString = selectedZipCodes.join(', ');
-                                                        //                                                         });
-                                                        //                                                       });
-                                                        //                                                 },
-                                                        //                                               ),
-                                                        //                                             );
-                                                        //                                           },
-                                                        //                                         ),
-                                                        //                                       ],
-                                                        //                                     );
-                                                        //                                   },
-                                                        //                                 ),
-                                                        //                               ],
-                                                        //                             ),
-                                                        //                           ),
-                                                        //                         ),
-                                                        //                       ],
-                                                        //                     ),
-                                                        //                   ),
-                                                        //                 ),
-                                                        //               ],
-                                                        //             ),
-                                                        //             CustomButton(
-                                                        //               height: 28,
-                                                        //               width: 70,
-                                                        //               text: 'Add',
-                                                        //               onPressed: () async {
-                                                        //                 // Uncomment if you need a loading state
-                                                        //                 // setState(() {
-                                                        //                 //   _isLoading = true;
-                                                        //                 // });
-                                                        //                 addCovrage.add(ApiPatchCovrageData(city: "", countyId: selectedCountyId, zoneId: docZoneId, zipCodes: zipCodes));
-                                                        //                 print('Selected County ID: $selectedCountyId');
-                                                        //                 print('Selected Zone ID: $docZoneId');
-                                                        //                 print('Selected Zip Codes: $selectedZipCodes');
-                                                        //                 print('Selected City: $selectedCityName');
-                                                        //                 setState((){
-                                                        //
-                                                        //                 });
-                                                        //                 Navigator.pop(context);
-                                                        //               },
-                                                        //             ),
-                                                        //             SizedBox(height: 10,)
-                                                        //           ],
-                                                        //         ),
-                                                        //       ),
-                                                        //     ),
-                                                        //   ));
-                                                      },
-                                                    );
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.edit_outlined,
-                                                    size: 15,
-                                                    color: ColorManager.blueprime,
-                                                  ),
-                                                ),
-                                                // SizedBox(
-                                                //   width: 5,
-                                                // ),
-                                                IconButton(
-                                                  splashColor: Colors.transparent,
-                                                  highlightColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                  icon: Icon(Icons.delete, color: Colors.red,size: 15,),
-                                                  //onPressed: widget.onRemove,
-                                                  onPressed: (){},
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    // Container(
-                                    //   height: 55,
-                                    //   width: 350,
-                                    // ),
-                                    // Container(
-                                    //   height: 55,
-                                    //   width: 350,
-                                    // ),
-
-
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          ///add coverage
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: (){showDialog(
-                                    context: context,
-                                    builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,));} ,
-                                child: Container(
-                                    height: 40,
-                                    width: 200,
-                                    //color: Colors.red,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    child: Center(
-                                      child: Row(
+                              StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return  Column(
+                                    children: [
+                                      Row(
+                                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Icon(
-                                            Icons.add_circle,
-                                            size: 26,
-                                            color: ColorManager.bluebottom,
-                                          ),
-                                          SizedBox(width: 3,),
-                                          Text(
-                                            'Add Coverage',
-                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.bluebottom,),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 45),
+                                            child: Container(
+                                              height: 20,
+                                              width:354,
+                                              child: Text(
+                                                  "Coverage",
+                                                  style: AllPopupHeadings.customTextStyle(context)
+                                              ),
+                                              // color: Colors.green,
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    )
-                                ),
-                              )
+                                      ///Coverage
+                                      ///
+                                      FutureBuilder <EmployeeModel>(
+                                          future: getCoverageList(context: context, employeeId: widget.employeeId,
+                                              employeeEnrollId:profileData.employeeEnrollId ),
+                                          builder: (context ,snapshot){
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            }
+                                            if (snapshot.hasError) {
+                                              return const Center(
+                                                child: Text('Error fetching profile data'),
+                                              );
+                                            }
+                                            if (snapshot.hasError) {
+                                              return Center(
+                                                  child: Padding(
+                                                    padding:const EdgeInsets.symmetric(vertical: 100),
+                                                    child: Text(
+                                                      "No available coverage!",
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                          fontWeight: FontWeightManager.medium,
+                                                          fontSize: FontSize.s14,
+                                                          color: ColorManager.mediumgrey),
+                                                    ),
+                                                  ));
+                                            }
+
+
+                                            if (snapshot.hasData){
+
+                                              return Container(
+                                                width: MediaQuery.of(context).size.width / 1,
+                                                child: Wrap(
+                                                  spacing: 2.0,
+                                                  children: List.generate((snapshot.data!.coverageDetails.length / 2).ceil(), (index) {
+                                                    int firstItemIndex = index * 2;
+                                                    int secondItemIndex = firstItemIndex + 1;
+                                                    return Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
+                                                      child: CoverageRowWidget(
+                                                              countyName: snapshot.data!.coverageDetails[index].countyName,
+                                                              zoneName: snapshot.data!.coverageDetails[index].zoneName,
+                                                              onDelete: () {
+                                                                showDialog(
+                                                                    context: context,
+                                                                    builder: (context) => DeletePopup(
+                                                                            title: DeletePopupString.deleteCoverage,
+                                                                            loadingDuration: _isLoading,
+                                                                            onCancel: () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            onDelete: () async {
+                                                                              setState(() {
+                                                                                _isLoading = true;
+                                                                              });
+                                                                              try {
+                                                                                await deleteCoverageEditor(context, snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                                setState(() {
+                                                                                  getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                                      employeeEnrollId:profileData.employeeEnrollId );
+
+                                                                                });
+                                                                              } finally {
+                                                                                setState(() {
+                                                                                  _isLoading = false;
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              }
+                                                                            }),
+                                                                     );
+                                                              },
+                                                              onEdit: () {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) {
+                                                                    return ProfileBarEditPopup(employeeId: profileData.employeeId,
+                                                                        employeeEnrollId: profileData.employeeEnrollId,
+                                                                        employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                  },
+                                                                );
+                                                              }
+                                                          ),
+
+                                                    );
+                                                  }),
+                                                ),
+                                              );
+                                            }
+                                            else{
+                                              return const SizedBox();
+                                            }
+                                          }),
+                                      const SizedBox(height: 20,),
+                                      ///add coverage
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: (){showDialog(
+                                                context: context,
+                                                builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,
+                                                  onRefresh: () {
+                                                    setState((){
+                                                      getCoverageList(context: context, employeeId: widget.employeeId,
+                                                          employeeEnrollId:profileData.employeeEnrollId );
+                                                    });
+                                                },));} ,
+
+                                            child: Container(
+                                                height: 40,
+                                                width: 200,
+                                                //color: Colors.red,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(14),
+                                                ),
+                                                child: Center(
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.add_circle,
+                                                        size: 26,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                      const SizedBox(width: 3,),
+                                                      Text(
+                                                        'Add Coverage',
+                                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.bluebottom,),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+
+
                             ],
                           ),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                         ],
                       ),
                     ),
@@ -1809,13 +1121,109 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ],
           );
         }
-        return Center(
+        return const Center(
           child: Text('No data available'),
         );
       },
     );
   }
 }
+
+
+class CoverageRowWidget extends StatelessWidget {
+  final String countyName;
+  final String zoneName;
+  final VoidCallback onDelete;
+  final VoidCallback onEdit;
+
+  const CoverageRowWidget({
+    Key? key,
+    required this.countyName,
+    required this.zoneName,
+    required this.onDelete,
+    required this.onEdit,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: 510,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: ColorManager.blueprime,
+            width: 2,
+          ),
+         // color: ColorManager.red
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+              flex: 2,
+              child: Text(
+                "County:",
+                style: AllPopupHeadings.customTextStyle(context),
+              )),
+          SizedBox(width: 5,),
+          Expanded(
+              flex: 3,
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text(
+              countyName,
+              style: EditTextFontStyle.customEditTextStyle(),
+            ),
+          ],)),
+
+          Expanded(
+              flex: 2,
+              child: Text(
+                "Zone:",
+                style: AllPopupHeadings.customTextStyle(context),
+              )),
+          SizedBox(width: 5,),
+          Expanded(
+              flex: 3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    zoneName,
+                    style: EditTextFontStyle.customEditTextStyle(),
+                  ),
+                ],)),
+          const SizedBox(width: 5),
+          Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+          IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            icon: Icon(Icons.edit_outlined, color: ColorManager.bluebottom, size: 15),
+            onPressed: onEdit,
+          ),
+          const SizedBox(width: 3),
+          IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            icon: const Icon(Icons.delete, color: Colors.red, size: 15),
+            onPressed: onDelete,
+          ),
+                      ],),
+        ],
+      ),
+    );
+  }
+}
+
 
 class EditProfile {
   static TextStyle customEditTextStyle() {
