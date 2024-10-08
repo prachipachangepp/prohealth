@@ -1005,9 +1005,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     int secondItemIndex = firstItemIndex + 1;
                                                     return Padding(
                                                       padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
-                                                      child: StatefulBuilder(
-                                                        builder: (BuildContext context, void Function(void Function()) setState) {
-                                                          return CoverageRowWidget(
+                                                      // child: StatefulBuilder(
+                                                      //   builder: (BuildContext context, void Function(void Function()) setState) {
+                                                         // return
+                                                        child:CoverageRowWidget(
                                                               countyName: snapshot.data!.coverageDetails[index].countyName,
                                                               zoneName: snapshot.data!.coverageDetails[index].zoneName,
                                                               onDelete: () {},
@@ -1017,13 +1018,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   builder: (BuildContext context) {
                                                                     return ProfileBarEditPopup(employeeId: profileData.employeeId,
                                                                         employeeEnrollId: profileData.employeeEnrollId,
-                                                                        employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                        employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
+                                                                      onRefresh: () {setState((){
+                                                                        getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                            employeeEnrollId:profileData.employeeEnrollId );
+                                                                      });  },);
                                                                   },
                                                                 );
                                                               }
-                                                          );
-                                                        },
-                                                      ),
+                                                          ),
+                                                      //   },
+                                                      // ),
                                                     );
                                                   }),
                                                 ),
@@ -1041,7 +1046,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           InkWell(
                                             onTap: (){showDialog(
                                                 context: context,
-                                                builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,
+                                                builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,
+                                                  employeeEnrollId: profileData.employeeEnrollId,
                                                   onRefresh: () {
                                                     setState((){
                                                       getCoverageList(context: context, employeeId: widget.employeeId,
