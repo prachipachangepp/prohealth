@@ -1760,6 +1760,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                             //   ));
                                                           },
                                                         );
+
                                                         // Edit button action
                                                       },
                                                       icon: Icon(
@@ -1774,6 +1775,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       hoverColor: Colors.transparent,
                                                       icon: Icon(Icons.delete, color: Colors.red, size: 15),
                                                       onPressed: () {
+                                                        setState(() {
+                                                          // Remove the item from the list
+                                                          snapshot.data!.coverageDetails.removeAt(index);
+                                                        });
+
+
                                                         // Delete button action
                                                       },
                                                     ),
