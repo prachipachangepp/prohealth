@@ -540,7 +540,8 @@ Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async 
 
 
 
-Future<EmployeeModel> getCoverageList({required BuildContext context, required int employeeId ,required int employeeEnrollId }) async {
+Future<EmployeeModel> getCoverageList({required BuildContext context,
+  required int employeeId ,required int employeeEnrollId }) async {
   // Initialize EmployeeModel with default values
   EmployeeModel employeeModel = EmployeeModel(
     employeeEnrollId: employeeEnrollId, // Default value; can be modified as needed

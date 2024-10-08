@@ -262,15 +262,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
 
-                                    ProfileEditCancelButton(
-                                      height: AppSize.s30,
-                                      width: AppSize.s100,
-                                      text: AppString.cancel,
-                                      onPressed: () {
-                                        print("Edit Mode Cancel :::::::::::::::::::::::############");
-                                        widget.onCancel();
-                                      },
-                                    ),
+                                      ProfileEditCancelButton(
+                                        height: AppSize.s30,
+                                        width: AppSize.s100,
+                                        text: AppString.cancel,
+                                        onPressed: () {
+                                          print("Edit Mode Cancel :::::::::::::::::::::::############");
+                                          widget.onCancel();
+                                        },
+                                      ),
 
 
                                     const SizedBox(
@@ -513,7 +513,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           'Select Employee Type',
                                           //  widget.depTitle,
                                           style: AllPopupHeadings.customTextStyle(context)),
-                                      const SizedBox(height: 5,),
+                                      SizedBox(height: 5,),
                                       FutureBuilder<List<EmployeeTypeModal>>(
                                         future: EmployeeTypeGet(context, deptId),
                                         builder: (context, snapshot) {
@@ -524,7 +524,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 controller: TextEditingController(text: ''),
                                                 labelText: 'Select Employee Type',
                                                 labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                  color: const Color(0xff575757),
+                                                  color: Color(0xff575757),
                                                   fontWeight: FontWeight.w500,),
                                                 labelFontSize: 12,
                                                 items: [], // Empty while loading
@@ -588,7 +588,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           'Select Department',
                                           //  widget.depTitle,
                                           style: AllPopupHeadings.customTextStyle(context)),
-                                      const SizedBox(height: 5,),
+                                      SizedBox(height: 5,),
                                       FutureBuilder<List<HRHeadBar>>(
                                         future: companyHRHeadApi(context, deptId),
                                         builder: (context, snapshot) {
@@ -603,7 +603,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       text: ''),
                                                   labelText: 'Select Department',
                                                   labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                    color: const Color(0xff575757),
+                                                    color: Color(0xff575757),
                                                     fontWeight: FontWeight.w500,),
                                                   labelFontSize: 12,
                                                   items:  dropDownServiceList,
@@ -644,41 +644,41 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               selectedDeptId = firstDeptId;
                                             }
 
-                                            return HRUManageDropdown(
-                                              controller: TextEditingController(
-                                                  text: selectedDeptName ?? ''),
-                                              labelText: "Select Department",
-                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: const Color(0xff575757),
-                                                fontWeight: FontWeight.w500,),
-                                              labelFontSize: 12,
-                                              items: dropDownServiceList,
-                                              onChanged: (val) {
-                                                // setState(() {
-                                                selectedDeptName = val;
-                                                selectedDeptId = snapshot.data!
-                                                    .firstWhere(
-                                                        (dept) => dept.deptName == val)
-                                                    .deptId;
-                                                // });
-                                              },
-                                            );
-                                          }
-                                          return const SizedBox();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              ///row 2
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  FirstSMTextFConst(
-                                    controller: addressController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppString.address,
+                                              return HRUManageDropdown(
+                                                controller: TextEditingController(
+                                                    text: selectedDeptName ?? ''),
+                                                labelText: "Select Department",
+                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                  color: const Color(0xff575757),
+                                                  fontWeight: FontWeight.w500,),
+                                                labelFontSize: 12,
+                                                items: dropDownServiceList,
+                                                onChanged: (val) {
+                                                  // setState(() {
+                                                  selectedDeptName = val;
+                                                  selectedDeptId = snapshot.data!
+                                                      .firstWhere(
+                                                          (dept) => dept.deptName == val)
+                                                      .deptId;
+                                                  // });
+                                                },
+                                              );
+                                            }
+                                            return const SizedBox();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                ///row 2
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FirstSMTextFConst(
+                                      controller: addressController,
+                                      keyboardType: TextInputType.text,
+                                      text: AppString.address,
 
                                   ),
 
@@ -703,101 +703,101 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               ConnectionState.waiting) {
                                             return HRUManageDropdown(
 
-                                              hintText: "Gender",
-                                              // width: 320,
-                                              // height: 40,
-                                              controller: TextEditingController(text: ''),
-                                              items: ['item 1', 'item 2'],
-                                              // labelText: 'Reporting Office',
-                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: const Color(0xff575757),
-                                                fontWeight: FontWeight.w400,),
-                                              // GoogleFonts.firaSans(
-                                              //   fontSize: 12,
-                                              //   color: Color(0xff575757),
-                                              //   fontWeight: FontWeight.w400,
-                                              // ),
-                                              labelFontSize: 12,
-                                            );
-                                          }
-                                          if (snapshot.hasData) {
-                                            List<String> dropDownList = [];
-                                            for (var i in snapshot.data!) {
-                                              dropDownList.add(i.gender);
+                                                hintText: "Gender",
+                                                // width: 320,
+                                                // height: 40,
+                                                controller: TextEditingController(text: ''),
+                                                items: ['item 1', 'item 2'],
+                                                // labelText: 'Reporting Office',
+                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                  color: const Color(0xff575757),
+                                                  fontWeight: FontWeight.w400,),
+                                                // GoogleFonts.firaSans(
+                                                //   fontSize: 12,
+                                                //   color: Color(0xff575757),
+                                                //   fontWeight: FontWeight.w400,
+                                                // ),
+                                                labelFontSize: 12,
+                                              );
                                             }
-                                            return HRUManageDropdown(
-                                              hintText: "Gender",
-                                              labelStyle: const TextStyle(
-                                                fontSize: 12,
-                                                color: Color(0xff575757),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                              labelFontSize: 12,
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                for (var a in snapshot.data!) {
-                                                  if (a.gender == newValue) {
-                                                    selectedGenderId = a.gender;
-                                                    print('Gender Name : ${genderId}');
-                                                    // int docType = a.employeeTypesId;
-                                                    // Do something with docType
+                                            if (snapshot.hasData) {
+                                              List<String> dropDownList = [];
+                                              for (var i in snapshot.data!) {
+                                                dropDownList.add(i.gender);
+                                              }
+                                              return HRUManageDropdown(
+                                                hintText: "Gender",
+                                                labelStyle: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xff575757),
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelFontSize: 12,
+                                                items: dropDownList,
+                                                onChanged: (newValue) {
+                                                  for (var a in snapshot.data!) {
+                                                    if (a.gender == newValue) {
+                                                      selectedGenderId = a.gender;
+                                                      print('Gender Name : ${genderId}');
+                                                      // int docType = a.employeeTypesId;
+                                                      // Do something with docType
+                                                    }
                                                   }
-                                                }
-                                              },  controller: TextEditingController(text: ''),
-                                            );
-                                          } else {
-                                            return const Offstage();
-                                          }
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  // FirstSMTextFConst(
-                                  //   controller: genderController,
-                                  //   keyboardType: TextInputType.text,
-                                  //   text: 'Gender',
-                                  //   // showDatePicker: true,
-                                  // ),
-                                ],
-                              ),
-                              ///row 3
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  FirstSMTextFConst(
-                                    controller: ssNController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppString.ssnN,
-                                    // showDatePicker: true,
-                                  ),
+                                                },  controller: TextEditingController(text: ''),
+                                              );
+                                            } else {
+                                              return const Offstage();
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    // FirstSMTextFConst(
+                                    //   controller: genderController,
+                                    //   keyboardType: TextInputType.text,
+                                    //   text: 'Gender',
+                                    //   // showDatePicker: true,
+                                    // ),
+                                  ],
+                                ),
+                                ///row 3
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FirstSMTextFConst(
+                                      controller: ssNController,
+                                      keyboardType: TextInputType.text,
+                                      text: AppString.ssnN,
+                                      // showDatePicker: true,
+                                    ),
 
-                                  SMTextFConstPhone(
-                                    controller: phoneNController,
-                                    keyboardType: TextInputType.phone,
-                                    text: AppString.phone_number,
+                                    SMTextFConstPhone(
+                                      controller: phoneNController,
+                                      keyboardType: TextInputType.phone,
+                                      text: AppString.phone_number,
 
-                                    // showDatePicker: true,
-                                  ),
-                                  SMTextFConstPhone(
-                                    controller: workPhoneController,
-                                    keyboardType: TextInputType.text,
-                                    text:  AppStringMobile.worNo,
+                                      // showDatePicker: true,
+                                    ),
+                                    SMTextFConstPhone(
+                                      controller: workPhoneController,
+                                      keyboardType: TextInputType.text,
+                                      text:  AppStringMobile.worNo,
 
-                                    // showDatePicker: true,
-                                  ),
-                                ],
-                              ),
+                                      // showDatePicker: true,
+                                    ),
+                                  ],
+                                ),
 
-                              /// row 4
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  SMTextFConst(
-                                    controller: personalEmailController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppStringMobile.perEmail,
-                                    // showDatePicker: true,
-                                  ),
+                                /// row 4
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SMTextFConst(
+                                      controller: personalEmailController,
+                                      keyboardType: TextInputType.text,
+                                      text: AppStringMobile.perEmail,
+                                      // showDatePicker: true,
+                                    ),
 
                                   SMTextFConst(
                                     controller: workEmailController,
@@ -824,7 +824,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           'Select Service',
                                           //  widget.depTitle,
                                           style: AllPopupHeadings.customTextStyle(context)),
-                                      const SizedBox(height: 5,),
+                                      SizedBox(height: 5,),
                                       FutureBuilder<List<ServicesMetaData>>(
                                         future: getServicesMetaData(context),
                                         builder: (context, snapshot) {
@@ -834,15 +834,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               hintText: 'Select Service',
                                               controller: TextEditingController(text: ''),
                                               // labelText: 'Select Service',
-                                              labelStyle: const TextStyle(fontSize: 14),
+                                              labelStyle: TextStyle(fontSize: 14),
                                               items: [], labelFontSize: 12,
                                             );
                                           }
 
-                                          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                            List<String> serviceNames = snapshot.data!
-                                                .map((service) => service.serviceName)
-                                                .toList();
+                                            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                              List<String> serviceNames = snapshot.data!
+                                                  .map((service) => service.serviceName)
+                                                  .toList();
 
                                             return HRUManageDropdown(
                                               controller: TextEditingController(),

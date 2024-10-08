@@ -22,11 +22,12 @@ import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 class ProfileBarAddPopup extends StatefulWidget {
   final int employeeId;
   final int employeeEnrollId;
+  final VoidCallback onRefresh;
 
   const ProfileBarAddPopup({
     super.key,
     required this.employeeId,
-    required this.employeeEnrollId,
+    required this.employeeEnrollId, required this.onRefresh,
   });
 
   @override
@@ -404,43 +405,52 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
           ],
         )
       ],
-      bottomButtons: CustomButton(
-        height: AppPadding.p30,
-        width: AppSize.s100,
-        text: 'Save',
-        onPressed: () async {
+      bottomButtons:
+      // StatefulBuilder(
+      //   builder: (BuildContext context, void Function(void Function()) setState) {
+      //     return
+          CustomButton(
+          height: AppPadding.p30,
+          width: AppSize.s100,
+          text: 'Save',
+          onPressed: () async {
 
-          addCovrage.add(await ApiAddCovrageData(
-              city: '',
-              countyId: selectedCountyId,
-              zoneId: docZoneId,
-              zipCodes: zipCodes));
+            addCovrage.add(await ApiAddCovrageData(
+                city: '',
+                countyId: selectedCountyId,
+                zoneId: docZoneId,
+                zipCodes: zipCodes));
 
-          print('County ID:===== ${selectedCountyId}');
-          print('Zone ID:::::::::=>> ${docZoneId}');
-          print('Zip Codes:====== ${zipCodes}');
+            print('County ID:===== ${selectedCountyId}');
+            print('Zone ID:::::::::=>> ${docZoneId}');
+            print('Zip Codes:====== ${zipCodes}');
 
-          await addEmpEnrollAddCoverage(
-              context, widget.employeeEnrollId, widget.employeeId!, addCovrage);
-          // Uncomment if you need a loading state
-          // setState(() {
-          //   _isLoading = true;
-          // });
-          // addCovrage.add(ApiPatchCovrageData(city: "",
-          //     countyId: selectedCountyId, zoneId: docZoneId,
-          //     zipCodes: zipCodes));
-          // print('Selected County ID: $selectedCountyId');
-          // print('Selected Zone ID: $docZoneId');
-          // print('Selected Zip Codes: $selectedZipCodes');
-          // print('Selected City: $selectedCityName');
-          // setState((){
+            await addEmpEnrollAddCoverage(
+                context, widget.employeeEnrollId, widget.employeeId!, addCovrage);
+            // Uncomment if you need a loading state
+            // setState(() {
+            //   _isLoading = true;
+            // });
+            // addCovrage.add(ApiPatchCovrageData(city: "",
+            //     countyId: selectedCountyId, zoneId: docZoneId,
+            //     zipCodes: zipCodes));
+            // print('Selected County ID: $selectedCountyId');
+            // print('Selected Zone ID: $docZoneId');
+            // print('Selected Zip Codes: $selectedZipCodes');
+            // print('Selected City: $selectedCityName');
+            // setState((){
 
-          // });
-          Navigator.pop(
-            context,
-          );
-        },
-      ),
+            // });
+            widget.onRefresh();
+            Navigator.pop(context);
+
+
+
+          },
+        ),
+      //     },
+      //
+      // ),
     );
   }
 }
