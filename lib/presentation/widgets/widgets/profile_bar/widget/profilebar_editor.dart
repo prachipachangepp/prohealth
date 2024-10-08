@@ -940,134 +940,149 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 ],
                               ),
                               ///coverage head
-                              Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 45),
-                                    child: Container(
-                                      height: 20,
-                                      width:354,
-                                      child: Text(
-                                          "Coverage",
-                                          style: AllPopupHeadings.customTextStyle(context)
-                                      ),
-                                      // color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              ///Coverage
-                              ///
-                            FutureBuilder <EmployeeModel>(
-                                   future: getCoverageList(context: context, employeeId: widget.employeeId,
-                                       employeeEnrollId:profileData.employeeEnrollId ),
-                                   builder: (context ,snapshot){
-                                     if (snapshot.connectionState == ConnectionState.waiting) {
-                                       return const Center(
-                                         child: CircularProgressIndicator(),
-                                       );
-                                     }
-                                     if (snapshot.hasError) {
-                                       return const Center(
-                                         child: Text('Error fetching profile data'),
-                                       );
-                                     }
-                                     if (snapshot.hasError) {
-                                       return Center(
-                                           child: Padding(
-                                             padding:const EdgeInsets.symmetric(vertical: 100),
-                                             child: Text(
-                                               "No available coverage!",
-                                               style: CustomTextStylesCommon.commonStyle(
-                                                   fontWeight: FontWeightManager.medium,
-                                                   fontSize: FontSize.s14,
-                                                   color: ColorManager.mediumgrey),
-                                             ),
-                                           ));
-                                     }
-
-
-                                     if (snapshot.hasData){
-
-                                       return Container(
-                                         width: MediaQuery.of(context).size.width / 1,
-                                         // height: MediaQuery.of(context).size.width / 2.2,
-                                         // color: ColorManager.red,
-                                         child: Wrap(
-                                           spacing: 2.0,
-                                           children: List.generate((snapshot.data!.coverageDetails.length / 2).ceil(), (index) {
-                                             int firstItemIndex = index * 2;
-                                             int secondItemIndex = firstItemIndex + 1;
-                                             return Padding(
-                                               padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
-                                               child: StatefulBuilder(
-                                                 builder: (BuildContext context, void Function(void Function()) setState) {
-                                                   return CoverageRowWidget(
-                                                       countyName: snapshot.data!.coverageDetails[index].countyName,
-                                                       zoneName: snapshot.data!.coverageDetails[index].zoneName,
-                                                       onDelete: () {},
-                                                       onEdit: () {
-                                                         showDialog(
-                                                           context: context,
-                                                           builder: (BuildContext context) {
-                                                             return ProfileBarEditPopup(employeeId: profileData.employeeId,
-                                                                 employeeEnrollId: profileData.employeeEnrollId,
-                                                                 employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
-                                                           },
-                                                         );
-                                                       }
-                                                   );
-                                                 },
-                                               ),
-                                             );
-                                           }),
-                                         ),
-                                       );
-                                     }
-                                     else{
-                                       return const SizedBox();
-                                     }
-                                   })
-
-                            ],
-                          ),
-                          const SizedBox(height: 20,),
-                          ///add coverage
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: (){showDialog(
-                                    context: context,
-                                    builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,));} ,
-                                child: Container(
-                                    height: 40,
-                                    width: 200,
-                                    //color: Colors.red,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    child: Center(
-                                      child: Row(
+                              StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return  Column(
+                                    children: [
+                                      Row(
+                                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Icon(
-                                            Icons.add_circle,
-                                            size: 26,
-                                            color: ColorManager.bluebottom,
-                                          ),
-                                          const SizedBox(width: 3,),
-                                          Text(
-                                            'Add Coverage',
-                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.bluebottom,),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 45),
+                                            child: Container(
+                                              height: 20,
+                                              width:354,
+                                              child: Text(
+                                                  "Coverage",
+                                                  style: AllPopupHeadings.customTextStyle(context)
+                                              ),
+                                              // color: Colors.green,
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    )
-                                ),
-                              )
+                                      ///Coverage
+                                      ///
+                                      FutureBuilder <EmployeeModel>(
+                                          future: getCoverageList(context: context, employeeId: widget.employeeId,
+                                              employeeEnrollId:profileData.employeeEnrollId ),
+                                          builder: (context ,snapshot){
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            }
+                                            if (snapshot.hasError) {
+                                              return const Center(
+                                                child: Text('Error fetching profile data'),
+                                              );
+                                            }
+                                            if (snapshot.hasError) {
+                                              return Center(
+                                                  child: Padding(
+                                                    padding:const EdgeInsets.symmetric(vertical: 100),
+                                                    child: Text(
+                                                      "No available coverage!",
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                          fontWeight: FontWeightManager.medium,
+                                                          fontSize: FontSize.s14,
+                                                          color: ColorManager.mediumgrey),
+                                                    ),
+                                                  ));
+                                            }
+
+
+                                            if (snapshot.hasData){
+
+                                              return Container(
+                                                width: MediaQuery.of(context).size.width / 1,
+                                                // height: MediaQuery.of(context).size.width / 2.2,
+                                                // color: ColorManager.red,
+                                                child: Wrap(
+                                                  spacing: 2.0,
+                                                  children: List.generate((snapshot.data!.coverageDetails.length / 2).ceil(), (index) {
+                                                    int firstItemIndex = index * 2;
+                                                    int secondItemIndex = firstItemIndex + 1;
+                                                    return Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
+                                                      child: StatefulBuilder(
+                                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                                          return CoverageRowWidget(
+                                                              countyName: snapshot.data!.coverageDetails[index].countyName,
+                                                              zoneName: snapshot.data!.coverageDetails[index].zoneName,
+                                                              onDelete: () {},
+                                                              onEdit: () {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) {
+                                                                    return ProfileBarEditPopup(employeeId: profileData.employeeId,
+                                                                        employeeEnrollId: profileData.employeeEnrollId,
+                                                                        employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                  },
+                                                                );
+                                                              }
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  }),
+                                                ),
+                                              );
+                                            }
+                                            else{
+                                              return const SizedBox();
+                                            }
+                                          }),
+                                      const SizedBox(height: 20,),
+                                      ///add coverage
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: (){showDialog(
+                                                context: context,
+                                                builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,
+                                                  onRefresh: () {
+                                                    setState((){
+                                                      getCoverageList(context: context, employeeId: widget.employeeId,
+                                                          employeeEnrollId:profileData.employeeEnrollId );
+                                                    });
+                                                },));} ,
+                                            child: Container(
+                                                height: 40,
+                                                width: 200,
+                                                //color: Colors.red,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(14),
+                                                ),
+                                                child: Center(
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.add_circle,
+                                                        size: 26,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                      const SizedBox(width: 3,),
+                                                      Text(
+                                                        'Add Coverage',
+                                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.bluebottom,),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+
+
                             ],
                           ),
                           const SizedBox(height: 20,),
