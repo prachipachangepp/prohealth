@@ -3,8 +3,10 @@ import 'package:prohealth/app/services/api/repository/hr_module_repository/Regis
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import '../../../../../../data/api_data/api_data.dart';
+import '../../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
+import '../../../repository/hr_module_repository/profile_repo.dart';
 
 ///register enroll get
 Future<List<RegisterEnrollData>> RegisterGetData(
@@ -476,3 +478,100 @@ Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async 
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
+
+
+/////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Future<EmployeeModel> getCoverageList({required BuildContext context, required int employeeId ,required int employeeEnrollId }) async {
+  // Initialize EmployeeModel with default values
+  EmployeeModel employeeModel = EmployeeModel(
+    employeeEnrollId: employeeEnrollId, // Default value; can be modified as needed
+    employeeId: employeeId,
+    coverageDetails: [],
+  );
+
+  try {
+    final response = await Api(context).get(path: ProfileRepository.getlistcoverage(employeeId: employeeId));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Process coverage details from the response
+      for (var item in response.data['coverageDetails']) {
+        employeeModel.coverageDetails.add(CoverageDetail(
+          employeeEnrollCoverageId: item['employeeEnrollCoverageId'],
+          city: item['city'] ?? '',
+          countyId: item['countyId'],
+          countyName: item['countyName'],
+          zoneId: item['zoneId'],
+          zoneName: item['zoneName'],
+          zipCodes: List<int>.from(item['zipCodes']),
+        ));
+      }
+      print("Coverage details fetched successfully.");
+    } else {
+      print('Org Api Error: ${response.statusMessage}');
+    }
+
+  } catch (e) {
+    print("Error: $e");
+  }
+
+  return employeeModel;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// Future<EmployeeModel> getCoverageList(BuildContext context,  int employeeId) async {
+//
+//   List<CoverageDetail> itemsList = [];
+//   try {
+//     final response = await Api(context)
+//         .get(path: ProfileRepository.getlistcoverage(employeeId: employeeId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       // print("Org Document response:::::${itemsList}");
+//       for (var item in response.data) {
+//         itemsList.add(VisitListData(
+//             sucess: true,
+//             message: response.statusMessage!,
+//             companyId: item['companyId'] == null ? 1 : item['companyId'],
+//             visitId: item['visitId'],
+//             visitType: item['typeOfVisit']));
+//       }
+//       print("1");
+//     } else {
+//       print('Org Api Error');
+//       return itemsList;
+//     }
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }

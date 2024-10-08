@@ -612,9 +612,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               SizedBox(
                 height: AppSize.s6,
               ),
-              // StatefulBuilder(
-              //   builder: (BuildContext context, void Function(void Function()) setState) {
-              //     return
+              StatefulBuilder(
+                builder: (BuildContext context, void Function(void Function()) setState) {
+                  return
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -722,9 +722,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         }),
                   ),
                 ],
+              );
+              },
               ),
-              // },
-              //),
               SizedBox(height: MediaQuery.of(context).size.height/40)
             ],
           )),

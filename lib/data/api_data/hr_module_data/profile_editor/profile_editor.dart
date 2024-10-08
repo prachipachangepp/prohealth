@@ -151,3 +151,39 @@ class CountyWiseZoneModal {
     required this.zone_id, required this.county_id, required this.zoneName, required this.companyId, required this.officeId
 });
 }
+
+
+
+
+class EmployeeModel {
+  int employeeEnrollId;
+  int employeeId;
+  List<CoverageDetail> coverageDetails;
+
+  EmployeeModel({
+    required this.employeeEnrollId,
+    required this.employeeId,
+    required this.coverageDetails,
+  });
+}
+
+class CoverageDetail {
+  int employeeEnrollCoverageId;
+  String city;
+  int countyId;
+  String countyName;
+  int zoneId;
+  String zoneName;
+  List<int> zipCodes;
+
+  CoverageDetail({
+    required this.employeeEnrollCoverageId,
+    required this.city,
+    required this.countyId,
+    required this.countyName,
+    required this.zoneId,
+    required this.zoneName,
+    required this.zipCodes,
+  });
+}
+
