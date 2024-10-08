@@ -297,12 +297,12 @@ class _CustomDialogState extends State<CustomDialog> {
                   widget.emailController.text,
                   widget.passwordController.text,
                 );
+                widget.onCancel!();
                 widget.firstNameController.clear();
                 widget.lastNameController.clear();
                 widget.emailController.clear();
                 selectedDeptId = AppConfig.AdministrationId;
                 Navigator.pop(context);
-                widget.onCancel;
                 if(response.statusCode == 200 || response.statusCode == 201){
                   showDialog(
                     context: context,

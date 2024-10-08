@@ -190,6 +190,7 @@ class DeletePopupString{
   static const String deleteholiday =   'Delete Holidays';
   static const String deleteworkShift = 'Delete Work Shift';
   static const String deleteworkWeek = 'Delete Work Weeks';
+  static const String deleteCoverage= 'Delete Coverage';
   ///corporate & policies
   static const String deletePolicy = 'Delete Policies & Procedure';
   static const String deleteLicenses = 'Delete Licenses';

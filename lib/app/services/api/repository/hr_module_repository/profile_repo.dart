@@ -6,6 +6,7 @@ class ProfileRepository {
   static String countyWiseZone = "/zoneByCounty/";
   static String covergaelist = "/employee-enroll/coverageArea/byEmployee/";
   static String gender = "/gender-dropdown";
+  static String enroll = "/employee-enroll";
 
 
   /// search employee profile
@@ -30,7 +31,12 @@ class ProfileRepository {
     return "$zone$countyWiseZone$countyId";
   }
 
-
+  ///employee-enroll/{employeeEnrollCoverageId}
+  static String deleteCoverage({
+    required int employeeEnrollCoverageId
+  }){
+    return "$enroll/$employeeEnrollCoverageId";
+  }
 
   ////co
   static String getlistcoverage({required int employeeId}){

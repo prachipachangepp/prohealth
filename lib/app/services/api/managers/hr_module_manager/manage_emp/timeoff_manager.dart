@@ -32,6 +32,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
         String startFormattedDate = convertIsoToDayMonthYear(item['startTime']);
         String endFormattedDate = convertIsoToDayMonthYear(item['endTime']);
         itemsData.add(TimeOfffData(
+            imageUrl: item['imageUrl']??"",
           approved: item['approve'],
             employeeId: item['employeeId'],
             employeeName: item['employeeName'],

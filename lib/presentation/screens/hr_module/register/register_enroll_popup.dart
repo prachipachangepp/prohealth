@@ -38,12 +38,15 @@ class RegisterEnrollPopup extends StatefulWidget {
   final String role;
   final String status;
   final int employeeId;
+  final VoidCallback? onReferesh;
   //final int empId;
 
   // final TextEditingController position;
   final VoidCallback onPressed;
   RegisterEnrollPopup({super.key,
-    required this.firstName, required this.lastName,
+    required this.firstName,
+    required this.lastName,
+    this.onReferesh,
     //required this.phone,
     required this.email,
     //required this.position,
@@ -669,7 +672,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             setState(() {
                               _isLoading = false;
                             });
-
+                            widget.onReferesh!();
                             if (result.success) {
                               Navigator.pop(
                                   context);
@@ -707,9 +710,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                             clinicalName: clinicialName,
                                             soecalityName: specialityName,
                                             onRefreshRegister: () {
-                                              setState(() {
 
-                                              });
                                             },
                                           )));
                             } else {

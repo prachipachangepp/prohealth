@@ -43,7 +43,7 @@ Future<List<RegisterDataCompID>> GetRegisterByCompId(
             service: item['service']??" ",
             templateId: item['templateId']??1
             ),);
-        itemsList.sort((a, b) => a.firstName.compareTo(b.firstName));
+        //itemsList.sort((a, b) => a.firstName.compareTo(b.firstName));
       }
     } else {
       print('Api Error');
