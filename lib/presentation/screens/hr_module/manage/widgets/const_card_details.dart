@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 class CardDetails extends StatefulWidget {
   final Widget childWidget;
@@ -29,7 +30,7 @@ class _CardDetailsState extends State<CardDetails> {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        height: MediaQuery.of(context).size.height/3.6,
+       // height: MediaQuery.of(context).size.height/3.6,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 95,
@@ -66,8 +67,9 @@ class _DetailsFormateState extends State<DetailsFormate> {
             widget.title!,
             // 'Employment #${snapshot.data![index].employmentId}',
             style: BoxHeadingStyle.customTextStyle(context)),
-        // SizedBox(height: 7,),
+       SizedBox(height: AppSize.s10,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +85,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                 ),
               ],
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/30,),
+          //  SizedBox(width: MediaQuery.of(context).size.width/30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -102,7 +104,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
             )
           ],
         ),
-        // SizedBox(height: 4,),
+        SizedBox(height: AppSize.s10,),
         widget.button
       ],
     );

@@ -382,7 +382,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       },
                                       text: 'Save',
                                     ),
-
                                   ],
                                 ),
                               ),
