@@ -264,24 +264,31 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     color: Color(0xFFD1D1D1),
                   ),
                   const SizedBox(height: AppSize.s10),
-                  DefineFormList(formName: AppStringLegalDocument.onCall, onPressed: () {
-                    FutureBuilder<OnCallDocument>(
-                      future: getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,),
-                      builder: (BuildContext context, snapshot) {
-                      if(snapshot.connectionState == ConnectionState.waiting){
-                        return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                      }
-                      if(snapshot.hasData){
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                           documentName: AppStringLegalDocument.onCall,
-                           onPressed: () {  },
-                           htmlFormData: snapshot.data!.onCallData.toString(),)));
-                      }else{
-                        return SizedBox();
-                      }
-                      return SizedBox();
-                      },
-                    );
+                  DefineFormList(formName: AppStringLegalDocument.onCall,
+                    onPressed: () async{
+                    OnCallDocument onCallDoc = await getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: onCallDoc.onCallData.toString(),)));
+                    // FutureBuilder<OnCallDocument>(
+                    //   future: onCallDoc,
+                    //   builder: (BuildContext context, snapshot) {
+                    //   if(snapshot.connectionState == ConnectionState.waiting){
+                    //     return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                    //   }
+                    //   if(snapshot.hasData){
+                    //    // return SignatureFormScreen(documentName: documentName, onPressed: onPressed, htmlFormData: htmlFormData)
+                    //     Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                    //        documentName: AppStringLegalDocument.onCall,
+                    //        onPressed: () {  },
+                    //        htmlFormData: snapshot.data!.onCallData.toString(),)));
+                    //   }else{
+                    //     return SizedBox();
+                    //   }
+                    //   return SizedBox();
+                    //   },
+                    // );
                   }, onPressedView: () {  },),
                   const SizedBox(height: AppSize.s10),
                   const Divider(

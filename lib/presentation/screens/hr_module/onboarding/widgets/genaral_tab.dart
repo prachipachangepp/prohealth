@@ -218,11 +218,11 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        InfoText('Social Security No.:'),
-                                                        InfoText('Drivers License No.:'),
-                                                        InfoText('Clinician Type:'),
-                                                        InfoText('Phone Number:'),
-                                                        InfoText('Address:'),
+                                                        InfoText('Social Security No. :'),
+                                                        InfoText('Drivers License No. :'),
+                                                        InfoText('Clinician Type :'),
+                                                        InfoText('Phone Number :'),
+                                                        InfoText('Address :'),
                                                       ],
                                                     ),
                                                   ),
@@ -251,11 +251,11 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        InfoText('Date of Birth:'),
-                                                        InfoText('Speciality:'),
-                                                        InfoText('Employment:'),
-                                                        InfoText('Service:'),
-                                                        InfoText('Race:'),
+                                                        InfoText('Date of Birth :'),
+                                                        InfoText('Speciality :'),
+                                                        InfoText('Employment :'),
+                                                        InfoText('Service :'),
+                                                        InfoText('Race :'),
                                                       ],
                                                     ),
                                                   ),
@@ -284,9 +284,9 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        InfoText('Personal Email:'),
-                                                        InfoText('City:'),
-                                                        InfoText('Zone:'),
+                                                        InfoText('Personal Email :'),
+                                                        InfoText('City :'),
+                                                        InfoText('Zone :'),
                                                         SizedBox(width: 12,height: 25,),
                                                         SizedBox(width: 12 ,height: 25,)
                                                       ],

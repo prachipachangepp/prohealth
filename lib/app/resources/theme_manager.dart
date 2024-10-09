@@ -169,7 +169,7 @@ class ProfileBarConst {
     return TextStyle(
       fontSize: FontSize.s12,
       color: ColorManager.primary,
-
+    fontWeight: FontWeight.w500,
       decoration: TextDecoration.underline,
       decorationColor: Colors.blueAccent,
     );
