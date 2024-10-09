@@ -50,7 +50,6 @@ class RegisterEnrollPopup extends StatefulWidget {
     required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline, required Null Function() onReferesh,
     //required this.empId,
   });
-
   @override
   State<RegisterEnrollPopup> createState() => _RegisterEnrollPopupState();
 }
