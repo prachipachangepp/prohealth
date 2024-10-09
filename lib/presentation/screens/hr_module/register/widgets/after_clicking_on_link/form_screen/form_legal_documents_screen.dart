@@ -9,9 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -123,7 +126,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         children: [
           Container(
             child: Padding(
-              padding: EdgeInsets.only(left: 166, right: 166),
+              padding: const EdgeInsets.only(left: 166, right: 166),
               child: Column(
                 children: [
                   Center(
@@ -138,9 +141,9 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     height: 50,
                     width: 940,
                     padding:
-                    EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Color(0xFFE6F7FF),
+                      color: const Color(0xFFE6F7FF),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -159,7 +162,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                           style: DefineWorkWeekStyle.customTextStyle(context),
                         ),
                       ),
-                      SizedBox(width: 40),
+                      const SizedBox(width: 40),
                       ElevatedButton.icon(
                         onPressed:
                          ()async {
@@ -204,13 +207,13 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         //   }
                         // },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
+                          backgroundColor: const Color(0xff50B5E5),
                           // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                        icon: Icon(Icons.file_upload_outlined,
+                        icon: const Icon(Icons.file_upload_outlined,
                             color: Colors.white),
                         label: Text(
                           'Upload Document',
@@ -238,7 +241,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         ))
                             .toList(),
                       )
-                          : SizedBox(), // Display file names if picked
+                          : const SizedBox(), // Display file names if picked
 
                     ],
                   ),
@@ -251,164 +254,184 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 50),
-                  DefineFormList(formName: AppStringLegalDocument.candidatereLeaseForm, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: 50),
+                  DefineFormList(formName: AppStringLegalDocument.candidatereLeaseForm, onPressed: () {
+
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
-                  DefineFormList(formName: AppStringLegalDocument.onCall, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.onCall, onPressed: () {
+                    FutureBuilder<OnCallDocument>(
+                      future: getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,),
+                      builder: (BuildContext context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                      }
+                      if(snapshot.hasData){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                           documentName: AppStringLegalDocument.onCall,
+                           onPressed: () {  },
+                           htmlFormData: snapshot.data!.onCallData.toString(),)));
+                      }else{
+                        return SizedBox();
+                      }
+                      return SizedBox();
+                      },
+                    );
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.confidentialityAgreement, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.covidTestingPolicy, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.policyConcerning, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.reportOfAbuse, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.personalOrientation, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.directDeposit, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.standardOfCodeOfConduct, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.sexualHarassmentPolicy, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.sexualHarassmentPolicyACK, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.preAuthorization, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.prop65, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.returnOfcompanyProperty, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.hepB, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.tDap, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.flu, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.covidVaccine, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.i9, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.w4, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.employeeHandbook, onPressed: () {  }, onPressedView: () {  },),
-                  SizedBox(height: AppSize.s10),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
 
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            isSelected == false ?Text(''): CustomButton(
+            isSelected == false ?const Text(''): CustomButton(
                   width: 117,
                   height: 30,
                   text: 'Save',
@@ -433,7 +456,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AddSuccessPopup(
+                            return const AddSuccessPopup(
                               message: 'Document Uploaded Successfully',
                             );
                           },
@@ -442,7 +465,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AddSuccessPopup(
+                            return const AddSuccessPopup(
                               message: 'Failed To Upload Document',
                             );
                           },
@@ -454,7 +477,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return const AddSuccessPopup(
                             message: 'Failed To Upload Document',
                           );
                         },
