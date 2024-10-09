@@ -1299,7 +1299,7 @@ class ProfileEditCancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultTextStyle =  CustomTextStylesCommon.commonStyle( color: textColor,
-      fontSize: 12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,);
     // GoogleFonts.firaSans(
     //   color: textColor,

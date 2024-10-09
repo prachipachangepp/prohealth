@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
 
@@ -67,7 +68,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: 420,
-      height: 580,
+      height: 560,
       title: 'Add Coverage',
       body: [
         Row(
@@ -78,17 +79,13 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Container(
                 //  color: ColorManager.red,
-                height: 150,
+                height: 125,
                 width: 354,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('County',
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff575757),
-                        )),
+                        style: AllPopupHeadings.customTextStyle(context),),
                     const SizedBox(height: 5),
                     FutureBuilder<List<AllCountyGetList>>(
                       future: getCountyZoneList(context),
@@ -151,20 +148,11 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                           "Selected CountyId: $selectedCountyId");
                                     },
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 15),
 
                                   // Zone Label
                                   Text('Zone',
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xff575757),
-                                      )
-                                      // GoogleFonts.firaSans(
-                                      //   fontSize: 12,
-                                      //   fontWeight: FontWeight.w600,
-                                      //   color: const Color(0xff575757),
-                                      // ),
+                                      style: AllPopupHeadings.customTextStyle(context),
                                       ),
                                   const SizedBox(height: 5),
 
@@ -284,6 +272,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
             ),
           ],
         ),
+        SizedBox(height: 15,),
         Row(
           children: [
             ///Zipcode
@@ -294,13 +283,9 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 18.0),
                     child: Text('Zip Codes',
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff575757),
-                        )),
+                        style: AllPopupHeadings.customTextStyle(context),),
                   ),
 
                   /// Removed TabBar code
@@ -331,8 +316,8 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                               child: Text(
                                 'Select county',
                                 style: CustomTextStylesCommon.commonStyle(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w500),
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w500,color: ColorManager.mediumgrey),
                               ),
                             );
                           }
@@ -340,9 +325,9 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                           if (snapshot.data!.isEmpty) {
                             return Center(
                               child: Text(
-                                'No Data Found!',
+                                'No Zipcode Available!',
                                 style: CustomTextStylesCommon.commonStyle(
-                                    fontSize: 10.0,
+                                    fontSize: FontSize.s12,
                                     fontWeight: FontWeight.w500),
                               ),
                             );

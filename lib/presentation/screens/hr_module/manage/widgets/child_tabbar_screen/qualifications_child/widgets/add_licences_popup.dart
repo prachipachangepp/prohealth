@@ -83,32 +83,34 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 64),
-                    child: Text(
-                      widget.title,
-                        style: PopupHeadingStyle.customTextStyle(context)
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 13),
+                      child: Text(
+                          widget.title,
+                          style: PopupHeadingStyle.customTextStyle(context)
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    icon: Icon(
-                        Icons.close,
-                        color: IconColorManager.white
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      icon: Icon(
+                          Icons.close,
+                          color: IconColorManager.white
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 63),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
