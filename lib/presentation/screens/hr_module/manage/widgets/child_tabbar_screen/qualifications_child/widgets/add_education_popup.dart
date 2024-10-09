@@ -91,14 +91,17 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       style: PopupHeadingStyle.customTextStyle(context)
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      _clearControllers();
-                    },
-                    icon: Icon(
-                      Icons.close,
-                      color: IconColorManager.white
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _clearControllers();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: IconColorManager.white
+                      ),
                     ),
                   ),
                 ],

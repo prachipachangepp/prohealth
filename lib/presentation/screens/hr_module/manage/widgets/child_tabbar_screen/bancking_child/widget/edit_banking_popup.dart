@@ -113,21 +113,24 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0))),
       padding: EdgeInsets.only(left: 25.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            widget.title,
-            style: PopupHeadingStyle.customTextStyle(context),
-          ),
-          IconButton(
-            splashColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            icon: Icon(Icons.close, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.title,
+              style: PopupHeadingStyle.customTextStyle(context),
+            ),
+            IconButton(
+              splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              icon: Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
       ),
     );
   }

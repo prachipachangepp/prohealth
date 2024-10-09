@@ -56,18 +56,6 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
         height: 1190,
         child: Html(
           data: """${widget.htmlFormData}""",
-          style: {
-            "p": Style(
-              fontSize: FontSize(12.0),
-              color: Color(0xff686464),
-              fontWeight: FontWeight.w400,
-            ),
-            "li": Style(
-              fontSize: FontSize(12.0),
-              color: Color(0xff686464),
-              fontWeight: FontWeight.w400,
-            ),
-          },
         ),
       ),
           ],

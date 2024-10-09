@@ -265,6 +265,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                               referredby== referredBController.text? referredby.toString():referredBController.text,
                                               title == titlePositionController.text ? title.toString() : titlePositionController.text,
                                             );
+                                            Navigator.pop(context);
                                             if(response.statusCode == 200 || response.statusCode == 201){
                                               showDialog(
                                                 context: context,
