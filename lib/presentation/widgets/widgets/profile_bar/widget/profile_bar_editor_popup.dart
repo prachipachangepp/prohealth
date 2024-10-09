@@ -20,14 +20,11 @@ import '../../../../screens/hr_module/manage/widgets/custom_icon_button_constant
 import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
 class ProfileBarEditPopup extends StatefulWidget {
-
   final int employeeId;
   final int employeeEnrollId;
   final int employeeEnrollCoverageId;
   final VoidCallback onRefresh;
-  const ProfileBarEditPopup({super.key, required this.employeeId,
-    required this.employeeEnrollId,
-    required this.employeeEnrollCoverageId, required this.onRefresh,});
+  const ProfileBarEditPopup({super.key, required this.employeeId, required this.employeeEnrollId, required this.employeeEnrollCoverageId, required this.onRefresh,});
 
   @override
   State<ProfileBarEditPopup> createState() => _ProfileBarEditPopupState();
@@ -384,8 +381,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
         height: AppSize.s30,
         width: AppSize.s100,
         text: 'Save',
-        onPressed: () async{
-          addCovrage.add( await ApiPatchCovrageData(employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
+        onPressed: () {
+          addCovrage.add(ApiPatchCovrageData(employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
               city: "",
               countyId: selectedCountyId,
               countyName: countyName,
@@ -393,8 +390,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
               zoneName: zoneName, zipCodes: zipCodes)
           );
           //var patchCoverage =
-          await patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,
-              widget.employeeId,addCovrage);
+          patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,widget.employeeId,addCovrage);
     // if (patchCoverage.success) {
     //     print("Coverage added successfully");
     //   } else {
@@ -406,13 +402,12 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
           print('Selected Zone ID: $docZoneId');
           print('Selected Zip Codes: $selectedZipCodes');
           print('Selected City: $selectedCityName');
-          // setState((){
-          //   getCoverageList(context: context, employeeId: widget.employeeId,
-          //       employeeEnrollId:widget.employeeEnrollId );
-          // });
+          setState((){
+            getCoverageList(context: context, employeeId: widget.employeeId,
+                employeeEnrollId:widget.employeeEnrollId );
+          });
           widget.onRefresh();
           Navigator.pop(context);
-
         },
       ),);
   }

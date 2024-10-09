@@ -535,7 +535,7 @@ Future<EmployeeModel> getCoverageList({required BuildContext context,
       }
       print("Coverage details fetched successfully.");
     } else {
-      print('Org Api Error: ${response.statusMessage}');
+      print('MAnage profile Error: ${response.statusMessage}');
     }
 
   } catch (e) {
