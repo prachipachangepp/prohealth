@@ -353,9 +353,6 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
                                       var country = snapshotPrefill.data!.country;
                                       countryController =TextEditingController(text: snapshotPrefill.data!.country);
-
-
-
                                       return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
                                         endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
                                         supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
@@ -392,9 +389,14 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                           padding:  EdgeInsets.only(left: 25.0),
                                           child: Container(
                                               width: 300,
-                                              child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
+                                              child: CheckboxTile(title: 'Currently work here',
+                                                initialValue: false,onChanged: (value){
                                               },)),
-                                        ), tite: 'Edit Employment', onpressedClose: () {Navigator.pop(context);  },);
+                                        ), tite: 'Edit Employment',
+                                        onpressedClose: ()
+                                         {
+                                          Navigator.pop(context);
+                                          },);
                                     }
                                 );
                               });
@@ -403,250 +405,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                           },)
                       ),
                     title: 'Employment #${index + 1}',)
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Text(
-                    //         'Employment #${index + 1}',
-                    //         // 'Employment #${snapshot.data![index].employmentId}',
-                    //         style: BoxHeadingStyle.customTextStyle(context)),
-                    //     // SizedBox(height: 7,),
-                    //     Row(
-                    //       children: [
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //           children: [
-                    //             Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 Text('Final Position Title :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('Start Date :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('End Date :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('Employer :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('Emergency Contact :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //               ],
-                    //             ),
-                    //             SizedBox(width: MediaQuery.of(context).size.width/35,),
-                    //             Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //
-                    //                 Text(
-                    //                   snapshot.data![index].title,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].dateOfJoining,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].endDate,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].employer,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].emgMobile,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         ),
-                    //         SizedBox(width: MediaQuery.of(context).size.width/16,),
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //           children: [
-                    //             Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 Text('Reason of Leaving :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('Last Supervisor’s Name :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('SuperVisor\'s Phone No. :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('City :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text('Country :',
-                    //                     style: ThemeManagerDark.customTextStyle(context)),
-                    //               ],
-                    //             ),
-                    //             SizedBox(width: MediaQuery.of(context).size.width/35,),
-                    //             Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 Text(
-                    //                   snapshot.data![index].reason,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].supervisor,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].supMobile,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].city,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //                 const SizedBox(
-                    //                   height: 10,
-                    //                 ),
-                    //                 Text(
-                    //                   snapshot.data![index].country,
-                    //                   style: ThemeManagerDarkFont.customTextStyle(context),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         )
-                    //       ],
-                    //     ),
-                    //     // SizedBox(height: 4,),
-                    //     Align(
-                    //         alignment: Alignment.centerRight,
-                    //         child: snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
-                    //           fontSize: MediaQuery.of(context).size.width/120,
-                    //           color: ColorManager.mediumgrey,
-                    //           fontWeight: FontWeight.w600,
-                    //         )): BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){
-                    //           setState(() {
-                    //             showDialog(context: context, builder: (BuildContext context){
-                    //               return FutureBuilder<EmployeementPrefillData>(
-                    //                   future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
-                    //                   builder: (context,snapshotPrefill) {
-                    //                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                    //                       return Center(
-                    //                         child: CircularProgressIndicator(
-                    //                           color: ColorManager.blueprime,
-                    //                         ),
-                    //                       );
-                    //                     }
-                    //                     var positionTitle = snapshotPrefill.data!.title;
-                    //                     positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
-                    //
-                    //                     var leavingReason = snapshotPrefill.data!.reason;
-                    //                     leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
-                    //
-                    //                     var startDate = snapshotPrefill.data!.dateOfJoining;
-                    //                     startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
-                    //
-                    //                     var endDate = snapshotPrefill.data!.endDate;
-                    //                     endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
-                    //
-                    //
-                    //                     var supervisorName = snapshotPrefill.data!.supervisor;
-                    //                     lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
-                    //
-                    //                     var supervisorMob = snapshotPrefill.data!.supMobile;
-                    //                     supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
-                    //
-                    //                     var cityName = snapshotPrefill.data!.city;
-                    //                     cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
-                    //
-                    //                     var employeer = snapshotPrefill.data!.employer;
-                    //                     employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
-                    //
-                    //                     var emgMobile = snapshotPrefill.data!.emgMobile;
-                    //                     emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
-                    //                     var country = snapshotPrefill.data!.country;
-                    //                     countryController =TextEditingController(text: snapshotPrefill.data!.country);
-                    //
-                    //
-                    //
-                    //                     return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
-                    //                       endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
-                    //                       supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
-                    //                       employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
-                    //                       countryController: countryController,
-                    //                       onpressedSave: ()async{
-                    //                         await updateEmployeementPatch(context,
-                    //                             snapshot.data![index].employmentId,
-                    //                             widget.employeeId,
-                    //                             employeer == employeerController.text ? employeer.toString() : employeerController.text,
-                    //                             cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
-                    //                             leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
-                    //                             supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
-                    //                             supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
-                    //                             positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
-                    //                             startDate == startDateContoller.text ? startDate  : startDateContoller.text,
-                    //                             endDate == endDateController.text ? endDate : endDateController.text,
-                    //                             emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
-                    //                             country== countryController.text ?country.toString():countryController.text
-                    //                           // 'USA'
-                    //                         );
-                    //                       }, checkBoxTile:  Padding(
-                    //                         padding:  EdgeInsets.only(left: 25.0),
-                    //                         child: Container(
-                    //                             width: 300,
-                    //                             child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-                    //                             },)),
-                    //                       ), tite: 'Edit Employment', onpressedClose: () {Navigator.pop(context);  },);
-                    //                   }
-                    //               );
-                    //             });
-                    //           }
-                    //           );
-                    //         },)
-                    //     ),
-                    //   ],
-                    // ),
+
                     );
                   })
               );

@@ -156,8 +156,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   builder: (context,snapshot) {
                                     if(snapshot.connectionState == ConnectionState.waiting){
                                       return Container(
-                                        width: 200,
+                                        // width: 200,
                                         height: 30,
+                                        width: MediaQuery.of(context).size.width / 6,
                                         decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
                                       );
 
@@ -180,7 +181,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         );
                                       }
                                       return CICCDropdown(
-                                          width: 200,
+                                          // width: 200,
+                                          width: MediaQuery.of(context).size.width / 6,
                                           initialValue: dropDownMenuItems[0].value,
                                           onChange: (val){
                                             for(var a in snapshot.data!){

@@ -88,19 +88,23 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 64),
+                        vertical: 15, horizontal: 30),
                     child: Text(
                       widget.title,
                         style: PopupHeadingStyle.customTextStyle(context)
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    icon: Icon(
-                        Icons.close,
-                        color: IconColorManager.white
+                  Padding(
+                    padding:  const EdgeInsets.symmetric(
+                         horizontal: 25),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      icon: Icon(
+                          Icons.close,
+                          color: IconColorManager.white
+                      ),
                     ),
                   ),
                 ],
@@ -108,14 +112,12 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 63),
+              padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   widget.child,
-                  const SizedBox(
-                    width: 20,
-                  ),
+
                   ///upload
                   CustomIconButton(
                     icon: Icons.file_upload_outlined,
