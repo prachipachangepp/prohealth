@@ -382,7 +382,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       },
                                       text: 'Save',
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -949,10 +948,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 45),
+                                            padding: const EdgeInsets.only(top: 10.0, left: 45,bottom: 5),
                                             child: Container(
                                               height: 20,
                                               width:354,
+                                              //color: ColorManager.red,
                                               child: Text(
                                                   "Coverage",
                                                   style: AllPopupHeadings.customTextStyle(context)

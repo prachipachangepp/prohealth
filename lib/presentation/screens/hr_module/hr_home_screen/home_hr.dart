@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -92,14 +92,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   child: _searchResults.isEmpty
                       ? Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 150),
+                      padding:  EdgeInsets.symmetric(vertical: 150),
                       child: Text(
                         'No User Found!',
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.regular,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: AllNoDataAvailable.customTextStyle(context),
                       ),
                     ),
                   )
@@ -108,7 +104,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       ..._searchResults.map((result) => ListTile(
                         title: Text(
                           result,
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                             fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.mediumgrey,
@@ -395,7 +391,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                               child: TextField(
                                 controller: _controller,
                                 textCapitalization: TextCapitalization.words,
-                                style: GoogleFonts.firaSans(fontSize: 12),
+                                style: TextStyle(fontSize: 12),
                                 onChanged: _search,
                                 decoration: InputDecoration(
                                     hintText: 'Search User',
@@ -526,12 +522,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                         }
                                                       },
                                                       value: dropDownList[0].value,
-                                                      style: TextStyle(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: const Color(0xff686464),
-                                                        decoration: TextDecoration.none,
-                                                      ),
+                                                      style: DropdownItemStyle.customTextStyle(context)
                                                     ),
                                                   );
                                                 }
@@ -549,11 +540,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Full-Time', 'Part-Time'],
                                                   labelText: 'Availability',
                                                   value: 'Full-Time',
-                                                  labelStyle: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color(0xff737373),
-                                                  ),
+                                                  labelStyle: DropdownItemStyle.customTextStyle(context),
                                                   onChanged: (value) {
                                                     setState(() {
                                                       dropdownAvailability = value!;
@@ -580,11 +567,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Expired','About to Expire','Upto date'],
                                                   labelText: 'License Status',
                                                   value: 'Expired',
-                                                  labelStyle: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff737373),
-                                                  ),
+                                                  labelStyle:DropdownItemStyle.customTextStyle(context),
                                                   onChanged: (value) {
                                                     setState(() {
                                                       dropdownLicenseStatus = value!;
@@ -668,12 +651,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                       }
                                                     },
                                                     value: dropDownList[0].value,
-                                                    style: TextStyle(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: const Color(0xff686464),
-                                                      decoration: TextDecoration.none,
-                                                    ),
+                                                    style: DropdownItemStyle.customTextStyle(context)
                                                   ),
                                                 );
                                               } else {
@@ -799,7 +777,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           employeeId: empID,
                           pageManageController: _pageManageController,
                           onRefresh: () {
+                            setState(() {
 
+                            });
                           },
                         ),
                         //AddEmployeeHomeScreen(),

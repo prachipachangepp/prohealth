@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../app/services/api/managers/hr_module_manager/manage_emp/search_byfilter.dart';
@@ -516,143 +518,77 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        topRight: Radius.circular(8.0),
-        bottomLeft: Radius.circular(8.0),
-        bottomRight: Radius.circular(8.0),
-      )),
-      titlePadding: EdgeInsets.zero,
-      backgroundColor: Colors.white,
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.0),
-            topRight: Radius.circular(8.0),
-          ),
-          color: Color(0xff50B5E5),
-        ),
-        height: 32,
-        width: 300,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text(
-                'Clinician Search Filter',
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s13,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-
-                color: Colors.white,
-
-              ),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              visualDensity: VisualDensity.compact,
-            ),
-          ],
-        ),
-      ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height / 160),
-            SizedBox(height: MediaQuery.of(context).size.height / 50),
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Office Location',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff737373),
-                      ),
-                    ),
-                    widget.officceIdWidget
-                  ],
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width / 20),
-                Center(
-                  child: Column(
+    return DialogueTemplate(
+      width: 480, height: 450,
+      body: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Zone', style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373))),
-                      widget.zoneDropDown == null ? Offstage() : widget.zoneDropDown!
+                      Text(
+                        'Office Location',
+                        style:AllPopupHeadings.customTextStyle(context)
+                      ),
+                      SizedBox(height: 5,),
+                      widget.officceIdWidget
                     ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
-            Row(
-              children: [
-                Text(
-                  'License status',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373),
+                  SizedBox(width: MediaQuery.of(context).size.width / 20),
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Zone', style: AllPopupHeadings.customTextStyle(context)),
+                        SizedBox(height: 5,),
+                        widget.zoneDropDown == null ? Offstage() : widget.zoneDropDown!
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height:5),
-              ],
-            ),
-             widget.licensesWidget,
-
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
-            Row(
-              children: [
-                Text(
-                  'Availability',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 25),
+              Row(
+                children: [
+                  Text(
+                    'License status',
+                    style: AllPopupHeadings.customTextStyle(context)
                   ),
-                ),
-                SizedBox(height:5),
-              ],
-            ),
-           widget.avabilityWidget,
+                  SizedBox(height:5),
+                ],
+              ),
+              SizedBox(height: 5,),
+              widget.licensesWidget,
 
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
-            ElevatedButton(
-              onPressed: (){
-                widget.onSearch();
-                Navigator.pop(context);
-              },
-              child: Text('Search', style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),),
-            ),
-          ],
-        ),
-      ),
+              SizedBox(height: MediaQuery.of(context).size.height / 25),
+              Row(
+                children: [
+                  Text(
+                    'Availability',
+                    style: AllPopupHeadings.customTextStyle(context)
+                  ),
+                ],
+              ),
+              SizedBox(height: 5,),
+              widget.avabilityWidget,
+
+            ],
+          ),
+        )
+
+
+    ],
+      bottomButtons:  ElevatedButton(
+        onPressed: (){
+          widget.onSearch();
+          Navigator.pop(context);
+        },
+        child: Text('Search', style: BlueButtonTextConst.customTextStyle(context),),
+      ), title: 'Clinician Search Filter',
     );
   }
 }
