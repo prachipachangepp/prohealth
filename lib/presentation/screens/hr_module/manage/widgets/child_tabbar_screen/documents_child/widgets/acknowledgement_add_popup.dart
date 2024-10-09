@@ -76,6 +76,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
 
   String documentTypeName = "";
   dynamic filePath;
+  bool isFileSelected = false;
+  bool isFileErrorVisible = false;
   String? selectedDocType;
   String fileName = '';
   String _url = "";
@@ -108,6 +110,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+         isFileSelected = true;
+         isFileErrorVisible = true;
       });
     }
   }
@@ -157,7 +161,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                   items:dropDownMenuItems
               ),
               SizedBox(height: 2,),
-              if(documentTypeName == "")
+              if(isFileSelected)
               Text('Please select document',style: TextStyle(fontSize: 10,color: ColorManager.red))
             ],
           )
@@ -277,7 +281,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 ),
               ),
               SizedBox(height: 2,),
-              if(filePath == null)
+              if(isFileErrorVisible)
                 Text('Please select document',style: TextStyle(fontSize: 10,color: ColorManager.red),)
             ],
           ),
@@ -296,6 +300,14 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         height: AppSize.s30,
         text: AppStringEM.add,
         onPressed: () async{
+          setState(() {
+            isFileErrorVisible = !isFileSelected;
+          });
+
+          // Ensure the file is selected before proceeding
+          if (!isFileSelected) {
+            return;
+          }
           setState(() {
             load = true;
           });

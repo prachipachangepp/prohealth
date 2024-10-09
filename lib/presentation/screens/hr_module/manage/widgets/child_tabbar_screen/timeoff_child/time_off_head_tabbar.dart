@@ -219,14 +219,14 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           ),
                           Expanded(
                             child: Center(
-                              child: Text('Start Time',
+                              child: Text('Start Date',
                                   //textAlign: TextAlign.start,
                                   style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
-                              child: Text('End Time',
+                              child: Text('End Date',
                                   //textAlign: TextAlign.start,
                                   style: EquipmentStyleHeading.customTextStyle(context)),
                             ),

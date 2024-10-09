@@ -43,8 +43,6 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   @override
   void initState() {
     // TODO: implement initState
-
-
     super.initState();
   }
   @override
