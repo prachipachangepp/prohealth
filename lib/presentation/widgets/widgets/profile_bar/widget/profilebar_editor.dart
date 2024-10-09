@@ -1002,9 +1002,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 // color: ColorManager.red,
                                                 child: Wrap(
                                                   spacing: 2.0,
-                                                  children: List.generate((snapshot.data!.coverageDetails.length / 2).ceil(), (index) {
-                                                    int firstItemIndex = index * 2;
-                                                    int secondItemIndex = firstItemIndex + 1;
+                                                  children: List.generate((snapshot.data!.coverageDetails.length ), (index) {
+                                                    // int firstItemIndex = index * 2;
+                                                    // int secondItemIndex = firstItemIndex + 1;
                                                     return Padding(
                                                       padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
                                                       child: CoverageRowWidget(
