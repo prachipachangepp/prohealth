@@ -20,11 +20,11 @@ import '../../../../screens/hr_module/manage/widgets/custom_icon_button_constant
 import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
 class ProfileBarEditPopup extends StatefulWidget {
-
   final int employeeId;
   final int employeeEnrollId;
   final int employeeEnrollCoverageId;
-  const ProfileBarEditPopup({super.key, required this.employeeId, required this.employeeEnrollId, required this.employeeEnrollCoverageId,});
+  final VoidCallback onRefresh;
+  const ProfileBarEditPopup({super.key, required this.employeeId, required this.employeeEnrollId, required this.employeeEnrollCoverageId, required this.onRefresh,});
 
   @override
   State<ProfileBarEditPopup> createState() => _ProfileBarEditPopupState();
@@ -406,6 +406,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
             getCoverageList(context: context, employeeId: widget.employeeId,
                 employeeEnrollId:widget.employeeEnrollId );
           });
+          widget.onRefresh();
           Navigator.pop(context);
         },
       ),);
