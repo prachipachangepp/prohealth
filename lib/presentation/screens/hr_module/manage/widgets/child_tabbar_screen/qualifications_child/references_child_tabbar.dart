@@ -152,7 +152,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                       const SizedBox(height: 10,),
                       Text('Title/ Position :',
                           style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Text('Company/ Organization :',
                           style: ThemeManagerDark.customTextStyle(context)),
                       const SizedBox(height: 10,),
@@ -165,7 +165,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                       const SizedBox(height: 10,),
                       Text(snapshot.data![index].title,
                         style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Text(snapshot.data![index].company,
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: 10,),
@@ -176,33 +176,34 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                       Text('Email :',
                           style: ThemeManagerDark.customTextStyle(context)),
                       const SizedBox(height: 10,),
-                      Text('How do you know this\nperson? :',
+                      Text('How do you know this person ? :',
                           style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 5,),
+                      const SizedBox(height: 10,),
                       Text('Length of Association :',
                           style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 5,),
+                      const SizedBox(height: 10,),
                       SizedBox(height: 30, width: 90,)
                       // Text('Referred By',
                       //     style: ThemeManager.customTextStyle(context)),
                     ],
                     row2Child2: [
                       Text(snapshot.data![index].email,
+
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: 10,),
                       Text('LinkedIn',
                         style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Text(snapshot.data![index].association,
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: 10,),
                       SizedBox(height: 30, width: 90,)
-                      // Text(snapshot.data![index].references,
-                      //   style: ThemeManagerDarkFont.customTextStyle(context),),
                     ],
                     button: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [snapshot.data![index].approve == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                      children: [snapshot.data![index].approve == null ?
+                      Text('Not Approved',
+                          style:TextStyle(
                         fontSize: MediaQuery.of(context).size.width/120,
                         color: ColorManager.mediumgrey,
                         fontWeight: FontWeight.w600,
@@ -289,199 +290,6 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           })
                       ],
                     )),);
-                //   Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
-                //   child: Container(
-                //     width: MediaQuery.of(context).size.width/2.5,
-                //     decoration: BoxDecoration(
-                //       boxShadow: [
-                //         BoxShadow(
-                //           color: Colors.grey.withOpacity(0.5),
-                //           spreadRadius: 1,
-                //           blurRadius: 4,
-                //           offset: const Offset(0, 4),
-                //         ),
-                //       ],
-                //       color: Colors.white,
-                //       borderRadius: const BorderRadius.all(Radius.circular(12)),
-                //     ),
-                //     // height:  MediaQuery.of(context).size.height/3.3,
-                //     height: MediaQuery.of(context).size.height/3.9,
-                //     padding: EdgeInsets.all(5),
-                //     child: Padding(
-                //       padding: EdgeInsets.symmetric(
-                //         horizontal: MediaQuery.of(context).size.width / 80,
-                //         vertical: MediaQuery.of(context).size.height / 120,
-                //       ),
-                //       child: Column(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         // mainAxisAlignment: MainAxisAlignment.start,
-                //         children: [
-                //            Row(
-                //             children: [
-                //               Text(
-                //                 'References #${index + 1}',
-                //                 // 'References #${snapshot.data![index].referenceId}',
-                //                 style:BoxHeadingStyle.customTextStyle(context),),
-                //             ],
-                //           ),
-                //           // SizedBox(height: MediaQuery.of(context).size.height/50,),
-                //           Row(
-                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //             children: [
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text('Name :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: 10,),
-                //                   Text('Title/ Position :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: 15,),
-                //                   Text('Company/ Organization :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: 10,),
-                //                   Text('Mobile Number :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                 ],
-                //               ),
-                //
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(snapshot.data![index].name,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: 10,),
-                //                   Text(snapshot.data![index].title,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: 15,),
-                //                   Text(snapshot.data![index].company,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: 10,),
-                //                   Text(snapshot.data![index].mobNumber,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                 ],
-                //               ),
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text('Email :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: 10,),
-                //                   Text('How do you know this\nperson ? :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: 5,),
-                //                   Text('Length of Association :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: 5,),
-                //                   SizedBox(height: 30, width: 90,)
-                //                   // Text('Referred By',
-                //                   //     style: ThemeManager.customTextStyle(context)),
-                //                 ],
-                //               ),
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(snapshot.data![index].email,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: 10,),
-                //                   Text('LinkedIn',
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: 15,),
-                //                   Text(snapshot.data![index].association,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: 10,),
-                //                   SizedBox(height: 30, width: 90,)
-                //                   // Text(snapshot.data![index].references,
-                //                   //   style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                 ],
-                //               ),
-                //             ],),
-                //           // SizedBox(height: MediaQuery.of(context).size.height/40,),
-                //           Row(
-                //             mainAxisAlignment: MainAxisAlignment.end,
-                //             children: [snapshot.data![index].approve == null ? Text('Not Approved',style:GoogleFonts.firaSans(
-                //               fontSize: MediaQuery.of(context).size.width/120,
-                //               color: ColorManager.mediumgrey,
-                //               fontWeight: FontWeight.w600,
-                //             )):
-                //             BorderIconButton(iconData: Icons.edit_outlined,
-                //                   buttonText: 'Edit', onPressed: (){
-                //                 showDialog(context: context, builder: (BuildContext context){
-                //                   return FutureBuilder<ReferencePrefillData>(
-                //                     future: getPrefillReferences(context,snapshot.data![index].referenceId),
-                //                     builder: (context,snapshotPrefill) {
-                //                       if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                //                         return Center(
-                //                           child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                //                         );
-                //                       }
-                //                       var name = snapshotPrefill.data!.name;
-                //                       nameController = TextEditingController(text: snapshotPrefill.data!.name);
-                //
-                //                       var comment = snapshotPrefill.data!.comment;
-                //
-                //                       var email = snapshotPrefill.data!.email;
-                //                       emailController = TextEditingController(text: snapshotPrefill.data!.email);
-                //
-                //                       var title = snapshotPrefill.data!.title;
-                //                       titlePositionController = TextEditingController(text: snapshotPrefill.data!.title);
-                //
-                //                       var knowPerson = "LinkedIn";
-                //                       knowPersonController = TextEditingController(text:"LinkedIn");
-                //
-                //                       var companyName = snapshotPrefill.data!.company;
-                //                       companyNameController = TextEditingController(text: snapshotPrefill.data!.company);
-                //
-                //                       var association = snapshotPrefill.data!.association;
-                //                       associationLengthController = TextEditingController(text: snapshotPrefill.data!.association);
-                //                       var referredby = snapshotPrefill.data!.references;
-                //                       referredBController =TextEditingController(
-                //                         text: snapshotPrefill.data!.references
-                //                       );
-                //
-                //                       var references = snapshotPrefill.data!.references;
-                //                       var mobileNumber = snapshotPrefill.data!.mobNumber;
-                //                       mobileNumberController = TextEditingController(text: snapshotPrefill.data!.mobNumber);
-                //                       return StatefulBuilder(
-                //                         builder: (BuildContext context, void Function(void Function()) setState) {
-                //                           return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
-                //                               associationLengthController: associationLengthController, mobileNumberController: mobileNumberController, referredBy: referredBController,
-                //                               onpressedClose: (){
-                //                                 Navigator.pop(context);
-                //                               }, onpressedSave: () async{
-                //                                 await updateReferencePatch(context,
-                //                                     snapshot.data![index].referenceId,
-                //                                     association == associationLengthController.text ? association.toString() : associationLengthController.text,
-                //                                     comment.toString(),
-                //                                     companyName == companyNameController.text ? companyName.toString() : companyNameController.text,
-                //                                     email == emailController.text ? email.toString() : emailController.text,
-                //                                     widget.employeeId,
-                //                                     mobileNumber == mobileNumberController.text ? mobileNumber.toString() : mobileNumberController.text,
-                //                                     name == nameController.text ? name.toString() : nameController.text,
-                //                                     //references.toString(),
-                //                                     referredby== referredBController.text? referredby.toString():referredBController.text,
-                //                                     title == titlePositionController.text ? title.toString() : titlePositionController.text,
-                //                                  );
-                //                                 getReferences(context,5).then((data) {
-                //                                   referenceStreamController.add(data);
-                //                                 }).catchError((error) {
-                //                                   // Handle error
-                //                                 });
-                //                               }, title: 'Edit Reference',);
-                //                         },
-                //                       );
-                //                     }
-                //                   );
-                //                 });
-                //                   })
-                //             ],
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // );
               }));
             }else{
               return const SizedBox();

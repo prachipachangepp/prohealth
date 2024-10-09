@@ -60,12 +60,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                     child: Text(
                       "Success",
                       style:PopupBlueBarText.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: FontSize.s14,
-                      //   fontWeight: FontWeightManager.semiBold,
-                      //   color: ColorManager.white,
-                      //   decoration: TextDecoration.none,
-                      // ),
+
                     ),
                   ),
                   IconButton(

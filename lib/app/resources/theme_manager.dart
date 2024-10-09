@@ -58,6 +58,7 @@ class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = 12;
     return TextStyle(
+
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,

@@ -68,6 +68,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
             style: BoxHeadingStyle.customTextStyle(context)),
         // SizedBox(height: 7,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +77,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row1Child1
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/55,),
+                SizedBox(width: MediaQuery.of(context).size.width/58,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.row1Child2
@@ -92,7 +93,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: widget.row2Child1
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/55,),
+                SizedBox(width: MediaQuery.of(context).size.width/58,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

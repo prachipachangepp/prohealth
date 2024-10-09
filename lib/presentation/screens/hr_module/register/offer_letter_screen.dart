@@ -212,12 +212,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         return _buildTextField(labelText: 'Verbal Acceptance', controller: verbalAcceptanceController,errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
                       },
                     ),
-                    // CustomTextFieldOfferScreen(
-                    //   height: 36,
-                    //   controller: verbalAcceptanceController,
-                    //   labelText: 'Verbal Acceptance',
-                    // ),
-                    //SizedBox(width: MediaQuery.of(context).size.width / 80),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -799,7 +793,7 @@ class CheckBoxTileConst extends StatelessWidget {
         ),
         value: value,
         onChanged: onChanged,
-        controlAffinity: ListTileControlAffinity.leading, // Checkbox first, then text
+        controlAffinity: ListTileControlAffinity.leading,
       ),
     );
   }
