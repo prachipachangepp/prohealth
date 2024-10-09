@@ -26,12 +26,12 @@ class IconButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:30,
+      height:MediaQuery.of(context).size.height/21,
       width: width,
       child: IconButton(
         style: IconButton.styleFrom(
           padding: EdgeInsets.symmetric(
-              horizontal: 15), // Adjust vertical padding
+              horizontal: MediaQuery.of(context).size.width/100), // Adjust vertical padding
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
             side: BorderSide(width: 1, color: ColorManager.calandercolour),
@@ -47,8 +47,8 @@ class IconButtonWidget extends StatelessWidget {
               color: iconColor,
               size: 15,
             ),
-            iconData == null ? Offstage(): SizedBox(
-              width: 20,
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 200,
             ),
             Text(
               buttonText,
@@ -61,7 +61,7 @@ class IconButtonWidget extends StatelessWidget {
             ),
             iconData1 == null ? Offstage():
             SizedBox(
-              width: 9,
+              width: MediaQuery.of(context).size.width / 200,
             ),
             iconData1 == null ? Offstage():
             Icon(
