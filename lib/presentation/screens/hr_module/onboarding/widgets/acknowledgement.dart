@@ -215,7 +215,6 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Container(
-                           // color: Colors.greenAccent,
                             width: MediaQuery.of(context).size.width / 3,
                             child: Row(
                               children: [
