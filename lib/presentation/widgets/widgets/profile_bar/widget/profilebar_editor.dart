@@ -171,7 +171,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   }
   final StreamController<List<CountyWiseZoneModal>> _zoneController =
   StreamController<List<CountyWiseZoneModal>>.broadcast();
-  List<ApiPatchCovrageData> addCovrage = [];
+  //List<ApiPatchCovrageData> addCovrage = [];
   List<int> zipCodes = [];
   String? selectedZipCodeZone;
   int docZoneId = 0;
@@ -648,7 +648,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                               return HRUManageDropdown(
                                                 controller: TextEditingController(
-                                                    text: selectedDeptName ?? ''),
+                                                    text: profileData.department),
                                                 labelText: "Select Department",
                                                 labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                   color: const Color(0xff575757),
@@ -704,7 +704,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
                                             return HRUManageDropdown(
-
                                                 hintText: "Gender",
                                                 // width: 320,
                                                 // height: 40,
@@ -745,7 +744,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       // Do something with docType
                                                     }
                                                   }
-                                                },  controller: TextEditingController(text: ''),
+                                                },  controller: TextEditingController(text: profileData.gender),
                                               );
                                             } else {
                                               return const Offstage();
@@ -847,7 +846,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                   .toList();
 
                                             return HRUManageDropdown(
-                                              controller: TextEditingController(),
+                                              controller: TextEditingController(text:profileData.service),
                                               // labelText: 'Select Service',
                                               hintText: 'Select Service',
                                               items: serviceNames,
@@ -883,7 +882,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               hintText: "Reporting Office",
                                               // width: 320,
                                               // height: 40,
-                                              controller: TextEditingController(text: ''),
+                                              controller: TextEditingController(text:""),
                                               items: ['item 1', 'item 2'],
                                               // labelText: 'Reporting Office',
                                               labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
@@ -920,7 +919,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // Do something with docType
                                                   }
                                                 }
-                                              },  controller: TextEditingController(text: ''),
+                                              },  controller: TextEditingController(text:profileData.regOfficId),
                                             );
                                           } else {
                                             return const Offstage();
@@ -995,65 +994,65 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
 
                                             if (snapshot.hasData){
-
                                               return Container(
                                                 width: MediaQuery.of(context).size.width / 1,
-                                                // height: MediaQuery.of(context).size.width / 2.2,
-                                                // color: ColorManager.red,
                                                 child: Wrap(
                                                   spacing: 2.0,
-                                                  children: List.generate((snapshot.data!.coverageDetails.length / 2).ceil(), (index) {
-                                                    int firstItemIndex = index * 2;
-                                                    int secondItemIndex = firstItemIndex + 1;
+                                                  children: List.generate((snapshot.data!.coverageDetails.length), (index) {
+                                                    // int firstItemIndex = index * 2;
+                                                    // int secondItemIndex = firstItemIndex + 1;
                                                     return Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 5),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 45.0,vertical: 5),
                                                       child: CoverageRowWidget(
-                                                          countyName: snapshot.data!.coverageDetails[index].countyName,
-                                                          zoneName: snapshot.data!.coverageDetails[index].zoneName,
-                                                          onDelete: () {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (context) => DeletePopup(
-                                                                  title: DeletePopupString.deleteCoverage,
-                                                                  loadingDuration: _isLoading,
-                                                                  onCancel: () {
-                                                                    Navigator.pop(context);
-                                                                  },
-                                                                  onDelete: () async {
-                                                                    setState(() {
-                                                                      _isLoading = true;
-                                                                    });
-                                                                    try {
-                                                                      await deleteCoverageEditor(context, snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
-                                                                      setState(() {
-                                                                        getCoverageList(context: context, employeeId: widget.employeeId,
-                                                                            employeeEnrollId:profileData.employeeEnrollId );
+                                                              countyName: snapshot.data!.coverageDetails[index].countyName,
+                                                              zoneName: snapshot.data!.coverageDetails[index].zoneName,
+                                                              onDelete: () {
+                                                                showDialog(
+                                                                    context: context,
+                                                                    builder: (context) => DeletePopup(
+                                                                            title: DeletePopupString.deleteCoverage,
+                                                                            loadingDuration: _isLoading,
+                                                                            onCancel: () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            onDelete: () async {
+                                                                              setState(() {
+                                                                                _isLoading = true;
+                                                                              });
+                                                                              try {
+                                                                                await deleteCoverageEditor(context, snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                                setState(() {
+                                                                                  getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                                      employeeEnrollId:profileData.employeeEnrollId );
 
-                                                                      });
-                                                                    } finally {
-                                                                      setState(() {
-                                                                        _isLoading = false;
-                                                                        Navigator.pop(context);
-                                                                      });
-                                                                    }
-                                                                  }),
-                                                            );
-                                                          },
-                                                          onEdit: () {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext context) {
-                                                                return ProfileBarEditPopup(employeeId: profileData.employeeId,
-                                                                  employeeEnrollId: profileData.employeeEnrollId,
-                                                                  employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
-                                                                  onRefresh: () {setState((){
-                                                                    getCoverageList(context: context, employeeId: widget.employeeId,
-                                                                        employeeEnrollId:profileData.employeeEnrollId );
-                                                                  });  },);
+                                                                                });
+                                                                              } finally {
+                                                                                setState(() {
+                                                                                  _isLoading = false;
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              }
+                                                                            }),
+                                                                     );
                                                               },
-                                                            );
-                                                          }
-                                                      ),
+                                                              onEdit: () {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) {
+                                                                    return ProfileBarEditPopup(employeeId: profileData.employeeId,
+                                                                        employeeEnrollId: profileData.employeeEnrollId,
+                                                                        employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
+                                                                        onRefresh: () {
+                                                                      setState((){
+                                                                      getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                      employeeEnrollId:profileData.employeeEnrollId );
+                                                                      });
+                                                                      },);
+                                                                  },
+                                                                );
+                                                              }
+                                                          ),
+
                                                     );
                                                   }),
                                                 ),
@@ -1078,6 +1077,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           employeeEnrollId:profileData.employeeEnrollId );
                                                     });
                                                 },));} ,
+
                                             child: Container(
                                                 height: 40,
                                                 width: 200,
@@ -1167,9 +1167,12 @@ class CoverageRowWidget extends StatelessWidget {
         children: [
           Expanded(
               flex: 2,
-              child: Text(
-                "County:",
-                style: AllPopupHeadings.customTextStyle(context),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  "County:",
+                  style: AllPopupHeadings.customTextStyle(context),
+                ),
               )),
           SizedBox(width: 5,),
           Expanded(
@@ -1204,7 +1207,7 @@ class CoverageRowWidget extends StatelessWidget {
                 ],)),
           const SizedBox(width: 5),
           Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
           IconButton(
             splashColor: Colors.transparent,
@@ -1295,7 +1298,7 @@ class ProfileEditCancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultTextStyle =  CustomTextStylesCommon.commonStyle( color: textColor,
-      fontSize: 12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,);
     // GoogleFonts.firaSans(
     //   color: textColor,

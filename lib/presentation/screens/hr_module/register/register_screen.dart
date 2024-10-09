@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
@@ -221,102 +222,78 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
   }
-
-
   Widget buildDropdownButton(BuildContext context) {
-    return FutureBuilder<List<RegisterEnrollData>>(
-      future: RegisterGetData(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            width: 120,
-            height: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white
-            ),
-            child: Center(child: Container(
-              width: 200,
-            )),
-          );
-        }
-
-        if (snapshot.hasData) {
-          return Column(
-            children: [
-              Container(
-                height: 31,
-                width: 130,
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-                  borderRadius: BorderRadius.circular(12.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xff000000).withOpacity(0.25),
-                      blurRadius: 2,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: DropdownButton<String>(
-                  value: _selectedValue,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedValue = newValue!;
-                      filterData();
-                    });
-                  },
-                  style: TransparentButtonTextConst.customTextStyle(context),
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                    color: Color(0xff50B5E5),
-                  ),
-                  iconSize: 20,
-                  focusColor: Colors.transparent,
-                  underline: const SizedBox(),
-                  selectedItemBuilder: (BuildContext context) {
-                    return <String>[
-                      'Select',
-                      'Opened',
-                      'Notopen',
-                      'Partial',
-                      'Completed',
-                    ].map<Widget>((String value) {
-                      return Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          value,
-                          style: TransparentButtonTextConst.customTextStyle(context),
-                        ),
-                      );
-                    }).toList();
-                  },
-                  items: <String>[
-                    'Select',
-                    'Opened',
-                    'Notopen',
-                    'Partial',
-                    'Completed',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(value),
-                      ),
-                    );
-                  }).toList(),
-                ),
+    return  Column(
+      children: [
+        Container(
+          height: 31,
+          width: 130,
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+            borderRadius: BorderRadius.circular(12.0),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xff000000).withOpacity(0.25),
+                blurRadius: 2,
+                offset: const Offset(0, 2),
               ),
             ],
-          );
-        } else {
-          return const Offstage();
-        }
-      },
+          ),
+          child: DropdownButton<String>(
+            value: _selectedValue,
+            onChanged: (String? newValue) {
+              setState(() {
+                _selectedValue = newValue!;
+                filterData();
+              });
+            },
+            style: TransparentButtonTextConst.customTextStyle(context),
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: Color(0xff50B5E5),
+            ),
+            iconSize: 20,
+            focusColor: Colors.transparent,
+            underline: const SizedBox(),
+            selectedItemBuilder: (BuildContext context) {
+              return <String>[
+                'Select',
+                'Opened',
+                'Notopen',
+                'Partial',
+                'Completed',
+              ].map<Widget>((String value) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    value,
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),
+                );
+              }).toList();
+            },
+            items: <String>[
+              'Select',
+              'Opened',
+              'Notopen',
+              'Partial',
+              'Completed',
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(value),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
     );
+
   }
   void filterData() {
     String selectedStatus = _selectedValue.trim().toLowerCase();
@@ -446,9 +423,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
                          // const url = "http://localhost:52632/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///
+                        // Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                           if (await canLaunch(url)) {
                            await launch(url);
                            } else {
@@ -464,7 +442,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ? const Text('')
                           : InkWell(onTap: (){
                             _copyToClipboard(
-                                "https://staging.symmetry.care/#/onBordingWelcome"
+                                "${AppConfig.deployment}/#/onBordingWelcome"
                             );
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],

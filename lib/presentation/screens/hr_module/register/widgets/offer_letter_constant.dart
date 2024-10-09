@@ -49,7 +49,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
             splashRadius: 1,
-            icon: Icon(Icons.calendar_month, color: Color(0xff686464),size: 16,),
+            icon: Icon(Icons.calendar_month, color: ColorManager.blueprime,size: 16,),
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,

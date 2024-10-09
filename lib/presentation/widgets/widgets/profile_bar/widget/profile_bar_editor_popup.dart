@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profil
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/zone_manager.dart';
@@ -20,14 +21,11 @@ import '../../../../screens/hr_module/manage/widgets/custom_icon_button_constant
 import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
 class ProfileBarEditPopup extends StatefulWidget {
-
   final int employeeId;
   final int employeeEnrollId;
   final int employeeEnrollCoverageId;
   final VoidCallback onRefresh;
-  const ProfileBarEditPopup({super.key, required this.employeeId,
-    required this.employeeEnrollId,
-    required this.employeeEnrollCoverageId, required this.onRefresh,});
+  const ProfileBarEditPopup({super.key, required this.employeeId, required this.employeeEnrollId, required this.employeeEnrollCoverageId, required this.onRefresh,});
 
   @override
   State<ProfileBarEditPopup> createState() => _ProfileBarEditPopupState();
@@ -68,7 +66,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: 420,
-      height: 580,
+      height: 560,
       title: 'Edit Coverage',
       body: [
         Row(
@@ -79,7 +77,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Container(
                 //color: ColorManager.red,
-                height: 120,
+                height: 125,
                 width: 354,
                 child:
                 Column(
@@ -87,10 +85,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                   children: [
                     Text(
                         'County',
-                        style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff575757),)
-                    ),
+                        style: AllPopupHeadings.customTextStyle(context),),
                     const SizedBox(height: 5),
                     FutureBuilder<List<AllCountyGetList>>(
                       future: getCountyZoneList(context),
@@ -150,19 +145,12 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                       print("Selected CountyId: $selectedCountyId");
                                     },
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 15),
 
                                   // Zone Label
                                   Text(
                                       'Zone',
-                                      style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xff575757),)
-                                    // GoogleFonts.firaSans(
-                                    //   fontSize: 12,
-                                    //   fontWeight: FontWeight.w600,
-                                    //   color: const Color(0xff575757),
-                                    // ),
+                                      style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   const SizedBox(height: 5),
 
@@ -279,6 +267,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
             ),
           ],
         ),
+        SizedBox(height: 15,),
         Row(
           children: [  ///Zipcode
             Container(
@@ -289,12 +278,10 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 18.0),
                     child: Text(
                         'Zip Codes',
-                        style: CustomTextStylesCommon.commonStyle(fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff575757),)
+                        style: AllPopupHeadings.customTextStyle(context),
                     ),
                   ),
                   /// Removed TabBar code
@@ -320,7 +307,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                           return Center(
                             child: Text(
                               'Select county',
-                              style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
+                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12, fontWeight: FontWeight.w500,color: ColorManager.mediumgrey),
                             ),
                           );
                         }
@@ -328,8 +315,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                         if (snapshot.data!.isEmpty) {
                           return Center(
                             child: Text(
-                              'No Data Found!',
-                              style: CustomTextStylesCommon.commonStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
+                              'No Zipcode Available!',
+                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12, fontWeight: FontWeight.w500),
                             ),
                           );
                         }
@@ -384,8 +371,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
         height: AppSize.s30,
         width: AppSize.s100,
         text: 'Save',
-        onPressed: () async{
-          addCovrage.add( await ApiPatchCovrageData(employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
+        onPressed: () {
+          addCovrage.add(ApiPatchCovrageData(employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
               city: "",
               countyId: selectedCountyId,
               countyName: countyName,
@@ -393,8 +380,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
               zoneName: zoneName, zipCodes: zipCodes)
           );
           //var patchCoverage =
-          await patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,
-              widget.employeeId,addCovrage);
+          patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,widget.employeeId,addCovrage);
     // if (patchCoverage.success) {
     //     print("Coverage added successfully");
     //   } else {
@@ -406,13 +392,12 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
           print('Selected Zone ID: $docZoneId');
           print('Selected Zip Codes: $selectedZipCodes');
           print('Selected City: $selectedCityName');
-          // setState((){
-          //   getCoverageList(context: context, employeeId: widget.employeeId,
-          //       employeeEnrollId:widget.employeeEnrollId );
-          // });
+          setState((){
+            getCoverageList(context: context, employeeId: widget.employeeId,
+                employeeEnrollId:widget.employeeEnrollId );
+          });
           widget.onRefresh();
           Navigator.pop(context);
-
         },
       ),);
   }

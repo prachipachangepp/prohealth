@@ -316,14 +316,13 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
           height: AppSize.s30,
           text: AppStringEM.add,
           onPressed: () async {
-            // Mark the form as submitted when the Save button is clicked
+
             setState(() {
               isFormSubmitted = true;
             });
 
-            // Now validate the fields
             if (documentTypeName == "" || filePath == null || expiryDateController.text.isEmpty && showExpiryDateField) {
-              return; // Stop execution if validation fails
+              return;
             }
 
             setState(() {
@@ -368,8 +367,6 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         ),
         title: widget.title,
       );
-
-
         ///
     //   DialogueTemplate(
     //   width: AppSize.s420,

@@ -96,8 +96,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25),
+                    padding: const EdgeInsets.only(right: 15),
                     child: IconButton(
                       onPressed: () {
                         Navigator.pop(context);

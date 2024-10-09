@@ -84,7 +84,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                 ),
               ],
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/30,),
+            // SizedBox(width: MediaQuery.of(context).size.width/30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

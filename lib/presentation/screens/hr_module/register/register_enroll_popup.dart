@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
@@ -82,7 +83,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   Future<String> _generateUrlLink(String email, String Id) async {
     final String user = email;
     final String id = Id;
-    final String url = 'https://staging.symmetry.care/#/onBordingWelcome';
+    final String url = '${AppConfig.deployment}/#/onBordingWelcome';
     generatedURL = url;
     print('Generated URL: $generatedURL');
     return url;

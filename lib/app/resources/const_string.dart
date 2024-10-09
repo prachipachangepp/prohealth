@@ -350,5 +350,30 @@ class AppStringHRNoData {
   // static const String employeeNoData = 'No employement available!';
   // static const String employeeNoData = 'No employement available!';
   // static const String employeeNoData = 'No employement available!';
+}
 
+/// Legal document const string
+
+class AppStringLegalDocument {
+  static const String candidatereLeaseForm = 'Candidate Release Form';
+  static const String onCall = 'On Call';
+  static const String confidentialityAgreement = 'Confidentiality Agreement';
+  static const String covidTestingPolicy = 'Covid Testing Policy';
+  static const String policyConcerning = 'Policy Concerning 3rd party';
+  static const String reportOfAbuse = 'Report of abuse';
+  static const String personalOrientation = 'Personal orientation';
+  static const String directDeposit = 'Direct Deposit';
+  static const String standardOfCodeOfConduct = 'Standard of code of conduct';
+  static const String sexualHarassmentPolicy = 'Sexual Harassment policy';
+  static const String sexualHarassmentPolicyACK = 'Sexual Harassment policy acknowledgment';
+  static const String preAuthorization = 'Pre Authorization';
+  static const String prop65 = 'Prop65';
+  static const String returnOfcompanyProperty = 'Return of company property';
+  static const String hepB = 'Hep B';
+  static const String tDap = 'T dap';
+  static const String flu = 'Flu';
+  static const String covidVaccine = 'Covid Vaccine';
+  static const String i9 = 'i9';
+  static const String w4 = 'W4';
+  static const String employeeHandbook = 'Employee Handbook';
 }

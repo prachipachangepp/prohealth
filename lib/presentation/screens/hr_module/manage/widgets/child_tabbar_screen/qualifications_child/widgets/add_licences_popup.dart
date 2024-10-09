@@ -83,41 +83,44 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 30),
-                    child: Text(
-                      widget.title,
-                        style: PopupHeadingStyle.customTextStyle(context)
-                    ),
-                  ),
-                  Padding(
-                    padding:  const EdgeInsets.symmetric(
-                         horizontal: 25),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
-                      icon: Icon(
-                          Icons.close,
-                          color: IconColorManager.white
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text(
+                          widget.title,
+                          style: PopupHeadingStyle.customTextStyle(context)
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        icon: Icon(
+                            Icons.close,
+                            color: IconColorManager.white
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   widget.child,
-
+                  const SizedBox(
+                    width: 20,
+                  ),
                   ///upload
                   CustomIconButton(
                     icon: Icons.file_upload_outlined,
@@ -245,20 +248,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                           setState(() {
                             isLoading = false;
                           });
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              Future.delayed(
-                                  const Duration(seconds: 3), () {
-                                if (Navigator.of(context).canPop()) {
-                                  Navigator.of(context).pop();
-                                }
-                              });
-                              return const AddSuccessPopup(
-                                message: 'Added Successfully',
-                              );
-                            },
-                          );
+
                         }
                       }
                     },
