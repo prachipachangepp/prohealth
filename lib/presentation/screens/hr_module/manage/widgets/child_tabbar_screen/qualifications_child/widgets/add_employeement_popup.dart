@@ -110,7 +110,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         Navigator.pop(context);
                         _clearControllers();
                       },
-
                       icon: Icon(
                           Icons.close,
                           color: IconColorManager.white
