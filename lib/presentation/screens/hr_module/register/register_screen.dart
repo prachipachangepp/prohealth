@@ -353,11 +353,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 data.status == 'Notopen'
-                    ? Text(
-                                      'Not Opened',
-                                      style: DocumentTypeDataStyle.customTextStyle(context),
-
-                                    )
+                    ? Text('Not Opened',
+                  style: DocumentTypeDataStyle.customTextStyle(context),)
                     : Text(
                   'Status',
                     style:DocumentTypeDataStyle.customTextStyle(context)
