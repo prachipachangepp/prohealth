@@ -7,8 +7,11 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -156,7 +159,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                           style: DefineWorkWeekStyle.customTextStyle(context),
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 10),
+                      SizedBox(width: 40),
                       ElevatedButton.icon(
                         onPressed:
                          ()async {
@@ -248,80 +251,155 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'i - 9 Paper Version',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                       FormNineScreen(employeeID: widget.employeeID,)));
-                          Timer(Duration(seconds: 2), () {
-                            print("Timer call");
-                            setState(() {
-                              isSelected = true;
-                            });
-                          });
-
-
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isSelected == false ? Color(0xff50B5E5) : ColorManager.green,
-                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        child: Text(
-                          isSelected == false ? 'Fill Info' : "Done",
-                          style:BlueButtonTextConst.customTextStyle(context)
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
+                  SizedBox(height: 50),
+                  DefineFormList(formName: AppStringLegalDocument.candidatereLeaseForm, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
                   Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'W4 2023',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // fill info action
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
-                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        child: Text(
-                          'Fill Info',
-                          style: BlueButtonTextConst.customTextStyle(context)
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.onCall, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
                   Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.confidentialityAgreement, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.covidTestingPolicy, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.policyConcerning, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.reportOfAbuse, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.personalOrientation, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.directDeposit, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.standardOfCodeOfConduct, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.sexualHarassmentPolicy, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.sexualHarassmentPolicyACK, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.preAuthorization, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.prop65, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.returnOfcompanyProperty, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.hepB, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.tDap, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.flu, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.covidVaccine, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.i9, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.w4, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.employeeHandbook, onPressed: () {  }, onPressedView: () {  },),
+                  SizedBox(height: AppSize.s10),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  SizedBox(height: AppSize.s10),
+
                 ],
               ),
             ),

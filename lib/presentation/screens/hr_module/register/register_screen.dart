@@ -449,11 +449,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                         ///
-                          if (await canLaunch(url)) {
-                           await launch(url);
-                           } else {
-                            throw 'Could not launch $url';
-                          }
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                        //   if (await canLaunch(url)) {
+                        //    await launch(url);
+                        //    } else {
+                        //     throw 'Could not launch $url';
+                        //   }
                         },
                         child: Text(
                           data.link!,
