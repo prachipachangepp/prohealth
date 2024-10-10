@@ -363,6 +363,7 @@ class _BankingFormState extends State<BankingForm> {
                               bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
                               style:  HeadingFormStyle.customTextStyle(context),
                             ),
+                            if (widget.index > 1)
                             IconButton(
                               icon:
                                   Icon(Icons.remove_circle, color: Colors.red),
@@ -379,45 +380,7 @@ class _BankingFormState extends State<BankingForm> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Type',
-                                    style: AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                      MediaQuery.of(context).size.height /
-                                          30),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          child: CustomRadioListTile(
-                                        title: 'Checking',
-                                        value: 'Checking',
-                                        groupValue: selectedtype,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedtype = value;
-                                          });
-                                        },
-                                      )),
-                                      Expanded(
-                                        child: CustomRadioListTile(
-                                          title: 'Savings',
-                                          value: 'Savings',
-                                          groupValue: selectedtype,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectedtype = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
+
                                   Text(
                                     'Effective Date',
                                     style: AllPopupHeadings.customTextStyle(context),
@@ -489,6 +452,47 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'Enter Number',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          30),
+
+
+                                  Text(
+                                    'Type',
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          30),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: CustomRadioListTile(
+                                            title: 'Checking',
+                                            value: 'Checking',
+                                            groupValue: selectedtype,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectedtype = value;
+                                              });
+                                            },
+                                          )),
+                                      Expanded(
+                                        child: CustomRadioListTile(
+                                          title: 'Savings',
+                                          value: 'Savings',
+                                          groupValue: selectedtype,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedtype = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -582,7 +586,7 @@ class _BankingFormState extends State<BankingForm> {
                             Expanded(
                               child: Text(
                                 'Upload your Void Check',
-                                style:  DefineWorkWeekStyle.customTextStyle(context),
+                                style:  FileuploadString.customTextStyle(context),
                               ),
                             ),
                             SizedBox(

@@ -397,6 +397,7 @@ class _licensesFormState extends State<licensesForm> {
                 licenseIdIndex == null ? 'Licensure / Certification #${widget.index}' : 'Licensure / Certification #${licenseIdIndex}',
                 style: HeadingFormStyle.customTextStyle(context),
               ),
+              if (widget.index > 1)
               IconButton(
                 icon:
                 Icon(Icons.remove_circle, color: Colors.red),
@@ -594,7 +595,7 @@ class _licensesFormState extends State<licensesForm> {
               Expanded(
                 child: Text(
                   'Upload your licensure / certifications as a docx or pdf',
-                  style:DefineWorkWeekStyle.customTextStyle(context),
+                  style:FileuploadString.customTextStyle(context),
                 ),
               ),
               SizedBox(

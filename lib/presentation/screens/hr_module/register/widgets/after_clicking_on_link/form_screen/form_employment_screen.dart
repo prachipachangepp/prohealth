@@ -324,7 +324,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
               Expanded(
                 child: Text(
                   'Upload your resume as a docx or pdf with a maximum size of 2 mb',
-                  style: DefineWorkWeekStyle.customTextStyle(context),
+                  style: FileuploadString.customTextStyle(context),
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),

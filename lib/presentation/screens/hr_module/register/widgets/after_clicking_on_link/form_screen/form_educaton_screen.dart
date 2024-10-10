@@ -461,7 +461,7 @@ class _EducationFormState extends State<EducationForm> {
                     Expanded(
                       child: Text(
                         'Upload your degree / certifications as a docx or pdf',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
+                        style: FileuploadString.customTextStyle(context),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 20),
@@ -534,7 +534,7 @@ class _EducationFormState extends State<EducationForm> {
             labelText: 'Degree',
             labelStyle: onlyFormDataStyle.customTextStyle(context),
             labelFontSize: 11,
-            items: ['Error'],
+            items: [],
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];

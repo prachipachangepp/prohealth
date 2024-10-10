@@ -204,12 +204,109 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
           SizedBox(height: MediaQuery.of(context).size.height / 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'List Of Documents',
-                style: HeadingFormStyle.customTextStyle(context),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'List Of Documents',
+                  style: HeadingFormStyle.customTextStyle(context),
+                ),
+                CustomButton(
+                  width: 117,
+                  height: 30,
+                  text: 'Save',
+                  style:BlueButtonTextConst.customTextStyle(context),
+                  borderRadius: 12,
+                  onPressed: () async {
+                    if (finalPaths == null || finalPaths.isEmpty) {
+                      // if (finalPath == null || finalPath.isEmpty) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'No File Selected',
+                          );
+                        },
+                      );
+
+                      //    ScaffoldMessenger.of(context).showSnackBar(
+                      //      const SnackBar(
+                      //        content: Text(
+                      //            'No file selected. Please select a file to upload.'),
+                      //        backgroundColor: Colors.red,
+                      //      ),
+                      //    );
+                    } else {
+                      try {
+                        for (int i = 0; i < finalPaths.length; i++) {
+                          if (finalPaths[i] != null) {
+                            await uploadDocuments(
+                              context: context,
+                              employeeDocumentMetaId: 10,
+                              employeeDocumentTypeSetupId: docSetupId[i],
+                              employeeId: widget.employeeID,
+                              documentFile: finalPaths[i]!,
+                              documentName: _fileNames[i],
+                            );
+                          }
+                        }
+
+
+                        ////
+                        // for (int i = 0; i < finalPath.length; i++) {
+                        //   if (finalPath[i] != null) {
+                        //     await uploadDocuments(
+                        //       context: context,
+                        //       employeeDocumentMetaId: 10,
+                        //       employeeDocumentTypeSetupId: 48,
+                        //       employeeId: widget.employeeID,
+                        //       documentFile: finalPath[i]!,
+                        //       documentName: _fileNames[i],
+                        //     );
+                        //   }
+                        // }
+
+
+
+                        ///api
+                        // await uploadDocuments(
+                        //     context: context,
+                        //     employeeDocumentMetaId: 10,
+                        //     employeeDocumentTypeSetupId: 48,
+                        //     employeeId: widget.employeeID,
+                        //     documentFile: finalPath,
+                        //     documentName: 'Legal Document ID');
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Document Uploaded Successfully',
+                            );
+                          },
+                        );
+                      } catch (e) {
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Failed To Upoad Document',
+                            );
+                          },
+                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text('Failed to upload document: $e'),
+                        //     backgroundColor: Colors.red,
+                        //   ),
+                        // );
+                      }
+                    }
+                    ;
+                  },
+                ),
+              ],
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 10),
@@ -372,106 +469,106 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save',
-                style:BlueButtonTextConst.customTextStyle(context),
-                borderRadius: 12,
-                onPressed: () async {
-                 if (finalPaths == null || finalPaths.isEmpty) {
-                 // if (finalPath == null || finalPath.isEmpty) {
-                   showDialog(
-                     context: context,
-                     builder: (BuildContext context) {
-                       return AddSuccessPopup(
-                         message: 'No File Selected',
-                       );
-                     },
-                   );
-
-                 //    ScaffoldMessenger.of(context).showSnackBar(
-                 //      const SnackBar(
-                 //        content: Text(
-                 //            'No file selected. Please select a file to upload.'),
-                 //        backgroundColor: Colors.red,
-                 //      ),
-                 //    );
-                  } else {
-                    try {
-                      for (int i = 0; i < finalPaths.length; i++) {
-                        if (finalPaths[i] != null) {
-                          await uploadDocuments(
-                            context: context,
-                            employeeDocumentMetaId: 10,
-                            employeeDocumentTypeSetupId: docSetupId[i],
-                            employeeId: widget.employeeID,
-                            documentFile: finalPaths[i]!,
-                            documentName: _fileNames[i],
-                          );
-                        }
-                      }
-
-
-                      ////
-                      // for (int i = 0; i < finalPath.length; i++) {
-                      //   if (finalPath[i] != null) {
-                      //     await uploadDocuments(
-                      //       context: context,
-                      //       employeeDocumentMetaId: 10,
-                      //       employeeDocumentTypeSetupId: 48,
-                      //       employeeId: widget.employeeID,
-                      //       documentFile: finalPath[i]!,
-                      //       documentName: _fileNames[i],
-                      //     );
-                      //   }
-                      // }
-
-
-
-                      ///api
-                      // await uploadDocuments(
-                      //     context: context,
-                      //     employeeDocumentMetaId: 10,
-                      //     employeeDocumentTypeSetupId: 48,
-                      //     employeeId: widget.employeeID,
-                      //     documentFile: finalPath,
-                      //     documentName: 'Legal Document ID');
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'Document Uploaded Successfully',
-                          );
-                        },
-                      );
-                    } catch (e) {
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'Failed To Upoad Document',
-                          );
-                        },
-                      );
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   SnackBar(
-                      //     content: Text('Failed to upload document: $e'),
-                      //     backgroundColor: Colors.red,
-                      //   ),
-                      // );
-                    }
-                  }
-                  ;
-                },
-              ),
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     CustomButton(
+          //       width: 117,
+          //       height: 30,
+          //       text: 'Save',
+          //       style:BlueButtonTextConst.customTextStyle(context),
+          //       borderRadius: 12,
+          //       onPressed: () async {
+          //        if (finalPaths == null || finalPaths.isEmpty) {
+          //        // if (finalPath == null || finalPath.isEmpty) {
+          //          showDialog(
+          //            context: context,
+          //            builder: (BuildContext context) {
+          //              return AddSuccessPopup(
+          //                message: 'No File Selected',
+          //              );
+          //            },
+          //          );
+          //
+          //        //    ScaffoldMessenger.of(context).showSnackBar(
+          //        //      const SnackBar(
+          //        //        content: Text(
+          //        //            'No file selected. Please select a file to upload.'),
+          //        //        backgroundColor: Colors.red,
+          //        //      ),
+          //        //    );
+          //         } else {
+          //           try {
+          //             for (int i = 0; i < finalPaths.length; i++) {
+          //               if (finalPaths[i] != null) {
+          //                 await uploadDocuments(
+          //                   context: context,
+          //                   employeeDocumentMetaId: 10,
+          //                   employeeDocumentTypeSetupId: docSetupId[i],
+          //                   employeeId: widget.employeeID,
+          //                   documentFile: finalPaths[i]!,
+          //                   documentName: _fileNames[i],
+          //                 );
+          //               }
+          //             }
+          //
+          //
+          //             ////
+          //             // for (int i = 0; i < finalPath.length; i++) {
+          //             //   if (finalPath[i] != null) {
+          //             //     await uploadDocuments(
+          //             //       context: context,
+          //             //       employeeDocumentMetaId: 10,
+          //             //       employeeDocumentTypeSetupId: 48,
+          //             //       employeeId: widget.employeeID,
+          //             //       documentFile: finalPath[i]!,
+          //             //       documentName: _fileNames[i],
+          //             //     );
+          //             //   }
+          //             // }
+          //
+          //
+          //
+          //             ///api
+          //             // await uploadDocuments(
+          //             //     context: context,
+          //             //     employeeDocumentMetaId: 10,
+          //             //     employeeDocumentTypeSetupId: 48,
+          //             //     employeeId: widget.employeeID,
+          //             //     documentFile: finalPath,
+          //             //     documentName: 'Legal Document ID');
+          //
+          //             showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return AddSuccessPopup(
+          //                   message: 'Document Uploaded Successfully',
+          //                 );
+          //               },
+          //             );
+          //           } catch (e) {
+          //
+          //             showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return AddSuccessPopup(
+          //                   message: 'Failed To Upoad Document',
+          //                 );
+          //               },
+          //             );
+          //             // ScaffoldMessenger.of(context).showSnackBar(
+          //             //   SnackBar(
+          //             //     content: Text('Failed to upload document: $e'),
+          //             //     backgroundColor: Colors.red,
+          //             //   ),
+          //             // );
+          //           }
+          //         }
+          //         ;
+          //       },
+          //     ),
+          //   ],
+          // )
         ],
       ),
     );
