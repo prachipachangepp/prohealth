@@ -177,32 +177,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
-                                    child: Container(
-                                      height: 30,
-                                      width: 125,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: Color(0xFF50B5E5),
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.arrow_back,
-                                              color: Color(0xFF50B5E5),
-                                              size: 16,
-                                            ),
-                                            SizedBox(width: 3),
-                                            Text(
-                                              'Back',
-                                              style: TransparentButtonTextConst.customTextStyle(context),
-                                            ),
-                                          ],
-                                        ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        color: ColorManager.black,
+                                        size: 20,
                                       ),
                                     ),
                                     onTap: details.onStepCancel,
@@ -211,18 +190,36 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  height: 30,
-                                  width: 140,
-                                  child: CustomIconButton(
-                                    icon: Icons.arrow_forward_rounded,
-                                    text: isLastStep ? 'Submit' : 'Continue',
-                                    onPressed: () async{
-                                      //details.onStepContinue!();
-                                      isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
-                                    },
+
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.arrow_forward,
+                                      color: ColorManager.bluelight,
+                                      size: 20,
+                                    ),
                                   ),
+                                  onTap:()async{
+                                    isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
+                                  }
                                 ),
+
+
+
+                                // Container(
+                                //   height: 30,
+                                //   width: 140,
+                                //   child: CustomIconButton(
+                                //     icon: Icons.arrow_forward_rounded,
+                                //     text: isLastStep ? 'Submit' : 'Continue',
+                                //     onPressed: () async{
+                                //       //details.onStepContinue!();
+                                //       isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
+                                //     },
+                                //   ),
+                                // ),
                                 SizedBox(
                                   width: 20,
                                 ),
