@@ -395,7 +395,7 @@ class _licensesFormState extends State<licensesForm> {
             children: [
               Text(
                 licenseIdIndex == null ? 'Licensure / Certification #${widget.index}' : 'Licensure / Certification #${licenseIdIndex}',
-                style: DefineWorkWeekStyle.customTextStyle(context),
+                style: HeadingFormStyle.customTextStyle(context),
               ),
               IconButton(
                 icon:

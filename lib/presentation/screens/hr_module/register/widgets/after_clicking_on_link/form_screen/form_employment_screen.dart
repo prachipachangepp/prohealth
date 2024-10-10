@@ -328,27 +328,30 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: _handleFileUpload,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff50B5E5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                StatefulBuilder(
+                  builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: _handleFileUpload,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff50B5E5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        icon: Icon(Icons.upload, color: Colors.white),
+                        label: Text(
+                          'Upload File',
+                          style: BlueButtonTextConst.customTextStyle(context),
                         ),
                       ),
-                      icon: Icon(Icons.upload, color: Colors.white),
-                      label: Text(
-                        'Upload File',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      ),
-                    ),
-                    SizedBox(height:8),
-                    if (fileName != null)
-                      AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
-                  ],
+                      SizedBox(height:8),
+                      if (fileName != null)
+                        AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
+                    ],
+                  ); },
+
                 ),
             ],
           ),
@@ -358,7 +361,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
             children: [
               Text(
                 employementIndex == null ? 'Employment #${widget.index}' :'Employment #${employementIndex}',
-                style:  DefineWorkWeekStyle.customTextStyle(context),
+                style:  HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
                 IconButton(
@@ -388,6 +391,19 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                      // width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Employer',
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: employerController,
+                      hintText: 'Enter Text',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32.0,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -477,19 +493,6 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           style: onlyFormDataStyle.customTextStyle(context),
                         ),
                       ],
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      'Employer',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(height: 8),
-                    CustomTextFieldRegister(
-                      controller: employerController,
-                      hintText: 'Enter Text',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
-                      height: 32.0,
-                      // width: MediaQuery.of(context).size.width / 5,
                     ),
 
                   ],

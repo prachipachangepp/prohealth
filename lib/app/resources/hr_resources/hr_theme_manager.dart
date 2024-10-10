@@ -67,4 +67,15 @@ class onlyFormINineDataStyle {
 
 
 
+///  Employment #1
+class HeadingFormStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s16,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 ///

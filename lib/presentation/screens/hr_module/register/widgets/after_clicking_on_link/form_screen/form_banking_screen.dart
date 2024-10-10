@@ -361,7 +361,7 @@ class _BankingFormState extends State<BankingForm> {
                           children: [
                             Text(
                               bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
-                              style:  DefineWorkWeekStyle.customTextStyle(context),
+                              style:  HeadingFormStyle.customTextStyle(context),
                             ),
                             IconButton(
                               icon:

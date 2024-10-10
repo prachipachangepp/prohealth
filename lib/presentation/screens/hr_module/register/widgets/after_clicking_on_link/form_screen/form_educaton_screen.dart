@@ -320,7 +320,7 @@ class _EducationFormState extends State<EducationForm> {
                   children: [
                     Text(
                       educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
+                      style: HeadingFormStyle.customTextStyle(context),
                     ),
                     if (widget.index > 1)
                     IconButton(

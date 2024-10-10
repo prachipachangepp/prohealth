@@ -173,25 +173,177 @@ class _generalFormState extends State<generalForm> {
           const SizedBox(
             height: AppSize.s5,
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 3,
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFE6F7FF),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-                style:DefineWorkWeekStyle.customTextStyle(context),
-              ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(width: 30,)
+                  ],
+                ),
+                SizedBox(width: 30,),
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE6F7FF),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
+                    style:DefineWorkWeekStyle.customTextStyle(context),
+                  ),
+                ),
+              ],
             ),
-          ]),
+                Padding(
+                  padding: const EdgeInsets.only(right: 40),
+                  child: Column(
+                    children: [
+                      CustomButton(
+                        width: 117,
+                        height: 30,
+                        text: 'Save',
+                        style: BlueButtonTextConst.customTextStyle(context),
+                        borderRadius: 12,
+                        onPressed: () async {
+                          // Get the company and user IDs
+                          final companyId = await TokenManager.getCompanyId();
+                          final userId = await TokenManager.getUserID();
+
+                          print("Company ID: $companyId");
+                          print("User ID: $userId");
+
+                          // Print the data being sent
+                          print("Sending data:");
+                          print("Employee ID: ${widget.employeeID}");
+                          print("Code: EMP-C10-U48");
+                          print("User ID: $userId");
+                          print("First Name: ${firstname.text}");
+                          print("Last Name: ${lastname.text}");
+                          print("Speciality: ${_selectedSpeciality.toString()}");
+                          print("File: ${filePath}");
+                          print("SSN: ${ssecuritynumber.text}");
+                          print("Phone Number: ${phonenumber.text}");
+                          print("Personal Email: ${personalemail.text}");
+                          print("Address: ${address.text}");
+                          print("Date of Birth: ${dobcontroller.text}");
+                          print("Gender: ${gendertype.toString()}");
+                          print("Driver License Number: ${driverlicensenumb.text}");
+                          print("Position: position");
+                          print("Clinician: ${_selectedClinician.toString()}");
+                          print("Race: ${racetype.toString()}");
+
+                          // Call the update function
+                          var response = await updateOnlinkGeneralPatch(
+                            context,
+                            generalId!,
+                            '',
+                            userId,
+                            firstname.text,
+                            lastname.text,
+                            1,
+                            1,
+                            _selectedSpeciality.toString(),
+                            1,
+                            1,
+                            1,
+                            1,
+                            ssecuritynumber.text,
+                            phonenumber.text,
+                            '1234',
+                            '1234',
+                            'Robert Tech Services',
+                            personalemail.text,
+                            personalemail.text,
+                            address.text,
+                            dobcontroller.text,
+                            '1234',
+                            'covreage',
+                            'employment',
+                            gendertype.toString(),
+                            'Partial',
+                            'service',
+                            'imgurl',
+                            'resumeurl',
+                            companyId,
+                            'Active',
+                            driverlicensenumb.text,
+                            dobcontroller.text,//'2024-01-01',
+                            dobcontroller.text,//'2024-01-01',
+                            dobcontroller.text,// '2024-01-01',
+                            'rehirable',
+                            'position',
+                            address.text,
+                            _selectedClinician.toString(),
+                            'reason',
+                            1,
+                            dobcontroller.text,//'2024-01-01',
+                            1,
+                            1,
+                            'methods',
+                            'materials',
+                            racetype.toString(),
+                            'rating',
+                            signatureUrl!,
+                          );
+                          var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
+                          print("Response Status Code: ${response.statusCode}");
+                          print("Response Body: ${response.data}");
+
+                          if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
+                            // );
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'User Data Updated',
+                                );
+                              },
+                            );
+                            _initializeFormWithPrefilledData();
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Failed To Update User Data',
+                                );
+                              },
+                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(content: Text("Failed to update user data")),
+                            // );
+                          }
+
+                          // Clear fields after saving
+                          firstname.clear();
+                          lastname.clear();
+                          ssecuritynumber.clear();
+                          phonenumber.clear();
+                          personalemail.clear();
+                          driverlicensenumb.clear();
+                          address.clear();
+                          dobcontroller.clear();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                // SizedBox(width: 1,),
+
+
+          ],
+          ),
           const SizedBox(
             height: AppSize.s13,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 140, right: 140, top: 20),
+            padding: const EdgeInsets.only(left: 140, right: 140, top: 50),
             child:
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -201,90 +353,102 @@ class _generalFormState extends State<generalForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: AppSize.s5,
-                      ),
+
                       Text(
                           "Upload Photo",
-                          style: BlueButtonTextConst.customTextStyle(context)
+                          style: AllPopupHeadings.customTextStyle(context)
                       ),
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 60),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                      StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
+                        return  Container(
+                        child: Column(
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff50B5E5),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              onPressed: () async {
+                                // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                //   allowMultiple: false,
+                                // );
+                                FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
+
+                                if (result != null) {
+                                  print("Result::: ${result}");
+
+                                  try {
+                                    Uint8List? bytes = result.files.first.bytes;
+                                    XFile xlfile =
+                                    XFile(result.xFiles.first.path);
+                                    xfileToFile = File(xlfile.path);
+
+                                    print(
+                                        "::::XFile To File ${xfileToFile.toString()}");
+                                    XFile xFile = await convertBytesToXFile(
+                                        bytes!, result.xFiles.first.name);
+                                    // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                                    // html.File file = webFile.file;
+                                    //  print("XFILE ${xFile.path}");
+                                    //  //filePath = xfileToFile as XFile?;
+                                    //  print("L::::::${filePath}");
+                                    // _fileNames.addAll(
+                                    //     result.files.map((file) => file.name!));
+                                    print('File picked: ${fileName}');
+                                    //print(String.fromCharCodes(file));
+                                    fileName = result.files.first.name;
+                                    finalPath = result.files.first.bytes;
+                                    setState(() {
+                                      _fileNames;
+                                      _documentUploaded = true;
+                                    });
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                }
+                              }, //_pickFiles,
+
+                              label: Text(
+                                "Choose File",
+                                style:BlueButtonTextConst.customTextStyle(context),
+                              ),
+                              icon: const Icon(Icons.file_upload_outlined),
+                            ),
+                            _loading
+                                ? SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: CircularProgressIndicator(
+                                color: ColorManager
+                                    .blueprime, // Loader color
+                                // Loader size
+                              ),
+                            )
+                                : fileName != null
+                                ? Padding(
+                              padding:
+                              const EdgeInsets.all(8.0),
+                              child: Text(
+                                  'File picked: $fileName',
+                                  style: onlyFormDataStyle.customTextStyle(context)
+                              ),
+                            )
+                                :  SizedBox(height: 40,width: 10,),
+                          ],
                         ),
-                        onPressed: () async {
-                          // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          //   allowMultiple: false,
-                          // );
-                          FilePickerResult? result =
-                          await FilePicker.platform.pickFiles();
-                          if (result != null) {
-                            print("Result::: ${result}");
 
-                            try {
-                              Uint8List? bytes = result.files.first.bytes;
-                              XFile xlfile =
-                              XFile(result.xFiles.first.path);
-                              xfileToFile = File(xlfile.path);
+                      );
 
-                              print(
-                                  "::::XFile To File ${xfileToFile.toString()}");
-                              XFile xFile = await convertBytesToXFile(
-                                  bytes!, result.xFiles.first.name);
-                              // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                              // html.File file = webFile.file;
-                              //  print("XFILE ${xFile.path}");
-                              //  //filePath = xfileToFile as XFile?;
-                              //  print("L::::::${filePath}");
-                              // _fileNames.addAll(
-                              //     result.files.map((file) => file.name!));
-                              print('File picked: ${fileName}');
-                              //print(String.fromCharCodes(file));
-                              fileName = result.files.first.name;
-                              finalPath = result.files.first.bytes;
-                              setState(() {
-                                _fileNames;
-                                _documentUploaded = true;
-                              });
-                            } catch (e) {
-                              print(e);
-                            }
-                          }
-                        }, //_pickFiles,
+                        },
 
-                        label: Text(
-                          "Choose File",
-                          style:BlueButtonTextConst.customTextStyle(context),
-                        ),
-                        icon: const Icon(Icons.file_upload_outlined),
                       ),
-                      _loading
-                          ? SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager
-                              .blueprime, // Loader color
-                          // Loader size
-                        ),
-                      )
-                          : fileName != null
-                          ? Padding(
-                        padding:
-                        const EdgeInsets.all(8.0),
-                        child: Text(
-                            'File picked: $fileName',
-                            style: onlyFormDataStyle.customTextStyle(context)
-                        ),
-                      )
-                          :  SizedBox(height: 40,width: 10,), // Display file names if picked
+                      // Display file names if picked
 
                       SizedBox(
                           height:
@@ -448,7 +612,7 @@ class _generalFormState extends State<generalForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 15,),
+                    //SizedBox(height: 5,),
                       Text(
                         "Gender",
                         style: AllPopupHeadings.customTextStyle(context),
@@ -555,123 +719,10 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
+
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 60),
-                      Text(
-                        "Race",
-                        style: AllPopupHeadings.customTextStyle(context),
-                      ),
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return  Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                CustomRadioListTile(
-                                  title: 'Asian',
-                                  value: 'Asian',
-                                  groupValue: racetype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      racetype = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            // const SizedBox(
-                            //   width: 3,
-                            // ),
-
-                            Column(
-                              children: [
-                                CustomRadioListTile(
-                                  title: 'White',
-                                  value: 'White',
-                                  groupValue: racetype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      racetype = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            // const SizedBox(
-                            //   width: 5,
-                            // ),
-                          ],
-                        ); },
-
-                      ),
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                CustomRadioListTile(
-                                  title: 'Black or African American',
-                                  value: 'Black or African American',
-                                  groupValue: racetype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      racetype = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-
-                            Column(
-                              children: [
-                                CustomRadioListTile(
-                                  title: 'Other',
-                                  value: 'Other',
-                                  groupValue: racetype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      racetype = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            // const SizedBox(
-                            //   width: 3,
-                            // ),
-                          ],
-                        ); },
-
-                      ),
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomRadioListTile(
-                              title: 'Hispanic or Latino',
-                              value: 'Hispanic or Latino',
-                              groupValue: racetype,
-                              onChanged: (value) {
-                                setState(() {
-                                  racetype = value;
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                          ],
-                        ); },
-
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 8),
+                          MediaQuery.of(context).size.height / 30),
                       Text(
                         'Type of Clinician',
                         style: AllPopupHeadings.customTextStyle(context),
@@ -769,8 +820,8 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
 
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return FutureBuilder<List<AEClinicalDiscipline>>(
+
+                          FutureBuilder<List<AEClinicalDiscipline>>(
                           future:
                           HrAddEmplyClinicalDisciplinApi(context, 1),
                           builder: (context, snapshot) {
@@ -847,149 +898,263 @@ class _generalFormState extends State<generalForm> {
                               return const Offstage();
                             }
                           },
+                        ),
+
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
+                      Text(
+                        "Race",
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {  return Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'Asian',
+                                        value: 'Asian',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // const SizedBox(
+                                  //   width: 3,
+                                  // ),
+
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'White',
+                                        value: 'White',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // const SizedBox(
+                                  //   width: 5,
+                                  // ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'Black or African American',
+                                        value: 'Black or African American',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+
+                                  Column(
+                                    children: [
+                                      CustomRadioListTile(
+                                        title: 'Other',
+                                        value: 'Other',
+                                        groupValue: racetype,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            racetype = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // const SizedBox(
+                                  //   width: 3,
+                                  // ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomRadioListTile(
+                                    title: 'Hispanic or Latino',
+                                    value: 'Hispanic or Latino',
+                                    groupValue: racetype,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        racetype = value;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const SizedBox(
+                                    width: 3,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ); },
 
                       ),
+
                     ],
                   ),
                 ),
               ],
             ),),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save',
-                style: BlueButtonTextConst.customTextStyle(context),
-                borderRadius: 12,
-                onPressed: () async {
-                  // Get the company and user IDs
-                  final companyId = await TokenManager.getCompanyId();
-                  final userId = await TokenManager.getUserID();
-
-                  print("Company ID: $companyId");
-                  print("User ID: $userId");
-
-                  // Print the data being sent
-                  print("Sending data:");
-                  print("Employee ID: ${widget.employeeID}");
-                  print("Code: EMP-C10-U48");
-                  print("User ID: $userId");
-                  print("First Name: ${firstname.text}");
-                  print("Last Name: ${lastname.text}");
-                  print("Speciality: ${_selectedSpeciality.toString()}");
-                  print("File: ${filePath}");
-                  print("SSN: ${ssecuritynumber.text}");
-                  print("Phone Number: ${phonenumber.text}");
-                  print("Personal Email: ${personalemail.text}");
-                  print("Address: ${address.text}");
-                  print("Date of Birth: ${dobcontroller.text}");
-                  print("Gender: ${gendertype.toString()}");
-                  print("Driver License Number: ${driverlicensenumb.text}");
-                  print("Position: position");
-                  print("Clinician: ${_selectedClinician.toString()}");
-                  print("Race: ${racetype.toString()}");
-
-                  // Call the update function
-                  var response = await updateOnlinkGeneralPatch(
-                    context,
-                    generalId!,
-                    '',
-                    userId,
-                    firstname.text,
-                    lastname.text,
-                    1,
-                    1,
-                    _selectedSpeciality.toString(),
-                    1,
-                    1,
-                    1,
-                    1,
-                    ssecuritynumber.text,
-                    phonenumber.text,
-                    '1234',
-                    '1234',
-                    'Robert Tech Services',
-                    personalemail.text,
-                    personalemail.text,
-                    address.text,
-                    dobcontroller.text,
-                    '1234',
-                    'covreage',
-                    'employment',
-                    gendertype.toString(),
-                    'Partial',
-                    'service',
-                    'imgurl',
-                    'resumeurl',
-                    companyId,
-                    'Active',
-                    driverlicensenumb.text,
-                    dobcontroller.text,//'2024-01-01',
-                    dobcontroller.text,//'2024-01-01',
-                    dobcontroller.text,// '2024-01-01',
-                    'rehirable',
-                    'position',
-                    address.text,
-                    _selectedClinician.toString(),
-                    'reason',
-                    1,
-                    dobcontroller.text,//'2024-01-01',
-                    1,
-                    1,
-                    'methods',
-                    'materials',
-                    racetype.toString(),
-                    'rating',
-                    signatureUrl!,
-                  );
-                  var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
-                  print("Response Status Code: ${response.statusCode}");
-                  print("Response Body: ${response.data}");
-
-                  if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
-                    // );
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'User Data Updated',
-                        );
-                      },
-                    );
-                    _initializeFormWithPrefilledData();
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Failed To Update User Data',
-                        );
-                      },
-                    );
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text("Failed to update user data")),
-                    // );
-                  }
-
-                  // Clear fields after saving
-                  firstname.clear();
-                  lastname.clear();
-                  ssecuritynumber.clear();
-                  phonenumber.clear();
-                  personalemail.clear();
-                  driverlicensenumb.clear();
-                  address.clear();
-                  dobcontroller.clear();
-                },
-              ),
-            ],
-          ),
+          // SizedBox(height: MediaQuery.of(context).size.height / 20),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     CustomButton(
+          //       width: 117,
+          //       height: 30,
+          //       text: 'Save',
+          //       style: BlueButtonTextConst.customTextStyle(context),
+          //       borderRadius: 12,
+          //       onPressed: () async {
+          //         // Get the company and user IDs
+          //         final companyId = await TokenManager.getCompanyId();
+          //         final userId = await TokenManager.getUserID();
+          //
+          //         print("Company ID: $companyId");
+          //         print("User ID: $userId");
+          //
+          //         // Print the data being sent
+          //         print("Sending data:");
+          //         print("Employee ID: ${widget.employeeID}");
+          //         print("Code: EMP-C10-U48");
+          //         print("User ID: $userId");
+          //         print("First Name: ${firstname.text}");
+          //         print("Last Name: ${lastname.text}");
+          //         print("Speciality: ${_selectedSpeciality.toString()}");
+          //         print("File: ${filePath}");
+          //         print("SSN: ${ssecuritynumber.text}");
+          //         print("Phone Number: ${phonenumber.text}");
+          //         print("Personal Email: ${personalemail.text}");
+          //         print("Address: ${address.text}");
+          //         print("Date of Birth: ${dobcontroller.text}");
+          //         print("Gender: ${gendertype.toString()}");
+          //         print("Driver License Number: ${driverlicensenumb.text}");
+          //         print("Position: position");
+          //         print("Clinician: ${_selectedClinician.toString()}");
+          //         print("Race: ${racetype.toString()}");
+          //
+          //         // Call the update function
+          //         var response = await updateOnlinkGeneralPatch(
+          //           context,
+          //           generalId!,
+          //           '',
+          //           userId,
+          //           firstname.text,
+          //           lastname.text,
+          //           1,
+          //           1,
+          //           _selectedSpeciality.toString(),
+          //           1,
+          //           1,
+          //           1,
+          //           1,
+          //           ssecuritynumber.text,
+          //           phonenumber.text,
+          //           '1234',
+          //           '1234',
+          //           'Robert Tech Services',
+          //           personalemail.text,
+          //           personalemail.text,
+          //           address.text,
+          //           dobcontroller.text,
+          //           '1234',
+          //           'covreage',
+          //           'employment',
+          //           gendertype.toString(),
+          //           'Partial',
+          //           'service',
+          //           'imgurl',
+          //           'resumeurl',
+          //           companyId,
+          //           'Active',
+          //           driverlicensenumb.text,
+          //           dobcontroller.text,//'2024-01-01',
+          //           dobcontroller.text,//'2024-01-01',
+          //           dobcontroller.text,// '2024-01-01',
+          //           'rehirable',
+          //           'position',
+          //           address.text,
+          //           _selectedClinician.toString(),
+          //           'reason',
+          //           1,
+          //           dobcontroller.text,//'2024-01-01',
+          //           1,
+          //           1,
+          //           'methods',
+          //           'materials',
+          //           racetype.toString(),
+          //           'rating',
+          //           signatureUrl!,
+          //         );
+          //         var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
+          //         print("Response Status Code: ${response.statusCode}");
+          //         print("Response Body: ${response.data}");
+          //
+          //         if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
+          //           // ScaffoldMessenger.of(context).showSnackBar(
+          //           //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
+          //           // );
+          //           showDialog(
+          //             context: context,
+          //             builder: (BuildContext context) {
+          //               return AddSuccessPopup(
+          //                 message: 'User Data Updated',
+          //               );
+          //             },
+          //           );
+          //           _initializeFormWithPrefilledData();
+          //         } else {
+          //           showDialog(
+          //             context: context,
+          //             builder: (BuildContext context) {
+          //               return AddSuccessPopup(
+          //                 message: 'Failed To Update User Data',
+          //               );
+          //             },
+          //           );
+          //           // ScaffoldMessenger.of(context).showSnackBar(
+          //           //   SnackBar(content: Text("Failed to update user data")),
+          //           // );
+          //         }
+          //
+          //         // Clear fields after saving
+          //         firstname.clear();
+          //         lastname.clear();
+          //         ssecuritynumber.clear();
+          //         phonenumber.clear();
+          //         personalemail.clear();
+          //         driverlicensenumb.clear();
+          //         address.clear();
+          //         dobcontroller.clear();
+          //       },
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

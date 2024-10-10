@@ -290,7 +290,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                           children: [
                             Text(
                               referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
-                              style:  DefineWorkWeekStyle.customTextStyle(context),
+                              style:  HeadingFormStyle.customTextStyle(context),
                             ),
                             IconButton(
                               icon:

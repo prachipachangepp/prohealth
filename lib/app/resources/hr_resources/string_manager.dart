@@ -22,13 +22,13 @@ class AppStringHr{
   ///manage banking
   static String bankone = "Bank #1";
   static String bank2 = "Bank #2";
-  static String type = "Type: ";
+  static String type = "Type : ";
   static String checking = "Checking";
-  static String effectiveDate = "Effective Date: ";
-  static String routingNo = "Routing/Transit No.: ";
-  static String bankName = "Bank Name: ";
-  static String accNo = "Account No.: ";
-  static String requestPercent = "Requested Percentage: ";
+  static String effectiveDate = "Effective Date : ";
+  static String routingNo = "Routing/Transit No. : ";
+  static String bankName = "Bank Name : ";
+  static String accNo = "Account No. : ";
+  static String requestPercent = "Requested Percentage : ";
   static String voidcheck = "Void Check";
   static String print = "Print";
   static String download = "Download";

@@ -208,7 +208,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 'List Of Documents',
-                style: DefineWorkWeekStyle.customTextStyle(context),
+                style: HeadingFormStyle.customTextStyle(context),
               ),
             ),
           ),
