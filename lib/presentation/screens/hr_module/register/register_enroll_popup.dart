@@ -42,13 +42,14 @@ class RegisterEnrollPopup extends StatefulWidget {
   //final int empId;
 
   // final TextEditingController position;
+  final VoidCallback onReferesh;
   final VoidCallback onPressed;
   RegisterEnrollPopup({super.key,
     required this.firstName, required this.lastName,
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline, required Null Function() onReferesh,
+    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline, required this.onReferesh,
     //required this.empId,
   });
 
@@ -214,16 +215,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       _firstnameError = _validateTextField(widget.firstName.text, 'Please Enter First Name');
       _lastnameError = _validateTextField(widget.lastName.text, 'Please Enter Last Name');
       _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
-
-
-
     });
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -353,7 +346,65 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppPadding.p10,
                           ),
                           ///zone
-                          buildZoneDropdownButton(context),
+                          FutureBuilder<List<AEClinicalZone>>(
+                            future: HrAddEmplyClinicalZoneApi(context),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return  CustomDropdownTextField(
+                                  headText: 'Zone',
+                                  width: textFieldWidth,
+                                  height: textFieldHeight,
+                                  items: [],
+                                );
+                              } else if (snapshot.hasError) {
+                                return const CustomDropdownTextField(
+                                  headText: 'Zone',
+                                  //width: MediaQuery.of(context).size.width / 5,
+                                  items: ['Error'],
+                                );
+                              } else if (snapshot.hasData) {
+                                List<DropdownMenuItem<String>> dropDownList = [];
+                                int degreeID = 0;
+                                for(var i in snapshot.data!){
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    value: i.zoneName!,
+                                  ));
+                                }
+                                return StatefulBuilder(
+                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                    return  CustomDropdownTextField(
+                                      headText: 'Zone',
+                                      dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          for(var a in snapshot.data!){
+                                            if(a.zoneName == newValue){
+                                              selectedZone= a.zoneName;
+                                              zoneId = a.zoneID!;
+                                              countyId = a.countyID!;
+                                              print("Selected zoin id :: ${zoneId}");
+                                              print("Zone :: ${selectedZone}");
+                                              print("county Id :: ${countyId}");
+                                              //empTypeId = docType;
+                                            }
+                                          }
+                                        });
+
+                                      },
+                                    );
+                                  },
+                                );
+                              } else {
+                                return CustomDropdownTextField(
+                                  headText: 'Zone',
+                                  // width: MediaQuery.of(context).size.width / 5,
+                                  items: ['No Data'],
+                                );
+                              }
+                            },
+                          ),
 
                         ],
                       ),
@@ -476,7 +527,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           ///reporting office
-
                          FutureBuilder<List<CompanyOfficeListData>>(
                                 future: getCompanyOfficeList(context),
                                 builder: (context, snapshot) {
@@ -520,7 +570,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           ///country
                           buildDropdownButton(context),
                           SizedBox(
-                            height: AppSize.s50,
+                            height: AppSize.s77,
                           ),
                         ],
                       ),
@@ -654,7 +704,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             setState(() {
                               _isLoading = false;
                             });
-
+                            widget.onReferesh();
                             if (result.success) {
                               Navigator.pop(
                                   context);

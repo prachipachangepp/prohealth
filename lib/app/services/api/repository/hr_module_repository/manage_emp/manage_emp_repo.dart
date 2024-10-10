@@ -78,6 +78,9 @@ class ManageReposotory{
   static String getEmployeeLicenses({required int employeeid,required String approveOnly}){
     return "$employee_licenses/ByemployeeId/$employeeid/$approveOnly";
   }
+  static String getEmployeePreFillLicenses({required int licensesId,}){
+    return "$employee_licenses/$licensesId";
+  }
   static String getselectDocuments(){
     return "$selectDocuments";
   }

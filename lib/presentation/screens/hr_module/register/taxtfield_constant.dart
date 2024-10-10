@@ -415,7 +415,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           focusNode: focusNode,
           onFieldSubmitted: onFieldSubmitted,
           inputFormatters: capitalIsSelect ? [
-            CapitalizeFirstLetterFormatter()
+            //CapitalizeFirstLetterFormatter()
           ]:phoneNumberField! ? [PhoneNumberInputFormatter()] : [],
 
         ),
@@ -638,7 +638,7 @@ class _FirstHRTextFConstState extends State<FirstHRTextFConst> {
                 onTap: widget.onChange,
                 inputFormatters: widget.inputFormated == null
                     ? [
-                  CapitalizeFirstLetterFormatter(),
+                  //CapitalizeFirstLetterFormatter(),
                 ]
                     : widget.inputFormated
             ),

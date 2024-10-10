@@ -33,9 +33,9 @@ class _DefineFormListState extends State<DefineFormList> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: IconButtonWidget(
-                width: AppSize.s110,
+                width: AppSize.s120,
                 iconData1: Icons.remove_red_eye_outlined,
-                buttonText: AppStringHr.voidcheck,
+                buttonText: AppStringHr.viewDoc,
                 onPressed: widget.onPressedView,
               ),
             ),

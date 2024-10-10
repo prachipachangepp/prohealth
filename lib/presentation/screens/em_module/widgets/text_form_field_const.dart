@@ -453,7 +453,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
 
                 inputFormatters: widget.inputFormated == null
                     ? [
-                        CapitalizeFirstLetterFormatter(),
+                        //CapitalizeFirstLetterFormatter(),
                       ]
                     : widget.inputFormated
             ),

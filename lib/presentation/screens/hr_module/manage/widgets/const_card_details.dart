@@ -50,7 +50,8 @@ class DetailsFormate extends StatefulWidget {
   final List<Widget> row2Child2;
   String? title;
   final Widget button;
-   DetailsFormate({super.key, this.title,required this.row1Child1, required this.row1Child2, required this.row2Child1, required this.row2Child2, required this.button});
+  final Widget? titleRow;
+   DetailsFormate({super.key, this.titleRow,this.title,required this.row1Child1, required this.row1Child2, required this.row2Child1, required this.row2Child2, required this.button});
 
   @override
   State<DetailsFormate> createState() => _DetailsFormateState();
@@ -63,10 +64,11 @@ class _DetailsFormateState extends State<DetailsFormate> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        widget.titleRow == null ?
         Text(
             widget.title!,
             // 'Employment #${snapshot.data![index].employmentId}',
-            style: BoxHeadingStyle.customTextStyle(context)),
+            style: BoxHeadingStyle.customTextStyle(context)) : widget.titleRow!,
        SizedBox(height: AppSize.s10,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
