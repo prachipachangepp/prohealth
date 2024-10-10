@@ -453,7 +453,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return ProfilePatientPopUp(
-
                                           officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
                                             future: getCompanyOfficeList(context),
                                             builder: (context, snapshot) {
@@ -463,11 +462,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Office'],
                                                   labelText: '',
                                                   value: 'Office',
-                                                  labelStyle: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color(0xff737373),
-                                                  ),
+                                                  labelStyle: SearchDropdownConst.customTextStyle(context),
                                                   onChanged: (value) {
                                                   },
                                                 );
@@ -478,11 +473,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   for(var i in snapshot.data!){
                                                     dropDownList.add(DropdownMenuItem<String>(
                                                       child: Text(i.name,style:
-                                                      TextStyle(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: Color(0xff737373),
-                                                      ), ),
+                                                SearchDropdownConst.customTextStyle(context), ),
                                                       value: i.name,
                                                     ));
                                                   }
@@ -522,7 +513,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                         }
                                                       },
                                                       value: dropDownList[0].value,
-                                                      style: DropdownItemStyle.customTextStyle(context)
+                                                      style:  SearchDropdownConst.customTextStyle(context),
                                                     ),
                                                   );
                                                 }
@@ -540,7 +531,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Full-Time', 'Part-Time'],
                                                   labelText: 'Availability',
                                                   value: 'Full-Time',
-                                                  labelStyle: DropdownItemStyle.customTextStyle(context),
+                                                  labelStyle:  SearchDropdownConst.customTextStyle(context),
                                                   onChanged: (value) {
                                                     setState(() {
                                                       dropdownAvailability = value!;
@@ -567,7 +558,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Expired','About to Expire','Upto date'],
                                                   labelText: 'License Status',
                                                   value: 'Expired',
-                                                  labelStyle:DropdownItemStyle.customTextStyle(context),
+                                                  labelStyle: SearchDropdownConst.customTextStyle(context),
                                                   onChanged: (value) {
                                                     setState(() {
                                                       dropdownLicenseStatus = value!;
@@ -590,11 +581,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   items: ['Zone'],
                                                   labelText: '',
                                                   value: 'Zone',
-                                                  labelStyle: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff737373),
-                                                  ),
+                                                  labelStyle: SearchDropdownConst.customTextStyle(context),
                                                   onChanged: (value) {
                                                   },
                                                 );
@@ -605,11 +592,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                 int zoneId = 0;
                                                 for(var i in snapshot.data!){
                                                   dropDownList.add(DropdownMenuItem<String>(
-                                                    child: Text(i.zoneName, style: TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: Color(0xff737373),
-                                                    ),),
+                                                    child: Text(i.zoneName, style: SearchDropdownConst.customTextStyle(context),),
                                                     value: i.zoneName,
                                                   ));
                                                 }
@@ -657,13 +640,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               } else {
                                                 return CustomDropdownTextField(
                                                   // width: MediaQuery.of(context).size.width / 5,
-                                                  labelText: 'Zone',
-                                                  labelStyle: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    color: const Color(0xff575757),
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                  labelFontSize: 12,
+                                                  headText: 'Zone',
                                                   items: ['No Data'],
                                                 );
                                               }

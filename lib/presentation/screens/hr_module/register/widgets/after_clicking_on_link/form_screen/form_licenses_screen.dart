@@ -662,9 +662,7 @@ class _licensesFormState extends State<licensesForm> {
         } else if (snapshot.hasError) {
           return  CustomDropdownTextField(
             //width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Country',
-            labelStyle: onlyFormDataStyle.customTextStyle(context),
-            labelFontSize: 12,
+            headText: 'Country',
             items: ['Error'],
           );
         } else if (snapshot.hasData) {
@@ -714,9 +712,8 @@ class _licensesFormState extends State<licensesForm> {
         } else {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Country',
-            labelStyle: onlyFormDataStyle.customTextStyle(context),
-            labelFontSize: 11,
+            headText: 'Country',
+
             items: ['No Data'],
           );
         }

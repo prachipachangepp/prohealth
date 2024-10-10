@@ -472,7 +472,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       style: ProfileBarConst.profileTextStyle(context)),
 
                                   Text(
-                                    widget.searchByEmployeeIdProfileData!.employment,
+                                    widget.searchByEmployeeIdProfileData!.expertise,
                                     style: ThemeManagerDark.customTextStyle(context),
                                   ),
                                   Text(
@@ -496,7 +496,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         SizedBox(width: MediaQuery.of(context).size.width/45,),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
