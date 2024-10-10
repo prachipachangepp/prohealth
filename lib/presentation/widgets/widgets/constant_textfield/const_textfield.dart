@@ -143,21 +143,21 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
             padding: const EdgeInsets.all(AppPadding.p5),
             child: DropdownButtonFormField<String>(
               icon:
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+              ),
               value: _selectedValue,
               items: widget.dropDownMenuList == null
                   ? widget.items!.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style:DocumentTypeDataStyle.customTextStyle(context),
-                        ),
-                      );
-                    }).toList()
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style:DocumentTypeDataStyle.customTextStyle(context),
+                  ),
+                );
+              }).toList()
                   : widget.dropDownMenuList,
               onChanged: (newValue) {
                 setState(() {
@@ -313,7 +313,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
         padding: const EdgeInsets.all(AppPadding.p5),
         child: DropdownButtonFormField<String>(
           icon:
-              Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+          Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
           value: _selectedValue,
           items: widget.items.map((String value) {
             return DropdownMenuItem<String>(
@@ -389,7 +389,7 @@ class HRManageTextFieldEmail extends StatefulWidget {
     this.width,
     this.height,
     required this.cursorHeight,
-     this.labelText,
+    this.labelText,
     required this.labelStyle,
     required this.labelFontSize,
     this.suffixIcon,
@@ -508,8 +508,8 @@ class HRManageTextField extends StatefulWidget {
     this.width,
     this.height,
     required this.cursorHeight,
-     this.labelText,
-     this.labelStyle,
+    this.labelText,
+    this.labelStyle,
     required this.labelFontSize,
     this.suffixIcon,
     this.prefixIcon,
@@ -603,7 +603,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
 ///drop down User
 class HRManageDropdown extends StatefulWidget {
   final TextEditingController controller;
-   final String? labelText;
+  final String? labelText;
   final String? hintText;
   final Color textColor;
   final TextStyle? labelStyle;
@@ -617,8 +617,8 @@ class HRManageDropdown extends StatefulWidget {
   HRManageDropdown({
     Key? key,
     required this.controller,
-      this.labelText,
-     this.labelStyle,
+    this.labelText,
+    this.labelStyle,
     required this.labelFontSize,
     required this.items,
     this.errorText,
@@ -673,9 +673,9 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               borderSide: BorderSide(color: Colors.black),
             ),
             hintStyle: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w500,
-              color: ColorManager.mediumgrey
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                color: ColorManager.mediumgrey
             ),
             labelText: widget.labelText,
             hintText: widget.hintText,
@@ -734,35 +734,35 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: DropdownButtonFormField<String>(
-        isDense: true, // Makes the dropdown more compact
-        icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,),
+          isDense: true, // Makes the dropdown more compact
+          icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,),
           // Default dropdown icon
-        iconSize: 15, // Icon size
-        value: widget.controller.text.isEmpty ? null : widget.controller.text,
-        items: widget.items.map((item) {
-          return DropdownMenuItem(
-            value: item,
-            child: Text(
-              item,
-              style: TextStyle(
-                  color: widget.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: FontSize.s12),
-            ),
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            widget.controller.text = value!;
-          });
-          if (widget.onChanged != null) {
-            widget.onChanged!(value!);
-          }
-        },
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.only(bottom: 20),
-          hintStyle:  DocumentTypeDataStyle.customTextStyle(context),)
+          iconSize: 15, // Icon size
+          value: widget.controller.text.isEmpty ? null : widget.controller.text,
+          items: widget.items.map((item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                style: TextStyle(
+                    color: widget.textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: FontSize.s12),
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              widget.controller.text = value!;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(value!);
+            }
+          },
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.only(bottom: 20),
+            hintStyle:  DocumentTypeDataStyle.customTextStyle(context),)
       ),
     );
   }
