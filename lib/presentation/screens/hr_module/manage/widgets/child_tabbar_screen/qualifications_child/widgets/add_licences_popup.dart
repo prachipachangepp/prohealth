@@ -13,6 +13,8 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+
 
 class AddLicencesPopup extends StatefulWidget {
   final TextEditingController LivensureController;
@@ -67,7 +69,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.7,
-        height: MediaQuery.of(context).size.height / 1.7,
+        height: 480,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -271,12 +273,14 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        SizedBox(height: 4,),
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
-          labelText: labelText,
+
           keyboardType: TextInputType.text,
           padding: const EdgeInsets.only(
               bottom: AppPadding.p5, left: AppPadding.p20),
@@ -310,11 +314,13 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        SizedBox(height: 4,),
         CustomTextFieldRegister(
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
-          labelText: labelText,
+
           keyboardType: TextInputType.text,
           suffixIcon: Icon(
             Icons.calendar_month_outlined,

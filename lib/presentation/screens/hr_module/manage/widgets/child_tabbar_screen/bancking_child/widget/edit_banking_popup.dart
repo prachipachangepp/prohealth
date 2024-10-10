@@ -203,11 +203,11 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   Widget _buildFirstColumn() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text(
           'Type',
-          style:
-              TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+          style: AllPopupHeadings.customTextStyle(context),
         ),
         FormField<String>(
           key: _typeFieldKey,
@@ -280,33 +280,22 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             );
           },
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 50),
+         SizedBox(height: MediaQuery.of(context).size.height / 20),
         _buildTextField(
             capitalIsSelect:false,
           controller:widget.routingNumberController, labelText: 'Routing Number/ Transit Number',
           errorText: rnumber?"Please Enter Routing Number" : null, ),
-
-        SizedBox(height: MediaQuery.of(context).size.height / 30),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
         // Text('Requested Amount for this Account (select one)',
         //     style: _labelStyle()),
+
         Row(
-          children: [
-            // Radio(
-            //   value: 'Specific Amount',
-            //   groupValue: 'Specific Amount',
-            //   onChanged: (value) {},
-            // ),
-            Text(
-              'Specific Amount',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)
-            ),
-          ],
-        ),
-        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Expanded(
-              child: _buildTextField(capitalIsSelect:false,
-                  prefixText: '\$', controller: widget.specificAmountController, labelText: '',
+              child: _buildTextField(
+                capitalIsSelect:false,
+                  prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
                 errorText: rnumber?"Please Enter Specific Amount" : null,
               ),
             ),
@@ -374,23 +363,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     }
   }
 
-  // Widget _buildThirdColumn() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       _buildTextField(controller:widget.bankNameController,
-  //           labelText :'Bank Name',
-  //           capitalIsSelect:true,errorText: bankname?"Please Enter Bank Name ":null),
-  //       SizedBox(height: MediaQuery.of(context).size.height / 22),
-  //       _buildTextField(
-  //           capitalIsSelect:false,
-  //         controller:  widget.verifyAccountController,
-  //           labelText: 'Verify Account Number',
-  //         errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _buildTextField({
     required TextEditingController controller,
@@ -404,12 +376,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        SizedBox(height: 4,),
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,
           phoneNumberField: labelText == "Phone", // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,
-          labelText: labelText,
+
           keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
           padding: EdgeInsets.only(bottom: AppPadding.p1, left: 2),
           suffixIcon: suffixIcon,

@@ -75,7 +75,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height:490,
+        height:540,
         width: 900,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -279,8 +279,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
 
   Widget _buildTextField({
     required TextEditingController controller,
-    required String labelText,
+    // required String labelText,
     required String errorKey,
+    required String labelText,
     Widget? suffixIcon,
     required bool capitalIsSelect,
     VoidCallback? onTap,
@@ -289,42 +290,49 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
-          phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber',
-          height: AppSize.s30,
-          width: MediaQuery.of(context).size.width / 6,
-          controller: controller,
-          labelText: labelText,
-          keyboardType: TextInputType.phone, // Ensure it's phone input for number fields
-          padding: const EdgeInsets.only(bottom: AppPadding.p5, left: 10),
-          suffixIcon: suffixIcon,
-          onTap: onTap,
-          onChanged: (value) {
-            setState(() {
-              if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
-                // Validate phone number fields
-                String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-                errorStates[errorKey] = numericValue.length != 10;
-              } else {
-                // Validate other text fields
-                errorStates[errorKey] = value.isEmpty;
-              }
-            });
-          },
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return errorMessage;
-            }
-            if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
-              String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-              if (numericValue.length != 10) {
-                return 'Please enter a valid 10-digit phone number';
-              }
-            }
-            return null;
-          },
+        Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+            SizedBox(height: 4,),
+            CustomTextFieldRegister(
+              capitalIsSelect: capitalIsSelect,
+              phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber',
+              height: AppSize.s30,
+              width: MediaQuery.of(context).size.width / 6,
+              controller: controller,
+              keyboardType: TextInputType.phone, // Ensure it's phone input for number fields
+              padding: const EdgeInsets.only(bottom: AppPadding.p5, left: 10),
+              suffixIcon: suffixIcon,
+              onTap: onTap,
+              onChanged: (value) {
+                setState(() {
+                  if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+                    // Validate phone number fields
+                    String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+                    errorStates[errorKey] = numericValue.length != 10;
+                  } else {
+                    // Validate other text fields
+                    errorStates[errorKey] = value.isEmpty;
+                  }
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return errorMessage;
+                }
+                if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+                  String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+                  if (numericValue.length != 10) {
+                    return 'Please enter a valid 10-digit phone number';
+                  }
+                }
+                return null;
+              },
 
+            ),
+          ],
         ),
         if (errorStates[errorKey] == true)
           Padding(
@@ -369,8 +377,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
         }
       }
     });
-
-    // If there's an error, stop the loading and don't proceed with saving
     if (hasError) {
       setState(() {
         isLoading = false;

@@ -10,6 +10,8 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+
 class AddReferencePopup extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -68,7 +70,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.8 ,
-        height: MediaQuery.of(context).size.height / 1.8,
+        height: 480,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -231,12 +233,14 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        SizedBox(height: 4,),
         CustomTextFieldRegister(
           phoneNumberField:  phoneNumberField,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
-          labelText: labelText,
+
           keyboardType: keyboardType ?? TextInputType.text,
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
           capitalIsSelect: capitalIsSelect, // Pass the parameter here
