@@ -297,7 +297,8 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.confidentialityAgreement, onPressed: () async{
-                    ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, ConfidentialStatementId: 1, employeeId: widget.employeeID);
+                    ConfidentialStatementDocument confidentialStatementDocument =
+                    await getLegalConfidentialStatementDocument(context: context, ConfidentialStatementId: 1, employeeId: widget.employeeID);
                     Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                       documentName: AppStringLegalDocument.onCall,
                       onPressed: () {  },

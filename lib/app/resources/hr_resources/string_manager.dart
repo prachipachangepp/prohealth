@@ -30,7 +30,7 @@ class AppStringHr{
   static String accNo = "Account No.: ";
   static String requestPercent = "Requested Percentage: ";
   static String voidcheck = "Void Check";
-  static String viewDoc = "View Document";
+  static String viewDoc = "View";
   static String print = "Print";
   static String download = "Download";
   ///inventory
