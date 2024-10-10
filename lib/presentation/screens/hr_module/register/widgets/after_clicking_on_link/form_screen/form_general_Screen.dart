@@ -56,6 +56,7 @@ class _generalFormState extends State<generalForm> {
   TextEditingController personalemail = TextEditingController();
   TextEditingController driverlicensenumb = TextEditingController();
   TextEditingController address = TextEditingController();
+  TextEditingController spalicity = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -104,6 +105,7 @@ class _generalFormState extends State<generalForm> {
         personalemail.text = data.personalEmail ?? '';
         driverlicensenumb.text = data.driverLicenceNbr ?? '';
         address.text = data.finalAddress ?? '';
+        spalicity.text = data.expertise ?? '';
         racetype = data.race ?? "";
         //isChecked = data.endDate == null;
         gendertype = data.gender ?? "";
@@ -223,7 +225,7 @@ class _generalFormState extends State<generalForm> {
                           print("User ID: $userId");
                           print("First Name: ${firstname.text}");
                           print("Last Name: ${lastname.text}");
-                          print("Speciality: ${_selectedSpeciality.toString()}");
+                          print("Speciality: ${spalicity.text}");
                           print("File: ${filePath}");
                           print("SSN: ${ssecuritynumber.text}");
                           print("Phone Number: ${phonenumber.text}");
@@ -246,7 +248,7 @@ class _generalFormState extends State<generalForm> {
                             lastname.text,
                             1,
                             1,
-                            _selectedSpeciality.toString(),
+                            spalicity.text,
                             1,
                             1,
                             1,
@@ -611,8 +613,9 @@ class _generalFormState extends State<generalForm> {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
-                    //SizedBox(height: 5,),
+                    // SizedBox(height: 10,),
                       Text(
                         "Gender",
                         style: AllPopupHeadings.customTextStyle(context),
@@ -720,95 +723,95 @@ class _generalFormState extends State<generalForm> {
                         height: 32,
                       ),
 
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
-                      Text(
-                        'Type of Clinician',
-                        style: AllPopupHeadings.customTextStyle(context),
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
-
-                      ///clinician
-                      FutureBuilder<List<AEClinicalDiscipline>>(
-                        future:
-                        HrAddEmplyClinicalDisciplinApi(context, 1),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 7),
-                              child: Container(
-                                width: AppSize.s250,
-                                height: AppSize.s32,
-                                decoration: BoxDecoration(
-                                    color: ColorManager.white),
-                              ),
-                            );
-
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(i.empType!);
-                            }
-                            return StatefulBuilder(
-                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                return  SizedBox(
-                                  height: 32,
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      // hintText: 'Select Clinician',
-                                      hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey),
-                                      ),
-                                      contentPadding:
-                                      const EdgeInsets.symmetric(
-                                        //   //  vertical: 5,
-                                          horizontal: 12),
-                                    ),
-                                    // value: selectedCountry,
-                                    icon: Icon(Icons.arrow_drop_down,
-                                        color: Color(0xff9B9B9B)),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style:onlyFormDataStyle.customTextStyle(context),
-
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.empType == newValue) {
-                                          _selectedClinician = a.empType!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
-                                      }
-                                    },
-                                    items: dropDownList.map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: onlyFormDataStyle.customTextStyle(context),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                );
-                              },
-
-                            );
-                          } else {
-                            return const Offstage();
-                          }
-                        },
-                      ),
+                      // SizedBox(
+                      //     height:
+                      //     MediaQuery.of(context).size.height / 30),
+                      // Text(
+                      //   'Type of Clinician',
+                      //   style: AllPopupHeadings.customTextStyle(context),
+                      // ),
+                      // SizedBox(
+                      //     height:
+                      //     MediaQuery.of(context).size.height / 60),
+                      //
+                      // ///clinician
+                      // FutureBuilder<List<AEClinicalDiscipline>>(
+                      //   future:
+                      //   HrAddEmplyClinicalDisciplinApi(context, 1),
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.connectionState ==
+                      //         ConnectionState.waiting) {
+                      //       return Padding(
+                      //         padding: const EdgeInsets.symmetric(
+                      //             horizontal: 7),
+                      //         child: Container(
+                      //           width: AppSize.s250,
+                      //           height: AppSize.s32,
+                      //           decoration: BoxDecoration(
+                      //               color: ColorManager.white),
+                      //         ),
+                      //       );
+                      //
+                      //     }
+                      //     if (snapshot.hasData) {
+                      //       List<String> dropDownList = [];
+                      //       for (var i in snapshot.data!) {
+                      //         dropDownList.add(i.empType!);
+                      //       }
+                      //       return StatefulBuilder(
+                      //         builder: (BuildContext context, void Function(void Function()) setState) {
+                      //           return  SizedBox(
+                      //             height: 32,
+                      //             child: DropdownButtonFormField<String>(
+                      //               decoration: InputDecoration(
+                      //                 // hintText: 'Select Clinician',
+                      //                 hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      //                 border: OutlineInputBorder(
+                      //                   borderRadius:
+                      //                   BorderRadius.circular(4.0),
+                      //                   borderSide: const BorderSide(
+                      //                       color: Colors.grey),
+                      //                 ),
+                      //                 contentPadding:
+                      //                 const EdgeInsets.symmetric(
+                      //                   //   //  vertical: 5,
+                      //                     horizontal: 12),
+                      //               ),
+                      //               // value: selectedCountry,
+                      //               icon: Icon(Icons.arrow_drop_down,
+                      //                   color: Color(0xff9B9B9B)),
+                      //               iconSize: 24,
+                      //               elevation: 16,
+                      //               style:onlyFormDataStyle.customTextStyle(context),
+                      //
+                      //               onChanged: (newValue) {
+                      //                 for (var a in snapshot.data!) {
+                      //                   if (a.empType == newValue) {
+                      //                     _selectedClinician = a.empType!;
+                      //                     //country = a
+                      //                     // int? docType = a.companyOfficeID;
+                      //                   }
+                      //                 }
+                      //               },
+                      //               items: dropDownList.map((String value) {
+                      //                 return DropdownMenuItem<String>(
+                      //                   value: value,
+                      //                   child: Text(
+                      //                     value,
+                      //                     style: onlyFormDataStyle.customTextStyle(context),
+                      //                   ),
+                      //                 );
+                      //               }).toList(),
+                      //             ),
+                      //           );
+                      //         },
+                      //
+                      //       );
+                      //     } else {
+                      //       return const Offstage();
+                      //     }
+                      //   },
+                      // ),
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
@@ -819,86 +822,98 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 60),
+                      CustomTextFieldRegister(
+                   controller: spalicity,
+                        hintText: 'Enter Text',
+                        hintStyle:  onlyFormDataStyle.customTextStyle(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        height: 32,
+                      ),
 
 
-                          FutureBuilder<List<AEClinicalDiscipline>>(
-                          future:
-                          HrAddEmplyClinicalDisciplinApi(context, 1),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Container(
-                                  width: AppSize.s250,
-                                  height: AppSize.s32,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.white),
-                                ),
-                              );
-
-                            }
-                            if (snapshot.hasData) {
-                              List<String> dropDownList = [];
-
-                              for (var i in snapshot.data!) {
-                                dropDownList.add(i.empType!);
-                              }
-                              return StatefulBuilder(
-                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                  return SizedBox(
-                                    height: 32,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        // hintText: 'Select Clinician',
-                                        hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(Icons.arrow_drop_down,
-                                          color: Color(0xff9B9B9B)),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: onlyFormDataStyle.customTextStyle(context),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.empType == newValue) {
-                                            _selectedSpeciality = a.empType!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: onlyFormDataStyle.customTextStyle(context),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                },
-
-                              );
-                            } else {
-                              return const Offstage();
-                            }
-                          },
-                        ),
+                        //   FutureBuilder<List<AEClinicalDiscipline>>(
+                        //   future:
+                        //   HrAddEmplyClinicalDisciplinApi(context, 1),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.connectionState ==
+                        //         ConnectionState.waiting) {
+                        //       return Padding(
+                        //         padding: const EdgeInsets.symmetric(
+                        //             horizontal: 7),
+                        //         child: Container(
+                        //           width: AppSize.s250,
+                        //           height: AppSize.s32,
+                        //           decoration: BoxDecoration(
+                        //               color: ColorManager.white),
+                        //         ),
+                        //       );
+                        //
+                        //     }
+                        //     if (snapshot.hasData) {
+                        //       List<String> dropDownList = [];
+                        //
+                        //       for (var i in snapshot.data!) {
+                        //         dropDownList.add(i.empType!);
+                        //       }
+                        //       return StatefulBuilder(
+                        //         builder: (BuildContext context, void Function(void Function()) setState) {
+                        //           return SizedBox(
+                        //             height: 32,
+                        //             child: DropdownButtonFormField<String>(
+                        //               decoration: InputDecoration(
+                        //                 // hintText: 'Select Clinician',
+                        //                 hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        //                 border: OutlineInputBorder(
+                        //                   borderRadius:
+                        //                   BorderRadius.circular(4.0),
+                        //                   borderSide: const BorderSide(
+                        //                       color: Colors.grey),
+                        //                 ),
+                        //                 contentPadding:
+                        //                 const EdgeInsets.symmetric(
+                        //                   //   //  vertical: 5,
+                        //                     horizontal: 12),
+                        //               ),
+                        //               // value: selectedCountry,
+                        //               icon: Icon(Icons.arrow_drop_down,
+                        //                   color: Color(0xff9B9B9B)),
+                        //               iconSize: 24,
+                        //               elevation: 16,
+                        //               style: onlyFormDataStyle.customTextStyle(context),
+                        //
+                        //               onChanged: (newValue) {
+                        //                 for (var a in snapshot.data!) {
+                        //                   if (a.empType == newValue) {
+                        //                     _selectedSpeciality = a.empType!;
+                        //                     //country = a
+                        //                     // int? docType = a.companyOfficeID;
+                        //                   }
+                        //                 }
+                        //               },
+                        //               items: dropDownList.map((String value) {
+                        //                 return DropdownMenuItem<String>(
+                        //                   value: value,
+                        //                   child: Text(
+                        //                     value,
+                        //                     style: onlyFormDataStyle.customTextStyle(context),
+                        //                   ),
+                        //                 );
+                        //               }).toList(),
+                        //             ),
+                        //           );
+                        //         },
+                        //
+                        //       );
+                        //     } else {
+                        //       return const Offstage();
+                        //     }
+                        //   },
+                        // ),
 
                       SizedBox(
                           height:
@@ -907,6 +922,9 @@ class _generalFormState extends State<generalForm> {
                         "Race",
                         style: AllPopupHeadings.customTextStyle(context),
                       ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
                       StatefulBuilder(
                         builder: (BuildContext context, void Function(void Function()) setState) {  return Container(
                           child: Column(
@@ -1014,6 +1032,16 @@ class _generalFormState extends State<generalForm> {
                         ); },
 
                       ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 30),
+                      Container(
+                        height: 25,
+                      ),
+                      Container(
+                        height: 25,
+                      ),
+
 
                     ],
                   ),

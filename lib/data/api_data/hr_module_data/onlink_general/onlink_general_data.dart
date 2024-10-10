@@ -7,6 +7,7 @@ class OnlinkGeneralData{
   final String lastName;
   final int departmentId;
   final int employeeTypeId;
+  final String expertise;
   final int cityId;
   final int countryId;
   final int zoneId;
@@ -56,7 +57,7 @@ class OnlinkGeneralData{
 
   OnlinkGeneralData({required this.employeeId, required this.code, required this.userId,
       required this.firstName, required this.lastName, required this.departmentId,
-      required this.employeeTypeId, required this.cityId, required this.countryId,
+      required this.employeeTypeId,required this.expertise, required this.cityId, required this.countryId,
       required this.zoneId, required this.SSNNbr, required this.primaryPhoneNbr,
       required this.secondryPhoneNbr, required this.workPhoneNbr, required this.regOfficId,
       required this.personalEmail, required this.workEmail, required this.dateOfBirth,
