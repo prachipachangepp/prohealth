@@ -531,10 +531,7 @@ class _EducationFormState extends State<EducationForm> {
         } else if (snapshot.hasError) {
           return  CustomDropdownTextField(
             //width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Degree',
-            labelStyle: onlyFormDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            items: ['Error'],
+            items: ['Error'], headText: 'Degree',
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
@@ -588,9 +585,7 @@ class _EducationFormState extends State<EducationForm> {
         } else {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Zone',
-            labelStyle: onlyFormDataStyle.customTextStyle(context),
-            labelFontSize: 11,
+            headText: 'Zone',
             items: ['No Data'],
           );
         }

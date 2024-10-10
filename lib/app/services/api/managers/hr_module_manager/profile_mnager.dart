@@ -299,6 +299,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         country: response.data['country'] ?? '--',
         zone: response.data['zone'] ?? '--',
         race: response.data['race'] ?? '--',
+        expertise: response.data['expertise'] ?? '--',
         profileScorePercentage: response.data['profileScorePercentage'] != null
             ? response.data['profileScorePercentage'].toDouble()
             : 0.0,
