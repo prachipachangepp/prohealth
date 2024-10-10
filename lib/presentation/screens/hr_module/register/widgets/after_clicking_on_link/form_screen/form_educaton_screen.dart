@@ -320,7 +320,7 @@ class _EducationFormState extends State<EducationForm> {
                   children: [
                     Text(
                       educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
+                      style: HeadingFormStyle.customTextStyle(context),
                     ),
                     if (widget.index > 1)
                     IconButton(
@@ -461,7 +461,7 @@ class _EducationFormState extends State<EducationForm> {
                     Expanded(
                       child: Text(
                         'Upload your degree / certifications as a docx or pdf',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
+                        style: FileuploadString.customTextStyle(context),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 20),
@@ -531,7 +531,10 @@ class _EducationFormState extends State<EducationForm> {
         } else if (snapshot.hasError) {
           return  CustomDropdownTextField(
             //width: MediaQuery.of(context).size.width / 5,
-            items: ['Error'], headText: 'Degree',
+            labelText: 'Degree',
+            labelStyle: onlyFormDataStyle.customTextStyle(context),
+            labelFontSize: 11,
+            items: [],
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
@@ -585,7 +588,9 @@ class _EducationFormState extends State<EducationForm> {
         } else {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Zone',
+            labelText: 'Zone',
+            labelStyle: onlyFormDataStyle.customTextStyle(context),
+            labelFontSize: 11,
             items: ['No Data'],
           );
         }

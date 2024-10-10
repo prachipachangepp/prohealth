@@ -250,7 +250,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     children: [
                       Text(
                         'List Of Documents',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
+                        style: HeadingFormStyle.customTextStyle(context),
                       ),
                     ],
                   ),
