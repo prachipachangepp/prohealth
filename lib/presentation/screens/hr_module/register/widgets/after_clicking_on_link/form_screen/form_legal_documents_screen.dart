@@ -265,7 +265,9 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   const SizedBox(height: AppSize.s10),
                   DefineFormList(formName: AppStringLegalDocument.onCall, onPressed: () async{
-                    OnCallDocument onCallDocument = await getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,);
+                    OnCallDocument onCallDocument = await getLegalOnCallDocument(
+                      context: context,callHtmlId:1,
+                      employeeId: widget.employeeID,);
                         Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                     documentName: AppStringLegalDocument.onCall,
                     onPressed: () {  },

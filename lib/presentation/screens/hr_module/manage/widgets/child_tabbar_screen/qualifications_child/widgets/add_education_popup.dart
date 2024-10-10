@@ -64,7 +64,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 390,
+        height: 450,
         width: 932,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -166,7 +166,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Graduate', style: TextStyle(fontSize: FontSize.s12)),
+                              Text('Graduate', style: AllPopupHeadings.customTextStyle(context),),
                               widget.radioButton ?? SizedBox.shrink(),
                              // if (_radioButtonError)
                                // Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
@@ -269,12 +269,14 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        SizedBox(height: 4,),
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,
           phoneNumberField: labelText == "Phone", // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,
-          labelText: labelText,
+
           keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
           padding: EdgeInsets.only(bottom: AppPadding.p1, left: 2),
           suffixIcon: suffixIcon,
