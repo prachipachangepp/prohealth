@@ -294,28 +294,52 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     color: Color(0xFFD1D1D1),
                   ),
                   const SizedBox(height: AppSize.s10),
-                  DefineFormList(formName: AppStringLegalDocument.confidentialityAgreement, onPressed: () {  }, onPressedView: () {  },),
+                  DefineFormList(formName: AppStringLegalDocument.confidentialityAgreement, onPressed: () async{
+                    ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, ConfidentialStatementId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: confidentialStatementDocument.confidentialDocument.toString(),)));
+                  }, onPressedView: () {  },),
                   const SizedBox(height: AppSize.s10),
                   const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
                   const SizedBox(height: AppSize.s10),
-                  DefineFormList(formName: AppStringLegalDocument.covidTestingPolicy, onPressed: () {  }, onPressedView: () {  },),
+                  DefineFormList(formName: AppStringLegalDocument.covidTestingPolicy, onPressed: () async{
+                    CovidTestPolicyDocument covidTestPolicyDocument = await getLegalCovidTestPolicyDocument(context: context, covidTestId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: covidTestPolicyDocument.covidTestData.toString(),)));
+                  }, onPressedView: () {  },),
                   const SizedBox(height: AppSize.s10),
                   const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
                   const SizedBox(height: AppSize.s10),
-                  DefineFormList(formName: AppStringLegalDocument.policyConcerning, onPressed: () {  }, onPressedView: () {  },),
+                  DefineFormList(formName: AppStringLegalDocument.policyConcerning, onPressed: () async{
+                    PolicyConcerningDocument policyConcerningDocument = await getLegalpolicyConcerningDocument(context: context, policyConcerningId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: policyConcerningDocument.policyConcerningDocument.toString(),)));
+                  }, onPressedView: () {  },),
                   const SizedBox(height: AppSize.s10),
                   const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
                   const SizedBox(height: AppSize.s10),
-                  DefineFormList(formName: AppStringLegalDocument.reportOfAbuse, onPressed: () {  }, onPressedView: () {  },),
+                  DefineFormList(formName: AppStringLegalDocument.reportOfAbuse, onPressed: () async{
+                    ReportingAbuseDocument reportingAbuseDocument = await getLegalReportingAbuseDocumentDocument(context: context, reportingAbuseId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: reportingAbuseDocument.reportingAbuseDocument.toString(),)));
+                  }, onPressedView: () {  },),
                   const SizedBox(height: AppSize.s10),
                   const Divider(
                     height: 1,

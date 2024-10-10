@@ -380,19 +380,16 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AddSuccessPopup(
-                                                  message: 'Employement Edit Successfully',
+                                                  message: 'Employement Edited Successfully',
                                                 );
                                               },
                                             );
                                           }
-                                        }, checkBoxTile:  Padding(
-                                          padding:  EdgeInsets.only(left: 25.0),
-                                          child: Container(
-                                              width: 300,
-                                              child: CheckboxTile(title: 'Currently work here',
-                                                initialValue: false,onChanged: (value){
-                                              },)),
-                                        ), tite: 'Edit Employment',
+                                        }, checkBoxTile:  Container(
+                                            width: 300,
+                                            child: CheckboxTile(title: 'Currently work here',
+                                              initialValue: false,onChanged: (value){
+                                            },)), tite: 'Edit Employment',
                                         onpressedClose: ()
                                          {
                                           Navigator.pop(context);

@@ -8,10 +8,14 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -56,7 +60,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
       // Handle error
     });
   }
-
+bool _isLoading =false;
   @override
   Widget build(BuildContext context) {
     //print('Employee Id in documents :: ${controller.employeeId}');
@@ -107,155 +111,259 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
           height: 30,
         ),
         StreamBuilder(
-          stream: _controller.stream,
-          builder: (context, snapshot) {
-            getAckHealthRecord(context, AppConfig.acknowledgementDocId, widget.employeeId, "no").then((data) {
-              _controller.add(data);
-            }).catchError((error) {
-              // Handle error
-            });
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
-                ),
-              );
-            }
-            if (snapshot.hasError) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 100),
-                  child: Text(
-                    'Error: ${snapshot.error}',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
-              );
-            }
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 100),
-                  child: Text(
-                    AppStringHRNoData.ackNoData,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s14,
-                      color: ColorManager.mediumgrey,
+            stream: _controller.stream,
+            builder: (context,snapshot) {
+              getAckHealthRecord(context, AppConfig.acknowledgementDocId,widget.employeeId,'no').then((data) {
+                _controller.add(data);
+              }).catchError((error) {
+                // Handle error
+              });
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
                     ),
                   ),
-                ),
-              );
-            }
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2,
-                padding: EdgeInsets.symmetric(vertical: 30),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.25),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: Wrap(
-                  children: List.generate(snapshot.data!.length, (index) {
-                    final data = snapshot.data![index];
-                    final fileUrl = data.DocumentUrl;
-                    // var decodedImage = AppFilePickerBase64.getDecodeBase64(url: fileUrl);
-                    // print("Decoded Doc ${decodedImage}");
-                    // try{
-                    //   // var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
-                    //   // print("Generated file ::: ${keyGenerate.toString()}");
-                    // }catch(e){
-                    //   print(e);
-                    // }
-                    //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
-                    // print("File:::>>${decodeBse64}");
-                    final fileExtension = fileUrl.split('/').last;
-
-                    Widget fileWidget;
-                    if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
-                      fileWidget = Image.network(
-                        fileUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(
-                            Icons.file_copy_outlined,
-                            //Icons.broken_image,
-                            size: 25,
-                            color: ColorManager.blueprime,
-                          );
-                        },
-                      );
-                    } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
-                      fileWidget = Icon(
-                        Icons.file_copy_outlined,
-                        //Icons.description,
-                        size: 25,
-                        color: ColorManager.blueprime,
-                      );
-                    } else {
-                      fileWidget = Icon(
-                        Icons.file_copy_outlined,
-                        //Icons.insert_drive_file,
-                        size: 25,
-                        color: ColorManager.blueprime,
-                      );
-                    }
-
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 10),
-                      child: Container(
-                        width: AppSize.s500,
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () =>  downloadFile(fileUrl),// Use the utility function
-                              child: Container(
-                                  width: 62,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: ColorManager.faintGrey),
-                                  ),
-                                  child: Image.asset('images/Vector.png')),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data.documentFileName,
-                                    style: AknowledgementStyleConst
-                                        .customTextStyle(context)
-                                  ),
-                                  Text(
-                                    data.ReminderThreshold,
-                                   style: AknowledgementStyleNormal.customTextStyle(context)
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: Text(
+                      AppStringHRNoData.healthNoData,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s14,
+                        color: ColorManager.mediumgrey,
                       ),
-                    );
-                  }),
-                ),
-              ),
-            );
-          },
+                    ),
+                  ),
+                );
+              }
+              if(snapshot.hasData){
+
+                return Container(
+                  height: MediaQuery.of(context).size.height/1,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      var ackData = snapshot.data![index];
+                      var fileUrl = ackData.DocumentUrl;
+                      final fileExtension = fileUrl.split('/').last;
+
+                      Widget fileWidget;
+
+                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                        fileWidget = Image.network(
+                          fileUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.broken_image,
+                              size: 45,
+                              color: ColorManager.faintGrey,
+                            );
+                          },
+                        );
+                      }
+                      else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                        fileWidget = Icon(
+                          Icons.description,
+                          size: 45,
+                          color: ColorManager.faintGrey,
+                        );
+                      } else {
+                        fileWidget = Icon(
+                          Icons.insert_drive_file,
+                          size: 45,
+                          color: ColorManager.faintGrey,
+                        );
+                      }
+                      return Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Container(
+                            padding: EdgeInsets.only(top: 5,bottom:5, left: 10,right: 100),
+                            margin: EdgeInsets.symmetric(horizontal: 40),
+                            decoration: BoxDecoration(
+                              color:Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.25),
+                                  //spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            height: 65,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                        width: 62,
+                                        height: 45,
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(4),
+                                          border: Border.all(width: 2,color:ColorManager.faintGrey),
+                                        ),
+                                        child: Image.asset('images/Vector.png')),
+                                    SizedBox(width: 10),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('ID:${ackData.idOfTheDocument}',
+                                            style:AknowledgementStyleConst.customTextStyle(context)),
+                                        SizedBox(height: 5,),
+                                        Text(ackData.documentFileName,
+                                            style: AknowledgementStyleNormal.customTextStyle(context)),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+
+                                    ///download
+                                    // IconButton(
+                                    //   onPressed: () async {
+                                    //     final url = fileUrl; // Use the fileUrl from your data
+                                    //     if (await canLaunchUrl(Uri.parse(url))) {
+                                    //       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                                    //     } else {
+                                    //       // Handle the error if the URL can't be launched
+                                    //       print("Could not launch $url");
+                                    //     }
+                                    //   },
+                                    //   icon: Icon(
+                                    //     Icons.save_alt_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    // ),
+
+                                    ///
+                                    IconButton(
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
+                                      onPressed: () {
+                                        print("FileExtension:${fileExtension}");
+                                        //DowloadFile().downloadPdfFromBase64(fileExtension,"Health.pdf");
+                                        downloadFile(fileUrl);
+                                      },
+                                      icon: Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
+                                      iconSize: 20,),
+                                    ///
+                                    IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+
+                                              return FutureBuilder<EmployeeDocumentPrefillData>(
+                                                  future: getPrefillEmployeeDocuments( context: context, empDocumentId: ackData.employeeDocumentId),
+                                                  builder: (context, snapshotPreFill) {
+                                                    if (snapshotPreFill.connectionState ==
+                                                        ConnectionState.waiting) {
+                                                      return Center(
+                                                          child: CircularProgressIndicator());
+                                                    }
+                                                    if (snapshotPreFill.hasData) {
+                                                      return CustomDocumedEditPopup(
+                                                        labelName: 'Edit Acknowledgement',
+                                                        employeeId: widget.employeeId,
+                                                        docName: ackData.DocumentName,
+                                                        docMetaDataId: ackData.EmployeeDocumentTypeMetaDataId,
+                                                        docSetupId: ackData.EmployeeDocumentTypeSetupId,
+                                                        empDocumentId: ackData.employeeDocumentId,
+                                                        selectedExpiryType: ackData.ReminderThreshold,
+                                                        expiryDate: snapshotPreFill.data!.expiry,
+                                                        url: ackData.DocumentUrl,
+                                                      );
+
+
+                                                      // return CustomDocumedAddPopup(
+                                                      //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                                      // );
+                                                    } else {
+                                                      return ErrorPopUp(
+                                                          title: "Received Error",
+                                                          text: snapshot.error.toString());
+                                                    }
+                                                  });
+
+                                            });
+                                      },
+                                      icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
+                                      iconSize: 20,),
+                                    IconButton(
+                                      onPressed: () async{
+                                        await showDialog(context: context,
+                                            builder: (context) => DeletePopup(
+                                              loadingDuration: _isLoading,
+                                              title: 'Delete Acknowledgement',
+                                              onCancel: (){
+                                                Navigator.pop(context);
+                                              }, onDelete: () async{
+                                              setState(() {
+                                                _isLoading = true;
+                                              });
+                                              try{
+                                                await deleteEmployeeDocuments(context: context, empDocumentId: ackData.employeeDocumentId);
+                                              }finally{
+                                                setState(() {
+                                                  _isLoading = false;
+                                                });
+                                                Navigator.pop(context);
+                                              }
+                                              // setState(() async{
+                                              //
+                                              //   Navigator.pop(context);
+                                              // });
+                                            },
+                                            )
+                                        );
+                                      },
+                                      icon: Icon(Icons.delete_outline,color: Color(0xffFF0000),),
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
+                                      iconSize: 20,),
+                                  ],)
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                );
+              }
+              return SizedBox();
+            }
         ),
       ],
     );
