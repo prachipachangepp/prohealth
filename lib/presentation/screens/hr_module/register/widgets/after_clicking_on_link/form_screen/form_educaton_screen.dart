@@ -57,6 +57,8 @@ class _EducationScreenState extends State<EducationScreen> {
   // Current step in the stepper
   int _currentStep = 0;
 
+  bool isLoading = false;
+
 
   //List<GlobalKey<_EducationFormState>> educationFormKeys = [];
   // List<EducationDataForm> educationFormList = [];
@@ -163,11 +165,18 @@ class _EducationScreenState extends State<EducationScreen> {
                       CustomButton(
                         width: 117,
                         height: 30,
-                        text: 'Save',
+                        text: isLoading ? '' : 'Save',
                         style:  BlueButtonTextConst.customTextStyle(context),
                         borderRadius: 12,
                         onPressed: () async {
+
+                          if (isLoading)
+                            return;
                           // Loop through each form and extract data to post
+
+                          setState(() {
+                            isLoading = true; // Start loading
+                          });
                           for (var key in educationFormKeys) {
                             final st = key.currentState!;
                             if (st.finalPath == null || st.finalPath!.isEmpty) {
@@ -213,8 +222,20 @@ class _EducationScreenState extends State<EducationScreen> {
                               }
                             }
                           }
+    setState(() {
+    isLoading = false; // End loading
+    });
                         },
-                        child: Text(
+
+                        child: isLoading
+                            ? SizedBox(
+                          height: AppSize.s25,
+                          width: AppSize.s25,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.white,
+                          ),
+                        )
+                            : Text(
                           'Save',
                           style: BlueButtonTextConst.customTextStyle(context),
                         ),

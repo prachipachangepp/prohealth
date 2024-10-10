@@ -16,6 +16,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
@@ -37,7 +38,6 @@ import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_cons
 
 import 'package:flutter/material.dart';
 
-
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -48,7 +48,8 @@ class Employment_screen extends StatefulWidget {
   final BuildContext context;
   const Employment_screen({
     super.key,
-    required this.employeeID, required this.context,
+    required this.employeeID,
+    required this.context,
   });
 
   @override
@@ -58,6 +59,7 @@ class Employment_screen extends StatefulWidget {
 class _Employment_screenState extends State<Employment_screen> {
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
   bool isVisible = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -67,11 +69,12 @@ class _Employment_screenState extends State<Employment_screen> {
 
   Future<void> _loadEmploymentData() async {
     try {
-      List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context,widget.employeeID);
+      List<EmploymentDataForm> prefilledData =
+          await getEmployeeHistoryForm(context, widget.employeeID);
       setState(() {
         employmentFormKeys = List.generate(
           prefilledData.length,
-              (index) => GlobalKey<_EmploymentFormState>(),
+          (index) => GlobalKey<_EmploymentFormState>(),
         );
       });
     } catch (e) {
@@ -98,10 +101,8 @@ class _Employment_screenState extends State<Employment_screen> {
       child: Column(
         children: [
           Center(
-            child: Text(
-              'Employment',
-              style: FormHeading.customTextStyle(context)
-            ),
+            child:
+                Text('Employment', style: FormHeading.customTextStyle(context)),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
           Container(
@@ -143,10 +144,8 @@ class _Employment_screenState extends State<Employment_screen> {
                     ),
                   ),
                   icon: Icon(Icons.add, color: Colors.white),
-                  label: Text(
-                    'Add Experience',
-                    style:BlueButtonTextConst.customTextStyle(context)
-                  ),
+                  label: Text('Add Experience',
+                      style: BlueButtonTextConst.customTextStyle(context)),
                   onPressed: () {
                     setState(() {
                       isVisible = true;
@@ -161,13 +160,22 @@ class _Employment_screenState extends State<Employment_screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Add this variable in your widget's state
+
               CustomButton(
                 width: 117,
                 height: 30,
-                text: 'Save',
+                text: isLoading ? '' : 'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
+                  if (isLoading)
+                    return; // Prevent multiple presses while loading
+
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
                     if (state.finalPath == null || state.finalPath!.isEmpty) {
@@ -175,27 +183,27 @@ class _Employment_screenState extends State<Employment_screen> {
                     } else {
                       try {
                         await postemploymentscreenData(
-                            context,
-                            state.widget.employeeID,
-                            state.employerController.text,
-                            state.cityController.text,
-                            state.reasonForLeavingController.text,
-                            state.supervisorNameController.text,
-                            state.supervisorMobileNumberController.text,
-                            state.finalPositionController.text,
-                            state.startDateController.text,
-                            state.isChecked
-                                ? '0000-00-00'
-                                : state.endDateController.text,
-                            "NA",
-                            "USA");
+                          context,
+                          state.widget.employeeID,
+                          state.employerController.text,
+                          state.cityController.text,
+                          state.reasonForLeavingController.text,
+                          state.supervisorNameController.text,
+                          state.supervisorMobileNumberController.text,
+                          state.finalPositionController.text,
+                          state.startDateController.text,
+                          state.isChecked
+                              ? '0000-00-00'
+                              : state.endDateController.text,
+                          "NA",
+                          "USA",
+                        );
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
                           documentFile: state.finalPath!,
                           documentName: state.fileName ?? '',
                         );
-
 
                         showDialog(
                           context: context,
@@ -205,24 +213,36 @@ class _Employment_screenState extends State<Employment_screen> {
                             );
                           },
                         );
-
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //
-                        //   // SnackBar(
-                        //   //   content: Text('Document uploaded successfully!'),
-                        //   //   backgroundColor: Colors.green,
-                        //   // ),
-                        // );
                       } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Failed To Update Employment Data',
+                            );
+                          },
+                        );
                         print(e);
                       }
                     }
                   }
+
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
                 },
-                child: Text(
-                  'Save',
-                  style:BlueButtonTextConst.customTextStyle(context),
-                ),
+                child: isLoading
+                    ? SizedBox(
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.white,
+                        ),
+                      )
+                    : Text(
+                        'Save',
+                        style: BlueButtonTextConst.customTextStyle(context),
+                      ),
               ),
             ],
           ),
@@ -231,8 +251,6 @@ class _Employment_screenState extends State<Employment_screen> {
     );
   }
 }
-
-
 
 class EmploymentForm extends StatefulWidget {
   final int employeeID;
@@ -257,7 +275,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
   TextEditingController cityController = TextEditingController();
   TextEditingController reasonForLeavingController = TextEditingController();
   TextEditingController supervisorNameController = TextEditingController();
-  TextEditingController supervisorMobileNumberController = TextEditingController();
+  TextEditingController supervisorMobileNumberController =
+      TextEditingController();
   TextEditingController finalPositionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
@@ -277,9 +296,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
 
   Future<void> _initializeFormWithPrefilledData() async {
     try {
-      List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context, widget.employeeID);
+      List<EmploymentDataForm> prefilledData =
+          await getEmployeeHistoryForm(context, widget.employeeID);
       if (prefilledData.isNotEmpty) {
-        var data = prefilledData[widget.index - 1]; // Assuming index matches the data list
+        var data = prefilledData[
+            widget.index - 1]; // Assuming index matches the data list
         setState(() {
           employerController.text = data.employer ?? '';
           cityController.text = data.city ?? '';
@@ -291,7 +312,6 @@ class _EmploymentFormState extends State<EmploymentForm> {
           endDateController.text = data.endDate ?? '';
           isChecked = data.endDate == null;
           employementIndex = data.employmentId ?? 0;
-
         });
       }
     } catch (e) {
@@ -328,8 +348,10 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
-                StatefulBuilder(
-                  builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+              StatefulBuilder(
+                builder: (BuildContext context,
+                    void Function(void Function()) setState) {
+                  return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ElevatedButton.icon(
@@ -346,13 +368,16 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           style: BlueButtonTextConst.customTextStyle(context),
                         ),
                       ),
-                      SizedBox(height:8),
+                      SizedBox(height: 8),
                       if (fileName != null)
-                        AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
+                        AutoSizeText(
+                          'Selected file: $fileName',
+                          style: onlyFormDataStyle.customTextStyle(context),
+                        ),
                     ],
-                  ); },
-
-                ),
+                  );
+                },
+              ),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -360,8 +385,10 @@ class _EmploymentFormState extends State<EmploymentForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                employementIndex == null ? 'Employment #${widget.index}' :'Employment #${employementIndex}',
-                style:  HeadingFormStyle.customTextStyle(context),
+                employementIndex == null
+                    ? 'Employment #${widget.index}'
+                    : 'Employment #${employementIndex}',
+                style: HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
                 IconButton(
@@ -382,15 +409,15 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   children: [
                     Text(
                       'Final Position Title',
-                      style:AllPopupHeadings.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: finalPositionController,
                       hintText: 'Enter Title',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -401,20 +428,20 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     CustomTextFieldRegister(
                       controller: employerController,
                       hintText: 'Enter Text',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Start Date',
-                      style:AllPopupHeadings.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: startDateController,
                       hintText: 'dd-mm-yyyy',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
@@ -434,7 +461,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
                             lastDate: DateTime(2101),
                           );
                           if (pickedDate != null) {
-                            startDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+                            startDateController.text =
+                                "${pickedDate.toLocal()}".split(' ')[0];
                           }
                         },
                       ),
@@ -442,7 +470,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 16),
                     Text(
                       'End Date',
-                      style:AllPopupHeadings.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -468,7 +496,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
                             lastDate: DateTime(2101),
                           );
                           if (pickedDate != null || isChecked) {
-                            endDateController.text = "${pickedDate?.toLocal()}".split(' ')[0];
+                            endDateController.text =
+                                "${pickedDate?.toLocal()}".split(' ')[0];
                           }
                         },
                       ),
@@ -494,7 +523,6 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         ),
                       ],
                     ),
-
                   ],
                 ),
               ),
@@ -512,9 +540,9 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     CustomTextFieldRegister(
                       controller: reasonForLeavingController,
                       hintText: 'Enter Leaving Reason',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -525,14 +553,14 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     CustomTextFieldRegister(
                       controller: supervisorNameController,
                       hintText: 'Enter Supervisor’s Name',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Supervisor’s Mobile Number',
-                      style:AllPopupHeadings.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegisterPhone(
@@ -540,12 +568,12 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter Mobile Number',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'City',
-                      style:AllPopupHeadings.customTextStyle(context),
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
@@ -553,12 +581,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter City',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                   ],
                 ),
               ),
-
             ],
           ),
           // SizedBox(height: 16),
@@ -567,11 +594,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
             color: Colors.grey,
             thickness: 2,
           ),
-
         ],
       ),
     );
   }
 }
-
-
