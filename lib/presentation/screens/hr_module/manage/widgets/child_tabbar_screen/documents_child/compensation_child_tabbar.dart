@@ -48,6 +48,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
   final StreamController<List<EmployeeDocumentModal>> _controller =
       StreamController<List<EmployeeDocumentModal>>();
   String expiryType = '';
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -384,13 +385,26 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         await showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                DeletePopup(onCancel: () {
+                                                DeletePopup(
+                                                  loadingDuration: _isLoading,
+                                                  onCancel: () {
                                                   Navigator.pop(context);
-                                                }, onDelete: () {
-                                                  setState(() async {
-                                                   await deleteEmployeeDocuments(context: context, empDocumentId: compaensation.employeeDocumentId);
-                                                    Navigator.pop(context);
+                                                }, onDelete: () async{
+                                                  setState(() {
+                                                    _isLoading = true;
                                                   });
+                                                  try{
+                                                    await deleteEmployeeDocuments(context: context, empDocumentId: compaensation.employeeDocumentId);
+                                                  }finally{
+                                                    setState(() {
+                                                      _isLoading = false;
+                                                    });
+                                                    Navigator.pop(context);
+                                                  }
+                                                  // setState(() async{
+                                                  //
+                                                  //   Navigator.pop(context);
+                                                  // });
                                                 }, title: 'Delete Compensation',));
                                       },
                                       icon: Icon(

@@ -236,6 +236,55 @@ Future<ApiData> updateLicensePatch(
   }
 }
 
+/// PreFill Licences data
+Future<QulificationLicensesPreFillData> getEmployeeLicensesPreFill(
+    BuildContext context, int licensesId,) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  var itemsData;
+  try {
+    final response = await Api(context).get(
+        path: ManageReposotory.getEmployeePreFillLicenses(licensesId: licensesId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+
+        String expFormattedDate = convertIsoToDayMonthYear(response.data['expDate']);
+        String issueFormattedDate = convertIsoToDayMonthYear(response.data['issueDate']);
+        itemsData = QulificationLicensesPreFillData(
+          licenseId: response.data['licenseId']??"--",
+          country: response.data['country']??"--",
+          employeeId: response.data['employeeId']??0,
+          expData: expFormattedDate,
+          issueDate: issueFormattedDate,
+          licenseUrl: response.data['licenseUrl']??"--",
+          licenure: response.data['licensure']??"--",
+          licenseNumber: response.data['licenseNumber']??"--",
+          org: response.data['org']??"--",
+          documentType: response.data['documentType']??"--",
+          approved: response.data['approved'],
+          sucess: true,
+          message: response.statusMessage!,
+        );
+    } else {
+      print("Employee Licenses prefill");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
 /// Reject license
 Future<ApiData> rejectLicensePatch(BuildContext context, int licenseId) async {
   try {

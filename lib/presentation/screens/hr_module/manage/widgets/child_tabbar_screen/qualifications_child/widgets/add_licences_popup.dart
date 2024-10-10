@@ -89,7 +89,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 16),
+                      padding: const EdgeInsets.only(left: 21),
                       child: Text(
                           widget.title,
                           style: PopupHeadingStyle.customTextStyle(context)
