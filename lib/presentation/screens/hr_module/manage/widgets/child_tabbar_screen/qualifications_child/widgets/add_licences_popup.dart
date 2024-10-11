@@ -84,24 +84,27 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 13),
+                      padding: const EdgeInsets.only(left: 21),
                       child: Text(
                           widget.title,
                           style: PopupHeadingStyle.customTextStyle(context)
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
-                      icon: Icon(
-                          Icons.close,
-                          color: IconColorManager.white
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        icon: Icon(
+                            Icons.close,
+                            color: IconColorManager.white
+                        ),
                       ),
                     ),
                   ],
@@ -245,20 +248,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                           setState(() {
                             isLoading = false;
                           });
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              Future.delayed(
-                                  const Duration(seconds: 3), () {
-                                if (Navigator.of(context).canPop()) {
-                                  Navigator.of(context).pop();
-                                }
-                              });
-                              return const AddSuccessPopup(
-                                message: 'Added Successfully',
-                              );
-                            },
-                          );
+
                         }
                       }
                     },

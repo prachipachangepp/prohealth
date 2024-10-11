@@ -103,15 +103,18 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         style: PopupHeadingStyle.customTextStyle(context)
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      _clearControllers();
-                    },
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _clearControllers();
+                      },
 
-                    icon: Icon(
-                        Icons.close,
-                        color: IconColorManager.white
+                      icon: Icon(
+                          Icons.close,
+                          color: IconColorManager.white
+                      ),
                     ),
                   ),
                 ],

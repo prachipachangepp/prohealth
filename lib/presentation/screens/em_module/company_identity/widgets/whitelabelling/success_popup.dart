@@ -60,12 +60,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                     child: Text(
                       "Success",
                       style:PopupBlueBarText.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: FontSize.s14,
-                      //   fontWeight: FontWeightManager.semiBold,
-                      //   color: ColorManager.white,
-                      //   decoration: TextDecoration.none,
-                      // ),
+
                     ),
                   ),
                   IconButton(
@@ -279,11 +274,11 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 3), () {
-      if (Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-      }
-    });
+    // Timer(Duration(seconds: 3), () {
+    //   if (Navigator.of(context).canPop()) {
+    //     Navigator.of(context).pop();
+    //   }
+    // });
   }
 
 

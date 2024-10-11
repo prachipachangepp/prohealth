@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:ui';
-import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:app_links/app_links.dart';
@@ -22,6 +19,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/confirmation_c
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
@@ -128,7 +126,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   Future<String> _generateUrlLink(String email, String Id) async {
     final String user = email;
     final String id = Id;
-    final String url = 'https://staging.symmetry.care/$id';
+    final String url = '${AppConfig.deployment}/$id';
     generatedURL = url;
     print('Generated URL: $generatedURL');
     return url;
@@ -185,19 +183,19 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   children: [
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(labelText: 'Issue Date', controller: issueDateController,errorText: issueDate ? "Please enter issue date":null);
+                        return _buildTextField(text: 'Issue Date',validationLabel: 'Issue Date', controller: issueDateController,errorText: issueDate ? "Please enter issue date":null);
                       },
                     ),
                     //SizedBox(width: MediaQuery.of(context).size.width / 80),
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(labelText: 'Last Date', controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
+                        return _buildTextField(text: 'Last Date',validationLabel: 'Last Date', controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
                       },
                     ),
                     // SizedBox(width: MediaQuery.of(context).size.width / 80),
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(labelText: 'Anticipated Start Date', controller: startDateController,errorText: startDate ? "Please enter anticipated start date":null);
+                        return _buildTextField(text: 'Anticipated Start Date',validationLabel: 'Anticipated Start Date', controller: startDateController,errorText: startDate ? "Please enter anticipated start date":null);
                       },
                     ),
                   ],
@@ -209,20 +207,17 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   children: [
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(labelText: 'Verbal Acceptance', controller: verbalAcceptanceController,errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
+                        return _buildTextField(text: 'Verbal Acceptance',validationLabel: 'Verbal Acceptance', controller: verbalAcceptanceController,errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
                       },
                     ),
-                    // CustomTextFieldOfferScreen(
-                    //   height: 36,
-                    //   controller: verbalAcceptanceController,
-                    //   labelText: 'Verbal Acceptance',
-                    // ),
-                    //SizedBox(width: MediaQuery.of(context).size.width / 80),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
+                       SizedBox(height: 5,),
                         Container(
                           height: 30,
+                         // color: ColorManager.red,
                           width: MediaQuery.of(context).size.width / 5,
                           child: StatefulBuilder(
                             builder: (BuildContext context, void Function(void Function()) setState) {
@@ -231,16 +226,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 controller: patientsController,
                                 onChanged: (value){
                                   setState(() {
-                                    // Update error state based on the field
-                                    if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;
-
-                                    // if (labelText == "Routing Number/ Transit Number") rnumber = value.isEmpty;
-                                    // if (labelText == "Account Number") ac = value.isEmpty;
-                                    // //if (labelText == "Phone") sac = !_isPhoneValid(value); // Use custom phone validation
-                                    // if (labelText == "Effective Date") eDate = value.isEmpty;
-                                    // if (labelText == "Bank Name") bankname = value.isEmpty;
-                                    // if (labelText == "Verify Account Number") vac = value.isEmpty;
-                                  });
+                                    if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
                                 },
                                 decoration: InputDecoration(
                                   border: const OutlineInputBorder(
@@ -257,8 +243,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
-                                  labelText: 'No. of Patients',
-                                  labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                                  hintText: 'Enter No. of Patients',
+                                  hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                                   suffixIcon: DropdownButton<String>(
                                     value: selectedDropdownValue,
                                     items: ['Per day', 'Per week', 'Per month']
@@ -270,7 +256,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                               horizontal: 12.0),
                                           child: Text(
                                             value,
-                                            style: const TextStyle(fontSize: 10.0),
+                                            style: const TextStyle(fontSize: 12.0),
                                           ),
                                         ),
                                       );
@@ -295,7 +281,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                         if (noOfPatientDate == true)
                           Padding(
-                            padding: EdgeInsets.only(top: 1),
+                            padding: const EdgeInsets.only(top: 1),
                             child: Text(
                               "Please enter no. of Patients",
                               style: CommonErrorMsg.customTextStyle(context),
@@ -372,7 +358,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   });
                                 }),
                           ),
-                          SizedBox(width: 30,),
+                          const SizedBox(width: 30,),
                           Row(
                             children: [
                               Text(
@@ -381,7 +367,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     : "Not Defined",
                                 style: DropdownItemStyle.customTextStyle(context),
                               ),
-                              SizedBox(width: 30,),
+                              const SizedBox(width: 30,),
                               ElevatedButton(
                                   onPressed: () {
                                     showDialog(
@@ -416,7 +402,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                       topRight: Radius.circular(12.0),
                                                     ),
                                                   ),
-                                                  padding: EdgeInsets.only(right: 5,bottom: 5),
+                                                  padding: const EdgeInsets.only(right: 5,bottom: 5),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
@@ -456,7 +442,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                           cursorColor: Colors.black,
                                                           style: DocumentTypeDataStyle.customTextStyle(context),
                                                           decoration: InputDecoration(
-                                                            prefix:Text("\$ "),
+                                                            prefix:const Text("\$ "),
                                                             hintText: '0.00',
                                                             hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                                                             enabledBorder:
@@ -560,7 +546,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     style: BlueButtonTextConst.customTextStyle(context),
                                   )
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
 
                             ],
                           ),
@@ -645,7 +631,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   print('Salari Type ${dropdownValue}');
                                   print('PatianCount ${patientsController.text}');
                                   try {
-
                                     var empEnrollOfferResponse = await addEmpEnrollOffers(
                                       context,
                                       widget.apiData!.employeeEnrollId!,
@@ -656,7 +641,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       startDateController.text,
                                       verbalAcceptanceController.text,
                                     );
-
                                     print('County id : ${selectedCountyId}');
                                     print('Zone id : ${selectedZoneId}');
                                     await addEmpEnrollAddCoverage(
@@ -665,7 +649,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         widget.apiData!.employeeId!,
                                         addCovrage
                                     );
-
                                     await addEmpEnrollAddCompensation(
                                       context,
                                       widget.apiData!.employeeEnrollId!,
@@ -678,18 +661,18 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     lastDateController.clear();
                                     startDateController.clear();
                                     verbalAcceptanceController.clear();
-                                    widget.onRefreshRegister;
                                     Navigator.pop(context);
                                     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          Future.delayed(Duration(seconds: 2),(){
+                                          Future.delayed(const Duration(seconds: 2),(){
                                             if(Navigator.of(context).canPop()) {
+                                              Navigator.pop(context);
                                               popNavigation();
                                             }
                                           });
-                                          return AddSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                          return const AddSuccessPopup(message: 'Employee Enrolled Successfully',);
                                         },
                                       );
                                     }
@@ -726,7 +709,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10,)
+                const SizedBox(height: 10,)
               ],
             ),
           ),
@@ -734,40 +717,40 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
       ),
     );
   }
-  Widget _buildTextField({required String labelText, required TextEditingController controller,String? errorText}){
+  Widget _buildTextField({
+    required TextEditingController controller,
+    String? errorText,
+    required String validationLabel,
+    required String text,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
+        SizedBox(height: 5,),
         CustomTextFieldOfferScreen(
           height: 36,
           controller: controller,
-          labelText: labelText,
-          onChanged: (value){
+          onChanged: (value) {
             setState(() {
               // Update error state based on the field
-              if (labelText == "Issue Date") issueDate = value.isEmpty;
-              if (labelText == "Last Date") lastDate = value.isEmpty;
-              if (labelText == "Anticipated Start Date") startDate = value.isEmpty;
-              if (labelText == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
-
-              // if (labelText == "Routing Number/ Transit Number") rnumber = value.isEmpty;
-              // if (labelText == "Account Number") ac = value.isEmpty;
-              // //if (labelText == "Phone") sac = !_isPhoneValid(value); // Use custom phone validation
-              // if (labelText == "Effective Date") eDate = value.isEmpty;
-              // if (labelText == "Bank Name") bankname = value.isEmpty;
-              // if (labelText == "Verify Account Number") vac = value.isEmpty;
+              if (validationLabel == "Issue Date") issueDate = value.isEmpty;
+              if (validationLabel == "Last Date") lastDate = value.isEmpty;
+              if (validationLabel == "Anticipated Start Date") startDate = value.isEmpty;
+              if (validationLabel == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
             });
           },
-          validator: (value){
-            if(value!.isEmpty){
-              return "Please enter $labelText";
-            }else{
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Please enter $validationLabel";
+            } else {
               return null;
             }
-          },),
+          },
+        ),
         if (errorText != null)
           Padding(
-            padding: EdgeInsets.only(top: 1),
+            padding: const EdgeInsets.only(top: 1),
             child: Text(
               errorText,
               style: CommonErrorMsg.customTextStyle(context),
@@ -802,7 +785,7 @@ class CheckBoxTileConst extends StatelessWidget {
         ),
         value: value,
         onChanged: onChanged,
-        controlAffinity: ListTileControlAffinity.leading, // Checkbox first, then text
+        controlAffinity: ListTileControlAffinity.leading,
       ),
     );
   }
@@ -858,7 +841,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
           child: Column(
             children: [
               Row(
@@ -873,12 +856,12 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       hoverColor: Colors.transparent,
-                      icon: Icon(Icons.delete, color: Colors.red),
+                      icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: widget.onRemove,
                     ),
                 ],
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Row(
                 children: [
                   ///county
@@ -889,7 +872,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                         'County',
                         style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       FutureBuilder<List<AllCountyGetList>>(
                         future: getCountyZoneList(context),
                         builder: (context, snapshot) {
@@ -905,13 +888,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                           } else if (snapshot.hasError) {
                             return const CustomDropdownTextField(
                               hintText: 'Select County',
-                              labelText: 'County',
-                              labelStyle: TextStyle(
-                                fontSize: 11,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
+                              headText: 'County',
                               items: ['Error'],
                             );
                           } else if (snapshot.hasData) {
@@ -919,7 +896,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             dropDownList.clear();
 
                             // Add the default "Select" item
-                            dropDownList.add(DropdownMenuItem<String>(
+                            dropDownList.add(const DropdownMenuItem<String>(
                               child: Text('Select County'),
                               value: 'Select County',
                             ));
@@ -969,16 +946,19 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                       });
                                     },
                                     value: selectedCounty,
-                                    style: DocumentTypeDataStyle.customTextStyle(context),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
                                   ),
                                 );
                               },
                             );
                           } else {
                             return CustomDropdownTextField(
-                              labelText: 'County',
-                              labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-                              labelFontSize: 12,
+                              headText: 'County',
                               items: ['No County'],
                             );
                           }
@@ -992,7 +972,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Zone',style: DocumentTypeDataStyle.customTextStyle(context),),
-                      SizedBox(height:5),
+                      const SizedBox(height:5),
                       StreamBuilder<
                           List<CountyWiseZoneModal>>(
                           stream: _zoneController.stream,
@@ -1100,7 +1080,12 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         });
                                       },
                                      // value: selectedZone,
-                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),
                                     ),
                                   );
                                 },
@@ -1113,7 +1098,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                   )
                 ],
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               ///old code tabbar
               Expanded(
                 child: Column(
@@ -1128,7 +1113,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 100.0),
@@ -1142,7 +1127,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             });
 
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
 
                             if (selectedCountyId == 0) {
@@ -1158,13 +1143,12 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 style: DocumentTypeDataStyle.customTextStyle(context),
                               );
                             }
-
                             return GridView.builder(
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, // Two items per row
-                                  childAspectRatio: 10,
-                                  crossAxisSpacing: 1,
-                                  mainAxisSpacing: 2
+                                  childAspectRatio: 12,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing:5
                               ),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext context, int index) {

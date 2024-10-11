@@ -53,6 +53,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
   }
   int documentMetaDataId = 0;
   int documentSetupId = 0;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -312,14 +313,26 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     onPressed: () async{
                                       await showDialog(context: context,
                                           builder: (context) => DeletePopup(
+                                            loadingDuration: _isLoading,
                                             title: 'Delete Health',
                                               onCancel: (){
                                                 Navigator.pop(context);
-                                              }, onDelete: (){
-                                            setState(() async{
-                                              await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
-                                              Navigator.pop(context);
+                                              }, onDelete: () async{
+                                            setState(() {
+                                              _isLoading = true;
                                             });
+                                            try{
+                                              await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
+                                            }finally{
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                              Navigator.pop(context);
+                                            }
+                                            // setState(() async{
+                                            //
+                                            //   Navigator.pop(context);
+                                            // });
                                           },
                                           )
                                       );

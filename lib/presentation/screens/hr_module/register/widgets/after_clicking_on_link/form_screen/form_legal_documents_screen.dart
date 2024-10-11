@@ -7,8 +7,14 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -120,7 +126,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         children: [
           Container(
             child: Padding(
-              padding: EdgeInsets.only(left: 166, right: 166),
+              padding: const EdgeInsets.only(left: 166, right: 166),
               child: Column(
                 children: [
                   Center(
@@ -135,9 +141,9 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     height: 50,
                     width: 940,
                     padding:
-                    EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Color(0xFFE6F7FF),
+                      color: const Color(0xFFE6F7FF),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -156,7 +162,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                           style: DefineWorkWeekStyle.customTextStyle(context),
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 10),
+                      const SizedBox(width: 40),
                       ElevatedButton.icon(
                         onPressed:
                          ()async {
@@ -201,13 +207,13 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         //   }
                         // },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
+                          backgroundColor: const Color(0xff50B5E5),
                           // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                        icon: Icon(Icons.file_upload_outlined,
+                        icon: const Icon(Icons.file_upload_outlined,
                             color: Colors.white),
                         label: Text(
                           'Upload Document',
@@ -235,7 +241,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         ))
                             .toList(),
                       )
-                          : SizedBox(), // Display file names if picked
+                          : const SizedBox(), // Display file names if picked
 
                     ],
                   ),
@@ -248,89 +254,213 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'i - 9 Paper Version',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                       FormNineScreen(employeeID: widget.employeeID,)));
-                          Timer(Duration(seconds: 2), () {
-                            print("Timer call");
-                            setState(() {
-                              isSelected = true;
-                            });
-                          });
+                  const SizedBox(height: 50),
+                  DefineFormList(formName: AppStringLegalDocument.candidatereLeaseForm, onPressed: () {
 
-
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isSelected == false ? Color(0xff50B5E5) : ColorManager.green,
-                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        child: Text(
-                          isSelected == false ? 'Fill Info' : "Done",
-                          style:BlueButtonTextConst.customTextStyle(context)
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  Divider(
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'W4 2023',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // fill info action
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
-                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        child: Text(
-                          'Fill Info',
-                          style: BlueButtonTextConst.customTextStyle(context)
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  Divider(
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.onCall, onPressed: () async{
+                    OnCallDocument onCallDocument = await getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,);
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                    documentName: AppStringLegalDocument.onCall,
+                    onPressed: () {  },
+                    htmlFormData: onCallDocument.onCallData.toString(),)));
+                    // FutureBuilder<OnCallDocument>(
+                    //   future: getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,),
+                    //   builder: (BuildContext context, snapshot) {
+                    //   if(snapshot.connectionState == ConnectionState.waiting){
+                    //     return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                    //   }
+                    //   if(snapshot.hasData){
+                    //     Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                    //        documentName: AppStringLegalDocument.onCall,
+                    //        onPressed: () {  },
+                    //        htmlFormData: snapshot.data!.onCallData.toString(),)));
+                    //   }else{
+                    //     return SizedBox();
+                    //   }
+                    //   return SizedBox();
+                    //   },
+                    // );
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
                     height: 1,
                     color: Color(0xFFD1D1D1),
                   ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.confidentialityAgreement, onPressed: () async{
+                    ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, ConfidentialStatementId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: confidentialStatementDocument.confidentialDocument.toString(),)));
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.covidTestingPolicy, onPressed: () async{
+                    CovidTestPolicyDocument covidTestPolicyDocument = await getLegalCovidTestPolicyDocument(context: context, covidTestId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: covidTestPolicyDocument.covidTestData.toString(),)));
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.policyConcerning, onPressed: () async{
+                    PolicyConcerningDocument policyConcerningDocument = await getLegalpolicyConcerningDocument(context: context, policyConcerningId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: policyConcerningDocument.policyConcerningDocument.toString(),)));
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.reportOfAbuse, onPressed: () async{
+                    ReportingAbuseDocument reportingAbuseDocument = await getLegalReportingAbuseDocumentDocument(context: context, reportingAbuseId: 1, employeeId: widget.employeeID);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                      documentName: AppStringLegalDocument.onCall,
+                      onPressed: () {  },
+                      htmlFormData: reportingAbuseDocument.reportingAbuseDocument.toString(),)));
+                  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.personalOrientation, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.directDeposit, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.standardOfCodeOfConduct, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.sexualHarassmentPolicy, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.sexualHarassmentPolicyACK, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.preAuthorization, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.prop65, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.returnOfcompanyProperty, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.hepB, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.tDap, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.flu, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.covidVaccine, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.i9, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.w4, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  DefineFormList(formName: AppStringLegalDocument.employeeHandbook, onPressed: () {  }, onPressedView: () {  },),
+                  const SizedBox(height: AppSize.s10),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFD1D1D1),
+                  ),
+                  const SizedBox(height: AppSize.s10),
+
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            isSelected == false ?Text(''): CustomButton(
+            isSelected == false ?const Text(''): CustomButton(
                   width: 117,
                   height: 30,
                   text: 'Save',
@@ -355,7 +485,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AddSuccessPopup(
+                            return const AddSuccessPopup(
                               message: 'Document Uploaded Successfully',
                             );
                           },
@@ -364,7 +494,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AddSuccessPopup(
+                            return const AddSuccessPopup(
                               message: 'Failed To Upload Document',
                             );
                           },
@@ -376,7 +506,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return const AddSuccessPopup(
                             message: 'Failed To Upload Document',
                           );
                         },

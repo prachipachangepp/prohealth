@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 class CardDetails extends StatefulWidget {
   final Widget childWidget;
@@ -29,7 +30,7 @@ class _CardDetailsState extends State<CardDetails> {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        height: MediaQuery.of(context).size.height/3.6,
+       // height: MediaQuery.of(context).size.height/3.6,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 95,
@@ -49,7 +50,8 @@ class DetailsFormate extends StatefulWidget {
   final List<Widget> row2Child2;
   String? title;
   final Widget button;
-   DetailsFormate({super.key, this.title,required this.row1Child1, required this.row1Child2, required this.row2Child1, required this.row2Child2, required this.button});
+  final Widget? titleRow;
+   DetailsFormate({super.key, this.titleRow,this.title,required this.row1Child1, required this.row1Child2, required this.row2Child1, required this.row2Child2, required this.button});
 
   @override
   State<DetailsFormate> createState() => _DetailsFormateState();
@@ -62,12 +64,14 @@ class _DetailsFormateState extends State<DetailsFormate> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        widget.titleRow == null ?
         Text(
             widget.title!,
             // 'Employment #${snapshot.data![index].employmentId}',
-            style: BoxHeadingStyle.customTextStyle(context)),
-        // SizedBox(height: 7,),
+            style: BoxHeadingStyle.customTextStyle(context)) : widget.titleRow!,
+       SizedBox(height: AppSize.s10,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +87,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                 ),
               ],
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/30,),
+          //  SizedBox(width: MediaQuery.of(context).size.width/30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -102,7 +106,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
             )
           ],
         ),
-        // SizedBox(height: 4,),
+        SizedBox(height: AppSize.s10,),
         widget.button
       ],
     );

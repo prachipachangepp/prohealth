@@ -219,14 +219,14 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           ),
                           Expanded(
                             child: Center(
-                              child: Text('Start Time',
+                              child: Text('Start Date',
                                   //textAlign: TextAlign.start,
                                   style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
                           ),
                           Expanded(
                             child: Center(
-                              child: Text('End Time',
+                              child: Text('End Date',
                                   //textAlign: TextAlign.start,
                                   style: EquipmentStyleHeading.customTextStyle(context)),
                             ),
@@ -312,7 +312,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                       backgroundColor: Colors.white,
                                                       child:  Center(
                                                         child: CachedNetworkImage(
-                                                          imageUrl: "",
+                                                          imageUrl: timeOff.imageUrl,
                                                           placeholder: (context, url) => CircularProgressIndicator(),
                                                           errorWidget: (context, url, error) => Center(child: Icon(Icons.error,size:13)),
                                                           fit: BoxFit.cover, // Ensure the image fits inside the circle

@@ -58,6 +58,7 @@ class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = 12;
     return TextStyle(
+
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,
@@ -169,7 +170,7 @@ class ProfileBarConst {
     return TextStyle(
       fontSize: FontSize.s12,
       color: ColorManager.primary,
-
+    fontWeight: FontWeight.w500,
       decoration: TextDecoration.underline,
       decorationColor: Colors.blueAccent,
     );

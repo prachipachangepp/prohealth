@@ -156,3 +156,11 @@ class PopupTextConst {
   }
 }
 
+class SearchDropdownConst{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+        color: ColorManager.mediumgrey,
+        fontWeight: FontWeight.w600,
+        fontSize: FontSize.s12);
+  }
+}

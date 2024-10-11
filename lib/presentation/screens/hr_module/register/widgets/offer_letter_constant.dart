@@ -8,12 +8,14 @@ import '../../../../../app/resources/value_manager.dart';
 
 class CustomTextFieldOfferScreen extends StatefulWidget {
   final TextEditingController controller;
-  final String labelText;
+  //final String labelText;
   final double? height;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
 
-  CustomTextFieldOfferScreen({required this.controller, required this.labelText, this.height,this.validator,this.onChanged});
+  CustomTextFieldOfferScreen({required this.controller,
+    //required this.labelText,
+    this.height,this.validator,this.onChanged});
 
   @override
   State<CustomTextFieldOfferScreen> createState() => _CustomTextFieldOfferScreenState();
@@ -42,14 +44,14 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          labelText: widget.labelText,
+          //labelText: widget.labelText,
           labelStyle: DocumentTypeDataStyle.customTextStyle(context),
           suffixIcon: IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
             splashRadius: 1,
-            icon: Icon(Icons.calendar_month, color: Color(0xff686464),size: 16,),
+            icon: Icon(Icons.calendar_month, color: ColorManager.blueprime,size: 16,),
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,

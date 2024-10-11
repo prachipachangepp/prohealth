@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
@@ -41,13 +42,14 @@ class RegisterEnrollPopup extends StatefulWidget {
   //final int empId;
 
   // final TextEditingController position;
+  final VoidCallback onReferesh;
   final VoidCallback onPressed;
   RegisterEnrollPopup({super.key,
     required this.firstName, required this.lastName,
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline,
+    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline, required this.onReferesh,
     //required this.empId,
   });
 
@@ -79,7 +81,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   Future<String> _generateUrlLink(String email, String Id) async {
     final String user = email;
     final String id = Id;
-    final String url = 'https://staging.symmetry.care/#/onBordingWelcome';
+    final String url = '${AppConfig.deployment}/#/onBordingWelcome';
     generatedURL = url;
     print('Generated URL: $generatedURL');
     return url;
@@ -234,7 +236,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  535,
+          height:  590,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -291,10 +293,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
-                            labelText: 'First Name',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                             controller: widget.firstName,//firstname
-                            labelFontSize: 11,
+                            text: 'First Name',
                           ), if (_firstnameError != null) // Display error if any
                             Padding(
                               padding: const EdgeInsets.only(right:140),
@@ -313,10 +313,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
-                            labelText: 'Speciality',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            text: 'Speciality',
                             controller: speciality, //firstname
-                            labelFontSize: 11,
                           ),
                           if (_SpecialityError != null) // Display error if any
                             Padding(
@@ -338,10 +336,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
-                            labelText: 'Email',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            text: 'Email',
                             controller: widget.email,
-                            labelFontSize: 11,
                           ),
                           if (_emailError != null) // Display error if any
                             Padding(
@@ -371,10 +367,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
-                            labelText: 'Last Name',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            text: 'Last Name',
                             controller: widget.lastName,
-                            labelFontSize: 12,
                           ), if (_lastnameError != null) // Display error if any
                             Padding(
                               padding: const EdgeInsets.only(right:140),
@@ -391,18 +385,18 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           ///clinician
+
                           FutureBuilder<List<AEClinicalDiscipline>>(
                             future: HrAddEmplyClinicalDisciplinApi(context, 1),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return CustomDropdownTextField(
+                                  headText: 'Clinician',
                                   width: textFieldWidth,
                                   height: textFieldHeight,
                                   items: [],
-                                  labelText: 'Clinician',
-                                  labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                );
+                                 );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -410,9 +404,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   dropDownList.add(i.empType!);
                                 }
                                 return CustomDropdownTextField(
-                                  labelText: 'Clinician',
-                                  labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-                                  labelFontSize: 11,
+                                  headText: 'Clinician',
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
@@ -442,10 +434,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
-                            labelText: 'Position',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            text: 'Position',
                             controller: position,
-                            labelFontSize: 11,
                           ),
                           if (_PositionError != null) // Display error if any
                             Padding(
@@ -469,10 +459,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 15,
-                            labelText: 'Phone No',
-                            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            text: 'Phone No',
                             controller: phone,
-                            labelFontSize: 11,
                           ),
                           if (_PhoneError != null) // Display error if any
                             Padding(
@@ -489,45 +477,44 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           ///reporting office
-                          FutureBuilder<List<CompanyOfficeListData>>(
-                            future: getCompanyOfficeList(context),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return CustomDropdownTextField(
-                                  width: textFieldWidth,
-                                  height: textFieldHeight,
-                                  items: [],
-                                  labelText: 'Reporting Office',
-                                  labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-                                );
-                              }
-                              if (snapshot.hasData) {
-                                List<String> dropDownList = [];
-                                for (var i in snapshot.data!) {
-                                  dropDownList.add(i.name);
-                                }
-                                return CustomDropdownTextField(
-                                  labelText: 'Reporting Office',
-                                  labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-                                  labelFontSize: 11,
-                                  items: dropDownList,
-                                  onChanged: (newValue) {
-                                    for (var a in snapshot.data!) {
-                                      if (a.name == newValue) {
-                                        reportingOfficeId = a.name;
-                                        print('Office Name : ${reportingOfficeId}');
-                                        // int docType = a.employeeTypesId;
-                                        // Do something with docType
-                                      }
+
+                         FutureBuilder<List<CompanyOfficeListData>>(
+                                future: getCompanyOfficeList(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CustomDropdownTextField(
+                                      headText: 'Reporting Office',
+                                      width: textFieldWidth,
+                                      height: textFieldHeight,
+                                      items: [],
+                                     );
+                                  }
+                                  if (snapshot.hasData) {
+                                    List<String> dropDownList = [];
+                                    for (var i in snapshot.data!) {
+                                      dropDownList.add(i.name);
                                     }
-                                  },
-                                );
-                              } else {
-                                return const Offstage();
-                              }
-                            },
-                          ),
+                                    return CustomDropdownTextField(
+                                      headText: 'Reporting Office',
+                                      items: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.name == newValue) {
+                                            reportingOfficeId = a.name;
+                                            print('Office Name : ${reportingOfficeId}');
+                                            // int docType = a.employeeTypesId;
+                                            // Do something with docType
+                                          }
+                                        }
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -614,8 +601,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               ),
               StatefulBuilder(
                 builder: (BuildContext context, void Function(void Function()) setState) {
-                  return
-              Row(
+                  return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _isLoading
@@ -669,7 +655,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             setState(() {
                               _isLoading = false;
                             });
-
+                            widget.onReferesh();
                             if (result.success) {
                               Navigator.pop(
                                   context);
@@ -734,202 +720,173 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   Widget buildDropdownButton(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
-    return FutureBuilder<List<CountryGetData>>(
-      future: getCountry(context: context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
-          return CustomDropdownTextField(
-            width: textFieldWidth,
-            height: textFieldHeight,
-            items: [],
-            labelText: 'Country',
-            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-          );
+    return
+        FutureBuilder<List<CountryGetData>>(
+          future: getCountry(context: context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState ==
+                ConnectionState.waiting) {
+              return CustomDropdownTextField(
+                headText: 'Country',
+                width: textFieldWidth,
+                height: textFieldHeight,
+                items: [],
+               );
 
-        } else if (snapshot.hasError) {
-          return const CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Country',
-            labelStyle: TextStyle(
-              fontSize: 11,
-              color: Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
-            labelFontSize: 11,
-            items: ['Error'],
-          );
-        } else if (snapshot.hasData) {
-          List<DropdownMenuItem<String>> dropDownList = [];
-          int degreeID = 0;
-          for(var i in snapshot.data!){
-            dropDownList.add(DropdownMenuItem<String>(
-              value: i.name,
-              child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
-            ));
-          }
-          return CustomDropdownTextField(
-            labelText: 'Country',
-            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            dropDownMenuList: dropDownList,
-            onChanged: (newValue) {
-              for(var a in snapshot.data!){
-                if(a.name == newValue){
-                  selectedCountry = a.name;
-                  countryId = a.countryId;
-                  print("country :: ${selectedCountry}");
-                  //empTypeId = docType;
-                }
+            } else if (snapshot.hasError) {
+              return const CustomDropdownTextField(
+                headText: 'Country',
+                //width: MediaQuery.of(context).size.width / 5,
+                items: ['Error'],
+              );
+            } else if (snapshot.hasData) {
+              List<DropdownMenuItem<String>> dropDownList = [];
+              int degreeID = 0;
+              for(var i in snapshot.data!){
+                dropDownList.add(DropdownMenuItem<String>(
+                  value: i.name,
+                  child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
+                ));
               }
-            },
-          );
-        } else {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Country',
-            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            items: ['No Data'],
-          );
-        }
-      },
-    );
+              return CustomDropdownTextField(
+                headText: 'Country',
+                dropDownMenuList: dropDownList,
+                onChanged: (newValue) {
+                  for(var a in snapshot.data!){
+                    if(a.name == newValue){
+                      selectedCountry = a.name;
+                      countryId = a.countryId;
+                      print("country :: ${selectedCountry}");
+                      //empTypeId = docType;
+                    }
+                  }
+                },
+              );
+            } else {
+              return CustomDropdownTextField(
+                headText: 'Country',
+                // width: MediaQuery.of(context).size.width / 5,
+               items: ['No Data'],
+              );
+            }
+          },
+        );
+
   }
 
   /// City dropDown
   Widget buildCityDropdownButton(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
-    return FutureBuilder<List<AEClinicalCity>>(
-      future: HrAddEmplyClinicalCityApi(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
-          return CustomDropdownTextField(
-            width: textFieldWidth,
-            height: textFieldHeight,
-            items: [],
-            labelText: 'City',
-            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-          );
+    return
+        FutureBuilder<List<AEClinicalCity>>(
+          future: HrAddEmplyClinicalCityApi(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState ==
+                ConnectionState.waiting) {
+              return CustomDropdownTextField(
+                headText: 'City',
+                width: textFieldWidth,
+                height: textFieldHeight,
+                items: [],
+               );
 
-        } else if (snapshot.hasError) {
-          return const CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
-            labelText: 'City',
-            labelStyle: TextStyle(
-              fontSize: 11,
-              color: Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
-            labelFontSize: 11,
-            items: ['Error'],
-          );
-        } else if (snapshot.hasData) {
-          List<DropdownMenuItem<String>> dropDownList = [];
-          int degreeID = 0;
-          for(var i in snapshot.data!){
-            dropDownList.add(DropdownMenuItem<String>(
-              child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
-              value: i.cityName!,
-            ));
-          }
-          return CustomDropdownTextField(
-            labelText: 'City',
-            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            dropDownMenuList: dropDownList,
-            onChanged: (newValue) {
-              for(var a in snapshot.data!){
-                if(a.cityName == newValue){
-                  selectedCity= a.cityName;
-                  cityId = a.cityID!;
-                  print("City :: ${selectedCity}");
-                  //empTypeId = docType;
-                }
+            } else if (snapshot.hasError) {
+              return const CustomDropdownTextField(
+                headText: 'City',
+                //width: MediaQuery.of(context).size.width / 5,
+               items: ['Error'],
+              );
+            } else if (snapshot.hasData) {
+              List<DropdownMenuItem<String>> dropDownList = [];
+              int degreeID = 0;
+              for(var i in snapshot.data!){
+                dropDownList.add(DropdownMenuItem<String>(
+                  child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
+                  value: i.cityName!,
+                ));
               }
-            },
-          );
-        } else {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            labelText: 'City',
-            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            items: ['No Data'],
-          );
-        }
-      },
-    );
+              return CustomDropdownTextField(
+                headText: 'City',
+                dropDownMenuList: dropDownList,
+                onChanged: (newValue) {
+                  for(var a in snapshot.data!){
+                    if(a.cityName == newValue){
+                      selectedCity= a.cityName;
+                      cityId = a.cityID!;
+                      print("City :: ${selectedCity}");
+                      //empTypeId = docType;
+                    }
+                  }
+                },
+              );
+            } else {
+              return CustomDropdownTextField(
+                headText: 'City',
+                // width: MediaQuery.of(context).size.width / 5,
+                items: ['No Data'],
+              );
+            }
+          },
+        );
   }
 
   /// Zone dropDown
   Widget buildZoneDropdownButton(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
-    return FutureBuilder<List<AEClinicalZone>>(
-      future: HrAddEmplyClinicalZoneApi(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
-          return  CustomDropdownTextField(
-            width: textFieldWidth,
-            height: textFieldHeight,
-            items: [],
-            labelText: 'Zone',
-            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-          );
-        } else if (snapshot.hasError) {
-          return const CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Zone',
-            labelStyle: TextStyle(
-              fontSize: 11,
-              color: Color(0xff575757),
-              fontWeight: FontWeight.w400,
-            ),
-            labelFontSize: 11,
-            items: ['Error'],
-          );
-        } else if (snapshot.hasData) {
-          List<DropdownMenuItem<String>> dropDownList = [];
-          int degreeID = 0;
-          for(var i in snapshot.data!){
-            dropDownList.add(DropdownMenuItem<String>(
-              child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
-              value: i.zoneName!,
-            ));
-          }
-          return CustomDropdownTextField(
-            labelText: 'Zone',
-            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            dropDownMenuList: dropDownList,
-            onChanged: (newValue) {
-              for(var a in snapshot.data!){
-                if(a.zoneName == newValue){
-                  selectedZone= a.zoneName;
-                  zoneId = a.zoneID!;
-                  countyId = a.countyID!;
-                  print("Zone :: ${selectedZone}");
-                  print("county Id :: ${countyId}");
-                  //empTypeId = docType;
-                }
+    return
+        FutureBuilder<List<AEClinicalZone>>(
+          future: HrAddEmplyClinicalZoneApi(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState ==
+                ConnectionState.waiting) {
+              return  CustomDropdownTextField(
+                headText: 'Zone',
+                width: textFieldWidth,
+                height: textFieldHeight,
+                items: [],
+               );
+            } else if (snapshot.hasError) {
+              return const CustomDropdownTextField(
+                headText: 'Zone',
+                //width: MediaQuery.of(context).size.width / 5,
+                items: ['Error'],
+              );
+            } else if (snapshot.hasData) {
+              List<DropdownMenuItem<String>> dropDownList = [];
+              int degreeID = 0;
+              for(var i in snapshot.data!){
+                dropDownList.add(DropdownMenuItem<String>(
+                  child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
+                  value: i.zoneName!,
+                ));
               }
-            },
-          );
-        } else {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            labelText: 'Zone',
-            labelStyle:DocumentTypeDataStyle.customTextStyle(context),
-            labelFontSize: 11,
-            items: ['No Data'],
-          );
-        }
-      },
-    );
+              return CustomDropdownTextField(
+                headText: 'Zone',
+                dropDownMenuList: dropDownList,
+                onChanged: (newValue) {
+                  for(var a in snapshot.data!){
+                    if(a.zoneName == newValue){
+                      selectedZone= a.zoneName;
+                      zoneId = a.zoneID!;
+                      countyId = a.countyID!;
+                      print("Zone :: ${selectedZone}");
+                      print("county Id :: ${countyId}");
+                      //empTypeId = docType;
+                    }
+                  }
+                },
+              );
+            } else {
+              return CustomDropdownTextField(
+                headText: 'Zone',
+                // width: MediaQuery.of(context).size.width / 5,
+                items: ['No Data'],
+              );
+            }
+          },
+        );
   }
 }
 

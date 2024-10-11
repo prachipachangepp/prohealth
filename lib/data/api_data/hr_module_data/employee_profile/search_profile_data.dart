@@ -157,6 +157,7 @@ class SearchByEmployeeIdProfileData{
   final String country;
   final String zone;
   final String race;
+  final String expertise;
   final double profileScorePercentage;
   final bool active;
 
@@ -212,6 +213,7 @@ class SearchByEmployeeIdProfileData{
     required this.country,
     required this.zone,
     required this.race,
+    required this.expertise,
     required this.profileScorePercentage,
   });
 }

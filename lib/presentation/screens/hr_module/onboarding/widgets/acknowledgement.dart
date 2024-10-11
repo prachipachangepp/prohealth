@@ -186,26 +186,29 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                         fileUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return Icon(
-                            Icons.description_outlined,
-                            size: 25,
-                            color: ColorManager.blueprime,
-                          );
+                          return Image.asset('images/Vector.png');
+                          //   Icon(
+                          //   Icons.description_outlined,
+                          //   size: 25,
+                          //   color: ColorManager.blueprime,
+                          // );
                         },
                       );
                     } else if (['pdf', 'doc', 'docx']
                         .contains(fileExtension)) {
-                      fileWidget = Icon(
-                        Icons.description_outlined,
-                        size: 25,
-                        color: ColorManager.blueprime,
-                      );
+                      fileWidget = Image.asset('images/Vector.png');
+                      //     Icon(
+                      //   Icons.description_outlined,
+                      //   size: 25,
+                      //   color: ColorManager.blueprime,
+                      // );
                     } else {
-                      fileWidget = Icon(
-                        Icons.description_outlined,
-                        size: 25,
-                        color: ColorManager.blueprime,
-                      );
+                      fileWidget = Image.asset('images/Vector.png');
+                      //     Icon(
+                      //   Icons.description_outlined,
+                      //   size: 25,
+                      //   color: ColorManager.blueprime,
+                      // );
                     }
 
                     return Column(

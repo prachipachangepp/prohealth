@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualificatin_emloyment_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/qualification_tab_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/reject_popup_constant.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -175,154 +176,17 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(12.0),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(20.0),
-                                ),
-                                height: 181.0,
-                                width: 500.0,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.bluebottom,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(8),
-                                          topRight: Radius.circular(8),
-                                        ),
-                                      ),
-                                      height: 35,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.only(
-                                                left: 10.0),
-                                            child: Text(
-                                                'Reject',
-                                                style:
-                                                PopupBlueBarText.customTextStyle(context)
-                                            ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            icon: Icon(Icons.close,
-                                                color:
-                                                ColorManager.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20.0),
-                                        child: Text(
-                                            "Do you really want to,reject this?",
-                                            textAlign: TextAlign.center,
-                                            style: PopupTextConst.customTextStyle(context)
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: AppPadding.p24,
-                                          right: AppPadding.p10),
-                                      child: Align(
-                                        alignment:
-                                        Alignment.bottomRight,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.end,
-                                          children: [
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop();
-                                              },
-                                              style: ElevatedButton
-                                                  .styleFrom(
-                                                elevation: 5,
-                                                backgroundColor:
-                                                Colors.white,
-                                                foregroundColor:
-                                                Color(0xff1696C8),
-                                                side: BorderSide(
-                                                    color: Color(
-                                                        0xff1696C8)),
-                                                shape:
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(8),
-                                                ),
-                                              ),
-                                              child: Text(
-                                                  'Cancel',
-                                                  style:TransparentButtonTextConst.customTextStyle(context)
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                width: MediaQuery.of(
-                                                    context)
-                                                    .size
-                                                    .width /
-                                                    75),
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                await rejectOnboardQualifyLicensePatch(
-                                                    context,
-                                                    snapshot
-                                                        .data![index]
-                                                        .licenseId);
-                                                getOnboardingQualificationLicense(
-                                                    context, widget.employeeId,'no')
-                                                    .then((data) {
-                                                  licenseStreamController
-                                                      .add(data);
-                                                }).catchError(
-                                                        (error) {});
-                                                Navigator.of(context)
-                                                    .pop();
-                                              },
-                                              style: ElevatedButton
-                                                  .styleFrom(
-                                                backgroundColor:
-                                                Color(0xff1696C8),
-                                                foregroundColor:
-                                                Colors.white,
-                                                shape:
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(8),
-                                                ),
-                                              ),
-                                              child: Text(
-                                                'Yes',
-                                                style: BlueButtonTextConst.customTextStyle(context),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+                            return RejectDialog(onYesPressed: () async {
+                              await rejectOnboardQualifyLicensePatch(
+                                  context, snapshot.data![index].licenseId);
+                              getOnboardingQualificationLicense(context, widget.employeeId,'no').then((data) {
+                                licenseStreamController
+                                    .add(data);
+                              }).catchError(
+                                      (error) {});
+                              Navigator.of(context)
+                                  .pop();
+                            },);
                           },
                         );
                       },
@@ -331,268 +195,25 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(12.0),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(20.0),
-                                ),
-                                height: 181.0,
-                                width: 500.0,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.bluebottom,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(8),
-                                          topRight: Radius.circular(8),
-                                        ),
-                                      ),
-                                      height: 35,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.only(
-                                                left: 20.0),
-                                            child: Text(
-                                                'Approve',
-                                                style:
-                                                PopupBlueBarText.customTextStyle(context)
-                                            ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            icon: Icon(Icons.close,
-                                                color:
-                                                ColorManager.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20.0),
-                                        child: Text(
-                                            "Do you really want to,approve this?",
-                                            textAlign: TextAlign.center,
-                                            style: PopupTextConst.customTextStyle(context)
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: AppPadding.p24,
-                                          right: AppPadding.p10),
-                                      child: Align(
-                                        alignment:
-                                        Alignment.bottomRight,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.end,
-                                          children: [
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop();
-                                              },
-                                              style: ElevatedButton
-                                                  .styleFrom(
-                                                elevation: 5,
-                                                backgroundColor:
-                                                Colors.white,
-                                                foregroundColor:
-                                                Color(0xff1696C8),
-                                                side: BorderSide(
-                                                    color: Color(
-                                                        0xff1696C8)),
-                                                shape:
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(8),
-                                                ),
-                                              ),
-                                              child: Text(
-                                                  'Cancel',
-                                                  style:TransparentButtonTextConst.customTextStyle(context)
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                width: MediaQuery.of(
-                                                    context)
-                                                    .size
-                                                    .width /
-                                                    75),
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                await approveOnboardQualifyLicensePatch(
-                                                    context,
-                                                    snapshot
-                                                        .data![index]
-                                                        .licenseId);
-                                                getOnboardingQualificationLicense(
-                                                    context, widget.employeeId,'no')
-                                                    .then((data) {
-                                                  licenseStreamController
-                                                      .add(data);
-                                                }).catchError(
-                                                        (error) {});
-                                                Navigator.of(context)
-                                                    .pop();
-                                              },
-                                              style: ElevatedButton
-                                                  .styleFrom(
-                                                backgroundColor:
-                                                Color(0xff1696C8),
-                                                foregroundColor:
-                                                Colors.white,
-                                                shape:
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(8),
-                                                ),
-                                              ),
-                                              child: Text(
-                                                'Yes',
-                                                style:BlueButtonTextConst.customTextStyle(context),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+                            return ApproveDialog(onYesPressed: () async {
+                              await approveOnboardQualifyLicensePatch(
+                                  context,
+                                  snapshot
+                                      .data![index]
+                                      .licenseId);
+                              getOnboardingQualificationLicense(
+                                  context, widget.employeeId,'no')
+                                  .then((data) {
+                                licenseStreamController
+                                    .add(data);
+                              }).catchError(
+                                      (error) {});
+                              Navigator.of(context)
+                                  .pop();
+                            },);
                           },
                         );
                       },
-                      // onApprovePressed: ()async{
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (BuildContext context) {
-                      //       return Dialog(
-                      //         shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(12.0),
-                      //         ),
-                      //         child: Container(
-                      //           decoration: BoxDecoration(
-                      //             borderRadius: BorderRadius.circular(20.0),
-                      //           ),
-                      //           height: 200.0,
-                      //           width: 300.0,
-                      //           child: Stack(
-                      //             children: <Widget>[
-                      //               Container(
-                      //                 width: double.infinity,
-                      //                 height: 50,
-                      //                 alignment: Alignment.bottomCenter,
-                      //                 decoration: BoxDecoration(
-                      //                   color: Color(0xff1696C8),
-                      //                   borderRadius: BorderRadius.only(
-                      //                     topLeft: Radius.circular(12),
-                      //                     topRight: Radius.circular(12),
-                      //                   ),
-                      //                 ),
-                      //                 child: Align(
-                      //                   alignment: Alignment.topRight,
-                      //                   child: IconButton(
-                      //                     onPressed: () {
-                      //                       Navigator.of(context).pop();
-                      //                     },
-                      //                     icon: Icon(Icons.close, color: Colors.white),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               Align(
-                      //                 alignment: Alignment.center,
-                      //                 child: Text(
-                      //                   "Do you really want to,\napprove this?",
-                      //                   textAlign: TextAlign.center,
-                      //                   style: GoogleFonts.firaSans(
-                      //                     fontSize: 14,
-                      //                     fontWeight: FontWeightManager.regular,
-                      //                     color: ColorManager.mediumgrey,
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding: const EdgeInsets.all(10),
-                      //                 child: Align(
-                      //                   alignment: Alignment.bottomCenter,
-                      //                   child: Row(
-                      //                     mainAxisAlignment: MainAxisAlignment.center,
-                      //                     children: [
-                      //                       ElevatedButton(
-                      //                         onPressed: () {
-                      //                           Navigator.of(context).pop();
-                      //                         },
-                      //                         style: ElevatedButton.styleFrom(
-                      //                           backgroundColor: Colors.white,
-                      //                           foregroundColor: Color(0xff1696C8),
-                      //                           side: BorderSide(color: Color(0xff1696C8)),
-                      //                           shape: RoundedRectangleBorder(
-                      //                             borderRadius: BorderRadius.circular(8),
-                      //                           ),
-                      //                         ),
-                      //                         child: Text(
-                      //                           'Cancel',
-                      //                           style: GoogleFonts.firaSans(
-                      //                             fontSize: 10.0,
-                      //                             fontWeight: FontWeight.w700,
-                      //                           ),
-                      //                         ),
-                      //                       ),
-                      //                       SizedBox(width: MediaQuery.of(context).size.width / 75),
-                      //                       ElevatedButton(
-                      //                         onPressed: () async {
-                      //                           await approveOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
-                      //                           getOnboardingQualificationLicense(context, 2).then((data){
-                      //                             licenseStreamController.add(data);
-                      //                           }).catchError((error){});
-                      //                           Navigator.of(context).pop();
-                      //                         },
-                      //                         style: ElevatedButton.styleFrom(
-                      //                           backgroundColor: Color(0xff1696C8),
-                      //                           foregroundColor: Colors.white,
-                      //                           shape: RoundedRectangleBorder(
-                      //                             borderRadius: BorderRadius.circular(8),
-                      //                           ),
-                      //                         ),
-                      //                         child: Text(
-                      //                           'Yes',
-                      //                           style: GoogleFonts.firaSans(
-                      //                             fontSize: 10.0,
-                      //                             fontWeight: FontWeight.w700,
-                      //                           ),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       );
-                      //     },
-                      //   );
-                      // },
                     ),
                   ],
                 ),

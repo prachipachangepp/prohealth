@@ -47,44 +47,44 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-
-            Container(
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  width: 130,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                if (snapshot.hasData) {
-                                  return CustomDocumedAddPopup(
-                                    title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
-                                  );
-                                } else {
-                                  return ErrorPopUp(
-                                      title: "Received Error",
-                                      text: snapshot.error.toString());
-                                }
-                              });
-                        });
-                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                  }),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //
+        //     Container(
+        //       margin: EdgeInsets.only(right: 60),
+        //       child: CustomIconButtonConst(
+        //           width: 130,
+        //           text: AppStringHr.addNew,
+        //           icon: Icons.add,
+        //           onPressed: () async {
+        //             showDialog(
+        //                 context: context,
+        //                 builder: (context) {
+        //                   return FutureBuilder<List<EmployeeDocSetupModal>>(
+        //                       future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
+        //                       builder: (context, snapshot) {
+        //                         if (snapshot.connectionState ==
+        //                             ConnectionState.waiting) {
+        //                           return Center(
+        //                               child: CircularProgressIndicator());
+        //                         }
+        //                         if (snapshot.hasData) {
+        //                           return CustomDocumedAddPopup(
+        //                             title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+        //                           );
+        //                         } else {
+        //                           return ErrorPopUp(
+        //                               title: "Received Error",
+        //                               text: snapshot.error.toString());
+        //                         }
+        //                       });
+        //                 });
+        //             //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+        //           }),
+        //     ),
+        //   ],
+        // ),
         const SizedBox(
           height: 20,
         ),

@@ -20,6 +20,18 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
     String formattedDate = dateFormat.format(dateTime);
 
     return formattedDate;
+  };
+  String convertedTime(String isoDate ){
+    DateTime utcTime = DateTime.parse(isoDate);
+    DateTime localTime = utcTime.toLocal(); // Convert to local time if needed
+
+    // Format with AM/PM
+    //String utcTimeFormatted = DateFormat('hh:mm a').format(utcTime);
+    String localTimeFormatted = DateFormat('hh:mm a').format(localTime);
+
+  print('Local Time (hh:mm a): $localTimeFormatted');
+    return localTimeFormatted ;
+
   }
 
   List<TimeOfffData> itemsData = [];
@@ -31,7 +43,9 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
       for (var item in response.data) {
         String startFormattedDate = convertIsoToDayMonthYear(item['startTime']);
         String endFormattedDate = convertIsoToDayMonthYear(item['endTime']);
+        String convertedSickTime = convertedTime( item['sickTime']);
         itemsData.add(TimeOfffData(
+            imageUrl: item['imageUrl']??"",
           approved: item['approve'],
             employeeId: item['employeeId'],
             employeeName: item['employeeName'],
@@ -39,7 +53,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
             reson: item['reason'],
             startTime: startFormattedDate,
             endTime: endFormattedDate,
-            sickTime: item['sickTime'],
+            sickTime: convertedSickTime,
             hours: item['Hours'], employeeTimeOffId: item['employeeTimeOffId']));
         itemsData.sort((a, b) => a.employeeName.compareTo(b.employeeName));
       }

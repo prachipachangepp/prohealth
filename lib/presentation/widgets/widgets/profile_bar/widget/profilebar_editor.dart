@@ -382,7 +382,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       },
                                       text: 'Save',
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -648,7 +647,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                               return HRUManageDropdown(
                                                 controller: TextEditingController(
-                                                    text: selectedDeptName ?? ''),
+                                                    text: profileData.department),
                                                 labelText: "Select Department",
                                                 labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                   color: const Color(0xff575757),
@@ -704,7 +703,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
                                             return HRUManageDropdown(
-
                                                 hintText: "Gender",
                                                 // width: 320,
                                                 // height: 40,
@@ -745,7 +743,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       // Do something with docType
                                                     }
                                                   }
-                                                },  controller: TextEditingController(text: ''),
+                                                },  controller: TextEditingController(text: profileData.gender),
                                               );
                                             } else {
                                               return const Offstage();
@@ -847,7 +845,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                   .toList();
 
                                             return HRUManageDropdown(
-                                              controller: TextEditingController(),
+                                              controller: TextEditingController(text:profileData.service),
                                               // labelText: 'Select Service',
                                               hintText: 'Select Service',
                                               items: serviceNames,
@@ -883,7 +881,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               hintText: "Reporting Office",
                                               // width: 320,
                                               // height: 40,
-                                              controller: TextEditingController(text: ''),
+                                              controller: TextEditingController(text:""),
                                               items: ['item 1', 'item 2'],
                                               // labelText: 'Reporting Office',
                                               labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
@@ -920,7 +918,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     // Do something with docType
                                                   }
                                                 }
-                                              },  controller: TextEditingController(text: ''),
+                                              },  controller: TextEditingController(text:profileData.regOfficId),
                                             );
                                           } else {
                                             return const Offstage();
@@ -950,10 +948,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 45),
+                                            padding: const EdgeInsets.only(top: 10.0, left: 45,bottom: 5),
                                             child: Container(
                                               height: 20,
                                               width:354,
+                                              //color: ColorManager.red,
                                               child: Text(
                                                   "Coverage",
                                                   style: AllPopupHeadings.customTextStyle(context)

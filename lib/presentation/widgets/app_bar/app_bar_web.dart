@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
@@ -246,7 +247,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           onTap: () async {
                                             //const url = "http://localhost:52425/#/home";
                                             const url =
-                                                "https://staging.symmetry.care/#/home";
+                                                "${AppConfig.deployment}/#/home";
                                             if (await canLaunch(url)) {
                                               await launch(url);
                                               //    Navigator.push(
