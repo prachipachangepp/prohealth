@@ -486,7 +486,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-
                                     onReferesh: (){
                                       setState(() {
                                         fetchData();
