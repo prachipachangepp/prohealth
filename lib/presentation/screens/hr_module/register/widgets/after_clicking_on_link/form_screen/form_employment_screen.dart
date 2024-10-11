@@ -165,7 +165,7 @@ class _Employment_screenState extends State<Employment_screen> {
               CustomButton(
                 width: 117,
                 height: 30,
-                text: isLoading ? '' : 'Save', // Show empty text when loading
+                text: isLoading ? 'Wait..' : 'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {

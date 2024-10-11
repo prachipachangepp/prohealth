@@ -165,7 +165,7 @@ class _EducationScreenState extends State<EducationScreen> {
                       CustomButton(
                         width: 117,
                         height: 30,
-                        text: isLoading ? '' : 'Save',
+                        text: isLoading ? 'Wait..' : 'Save',
                         style:  BlueButtonTextConst.customTextStyle(context),
                         borderRadius: 12,
                         onPressed: () async {
@@ -232,7 +232,7 @@ class _EducationScreenState extends State<EducationScreen> {
                           height: AppSize.s25,
                           width: AppSize.s25,
                           child: CircularProgressIndicator(
-                            color: ColorManager.white,
+                            color: Colors.white
                           ),
                         )
                             : Text(
