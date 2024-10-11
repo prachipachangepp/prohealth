@@ -71,7 +71,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
           }
           if (snapshot.hasData) {
             return WrapWidget(
-                childern: List.generate(snapshot.data!.length, (index) {
+                children: List.generate(snapshot.data!.length, (index) {
               return CardDetails(childWidget: DetailsFormate(
                 row1Child1: [
                   Text('Licensure/Certification :',

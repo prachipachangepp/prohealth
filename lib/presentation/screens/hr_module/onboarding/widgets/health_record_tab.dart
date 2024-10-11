@@ -4,6 +4,7 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -168,7 +169,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Wrap(
+              WrapWidget(
                 children: [
                   ...List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];

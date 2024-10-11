@@ -161,7 +161,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                             textAlignVertical: TextAlignVertical.center,
                             maxLength: 1,
                             decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 15),
+                              contentPadding: EdgeInsets.only(bottom: 18),
                               counterText: '',
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,

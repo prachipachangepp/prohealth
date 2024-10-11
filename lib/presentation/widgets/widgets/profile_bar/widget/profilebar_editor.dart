@@ -679,7 +679,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     FirstSMTextFConst(
                                       controller: addressController,
                                       keyboardType: TextInputType.text,
-                                      text: AppString.address,
+                                      text: AppString.addresss,
 
                                   ),
 

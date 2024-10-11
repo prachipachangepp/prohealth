@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -141,8 +140,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                   ));
             }
             if(snapshot.hasData){
-              return Wrap(
-                spacing: 10,
+              return WrapWidget(
                   children: List.generate(snapshot.data!.length, (index){
                 return CardDetails(childWidget: DetailsFormate(
                   title:'References #${index + 1}',

@@ -150,7 +150,7 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
             widget.onChanged!(newValue);
           }
         },
-        icon: Icon(Icons.arrow_drop_down, color: Colors.blue),
+        icon: Icon(Icons.arrow_drop_down, color: ColorManager.mediumgrey),
       ),
     );
   }

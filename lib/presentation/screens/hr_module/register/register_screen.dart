@@ -75,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final StreamController<List<UserModal>> _companyUsersList =
   StreamController<List<UserModal>>();
 
-  String _selectedValue = 'Select';
+  String _selectedValue = 'Sort';
   List<RegisterDataCompID> allData = [];
 
   @override
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 28.0),
+                padding: const EdgeInsets.only(right: 36.0),
                 child: Container(
                   width: 300,
                   color: Colors.white,
@@ -259,7 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             underline: const SizedBox(),
             selectedItemBuilder: (BuildContext context) {
               return <String>[
-                'Select',
+                'Sort',
                 'Opened',
                 'Notopen',
                 'Partial',
@@ -275,7 +275,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               }).toList();
             },
             items: <String>[
-              'Select',
+              'Sort',
               'Opened',
               'Notopen',
               'Partial',
@@ -295,10 +295,93 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
   }
+  ///dont delete
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         height: 31,
+  //         width: 130,
+  //         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+  //           borderRadius: BorderRadius.circular(12.0),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: const Color(0xff000000).withOpacity(0.25),
+  //               blurRadius: 2,
+  //               offset: const Offset(0, 2),
+  //             ),
+  //           ],
+  //         ),
+  //         child: DropdownButton<String>(
+  //           value: _selectedValue,
+  //           onChanged: (String? newValue) {
+  //             setState(() {
+  //               _selectedValue = newValue!;
+  //               filterData();
+  //             });
+  //           },
+  //           style: TransparentButtonTextConst.customTextStyle(context),
+  //           icon: const Icon(
+  //             Icons.arrow_drop_down,
+  //             color: Color(0xff50B5E5),
+  //           ),
+  //           iconSize: 20,
+  //           focusColor: Colors.transparent,
+  //           underline: const SizedBox(),
+  //           dropdownColor: Colors.white,
+  //           isDense: true,
+  //           selectedItemBuilder: (BuildContext context) {
+  //             return <String>[
+  //               'Sort',
+  //               'Opened',
+  //               'Notopen',
+  //               'Partial',
+  //               'Completed',
+  //             ].map<Widget>((String value) {
+  //               return Row(
+  //                 children: [
+  //                   Text(
+  //                     _selectedValue ?? 'Sort',
+  //                     style: TransparentButtonTextConst.customTextStyle(context),
+  //                   ),
+  //                   SizedBox(width: 6,)
+  //                 ],
+  //               );
+  //             }).toList();
+  //           },
+  //           items: _getDropdownItems(),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  List<DropdownMenuItem<String>> _getDropdownItems() {
+    List<String> items = ['Sort', 'Opened', 'Notopen', 'Partial', 'Completed'];
+
+    if (_selectedValue != null && items.contains(_selectedValue)) {
+      items.remove(_selectedValue);
+      items.insert(0, _selectedValue!);
+    }
+
+    return items.map<DropdownMenuItem<String>>((String value) {
+      return DropdownMenuItem<String>(
+        value: value,
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(value),
+        ),
+      );
+    }).toList();
+  }
+
   void filterData() {
     String selectedStatus = _selectedValue.trim().toLowerCase();
 
-    if (selectedStatus == 'select') {
+    if (selectedStatus == 'sort') {
       registerController.add(allData);
     } else {
       List<RegisterDataCompID> filteredData = allData.where((data) {

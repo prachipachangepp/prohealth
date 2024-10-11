@@ -318,13 +318,13 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: AppSize.s5,
+                                  height: AppSize.s10,
                                 )
                               ],
                             );
                           }),
                     ),
-                    SizedBox(height: AppSize.s5),
+                    SizedBox(height: AppSize.s10),
                     PaginationControlsWidget(
                       currentPage: currentPage,
                       items: snapshot.data!,
