@@ -414,7 +414,10 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                           children: [
                                             ElevatedButton(
                                               onPressed: () async {
-                                                FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                                    type: FileType.custom,
+                                                    allowedExtensions: ['pdf','jpeg']
+                                                );
                                                 if (result != null) {
                                                   try {
                                                     Uint8List? bytes = result.files.first.bytes;

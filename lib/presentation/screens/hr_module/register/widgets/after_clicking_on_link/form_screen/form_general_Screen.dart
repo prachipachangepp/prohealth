@@ -399,7 +399,10 @@ class _generalFormState extends State<generalForm> {
                                 //   allowMultiple: false,
                                 // );
                                 FilePickerResult? result =
-                                await FilePicker.platform.pickFiles();
+                                await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    allowedExtensions: ['pdf','jpeg']
+                                );
 
                                 if (result != null) {
                                   print("Result::: ${result}");

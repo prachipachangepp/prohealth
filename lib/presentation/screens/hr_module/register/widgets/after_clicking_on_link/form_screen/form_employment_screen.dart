@@ -323,7 +323,10 @@ class _EmploymentFormState extends State<EmploymentForm> {
   }
 
   Future<void> _handleFileUpload() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf','jpeg']
+    );
 
     if (result != null) {
       final file = result.files.first;

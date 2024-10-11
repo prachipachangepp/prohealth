@@ -620,7 +620,10 @@ class _licensesFormState extends State<licensesForm> {
                   children: [
                     ElevatedButton.icon(
                         onPressed: () async{
-                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          FilePickerResult? result = await FilePicker.platform.pickFiles(
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf','jpeg']
+                          );
 
                           if (result != null) {
                             final file = result.files.first;
