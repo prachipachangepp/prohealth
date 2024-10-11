@@ -72,7 +72,7 @@ class _generalFormState extends State<generalForm> {
   late bool _passwordVisible = false;
   String? gendertype;
   int? generalId;
-
+  bool isLoading = false;
   String? racetype;
 
   String? _fileNames;
@@ -207,11 +207,16 @@ class _generalFormState extends State<generalForm> {
                       CustomButton(
                         width: 117,
                         height: 30,
-                        text: 'Save',
+                        text: isLoading ? 'Wait..' : 'Save',
                         style: BlueButtonTextConst.customTextStyle(context),
                         borderRadius: 12,
                         onPressed: () async {
+                          if (isLoading) return;
+
                           // Get the company and user IDs
+                          setState(() {
+                            isLoading = true; // Start loading
+                          });
                           final companyId = await TokenManager.getCompanyId();
                           final userId = await TokenManager.getUserID();
 
@@ -321,7 +326,9 @@ class _generalFormState extends State<generalForm> {
                             //   SnackBar(content: Text("Failed to update user data")),
                             // );
                           }
-
+                          setState(() {
+                            isLoading = false; // End loading
+                          });
                           // Clear fields after saving
                           firstname.clear();
                           lastname.clear();
@@ -332,6 +339,18 @@ class _generalFormState extends State<generalForm> {
                           address.clear();
                           dobcontroller.clear();
                         },
+                        child: isLoading
+                            ? SizedBox(
+                          height: AppSize.s25,
+                          width: AppSize.s25,
+                          child: CircularProgressIndicator(
+                              color: Colors.white
+                          ),
+                        )
+                            : Text(
+                          'Save',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ),
                       ),
                     ],
                   ),

@@ -57,6 +57,8 @@ class _EducationScreenState extends State<EducationScreen> {
   // Current step in the stepper
   int _currentStep = 0;
 
+  bool isLoading = false;
+
 
   //List<GlobalKey<_EducationFormState>> educationFormKeys = [];
   // List<EducationDataForm> educationFormList = [];
@@ -163,11 +165,18 @@ class _EducationScreenState extends State<EducationScreen> {
               CustomButton(
                 width: 117,
                 height: 30,
-                text: 'Save',
+                text: isLoading ? 'Wait..' : 'Save',
                 style:  BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
+
+                  if (isLoading)
+                    return;
                   // Loop through each form and extract data to post
+
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
                     if (st.finalPath == null || st.finalPath!.isEmpty) {
@@ -213,8 +222,20 @@ class _EducationScreenState extends State<EducationScreen> {
                       }
                     }
                   }
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
                 },
-                child: Text(
+
+                child: isLoading
+                    ? SizedBox(
+                  height: AppSize.s25,
+                  width: AppSize.s25,
+                  child: CircularProgressIndicator(
+                      color: Colors.white
+                  ),
+                )
+                    : Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
@@ -297,17 +318,18 @@ class _EducationFormState extends State<EducationForm> {
       print('Failed to load prefilled data: $e');
     }
   }
-  Future<void> _handleFileUpload() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    if (result != null) {
-      final file = result.files.first;
-      setState(() {
-        fileName = file.name;
-        finalPath = file.bytes;
-      });
-    }
-  }
+  // Future<void> _handleFileUpload() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null) {
+  //     final file = result.files.first;
+  //     setState(() {
+  //       fileName = file.name;
+  //       finalPath = file.bytes;
+  //     });
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -390,9 +412,12 @@ class _EducationFormState extends State<EducationForm> {
                       style:AllPopupHeadings.customTextStyle(context),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    Container(
-                      height: 32,
-                      child: buildDropdownButton(context),
+                    StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) { return Container(
+                        height: 32,
+                        child: buildDropdownButton(context),
+                      );  },
+
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30),
                     Text(
@@ -465,38 +490,51 @@ class _EducationFormState extends State<EducationForm> {
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ElevatedButton.icon(
-                      onPressed: _handleFileUpload,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff50B5E5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
+              StatefulBuilder(
+                builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: ()async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-                      ),
-                      icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
-                      label:docName == null ?Text(
-                        'Upload File',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      ):Text(
-                        'Uploaded',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      )
-                  ),
-                  SizedBox(height: 8,),
-                  docName != null ? AutoSizeText(
-                      'Uploaded File: $docName',
-                      style:onlyFormDataStyle.customTextStyle(context)
-                  ):
-                  fileName != null ?
-                  AutoSizeText(
-                      'File picked: $fileName',
-                      style: onlyFormDataStyle.customTextStyle(context)
-                  ) : SizedBox(),
-                ],
+                          if (result != null) {
+                            final file = result.files.first;
+                            setState(() {
+                              fileName = file.name;
+                              finalPath = file.bytes;
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff50B5E5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+
+                        ),
+                        icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                        label:docName == null ?Text(
+                          'Upload File',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ):Text(
+                          'Uploaded',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        )
+                    ),
+                    SizedBox(height: 8,),
+                    docName != null ? AutoSizeText(
+                        'Uploaded File: $docName',
+                        style:onlyFormDataStyle.customTextStyle(context)
+                    ):
+                    fileName != null ?
+                    AutoSizeText(
+                        'File picked: $fileName',
+                        style: onlyFormDataStyle.customTextStyle(context)
+                    ) : SizedBox(),
+                  ],
+                );  },
+
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 20),
             ],

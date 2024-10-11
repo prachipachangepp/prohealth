@@ -46,6 +46,8 @@ class LicensesScreen extends StatefulWidget {
 class _LicensesScreenState extends State<LicensesScreen> {
   List<GlobalKey<_licensesFormState>> licenseFormKeys = [];
   bool isVisible = false;
+
+  bool isLoading =false;
   Future<void> perfFormLinsence({
     required BuildContext context,
     required String country,
@@ -262,10 +264,18 @@ class _LicensesScreenState extends State<LicensesScreen> {
             CustomButton(
               width: 117,
               height: 30,
-              text: 'Save',
+              text: isLoading ? 'Wait..' : 'Save',
               style:BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
+
+                if (isLoading)
+                  return;
+                // Loop through each form and extract data to post
+
+                setState(() {
+                  isLoading = true; // Start loading
+                });
                 for (var key in licenseFormKeys) {
                   try{
                     final st = key.currentState!;
@@ -287,9 +297,20 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   }
 
                 }
+                setState(() {
+                  isLoading = false; // End loading
+                });
                 //licensure.clear();
               },
-              child: Text(
+              child: isLoading
+                  ? SizedBox(
+                height: AppSize.s25,
+                width: AppSize.s25,
+                child: CircularProgressIndicator(
+                    color: Colors.white
+                ),
+              )
+                  : Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
@@ -364,17 +385,7 @@ class _licensesFormState extends State<licensesForm> {
       print('Failed to load prefilled data: $e');
     }
   }
-  Future<void> _handleFileUpload() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    if (result != null) {
-      final file = result.files.first;
-      setState(() {
-        fileName = file.name;
-        finalPath = file.bytes;
-      });
-    }
-  }
 
   bool _documentUploaded = true;
   var fileName;
@@ -458,9 +469,12 @@ class _licensesFormState extends State<licensesForm> {
                         height:
                         MediaQuery.of(context).size.height /
                             60),
-                    Container(
-                      height: 32,
-                      child: buildDropdownButton(context),
+                    StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
+                        height: 32,
+                        child: buildDropdownButton(context),
+                      ); },
+
                     ),
                     SizedBox(
                         height:
@@ -497,7 +511,7 @@ class _licensesFormState extends State<licensesForm> {
                     SizedBox(
                         height:
                         MediaQuery.of(context).size.height /
-                            100),
+                            60),
                     CustomTextFieldRegister(
                       controller: controllerIssueDate,
                       hintText: 'yyyy-MM-dd',
@@ -552,7 +566,7 @@ class _licensesFormState extends State<licensesForm> {
                     SizedBox(
                         height:
                         MediaQuery.of(context).size.height /
-                            100),
+                            60),
                     CustomTextFieldRegister(
                       controller: controllerExpirationDate,
                       hintText: 'dd-mm-yyyy',
@@ -582,7 +596,7 @@ class _licensesFormState extends State<licensesForm> {
                         },
                       ),
                     ),
-                    SizedBox(height: 150)
+                    SizedBox(height: 160)
                   ],
                 ),
               ),
@@ -600,38 +614,51 @@ class _licensesFormState extends State<licensesForm> {
               ),
               SizedBox(
                   width: MediaQuery.of(context).size.width / 5),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: _handleFileUpload,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff50B5E5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+              StatefulBuilder(
+                builder: (BuildContext context, void Function(void Function()) setState) {return Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: () async{
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
 
+                          if (result != null) {
+                            final file = result.files.first;
+                            setState(() {
+                              fileName = file.name;
+                              finalPath = file.bytes;
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff50B5E5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+
+                        ),
+                        icon: licenseUrl == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                        label:licenseUrl == null ?Text(
+                          'Upload File',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ):Text(
+                          'Uploaded',
+                          style:  BlueButtonTextConst.customTextStyle(context),
+                        )
                     ),
-                    icon: licenseUrl == "--" ? Icon(Icons.upload, color: Colors.white):null,
-                    label:licenseUrl == null ?Text(
-                      'Upload File',
-                      style: BlueButtonTextConst.customTextStyle(context),
-                    ):Text(
-                      'Uploaded',
-                      style:  BlueButtonTextConst.customTextStyle(context),
-                    )
-                  ),
-                  SizedBox(height: 8,),
-                  licenseUrl != null ? AutoSizeText(
-                    'Uploaded File: $licenseUrl',
-                    style:onlyFormDataStyle.customTextStyle(context),
-                  ):
-                  fileName != null ?
-                  AutoSizeText(
+                    SizedBox(height: 8,),
+                    licenseUrl != null ? AutoSizeText(
+                      'Uploaded File: $licenseUrl',
+                      style:onlyFormDataStyle.customTextStyle(context),
+                    ):
+                    fileName != null ?
+                    AutoSizeText(
                       'File picked: $fileName',
                       style: onlyFormDataStyle.customTextStyle(context),
                     ) : SizedBox(),
-                ],
+                  ],
+                );  },
+
               ),
             ],
           ),

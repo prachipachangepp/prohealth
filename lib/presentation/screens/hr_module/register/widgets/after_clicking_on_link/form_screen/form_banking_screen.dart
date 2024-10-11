@@ -15,6 +15,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_banking_data.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -43,6 +44,8 @@ class _BankingScreenState extends State<BankingScreen> {
   var validateAccounts;
 
   var errorMessage;
+
+ bool isLoading = false;
 
   @override
   void initState() {
@@ -196,10 +199,15 @@ class _BankingScreenState extends State<BankingScreen> {
             CustomButton(
               width: 117,
               height: 30,
-              text: 'Save',
+              text: isLoading ? 'Wait..' : 'Save',
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
+                if (isLoading) return;
+                // Loop through ea
+                setState(() {
+                  isLoading = true; // Start loading
+                });
                 for (var key in bankingFormKeys) {
                   try{
                     final st = key.currentState!;
@@ -222,14 +230,26 @@ class _BankingScreenState extends State<BankingScreen> {
                   }
 
                 }
+                setState(() {
+                  isLoading = false; // End loading
+                });
               },
               // accountnumber.clear();
 
-              child: Text(
+              child: isLoading
+                  ? SizedBox(
+                height: AppSize.s25,
+                width: AppSize.s25,
+                child: CircularProgressIndicator(
+                    color: Colors.white
+                ),
+              )
+                  : Text(
                 'Save',
-                style:BlueButtonTextConst.customTextStyle(context),
+                style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
             if (errorMessage != null)
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
