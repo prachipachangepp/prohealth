@@ -194,7 +194,7 @@ class _Employment_screenState extends State<Employment_screen> {
                           state.finalPositionController.text,
                           state.startDateController.text,
                           state.isChecked
-                              ? '0000-00-00'
+                              ? "Present"
                               : state.endDateController.text,
                           "NA",
                           "USA",
@@ -325,7 +325,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
   Future<void> _handleFileUpload() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['pdf','jpeg']
+        allowedExtensions: ['pdf']
     );
 
     if (result != null) {

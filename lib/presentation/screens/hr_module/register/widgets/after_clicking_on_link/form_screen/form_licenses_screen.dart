@@ -622,7 +622,7 @@ class _licensesFormState extends State<licensesForm> {
                         onPressed: () async{
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
                               type: FileType.custom,
-                              allowedExtensions: ['pdf','jpeg']
+                              allowedExtensions: ['pdf']
                           );
 
                           if (result != null) {

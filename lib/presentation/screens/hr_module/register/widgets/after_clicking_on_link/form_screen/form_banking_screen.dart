@@ -170,7 +170,7 @@ class _BankingScreenState extends State<BankingScreen> {
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Padding(
-          padding: const EdgeInsets.only(left: 150),
+          padding: const EdgeInsets.only(left: 160),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -185,7 +185,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 ),
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
-                  'Add Banking',
+                  'Add Bank Details',
                   style:BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
@@ -341,7 +341,7 @@ class _BankingFormState extends State<BankingForm> {
   Future<void> _handleFileUpload() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['pdf','jpeg']
+        allowedExtensions: ['pdf']
     );
 
     if (result != null) {
@@ -460,7 +460,7 @@ class _BankingFormState extends State<BankingForm> {
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              30),
+                                              25),
                                   Text(
                                     'Routing/Transit Number ( 9 Digits )',
                                     style:AllPopupHeadings.customTextStyle(context),

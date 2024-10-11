@@ -416,7 +416,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                               onPressed: () async {
                                                 FilePickerResult? result = await FilePicker.platform.pickFiles(
                                                     type: FileType.custom,
-                                                    allowedExtensions: ['pdf','jpeg']
+                                                    allowedExtensions: ['pdf']
                                                 );
                                                 if (result != null) {
                                                   try {

@@ -18,6 +18,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
@@ -87,7 +88,11 @@ class _generalFormState extends State<generalForm> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
+    address.addListener(_onCountyNameChanged);
   }
+
+
+
   var fetchedData;
   Future<void> _initializeFormWithPrefilledData() async {
     try {
@@ -157,6 +162,63 @@ class _generalFormState extends State<generalForm> {
       throw Exception('File not found');
     }
   }
+
+
+
+
+
+
+
+
+  List<String> _suggestions = [];
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   address.addListener(_onCountyNameChanged);
+  // }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    if (address.text.isEmpty) {
+      setState(() {
+        _suggestions = [];
+      });
+      return;
+    }
+    final suggestions = await fetchSuggestions(address.text);
+    if (suggestions[0] == address.text) {
+      setState(() {
+        _suggestions.clear();
+      });
+    } else if (address.text.isEmpty) {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    } else {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////
   @override
   Widget build(BuildContext context) {
@@ -401,7 +463,7 @@ class _generalFormState extends State<generalForm> {
                                 FilePickerResult? result =
                                 await FilePicker.platform.pickFiles(
                                     type: FileType.custom,
-                                    allowedExtensions: ['pdf','jpeg']
+                                    allowedExtensions: ['svg','jpeg']
                                 );
 
                                 if (result != null) {
@@ -725,25 +787,80 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
-                      Text(
-                        'Address',
-                        style:AllPopupHeadings.customTextStyle(context),
+                      Stack(
+                        children :[
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'Address',
+                                    style:AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height / 60),
+                              CustomTextFieldRegister(
+                                controller: address,
+                                hintText: 'Enter Text',
+                                hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                height: 32,
+                              ),
+                            ],
+                          ),
+                        ]
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        controller: address,
-                        hintText: 'Enter Text',
-                        hintStyle: onlyFormDataStyle.customTextStyle(context),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        height: 32,
-                      ),
+                      if (_suggestions.isNotEmpty)
+                        Positioned(
+                          // top: 53,
+                          right: 51,
+                          child: Container(
+                            height: 100,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: _suggestions.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(
+                                    _suggestions[index],
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  onTap: () {
+                                    FocusScope.of(context)
+                                        .unfocus(); // Dismiss the keyboard
+                                    String selectedSuggestion = _suggestions[index];
+                                    address.text = selectedSuggestion;
+
+                                    setState(() {
+                                      _suggestions.clear();
+                                      //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                                    });
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
 
                       // SizedBox(
                       //     height:
