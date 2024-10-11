@@ -16,6 +16,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
@@ -58,6 +59,7 @@ class Employment_screen extends StatefulWidget {
 class _Employment_screenState extends State<Employment_screen> {
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
   bool isVisible = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -164,10 +166,17 @@ class _Employment_screenState extends State<Employment_screen> {
               CustomButton(
                 width: 117,
                 height: 30,
-                text: 'Save',
+                text: isLoading ? 'Wait..' : 'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
+                  if (isLoading)
+                    return; // Prevent multiple presses while loading
+
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
                     if (state.finalPath == null || state.finalPath!.isEmpty) {
@@ -175,27 +184,27 @@ class _Employment_screenState extends State<Employment_screen> {
                     } else {
                       try {
                         await postemploymentscreenData(
-                            context,
-                            state.widget.employeeID,
-                            state.employerController.text,
-                            state.cityController.text,
-                            state.reasonForLeavingController.text,
-                            state.supervisorNameController.text,
-                            state.supervisorMobileNumberController.text,
-                            state.finalPositionController.text,
-                            state.startDateController.text,
-                            state.isChecked
-                                ? '0000-00-00'
-                                : state.endDateController.text,
-                            "NA",
-                            "USA");
+                          context,
+                          state.widget.employeeID,
+                          state.employerController.text,
+                          state.cityController.text,
+                          state.reasonForLeavingController.text,
+                          state.supervisorNameController.text,
+                          state.supervisorMobileNumberController.text,
+                          state.finalPositionController.text,
+                          state.startDateController.text,
+                          state.isChecked
+                              ? "Present"
+                              : state.endDateController.text,
+                          "NA",
+                          "USA",
+                        );
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
                           documentFile: state.finalPath!,
                           documentName: state.fileName ?? '',
                         );
-
 
                         showDialog(
                           context: context,
@@ -205,25 +214,39 @@ class _Employment_screenState extends State<Employment_screen> {
                             );
                           },
                         );
-
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //
-                        //   // SnackBar(
-                        //   //   content: Text('Document uploaded successfully!'),
-                        //   //   backgroundColor: Colors.green,
-                        //   // ),
-                        // );
                       } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Failed To Update Employment Data',
+                            );
+                          },
+                        );
                         print(e);
                       }
                     }
                   }
+
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
                 },
-                child: Text(
+                child: isLoading
+                    ? SizedBox(
+                  height: AppSize.s25,
+                  width: AppSize.s25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.white,
+                  ),
+                )
+                    : Text(
                   'Save',
-                  style:BlueButtonTextConst.customTextStyle(context),
+                  style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+
+
             ],
           ),
         ],
@@ -300,7 +323,10 @@ class _EmploymentFormState extends State<EmploymentForm> {
   }
 
   Future<void> _handleFileUpload() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf']
+    );
 
     if (result != null) {
       final file = result.files.first;
