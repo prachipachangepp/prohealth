@@ -290,6 +290,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               if (labelText == "State") _stateError = value.isEmpty;
               if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
               if (labelText == "Country Name") _countryNameError = value.isEmpty;
+              if (labelText == "Degree") _degreeError = value.isEmpty;
             });
           },
           validator: (value) {

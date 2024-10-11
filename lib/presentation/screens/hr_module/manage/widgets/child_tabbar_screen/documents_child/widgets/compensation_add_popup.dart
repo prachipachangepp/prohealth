@@ -607,6 +607,7 @@ class CustomDocumedEditPopup extends StatefulWidget {
   String? fileName;
   final String docName;
   final String url;
+  final String documentFileName;
 
   CustomDocumedEditPopup({
     Key? key,
@@ -619,7 +620,7 @@ class CustomDocumedEditPopup extends StatefulWidget {
     required this.docSetupId,
     required this.empDocumentId,
     required this.selectedExpiryType,
-    required this.url,
+    required this.url, required this.documentFileName,
   }) : super(key: key);
 
   @override
@@ -652,7 +653,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
       expiryDateController = TextEditingController(
           text: DateFormat('yyyy-MM-dd').format(dateTime));
     }
-    fileName = widget.docName;
+    fileName = widget.documentFileName;
     // dropDownMenuItems = widget.dataList
     //     .map((doc) => DropdownMenuItem<String>(
     //   value: doc.documentName,
@@ -668,7 +669,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
   bool fileIsPicked = false;
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowMultiple: true,
+        type: FileType.custom,
         allowedExtensions: ['pdf']);
     if (result != null) {
       setState(() {
@@ -763,7 +764,6 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
         ),
         Visibility(
           visible: showExpiryDateField,
-
           /// Conditionally display expiry date field
           child: HeaderContentConst(
             heading: AppString.expiry_date,
@@ -872,7 +872,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                     context: context,
                     builder: (BuildContext context) {
                       return AddSuccessPopup(
-                        message: 'Document Edit',
+                        message: 'Document Edited Successfully',
                       );
                     },
                   );
@@ -886,7 +886,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                   context: context,
                   builder: (BuildContext context) {
                     return AddSuccessPopup(
-                      message: 'Document Edit',
+                      message: 'Document Edited Successfully',
                     );
                   },
                 );
@@ -1183,7 +1183,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AddSuccessPopup(message: 'Document Uploaded');
+                      return AddSuccessPopup(message: 'Document Uploaded Successfully');
                     },
                   );
                 }

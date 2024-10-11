@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 
 import '../../../../../../../../app/resources/color.dart';
@@ -120,10 +121,16 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       );
                     }
                     if (snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Text(
-                          AppStringHRNoData.nodevicedesc,
-                          style: AllNoDataAvailable.customTextStyle(context),
+                      return Container(
+                        width: 350,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          child: Text('No available devices', style: DocumentTypeDataStyle.customTextStyle(context)),
                         ),
                       );
                     }
@@ -294,7 +301,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                     setState(() {
                       isLoading = true;
                     });
-                    await addEquipment(
+                    var response = await addEquipment(
                       context,
                       int.parse(idController.text),
                       calenderController.text,
@@ -304,6 +311,15 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       // typeName,
                       nameController.text,
                     );
+                    if (response.statusCode == 200 || response.statusCode == 201) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(message: 'Equipment Added Successfully');
+                        },
+                      );
+                    }
                     print("::${idController.text}");
                     print("::${typeName}");
                     print("::${calenderController.text}");
@@ -311,7 +327,6 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                     setState(() {
                       isLoading = false;
                     });
-                    Navigator.pop(context);
                     inventoryId = 0;
                     inventoryName = '';
                     nameController.clear();

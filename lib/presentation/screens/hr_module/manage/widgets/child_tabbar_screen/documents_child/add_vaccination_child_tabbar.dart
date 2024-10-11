@@ -285,7 +285,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                                       empDocumentId: health.employeeDocumentId,
                                                       selectedExpiryType: health.ReminderThreshold,
                                                       expiryDate: snapshotPreFill.data!.expiry,
-                                                      url: health.DocumentUrl,
+                                                      url: health.DocumentUrl, documentFileName: health.documentFileName,
                                                     );
 
 
@@ -312,28 +312,32 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                   IconButton(
                                     onPressed: () async{
                                       await showDialog(context: context,
-                                          builder: (context) => DeletePopup(
-                                            loadingDuration: _isLoading,
-                                            title: 'Delete Health',
-                                              onCancel: (){
-                                                Navigator.pop(context);
-                                              }, onDelete: () async{
-                                            setState(() {
-                                              _isLoading = true;
-                                            });
-                                            try{
-                                              await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
-                                            }finally{
-                                              setState(() {
-                                                _isLoading = false;
-                                              });
-                                              Navigator.pop(context);
-                                            }
-                                            // setState(() async{
-                                            //
-                                            //   Navigator.pop(context);
-                                            // });
-                                          },
+                                          builder: (context) => StatefulBuilder(
+                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                              return DeletePopup(
+                                                loadingDuration: _isLoading,
+                                                title: 'Delete Health',
+                                                onCancel: (){
+                                                  Navigator.pop(context);
+                                                }, onDelete: () async{
+                                                setState(() {
+                                                  _isLoading = true;
+                                                });
+                                                try{
+                                                  await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
+                                                }finally{
+                                                  setState(() {
+                                                    _isLoading = false;
+                                                  });
+                                                  Navigator.pop(context);
+                                                }
+                                                // setState(() async{
+                                                //
+                                                //   Navigator.pop(context);
+                                                // });
+                                              },
+                                              );
+                                            },
                                           )
                                       );
                                     },

@@ -357,7 +357,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                         empDocumentId: compaensation.employeeDocumentId,
                                                         selectedExpiryType: compaensation.ReminderThreshold,
                                                         url: compaensation.DocumentUrl,
-                                                        expiryDate: snapshotPreFill.data!.expiry,
+                                                        expiryDate: snapshotPreFill.data!.expiry, documentFileName: compaensation.documentFileName,
                                                       );
                                                     } else {
                                                       return ErrorPopUp(
@@ -385,27 +385,31 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         await showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                DeletePopup(
-                                                  loadingDuration: _isLoading,
-                                                  onCancel: () {
-                                                  Navigator.pop(context);
-                                                }, onDelete: () async{
-                                                  setState(() {
-                                                    _isLoading = true;
-                                                  });
-                                                  try{
-                                                    await deleteEmployeeDocuments(context: context, empDocumentId: compaensation.employeeDocumentId);
-                                                  }finally{
-                                                    setState(() {
-                                                      _isLoading = false;
-                                                    });
-                                                    Navigator.pop(context);
-                                                  }
-                                                  // setState(() async{
-                                                  //
-                                                  //   Navigator.pop(context);
-                                                  // });
-                                                }, title: 'Delete Compensation',));
+                                                StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return DeletePopup(
+                                                      loadingDuration: _isLoading,
+                                                      onCancel: () {
+                                                        Navigator.pop(context);
+                                                      }, onDelete: () async{
+                                                      setState(() {
+                                                        _isLoading = true;
+                                                      });
+                                                      try{
+                                                        await deleteEmployeeDocuments(context: context, empDocumentId: compaensation.employeeDocumentId);
+                                                      }finally{
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                        Navigator.pop(context);
+                                                      }
+                                                      // setState(() async{
+                                                      //
+                                                      //   Navigator.pop(context);
+                                                      // });
+                                                    }, title: 'Delete Compensation',);
+                                                  },
+                                                ));
                                       },
                                       icon: Icon(
                                         Icons.delete_outline,

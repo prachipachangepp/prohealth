@@ -10,6 +10,7 @@ class OnboardingQualificationRepo {
   static String reject = "/reject";
   static String batchreject = "/BatchReject";
   static String batchApprove = "/BatchApprove";
+  static String formStatus = "/form-html-templates-status/status";
 
   /// /employee-employment-histories
   static String getEmpEmploymentHistories({required int employeeid, required String approveOnly}) {
@@ -97,5 +98,10 @@ class OnboardingQualificationRepo {
   ///employee-documents/BatchReject
   static String batchRejectAckHealthRecord() {
     return "$employee_doc$batchreject";
+  }
+
+  /// employee form status
+  static String employeeFormStatusGet({required int employeeId}) {
+    return "$formStatus/$employeeId";
   }
 }

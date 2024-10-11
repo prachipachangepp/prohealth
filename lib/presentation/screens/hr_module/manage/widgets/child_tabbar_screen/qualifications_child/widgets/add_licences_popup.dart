@@ -130,7 +130,8 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                     onPressed: () async {
                       FilePickerResult? result =
                       await FilePicker.platform.pickFiles(
-                        allowMultiple: false,
+                        type: FileType.custom,
+                        allowedExtensions: ['pdf'],
                       );
                       if (result != null) {
                         setState(() {

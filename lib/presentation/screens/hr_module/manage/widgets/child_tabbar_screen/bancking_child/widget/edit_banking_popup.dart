@@ -186,7 +186,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Future<void> _handleFileUpload() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
     );
     if (result != null) {
       setState(() {
@@ -264,18 +265,17 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                     ),
                   ],
                 ),
-                // if (state.hasError)
-                //   Padding(
-                //     padding: const EdgeInsets.only(top:1),
-                //     child: Text(
-                //
-                //       state.errorText!,
-                //       style: TextStyle(
-                //         color: Colors.red,
-                //         fontSize: 12,
-                //       ),
-                //     ),
-                //   ),
+                if (state.hasError)
+                  Padding(
+                    padding: const EdgeInsets.only(top:1),
+                    child: Text(
+                      state.errorText!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
               ],
             );
           },
@@ -296,7 +296,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               child: _buildTextField(
                 capitalIsSelect:false,
                   prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
-                errorText: rnumber?"Please Enter Specific Amount" : null,
+                errorText: sac?"Please Enter Specific Amount" : null,
               ),
             ),
             SizedBox(width: 10),
@@ -331,7 +331,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       children: [
         _buildTextField(
           capitalIsSelect:false,
-          errorText: rnumber?"Please Enter Effective Date" : null,
+          errorText: eDate?"Please Enter Effective Date" : null,
           suffixIcon: IconButton(
             splashColor: Colors.transparent,
             hoverColor: Colors.transparent,
@@ -391,7 +391,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           onChanged: (value) {
             setState(() {
               // Update error state based on the field
-              if (labelText == " ") sac = value.isEmpty;
+              if (labelText == "Specific Amount") sac = value.isEmpty;
               if (labelText == "Routing Number/ Transit Number") rnumber = value.isEmpty;
               if (labelText == "Account Number") ac = value.isEmpty;
               //if (labelText == "Phone") sac = !_isPhoneValid(value); // Use custom phone validation
@@ -445,7 +445,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         !sac &&
         !ac &&
         !vac && // Ensure this is only true when both account numbers match
-        errorVerifyAccountMessage == null) {
+        errorVerifyAccountMessage == null && _typeFieldKey.currentState!.validate()) {
       try {
         await widget.onPressed();
         await uploadBanckingDocument(context, widget.banckId, pickedFile);

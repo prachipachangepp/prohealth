@@ -346,14 +346,13 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 documentFile: filePath,
                 expiryDate: expiryDate,
               );
-
               if (response.statusCode == 200 || response.statusCode == 201) {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AddSuccessPopup(
-                      message: 'Document Uploaded',
+                      message: 'Document Uploaded Successfully',
                     );
                   },
                 );

@@ -299,7 +299,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                     return CustomDocumedEditPopup(
                                                       labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
                                                       docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,
-                                                      selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: snapshotPreFill.data!.expiry,
+                                                      selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: snapshotPreFill.data!.expiry, documentFileName: others.documentFileName,
                                                     );
                                                   } else {
                                                     return ErrorPopUp(
@@ -322,14 +322,18 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                       await showDialog(
                                       context: context,
                                       builder: (context) =>
-                                          DeletePopup(onCancel: () {
-                                            Navigator.pop(context);
-                                          }, onDelete: () {
-                                            setState(() async {
-                                              await deleteEmployeeDocuments(context: context, empDocumentId: others.employeeDocumentId);
-                                              Navigator.pop(context);
-                                            });
-                                          }, title: 'Delete Document',));
+                                          StatefulBuilder(
+                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                              return DeletePopup(onCancel: () {
+                                                Navigator.pop(context);
+                                              }, onDelete: () {
+                                                setState(() async {
+                                                  await deleteEmployeeDocuments(context: context, empDocumentId: others.employeeDocumentId);
+                                                  Navigator.pop(context);
+                                                });
+                                              }, title: 'Delete Document',);
+                                            },
+                                          ));
                                     },
                                     icon: const Icon(Icons.delete_outline,color: Color(0xffFF0000),),
                                     iconSize: 20,),

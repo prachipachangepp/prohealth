@@ -292,7 +292,7 @@ bool _isLoading = false;
                                                         empDocumentId: ackData.employeeDocumentId,
                                                         selectedExpiryType: ackData.ReminderThreshold,
                                                         expiryDate: snapshotPreFill.data!.expiry,
-                                                        url: ackData.DocumentUrl,
+                                                        url: ackData.DocumentUrl, documentFileName: ackData.documentFileName,
                                                       );
 
 
