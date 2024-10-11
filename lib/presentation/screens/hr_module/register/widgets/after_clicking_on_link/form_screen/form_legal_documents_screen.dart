@@ -45,6 +45,8 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   List<String> _fileNames = [];
   bool _loading = false;
 
+  bool isLoading = false;
+
   void _pickFiles() async {
     setState(() {
       _loading = true; // Show loader
@@ -159,7 +161,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       Expanded(
                         child: Text(
                           'Upload one of your government ids ( e.g. drivers license )',
-                          style: DefineWorkWeekStyle.customTextStyle(context),
+                          style: FileuploadString.customTextStyle(context),
                         ),
                       ),
                       const SizedBox(width: 40),
@@ -169,7 +171,10 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         // FilePickerResult? result = await FilePicker.platform.pickFiles(
                         //   allowMultiple: false,
                         // );
-                        FilePickerResult? result = await FilePicker.platform.pickFiles();
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf']
+                        );
                         if (result != null) {
                           print("Result::: ${result}");
 
@@ -247,10 +252,32 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 30),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'List Of Documents',
                         style: HeadingFormStyle.customTextStyle(context),
+                      ),
+                      CustomButton(
+                        width: 117,
+                        height: 30,
+                        text: isLoading ? 'Wait..' : 'Save',
+                        style:BlueButtonTextConst.customTextStyle(context),
+                        borderRadius: 12,
+                        onPressed: () {},
+                        child: isLoading
+                            ? SizedBox(
+                          height: AppSize.s25,
+                          width: AppSize.s25,
+                          child: CircularProgressIndicator(
+                              color: Colors.white
+                          ),
+                        )
+                            : Text(
+                          'Save',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ),
+
                       ),
                     ],
                   ),

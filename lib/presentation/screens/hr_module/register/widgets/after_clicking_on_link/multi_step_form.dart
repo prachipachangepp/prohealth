@@ -162,37 +162,92 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               //   ),
                               //   icon: const Icon(Icons.arrow_back,  size: 16,),
                               // )
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: ColorManager.black,
-                                    size: 20,
+
+
+                              Container(
+                                width: 20,
+                                height: 20,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                    color: ColorManager.fmediumgrey.withOpacity(0.2),
+                                    width: 0.79,
                                   ),
                                 ),
-                                onTap: details.onStepCancel,
-                              )
+                                child: IconButton(
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  padding: EdgeInsets.only(bottom: 1.5),
+                                  icon: Icon(Icons.chevron_left),
+                                  onPressed:  details.onStepCancel,
+                                  color: Colors.black,
+                                  iconSize: 20,
+                                ),
+                              ),
+                              // InkWell(
+                              //   splashColor: Colors.transparent,
+                              //   highlightColor: Colors.transparent,
+                              //   child: Center(
+                              //     child: Icon(
+                              //       Icons.arrow_back,
+                              //       color: ColorManager.black,
+                              //       size: 20,
+                              //     ),
+                              //   ),
+                              //   onTap: details.onStepCancel,
+                              // )
                             ],
                             const SizedBox(
-                              width: 20,
+                              width: 60,
                             ),
 
-                            InkWell(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    color: ColorManager.bluelight,
-                                    size: 20,
-                                  ),
+
+
+
+                            Container(
+                              width: 20,
+                              height: 20,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                  color: ColorManager.fmediumgrey.withOpacity(0.2),
+                                  width: 0.79,
                                 ),
-                                onTap:()async{
+                              ),
+                              child: IconButton(
+                                splashColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                padding: EdgeInsets.only(bottom: 1.5),
+                                icon: Icon(Icons.chevron_right),
+                                onPressed:()async{
                                   isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
-                                }
+                                },
+                                color: Colors.black,
+                                iconSize: 20,
+                              ),
                             ),
+
+
+                            // InkWell(
+                            //     splashColor: Colors.transparent,
+                            //     highlightColor: Colors.transparent,
+                            //     child: Center(
+                            //       child: Icon(
+                            //         Icons.arrow_forward,
+                            //         color: ColorManager.bluelight,
+                            //         size: 20,
+                            //       ),
+                            //     ),
+                            //     onTap:()async{
+                            //       isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
+                            //     }
+                            // ),
 
 
 

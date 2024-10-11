@@ -8,6 +8,7 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -36,6 +37,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController knowthisperson = TextEditingController();
   TextEditingController lengthofassociation = TextEditingController();
+
+  bool isLoading = false;
 
 
 
@@ -146,11 +149,18 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             CustomButton(
               width: 117,
               height: 30,
-              text: 'Save',
+              text: isLoading ? 'Wait..' : 'Save',
               style:BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
+
+                if (isLoading)
+                  return;
                 // Loop through each form and extract data to post
+
+                setState(() {
+                  isLoading = true; // Start loading
+                });
                 for (var key in referenceFormKeys) {
                   final st = key.currentState!;
                   await postreferencescreenData(
@@ -165,6 +175,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                       st.knowthisperson.text,
                       st.titleposition.text);
                 }
+                setState(() {
+                  isLoading = false; // End loading
+                });
                 lengthofassociation.clear();
                 companyorganization.clear();
                 email.clear();
@@ -173,9 +186,17 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 knowthisperson.clear();
                 titleposition.clear();
               },
-              child: Text(
+              child: isLoading
+                  ? SizedBox(
+                height: AppSize.s25,
+                width: AppSize.s25,
+                child: CircularProgressIndicator(
+                    color: Colors.white
+                ),
+              )
+                  : Text(
                 'Save',
-                style: BlueButtonTextConst.customTextStyle(context)
+                style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
           ],
