@@ -469,7 +469,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 icon: Icons.upload_outlined,
                                                 text: AppString.photo,
                                                 onPressed: () async {
-                                                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                                    allowMultiple: true,
+                                                    type: FileType.custom, // Custom type to specify allowed extensions
+                                                    allowedExtensions: [
+                                                      'png',
+                                                      'jpg',
+                                                      'jpeg',
+                                                    ],
+                                                  );
                                                   if (result != null) {
                                                     print("Result::: ${result}");
 
