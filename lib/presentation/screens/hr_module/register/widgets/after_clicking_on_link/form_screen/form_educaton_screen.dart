@@ -95,139 +95,139 @@ class _EducationScreenState extends State<EducationScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-              child: Column(
-                children: [
-                  Center(
-                    child: Text(
-                      'Education',
-                      style:FormHeading.customTextStyle(context)
+      child: Column(
+        children: [
+          Center(
+            child: Text(
+                'Education',
+                style:FormHeading.customTextStyle(context)
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 60),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F7FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              'Your personal details will be required to proceed through the recruitment process.',
+              style: DefineWorkWeekStyle.customTextStyle(context),
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Column(
+            children: educationFormKeys.asMap().entries.map((entry) {
+              int index = entry.key;
+              GlobalKey<_EducationFormState> key = entry.value;
+              return EducationForm(
+                key: key,
+                index: index + 1,
+                onRemove: () => removeEduacationForm(key),
+                employeeID: widget.employeeID, isVisible: isVisible,
+              );
+            }).toList(),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 150),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      isVisible = true;
+                      addEducationForm();
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff50B5E5),
+                    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFE6F7FF),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      'Your personal details will be required to proceed through the recruitment process.',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
-                    ),
+                  icon: Icon(Icons.add, color: Colors.white),
+                  label: Text(
+                      'Add Education',
+                      style: BlueButtonTextConst.customTextStyle(context)
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 20),
-                  Column(
-                    children: educationFormKeys.asMap().entries.map((entry) {
-                      int index = entry.key;
-                      GlobalKey<_EducationFormState> key = entry.value;
-                      return EducationForm(
-                        key: key,
-                        index: index + 1,
-                        onRemove: () => removeEduacationForm(key),
-                        employeeID: widget.employeeID, isVisible: isVisible,
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 20),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 150),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            setState(() {
-                              isVisible = true;
-                              addEducationForm();
-                            });
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style:  BlueButtonTextConst.customTextStyle(context),
+                borderRadius: 12,
+                onPressed: () async {
+                  // Loop through each form and extract data to post
+                  for (var key in educationFormKeys) {
+                    final st = key.currentState!;
+                    if (st.finalPath == null || st.finalPath!.isEmpty) {
+                      print("Loading");
+                    } else {
+                      try {
+                        ApiDataRegister result =  await FormEducationManager().posteducationscreen(
+                            context,
+                            st.widget.employeeID,
+                            st.graduatetype.toString(),
+                            st.selectedDegree.toString(),
+                            st.majorsubject.text,
+                            st.city.text,
+                            st.collegeuniversity.text,
+                            st.phone.text,
+                            st.state.text,
+                            "USA",
+                            "2024-08-09");
+                        await uploadEducationDocument(
+                            context,
+                            result.educationId!,
+                            st.finalPath,
+                            st.fileName!
+                        );
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Education Data Saved',
+                            );
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff50B5E5),
-                            // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          icon: Icon(Icons.add, color: Colors.white),
-                          label: Text(
-                            'Add Education',
-                            style: BlueButtonTextConst.customTextStyle(context)
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                        width: 117,
-                        height: 30,
-                        text: 'Save',
-                        style:  BlueButtonTextConst.customTextStyle(context),
-                        borderRadius: 12,
-                        onPressed: () async {
-                          // Loop through each form and extract data to post
-                          for (var key in educationFormKeys) {
-                            final st = key.currentState!;
-                            if (st.finalPath == null || st.finalPath!.isEmpty) {
-                                print("Loading");
-                            } else {
-                              try {
-                               ApiDataRegister result =  await FormEducationManager().posteducationscreen(
-                                    context,
-                                    st.widget.employeeID,
-                                    st.graduatetype.toString(),
-                                    st.selectedDegree.toString(),
-                                    st.majorsubject.text,
-                                    st.city.text,
-                                    st.collegeuniversity.text,
-                                    st.phone.text,
-                                    st.state.text,
-                                    "USA",
-                                    "2024-08-09");
-                                await uploadEducationDocument(
-                                  context,
-                                    result.educationId!,
-                                  st.finalPath,
-                                  st.fileName!
-                                );
-                               showDialog(
-                                 context: context,
-                                 builder: (BuildContext context) {
-                                   return AddSuccessPopup(
-                                     message: 'Education Data Saved',
-                                   );
-                                 },
-                               );
+                        );
 
-                              } catch (e) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AddSuccessPopup(
-                                      message: 'Failed To Update Education Data',
-                                    );
-                                  },
-                                );
-                              }
-                            }
-                          }
-                        },
-                        child: Text(
-                          'Save',
-                          style: BlueButtonTextConst.customTextStyle(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Failed To Update Education Data',
+                            );
+                          },
+                        );
+                      }
+                    }
+                  }
+                },
+                child: Text(
+                  'Save',
+                  style: BlueButtonTextConst.customTextStyle(context),
+                ),
               ),
-            );
-        //   }
-        //
-        //   return SizedBox();
-        // });
+            ],
+          ),
+        ],
+      ),
+    );
+    //   }
+    //
+    //   return SizedBox();
+    // });
   }
 }
 
@@ -238,9 +238,9 @@ class EducationForm extends StatefulWidget {
   final bool isVisible;
   const EducationForm(
       {Key? key,
-      required this.onRemove,
-      required this.index,
-      required this.employeeID, required this.isVisible})
+        required this.onRemove,
+        required this.index,
+        required this.employeeID, required this.isVisible})
       : super(key: key);
 
   @override
@@ -266,7 +266,7 @@ class _EducationFormState extends State<EducationForm> {
   String? docName;
 
   final StreamController<List<AEClinicalDiscipline>> Degreestream =
-      StreamController<List<AEClinicalDiscipline>>();
+  StreamController<List<AEClinicalDiscipline>>();
   void initState() {
     super.initState();
     HrAddEmplyClinicalDisciplinApi(context, 1).then((data) {
@@ -287,7 +287,7 @@ class _EducationFormState extends State<EducationForm> {
           city.text = data.city ?? '';
           state.text = data.state ?? '';
           graduatetype = data.graduate ?? '';
-         // selectedDegree = data.degree ?? '';
+          // selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
           docName = data.docName ?? "--";
 
@@ -311,205 +311,205 @@ class _EducationFormState extends State<EducationForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-            padding: const EdgeInsets.only(left: 160, right: 160),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
-                    ),
-                    if (widget.index > 1)
-                    IconButton(
-                      icon: Icon(Icons.remove_circle, color: Colors.red),
-                      onPressed: widget.onRemove,
-                    ),
-                  ],
+      padding: const EdgeInsets.only(left: 160, right: 160),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
+                style: DefineWorkWeekStyle.customTextStyle(context),
+              ),
+              if (widget.index > 1)
+                IconButton(
+                  icon: Icon(Icons.remove_circle, color: Colors.red),
+                  onPressed: widget.onRemove,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
-                Row(
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'College/University',
-                            style:AllPopupHeadings.customTextStyle(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          CustomTextFieldRegister(
-                            controller: collegeuniversity,
-                            hintText: 'Enter College/University Name',
-                            hintStyle: onlyFormDataStyle.customTextStyle(context),
-                            height: 32,
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 30),
-                          Text(
-                            'Graduate',
-                            style: AllPopupHeadings.customTextStyle(context),
-                          ),
-                          StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return Row(
-                                children: [
-                                  Expanded(
-                                      child: CustomRadioListTile(
-                                        title: 'Yes',
-                                        value: 'Yes',
-                                        groupValue: graduatetype,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            graduatetype = value;
-                                          });
-                                        },
-                                      )),
-                                  Expanded(
-                                    child: CustomRadioListTile(
-                                      title: 'No',
-                                      value: 'No',
-                                      groupValue: graduatetype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          graduatetype = value;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 30),
-                          Text(
-                            'Degree',
-                            style:AllPopupHeadings.customTextStyle(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          Container(
-                            height: 32,
-                            child: buildDropdownButton(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 30),
-                          Text(
-                            'Major Subject',
-                            style: AllPopupHeadings.customTextStyle(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          CustomTextFieldRegister(
-                            controller: majorsubject,
-                            hintText: 'Enter Subject',
-                            hintStyle:onlyFormDataStyle.customTextStyle(context),
-                            height: 32,
-                          ),
-                        ],
-                      ),
+                    Text(
+                      'College/University',
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width / 15),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Phone ',
-                            style: AllPopupHeadings.customTextStyle(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          CustomTextFieldRegisterPhone(
-                            controller: phone,
-                            hintText: 'Enter Phone Number',
-                            hintStyle: onlyFormDataStyle.customTextStyle(context),
-                            height: 32,
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 30),
-                          Text(
-                            'City',
-                            style: AllPopupHeadings.customTextStyle(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          CustomTextFieldRegister(
-                            controller: city,
-                            hintText: 'Enter City',
-                            hintStyle:onlyFormDataStyle.customTextStyle(context),
-                            height: 32,
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 45),
-                          Text(
-                            'State',
-                            style:AllPopupHeadings.customTextStyle(context),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          CustomTextFieldRegister(
-                            controller: state,
-                            hintText: 'Enter State',
-                            hintStyle: onlyFormDataStyle.customTextStyle(context),
-                            height: 32,
-                          ),
-                        ],
-                      ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: collegeuniversity,
+                      hintText: 'Enter College/University Name',
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
                     ),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Upload your degree / certifications as a docx or pdf',
-                        style: DefineWorkWeekStyle.customTextStyle(context),
-                      ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Graduate',
+                      style: AllPopupHeadings.customTextStyle(context),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width / 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ElevatedButton.icon(
-                            onPressed: _handleFileUpload,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff50B5E5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
+                    StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                        return Row(
+                          children: [
+                            Expanded(
+                                child: CustomRadioListTile(
+                                  title: 'Yes',
+                                  value: 'Yes',
+                                  groupValue: graduatetype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      graduatetype = value;
+                                    });
+                                  },
+                                )),
+                            Expanded(
+                              child: CustomRadioListTile(
+                                title: 'No',
+                                value: 'No',
+                                groupValue: graduatetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    graduatetype = value;
+                                  });
+                                },
                               ),
-
                             ),
-                            icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
-                            label:docName == null ?Text(
-                              'Upload File',
-                              style: BlueButtonTextConst.customTextStyle(context),
-                            ):Text(
-                              'Uploaded',
-                              style: BlueButtonTextConst.customTextStyle(context),
-                            )
-                        ),
-                        SizedBox(height: 8,),
-                        docName != null ? AutoSizeText(
-                          'Uploaded File: $docName',
-                          style:onlyFormDataStyle.customTextStyle(context)
-                        ):
-                        fileName != null ?
-                        AutoSizeText(
-                          'File picked: $fileName',
-                          style: onlyFormDataStyle.customTextStyle(context)
-                        ) : SizedBox(),
-                      ],
+                          ],
+                        );
+                      },
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Degree',
+                      style:AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    Container(
+                      height: 32,
+                      child: buildDropdownButton(context),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Major Subject',
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: majorsubject,
+                      hintText: 'Enter Subject',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                    ),
                   ],
                 ),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 2,
-                )
-      
-                ///upload document/ Display file names if picked
-              ],
-            ),
-          );
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Phone ',
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegisterPhone(
+                      controller: phone,
+                      hintText: 'Enter Phone Number',
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'City',
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: city,
+                      hintText: 'Enter City',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 45),
+                    Text(
+                      'State',
+                      style:AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: state,
+                      hintText: 'Enter State',
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  'Upload your degree / certifications as a docx or pdf',
+                  style: DefineWorkWeekStyle.customTextStyle(context),
+                ),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ElevatedButton.icon(
+                      onPressed: _handleFileUpload,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+
+                      ),
+                      icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                      label:docName == null ?Text(
+                        'Upload File',
+                        style: BlueButtonTextConst.customTextStyle(context),
+                      ):Text(
+                        'Uploaded',
+                        style: BlueButtonTextConst.customTextStyle(context),
+                      )
+                  ),
+                  SizedBox(height: 8,),
+                  docName != null ? AutoSizeText(
+                      'Uploaded File: $docName',
+                      style:onlyFormDataStyle.customTextStyle(context)
+                  ):
+                  fileName != null ?
+                  AutoSizeText(
+                      'File picked: $fileName',
+                      style: onlyFormDataStyle.customTextStyle(context)
+                  ) : SizedBox(),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),
+            ],
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          )
+
+          ///upload document/ Display file names if picked
+        ],
+      ),
+    );
   }
   Widget buildDropdownButton(BuildContext context) {
     return FutureBuilder<List<EduactionDegree>>(

@@ -93,7 +93,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each\n reference, Kindly include the following information:',
+                      'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications.\nFor each reference, Kindly include the following information:',
                       style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ),
@@ -290,8 +290,9 @@ class _ReferencesFormState extends State<ReferencesForm> {
                           children: [
                             Text(
                               referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
-                              style:  DefineWorkWeekStyle.customTextStyle(context),
+                              style:  HeadingFormStyle.customTextStyle(context),
                             ),
+                            if (widget.index > 1)
                             IconButton(
                               icon:
                                   Icon(Icons.remove_circle, color: Colors.red),
@@ -500,7 +501,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                             height: MediaQuery.of(context).size.height / 20),
                         Text(
                           'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
-                          style: DefineWorkWeekStyle.customTextStyle(context),
+                          style: FileuploadString.customTextStyle(context),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 20),

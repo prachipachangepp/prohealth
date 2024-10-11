@@ -60,7 +60,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
       // Handle error
     });
   }
-bool _isLoading =false;
+bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     //print('Employee Id in documents :: ${controller.employeeId}');
@@ -319,28 +319,35 @@ bool _isLoading =false;
                                     IconButton(
                                       onPressed: () async{
                                         await showDialog(context: context,
-                                            builder: (context) => DeletePopup(
-                                              loadingDuration: _isLoading,
-                                              title: 'Delete Acknowledgement',
-                                              onCancel: (){
-                                                Navigator.pop(context);
-                                              }, onDelete: () async{
-                                              setState(() {
-                                                _isLoading = true;
-                                              });
-                                              try{
-                                                await deleteEmployeeDocuments(context: context, empDocumentId: ackData.employeeDocumentId);
-                                              }finally{
-                                                setState(() {
-                                                  _isLoading = false;
-                                                });
-                                                Navigator.pop(context);
-                                              }
-                                              // setState(() async{
-                                              //
-                                              //   Navigator.pop(context);
-                                              // });
-                                            },
+                                            builder: (context) => StatefulBuilder(
+
+                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                return DeletePopup(
+                                                  loadingDuration: _isLoading,
+                                                  title: 'Delete Acknowledgement',
+                                                  onCancel: (){
+                                                    Navigator.pop(context);
+                                                  }, onDelete: () async{
+                                                  setState(() {
+                                                    _isLoading = true;
+                                                  });
+                                                  try{
+                                                    await deleteEmployeeDocuments(context: context, empDocumentId: ackData.employeeDocumentId);
+                                                  }finally{
+                                                    setState(() {
+                                                      _isLoading = false;
+                                                      Navigator.pop(context);
+                                                    });
+
+                                                  }
+                                                  // setState(() async{
+                                                  //
+                                                  //   Navigator.pop(context);
+                                                  // });
+                                                },
+                                                );
+                                              },
+
                                             )
                                         );
                                       },

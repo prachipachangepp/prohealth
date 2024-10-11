@@ -39,6 +39,7 @@ Future<OnlinkGeneralData> getGeneralIdPrefill(
         lastName: response.data['lastName'] ?? "--",
         departmentId: response.data['departmentId'] ?? 0,
         employeeTypeId: response.data['departmentId'] ?? 0,
+        expertise: response.data['expertise'] ??"--",
         cityId: response.data['cityId'] ?? 0,
         countryId: response.data['countryId'] ?? 0,
         zoneId: response.data['zoneId'] ?? 0,

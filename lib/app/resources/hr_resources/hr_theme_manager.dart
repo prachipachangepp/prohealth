@@ -65,6 +65,27 @@ class onlyFormINineDataStyle {
 }
 
 
+class FileuploadString {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 
 
+///  Employment #1
+class HeadingFormStyle {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s16,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 ///
