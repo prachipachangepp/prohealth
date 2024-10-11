@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -148,7 +146,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       backgroundColor: Colors.white,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.3,
-        height: MediaQuery.of(context).size.height * 0.5,
+        height: MediaQuery.of(context).size.height * 0.55,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -209,56 +207,51 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       // padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 5,
                       //height:30,   // MediaQuery.of(context).size.height / 25,
-                      child: TextFormField(
-                        cursorColor: Colors.black,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Email',style: AllPopupHeadings.customTextStyle(context),),
+                          SizedBox(height: 5,),
+                          TextFormField(
+                            cursorColor: Colors.black,
 
-                        controller: emailController,
-                        style: onlyFormDataStyle.customTextStyle(context),
-                        focusNode: emailFocusNode,
-                        decoration: new InputDecoration(
-                          // contentPadding: EdgeInsets.only(
-                          //           bottom: AppPadding.p5, left: AppPadding.p20),
-                          isDense: true,
-                          labelText: 'Email',
+                            controller: emailController,
+                            style: onlyFormDataStyle.customTextStyle(context),
+                            focusNode: emailFocusNode,
+                            decoration: new InputDecoration(
+                              // contentPadding: EdgeInsets.only(
+                              //           bottom: AppPadding.p5, left: AppPadding.p20),
+                              isDense: true,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffB1B1B1),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffB1B1B1),
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffB1B1B1),
+                                ),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                emailEntered = _isEmailValid(value);
+                              });
+                            },
 
-                          labelStyle: onlyFormDataStyle.customTextStyle(context),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xffB1B1B1),
-                            ),
+                            onFieldSubmitted: (value) {
+                              FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
+                            },
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xffB1B1B1),
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xffB1B1B1),
-                            ),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            emailEntered = _isEmailValid(value);
-                          });
-                        },
-                        // validator: (value) {
-                        //   if (value == null || value.isEmpty) {
-                        //     return 'Please enter an email address';
-                        //   } else if (!RegExp(
-                        //           r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                        //       .hasMatch(value)) {
-                        //     return 'Please enter a valid email address';
-                        //   }
-                        //   return null;
-                        // },
-                        onFieldSubmitted: (value) {
-                          FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
-                        },
+                        ],
                       ),
                     ),
                     // Container(
@@ -342,49 +335,54 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       // padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 5,
                       //height:30,   // MediaQuery.of(context).size.height / 25,
-                      child: TextFormField(
-                        cursorColor: Colors.black,
-                        controller: otpController,
-                        style:  onlyFormDataStyle.customTextStyle(context),
-                        enabled: otpEnabled,
-                        // cursorWidth: 1,
-                        focusNode: otpFocusNode,
-                        decoration: new InputDecoration(
-                          // contentPadding: EdgeInsets.only(
-                          //           bottom: AppPadding.p5, left: AppPadding.p20),
-                          isDense: true,
-                          labelText: 'Enter OTP',
-
-                          labelStyle: onlyFormDataStyle.customTextStyle(context),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xffB1B1B1),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('OTP',style: AllPopupHeadings.customTextStyle(context),),
+                          SizedBox(height: 5,),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            controller: otpController,
+                            style:  onlyFormDataStyle.customTextStyle(context),
+                            enabled: otpEnabled,
+                            // cursorWidth: 1,
+                            focusNode: otpFocusNode,
+                            decoration: new InputDecoration(
+                              // contentPadding: EdgeInsets.only(
+                              //           bottom: AppPadding.p5, left: AppPadding.p20),
+                              isDense: true,
+                             enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffB1B1B1),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffB1B1B1),
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xffB1B1B1),
+                                ),
+                              ),
                             ),
+                            onChanged: (value) {},
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter OTP';
+                              }
+                              return null;
+                            },
+                            onFieldSubmitted: (value) {
+                              FocusScope.of(context).requestFocus(submitButtonFocusNode);
+                            },
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xffB1B1B1),
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xffB1B1B1),
-                            ),
-                          ),
-                        ),
-                        onChanged: (value) {},
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter OTP';
-                          }
-                          return null;
-                        },
-                        onFieldSubmitted: (value) {
-                          FocusScope.of(context).requestFocus(submitButtonFocusNode);
-                        },
+                        ],
                       ),
                     ),
 
@@ -439,8 +437,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                           style:TextStyle(
                                               fontSize: FontSize.s14,
                                               color: ColorManager.blueprime,
-                                              fontWeight:
-                                                  FontWeight.w500),
+                                              fontWeight: FontWeight.w500),
                                         ),
                                       ),
                                     ),

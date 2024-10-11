@@ -69,7 +69,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
           );
         }
         if (snapshot.hasData) {
-          return Wrap(
+          return WrapWidget(
             children: List.generate(snapshot.data!.length, (index) {
               return CardDetails(childWidget: DetailsFormate(
                 row1Child1: [

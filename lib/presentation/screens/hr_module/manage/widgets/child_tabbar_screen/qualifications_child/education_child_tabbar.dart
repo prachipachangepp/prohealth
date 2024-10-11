@@ -177,8 +177,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   ));
             }
             if(snapshot.hasData){
-              return Wrap(
-                  spacing: 10,
+              return WrapWidget(
                   children: List.generate(snapshot.data!.length, (index){
                 return CardDetails(childWidget: DetailsFormate(
                   title:  'Education #${index + 1}',

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -176,13 +175,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     ? totalItems
                     : (currentPage * itemsPerPage),
               );
-              return Wrap(
-                spacing: 10,
+              return WrapWidget(
                   children:List.generate(snapshot.data!.length, (index){
-                    int serialNumber =
-                        index + 1 + (currentPage - 1) * itemsPerPage;
-                    String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
                     return CardDetails(
                         childWidget: DetailsFormate(
                       row1Child1: [
@@ -307,7 +301,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       ],
                       button: Align(
                           alignment: Alignment.centerRight,
-                          child: snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                          child: snapshot.data![index].approved == null ? Text('Not Approved',style:TextStyle(
                             fontSize: 12,
                             color: ColorManager.mediumgrey,
                             fontWeight: FontWeight.w600,

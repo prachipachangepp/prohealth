@@ -1,8 +1,5 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -18,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
+import '../../../const_wrap_widget.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
   final int employeeID;
@@ -158,8 +156,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                 return Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: SingleChildScrollView(
-                    child: Wrap(
-                        alignment: WrapAlignment.start,
+                    child: WrapWidget(
                         children: List.generate(snapshot.data!.length, (index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(

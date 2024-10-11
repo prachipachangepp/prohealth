@@ -68,7 +68,8 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                 ));
           }
           if(snapshot.hasData){
-            return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
+            return WrapWidget(
+                children: List.generate(snapshot.data!.length, (index){
               return CardDetails(childWidget: DetailsFormate(
                 row1Child1: [
                   Text('Name :',
