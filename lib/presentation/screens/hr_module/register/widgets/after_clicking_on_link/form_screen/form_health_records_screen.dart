@@ -13,6 +13,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/form_health_record_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_health_record_data.dart';
@@ -38,6 +39,8 @@ class HealthRecordsScreen extends StatefulWidget {
 class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
 
   final StreamController<List<HREmployeeDocumentModal>> healthrecord = StreamController<List<HREmployeeDocumentModal>>();
+
+  bool isLoading =false;
   @override
   void initState() {
     // TODO: implement initState
@@ -171,10 +174,11 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 CustomButton(
                   width: 117,
                   height: 30,
-                  text: 'Save',
+                  text: isLoading ? 'Wait..' : 'Save',
                   style:BlueButtonTextConst.customTextStyle(context),
                   borderRadius: 12,
                   onPressed: () async {
+
                     if (finalPaths == null || finalPaths.isEmpty) {
                       showDialog(
                         context: context,
@@ -193,6 +197,13 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       // );
                     } else {
                       try {
+                        if (isLoading)
+                          return;
+                        // Loop through each form and extract data to post
+
+                        setState(() {
+                          isLoading = true; // Start loading
+                        });
                         for (int i = 0; i < finalPaths.length; i++) {
                           if (finalPaths[i] != null) {
                             var response =  await uploadDocuments(
@@ -233,7 +244,22 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         );
                       }
                     }
+                    setState(() {
+                      isLoading = false; // End loading
+                    });
                   },
+                  child: isLoading
+                      ? SizedBox(
+                    height: AppSize.s25,
+                    width: AppSize.s25,
+                    child: CircularProgressIndicator(
+                        color: Colors.white
+                    ),
+                  )
+                      : Text(
+                    'Save',
+                    style: BlueButtonTextConst.customTextStyle(context),
+                  ),
                 ),
               ],
             ),
@@ -346,7 +372,10 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                         ),
                                         child: ElevatedButton(
                                           onPressed: () async {
-                                            FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                            FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                                type: FileType.custom,
+                                                allowedExtensions: ['pdf']
+                                            );
                                             if (result != null) {
                                               try {
                                                 Uint8List? bytes = result.files.first.bytes;

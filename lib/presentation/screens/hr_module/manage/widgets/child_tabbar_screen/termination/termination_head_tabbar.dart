@@ -162,7 +162,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                       Expanded(
                         child: Container(
                           child: WrapWidget(
-                            childern: List.generate(snapshot.data!.length, (index) {
+                            children: List.generate(snapshot.data!.length, (index) {
                               var termination = snapshot.data![index];
                               return Container(
                                 width: MediaQuery.of(context).size.width / 2.3,

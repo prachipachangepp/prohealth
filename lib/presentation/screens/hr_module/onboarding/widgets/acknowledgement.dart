@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/approve_reject_dialog_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import '../../../../../../app/resources/color.dart';
@@ -172,7 +173,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Wrap(
+              WrapWidget(
                 children: [
                   ...List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];

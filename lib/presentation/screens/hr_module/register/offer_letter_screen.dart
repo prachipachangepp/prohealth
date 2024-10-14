@@ -269,8 +269,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       }
                                     },
                                     underline: const SizedBox(),
-                                    icon: const Icon(Icons.arrow_drop_down,
-                                        color: Colors.blue),
+                                    icon:  Icon(Icons.arrow_drop_down,
+                                        color: ColorManager.mediumgrey),
                                   ),
                                   contentPadding:
                                   const EdgeInsets.only(left: 20, bottom: 5),

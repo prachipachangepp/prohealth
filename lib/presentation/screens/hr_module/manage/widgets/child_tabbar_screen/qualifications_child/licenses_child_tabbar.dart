@@ -245,10 +245,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                     ));
               }
               if(snapshot.hasData){
-                return Wrap(
-                    spacing: 10,
-                    children:
-                    List.generate(snapshot.data!.length, (index){
+                return WrapWidget(
+                    children: List.generate(snapshot.data!.length, (index){
                       return CardDetails(childWidget: DetailsFormate(
                         titleRow: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

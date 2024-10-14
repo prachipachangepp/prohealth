@@ -145,7 +145,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
               icon:
               Padding(
                 padding: const EdgeInsets.only(right: 5),
-                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey),
               ),
               value: _selectedValue,
               items: widget.dropDownMenuList == null
@@ -735,7 +735,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
       ),
       child: DropdownButtonFormField<String>(
           isDense: true, // Makes the dropdown more compact
-          icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,),
+          icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,size: IconSize.I18,),
           // Default dropdown icon
           iconSize: 15, // Icon size
           value: widget.controller.text.isEmpty ? null : widget.controller.text,
