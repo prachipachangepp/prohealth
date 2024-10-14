@@ -145,35 +145,33 @@ class _SignaturePageState extends State<SignaturePage> {
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Center(
                         child: Container(
-                          height: 389,
-                          width: 947,
+                         height: 389,
+                        width: 947,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey[300]!),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Center(
-                            child: ClipRect(
-                              child: _selectedImageBytes != null && !_isDrawing
-                                  ? Image.memory(
-                                _selectedImageBytes!,
-                                fit: BoxFit.contain,
-                              )
-                                  : GestureDetector(
-                                onPanUpdate: (details) {
-                                  setState(() {
-                                    RenderBox renderBox = context.findRenderObject() as RenderBox;
-                                    Offset localPosition = renderBox.globalToLocal(details.localPosition);
-                                    print("Drawing at: $localPosition"); // Debugging
-                                    _points.add(localPosition);
-                                  });
-                                },
-                                onPanEnd: (details) {
-                                  _points.add(null);
-                                },
-                                child: CustomPaint(
-                                  painter: SignaturePainter(points: _points),
-                                  size: Size.infinite,
-                                ),
+                          child: ClipRect(
+                            child: _selectedImageBytes != null && !_isDrawing
+                                ? Image.memory(
+                              _selectedImageBytes!,
+                              // fit: BoxFit.contain,
+                            )
+                                : GestureDetector(
+                              onPanUpdate: (details) {
+                                setState(() {
+                                  RenderBox renderBox = context.findRenderObject() as RenderBox;
+                                  Offset localPosition = renderBox.globalToLocal(details.localPosition);
+                                  print("Drawing at: $localPosition"); // Debugging
+                                  _points.add(localPosition);
+                                });
+                              },
+                              onPanEnd: (details) {
+                                _points.add(null);
+                              },
+                              child: CustomPaint(
+                                painter: SignaturePainter(points: _points),
+                                size: Size.infinite,
                               ),
                             ),
                           ),
@@ -305,7 +303,7 @@ class _SignaturePageState extends State<SignaturePage> {
     }
 
     final picture = recorder.endRecording();
-    final img = await picture.toImage(400, 400); // Adjust size as needed
+    final img = await picture.toImage(947, 389);
     final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
     return byteData?.buffer.asUint8List();
   }
@@ -369,10 +367,10 @@ class _SignaturePageState extends State<SignaturePage> {
                       ],
                     ),
                     onPressed: () async{
-                      print("Signature ${_selectedImageBytes}");
+                      print("Signature::: ${_selectedImageBytes!}");
                      await uploadSignature(context,widget.employeeId,_selectedImageBytes);
-                      Navigator.of(context).pop();
-                      Navigator.push(
+                     // Navigator.of(context).pop();
+                     await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => OfferLetterDescriptionScreen(
