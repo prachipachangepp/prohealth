@@ -65,7 +65,9 @@ Future<OnCallDocument> getLegalOnCallDocument({
             .getOnCallDocument(callHtmlId: callHtmlId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('OnCall Document Fetched');
-      itemsData = OnCallDocument(onCallData: response.data.toString());
+      itemsData = OnCallDocument(onCallId: response.data['id'],
+          html: response.data['html'],
+          name: response.data['name']);
     } else {
       print("OnCall Document ");
     }

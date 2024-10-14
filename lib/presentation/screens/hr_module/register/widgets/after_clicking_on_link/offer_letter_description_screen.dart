@@ -126,7 +126,6 @@ class _OfferLetterDescriptionScreenState
                     height: 1190,
                     child: Html(
                       data: """${snapshot.data!.template}""",
-
                       style: {
                         "p": Style(
                           fontSize: FontSize(12.0),
