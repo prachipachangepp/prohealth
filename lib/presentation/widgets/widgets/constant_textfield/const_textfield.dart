@@ -64,6 +64,7 @@ class CustomTextField extends StatelessWidget {
               style: DocumentTypeDataStyle.customTextStyle(context),
               textAlignVertical: TextAlignVertical.center,
               cursorHeight: cursorHeight,
+              cursorColor: Colors.black,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(
                     bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
@@ -151,6 +152,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
               items: widget.dropDownMenuList == null
                   ? widget.items!.map((String value) {
                 return DropdownMenuItem<String>(
+
                   value: value,
                   child: Text(
                     value,
@@ -233,6 +235,7 @@ class CustomTextFieldPhone extends StatelessWidget {
               textAlign: TextAlign.start,
               style: DocumentTypeDataStyle.customTextStyle(context),
               textAlignVertical: TextAlignVertical.center,
+              cursorColor: Colors.black,
               cursorHeight: cursorHeight,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(
@@ -934,5 +937,119 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
           isExpanded: true,
           decoration: const InputDecoration.collapsed(hintText: '')),
     );
+  }
+}
+
+
+
+
+
+
+
+///////////////
+
+
+class CustomDropdownTextFieldpp<T> extends StatefulWidget {
+  final T? value; // Changed to generic type
+  final List<T>? items; // Changed to generic type
+  final String Function(T)? itemLabel; // Function to get the label from the item
+  final String headText;
+  final void Function(T?)? onChanged;
+  final double? width;
+  final double? height;
+  final T? initialValue;
+
+  const CustomDropdownTextFieldpp({
+    Key? key,
+    required this.headText,
+    this.value,
+    this.items,
+    required this.itemLabel,
+    this.onChanged,
+    this.width,
+    this.height,
+    this.initialValue,
+  }) : super(key: key);
+
+  @override
+  _CustomDropdownTextFieldppState<T> createState() =>
+      _CustomDropdownTextFieldppState<T>();
+}
+
+class _CustomDropdownTextFieldppState<T>
+    extends State<CustomDropdownTextFieldpp<T>> {
+  late T? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.initialValue ?? widget.value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Text(
+            widget.headText,
+            style: AllPopupHeadings.customTextStyle(context),
+          ),
+        ),
+        SizedBox(
+          width: widget.width ?? AppSize.s250,
+          height: widget.height ?? AppSize.s40,
+          child: Padding(
+            padding: const EdgeInsets.all(AppPadding.p5),
+            child: DropdownButtonFormField<T>(
+              icon: Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey),
+              ),
+              value: _selectedValue,
+              items: _buildDropdownMenuItems(),
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedValue = newValue;
+                });
+                if (widget.onChanged != null) {
+                  widget.onChanged!(newValue);
+                }
+              },
+              isExpanded: true,
+              decoration: InputDecoration(
+                hoverColor: ColorManager.white,
+                contentPadding: EdgeInsets.only(
+                  bottom: AppPadding.p3,
+                  top: AppPadding.p5,
+                  left: 4,
+                ),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: ColorManager.black),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Build dropdown items based on the items provided
+  List<DropdownMenuItem<T>> _buildDropdownMenuItems() {
+    if (widget.items == null || widget.items!.isEmpty) return [];
+
+    return widget.items!.map((T item) {
+      return DropdownMenuItem<T>(
+        value: item,
+        child: Text(
+          widget.itemLabel!(item), // Use the itemLabel function to get the display text
+          style: DocumentTypeDataStyle.customTextStyle(context),
+        ),
+      );
+    }).toList();
   }
 }

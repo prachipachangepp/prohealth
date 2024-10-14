@@ -78,6 +78,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   String generatedURL = '';
   bool _isLoading = false;
 
+
   Future<String> _generateUrlLink(String email, String Id) async {
     final String user = email;
     final String id = Id;
@@ -228,7 +229,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  590,
+          height:  610,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -527,6 +528,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           ///reporting office
+
+                          ///
+                          ////
                          FutureBuilder<List<CompanyOfficeListData>>(
                                 future: getCompanyOfficeList(context),
                                 builder: (context, snapshot) {
