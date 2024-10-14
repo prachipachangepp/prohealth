@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
@@ -75,7 +71,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height:540,
+        height: 540,
         width: 900,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -84,7 +80,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
         child: Column(
           children: [
             Container(
-              height:AppSize.s50,
+              height: AppSize.s50,
               decoration: BoxDecoration(
                 color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
@@ -98,10 +94,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 44),
-                    child: Text(
-                      widget.tite,
-                        style: PopupHeadingStyle.customTextStyle(context)
-                    ),
+                    child: Text(widget.tite,
+                        style: PopupHeadingStyle.customTextStyle(context)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
@@ -110,10 +104,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         Navigator.pop(context);
                         _clearControllers();
                       },
-                      icon: Icon(
-                          Icons.close,
-                          color: IconColorManager.white
-                      ),
+                      icon: Icon(Icons.close, color: IconColorManager.white),
                     ),
                   ),
                 ],
@@ -122,126 +113,129 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             //SizedBox(height: MediaQuery.of(context).size.height / 30),
 
             Padding(
-  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
-  child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildTextField(
-            capitalIsSelect: true,
-            controller: widget.positionTitleController,
-            labelText: "Final Position Title",
-            errorKey: 'positionTitle',
-            errorMessage: 'Please enter title'
-          ),
-          _buildTextField(
-            capitalIsSelect: true,
-            controller: widget.leavingResonController,
-            labelText: "Reason For Leaving",
-            errorKey: 'leavingReason',
-            errorMessage: 'Please enter leaving reason'
-          ),
-          _buildTextField(
-            capitalIsSelect: false,
-            controller: widget.startDateContoller,
-            labelText: "Start Date",
-            errorKey: 'startDate',
-            errorMessage: 'Please enter start date',
-            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-            onTap: () => _selectDate(widget.startDateContoller, _selectedStartDate),
-          ),
-        ],
-      ),
-      // SizedBox(height: MediaQuery.of(context).size.height / 30),
-      SizedBox(height: AppSize.s20),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildTextField(
-            capitalIsSelect: false,
-            controller: widget.endDateController,
-            labelText: "End Date",
-            errorKey: 'endDate',
-            errorMessage: 'Please enter end date',
-            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-            onTap: () => _selectDate(widget.endDateController, _selectedEndDate),
-          ),
-          _buildTextField(
-            capitalIsSelect: true,
-            controller: widget.lastSupervisorNameController,
-            labelText: "Last Supervisor's Name",
-            errorKey: 'lastSupervisorName',
-            errorMessage: 'Please enter supervisor name'
-          ),
-          _buildTextField(
-            capitalIsSelect: false,
-            controller: widget.supervisorMobileNumber,
-            labelText: "Supervisor's Mobile Number",
-            errorKey: 'supervisorMobileNumber',
-            errorMessage: 'Please enter supervisor mobile number'
-          ),
-        ],
-      ),
-      Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 10, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            widget.checkBoxTile,
-          ],
-        ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildTextField(
-            capitalIsSelect: true,
-            controller: widget.cityNameController,
-            labelText: AppString.city,
-            errorKey: 'cityName',
-            errorMessage: 'Please enter city name'
-          ),
-          _buildTextField(
-            capitalIsSelect: true,
-            controller: widget.employeerController,
-            labelText: "Employer",
-            errorKey: 'employer',
-            errorMessage: 'Please enter employer'
-          ),
-          _buildTextField(
-            capitalIsSelect: false,
-            controller: widget.emergencyMobileNumber,
-            labelText: "Emergency Mobile Number",
-            errorKey: 'emergencyMobileNumber',
-            errorMessage: 'Please enter mobile number.'
-          ),
-        ],
-      ),
-      SizedBox(height: AppSize.s20),
-      // SizedBox(height: MediaQuery.of(context).size.height / 30),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildTextField(
-            capitalIsSelect: true,
-            controller: widget.countryController,
-            labelText: "Country Name",
-            errorKey: 'countryname',
-            errorMessage: 'Please enter Country'
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 6,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 6,
-          ),
-        ],
-      ),
-    ],
-  ),
-),
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildTextField(
+                          capitalIsSelect: true,
+                          controller: widget.positionTitleController,
+                          labelText: "Final Position Title",
+                          errorKey: 'positionTitle',
+                          errorMessage: 'Please enter title'),
+                      _buildTextField(
+                          capitalIsSelect: true,
+                          controller: widget.leavingResonController,
+                          labelText: "Reason For Leaving",
+                          errorKey: 'leavingReason',
+                          errorMessage: 'Please enter leaving reason'),
+                      _buildTextField(
+                        capitalIsSelect: false,
+                        controller: widget.startDateContoller,
+                        labelText: "Start Date",
+                        errorKey: 'startDate',
+                        errorMessage: 'Please enter start date',
+                        suffixIcon: Icon(Icons.calendar_month_outlined,
+                            color: ColorManager.blueprime),
+                        onTap: () => _selectDate(
+                            widget.startDateContoller, _selectedStartDate),
+                      ),
+                    ],
+                  ),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  SizedBox(height: AppSize.s20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildTextField(
+                        capitalIsSelect: false,
+                        controller: widget.endDateController,
+                        labelText: "End Date",
+                        errorKey: 'endDate',
+                        errorMessage: 'Please enter end date',
+                        suffixIcon: Icon(Icons.calendar_month_outlined,
+                            color: ColorManager.blueprime),
+                        onTap: () => _selectDate(
+                            widget.endDateController, _selectedEndDate),
+                      ),
+                      _buildTextField(
+                          capitalIsSelect: true,
+                          controller: widget.lastSupervisorNameController,
+                          labelText: "Last Supervisor's Name",
+                          errorKey: 'lastSupervisorName',
+                          errorMessage: 'Please enter supervisor name'),
+                      _buildTextField(
+                          capitalIsSelect: false,
+                          controller: widget.supervisorMobileNumber,
+                          labelText: "Supervisor's Mobile Number",
+                          errorKey: 'supervisorMobileNumber',
+                          errorMessage:
+                              'Please enter supervisor mobile number'),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0, top: 10, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        widget.checkBoxTile,
+                        SizedBox(
+                          width: 240,
+                        ),
+                        SizedBox(
+                          width: 240,
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildTextField(
+                          capitalIsSelect: true,
+                          controller: widget.cityNameController,
+                          labelText: AppString.city,
+                          errorKey: 'cityName',
+                          errorMessage: 'Please enter city name'),
+                      _buildTextField(
+                          capitalIsSelect: true,
+                          controller: widget.employeerController,
+                          labelText: "Employer",
+                          errorKey: 'employer',
+                          errorMessage: 'Please enter employer'),
+                      _buildTextField(
+                          capitalIsSelect: false,
+                          controller: widget.emergencyMobileNumber,
+                          labelText: "Emergency Mobile Number",
+                          errorKey: 'emergencyMobileNumber',
+                          errorMessage: 'Please enter mobile number.'),
+                    ],
+                  ),
+                  SizedBox(height: AppSize.s20),
+                  // SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildTextField(
+                          capitalIsSelect: true,
+                          controller: widget.countryController,
+                          labelText: "Country Name",
+                          errorKey: 'countryname',
+                          errorMessage: 'Please enter Country'),
+                      SizedBox(
+                        width: 240,
+                      ),
+                      SizedBox(
+                        width: 240,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: AppSize.s15),
 
             Padding(
@@ -259,15 +253,16 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   SizedBox(width: AppSize.s10),
                   isLoading
                       ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
-                    child: CircularProgressIndicator(color: ColorManager.blueprime),
-                  )
+                          height: AppSize.s25,
+                          width: AppSize.s25,
+                          child: CircularProgressIndicator(
+                              color: ColorManager.blueprime),
+                        )
                       : CustomElevatedButton(
-                    width: AppSize.s100,
-                    text: AppString.save,
-                    onPressed: _handleSave,
-                  ),
+                          width: AppSize.s100,
+                          text: AppString.save,
+                          onPressed: _handleSave,
+                        ),
                 ],
               ),
             ),
@@ -294,23 +289,32 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
-            SizedBox(height: 4,),
+            Text(
+              labelText,
+              style: AllPopupHeadings.customTextStyle(context),
+            ),
+            SizedBox(
+              height: 4,
+            ),
             CustomTextFieldRegister(
               capitalIsSelect: capitalIsSelect,
-              phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber',
+              phoneNumberField: errorKey == 'supervisorMobileNumber' ||
+                  errorKey == 'emergencyMobileNumber',
               height: AppSize.s30,
-              width: MediaQuery.of(context).size.width / 6,
+              width: 240,
               controller: controller,
-              keyboardType: TextInputType.phone, // Ensure it's phone input for number fields
+              keyboardType: TextInputType
+                  .phone, // Ensure it's phone input for number fields
               padding: const EdgeInsets.only(bottom: AppPadding.p5, left: 10),
               suffixIcon: suffixIcon,
               onTap: onTap,
               onChanged: (value) {
                 setState(() {
-                  if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+                  if (errorKey == 'supervisorMobileNumber' ||
+                      errorKey == 'emergencyMobileNumber') {
                     // Validate phone number fields
-                    String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+                    String numericValue =
+                        value.replaceAll(RegExp(r'[^0-9]'), '');
                     errorStates[errorKey] = numericValue.length != 10;
                   } else {
                     // Validate other text fields
@@ -322,7 +326,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 if (value == null || value.isEmpty) {
                   return errorMessage;
                 }
-                if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+                if (errorKey == 'supervisorMobileNumber' ||
+                    errorKey == 'emergencyMobileNumber') {
                   String numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
                   if (numericValue.length != 10) {
                     return 'Please enter a valid 10-digit phone number';
@@ -330,7 +335,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 }
                 return null;
               },
-
             ),
           ],
         ),
@@ -345,7 +349,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       ],
     );
   }
-
 
   void _handleSave() {
     setState(() {
@@ -388,8 +391,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     widget.onpressedSave();
   }
 
-
-
   TextEditingController controllerByErrorKey(String errorKey) {
     switch (errorKey) {
       case 'positionTitle':
@@ -430,7 +431,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     widget.countryController.clear();
   }
 
-  Future<void> _selectDate(TextEditingController controller, DateTime selectedDate) async {
+  Future<void> _selectDate(
+      TextEditingController controller, DateTime selectedDate) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,

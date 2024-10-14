@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
@@ -101,7 +102,7 @@ class _LoginWebState extends State<LoginWeb> {
                       children: [
                         const Text(
                           // "Version 1.0.3 (33) demo",
-                          "Version 1.0.3 (50) demo",
+                          AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,
                           ),

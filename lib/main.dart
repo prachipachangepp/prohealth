@@ -31,7 +31,7 @@ Future<void> main() async {
       ),
     );
   } else {
-    showNotSupportedMessage();
+    runApp(NonChromeApp());
   }
 
   // runApp(

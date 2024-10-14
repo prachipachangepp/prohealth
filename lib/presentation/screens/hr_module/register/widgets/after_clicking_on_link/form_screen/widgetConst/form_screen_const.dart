@@ -8,7 +8,11 @@ class SignatureFormScreen extends StatefulWidget {
   final String documentName;
   final VoidCallback onPressed;
   final String htmlFormData;
-  const SignatureFormScreen({super.key, required this.documentName, required this.onPressed, required this.htmlFormData});
+  const SignatureFormScreen(
+      {super.key,
+      required this.documentName,
+      required this.onPressed,
+      required this.htmlFormData});
 
   @override
   State<SignatureFormScreen> createState() => _SignatureFormScreenState();
@@ -27,21 +31,25 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back)),
+                    child: IconButton(
+                        onPressed: () {}, icon: Icon(Icons.arrow_back)),
                   ),
-                  Text(widget.documentName,style: FormHeading.customTextStyle(context),),
+                  Text(
+                    widget.documentName,
+                    style: FormHeading.customTextStyle(context),
+                  ),
                   Container(
                     height: 30,
                     width: 140,
                     child: CustomIconButton(
                       icon: Icons.arrow_forward_rounded,
                       text: 'Confirm',
-                      onPressed: () async{
+                      onPressed: () async {
                         widget.onPressed();
                       },
                     ),
@@ -49,22 +57,24 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 50,),
-         Html(
-           data: widget.htmlFormData.toString(),
-           // style: {
-           //   "p": Style(
-           //     fontSize: FontSize(12.0),
-           //     color: Color(0xff686464),
-           //     fontWeight: FontWeight.w400,
-           //   ),
-           //   "li": Style(
-           //     fontSize: FontSize(12.0),
-           //     color: Color(0xff686464),
-           //     fontWeight: FontWeight.w400,
-           //   ),
-           // },
-         ),
+            SizedBox(
+              height: 50,
+            ),
+            Html(
+              data: widget.htmlFormData.toString(),
+              // style: {
+              //   "p": Style(
+              //     fontSize: FontSize(12.0),
+              //     color: Color(0xff686464),
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              //   "li": Style(
+              //     fontSize: FontSize(12.0),
+              //     color: Color(0xff686464),
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              // },
+            ),
           ],
         ),
       ),

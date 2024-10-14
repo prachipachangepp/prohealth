@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../screens/hr_module/manage/controller/controller.dart';
 
 class ResponsiveScreen extends StatelessWidget {
@@ -22,7 +23,14 @@ class ResponsiveScreen extends StatelessWidget {
         } else if (controller.isMobileScreen.value) {
           return mobile;
         } else if (controller.isDesktopScreen.value) {
-          return web;
+          print("Resolution ${MediaQuery.of(context).size.width}");
+          return Padding(
+            padding: MediaQuery.of(context).size.width > 1920
+                ? EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 8)
+                : EdgeInsets.all(0.0),
+            child: web,
+          );
         } else {
           return const Scaffold();
           // return SingleChildScrollView(

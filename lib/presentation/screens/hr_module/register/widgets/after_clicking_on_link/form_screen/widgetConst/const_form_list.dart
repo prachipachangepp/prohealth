@@ -7,9 +7,14 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 
 class DefineFormList extends StatefulWidget {
   final String formName;
-  final VoidCallback onPressed;
+
+  final Function onPressed;
   final VoidCallback onPressedView;
-  const DefineFormList({super.key, required this.formName, required this.onPressed, required this.onPressedView});
+  const DefineFormList(
+      {super.key,
+      required this.formName,
+      required this.onPressed,
+      required this.onPressedView});
 
   @override
   State<DefineFormList> createState() => _DefineFormListState();
@@ -39,7 +44,7 @@ class _DefineFormListState extends State<DefineFormList> {
                 onPressed: widget.onPressedView,
               ),
             ),
-            SizedBox(width:AppSize.s20),
+            SizedBox(width: AppSize.s20),
             Container(
               width: 100,
               height: 30,
@@ -47,32 +52,31 @@ class _DefineFormListState extends State<DefineFormList> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ElevatedButton(
-                onPressed: widget.onPressed,
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) =>
-                  //             FormNineScreen(employeeID: widget.employeeID,)));
-                  // Timer(Duration(seconds: 2), () {
-                  //   print("Timer call");
-                  //   setState(() {
-                  //     isSelected = true;
-                  //   });
-                  // });
-
+                onPressed: () {
+                  widget.onPressed();
+                },
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) =>
+                //             FormNineScreen(employeeID: widget.employeeID,)));
+                // Timer(Duration(seconds: 2), () {
+                //   print("Timer call");
+                //   setState(() {
+                //     isSelected = true;
+                //   });
+                // });
 
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:Color(0xff50B5E5) ,
+                  backgroundColor: Color(0xff50B5E5),
                   // backgroundColor: isSelected == false ? Color(0xff50B5E5) : ColorManager.green,
                   // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: Text(
-                    "Sign",
-                    style:BlueButtonTextConst.customTextStyle(context)
-                ),
+                child: Text("Sign",
+                    style: BlueButtonTextConst.customTextStyle(context)),
               ),
             ),
           ],

@@ -56,9 +56,19 @@
 <!--  </script>-->
 </head>
 <body>
+
+
 <script type="text/javascript">
   window.flutterWebRenderer = "html";
 
+</script>
+<script>
+<!--  if ('serviceWorker' in navigator) {-->
+<!--    navigator.serviceWorker.addEventListener('controllerchange', () => {-->
+<!--      // Notify Flutter app that a new version is available-->
+<!--      window.postMessage('newVersionAvailable', '*');-->
+<!--    });-->
+<!--  }-->
 </script>
 
   <script src="flutter_bootstrap.js" async></script>
