@@ -65,8 +65,7 @@ class _CustomDialogState extends State<CustomDialog> {
 
   void _generatePassword() {
     final random = Random();
-    final characters =
-        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+    final characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
     String password = '';
     for (int i = 0; i < 8; i++) {
       password += characters[random.nextInt(characters.length)];
@@ -277,50 +276,145 @@ class _CustomDialogState extends State<CustomDialog> {
       ? CircularProgressIndicator(
           color: ColorManager.blueprime,
         )
-            : CustomElevatedButton(
-            height: 30,
-            width: 120,
-            text: 'Create',
-            onPressed: () async {
-              _validateForm();
-              print('$selectedDeptId');
-              print('${widget.firstNameController.text}');
-              print('${widget.lastNameController.text}');
-              print('${widget.emailController.text}');
-              print('${widget.passwordController.text}');
-              if (_isFormValid) {
-                var response = await createUserPost(
-                  context,
-                  widget.firstNameController.text,
-                  widget.lastNameController.text,
-                  selectedDeptId!,
-                  widget.emailController.text,
-                  widget.passwordController.text,
-                );
+            :
+        CustomElevatedButton(
+          height: 30,
+          width: 120,
+          text: 'Create',
+          onPressed: () async {
+            _validateForm();
+            print('$selectedDeptId');
+            print('${widget.firstNameController.text}');
+            print('${widget.lastNameController.text}');
+            print('${widget.emailController.text}');
+            print('${widget.passwordController.text}');
+
+            if (_isFormValid) {
+              var response = await createUserPost(
+                context,
+                widget.firstNameController.text,
+                widget.lastNameController.text,
+                selectedDeptId!,
+                widget.emailController.text,
+                widget.passwordController.text,
+              );
+
+              if (response.success) {
                 widget.onCancel!();
                 widget.firstNameController.clear();
                 widget.lastNameController.clear();
                 widget.emailController.clear();
                 selectedDeptId = AppConfig.AdministrationId;
                 Navigator.pop(context);
-                if(response.statusCode == 200 || response.statusCode == 201){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'User Added Successfully',
-                      );
-                    },
-                  );
-                }
-                // }
+
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'User Added Successfully',
+                    );
+                  },
+                );
+              } else {
+                // Show error dialog if email is already used or other errors
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DialogueTemplate(
+                      width: 300, // Adjust as needed
+                      height: 200, // Adjust as needed
+                      title: 'Error',
+                      body: [
+                        Text(
+                            'Email ID is Already Used',
+                            style: TextStyle(fontSize: 16)),
+                      ],
+                      bottomButtons: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('OK'),
+                      ),
+                    );
+                  },
+                );
               }
             }
-          //},
+          },
         ),
+
+
+
+
+      ///old
+        // CustomElevatedButton(
+        //     height: 30,
+        //     width: 120,
+        //     text: 'Create',
+        //     onPressed: () async {
+        //       _validateForm();
+        //       print('$selectedDeptId');
+        //       print('${widget.firstNameController.text}');
+        //       print('${widget.lastNameController.text}');
+        //       print('${widget.emailController.text}');
+        //       print('${widget.passwordController.text}');
+        //       if (_isFormValid) {
+        //         var response = await createUserPost(
+        //           context,
+        //           widget.firstNameController.text,
+        //           widget.lastNameController.text,
+        //           selectedDeptId!,
+        //           widget.emailController.text,
+        //           widget.passwordController.text,
+        //         );
+        //         widget.onCancel!();
+        //         widget.firstNameController.clear();
+        //         widget.lastNameController.clear();
+        //         widget.emailController.clear();
+        //         selectedDeptId = AppConfig.AdministrationId;
+        //         Navigator.pop(context);
+        //         if(response.statusCode == 200 || response.statusCode == 201){
+        //           showDialog(
+        //             context: context,
+        //             builder: (BuildContext context) {
+        //               return AddSuccessPopup(
+        //                 message: 'User Added Successfully',
+        //               );
+        //             },
+        //           );
+        //         }
+        //         // }
+        //       }
+        //     }
+        //   //},
+        // ),
         );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///
 class CustomTextFieldWithIcon extends StatefulWidget {

@@ -108,7 +108,6 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
 
-
            // OfferLetterWidget(employeeId: widget.employeeId),
 
             FutureBuilder<OfferLetterData>(
@@ -149,7 +148,9 @@ class _OfferLetterDescriptionScreenState
                 }
               },
             ),
+
             SizedBox(height: MediaQuery.of(context).size.height / 100),
+
             Padding(
               padding: const EdgeInsets.only(left: 180),
               child: Row(

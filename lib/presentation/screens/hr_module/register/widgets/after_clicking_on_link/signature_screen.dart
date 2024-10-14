@@ -292,7 +292,7 @@ class _SignaturePageState extends State<SignaturePage> {
 
   Future<Uint8List?> convertPointsToImage() async {
     final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder, Rect.fromPoints(Offset(0, 0), Offset(400, 400))); // Adjust size as needed
+    final canvas = Canvas(recorder, Rect.fromPoints(Offset(0, 0), Offset(400, 400)));
     final paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
