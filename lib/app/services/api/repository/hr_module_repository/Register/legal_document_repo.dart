@@ -4,6 +4,7 @@ class LegalDocumentsRepo{
   static String ConfidentialStatementDocument = "/confidentiality-statement-html";
   static String reportingAbuseDocument = "/reporting-abuse";
   static String policyConcerningDocument = "/policy-concerning-third-party";
+  static String htmlFormTemplateSignatureAdd = "/form-html-templates-status/add/employee/form/Signatures";
 
 
 
@@ -22,5 +23,8 @@ class LegalDocumentsRepo{
   }
   static String getpolicyConcerningDocument({required int policyConcerningId,required int employeeId}){
     return "$policyConcerningDocument/$policyConcerningId/$employeeId";
+  }
+  static String postHemlTemplateFormSignature(){
+    return "$htmlFormTemplateSignatureAdd";
   }
 }

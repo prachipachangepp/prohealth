@@ -1,13 +1,15 @@
 class OnCallDocument{
-  final String onCallData;
-  OnCallDocument({required this.onCallData});
+  final int onCallId;
+  final String name;
+  final String html;
+ // final String onCallData;
+  OnCallDocument({required this.onCallId,required this.name, required this.html,});
 }
 
 class CovidTestPolicyDocument{
   final String covidTestData;
   CovidTestPolicyDocument({required this.covidTestData});
 }
-
 
 class ConfidentialStatementDocument{
   final String confidentialDocument;
