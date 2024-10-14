@@ -13,14 +13,14 @@ import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal
 Future<ApiDataRegister> htmlFormTemplateSignature({required BuildContext context,
   required int formHtmlTempId,
   required String htmlName,
-  required String documentFile,
+  required dynamic documentFile,
   required int employeeId,
   required bool signed,
 }) async {
   try {
 String documents = await
-AppFilePickerBase64.getEncodeStringToBase64(
-dataName: documentFile);
+AppFilePickerBase64.getEncodeBase64(
+bytes: documentFile);
 final companyId = await TokenManager.getCompanyId();
     var response = await ApiOffer(context).post(
       path: LegalDocumentsRepo.postHemlTemplateFormSignature(),

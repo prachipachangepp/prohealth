@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 
@@ -26,6 +27,17 @@ class SignatureFormScreen extends StatefulWidget {
 
 class _SignatureFormScreenState extends State<SignatureFormScreen> {
   bool isLoading = false;
+  dynamic pdfFile;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+     pdfFile =  PdfGenerator.generatePdfFromHtmlString(widget.htmlFormData);
+    print("Pdf String ${pdfFile}");
+    // pdfFile = PdfGenerator.convertToBase64(pdfBytes);
+    // print('Generated pdfBytes ${pdfFile}');
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,37 +67,29 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                   Container(
                     height: 30,
                     width: 140,
-                    child: isLoading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
-                          )
-                        : CustomIconButton(
-                            icon: Icons.arrow_forward_rounded,
-                            text: 'Confirm',
-                            onPressed: () async {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              try {
-                                await htmlFormTemplateSignature(
-                                  context: context,
-                                  formHtmlTempId: widget.htmlFormTemplateId,
-                                  htmlName: widget.documentName,
-                                  documentFile: widget.htmlFormData,
-                                  employeeId: widget.employeeId,
-                                  signed: true,
-                                );
-                              } finally {
-                                setState(() {
-                                  isLoading = false;
-                                  Navigator.pop(context);
-                                });
-                              }
-                              // widget.onPressed();
-                            },
-                          ),
+                    child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomIconButton(
+                      icon: Icons.arrow_forward_rounded,
+                      text: 'Confirm',
+                      onPressed: () async{
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try{
+                          await htmlFormTemplateSignature(context: context,
+                            formHtmlTempId: widget.htmlFormTemplateId,
+                            htmlName: widget.documentName,
+                            documentFile: pdfFile,
+                            employeeId: widget.employeeId,
+                            signed: true,);
+                        }finally{
+                          setState(() {
+                            isLoading = false;
+                            Navigator.pop(context);
+                          });
+                        }
+                        // widget.onPressed();
+                      },
+                    ),
                   ),
                 ],
               ),
