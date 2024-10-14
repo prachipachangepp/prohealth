@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 
@@ -8,13 +9,16 @@ class SignatureFormScreen extends StatefulWidget {
   final String documentName;
   final VoidCallback onPressed;
   final String htmlFormData;
-  const SignatureFormScreen({super.key, required this.documentName, required this.onPressed, required this.htmlFormData});
+  final int employeeId;
+  final int htmlFormTemplateId;
+  const SignatureFormScreen({super.key, required this.documentName, required this.onPressed, required this.htmlFormData, required this.employeeId, required this.htmlFormTemplateId});
 
   @override
   State<SignatureFormScreen> createState() => _SignatureFormScreenState();
 }
 
 class _SignatureFormScreenState extends State<SignatureFormScreen> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +35,13 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back)),
-                  ),
+                  IconButton(
+                    splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: (){
+
+                      }, icon: Icon(Icons.arrow_back)),
                   Text(widget.documentName,style: FormHeading.customTextStyle(context),),
                   Container(
                     height: 30,
@@ -42,6 +50,21 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       icon: Icons.arrow_forward_rounded,
                       text: 'Confirm',
                       onPressed: () async{
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try{
+                          await htmlFormTemplateSignature(context: context,
+                            formHtmlTempId: widget.htmlFormTemplateId,
+                            htmlName: widget.documentName,
+                            documentFile: widget.htmlFormData,
+                            employeeId: widget.employeeId,
+                            signed: true,);
+                        }finally{
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
                         widget.onPressed();
                       },
                     ),
@@ -50,20 +73,24 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
               ),
             ),
             SizedBox(height: 50,),
-         Html(
-           data: widget.htmlFormData.toString(),
-           // style: {
-           //   "p": Style(
-           //     fontSize: FontSize(12.0),
-           //     color: Color(0xff686464),
-           //     fontWeight: FontWeight.w400,
-           //   ),
-           //   "li": Style(
-           //     fontSize: FontSize(12.0),
-           //     color: Color(0xff686464),
-           //     fontWeight: FontWeight.w400,
-           //   ),
-           // },
+         Container(
+           height: MediaQuery.of(context).size.height/1.5,
+           width: MediaQuery.of(context).size.height/2,
+           child: Html(
+             data: '''${widget.htmlFormData}''',
+             // style: {
+             //   "p": Style(
+             //     fontSize: FontSize(12.0),
+             //     color: Color(0xff686464),
+             //     fontWeight: FontWeight.w400,
+             //   ),
+             //   "li": Style(
+             //     fontSize: FontSize(12.0),
+             //     color: Color(0xff686464),
+             //     fontWeight: FontWeight.w400,
+             //   ),
+             // },
+           ),
          ),
           ],
         ),

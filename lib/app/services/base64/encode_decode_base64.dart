@@ -18,6 +18,12 @@ class AppFilePickerBase64 {
     print('Generated Key: $key');
     return key;
   }
+  /// Encrypt String to base 64
+  static Future<String> getEncodeStringToBase64({required String dataName}) async {
+    String base64Encoded = base64Encode(utf8.encode(dataName));
+    return base64Encoded;
+  }
+
   /// Encrypt bytes to base 64
   static Future<String> getEncodeBase64({required dynamic bytes}) async {
     String base64Documents = base64Encode(bytes);
