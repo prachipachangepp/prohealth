@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -11,7 +12,8 @@ class SignatureFormScreen extends StatefulWidget {
   final String htmlFormData;
   final int employeeId;
   final int htmlFormTemplateId;
-  const SignatureFormScreen({super.key, required this.documentName, required this.onPressed, required this.htmlFormData, required this.employeeId, required this.htmlFormTemplateId});
+  const SignatureFormScreen({super.key, required this.documentName, required this.onPressed,
+    required this.htmlFormData, required this.employeeId, required this.htmlFormTemplateId});
 
   @override
   State<SignatureFormScreen> createState() => _SignatureFormScreenState();
@@ -46,7 +48,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                   Container(
                     height: 30,
                     width: 140,
-                    child: CustomIconButton(
+                    child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomIconButton(
                       icon: Icons.arrow_forward_rounded,
                       text: 'Confirm',
                       onPressed: () async{
@@ -63,9 +65,10 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                         }finally{
                           setState(() {
                             isLoading = false;
+                            Navigator.pop(context);
                           });
                         }
-                        widget.onPressed();
+                        // widget.onPressed();
                       },
                     ),
                   ),
