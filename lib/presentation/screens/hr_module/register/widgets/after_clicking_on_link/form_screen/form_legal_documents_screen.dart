@@ -298,9 +298,9 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                     documentName: AppStringLegalDocument.onCall,
                     onPressed: () {  },
-                    htmlFormData: onCallDocument.onCallData.toString(),
+                    htmlFormData: onCallDocument.htmlTemplate,
                           employeeId: widget.employeeID,
-                          htmlFormTemplateId: 0,)));
+                          htmlFormTemplateId: 1,)));
                     // FutureBuilder<OnCallDocument>(
                     //   future: getLegalOnCallDocument(context: context,callHtmlId:1, employeeId: widget.employeeID,),
                     //   builder: (BuildContext context, snapshot) {
