@@ -23,10 +23,10 @@ class _BottomBarRowState extends State<BottomBarRow> {
  var localresponse;
   String? _ipAddress;
   String? _locationData;
-
   bool _isFetchingIp = true;
   Future<Map<String, double>?>? _geolocationFuture;
  late Future<String> _stateFuture;
+
 
   @override
   void initState() {
