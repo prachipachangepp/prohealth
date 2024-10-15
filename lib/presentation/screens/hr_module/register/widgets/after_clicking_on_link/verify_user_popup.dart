@@ -321,6 +321,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                     () {
                                       setState(() {
                                         isLoading = false;
+                                        emailEntered = false;
                                       });
                                     },
                                   );
