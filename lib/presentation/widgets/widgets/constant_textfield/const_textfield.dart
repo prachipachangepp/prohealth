@@ -914,7 +914,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
       height: 31,
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
       child: DropdownButtonFormField<String>(
-          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.black),
+          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
           value: _selectedValue,
           items: widget.items.map((String value) {
             return DropdownMenuItem<String>(
