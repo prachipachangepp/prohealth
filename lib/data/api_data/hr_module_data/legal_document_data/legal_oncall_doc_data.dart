@@ -7,21 +7,29 @@ class OnCallDocument{
 }
 
 class CovidTestPolicyDocument{
-  final String covidTestData;
-  CovidTestPolicyDocument({required this.covidTestData});
+  final int covidTestPolicyId;
+  final String name;
+  final String html;
+  CovidTestPolicyDocument({required this.covidTestPolicyId, required this.name, required this.html});
 }
 
 class ConfidentialStatementDocument{
-  final String confidentialDocument;
-  ConfidentialStatementDocument({required this.confidentialDocument});
+  final int confidentialStatementId;
+  final String name;
+  final String html;
+  ConfidentialStatementDocument({required this.confidentialStatementId, required this.name, required this.html});
 }
 
 class ReportingAbuseDocument{
-  final String reportingAbuseDocument;
-  ReportingAbuseDocument({required this.reportingAbuseDocument});
+  final int reportingAbuseId;
+  final String name;
+  final String html;
+  ReportingAbuseDocument({required this.reportingAbuseId, required this.name, required this.html,});
 }
 
 class PolicyConcerningDocument{
-  final String policyConcerningDocument;
-  PolicyConcerningDocument({required this.policyConcerningDocument});
+  final int policyConcerningId;
+  final String name;
+  final String html;
+  PolicyConcerningDocument({required this.policyConcerningId, required this.name, required this.html});
 }

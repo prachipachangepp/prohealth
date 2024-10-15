@@ -1,9 +1,16 @@
+import 'dart:async';
+import 'dart:html' as html;
+import 'dart:js' as js;
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 
@@ -26,17 +33,40 @@ class SignatureFormScreen extends StatefulWidget {
 }
 
 class _SignatureFormScreenState extends State<SignatureFormScreen> {
+  String? pdfBase64Url;
   bool isLoading = false;
-  dynamic pdfFile;
+  String? pdfFile;
+
+   // String htmlContent = """${widget.htmlFormData}""";
+
+  late PDFViewController pdfViewController;
+
+  int currentPage = 0;
+  int totalPages = 0;
+  bool isReady = false;
+  String errorMessage = '';
+  static const String viewType = 'html-viewer';
   @override
   void initState() {
-    // TODO: implement initState
-
-     pdfFile =  PdfGenerator.generatePdfFromHtmlString(widget.htmlFormData);
-    print("Pdf String ${pdfFile}");
-    // pdfFile = PdfGenerator.convertToBase64(pdfBytes);
-    // print('Generated pdfBytes ${pdfFile}');
     super.initState();
+    // Register a view factory to create an iframe with the HTML content
+    ui.platformViewRegistry.registerViewFactory(
+      viewType,
+      (int viewId) {
+        // Create an iframe and set the source to the HTML content
+         html.IFrameElement element = html.IFrameElement()
+          ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
+          ..style.border = 'none'
+           // ..style.pointerEvents = 'none'
+          ..style.width = '100%'
+          ..style.height = '700px'
+        ..style.backgroundColor = 'white'; // Set a specific height
+        return element;
+      },
+    );
+  }
+  void toggleBack(){
+    Navigator.pop(context);
   }
   @override
   Widget build(BuildContext context) {
@@ -58,38 +88,96 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context){
+                          return DeletePopup(onCancel: () { Navigator.pop(context); },
+                            onDelete: () {
+                              Navigator.pop(context);
+                              toggleBack();
+                            },
+                            title: 'Cancel',
+                            btnText: 'Yes',
+                            text: 'Are you sure  you want to cancel this form?',);
+                        });
+                      },
                       icon: Icon(Icons.arrow_back)),
                   Text(
                     widget.documentName,
                     style: FormHeading.customTextStyle(context),
                   ),
-                  Container(
-                    height: 30,
-                    width: 140,
-                    child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomIconButton(
-                      icon: Icons.arrow_forward_rounded,
-                      text: 'Confirm',
-                      onPressed: () async{
-                        setState(() {
-                          isLoading = true;
-                        });
-                        try{
-                          await htmlFormTemplateSignature(context: context,
-                            formHtmlTempId: widget.htmlFormTemplateId,
-                            htmlName: widget.documentName,
-                            documentFile: pdfFile,
-                            employeeId: widget.employeeId,
-                            signed: true,);
-                        }finally{
-                          setState(() {
-                            isLoading = false;
-                            Navigator.pop(context);
-                          });
-                        }
-                        // widget.onPressed();
-                      },
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 140,
+                        child:  CustomButtonTransparent(
+                          text: 'Cancel',
+                          onPressed: () {
+                            showDialog(context: context, builder: (BuildContext context){
+                              return DeletePopup(onCancel: () { Navigator.pop(context); },
+                                onDelete: () {
+                                Navigator.pop(context);
+                                toggleBack();
+                                },
+                                title: 'Cancel',
+                                btnText: 'Yes',
+                                text: ' Are you sure  you want to cancel this form?',);
+                            });
+
+                            // widget.onPressed();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                        height: 30,
+                        width: 140,
+                        child: CustomIconButton(
+                          icon: Icons.arrow_forward_rounded,
+                          text: 'Confirm',
+                          onPressed: () async{
+                            pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
+                            print("Pdf byte ${pdfFile}");
+                            showDialog(context: context, builder: (BuildContext context){
+                              return
+                                StatefulBuilder(
+                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                    return DeletePopup(
+                                      loadingDuration: isLoading,
+                                      onCancel: () { Navigator.pop(context); },
+                                      onDelete: () async{
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        try{
+                                          await htmlFormTemplateSignature(context: context,
+                                            formHtmlTempId: widget.htmlFormTemplateId,
+                                            htmlName: widget.documentName,
+                                            documentFile: pdfFile!,
+                                            employeeId: widget.employeeId,
+                                            signed: true,);
+                                        }finally{
+                                          setState(() {
+                                            isLoading = false;
+                                            Navigator.pop(context);
+                                            toggleBack();
+                                          });
+                                        }
+                                      },
+                                      title: 'Signed',
+                                      btnText: 'Yes',
+                                      text: 'Do you really want to Sign document?',);
+                                  },
+                                );
+                            });
+
+                            // widget.onPressed();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -97,83 +185,10 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
             SizedBox(
               height: 50,
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Html(data: """
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employment Application Form</title>
-</head>
-
-<body>
-    <div>
-        <!-- Header Section with Company Name and Icon -->
-        <div>
-            <div>PRO HEALTH HOME INC.</div>
-            <div>
-                <!-- Placeholder for icon; replace src with your desired icon URL -->
-                <img src="https://via.placeholder.com/50" alt="Hospital Icon">
-            </div>
-        </div>
-
-        <h2>CONFIDENTIALITY STATEMENT (HIPPA)</h2>
-        <hr color='blue' width='2' />
-        <p>In order to protect the right of patients to privacy, communication in any form regarding patient’s protected
-            health care information shall be confidential. All patient information is to be held in strictest confidence
-            and shall not be disclosed or discussed except in the course of professional responsibilities.</p>
-        <p>This includes communication between patients and their families/caregivers, between health professionals, and the
-            information contained in patients’ health care records maintained by the Agency and all OASIS information.</p>
-        <p>I understand the ethics of confidentiality of patient information and agree to adhere to the above standard.</p>
-        <p>I understand that violation of the confidentiality standard may be cause for termination.</p>
-
-        <div>
-            <!-- Signature section -->
-            <div>
-                <!-- Placeholder for signature image from backend -->
-                <img id="signature-placeholder"
-                    src="https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554_960_720.png"
-                    alt="Signature Placeholder" width='100' height='100'>
-                   
-            </div>
-
-            <!-- Date section -->
-            <div>
-                <input type="text" id="date" value="10-07-2024" readonly>
-            </div>
-        </div>
-
-        <!-- Field labels for Signature and Today's Date -->
-        <div>
-            <div>
-                <label for="signature"><strong>Employee Signature</strong></label>
-            </div>
-            <div>
-                <label for="date"><strong>Date</strong></label>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
-""",
-              style: customStyles,
-                  //'${widget.htmlFormData}',
-                  // style: {
-                  //   "p": Style(
-                  //     fontSize: FontSize(12.0),
-                  //     color: Color(0xff686464),
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  //   "li": Style(
-                  //     fontSize: FontSize(12.0),
-                  //     color: Color(0xff686464),
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // },
-                  ),
-            ),
+            Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height,
+                child: HtmlElementView(viewType: viewType)),
           ],
         ),
       ),
@@ -181,90 +196,26 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
   }
 }
 
-final Map<String, Style> customStyles = {
-  "body": Style(
-    margin: Margins.zero,
-    padding: HtmlPaddings.symmetric(horizontal: 40),
-    backgroundColor: Color(0xff989797),
-    fontFamily: 'Helvetica',
-  ),
-  ".container": Style(
-    width: Width(70, Unit.percent),
-    margin: Margins.symmetric(vertical: 50.0),
-    padding: HtmlPaddings.all(50),
-    backgroundColor: Colors.white,
-    border: Border.all(color: Color(0xffdddddd), width: 1.0),
-    textShadow: [
-      BoxShadow(color: Colors.black12, blurRadius: 10.0),
-    ],
-    //position: Position.relative,
-  ),
-  ".blue-line": Style(
-    width: Width(100, Unit.percent),
-    height: Height(12, Unit.px),
-    backgroundColor: Color(0xff0056b3),
-    margin: Margins.only(bottom: 10.0),
-  ),
-  ".blue-header": Style(
-    width: Width(100, Unit.percent),
-    height: Height(8, Unit.px),
-    backgroundColor: Color(0xff0056b3),
-    margin: Margins.only(bottom: 20.0),
-  ),
-  "h2": Style(
-    textAlign: TextAlign.center,
-    textTransform: TextTransform.uppercase,
-    fontWeight: FontWeight.w700,
-    margin: Margins.only(bottom: 30.0),
-  ),
-  ".header-section": Style(
-    display: Display.inlineBlock,
-    textAlign: TextAlign.center,
-  //  justifyContent: MainAxisAlignment.spaceBetween,
-    alignment: Alignment.center,
-    padding: HtmlPaddings.only(bottom: 20.0),
-  ),
-  ".header-left": Style(
-    fontFamily: 'Helvetica',
-    fontSize: FontSize(24.0),
-    color: Color(0xff212122),
-    fontWeight: FontWeight.w300,
-  ),
-  ".header-right img": Style(
-    width: Width(50, Unit.px),
-    height: Height(50, Unit.px),
-  ),
-  ".signature-date-container": Style(
-    display: Display.listItem,
-  //  justifyContent: MainAxisAlignment.spaceBetween,
-    alignment: Alignment.bottomRight,
-    margin: Margins.symmetric(vertical: 20.0),
-  ),
-  ".signature-container img": Style(
-    width: Width(100, Unit.px),
-    display: Display.block,
-    margin: Margins.only(bottom: 10.0),
-  ),
-  ".date-container input": Style(
-    padding: HtmlPaddings.all(5.0),
-    border: Border.all(),
-    backgroundColor: Colors.transparent,
-    //outline: Outline.none,
-    fontSize: FontSize(16.0),
-    textAlign: TextAlign.start,
-  ),
-  ".horizontal-line": Style(
-    width: Width(100, Unit.percent),
-    height: Height(1, Unit.px),
-    backgroundColor: Colors.grey,
-    margin: Margins.symmetric(vertical: 10.0),
-  ),
-  ".bottom-line": Style(
-    width: Width(100, Unit.percent),
-    height: Height(2, Unit.px),
-    backgroundColor: Colors.blue,
-  ),
-  ".page-break": Style(
-    //pageBreakAfter: PageBreak.after,
-  ),
-};
+class PdfGenerator {
+  // Convert HTML string to a Base64-encoded PDF
+  static Future<String> htmlToBase64Pdf(String htmlContent) async {
+    try {
+      final completer = Completer<String>();
+
+      // JavaScript function to convert HTML to PDF and return Base64
+      js.context.callMethod('htmlToPdf', [
+        htmlContent,
+        js.allowInterop((base64Pdf) {
+          completer.complete(base64Pdf);
+        })
+      ]);
+
+      final base64Pdf = completer.future;
+      print(base64Pdf);
+      return base64Pdf;
+    } catch (e) {
+      print(e);
+      return "";
+    }
+  }
+}

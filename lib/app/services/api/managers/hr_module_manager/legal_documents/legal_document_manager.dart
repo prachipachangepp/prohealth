@@ -8,30 +8,30 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 
-
 /// Signature Form
-Future<ApiDataRegister> htmlFormTemplateSignature({required BuildContext context,
+Future<ApiDataRegister> htmlFormTemplateSignature({
+  required BuildContext context,
   required int formHtmlTempId,
   required String htmlName,
-  required dynamic documentFile,
+  required String documentFile,
   required int employeeId,
   required bool signed,
 }) async {
   try {
-String documents = await
-AppFilePickerBase64.getEncodeBase64(
-bytes: documentFile);
-final companyId = await TokenManager.getCompanyId();
+// String documents = await
+// AppFilePickerBase64.getEncodeBase64(
+// bytes: documentFile);
+    final companyId = await TokenManager.getCompanyId();
     var response = await ApiOffer(context).post(
       path: LegalDocumentsRepo.postHemlTemplateFormSignature(),
       data: {
-          "formHtmlTemplatesId": formHtmlTempId,
-          "htmlname": htmlName,
-          "base64": documents,
-          "employeeId": employeeId,
-          "createdAt": DateTime.now().toIso8601String(),
-          "company_Id": companyId,
-          "signed": signed
+        "formHtmlTemplatesId": formHtmlTempId,
+        "htmlname": htmlName,
+        "base64": documentFile,
+        "employeeId": employeeId,
+        "createdAt": DateTime.now().toIso8601String(),
+        "company_Id": companyId,
+        "signed": signed
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -55,17 +55,20 @@ final companyId = await TokenManager.getCompanyId();
 }
 
 /// OnCall Document
-Future<OnCallDocument> getLegalOnCallDocument({
-    required BuildContext context, required int callHtmlId,required int employeeId}) async {
+Future<OnCallDocument> getLegalOnCallDocument(
+    {required BuildContext context,
+    required int callHtmlId,
+    required int employeeId}) async {
 //var itemList ;
- var itemsData ;
+  var itemsData;
   try {
     final response = await ApiOffer(context).get(
-        path: LegalDocumentsRepo
-            .getOnCallDocument(callHtmlId: callHtmlId, employeeId: employeeId));
+        path: LegalDocumentsRepo.getOnCallDocument(
+            callHtmlId: callHtmlId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('OnCall Document Fetched');
-      itemsData = OnCallDocument(onCallId: response.data['id'],
+      itemsData = OnCallDocument(
+          onCallId: response.data['id'],
           html: response.data['html'],
           name: response.data['name']);
     } else {
@@ -79,17 +82,22 @@ Future<OnCallDocument> getLegalOnCallDocument({
 }
 
 /// CovidTestPolicy Document
-Future<CovidTestPolicyDocument> getLegalCovidTestPolicyDocument({
-  required BuildContext context, required int covidTestId,required int employeeId}) async {
+Future<CovidTestPolicyDocument> getLegalCovidTestPolicyDocument(
+    {required BuildContext context,
+    required int covidTestId,
+    required int employeeId}) async {
 //var itemList ;
-  var itemsData ;
+  var itemsData;
   try {
     final response = await ApiOffer(context).get(
-        path: LegalDocumentsRepo
-            .getCovidTestPolicyDocument(covidTestId: covidTestId, employeeId: employeeId));
+        path: LegalDocumentsRepo.getCovidTestPolicyDocument(
+            covidTestId: covidTestId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('covidTest Document Fetched');
-      itemsData = CovidTestPolicyDocument(covidTestData: response.data.toString());
+      itemsData = CovidTestPolicyDocument(
+          covidTestPolicyId: response.data['id'],
+          name: response.data['name'],
+          html: response.data['html']);
     } else {
       print("covidTest Document ");
     }
@@ -101,17 +109,22 @@ Future<CovidTestPolicyDocument> getLegalCovidTestPolicyDocument({
 }
 
 /// ConfidentialStatement Document
-Future<ConfidentialStatementDocument> getLegalConfidentialStatementDocument({
-  required BuildContext context, required int ConfidentialStatementId,required int employeeId}) async {
+Future<ConfidentialStatementDocument> getLegalConfidentialStatementDocument(
+    {required BuildContext context,
+    required int ConfidentialStatementId,
+    required int employeeId}) async {
 //var itemList ;
-  var itemsData ;
+  var itemsData;
   try {
     final response = await ApiOffer(context).get(
-        path: LegalDocumentsRepo
-            .getConfidentialStatementDocument(confidentialId: ConfidentialStatementId, employeeId: employeeId));
+        path: LegalDocumentsRepo.getConfidentialStatementDocument(
+            confidentialId: ConfidentialStatementId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('confidentialDocument Fetched');
-      itemsData = ConfidentialStatementDocument(confidentialDocument: response.data.toString());
+      itemsData = ConfidentialStatementDocument(
+          confidentialStatementId: response.data['id'],
+          name: response.data['name'],
+          html: response.data['html']);
     } else {
       print("confidentialDocument ");
     }
@@ -123,17 +136,22 @@ Future<ConfidentialStatementDocument> getLegalConfidentialStatementDocument({
 }
 
 /// reportingAbuseDocument
-Future<ReportingAbuseDocument> getLegalReportingAbuseDocumentDocument({
-  required BuildContext context, required int reportingAbuseId,required int employeeId}) async {
+Future<ReportingAbuseDocument> getLegalReportingAbuseDocumentDocument(
+    {required BuildContext context,
+    required int reportingAbuseId,
+    required int employeeId}) async {
 //var itemList ;
-  var itemsData ;
+  var itemsData;
   try {
     final response = await ApiOffer(context).get(
-        path: LegalDocumentsRepo
-            .getreportingAbuseDocument(reportingAbuseId: reportingAbuseId, employeeId: employeeId));
+        path: LegalDocumentsRepo.getreportingAbuseDocument(
+            reportingAbuseId: reportingAbuseId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('reportingAbuseDocument Fetched');
-      itemsData = ReportingAbuseDocument(reportingAbuseDocument: response.data.toString());
+      itemsData = ReportingAbuseDocument(
+          reportingAbuseId: response.data['id'],
+          name: response.data['name'],
+          html: response.data['html']);
     } else {
       print("reportingAbuseDocument ");
     }
@@ -145,17 +163,22 @@ Future<ReportingAbuseDocument> getLegalReportingAbuseDocumentDocument({
 }
 
 /// reportingAbuseDocument
-Future<PolicyConcerningDocument> getLegalpolicyConcerningDocument({
-  required BuildContext context, required int policyConcerningId,required int employeeId}) async {
+Future<PolicyConcerningDocument> getLegalpolicyConcerningDocument(
+    {required BuildContext context,
+    required int policyConcerningId,
+    required int employeeId}) async {
 //var itemList ;
-  var itemsData ;
+  var itemsData;
   try {
     final response = await ApiOffer(context).get(
-        path: LegalDocumentsRepo
-            .getpolicyConcerningDocument(policyConcerningId: policyConcerningId, employeeId: employeeId));
+        path: LegalDocumentsRepo.getpolicyConcerningDocument(
+            policyConcerningId: policyConcerningId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('policyConcerning document Fetched');
-      itemsData = PolicyConcerningDocument(policyConcerningDocument: response.data.toString());
+      itemsData = PolicyConcerningDocument(
+          policyConcerningId: response.data['id'],
+          name: response.data['name'],
+          html: response.data['html']);
     } else {
       print("policyConcerningDocument ");
     }
@@ -165,3 +188,25 @@ Future<PolicyConcerningDocument> getLegalpolicyConcerningDocument({
     return itemsData;
   }
 }
+
+/// Candidates reales form
+// Future<PolicyConcerningDocument> getLegalpolicyConcerningDocument({
+//   required BuildContext context, required int policyConcerningId,required int employeeId}) async {
+// //var itemList ;
+//   var itemsData ;
+//   try {
+//     final response = await ApiOffer(context).get(
+//         path: LegalDocumentsRepo
+//             .getpolicyConcerningDocument(policyConcerningId: policyConcerningId, employeeId: employeeId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print('policyConcerning document Fetched');
+//       itemsData = PolicyConcerningDocument(policyConcerningId: response.data['id'], name: response.data['name'], html: response.data['html']);
+//     } else {
+//       print("policyConcerningDocument ");
+//     }
+//     return itemsData;
+//   } catch (e) {
+//     print("error${e}");
+//     return itemsData;
+//   }
+// }

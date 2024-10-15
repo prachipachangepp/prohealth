@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
@@ -20,51 +21,70 @@ class App extends StatefulWidget {
 
 class _App extends State<App> {
   bool _hasShownSplash = false;
+  String? initialVersion;
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     // Listen for messages from JavaScript
-    html.window.onMessage.listen((event) {
-      if (event.data == 'newVersionAvailable') {
-        // Show update dialog
-        _showUpdateDialog();
-      }
-    });
     // If splash screen hasn't been shown, navigate to it.
     // if (!_hasShownSplash) {
     //   WidgetsBinding.instance.addPostFrameCallback((_) {
     //     _navigateToSplashScreen();
     //   });
     // }
+    _initializeVersion();
+    _timer = Timer.periodic(Duration(minutes: 1), (timer) => _checkForUpdate());
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _initializeVersion() {
+    initialVersion = html.document
+        .querySelector('meta[name="build-version"]')
+        ?.getAttribute("content");
+  }
+
+  void _checkForUpdate() {
+    final currentVersion = html.document
+        .querySelector('meta[name="build-version"]')
+        ?.getAttribute("content");
+    if (currentVersion != initialVersion) {
+      _showUpdateDialog();
+    }
   }
 
   void _showUpdateDialog() {
     showDialog(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("New Version Available"),
-          content: Text(
-              "A new version of the app is available. Would you like to reload to get the latest updates?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Dismiss the dialog
-              },
-              child: Text("Later"),
-            ),
-            TextButton(
-              onPressed: () {
-                // Reload the app to load the new version
-                html.window.location.reload();
-              },
-              child: Text("Reload"),
-            ),
-          ],
-        );
-      },
+      builder: (context) => AlertDialog(
+        title: Text("New Update Available"),
+        content: Text(
+            "A new version of the app is available. Please refresh to update."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Later"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _reloadPage();
+            },
+            child: Text("Refresh"),
+          ),
+        ],
+      ),
     );
+  }
+
+  void _reloadPage() {
+    html.window.location.reload();
   }
 
   @override
