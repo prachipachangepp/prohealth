@@ -18,7 +18,10 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Prohealth Application.">
+  <meta name="build-version" content="1.1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
   <!-- Content Security Policy -->
 <!--  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https: localhost:;">-->
 
@@ -26,10 +29,14 @@
   <meta http-equiv="Permissions-Policy" content="geolocation=(self)">
 
   <!-- iOS meta tags & icons -->
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="prohealth">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
@@ -62,6 +69,20 @@
   window.flutterWebRenderer = "html";
 
 </script>
+
+<script>
+  async function htmlToPdf(htmlContent, callback) {
+    // Create a temporary HTML element
+    const element = document.createElement('div');
+    element.innerHTML = htmlContent;
+
+    // Convert HTML to PDF and output as Base64 Data URI
+    const dataUri = await html2pdf().from(element).toPdf().output('datauristring');
+    const base64data = dataUri.split(',')[1]; // Remove the data URI prefix
+    callback(base64data); // Return Base64 data to Dart
+  }
+</script>
+
 <script>
 <!--  if ('serviceWorker' in navigator) {-->
 <!--    navigator.serviceWorker.addEventListener('controllerchange', () => {-->
