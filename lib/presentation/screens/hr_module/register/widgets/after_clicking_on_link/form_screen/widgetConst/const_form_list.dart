@@ -31,6 +31,12 @@ class DefineFormList extends StatelessWidget {
         Row(
           children: [
             // Conditional rendering: If signed, show a check mark
+            isSigned ? ElevatedButton(
+                onPressed: onView, // Always show the View button
+                child: const Text('View')
+            )
+                : SizedBox(width: 50,),
+            const SizedBox(width: 10),
             isSigned
                 ? const Icon(
               Icons.check,
@@ -41,12 +47,8 @@ class DefineFormList extends StatelessWidget {
               onPressed: onSigned, // Button only shown if not signed
               child: const Text('Sign'),
             ),
-            const SizedBox(width: 10),
-            isSigned ? ElevatedButton(
-              onPressed: onView, // Always show the View button
-              child: const Text('View')
-            )
-                : SizedBox(width: 50,)
+
+
           ],
         ),
       ],
