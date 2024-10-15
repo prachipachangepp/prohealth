@@ -116,7 +116,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           Center(
             child: Text(
               'Health Records',
-              style: FormHeading.customTextStyle(context)
+              style:FormHeading.customTextStyle(context)
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -218,7 +218,6 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                           }
 
                         }
-
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
