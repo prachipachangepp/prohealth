@@ -101,8 +101,8 @@ class _LoginWebState extends State<LoginWeb> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                           "Version 1.0.3 (33) demo",
-                          // AppConfig.version,
+                           // "Version 1.0.3 (4) demo",
+                          AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,
                           ),

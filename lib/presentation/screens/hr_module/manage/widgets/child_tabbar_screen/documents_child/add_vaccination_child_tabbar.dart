@@ -249,50 +249,50 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                   // ),
                                      ///
                                   /// prinnt
-                                  IconButton(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    onPressed: () async {
-                                      try {
-                                        // Debug output
-                                        print("File URL: $fileUrl");
-                                        print("File Extension: $fileExtension");
-
-                                        if (fileUrl != null && fileExtension != null) {
-                                          if (fileExtension!.toLowerCase().endsWith('.pdf')) {
-                                            // Attempt to fetch the PDF
-                                            var response = await http.get(Uri.parse(fileUrl!));
-
-                                            // Check for successful response
-                                            if (response.statusCode == 200) {
-                                              // Handle PDF rendering
-                                              Uint8List pdfBytes = response.bodyBytes;
-
-                                              await Printing.layoutPdf(
-                                                onLayout: (PdfPageFormat format) async => pdfBytes,
-                                              );
-                                            } else {
-                                              print('Failed to fetch document from URL: ${response.statusCode}');
-                                            }
-                                          } else {
-                                            print('Unsupported file type for printing. Expected PDF, got: $fileExtension');
-                                          }
-                                        } else {
-                                          print('File URL or extension is null');
-                                        }
-                                      } catch (e) {
-                                        // Catch network-related errors
-                                        print('Error occurred during printing: $e');
-                                      }
-                                    },
-
-                                    icon: Icon(
-                                      Icons.print_outlined,
-                                      color: Color(0xff1696C8),
-                                    ),
-                                    iconSize: 20,
-                                  ),
+                                  // IconButton(
+                                  //   splashColor: Colors.transparent,
+                                  //   highlightColor: Colors.transparent,
+                                  //   hoverColor: Colors.transparent,
+                                  //   onPressed: () async {
+                                  //     try {
+                                  //       // Debug output
+                                  //       print("File URL: $fileUrl");
+                                  //       print("File Extension: $fileExtension");
+                                  //
+                                  //       if (fileUrl != null && fileExtension != null) {
+                                  //         if (fileExtension!.toLowerCase().endsWith('.pdf')) {
+                                  //           // Attempt to fetch the PDF
+                                  //           var response = await http.get(Uri.parse(fileUrl!));
+                                  //
+                                  //           // Check for successful response
+                                  //           if (response.statusCode == 200) {
+                                  //             // Handle PDF rendering
+                                  //             Uint8List pdfBytes = response.bodyBytes;
+                                  //
+                                  //             await Printing.layoutPdf(
+                                  //               onLayout: (PdfPageFormat format) async => pdfBytes,
+                                  //             );
+                                  //           } else {
+                                  //             print('Failed to fetch document from URL: ${response.statusCode}');
+                                  //           }
+                                  //         } else {
+                                  //           print('Unsupported file type for printing. Expected PDF, got: $fileExtension');
+                                  //         }
+                                  //       } else {
+                                  //         print('File URL or extension is null');
+                                  //       }
+                                  //     } catch (e) {
+                                  //       // Catch network-related errors
+                                  //       print('Error occurred during printing: $e');
+                                  //     }
+                                  //   },
+                                  //
+                                  //   icon: Icon(
+                                  //     Icons.print_outlined,
+                                  //     color: Color(0xff1696C8),
+                                  //   ),
+                                  //   iconSize: 20,
+                                  // ),
                                   ///
                                   // IconButton(
                                   //   splashColor:
