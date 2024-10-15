@@ -352,19 +352,19 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                                 onSigned: formStatus.signed
                                     ? null
                                     : () async{
-                                  OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: 1, employeeId: 169);
+                                  OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: formStatus.formHtmlTemplatesId, employeeId: 169);
                                   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                                    documentName: AppStringLegalDocument.onCall,
+                                    documentName: formStatus.htmlname,
                                     onPressed: () {  },
                                     htmlFormData: oncallDoc.html,
                                     employeeId: 169,//widget.employeeID,
-                                    htmlFormTemplateId: 1,)));
+                                    htmlFormTemplateId: oncallDoc.onCallId,)));
                                   print("${formStatus.htmlname} signed.");
                                 },
-                                onView: formStatus.signed ?  () {
-                                  // Logic for viewing the form
-                                  print("Viewing ${formStatus.htmlname}");
-                                } : (){},
+
+                                onView: formStatus.signed
+                                    ? () { print("Viewing ${formStatus.htmlname}");}
+                                    : (){},
                                 isSigned: formStatus.signed,
                               ),
                               const SizedBox(height: AppSize.s10),

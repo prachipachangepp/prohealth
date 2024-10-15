@@ -58,7 +58,10 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
           ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
           ..style.border = 'none'
           ..style.width = '100%'
-          ..style.height = '600px'; // Set a specific height
+          ..style.height = '600px'
+          ..style.backgroundColor = 'white';
+
+        // Set a specific height
         return element;
       },
     );
@@ -95,7 +98,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                             },
                             title: 'Cancel',
                             btnText: 'Yes',
-                            text: 'Are you sure  you want to cancel this form',);
+                            text: 'Are you sure  you want to cancel this form?',);
                         });
                       },
                       icon: Icon(Icons.arrow_back)),
@@ -103,6 +106,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                     widget.documentName,
                     style: FormHeading.customTextStyle(context),
                   ),
+                  ///cancel button
                   Row(
                     children: [
                       Container(
@@ -119,7 +123,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                                 },
                                 title: 'Cancel',
                                 btnText: 'Yes',
-                                text: ' Are you sure  you want to cancel this form',);
+                                text: ' Are you sure  you want to cancel this form?',);
                             });
 
                             // widget.onPressed();
@@ -134,7 +138,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                           icon: Icons.arrow_forward_rounded,
                           text: 'Confirm',
                           onPressed: () async{
-                            pdfFile = PdfGenerator.htmlToBase64Pdf(widget.htmlFormData) as String?;
+                            pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
                             print("Pdf byte ${pdfFile}");
                             showDialog(context: context, builder: (BuildContext context){
                               return DeletePopup(
