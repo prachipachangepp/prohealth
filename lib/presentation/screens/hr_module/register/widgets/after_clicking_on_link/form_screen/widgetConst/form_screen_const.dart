@@ -54,11 +54,13 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
       viewType,
       (int viewId) {
         // Create an iframe and set the source to the HTML content
-        final html.IFrameElement element = html.IFrameElement()
+         html.IFrameElement element = html.IFrameElement()
           ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
           ..style.border = 'none'
+           // ..style.pointerEvents = 'none'
           ..style.width = '100%'
-          ..style.height = '600px'; // Set a specific height
+          ..style.height = '700px'
+        ..style.backgroundColor = 'white'; // Set a specific height
         return element;
       },
     );
@@ -87,7 +89,9 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: () {
-                        showDialog(context: context, builder: (BuildContext context){
+                        showDialog(context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context){
                           return DeletePopup(onCancel: () { Navigator.pop(context); },
                             onDelete: () {
                               Navigator.pop(context);
@@ -95,7 +99,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                             },
                             title: 'Cancel',
                             btnText: 'Yes',
-                            text: 'Are you sure  you want to cancel this form',);
+                            text: 'Are you sure  you want to cancel this form?',);
                         });
                       },
                       icon: Icon(Icons.arrow_back)),
@@ -108,7 +112,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       Container(
                         height: 30,
                         width: 140,
-                        child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomButtonTransparent(
+                        child:  CustomButtonTransparent(
                           text: 'Cancel',
                           onPressed: () {
                             showDialog(context: context, builder: (BuildContext context){
@@ -119,7 +123,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                                 },
                                 title: 'Cancel',
                                 btnText: 'Yes',
-                                text: ' Are you sure  you want to cancel this form',);
+                                text: ' Are you sure  you want to cancel this form?',);
                             });
 
                             // widget.onPressed();
@@ -130,38 +134,43 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       Container(
                         height: 30,
                         width: 140,
-                        child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomIconButton(
+                        child: CustomIconButton(
                           icon: Icons.arrow_forward_rounded,
                           text: 'Confirm',
                           onPressed: () async{
-                            pdfFile = PdfGenerator.htmlToBase64Pdf(widget.htmlFormData) as String?;
+                            pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
                             print("Pdf byte ${pdfFile}");
                             showDialog(context: context, builder: (BuildContext context){
-                              return DeletePopup(
-                                loadingDuration: isLoading,
-                                onCancel: () { Navigator.pop(context); },
-                                onDelete: () async{
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  try{
-                                    await htmlFormTemplateSignature(context: context,
-                                    formHtmlTempId: widget.htmlFormTemplateId,
-                                    htmlName: widget.documentName,
-                                    documentFile: pdfFile!,
-                                    employeeId: widget.employeeId,
-                                    signed: true,);
-                                  }finally{
-                                    setState(() {
-                                      isLoading = false;
-                                      Navigator.pop(context);
-                                      toggleBack();
-                                    });
-                                  }
-                                },
-                                title: 'Signed',
-                                btnText: 'Yes',
-                                text: 'Do you really want to Sign document',);
+                              return
+                                StatefulBuilder(
+                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                    return DeletePopup(
+                                      loadingDuration: isLoading,
+                                      onCancel: () { Navigator.pop(context); },
+                                      onDelete: () async{
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        try{
+                                          await htmlFormTemplateSignature(context: context,
+                                            formHtmlTempId: widget.htmlFormTemplateId,
+                                            htmlName: widget.documentName,
+                                            documentFile: pdfFile!,
+                                            employeeId: widget.employeeId,
+                                            signed: true,);
+                                        }finally{
+                                          setState(() {
+                                            isLoading = false;
+                                            Navigator.pop(context);
+                                            toggleBack();
+                                          });
+                                        }
+                                      },
+                                      title: 'Signed',
+                                      btnText: 'Yes',
+                                      text: 'Do you really want to Sign document?',);
+                                  },
+                                );
                             });
 
                             // widget.onPressed();

@@ -355,12 +355,12 @@ class AppStringHRNoData {
 /// Legal document const string
 
 class AppStringLegalDocument {
-  static const String candidatereLeaseForm = 'Candidate Release Form';
-  static const String onCall = 'On Call';
-  static const String confidentialityAgreement = 'Confidentiality Agreement';
-  static const String covidTestingPolicy = 'Covid Testing Policy';
-  static const String policyConcerning = 'Policy Concerning 3rd party';
-  static const String reportOfAbuse = 'Report of abuse';
+  static const String candidatereLeaseForm = 'Candidates-release-form';
+  static const String onCall = 'on-call';
+  static const String confidentialityAgreement = 'Confidentiality-statement';
+  static const String covidTestingPolicy = 'Covid-test-Policy';
+  static const String policyConcerning = 'Policy concerning third party';
+  static const String reportOfAbuse = 'reporting abuse';
   static const String personalOrientation = 'Personal orientation';
   static const String directDeposit = 'Direct Deposit';
   static const String standardOfCodeOfConduct = 'Standard of code of conduct';
