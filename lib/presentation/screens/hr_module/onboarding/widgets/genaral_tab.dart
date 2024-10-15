@@ -150,6 +150,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       radius: MediaQuery.of(context).size.width / 50,
                                                       backgroundColor: Colors.white,
                                                       child: general.imgurl! == 'imgurl' || general.imgurl! == null
+                                                          // images/profilepic.png
                                                           ? Icon(
                                                         Icons.person,
                                                         color: ColorManager.bluelight,
@@ -159,7 +160,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                         child: CachedNetworkImage(
                                                           imageUrl: general.imgurl!,
                                                           placeholder: (context, url) => CircularProgressIndicator(),
-                                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                                          errorWidget: (context, url, error) =>
+                                                              CircleAvatar(child: Image.asset("images/profilepic.png"),),
                                                           width: double.infinity,
                                                           height: double.infinity,
                                                           fit: BoxFit.cover,

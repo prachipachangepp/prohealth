@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Column(
       //  mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
@@ -171,8 +171,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ],
           ),
-          const SizedBox(height: AppSize.s20),
-          StreamBuilder<List<RegisterDataCompID>>(
+           const SizedBox(height: AppSize.s20),
+           StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -215,12 +215,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }),
               );
             },
-          )
-
+          ),
+           BottomAppBar()
         ],
       ),
     );
-
   }
   Widget buildDropdownButton(BuildContext context) {
     return  Column(
@@ -647,4 +646,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
 }

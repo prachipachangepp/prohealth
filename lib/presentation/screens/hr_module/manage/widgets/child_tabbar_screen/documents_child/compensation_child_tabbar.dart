@@ -93,33 +93,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
-            // Container(
-            //   // width: 100,
-            //   margin: EdgeInsets.only(right: 60),
-            //   child: CustomIconButtonConst(
-            //     width: 100,
-            //       text: AppStringHr.addNew,
-            //       icon: Icons.add,
-            //       onPressed: () {
-            //         showDialog(
-            //             context: context,
-            //             builder: (BuildContext context) {
-            //               return AcknowledgementAddPopuppp(
-            //                 // idController: compensitionAddIdController,
-            //                 // nameController: compensitionAddNameController,
-            //                 // expiryType: compensationExpiryType,
-            //                 title: 'Add Compensation', employeeId: widget.employeeId, dataList: ,
-            //                 // AcknowledgementnameController:
-            //                 // compensitionAddNameController,
-            //                 // onSavePressed: () {  },
-            //                 // employeeId: widget.employeeId,
-            //                 // documentMetaId: 11,
-            //                 // documentSetupId: 36,
-            //               );
-            //             });
-            //         //
-            //       }),
-            // ),
           ],
         ),
         SizedBox(

@@ -322,7 +322,8 @@ class _CustomDialogState extends State<CustomDialog> {
                   builder: (BuildContext context) {
                     return DialogueTemplate(
                       width: 300, // Adjust as needed
-                      height: 200, // Adjust as needed
+                      height: 200,
+                      // Adjust as needed
                       title: 'Error',
                       body: [
                         Text(

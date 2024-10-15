@@ -184,7 +184,7 @@ class NonChromeApp extends StatelessWidget {
                 "This application is supported only in Google Chrome.",
                 style: TextStyle(
                   fontSize: 28,
-                  color: ColorManager.bluebottom,
+                  color: ColorManager.textPrimaryColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
