@@ -1,4 +1,10 @@
+import 'dart:async';
+import 'dart:html' as html;
+import 'dart:js' as js;
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
@@ -26,18 +32,37 @@ class SignatureFormScreen extends StatefulWidget {
 }
 
 class _SignatureFormScreenState extends State<SignatureFormScreen> {
-  bool isLoading = false;
-  dynamic pdfFile;
+  String? pdfBase64Url;
+
+  final String htmlContent = """
+   <!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Employment Application Form</title>\n<style>\nbody {\nfont-family: 'Helvetica', sans-serif;\nmargin: 0;\npadding: 0;\nbackground-color: #989797;\n}\n\n.container {\nwidth: 70%;\nmargin: 50px auto;\nbackground-color: #fff;\npadding: 50px;\nborder: 1px solid #ddd;\nbox-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\nposition: relative;\n}\n\n.blue-line {\nwidth: 100%;\nheight: 12px;\nbackground-color: #0056b3;\nmargin-bottom: 10px;\n}\n\n.blue-header {\nwidth: 100%;\nheight: 8px;\nbackground-color: #0056b3;\nmargin-bottom: 20px;\n}\n\nh2 {\ntext-align: center;\ntext-transform: uppercase;\nfont-weight: 700;\nmargin-bottom: 30px;\n}\n\nh3 {\ntext-align: left;\ntext-transform: uppercase;\nfont-weight: 700;\nmargin-bottom: 30px;\ncolor: #0056b3;\n}\n\n.logo {\ntext-align: center;\nmargin-bottom: 20px;\n}\n\n.header-section {\ndisplay: flex;\njustify-content: space-between;\nalign-items: center;\npadding-bottom: 20px;\n}\n\n.header-left {\nfont-family: 'Helvetica', sans-serif;\nfont-size: 24px;\ncolor: #212122;\nfont-weight: lighter;\n}\n\n.header-right img {\nwidth: 50px;\nheight: 50px;\n}\n\n.page-break {\npage-break-after: always;\n}\n\n.signature-date-container {\ndisplay: flex;\njustify-content: space-between;\nalign-items: flex-end;\nmargin: 20px 0;\n}\n\n.signature-container,\n.date-container {\ndisplay: flex;\nflex-direction: column;\nflex: 1;\n}\n\n.signature-container img {\nmax-width: 150px;\ndisplay: block;\nmargin-bottom: 10px;\n}\n\n.date-container input {\npadding: 5px;\nborder: none;\nbackground: transparent;\noutline: none;\nfont-size: 16px;\ntext-align: right;\n}\n\n.horizontal-line {\nwidth: 100%;\nheight: 1px;\nbackground-color: grey;\nmargin: 10px 0;\n}\n\n.field-label {\nfont-size: 12px;\ncolor: grey;\ntext-align: right;\n}\n\n.date-container {\nalign-items: flex-end;\n}\n\n.bottom-line {\nwidth: 100%;\nheight: 2px;\nbackground-color: skyblue;\n}\n</style>\n</head>\n\n<body>\n<div class=\"container\">\n<div class=\"header-section\">\n<div class=\"header-left\">PRO HEALTH HOME INC.</div>\n<div class=\"header-right\">\n<img src=\"https://via.placeholder.com/50\" alt=\"Hospital Icon\">\n</div>\n</div>\n\n<h2>ON-CALL/WEEKEND STAFFING</h2>\n\n<div class=\"blue-header\"></div>\n<h3>PURPOSE</h3>\n<p>To define the on-call system for assuring 24-hour coverage of services </p>\n<h3>POLICY</h3>\n<p>Patient care needs are the highest priority; therefore, weekend and evening staffing will be scheduled accordingly. Clinical personnel are expected to perform visits on an as-needed basis, including weekends and holidays. There will on-call staff available after-hours Monday through Friday, and 24 hours a day on weekends and holidays. Staff on-call will be:</p>\n<ol type=\"1\">\n<li>Administrative call by a Senior Management staff member</li>\n<li>Clinical call by a registered nurse (It’s optional for all registered nurses to participate in an on-call rotation) </li>\n</ol>\n<h3>PROCEDURE</h3>\n<ol type=\"1\">\n<li>On admission, each patient will be made aware of the organization’s 24-hour availability. </li>\n<li>The on-call schedule will be developed on a monthly basis by the Clinical Director or designee. The schedule will be forwarded to the answering service and on-call staff.</li>\n<li>The on-call schedule can be reached by calling the home health number. After hours, this number will be forwarded to a professional answering service.</li>\n<li>The on-call nurse will be issued a pager and/or a cellular phone to allow for mobility.</li>\n<li>Reports will be given to the on-call nurse daily Monday through Friday.</li>\n</ol>\n\n<div class=\"signature-date-container\">\n<div class=\"signature-container\">\n<img id=\"signature-placeholder\" src=\"https://via.placeholder.com/150\" alt=\"Signature Placeholder\">\n</div>\n<div class=\"date-container\">\n<input type=\"text\" id=\"date\" value=\"10/15/2024\" readonly>\n</div>\n</div>\n\n<div class=\"horizontal-line\"></div>\n<div class=\"signature-date-container\">\n<div class=\"signature-container\">\n<label for=\"signature\">Signature</label>\n</div>\n<div class=\"date-container\">\n<label for=\"date\">Today's Date</label>\n</div>\n</div>\n\n<div class=\"bottom-line\"></div>\n</div>\n</body>\n\n</html>
+  """;
+
+  late PDFViewController pdfViewController;
+
+  int currentPage = 0;
+  int totalPages = 0;
+  bool isReady = false;
+  String errorMessage = '';
+  static const String viewType = 'html-viewer';
   @override
   void initState() {
-    // TODO: implement initState
-
-     pdfFile =  PdfGenerator.generatePdfFromHtmlString(widget.htmlFormData);
-    print("Pdf String ${pdfFile}");
-    // pdfFile = PdfGenerator.convertToBase64(pdfBytes);
-    // print('Generated pdfBytes ${pdfFile}');
     super.initState();
+    // Register a view factory to create an iframe with the HTML content
+    ui.platformViewRegistry.registerViewFactory(
+      viewType,
+      (int viewId) {
+        // Create an iframe and set the source to the HTML content
+        final html.IFrameElement element = html.IFrameElement()
+          ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
+          ..style.border = 'none'
+          ..style.width = '100%'
+          ..style.height = '600px'; // Set a specific height
+        return element;
+      },
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,83 +122,10 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
             SizedBox(
               height: 50,
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Html(data: """
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employment Application Form</title>
-</head>
-
-<body>
-    <div>
-        <!-- Header Section with Company Name and Icon -->
-        <div>
-            <div>PRO HEALTH HOME INC.</div>
-            <div>
-                <!-- Placeholder for icon; replace src with your desired icon URL -->
-                <img src="https://via.placeholder.com/50" alt="Hospital Icon">
-            </div>
-        </div>
-
-        <h2>CONFIDENTIALITY STATEMENT (HIPPA)</h2>
-        <hr color='blue' width='2' />
-        <p>In order to protect the right of patients to privacy, communication in any form regarding patient’s protected
-            health care information shall be confidential. All patient information is to be held in strictest confidence
-            and shall not be disclosed or discussed except in the course of professional responsibilities.</p>
-        <p>This includes communication between patients and their families/caregivers, between health professionals, and the
-            information contained in patients’ health care records maintained by the Agency and all OASIS information.</p>
-        <p>I understand the ethics of confidentiality of patient information and agree to adhere to the above standard.</p>
-        <p>I understand that violation of the confidentiality standard may be cause for termination.</p>
-
-        <div>
-            <!-- Signature section -->
-            <div>
-                <!-- Placeholder for signature image from backend -->
-                <img id="signature-placeholder"
-                    src="https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554_960_720.png"
-                    alt="Signature Placeholder" width='100' height='100'>
-                   
-            </div>
-
-            <!-- Date section -->
-            <div>
-                <input type="text" id="date" value="10-07-2024" readonly>
-            </div>
-        </div>
-
-        <!-- Field labels for Signature and Today's Date -->
-        <div>
-            <div>
-                <label for="signature"><strong>Employee Signature</strong></label>
-            </div>
-            <div>
-                <label for="date"><strong>Date</strong></label>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
-""",
-              style: customStyles,
-                  //'${widget.htmlFormData}',
-                  // style: {
-                  //   "p": Style(
-                  //     fontSize: FontSize(12.0),
-                  //     color: Color(0xff686464),
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  //   "li": Style(
-                  //     fontSize: FontSize(12.0),
-                  //     color: Color(0xff686464),
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // },
-                  ),
-            ),
+            Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height,
+                child: HtmlElementView(viewType: viewType)),
           ],
         ),
       ),
@@ -181,90 +133,26 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
   }
 }
 
-final Map<String, Style> customStyles = {
-  "body": Style(
-    margin: Margins.zero,
-    padding: HtmlPaddings.symmetric(horizontal: 40),
-    backgroundColor: Color(0xff989797),
-    fontFamily: 'Helvetica',
-  ),
-  ".container": Style(
-    width: Width(70, Unit.percent),
-    margin: Margins.symmetric(vertical: 50.0),
-    padding: HtmlPaddings.all(50),
-    backgroundColor: Colors.white,
-    border: Border.all(color: Color(0xffdddddd), width: 1.0),
-    textShadow: [
-      BoxShadow(color: Colors.black12, blurRadius: 10.0),
-    ],
-    //position: Position.relative,
-  ),
-  ".blue-line": Style(
-    width: Width(100, Unit.percent),
-    height: Height(12, Unit.px),
-    backgroundColor: Color(0xff0056b3),
-    margin: Margins.only(bottom: 10.0),
-  ),
-  ".blue-header": Style(
-    width: Width(100, Unit.percent),
-    height: Height(8, Unit.px),
-    backgroundColor: Color(0xff0056b3),
-    margin: Margins.only(bottom: 20.0),
-  ),
-  "h2": Style(
-    textAlign: TextAlign.center,
-    textTransform: TextTransform.uppercase,
-    fontWeight: FontWeight.w700,
-    margin: Margins.only(bottom: 30.0),
-  ),
-  ".header-section": Style(
-    display: Display.inlineBlock,
-    textAlign: TextAlign.center,
-  //  justifyContent: MainAxisAlignment.spaceBetween,
-    alignment: Alignment.center,
-    padding: HtmlPaddings.only(bottom: 20.0),
-  ),
-  ".header-left": Style(
-    fontFamily: 'Helvetica',
-    fontSize: FontSize(24.0),
-    color: Color(0xff212122),
-    fontWeight: FontWeight.w300,
-  ),
-  ".header-right img": Style(
-    width: Width(50, Unit.px),
-    height: Height(50, Unit.px),
-  ),
-  ".signature-date-container": Style(
-    display: Display.listItem,
-  //  justifyContent: MainAxisAlignment.spaceBetween,
-    alignment: Alignment.bottomRight,
-    margin: Margins.symmetric(vertical: 20.0),
-  ),
-  ".signature-container img": Style(
-    width: Width(100, Unit.px),
-    display: Display.block,
-    margin: Margins.only(bottom: 10.0),
-  ),
-  ".date-container input": Style(
-    padding: HtmlPaddings.all(5.0),
-    border: Border.all(),
-    backgroundColor: Colors.transparent,
-    //outline: Outline.none,
-    fontSize: FontSize(16.0),
-    textAlign: TextAlign.start,
-  ),
-  ".horizontal-line": Style(
-    width: Width(100, Unit.percent),
-    height: Height(1, Unit.px),
-    backgroundColor: Colors.grey,
-    margin: Margins.symmetric(vertical: 10.0),
-  ),
-  ".bottom-line": Style(
-    width: Width(100, Unit.percent),
-    height: Height(2, Unit.px),
-    backgroundColor: Colors.blue,
-  ),
-  ".page-break": Style(
-    //pageBreakAfter: PageBreak.after,
-  ),
-};
+class PdfGenerator {
+  // Convert HTML string to a Base64-encoded PDF
+  static Future<String> htmlToBase64Pdf(String htmlContent) async {
+    try {
+      final completer = Completer<String>();
+
+      // JavaScript function to convert HTML to PDF and return Base64
+      js.context.callMethod('htmlToPdf', [
+        htmlContent,
+        js.allowInterop((base64Pdf) {
+          completer.complete(base64Pdf);
+        })
+      ]);
+
+      final base64Pdf = completer.future;
+      print(base64Pdf);
+      return base64Pdf;
+    } catch (e) {
+      print(e);
+      return "";
+    }
+  }
+}
