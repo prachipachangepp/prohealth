@@ -300,105 +300,105 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
               ],
             ),
             const SizedBox(height: 50),
-            // StreamBuilder<List<FormModel>>(
-            //     stream: formController.stream,
-            //     builder: (context, snapshot) {
-            //       print('1111111');
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             color: ColorManager.blueprime,
-            //           ),
-            //         );
-            //       }
-            //       if (snapshot.data!.isEmpty) {
-            //         return Center(
-            //           child: Text(
-            //             AppStringHRNoData.noOnboardingData,
-            //             style: AllNoDataAvailable.customTextStyle(context),
-            //           ),
-            //         );
-            //       }
-            //       if (snapshot.hasData) {
-            //         int totalItems = snapshot.data!.length;
-            //         int totalPages = (totalItems / itemsPerPage).ceil();
-            //         List<FormModel> paginatedData = snapshot.data!
-            //             .skip((currentPage - 1) * itemsPerPage)
-            //             .take(itemsPerPage)
-            //             .toList();
-            //         return Container(
-            //           height: MediaQuery.of(context).size.height / 1,
-            //           child: ListView.builder(
-            //             scrollDirection: Axis.vertical,
-            //             itemCount: paginatedData.length,
-            //             itemBuilder: (context, index) {
-            //               FormModel formStatus = paginatedData[index];
-            //               return Column(
-            //                 children: [
-            //                   const SizedBox(height: AppSize.s10),
-            //                   DefineFormList(formName: AppStringLegalDocument.onCall, onSigned: () async{
-            //                     OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: 1, employeeId: 169);
-            //                     Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-            //                       documentName: AppStringLegalDocument.onCall,
-            //                       onPressed: () {  },
-            //                       htmlFormData: oncallDoc.html,
-            //                       employeeId: 169,//widget.employeeID,
-            //                       htmlFormTemplateId: 1,)));
-            //                   }, onView: () {  },),
-            //                   const SizedBox(height: AppSize.s10),
-            //                   /// dont delete this code
-            //                   // DefineFormList(
-            //                   //   formName: formStatus.htmlname,
-            //                   //   onSigned: formStatus.signed
-            //                   //       ? null
-            //                   //       : () {
-            //                   //     print("${formStatus.htmlname} signed.");
-            //                   //   },
-            //                   //   onView: formStatus.signed ?  () {
-            //                   //     // Logic for viewing the form
-            //                   //     print("Viewing ${formStatus.htmlname}");
-            //                   //   } : (){},
-            //                   //   isSigned: formStatus.signed,
-            //                   // ),
-            //                   const SizedBox(height: AppSize.s10),
-            //                   const Divider(
-            //                     height: 1,
-            //                     color: Color(0xFFD1D1D1),
-            //                   ),
-            //                   const SizedBox(height: AppSize.s10),
-            //                 ],
-            //               );
-            //             },
-            //           ),
-            //         );
-            //
-            //
-            //         //   Container(
-            //         //   height: MediaQuery.of(context).size.height/1,
-            //         //   child: ListView.builder(
-            //         //       scrollDirection: Axis.vertical,
-            //         //       itemCount: paginatedData.length,
-            //         //       itemBuilder: (context, index) {
-            //         //         FormModel formStatus = paginatedData[index];
-            //         //         return Column(
-            //         //           children: [
-            //         //             DefineFormList(
-            //         //                 formName: formStatus.htmlname,
-            //         //                 onSigned: () {},
-            //         //                 onView: () {}),
-            //         //             const SizedBox(height: AppSize.s10),
-            //         //             const Divider(
-            //         //               height: 1,
-            //         //               color: Color(0xFFD1D1D1),
-            //         //             ),
-            //         //             const SizedBox(height: AppSize.s10),
-            //         //           ],
-            //         //         );
-            //         //       }),
-            //         // );
-            //       }
-            //       return Offstage();
-            //     }),
+            StreamBuilder<List<FormModel>>(
+                stream: formController.stream,
+                builder: (context, snapshot) {
+                  print('1111111');
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppStringHRNoData.noOnboardingData,
+                        style: AllNoDataAvailable.customTextStyle(context),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    int totalItems = snapshot.data!.length;
+                    int totalPages = (totalItems / itemsPerPage).ceil();
+                    List<FormModel> paginatedData = snapshot.data!
+                        .skip((currentPage - 1) * itemsPerPage)
+                        .take(itemsPerPage)
+                        .toList();
+                    return Container(
+                      height: MediaQuery.of(context).size.height / 1,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: paginatedData.length,
+                        itemBuilder: (context, index) {
+                          FormModel formStatus = paginatedData[index];
+                          return Column(
+                            children: [
+                              // const SizedBox(height: AppSize.s10),
+                              // DefineFormList(formName: AppStringLegalDocument.onCall, onSigned: () async{
+                              //   OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: 1, employeeId: 169);
+                              //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                              //     documentName: AppStringLegalDocument.onCall,
+                              //     onPressed: () {  },
+                              //     htmlFormData: oncallDoc.html,
+                              //     employeeId: 169,//widget.employeeID,
+                              //     htmlFormTemplateId: 1,)));
+                              // }, onView: () {  },),
+                              const SizedBox(height: AppSize.s10),
+                              /// dont delete this code
+                              DefineFormList(
+                                formName: formStatus.htmlname,
+                                onSigned: formStatus.signed
+                                    ? null
+                                    : () {
+                                  print("${formStatus.htmlname} signed.");
+                                },
+                                onView: formStatus.signed ?  () {
+                                  // Logic for viewing the form
+                                  print("Viewing ${formStatus.htmlname}");
+                                } : (){},
+                                isSigned: formStatus.signed,
+                              ),
+                              const SizedBox(height: AppSize.s10),
+                              const Divider(
+                                height: 1,
+                                color: Color(0xFFD1D1D1),
+                              ),
+                              const SizedBox(height: AppSize.s10),
+                            ],
+                          );
+                        },
+                      ),
+                    );
+
+
+                    //   Container(
+                    //   height: MediaQuery.of(context).size.height/1,
+                    //   child: ListView.builder(
+                    //       scrollDirection: Axis.vertical,
+                    //       itemCount: paginatedData.length,
+                    //       itemBuilder: (context, index) {
+                    //         FormModel formStatus = paginatedData[index];
+                    //         return Column(
+                    //           children: [
+                    //             DefineFormList(
+                    //                 formName: formStatus.htmlname,
+                    //                 onSigned: () {},
+                    //                 onView: () {}),
+                    //             const SizedBox(height: AppSize.s10),
+                    //             const Divider(
+                    //               height: 1,
+                    //               color: Color(0xFFD1D1D1),
+                    //             ),
+                    //             const SizedBox(height: AppSize.s10),
+                    //           ],
+                    //         );
+                    //       }),
+                    // );
+                  }
+                  return Offstage();
+                }),
             const SizedBox(height: AppSize.s10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

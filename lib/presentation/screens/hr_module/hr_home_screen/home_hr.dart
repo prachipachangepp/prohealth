@@ -424,9 +424,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               horizontal: 20, vertical: 5)),
                                     ),
                                   )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 70,
-                              ),
+                              SizedBox(width: MediaQuery.of(context).size.width / 70,),
                               MediaQuery.of(context).size.width >= 1100
                                   ? Row(
                                       crossAxisAlignment:
