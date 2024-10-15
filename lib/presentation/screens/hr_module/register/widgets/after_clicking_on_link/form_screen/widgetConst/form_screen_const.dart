@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 
@@ -38,6 +39,9 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     // print('Generated pdfBytes ${pdfFile}');
     super.initState();
   }
+  void toggleBack(){
+    Navigator.pop(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,38 +62,85 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(context: context, builder: (BuildContext context){
+                          return DeletePopup(onCancel: () { Navigator.pop(context); },
+                            onDelete: () {
+                              Navigator.pop(context);
+                              toggleBack();
+                            },
+                            title: 'UnSigned',
+                            btnText: 'Yes',
+                            text: 'Do you really want to UnSigned document!',);
+                        });
+                      },
                       icon: Icon(Icons.arrow_back)),
                   Text(
                     widget.documentName,
                     style: FormHeading.customTextStyle(context),
                   ),
-                  Container(
-                    height: 30,
-                    width: 140,
-                    child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomIconButton(
-                      icon: Icons.arrow_forward_rounded,
-                      text: 'Confirm',
-                      onPressed: () async{
-                        setState(() {
-                          isLoading = true;
-                        });
-                        try{
-                          await htmlFormTemplateSignature(context: context,
-                            formHtmlTempId: widget.htmlFormTemplateId,
-                            htmlName: widget.documentName,
-                            documentFile: pdfFile,
-                            employeeId: widget.employeeId,
-                            signed: true,);
-                        }finally{
-                          setState(() {
-                            isLoading = false;
-                            Navigator.pop(context);
-                          });
-                        }
-                        // widget.onPressed();
-                      },
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 140,
+                        child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomButtonTransparent(
+                          text: 'Cancle',
+                          onPressed: () {
+                            showDialog(context: context, builder: (BuildContext context){
+                              return DeletePopup(onCancel: () { Navigator.pop(context); },
+                                onDelete: () {
+                                Navigator.pop(context);
+                                toggleBack();
+                                },
+                                title: 'UnSigned',
+                                btnText: 'Yes',
+                                text: 'Do you really want to UnSigned document!',);
+                            });
+
+                            // widget.onPressed();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                        height: 30,
+                        width: 140,
+                        child: isLoading ? Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),): CustomIconButton(
+                          icon: Icons.arrow_forward_rounded,
+                          text: 'Confirm',
+                          onPressed: () async{
+                            showDialog(context: context, builder: (BuildContext context){
+                              return DeletePopup(onCancel: () { Navigator.pop(context); },
+                                onDelete: () async{
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  try{
+                                    await htmlFormTemplateSignature(context: context,
+                                    formHtmlTempId: widget.htmlFormTemplateId,
+                                    htmlName: widget.documentName,
+                                    documentFile: pdfFile,
+                                    employeeId: widget.employeeId,
+                                    signed: true,);
+                                  }finally{
+                                    setState(() {
+                                      isLoading = false;
+                                      Navigator.pop(context);
+                                      toggleBack();
+                                    });
+                                  }
+                                },
+                                title: 'Signed',
+                                btnText: 'Yes',
+                                text: 'Do you really want to Sign document',);
+                            });
+
+                            // widget.onPressed();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
