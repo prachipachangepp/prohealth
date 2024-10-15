@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
@@ -22,6 +23,10 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import 'package:shimmer/shimmer.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:http/http.dart' as http;
+import 'dart:html' as html;
+import 'dart:js' as js;
+import 'dart:html' as html;
+import 'package:flutter/material.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
@@ -29,7 +34,6 @@ import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
 
 ///download
-
 
 class HRDocAckStyle {
   static TextStyle customTextStyle(BuildContext context) {
@@ -45,7 +49,10 @@ class HRDocAckStyle {
 
 class AcknowledgementsChildBar extends StatefulWidget {
   final int employeeId;
-  const AcknowledgementsChildBar({super.key, required this.employeeId});
+  final String? fileUrl;
+  final String? fileExtension;
+  const AcknowledgementsChildBar(
+      {super.key, required this.employeeId, this.fileUrl, this.fileExtension});
 
   @override
   State<AcknowledgementsChildBar> createState() =>
@@ -59,13 +66,16 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, AppConfig.acknowledgementDocId, widget.employeeId, "no").then((data) {
+    getAckHealthRecord(
+            context, AppConfig.acknowledgementDocId, widget.employeeId, "no")
+        .then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
     });
   }
-bool _isLoading = false;
+
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     //print('Employee Id in documents :: ${controller.employeeId}');
@@ -84,8 +94,9 @@ bool _isLoading = false;
                     showDialog(
                         context: context,
                         builder: (context) {
-                         return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(context,AppConfig.acknowledgementDocId),
+                          return FutureBuilder<List<EmployeeDocSetupModal>>(
+                              future: getEmployeeDocSetupDropDown(
+                                  context, AppConfig.acknowledgementDocId),
                               builder: (contex, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -117,8 +128,10 @@ bool _isLoading = false;
         ),
         StreamBuilder(
             stream: _controller.stream,
-            builder: (context,snapshot) {
-              getAckHealthRecord(context, AppConfig.acknowledgementDocId,widget.employeeId,'no').then((data) {
+            builder: (context, snapshot) {
+              getAckHealthRecord(context, AppConfig.acknowledgementDocId,
+                      widget.employeeId, 'no')
+                  .then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -148,10 +161,9 @@ bool _isLoading = false;
                   ),
                 );
               }
-              if(snapshot.hasData){
-
+              if (snapshot.hasData) {
                 return Container(
-                  height: MediaQuery.of(context).size.height/1,
+                  height: MediaQuery.of(context).size.height / 1,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
@@ -162,7 +174,8 @@ bool _isLoading = false;
 
                       Widget fileWidget;
 
-                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                      if (['jpg', 'jpeg', 'png', 'gif']
+                          .contains(fileExtension)) {
                         fileWidget = Image.network(
                           fileUrl,
                           fit: BoxFit.cover,
@@ -174,8 +187,8 @@ bool _isLoading = false;
                             );
                           },
                         );
-                      }
-                      else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                      } else if (['pdf', 'doc', 'docx']
+                          .contains(fileExtension)) {
                         fileWidget = Icon(
                           Icons.description,
                           size: 45,
@@ -192,10 +205,11 @@ bool _isLoading = false;
                         children: [
                           SizedBox(height: 5),
                           Container(
-                            padding: EdgeInsets.only(top: 5,bottom:5, left: 10,right: 100),
+                            padding: EdgeInsets.only(
+                                top: 5, bottom: 5, left: 10, right: 100),
                             margin: EdgeInsets.symmetric(horizontal: 40),
                             decoration: BoxDecoration(
-                              color:Colors.white,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: [
                                 BoxShadow(
@@ -215,30 +229,41 @@ bool _isLoading = false;
                                     Container(
                                         width: 62,
                                         height: 45,
-                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          border: Border.all(width: 2,color:ColorManager.faintGrey),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          border: Border.all(
+                                              width: 2,
+                                              color: ColorManager.faintGrey),
                                         ),
-                                        child: Image.asset('images/Vector.png')),
+                                        child:
+                                            Image.asset('images/Vector.png')),
                                     SizedBox(width: 10),
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text('ID:${ackData.idOfTheDocument}',
-                                            style:AknowledgementStyleConst.customTextStyle(context)),
-                                        SizedBox(height: 5,),
+                                            style: AknowledgementStyleConst
+                                                .customTextStyle(context)),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Text(ackData.documentFileName,
-                                            style: AknowledgementStyleNormal.customTextStyle(context)),
+                                            style: AknowledgementStyleNormal
+                                                .customTextStyle(context)),
                                       ],
                                     )
                                   ],
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-
                                     ///download
                                     // IconButton(
                                     //   onPressed: () async {
@@ -256,159 +281,286 @@ bool _isLoading = false;
                                     //   ),
                                     //   iconSize: 20,
                                     // ),
-                                    IconButton(
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
-                                      onPressed: () async{
-                                        try{
-                                          final String token = await TokenManager.getAccessToken();
-                                          var response = await http.get(Uri.file(ackData.DocumentUrl),headers: {
-                                            'accept': 'application/json',
-                                            'Authorization': 'Bearer $token',
-                                            'Content-Type': 'application/json'
-                                          },);
+                                    ///
+                                    // IconButton(
+                                    //   splashColor:
+                                    //   Colors.transparent,
+                                    //   highlightColor:
+                                    //   Colors.transparent,
+                                    //   hoverColor:
+                                    //   Colors.transparent,
+                                    //   onPressed: () async{
+                                    //     try{
+                                    //       final String token = await TokenManager.getAccessToken();
+                                    //       var response = await http.get(Uri.file(ackData.DocumentUrl),headers: {
+                                    //         'accept': 'application/json',
+                                    //         'Authorization': 'Bearer $token',
+                                    //         'Content-Type': 'application/json'
+                                    //       },);
+                                    //
+                                    //       if (response.statusCode == 200) {
+                                    //         final String content = response.body;
+                                    //
+                                    //         final pdf = pw.Document();
+                                    //
+                                    //         pdf.addPage(
+                                    //           pw.Page(
+                                    //             build: (pw.Context context) => pw.Center(
+                                    //               child: pw.Text(content),
+                                    //             ),
+                                    //           ),
+                                    //         );
+                                    //
+                                    //         await Printing.layoutPdf(
+                                    //           onLayout: (PdfPageFormat format) async => pdf.save(),
+                                    //         );
+                                    //       } else {
+                                    //         // Handle error
+                                    //         print('Failed to load document');
+                                    //       }
+                                    //
+                                    //     }catch(e){
+                                    //       print('Error ${e}');
+                                    //
+                                    //     }
+                                    //   },
+                                    //   icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
+                                    //   iconSize: 20,),
+                                    ///
+                                    /// prinnt
+                                    // IconButton(
+                                    //   splashColor: Colors.transparent,
+                                    //   highlightColor: Colors.transparent,
+                                    //   hoverColor: Colors.transparent,
+                                    //   onPressed: () async {
+                                    //     try {
+                                    //       // Debug output
+                                    //       print("File URL: $fileUrl");
+                                    //       print("File Extension: $fileExtension");
+                                    //
+                                    //       if (fileUrl != null && fileExtension != null) {
+                                    //         if (fileExtension!.toLowerCase().endsWith('.pdf')) {
+                                    //           // Attempt to fetch the PDF
+                                    //           var response = await http.get(Uri.parse(fileUrl!));
+                                    //           // Check for successful response
+                                    //           if (response.statusCode == 200) {
+                                    //             // Handle PDF rendering
+                                    //             Uint8List pdfBytes = response.bodyBytes;
+                                    //
+                                    //             await Printing.layoutPdf(
+                                    //               onLayout: (PdfPageFormat format) async => pdfBytes,
+                                    //             );
+                                    //           } else {
+                                    //             print('Failed to fetch document from URL: ${response.statusCode}');
+                                    //           }
+                                    //         } else {
+                                    //           print('Unsupported file type for printing. Expected PDF, got: $fileExtension');
+                                    //         }
+                                    //       } else {
+                                    //         print('File URL or extension is null');
+                                    //       }
+                                    //     } catch (e) {
+                                    //       // Catch network-related errors
+                                    //       print('Error occurred during printing: $e');
+                                    //     }
+                                    //   },
+                                    //
+                                    //   icon: Icon(
+                                    //     Icons.print_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    // ),
 
-                                          if (response.statusCode == 200) {
-                                            final String content = response.body;
-
-                                            final pdf = pw.Document();
-
-                                            pdf.addPage(
-                                              pw.Page(
-                                                build: (pw.Context context) => pw.Center(
-                                                  child: pw.Text(content),
-                                                ),
-                                              ),
-                                            );
-
-                                            await Printing.layoutPdf(
-                                              onLayout: (PdfPageFormat format) async => pdf.save(),
-                                            );
-                                          } else {
-                                            // Handle error
-                                            print('Failed to load document');
-                                          }
-
-                                        }catch(e){
-                                          print('Error ${e}');
-
-                                        }
-                                      },
-                                      icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                                      iconSize: 20,),
-
+                                    // IconButton(
+                                    //   splashColor: Colors.transparent,
+                                    //   highlightColor: Colors.transparent,
+                                    //   hoverColor: Colors.transparent,
+                                    //   onPressed: () {
+                                    //     if (fileUrl != null && fileExtension != null && fileExtension!.toLowerCase().endsWith('.pdf')) {
+                                    //       // Open the PDF file in a new tab
+                                    //       js.context.callMethod('open', [fileUrl]);
+                                    //     } else {
+                                    //       print('Invalid or unsupported file type');
+                                    //     }
+                                    //   },
+                                    //   icon: Icon(
+                                    //     Icons.print_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    // ),
+                                    /// working
+                                    // IconButton(
+                                    //   splashColor: Colors.transparent,
+                                    //   highlightColor: Colors.transparent,
+                                    //   hoverColor: Colors.transparent,
+                                    //   onPressed: () {
+                                    //     if (fileUrl != null && fileExtension != null &&
+                                    //         fileExtension!.toLowerCase().endsWith('.pdf')) {
+                                    //       // Create an iframe to load the PDF file
+                                    //       html.IFrameElement iframe = html.IFrameElement();
+                                    //       iframe.src = fileUrl!;
+                                    //       iframe.style.display = 'none';
+                                    //       html.document.body?.append(iframe);
+                                    //
+                                    //       // Wait for the PDF to load and trigger print
+                                    //       iframe.onLoad.listen((event) {
+                                    //         js.context.callMethod('print', []);
+                                    //       });
+                                    //     } else {
+                                    //       print('Invalid or unsupported file type');
+                                    //     }
+                                    //   },
+                                    //   icon: Icon(
+                                    //     Icons.print_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    // ),
                                     ///
                                     IconButton(
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       onPressed: () {
                                         print("FileExtension:${fileExtension}");
                                         //DowloadFile().downloadPdfFromBase64(fileExtension,"Health.pdf");
                                         downloadFile(fileUrl);
                                       },
-                                      icon: Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
-                                      iconSize: 20,),
+                                      icon: Icon(
+                                        Icons.save_alt_outlined,
+                                        color: Color(0xff1696C8),
+                                      ),
+                                      iconSize: 20,
+                                    ),
+
                                     ///
                                     IconButton(
                                       onPressed: () {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-
-                                              return FutureBuilder<EmployeeDocumentPrefillData>(
-                                                  future: getPrefillEmployeeDocuments( context: context, empDocumentId: ackData.employeeDocumentId),
-                                                  builder: (context, snapshotPreFill) {
-                                                    if (snapshotPreFill.connectionState ==
-                                                        ConnectionState.waiting) {
+                                              return FutureBuilder<
+                                                      EmployeeDocumentPrefillData>(
+                                                  future:
+                                                      getPrefillEmployeeDocuments(
+                                                          context: context,
+                                                          empDocumentId: ackData
+                                                              .employeeDocumentId),
+                                                  builder: (context,
+                                                      snapshotPreFill) {
+                                                    if (snapshotPreFill
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
                                                       return Center(
-                                                          child: CircularProgressIndicator());
+                                                          child:
+                                                              CircularProgressIndicator());
                                                     }
-                                                    if (snapshotPreFill.hasData) {
+                                                    if (snapshotPreFill
+                                                        .hasData) {
                                                       return CustomDocumedEditPopup(
-                                                        labelName: 'Edit Acknowledgement',
-                                                        employeeId: widget.employeeId,
-                                                        docName: ackData.DocumentName,
-                                                        docMetaDataId: ackData.EmployeeDocumentTypeMetaDataId,
-                                                        docSetupId: ackData.EmployeeDocumentTypeSetupId,
-                                                        empDocumentId: ackData.employeeDocumentId,
-                                                        selectedExpiryType: ackData.ReminderThreshold,
-                                                        expiryDate: snapshotPreFill.data!.expiry,
-                                                        url: ackData.DocumentUrl, documentFileName: ackData.documentFileName,
+                                                        labelName:
+                                                            'Edit Acknowledgement',
+                                                        employeeId:
+                                                            widget.employeeId,
+                                                        docName: ackData
+                                                            .DocumentName,
+                                                        docMetaDataId: ackData
+                                                            .EmployeeDocumentTypeMetaDataId,
+                                                        docSetupId: ackData
+                                                            .EmployeeDocumentTypeSetupId,
+                                                        empDocumentId: ackData
+                                                            .employeeDocumentId,
+                                                        selectedExpiryType: ackData
+                                                            .ReminderThreshold,
+                                                        expiryDate:
+                                                            snapshotPreFill
+                                                                .data!.expiry,
+                                                        url:
+                                                            ackData.DocumentUrl,
+                                                        documentFileName: ackData
+                                                            .documentFileName,
                                                       );
-
 
                                                       // return CustomDocumedAddPopup(
                                                       //   title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
                                                       // );
                                                     } else {
                                                       return ErrorPopUp(
-                                                          title: "Received Error",
-                                                          text: snapshot.error.toString());
+                                                          title:
+                                                              "Received Error",
+                                                          text: snapshot.error
+                                                              .toString());
                                                     }
                                                   });
-
                                             });
                                       },
-                                      icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
-                                      iconSize: 20,),
+                                      icon: Icon(
+                                        Icons.edit_outlined,
+                                        color: Color(0xff1696C8),
+                                      ),
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      iconSize: 20,
+                                    ),
                                     IconButton(
-                                      onPressed: () async{
-                                        await showDialog(context: context,
-                                            builder: (context) => StatefulBuilder(
-
-                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                return DeletePopup(
-                                                  loadingDuration: _isLoading,
-                                                  title: 'Delete Acknowledgement',
-                                                  onCancel: (){
-                                                    Navigator.pop(context);
-                                                  }, onDelete: () async{
-                                                  setState(() {
-                                                    _isLoading = true;
-                                                  });
-                                                  try{
-                                                    await deleteEmployeeDocuments(context: context, empDocumentId: ackData.employeeDocumentId);
-                                                  }finally{
-                                                    setState(() {
-                                                      _isLoading = false;
-                                                      Navigator.pop(context);
-                                                    });
-
-                                                  }
-                                                  // setState(() async{
-                                                  //
-                                                  //   Navigator.pop(context);
-                                                  // });
-                                                },
-                                                );
-                                              },
-
-                                            )
-                                        );
+                                      onPressed: () async {
+                                        await showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                StatefulBuilder(
+                                                  builder: (BuildContext
+                                                          context,
+                                                      void Function(
+                                                              void Function())
+                                                          setState) {
+                                                    return DeletePopup(
+                                                      loadingDuration:
+                                                          _isLoading,
+                                                      title:
+                                                          'Delete Acknowledgement',
+                                                      onCancel: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      onDelete: () async {
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                        });
+                                                        try {
+                                                          await deleteEmployeeDocuments(
+                                                              context: context,
+                                                              empDocumentId: ackData
+                                                                  .employeeDocumentId);
+                                                        } finally {
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                        }
+                                                        // setState(() async{
+                                                        //
+                                                        //   Navigator.pop(context);
+                                                        // });
+                                                      },
+                                                    );
+                                                  },
+                                                ));
                                       },
-                                      icon: Icon(Icons.delete_outline,color: Color(0xffFF0000),),
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
-                                      iconSize: 20,),
-                                  ],)
+                                      icon: Icon(
+                                        Icons.delete_outline,
+                                        color: Color(0xffFF0000),
+                                      ),
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      iconSize: 20,
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -419,8 +571,7 @@ bool _isLoading = false;
                 );
               }
               return SizedBox();
-            }
-        ),
+            }),
       ],
     );
   }
@@ -430,4 +581,25 @@ bool _isLoading = false;
     _controller.close();
     super.dispose();
   }
+}
+// Function to handle printing
+void printFile(String url) {
+  // Create an IFrameElement to load the PDF
+  final iframe = html.IFrameElement()
+    ..src = url
+    ..style.border = 'none'
+    ..style.width = '0'
+    ..style.height = '0';
+
+  // Append the iframe to the document body
+  html.document.body!.append(iframe);
+
+  // Listen for the load event
+  iframe.onLoad.listen((_) {
+    // After the PDF is loaded, trigger the print dialog
+    html.window.print();
+
+    // Remove the iframe from the document after printing
+    iframe.remove();
+  });
 }
