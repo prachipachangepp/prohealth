@@ -189,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
                     child: Text(
-                      "No Register available!",
+                      "No user available!",
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: FontSize.s14,

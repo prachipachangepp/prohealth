@@ -18,6 +18,7 @@ import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_p
 import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/new_onboard_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/register_screen.dart';
@@ -951,7 +952,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   return Container();
                 }),
           ),
-          // BottomAppBar()
+          BottomBarRow(),
         ],
       ),
     );

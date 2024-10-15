@@ -111,7 +111,7 @@ class LoginBaseConstant extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             decoration: const BoxDecoration(
-                              //color: Colors.green,
+                           // color: Colors.green,
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(25),
                                   topLeft: Radius.circular(25)),
@@ -130,22 +130,25 @@ class LoginBaseConstant extends StatelessWidget {
                                 SizedBox(height: 20),
 
                                 ///bottom text
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.centerRight,
-                                      child: InkWell(
-                                        onTap: onTap,
-                                        child: Text(
-                                          textAction,
-                                          textAlign: TextAlign.end,
-                                          style:LoginFlowBase.customTextStyle(context),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 35),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        //color: ColorManager.red,
+                                        alignment: Alignment.centerLeft,
+                                        child: InkWell(
+                                          onTap: onTap,
+                                          child: Text(
+                                            textAction,
+                                            textAlign: TextAlign.end,
+                                            style:LoginFlowBase.customTextStyle(context),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -153,7 +156,7 @@ class LoginBaseConstant extends StatelessWidget {
 
                       ///logo, amico image
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Container(
                             decoration: const BoxDecoration(
                               // color: Colors.red,
