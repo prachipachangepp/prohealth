@@ -489,22 +489,14 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                           if (snapshot
                                                               .hasData) {
                                                             {
-                                                              List<
-                                                                      DropdownMenuItem<
-                                                                          String>>
-                                                                  dropDownList =
-                                                                  [];
-                                                              for (var i
-                                                                  in snapshot
-                                                                      .data!) {
-                                                                dropDownList.add(
-                                                                    DropdownMenuItem<
-                                                                        String>(
+                                                              List<DropdownMenuItem<String>>
+                                                                  dropDownList = [];
+                                                              for (var i in snapshot.data!) {
+                                                                dropDownList.add(DropdownMenuItem<String>(
                                                                   child: Text(
                                                                     i.name,
-                                                                    style: SearchDropdownConst
-                                                                        .customTextStyle(
-                                                                            context),
+                                                                    style: SearchDropdownConst.customTextStyle(
+                                                                        context),
                                                                   ),
                                                                   value: i.name,
                                                                 ));
@@ -514,7 +506,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               //     .toList();
                                                               return Container(
                                                                 height: 31,
-                                                                width: 240,
+                                                                width: 170,
                                                                 // margin: EdgeInsets.symmetric(horizontal: 20),
                                                                 padding: const EdgeInsets
                                                                     .symmetric(
@@ -527,8 +519,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                       .white,
                                                                   border: Border.all(
                                                                       color: const Color(
-                                                                              0xff686464)
-                                                                          .withOpacity(
+                                                                              0xff686464).withOpacity(
                                                                               0.5),
                                                                       width:
                                                                           1), // Black border
@@ -543,11 +534,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   focusColor: Colors
                                                                       .transparent,
                                                                   icon:
-                                                                      const Icon(
+                                                                       Icon(
                                                                     Icons
                                                                         .arrow_drop_down_sharp,
-                                                                    color: Color(
-                                                                        0xff686464),
+                                                                    color: ColorManager.mediumgrey,
                                                                   ),
                                                                   decoration: const InputDecoration
                                                                       .collapsed(
@@ -660,8 +650,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                      zoneDropDown: FutureBuilder<
-                                                          List<SortByZoneData>>(
+                                                      zoneDropDown: FutureBuilder<List<SortByZoneData>>(
                                                         future:
                                                             PayRateZoneDropdown(
                                                           context,
