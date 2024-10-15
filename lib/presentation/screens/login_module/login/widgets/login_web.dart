@@ -83,7 +83,7 @@ class _LoginWebState extends State<LoginWeb> {
       body: LoginBaseConstant(
           onTap: () {},
           titleText: AppString.login,
-          textAction: '',
+          textAction: 'Please refresh your browser for new version.',
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
