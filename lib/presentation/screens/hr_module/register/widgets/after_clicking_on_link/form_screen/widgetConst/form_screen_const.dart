@@ -8,6 +8,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -84,6 +85,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
                       splashColor: Colors.transparent,
@@ -105,9 +107,12 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                         // });
                       },
                       icon: Icon(Icons.arrow_back)),
-                  Text(
-                    widget.documentName,
-                    style: FormHeading.customTextStyle(context),
+                  Padding(
+                    padding: const EdgeInsets.only(left: AppPadding.p150),
+                    child: Text(
+                      widget.documentName,
+                      style: FormHeading.customTextStyle(context),
+                    ),
                   ),
                   Row(
                     children: [

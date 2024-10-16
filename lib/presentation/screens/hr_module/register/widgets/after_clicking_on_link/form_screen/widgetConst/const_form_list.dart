@@ -38,11 +38,16 @@ class DefineFormList extends StatelessWidget {
                 : SizedBox(width: 50,),
             const SizedBox(width: 10),
             isSigned
-                ? const Icon(
-              Icons.check,
-              color: Colors.green,
-              size: 24,
-            )
+                ? Container(
+              width: 60,
+                  child: Center(
+                    child: const Icon(
+                                  Icons.check,
+                                  color: Colors.green,
+                                  size: 24,
+                                ),
+                  ),
+                )
                 : ElevatedButton(
               onPressed: onSigned, // Button only shown if not signed
               child: const Text('Sign'),
