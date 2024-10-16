@@ -13,6 +13,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_docu
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/candidate_release_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/company_property_popup_const.dart';
@@ -283,13 +284,20 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
-      CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID,templateId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-        documentName: covidVaccineDocuemnt.name,
-        onPressed: () {  },
-        htmlFormData: covidVaccineDocuemnt.html,
-        employeeId: widget.employeeID,//widget.employeeID,
-        htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+      CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeID,
+          candidateReleaseFormhtmlId: id, middleName: 'saloni', maindenSurnameAlisa: 'p', currentAddress: 'pune', stateIssuingLicense: 'MH', fullName: 'SAP');
+      showDialog(context: context, builder: (BuildContext context){
+        return CandidateReleaseSignPopup(
+          documentName: candidateRealeaseDocument.name, employeeId: widget.employeeID,
+          htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,
+          htmlFormData: candidateRealeaseDocument.html,);
+      });
+      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      //   documentName: covidVaccineDocuemnt.name,
+      //   onPressed: () {  },
+      //   htmlFormData: covidVaccineDocuemnt.html,
+      //   employeeId: widget.employeeID,//widget.employeeID,
+      //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
     else{
 
