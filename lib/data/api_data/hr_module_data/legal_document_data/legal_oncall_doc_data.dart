@@ -33,3 +33,65 @@ class PolicyConcerningDocument{
   final String html;
   PolicyConcerningDocument({required this.policyConcerningId, required this.name, required this.html});
 }
+
+class StandardConductDocument{
+  final int standardConductId;
+  final String name;
+  final String html;
+  StandardConductDocument({required this.standardConductId, required this.name, required this.html});
+}
+
+class SexualHaressmentDocument{
+  final int sexualHaressmentId;
+  final String name;
+  final String html;
+  SexualHaressmentDocument({required this.sexualHaressmentId, required this.name, required this.html});
+}
+class SexualAndUnlawfulDocument{
+  final int sexualUnlawfulId;
+  final String name;
+  final String html;
+  SexualAndUnlawfulDocument({required this.sexualUnlawfulId, required this.name, required this.html});
+}
+
+class PreAuthPatientVisitsDocument{
+  final int preAuthPatientId;
+  final String name;
+  final String html;
+  PreAuthPatientVisitsDocument({required this.preAuthPatientId, required this.name, required this.html});
+}
+
+class ProDocument{
+  final int proDocumentId;
+  final String name;
+  final String html;
+  ProDocument({required this.proDocumentId, required this.name, required this.html});
+}
+
+class ReturnOfCompanyProperty{
+  final int returnOfCompanyPropertyId;
+  final String name;
+  final String html;
+  ReturnOfCompanyProperty({required this.returnOfCompanyPropertyId, required this.name, required this.html});
+}
+
+class HepBDocuemnt{
+  final int hepBDocuemntId;
+  final String name;
+  final String html;
+  HepBDocuemnt({required this.hepBDocuemntId, required this.name, required this.html});
+}
+
+class TDapDocuemnt{
+  final int tDapDocuemnttId;
+  final String name;
+  final String html;
+  TDapDocuemnt({required this.tDapDocuemnttId, required this.name, required this.html});
+}
+
+class CovidVaccineDocuemnt{
+  final int covidVaccineDocuemntId;
+  final String name;
+  final String html;
+  CovidVaccineDocuemnt({required this.covidVaccineDocuemntId, required this.name, required this.html});
+}
