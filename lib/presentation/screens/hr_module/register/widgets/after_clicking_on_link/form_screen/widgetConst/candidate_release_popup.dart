@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -10,11 +12,10 @@ import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
 
 class CandidateReleaseSignPopup extends StatefulWidget {
-  final String documentName;
   final int employeeId;
   final int htmlFormTemplateId;
-  final String htmlFormData;
-  const CandidateReleaseSignPopup({super.key, required this.documentName, required this.employeeId, required this.htmlFormTemplateId, required this.htmlFormData});
+
+  const CandidateReleaseSignPopup({super.key, required this.employeeId, required this.htmlFormTemplateId,});
 
   @override
   State<CandidateReleaseSignPopup> createState() => _CandidateReleaseSignPopupState();
@@ -143,15 +144,21 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
               setState(() {
                 loading = true;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                documentName: widget.documentName,
-                onPressed: () {
+              CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeId,
+                  candidateReleaseFormhtmlId: widget.htmlFormTemplateId, middleName: middleNameController.text, maindenSurnameAlisa: maidenSurnameController.text, currentAddress: addressController.text,
+                  stateIssuingLicense: stateLicenseController.text, fullName: fullNameController.text);
+              if(candidateRealeaseDocument.statusCode == 200 || candidateRealeaseDocument.statusCode == 201){
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                  documentName: candidateRealeaseDocument.name,
+                  onPressed: () {
 
-                },
-                htmlFormData: widget.htmlFormData,
-                employeeId: widget.employeeId,//widget.employeeID,
-                htmlFormTemplateId: widget.htmlFormTemplateId,)
-              ));
+                  },
+                  htmlFormData: candidateRealeaseDocument.html,
+                  employeeId: widget.employeeId,//widget.employeeID,
+                  htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,)
+                ));
+              }
+
 
             };
             //finally {

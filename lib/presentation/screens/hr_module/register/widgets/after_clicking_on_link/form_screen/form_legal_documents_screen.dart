@@ -241,12 +241,11 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: proDocument.proDocumentId,)));
     }
     else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
-      ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context, employeeId: widget.employeeID,templateId: id);
       showDialog(context: context, builder: (BuildContext context){
         return CompanyPropertySignPopup(
-          documentName: returnOfCompanyProperty.name, employeeId: widget.employeeID,
-          htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,
-          htmlFormData: returnOfCompanyProperty.html,);
+          employeeId: widget.employeeID,
+          htmlFormTemplateId: id,
+          );
       });
       // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
       //   documentName: returnOfCompanyProperty.name,
@@ -275,22 +274,21 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: tDapDocuemnt.tDapDocuemnttId,)));
     }
     else if(htmlName == AppStringLegalDocument.covidVaccine){
-      CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeID, candidateReleaseFormhtmlId: id,
+          middleName: '', maindenSurnameAlisa: '', currentAddress: '', stateIssuingLicense: '', fullName: '');
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-        documentName: covidVaccineDocuemnt.name,
+        documentName: candidateRealeaseDocument.name,
         onPressed: () {  },
-        htmlFormData: covidVaccineDocuemnt.html,
+        htmlFormData: candidateRealeaseDocument.html,
         employeeId: widget.employeeID,//widget.employeeID,
-        htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+        htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,)));
     }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
-      CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeID,
-          candidateReleaseFormhtmlId: id, middleName: 'saloni', maindenSurnameAlisa: 'p', currentAddress: 'pune', stateIssuingLicense: 'MH', fullName: 'SAP');
       showDialog(context: context, builder: (BuildContext context){
         return CandidateReleaseSignPopup(
-          documentName: candidateRealeaseDocument.name, employeeId: widget.employeeID,
-          htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,
-          htmlFormData: candidateRealeaseDocument.html,);
+          employeeId: widget.employeeID,
+          htmlFormTemplateId:id,
+          );
       });
       // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
       //   documentName: covidVaccineDocuemnt.name,
@@ -677,7 +675,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 }
 
 
-///
+//
 // DefineFormList(formName: AppStringLegalDocument.candidatereLeaseForm, onPressed: () {
 //
 // }, onPressedView: () {  },),

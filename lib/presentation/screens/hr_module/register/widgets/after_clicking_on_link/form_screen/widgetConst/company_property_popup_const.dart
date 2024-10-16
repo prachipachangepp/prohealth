@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -10,12 +12,9 @@ import 'form_screen_const.dart';
 
 
 class CompanyPropertySignPopup extends StatefulWidget {
-  final String documentName;
   final int employeeId;
   final int htmlFormTemplateId;
-  final String htmlFormData;
-
-  CompanyPropertySignPopup({super.key, required this.documentName, required this.employeeId, required this.htmlFormTemplateId, required this.htmlFormData,});
+  CompanyPropertySignPopup({super.key,required this.employeeId, required this.htmlFormTemplateId,});
 
   @override
   State<CompanyPropertySignPopup> createState() => _CompanyPropertySignPopupState();
@@ -115,16 +114,18 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                 setState(() {
                   loading = true;
                 });
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                  documentName: widget.documentName,
-                  onPressed: () {
+                ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context, employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId);
+                if(returnOfCompanyProperty.statusCode == 200 || returnOfCompanyProperty.statusCode == 201){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                    documentName: returnOfCompanyProperty.name,
+                    onPressed: () {
 
-                  },
-                  htmlFormData: widget.htmlFormData,
-                  employeeId: widget.employeeId,//widget.employeeID,
-                  htmlFormTemplateId: widget.htmlFormTemplateId,)
-                ));
-
+                    },
+                    htmlFormData: returnOfCompanyProperty.html,
+                    employeeId: widget.employeeId,//widget.employeeID,
+                    htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)
+                  ));
+                }
                 };
               //finally {
                   setState(() {
