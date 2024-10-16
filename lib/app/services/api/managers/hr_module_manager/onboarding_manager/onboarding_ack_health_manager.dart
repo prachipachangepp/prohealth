@@ -8,37 +8,33 @@ import '../../../repository/hr_module_repository/onboarding/onboarding_qualifica
 
 ///get ack health
 Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
-    int EmpDocTypeMetaDataId,int employeeId, String approveOnly
-    ) async {
+    int EmpDocTypeMetaDataId, int employeeId, String approveOnly) async {
   List<OnboardingAckHealthData> itemsList = [];
   try {
-    final response = await Api(context)
-        .get(path: OnboardingQualificationRepo.getAckHealthRecord(
-        EmpDocTypeMetaDataId: EmpDocTypeMetaDataId,
-        employeeId: employeeId,
-        approveOnly: approveOnly
-    ));
+    final response = await Api(context).get(
+        path: OnboardingQualificationRepo.getAckHealthRecord(
+            EmpDocTypeMetaDataId: EmpDocTypeMetaDataId,
+            employeeId: employeeId,
+            approveOnly: approveOnly));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
-      print("1212");
-      for(var item in response.data){
-        itemsList.add(
-          OnboardingAckHealthData(
+      for (var item in response.data) {
+        itemsList.add(OnboardingAckHealthData(
             DocumentName: item['DocumentName'] ?? 'Document Name',
-              employeeDocumentId: item['employeeDocumentId'] ?? 1,
-              EmployeeDocumentTypeMetaDataId: item['EmployeeDocumentTypeMetaDataId'] ?? 10,
-              EmployeeDocumentTypeSetupId: item['EmployeeDocumentTypeSetupId'] ?? 2,
-              employeeId: item['employeeId'] ?? 1,
-              DocumentUrl: item['DocumentUrl'] ?? 'null',
-              ReminderThreshold: item['ReminderThreshold'] ?? '--',
+            employeeDocumentId: item['employeeDocumentId'] ?? 1,
+            EmployeeDocumentTypeMetaDataId:
+                item['EmployeeDocumentTypeMetaDataId'] ?? 10,
+            EmployeeDocumentTypeSetupId:
+                item['EmployeeDocumentTypeSetupId'] ?? 2,
+            employeeId: item['employeeId'] ?? 1,
+            DocumentUrl: item['DocumentUrl'] ?? 'null',
+            ReminderThreshold: item['ReminderThreshold'] ?? '--',
             Expiry: item['Expiry'] ?? '--',
             DocumentType: item['DocumentType'] ?? '--',
-              documentFileName: item['documentNameDefination'] ?? "--",
-              approved: item['approved'], idOfTheDocument: item['idOfDocument']??"--")
-           );
-        print(".....Get ack Health......$response");
+            documentFileName: item['documentNameDefination'] ?? "--",
+            approved: item['approved'],
+            idOfTheDocument: item['idOfDocument'] ?? "--"));
       }
-      print("onboarding Document Response:::::${itemsList}");
     } else {
       print('onboarding Document');
       return itemsList;
@@ -108,11 +104,12 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
 // }
 
 ///batch approve
-Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int> employeeDocumentId) async {
+Future<ApiData> batchApproveOnboardAckHealthPatch(
+    BuildContext context, List<int> employeeDocumentId) async {
   try {
     var response = await Api(context).patch(
       path: OnboardingQualificationRepo.batchApproveAckHealthRecord(),
-      data:  {
+      data: {
         "Ids": employeeDocumentId.map((id) => id).toList(),
       },
     );
@@ -138,11 +135,12 @@ Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int>
 }
 
 ///batch reject
-Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> employeeDocumentId) async {
+Future<ApiData> batchRejectOnboardAckHealthPatch(
+    BuildContext context, List<int> employeeDocumentId) async {
   try {
     var response = await Api(context).patch(
       path: OnboardingQualificationRepo.batchRejectAckHealthRecord(),
-      data:  {
+      data: {
         "Ids": employeeDocumentId.map((id) => id).toList(),
       },
     );

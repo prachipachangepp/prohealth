@@ -8,7 +8,7 @@ class HRHomeScreen extends StatelessWidget {
   static const String routeName = RouteStrings.hrDesktop;
   HRHomeScreen({super.key});
   final ButtonSelectionController myController =
-  Get.put(ButtonSelectionController());
+      Get.put(ButtonSelectionController());
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,13 @@ class HRHomeScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 800) {
-          return HomeScreenHRM();
+          return Padding(
+            padding: MediaQuery.of(context).size.width > 1920
+                ? EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 8)
+                : EdgeInsets.all(0.0),
+            child: HomeScreenHRM(),
+          );
         } else {
           return Material(
             child: Container(
