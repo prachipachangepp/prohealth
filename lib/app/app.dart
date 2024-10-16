@@ -209,17 +209,6 @@ class NonChromeApp extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Please open this application using Google Chrome.",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: ColorManager.textPrimaryColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(
                 height: 40,
               ),
               Image.asset(
