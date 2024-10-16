@@ -274,14 +274,13 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: tDapDocuemnt.tDapDocuemnttId,)));
     }
     else if(htmlName == AppStringLegalDocument.covidVaccine){
-      CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeID, candidateReleaseFormhtmlId: id,
-          middleName: '', maindenSurnameAlisa: '', currentAddress: '', stateIssuingLicense: '', fullName: '');
+      CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID, templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-        documentName: candidateRealeaseDocument.name,
+        documentName: covidVaccineDocuemnt.name,
         onPressed: () {  },
-        htmlFormData: candidateRealeaseDocument.html,
+        htmlFormData: covidVaccineDocuemnt.html,
         employeeId: widget.employeeID,//widget.employeeID,
-        htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,)));
+        htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
       showDialog(context: context, builder: (BuildContext context){
