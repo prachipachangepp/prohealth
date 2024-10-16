@@ -15,6 +15,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/company_property_popup_const.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -147,12 +148,15 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     });
     if(htmlName == AppStringLegalDocument.onCall){
       OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: id, employeeId: widget.employeeID);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
+
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>
+          SignatureFormScreen(
         documentName: oncallDoc.name,
         onPressed: () {  },
         htmlFormData: oncallDoc.html,
         employeeId: widget.employeeID,//widget.employeeID,
-        htmlFormTemplateId: oncallDoc.onCallId,)));
+        htmlFormTemplateId: oncallDoc.onCallId,)
+      ));
     }
     else if(htmlName == AppStringLegalDocument.confidentialityAgreement){
       ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, employeeId: widget.employeeID, ConfidentialStatementId: id);
@@ -178,7 +182,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         documentName: reportingAbuseDocument.name,
         onPressed: () {  },
         htmlFormData: reportingAbuseDocument.html,
-        employeeId: widget.employeeID,//widget.employeeID,
+        employeeId: widget.employeeID,
         htmlFormTemplateId: reportingAbuseDocument.reportingAbuseId,)));
     }
     else if(htmlName == AppStringLegalDocument.policyConcerning){
@@ -237,12 +241,19 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     }
     else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
       ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context, employeeId: widget.employeeID,templateId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-        documentName: returnOfCompanyProperty.name,
-        onPressed: () {  },
-        htmlFormData: returnOfCompanyProperty.html,
-        employeeId: widget.employeeID,//widget.employeeID,
-        htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)));
+      showDialog(context: context, builder: (BuildContext context){
+        return CompanyPropertySignPopup(
+          documentName: returnOfCompanyProperty.name, employeeId: widget.employeeID,
+          htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,
+          htmlFormData: returnOfCompanyProperty.html,);
+      });
+      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      //   documentName: returnOfCompanyProperty.name,
+      //   onPressed: () {  },
+      //   htmlFormData: returnOfCompanyProperty.html,
+      //   employeeId: widget.employeeID,//widget.employeeID,
+      //   htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)
+      // ));
     }
     else if(htmlName == AppStringLegalDocument.hepB){
       HepBDocuemnt hepBDocuemnt = await getHepBDocument(context: context, employeeId: widget.employeeID,templateId: id);
