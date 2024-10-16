@@ -49,6 +49,7 @@ class _generalFormState extends State<generalForm> {
   double textFieldHeight = 38;
 
   TextEditingController dobcontroller = TextEditingController();
+  TextEditingController dobcontrollervv = TextEditingController();
 
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
@@ -340,16 +341,16 @@ class _generalFormState extends State<generalForm> {
                             companyId,
                             'Active',
                             driverlicensenumb.text,
-                            dobcontroller.text,//'2024-01-01',
-                            dobcontroller.text,//'2024-01-01',
-                            dobcontroller.text,// '2024-01-01',
+                            "0000-00-00",//'2024-01-01',
+                            "0000-00-00",//'2024-01-01',
+                            "0000-00-00",// '2024-01-01',
                             'rehirable',
                             'position',
                             address.text,
                             _selectedClinician.toString(),
                             'reason',
                             1,
-                            dobcontroller.text,//'2024-01-01',
+                            "0000-00-00",//'2024-01-01',
                             1,
                             1,
                             'methods',
