@@ -31,7 +31,16 @@ class PolicyConcerningDocument{
   final int policyConcerningId;
   final String name;
   final String html;
+
   PolicyConcerningDocument({required this.policyConcerningId, required this.name, required this.html});
+}
+
+class CandidateRealeaseDocument{
+  final int candidateRealeaseId;
+  final String name;
+  final String html;
+  final int statusCode;
+  CandidateRealeaseDocument({required this.statusCode,required this.candidateRealeaseId, required this.name, required this.html});
 }
 
 class StandardConductDocument{
@@ -72,7 +81,8 @@ class ReturnOfCompanyProperty{
   final int returnOfCompanyPropertyId;
   final String name;
   final String html;
-  ReturnOfCompanyProperty({required this.returnOfCompanyPropertyId, required this.name, required this.html});
+  final int statusCode;
+  ReturnOfCompanyProperty({required this.statusCode,required this.returnOfCompanyPropertyId, required this.name, required this.html});
 }
 
 class HepBDocuemnt{

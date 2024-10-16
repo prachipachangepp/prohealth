@@ -67,17 +67,16 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                 );
               }
               if (snapshot.hasData) {
-                int totalItems = snapshot.data!.length;
-                int totalPages = (totalItems / itemsPerPage).ceil();
-                List<FormModel> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                // int totalItems = snapshot.data!.length;
+                // int totalPages = (totalItems / itemsPerPage).ceil();
+                // List<FormModel> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                  return Column(
                   children: [
                     Expanded(
                       child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: paginatedData.length,
+                          itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                           FormModel formStatus = paginatedData[index];
+                           FormModel formStatus = snapshot.data![index];
                             return Column(
                               children: [
                                 Material(

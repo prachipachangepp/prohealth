@@ -3,6 +3,7 @@ class LegalDocumentsRepo{
   static String covidTestDocument = "/covid-test-policy-html";
   static String ConfidentialStatementDocument = "/confidentiality-statement-html";
   static String reportingAbuseDocument = "/reporting-abuse";
+  static String candidateReleaseDocument = "/candidate-release-form";
   static String policyConcerningDocument = "/policy-concerning-third-party";
   static String standardConductDocument = "/standards-of-conduct";
   static String sexualHaressmentDocument = "/california-sexual-harassment";
@@ -20,6 +21,10 @@ class LegalDocumentsRepo{
   ///users/ByCompanyId/{companyId}
   static String getOnCallDocument({required int callHtmlId,required int employeeId}){
     return "$onCallDocument/$callHtmlId/$employeeId";
+  }
+  static String getCandidateReleaseDocument({required int candidateReleaseFormhtmlId,required int employeeId,required String middleName, required String maindenSurnameAlisa,
+    required String currentAddress,required String stateIssuingLicense, required String fullname}){
+    return "$candidateReleaseDocument/$candidateReleaseFormhtmlId/$employeeId/$middleName/$maindenSurnameAlisa/$currentAddress/$stateIssuingLicense/$fullname";
   }
   static String getCovidTestPolicyDocument({required int covidTestId,required int employeeId}){
     return "$covidTestDocument/$covidTestId/$employeeId";
