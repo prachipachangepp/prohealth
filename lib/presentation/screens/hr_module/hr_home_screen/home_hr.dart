@@ -647,8 +647,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                             snapshot) {
                                                           if (snapshot
                                                               .connectionState ==
-                                                              ConnectionState
-                                                                  .waiting) {
+                                                              ConnectionState.waiting) {
                                                             return PatientCustomDropDown(
                                                               items: ['Zone'],
                                                               labelText: '',
