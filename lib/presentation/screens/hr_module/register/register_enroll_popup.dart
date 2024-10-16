@@ -26,6 +26,7 @@ import '../../../../app/services/api/managers/hr_module_manager/add_employee/cli
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../add_employee/widget/mcq_widget_add-employee.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 
@@ -150,6 +151,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   String? selectedCity;
   int cityId = 0;
   String? selectedZone;
+  String? emptype;
   int zoneId = 0;
   //
   // @override
@@ -229,7 +231,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  610,
+          height:  615,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -262,11 +264,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                        // );
+                      Navigator.pop(context);
+                       //  Navigator.push(
+                       //    context,
+                       //    MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                       //  );
                       },
                       icon: Icon(Icons.close,color: ColorManager.white,),
                     ),
@@ -593,23 +595,93 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               SizedBox(
                 height: AppSize.s5,
               ),
-              Container(
-                height: 60,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: McqWidget(
-                    title: 'Employment',
-                    items: [
-                      'Full Time',
-                      'Contract',
-                      'Part Time',
-                      'Per Diem'
-                    ],
-                    onChanged: (selectedIndex) {
-                      print('Selected index: $selectedIndex');
-                      _selectedItemIndex = selectedIndex;
-                    },
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: StatefulBuilder(
+
+                  builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
+                    height: 90,
+                    child:
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Employment",
+                              style: AllPopupHeadings.customTextStyle(context),
+                            ),
+
+                          ],
+                        ),
+                        SizedBox(height: 5,),
+                        Row(
+
+                          children: [
+                            CustomRadioListTile(
+                              title: 'Full Time',
+                              value: 'Full Time',
+                              groupValue: emptype,
+                              onChanged: (value) {
+                                setState(() {
+                                  emptype = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Contract',
+                              value: 'Contract',
+                              groupValue: emptype,
+                              onChanged: (value) {
+                                setState(() {
+                                  emptype = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Part Time',
+                              value: 'Part Time',
+                              groupValue: emptype,
+                              onChanged: (value) {
+                                setState(() {
+                                  emptype = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Per Diem',
+                              value: 'Per Diem',
+                              groupValue: emptype,
+                              onChanged: (value) {
+                                setState(() {
+                                  emptype = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    //                 child: Padding(
+                    //                   padding: EdgeInsets.only(left: 20),
+                    //                   child: McqWidget(
+                    //                     title: 'Employment',
+                    //                     items: [
+                    //                       'Full Time',
+                    //                       'Contract',
+                    //                       'Part Time',
+                    //                       'Per Diem'
+                    //                     ],
+                    //                     onChanged: (selectedIndex) {
+                    // setState(() {
+                    //   _selectedItemIndex = selectedIndex;
+                    // });
+                    //                       print('Selected index: ::::$_selectedItemIndex');
+                    //
+                    //                     },
+                    //                   ),
+                    //                 ),
+                  ); },
+
                 ),
               ),
               Container(
@@ -640,7 +712,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           items: serviceName,
                           onChanged: (val) {
                             serviceVal = serviceName[val].toString();
-                            print('Service data $serviceVal');
+                            print('Service data:::::>> $serviceVal');
                           },
                         ),
                       );
@@ -701,8 +773,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               countryId: countryId,
                               countyId: countyId,
                               zoneId: zoneId,
-                              employment: "Full Time",
-                              service: "Home Health",
+                             // employment: "Full Time",
+                              employment: emptype.toString(),
+                              //service: "Home Health",
+                              service: serviceVal,
                             );
 
                             setState(() {
