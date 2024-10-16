@@ -758,11 +758,12 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   Expanded(
                     flex: 2, //2
                     child: Container(
+                     // color: Colors.greenAccent,
                       height: 320,
                       decoration: BoxDecoration(
                           border: Border.all(
                             color: ColorManager.blueprime,
-                            // color: Colors.green,
+
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       child:
@@ -822,36 +823,63 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                 Container(
                                   height: 100,
                                   child: webLogo.url.isNotEmpty
-                                      ? Image.network(
-                                          "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
-                                          // webLogo.url,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (BuildContext context,
-                                              Object exception,
-                                              StackTrace? stackTrace) {
-                                            return Center(
-                                              child: Icon(Icons.error,
-                                                  color: Colors.red),
-                                            );
-                                          },
-                                        )
+                                      ?
+                                  Image.asset(
+                                    'images/forwebprohealth.png',
+                                    // mainLogo.url,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (BuildContext context,
+                                        Object exception,
+                                        StackTrace? stackTrace) {
+                                      return Center(
+                                        child: Icon(Icons.error,
+                                            color: Colors.red),
+                                      );
+                                    },
+                                  )
+                                  // Image.network(
+                                  //         "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                                  //         // webLogo.url,
+                                  //         fit: BoxFit.cover,
+                                  //         errorBuilder: (BuildContext context,
+                                  //             Object exception,
+                                  //             StackTrace? stackTrace) {
+                                  //           return Center(
+                                  //             child: Icon(Icons.error,
+                                  //                 color: Colors.red),
+                                  //           );
+                                  //         },
+                                  //       )
                                       : Container(),
                                 ),
                                 Container(
                                   height: 100,
                                   child: appLogo.url.isNotEmpty
-                                      ? Image.network(
-                                          'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (BuildContext context,
-                                              Object exception,
-                                              StackTrace? stackTrace) {
-                                            return Center(
-                                              child: Icon(Icons.error,
-                                                  color: Colors.red),
-                                            );
-                                          },
-                                        )
+                                      ? Image.asset(
+                                    'images/forappprohealth.png',
+                                    // mainLogo.url,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (BuildContext context,
+                                        Object exception,
+                                        StackTrace? stackTrace) {
+                                      return Center(
+                                        child: Icon(Icons.error,
+                                            color: Colors.red),
+                                      );
+                                    },
+                                  )
+                                  // Image.network(
+                                  //         'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                  //         fit: BoxFit.cover,
+                                  //         errorBuilder: (BuildContext context,
+                                  //             Object exception,
+                                  //             StackTrace? stackTrace) {
+                                  //           return Center(
+                                  //             child: Icon(Icons.error,
+                                  //                 color: Colors.red),
+                                  //           );
+                                  //         },
+                                  //       )
                                       : Container(),
                                 ),
                               ],
