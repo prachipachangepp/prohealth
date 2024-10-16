@@ -227,7 +227,6 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     );
   }
 }
-
 class PdfGenerator {
   // Convert HTML string to a Base64-encoded PDF
   static Future<String> htmlToBase64Pdf(String htmlContent) async {
