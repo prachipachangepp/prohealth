@@ -65,20 +65,6 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
              ..style.width = '100%'
              ..style.height = '600px';
       return element;      },    );
-    // ui.platformViewRegistry.registerViewFactory(
-    //   viewType,
-    //   (int viewId) {
-    //     // Create an iframe and set the source to the HTML content
-    //      html.IFrameElement element = html.IFrameElement()
-    //       ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
-    //       ..style.border = 'none'
-    //        // ..style.pointerEvents = 'none'
-    //       ..style.width = '100%'
-    //       ..style.height = '700px'
-    //     ..style.backgroundColor = 'white'; // Set a specific height
-    //     return element;
-    //   },
-    // );
   }
   void toggleBack(){
     Navigator.pop(context);
