@@ -170,7 +170,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 _buildTextField(
                   capitalIsSelect: true,
                   controller: widget.LivensureController,
-                  labelText: "Livensure/Certification",
+                  labelText: "Licensure / certification",
                   errorKey: 'Livensure',
                 ),
                 _buildDateField(

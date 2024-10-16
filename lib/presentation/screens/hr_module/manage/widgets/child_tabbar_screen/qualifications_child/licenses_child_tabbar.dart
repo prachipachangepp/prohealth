@@ -255,7 +255,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         'License #${index + 1}',
                                 // 'Employment #${snapshot.data![index].employmentId}',
                                 style: BoxHeadingStyle.customTextStyle(context)),
-                            BorderIconButton(iconData: Icons.edit_outlined, buttonText: "Edit", onPressed: (){
+                            if (snapshot.data![index].approved != null && snapshot.data![index].approved == true)
+                              BorderIconButton(iconData: Icons.edit_outlined, buttonText: "Edit",
+                                onPressed: (){
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {

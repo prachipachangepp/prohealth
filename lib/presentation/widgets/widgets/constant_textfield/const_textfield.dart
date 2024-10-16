@@ -862,111 +862,23 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
 // }
 
 ///clinical ropdown
-// class PatientCustomDropDown extends StatefulWidget {
-//   final String? value;
-//   final List<String> items;
-//   final String labelText;
-//   final String? hintText;
-//   final TextStyle? labelStyle;
-//   final double? labelFontSize;
-//   final void Function(String?)? onChanged;
-//   final double? width;
-//   final double? height;
-//   final String? initialValue;
-//   PatientCustomDropDown({
-//     super.key,
-//     this.value,
-//     required this.items,
-//     required this.labelText,
-//     this.labelStyle,
-//     this.labelFontSize,
-//     this.onChanged,
-//     this.width,
-//     this.height,
-//     this.initialValue,
-//     this.hintText,
-//   });
-//
-//   @override
-//   State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
-// }
-//
-// class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
-//   late String? _selectedValue;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _selectedValue = widget.value;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 170,
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         border: Border.all(
-//             color: const Color(0xff686464).withOpacity(0.5),
-//             width: 1), // Black border
-//         borderRadius: BorderRadius.circular(6), // Rounded corners
-//       ),
-//       height: 31,
-//       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-//       child: DropdownButtonFormField<String>(
-//           icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
-//           value: _selectedValue,
-//           items: widget.items.map((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Text(
-//                 value,
-//                 style: SearchDropdownConst.customTextStyle(context),
-//               ),
-//             );
-//           }).toList(),
-//           onChanged: (newValue) {
-//             setState(() {
-//               _selectedValue = newValue;
-//             });
-//             if (widget.onChanged != null) {
-//               widget.onChanged!(newValue);
-//             }
-//           },
-//           style: SearchDropdownConst.customTextStyle(context),
-//           isExpanded: true,
-//           decoration: const InputDecoration.collapsed(hintText: '')),
-//     );
-//   }
-// }
-//
-
-
-
-
-
-
-///////////////
-
-
 class PatientCustomDropDown extends StatefulWidget {
   final String? value;
   final List<String> items;
   final String labelText;
   final String? hintText;
- // final TextStyle? labelStyle;
+  final TextStyle? labelStyle;
   final double? labelFontSize;
   final void Function(String?)? onChanged;
   final double? width;
   final double? height;
   final String? initialValue;
-
-  const PatientCustomDropDown({
+  PatientCustomDropDown({
     super.key,
     this.value,
     required this.items,
     required this.labelText,
-   // this.labelStyle,
+    this.labelStyle,
     this.labelFontSize,
     this.onChanged,
     this.width,
@@ -990,62 +902,150 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton2<String>(
-        value: _selectedValue,
-        hint: Text(
-          widget.hintText ?? '',
-          style: SearchDropdownConst.customTextStyle(context),
-        ),
-        items: widget.items.map((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(
-              value,
-              style: SearchDropdownConst.customTextStyle(context),
-            ),
-          );
-        }).toList(),
-        onChanged: (newValue) {
-          setState(() {
-            _selectedValue = newValue;
-          });
-          if (widget.onChanged != null) {
-            widget.onChanged!(newValue);
-          }
-        },
-        buttonStyleData: ButtonStyleData(
-          height: widget.height ?? 30,
-          width: widget.width ?? 170,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: const Color(0xff686464).withOpacity(0.5),
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(6),
-          )
-        ),
-        iconStyleData: IconStyleData(
-          icon: Icon(
-            Icons.arrow_drop_down_sharp,
-            color: ColorManager.mediumgrey,
-          ),
-          iconSize: 24,
-        ),
-        dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: Colors.white,
-          ),
-        ),
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+            color: const Color(0xff686464).withOpacity(0.5),
+            width: 1), // Black border
+        borderRadius: BorderRadius.circular(6), // Rounded corners
       ),
+      height: 31,
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+      child: DropdownButtonFormField<String>(
+          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
+          value: _selectedValue,
+          items: widget.items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(
+                value,
+                style: SearchDropdownConst.customTextStyle(context),
+              ),
+            );
+          }).toList(),
+          onChanged: (newValue) {
+            setState(() {
+              _selectedValue = newValue;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(newValue);
+            }
+          },
+          style: SearchDropdownConst.customTextStyle(context),
+          isExpanded: true,
+          decoration: const InputDecoration.collapsed(hintText: '')),
     );
   }
 }
 
+
+
+
+
+
+
+/////////////
+
+///dont delete it is perfectly fine working dropdown code
+// class PatientCustomDropDown extends StatefulWidget {
+//   final String? value;
+//   final List<String> items;
+//   final String labelText;
+//   final String? hintText;
+//  // final TextStyle? labelStyle;
+//   final double? labelFontSize;
+//   final void Function(String?)? onChanged;
+//   final double? width;
+//   final double? height;
+//   final String? initialValue;
+//
+//   const PatientCustomDropDown({
+//     super.key,
+//     this.value,
+//     required this.items,
+//     required this.labelText,
+//    // this.labelStyle,
+//     this.labelFontSize,
+//     this.onChanged,
+//     this.width,
+//     this.height,
+//     this.initialValue,
+//     this.hintText,
+//   });
+//
+//   @override
+//   State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
+// }
+//
+// class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
+//   late String? _selectedValue;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _selectedValue = widget.value;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButtonHideUnderline(
+//       child: DropdownButton2<String>(
+//         value: _selectedValue,
+//         hint: Text(
+//           widget.hintText ?? '',
+//           style: SearchDropdownConst.customTextStyle(context),
+//         ),
+//         items: widget.items.map((String value) {
+//           return DropdownMenuItem<String>(
+//             value: value,
+//             child: Text(
+//               value,
+//               style: SearchDropdownConst.customTextStyle(context),
+//             ),
+//           );
+//         }).toList(),
+//         onChanged: (newValue) {
+//           setState(() {
+//             _selectedValue = newValue;
+//           });
+//           if (widget.onChanged != null) {
+//             widget.onChanged!(newValue);
+//           }
+//         },
+//         buttonStyleData: ButtonStyleData(
+//           height: widget.height ?? 30,
+//           width: widget.width ?? 170,
+//           padding: const EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             color: Colors.white,
+//             border: Border.all(
+//               color: const Color(0xff686464).withOpacity(0.5),
+//               width: 1,
+//             ),
+//             borderRadius: BorderRadius.circular(6),
+//           )
+//         ),
+//         iconStyleData: IconStyleData(
+//           icon: Icon(
+//             Icons.arrow_drop_down_sharp,
+//             color: ColorManager.mediumgrey,
+//           ),
+//           iconSize: 24,
+//         ),
+//         dropdownStyleData: DropdownStyleData(
+//           maxHeight: 200,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(6),
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
 
 
 
