@@ -40,6 +40,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
    // String htmlContent = """${widget.htmlFormData}""";
 
   late PDFViewController pdfViewController;
+  late String dynamicHtmlData;
 
   int currentPage = 0;
   int totalPages = 0;
@@ -50,12 +51,15 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
   void initState() {
     super.initState();
     // Register a view factory to create an iframe with the HTML content
+    setState((){
+      dynamicHtmlData = widget.htmlFormData;
+    });
     ui.platformViewRegistry.registerViewFactory(
       viewType,
       (int viewId) {
         // Create an iframe and set the source to the HTML content
          html.IFrameElement element = html.IFrameElement()
-          ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
+          ..srcdoc = dynamicHtmlData // Use srcdoc to load HTML content
           ..style.border = 'none'
            // ..style.pointerEvents = 'none'
           ..style.width = '100%'

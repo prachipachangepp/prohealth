@@ -141,12 +141,12 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   }
 
   Future<void> callHtmlData(String htmlName, int id) async{
-    // setState(() {
-    //
-    // });
+    setState(() {
+
+    });
     if(htmlName == AppStringLegalDocument.onCall){
       OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: id, employeeId: widget.employeeID);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: oncallDoc.name,
         onPressed: () {  },
         htmlFormData: oncallDoc.html,
@@ -154,7 +154,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: oncallDoc.onCallId,)));
     }else if(htmlName == AppStringLegalDocument.confidentialityAgreement){
       ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, employeeId: widget.employeeID, ConfidentialStatementId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: confidentialStatementDocument.name,
         onPressed: () {  },
         htmlFormData: confidentialStatementDocument.html,
@@ -162,7 +162,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: confidentialStatementDocument.confidentialStatementId,)));
     }else if(htmlName == AppStringLegalDocument.covidTestingPolicy){
       CovidTestPolicyDocument covidTestPolicyDocument = await getLegalCovidTestPolicyDocument(context: context, employeeId: widget.employeeID, covidTestId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: covidTestPolicyDocument.name,
         onPressed: () {  },
         htmlFormData: covidTestPolicyDocument.html,
@@ -170,7 +170,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: covidTestPolicyDocument.covidTestPolicyId,)));
     }else if(htmlName == AppStringLegalDocument.reportOfAbuse){
       ReportingAbuseDocument reportingAbuseDocument = await getLegalReportingAbuseDocumentDocument(context: context, employeeId: widget.employeeID, reportingAbuseId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: reportingAbuseDocument.name,
         onPressed: () {  },
         htmlFormData: reportingAbuseDocument.html,
@@ -178,7 +178,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: reportingAbuseDocument.reportingAbuseId,)));
     }else if(htmlName == AppStringLegalDocument.policyConcerning){
       PolicyConcerningDocument policyConcerningDocument = await getLegalpolicyConcerningDocument(context: context, employeeId: widget.employeeID, policyConcerningId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: policyConcerningDocument.name,
         onPressed: () {  },
         htmlFormData: policyConcerningDocument.html,
