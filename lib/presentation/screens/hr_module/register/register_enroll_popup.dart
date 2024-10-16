@@ -187,9 +187,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   //   // phone.removeListener(_validateFields);
   //   super.dispose();
   // }
-
-
-
   String? _PositionError;
   String? _PhoneError;
   String? _firstnameError;
@@ -436,7 +433,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           ///clinician
-
                           FutureBuilder<List<AEClinicalDiscipline>>(
                             future: HrAddEmplyClinicalDisciplinApi(context, 1),
                             builder: (context, snapshot) {
