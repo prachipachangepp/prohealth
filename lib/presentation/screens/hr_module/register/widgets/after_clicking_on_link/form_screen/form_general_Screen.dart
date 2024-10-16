@@ -205,6 +205,7 @@ class _generalFormState extends State<generalForm> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -343,14 +344,11 @@ class _generalFormState extends State<generalForm> {
                             'rating',
                             signatureUrl!,
                           );
-                          var uploadResponse = await UploadEmployeePhoto(
-                              context: context,documentFile: finalPath,employeeId: generalId!);
+                          var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
                           print("Response Status Code: ${response.statusCode}");
                           print("Response Body: ${response.data}");
 
-                          if (response.statusCode == 200 ||
-                              response.statusCode == 201 &&
-                                  uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
+                          if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
                             // ScaffoldMessenger.of(context).showSnackBar(
                             //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
                             // );
@@ -393,8 +391,13 @@ class _generalFormState extends State<generalForm> {
                             ? SizedBox(
                           height: AppSize.s25,
                           width: AppSize.s25,
-                          child: CircularProgressIndicator(color: Colors.white),)
-                            : Text('Save', style: BlueButtonTextConst.customTextStyle(context),
+                          child: CircularProgressIndicator(
+                              color: Colors.white
+                          ),
+                        )
+                            : Text(
+                          'Save',
+                          style: BlueButtonTextConst.customTextStyle(context),
                         ),
                       ),
                     ],

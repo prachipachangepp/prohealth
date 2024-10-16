@@ -170,8 +170,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 height: 20,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-
-    color:Color(0xff50B5E5),
+                                  color:ColorManager.blueprime,
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
@@ -187,7 +186,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     padding: EdgeInsets.only(bottom: 1.5),
                                     icon: Icon(Icons.chevron_left),
                                     onPressed:  details.onStepCancel,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     iconSize: 20,
                                   ),
                                 ),
@@ -217,7 +216,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               height: 20,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color:Color(0xff50B5E5),
+                                color:ColorManager.blueprime,
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(4),
                                 border: Border.all(
@@ -235,7 +234,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   onPressed:()async{
                                     isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
                                   },
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   iconSize: 20,
                                 ),
                               ),
