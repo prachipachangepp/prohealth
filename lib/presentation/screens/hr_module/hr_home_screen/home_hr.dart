@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -249,6 +250,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   String dropdownLicenseStatus = '';
   String dropdownAvailability = '';
   String reportingOfficeId = '';
+  String? _selectedValue;
   String dropdownAbbrevation = '';
   bool isDropDownAbbreavation = false;
   bool isDropdownLicenseStatus = false;
@@ -424,7 +426,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               horizontal: 20, vertical: 5)),
                                     ),
                                   )),
-                              SizedBox(width: MediaQuery.of(context).size.width / 70,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 70,
+                              ),
                               MediaQuery.of(context).size.width >= 1100
                                   ? Row(
                                       crossAxisAlignment:
@@ -459,10 +463,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return ProfilePatientPopUp(
-                                                      officceIdWidget:
-                                                          FutureBuilder<
-                                                              List<
-                                                                  CompanyOfficeListData>>(
+                                                      officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
                                                         future:
                                                             getCompanyOfficeList(
                                                                 context),
@@ -476,10 +477,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               items: ['Office'],
                                                               labelText: '',
                                                               value: 'Office',
-                                                              labelStyle:
-                                                                  SearchDropdownConst
-                                                                      .customTextStyle(
-                                                                          context),
                                                               onChanged:
                                                                   (value) {},
                                                             );
@@ -487,14 +484,22 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                           if (snapshot
                                                               .hasData) {
                                                             {
-                                                              List<DropdownMenuItem<String>>
-                                                                  dropDownList = [];
-                                                              for (var i in snapshot.data!) {
-                                                                dropDownList.add(DropdownMenuItem<String>(
+                                                              List<
+                                                                      DropdownMenuItem<
+                                                                          String>>
+                                                                  dropDownList =
+                                                                  [];
+                                                              for (var i
+                                                                  in snapshot
+                                                                      .data!) {
+                                                                dropDownList.add(
+                                                                    DropdownMenuItem<
+                                                                        String>(
                                                                   child: Text(
                                                                     i.name,
-                                                                    style: SearchDropdownConst.customTextStyle(
-                                                                        context),
+                                                                    style: SearchDropdownConst
+                                                                        .customTextStyle(
+                                                                            context),
                                                                   ),
                                                                   value: i.name,
                                                                 ));
@@ -517,7 +522,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                       .white,
                                                                   border: Border.all(
                                                                       color: const Color(
-                                                                              0xff686464).withOpacity(
+                                                                              0xff686464)
+                                                                          .withOpacity(
                                                                               0.5),
                                                                       width:
                                                                           1), // Black border
@@ -531,11 +537,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                         String>(
                                                                   focusColor: Colors
                                                                       .transparent,
-                                                                  icon:
-                                                                       Icon(
+                                                                  icon: Icon(
                                                                     Icons
                                                                         .arrow_drop_down_sharp,
-                                                                    color: ColorManager.mediumgrey,
+                                                                    color: ColorManager
+                                                                        .mediumgrey,
                                                                   ),
                                                                   decoration: const InputDecoration
                                                                       .collapsed(
@@ -580,8 +586,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                           Center(
                                                             child:
                                                                 PatientCustomDropDown(
-                                                              height: 31,
-                                                              width: 170,
                                                               items: [
                                                                 'Full-Time',
                                                                 'Part-Time'
@@ -590,10 +594,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   'Availability',
                                                               value:
                                                                   'Full-Time',
-                                                              labelStyle:
-                                                                  SearchDropdownConst
-                                                                      .customTextStyle(
-                                                                          context),
+                                                              // labelStyle: SearchDropdownConst.customTextStyle(context),
                                                               onChanged:
                                                                   (value) {
                                                                 setState(() {
@@ -606,13 +607,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 });
                                                               },
                                                             ),
-                                                            // Text(
-                                                            //   'Full-Time',
-                                                            //   style: GoogleFonts.firaSans(
-                                                            //     fontSize: 10,
-                                                            //     fontWeight: FontWeight.w400,
-                                                            //   ),
-                                                            // ),
                                                           ),
                                                         ],
                                                       ),
@@ -629,10 +623,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               labelText:
                                                                   'License Status',
                                                               value: 'Expired',
-                                                              labelStyle:
-                                                                  SearchDropdownConst
-                                                                      .customTextStyle(
-                                                                          context),
                                                               onChanged:
                                                                   (value) {
                                                                 setState(() {
@@ -650,49 +640,45 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                       ),
                                                       zoneDropDown: FutureBuilder<List<SortByZoneData>>(
                                                         future:
-                                                            PayRateZoneDropdown(
+                                                        PayRateZoneDropdown(
                                                           context,
                                                         ),
                                                         builder: (context,
                                                             snapshot) {
                                                           if (snapshot
-                                                                  .connectionState ==
+                                                              .connectionState ==
                                                               ConnectionState
                                                                   .waiting) {
                                                             return PatientCustomDropDown(
                                                               items: ['Zone'],
                                                               labelText: '',
                                                               value: 'Zone',
-                                                              labelStyle:
-                                                                  SearchDropdownConst
-                                                                      .customTextStyle(
-                                                                          context),
                                                               onChanged:
                                                                   (value) {},
                                                             );
                                                           } else if (snapshot
                                                               .hasData) {
                                                             List<
-                                                                    DropdownMenuItem<
-                                                                        String>>
-                                                                dropDownList =
-                                                                [];
+                                                                DropdownMenuItem<
+                                                                    String>>
+                                                            dropDownList =
+                                                            [];
                                                             int zoneId = 0;
                                                             for (var i
-                                                                in snapshot
-                                                                    .data!) {
+                                                            in snapshot
+                                                                .data!) {
                                                               dropDownList.add(
                                                                   DropdownMenuItem<
                                                                       String>(
-                                                                child: Text(
-                                                                  i.zoneName,
-                                                                  style: SearchDropdownConst
-                                                                      .customTextStyle(
+                                                                    child: Text(
+                                                                      i.zoneName,
+                                                                      style: SearchDropdownConst
+                                                                          .customTextStyle(
                                                                           context),
-                                                                ),
-                                                                value:
+                                                                    ),
+                                                                    value:
                                                                     i.zoneName,
-                                                              ));
+                                                                  ));
                                                             }
                                                             // snapshot.data!
                                                             //     .map((zone) => zone.zoneName ?? '')
@@ -703,34 +689,34 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               width: 170,
                                                               // margin: EdgeInsets.symmetric(horizontal: 20),
                                                               padding:
-                                                                  const EdgeInsets
-                                                                      .symmetric(
-                                                                      vertical:
-                                                                          6,
-                                                                      horizontal:
-                                                                          15),
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical:
+                                                                  6,
+                                                                  horizontal:
+                                                                  15),
                                                               decoration:
-                                                                  BoxDecoration(
+                                                              BoxDecoration(
                                                                 color: Colors
                                                                     .white,
                                                                 border: Border.all(
                                                                     color: const Color(
-                                                                            0xff686464)
+                                                                        0xff686464)
                                                                         .withOpacity(
-                                                                            0.5),
+                                                                        0.5),
                                                                     width:
-                                                                        1), // Black border
+                                                                    1), // Black border
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            6), // Rounded corners
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    6), // Rounded corners
                                                               ),
                                                               child: DropdownButtonFormField<
-                                                                      String>(
+                                                                  String>(
                                                                   focusColor: Colors
                                                                       .transparent,
                                                                   icon:
-                                                                      const Icon(
+                                                                  const Icon(
                                                                     Icons
                                                                         .arrow_drop_down_sharp,
                                                                     color: Color(
@@ -739,14 +725,14 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   decoration: const InputDecoration
                                                                       .collapsed(
                                                                       hintText:
-                                                                          ''),
+                                                                      ''),
                                                                   items:
-                                                                      dropDownList,
+                                                                  dropDownList,
                                                                   onChanged:
                                                                       (newValue) {
                                                                     for (var a
-                                                                        in snapshot
-                                                                            .data!) {
+                                                                    in snapshot
+                                                                        .data!) {
                                                                       if (a.zoneName ==
                                                                           newValue) {
                                                                         zoneId =
@@ -754,7 +740,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                         selectedZoneId =
                                                                             zoneId;
                                                                         isZoneSelected =
-                                                                            true;
+                                                                        true;
                                                                         print(
                                                                             "Zone id :: ${selectedZoneId}");
                                                                         //empTypeId = docType;
@@ -762,12 +748,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     }
                                                                   },
                                                                   value:
-                                                                      dropDownList[
-                                                                              0]
-                                                                          .value,
+                                                                  dropDownList[
+                                                                  0]
+                                                                      .value,
                                                                   style: DropdownItemStyle
                                                                       .customTextStyle(
-                                                                          context)),
+                                                                      context)),
                                                             );
                                                           } else {
                                                             return CustomDropdownTextField(
@@ -780,7 +766,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                           }
                                                         },
                                                       ),
-                                                      onSearch: () {
+                                                        onSearch: () {
                                                         setState(() {
                                                           _searchByFilter(
                                                               zoneId:

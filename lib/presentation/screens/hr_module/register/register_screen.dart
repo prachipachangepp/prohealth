@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/constants/app_config.dart';
-
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
@@ -200,7 +200,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-
               return Wrap(
                 spacing: 10,
                 children: List.generate(snapshot.data!.length, (index) {
@@ -222,81 +221,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
   }
-  Widget buildDropdownButton(BuildContext context) {
-    return  Column(
-      children: [
-        Container(
-          height: 31,
-          width: 130,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-            borderRadius: BorderRadius.circular(12.0),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xff000000).withOpacity(0.25),
-                blurRadius: 2,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: DropdownButton<String>(
-            value: _selectedValue,
-            onChanged: (String? newValue) {
-              setState(() {
-                _selectedValue = newValue!;
-                filterData();
-              });
-            },
-            style: TransparentButtonTextConst.customTextStyle(context),
-            icon: const Icon(
-              Icons.arrow_drop_down,
-              color: Color(0xff50B5E5),
-            ),
-            iconSize: 20,
-            focusColor: Colors.transparent,
-            underline: const SizedBox(),
-            selectedItemBuilder: (BuildContext context) {
-              return <String>[
-                'Sort',
-                'Opened',
-                'Notopen',
-                'Partial',
-                'Completed',
-              ].map<Widget>((String value) {
-                return Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    value,
-                    style: TransparentButtonTextConst.customTextStyle(context),
-                  ),
-                );
-              }).toList();
-            },
-            items: <String>[
-              'Sort',
-              'Opened',
-              'Notopen',
-              'Partial',
-              'Completed',
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(value),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ],
-    );
-
-  }
-  ///dont delete
   // Widget buildDropdownButton(BuildContext context) {
+  //   final Map<String, String> displayTextMap = {
+  //     'Sort': 'Sort',
+  //     'Opened': 'Opened',
+  //     'Notopen': 'Not Open',
+  //     'Partial': 'Partial',
+  //     'Completed': 'Completed',
+  //   };
+  //
   //   return Column(
   //     children: [
   //       Container(
@@ -331,52 +264,104 @@ class _RegisterScreenState extends State<RegisterScreen> {
   //           iconSize: 20,
   //           focusColor: Colors.transparent,
   //           underline: const SizedBox(),
-  //           dropdownColor: Colors.white,
-  //           isDense: true,
   //           selectedItemBuilder: (BuildContext context) {
-  //             return <String>[
-  //               'Sort',
-  //               'Opened',
-  //               'Notopen',
-  //               'Partial',
-  //               'Completed',
-  //             ].map<Widget>((String value) {
-  //               return Row(
-  //                 children: [
-  //                   Text(
-  //                     _selectedValue ?? 'Sort',
-  //                     style: TransparentButtonTextConst.customTextStyle(context),
-  //                   ),
-  //                   SizedBox(width: 6,)
-  //                 ],
+  //             return displayTextMap.keys.map<Widget>((String value) {
+  //               return Container(
+  //                 alignment: Alignment.center,
+  //                 child: Text(
+  //                   displayTextMap[value]!,
+  //                   style: TransparentButtonTextConst.customTextStyle(context),
+  //                 ),
   //               );
   //             }).toList();
   //           },
-  //           items: _getDropdownItems(),
+  //           items: displayTextMap.keys.map<DropdownMenuItem<String>>((String value) {
+  //             return DropdownMenuItem<String>(
+  //               value: value,
+  //               child: Container(
+  //                 alignment: Alignment.center,
+  //                 child: Text(displayTextMap[value]!),
+  //               ),
+  //             );
+  //           }).toList(),
   //         ),
   //       ),
   //     ],
   //   );
   // }
 
-  List<DropdownMenuItem<String>> _getDropdownItems() {
-    List<String> items = ['Sort', 'Opened', 'Notopen', 'Partial', 'Completed'];
 
-    if (_selectedValue != null && items.contains(_selectedValue)) {
-      items.remove(_selectedValue);
-      items.insert(0, _selectedValue!);
-    }
+  Widget buildDropdownButton(BuildContext context) {
+    final Map<String, String> displayTextMap = {
+      'Sort': 'Sort',
+      'Opened': 'Opened',
+      'Notopen': 'Not Open',
+      'Partial': 'Partial',
+      'Completed': 'Completed',
+    };
 
-    return items.map<DropdownMenuItem<String>>((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(value),
+    return Column(
+      children: [
+        DropdownButton2<String>(
+          value: _selectedValue,
+          onChanged: (String? newValue) {
+            setState(() {
+              _selectedValue = newValue!;
+              filterData();
+            });
+          },
+          style: TransparentButtonTextConst.customTextStyle(context),
+          iconStyleData: const IconStyleData(
+            icon: Icon(
+              Icons.arrow_drop_down,
+              color: Color(0xff50B5E5),
+            ),
+          ),
+          // iconSize: 20,
+         underline: const SizedBox(),
+          buttonStyleData: ButtonStyleData(
+            height: 31,
+            width: 130,
+            padding: const EdgeInsets.symmetric(horizontal: 8),  // Internal padding.
+            elevation: 2,  // Shadow depth.
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+              borderRadius: BorderRadius.circular(12.0),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xff000000).withOpacity(0.25),
+                  blurRadius: 2,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            overlayColor: WidgetStateProperty.all(Colors.grey.withOpacity(0.1)),  // Background color when pressed.
+          ),
+          /// buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
+          // dropdownMaxHeight: 200,
+          // dropdownDecoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(12),
+          //   color: Colors.white,
+          // ),
+          // itemPadding: const EdgeInsets.symmetric(horizontal: 8), // Updated padding
+          selectedItemBuilder: (context) => displayTextMap.keys.map((String value) {
+            return Align(
+              alignment: Alignment.center,
+              child: Text(displayTextMap[value]!),
+            );
+          }).toList(),
+          items: displayTextMap.keys.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(displayTextMap[value]!),
+            );
+          }).toList(),
         ),
-      );
-    }).toList();
+      ],
+    );
   }
+
 
   void filterData() {
     String selectedStatus = _selectedValue.trim().toLowerCase();
@@ -503,15 +488,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
                           // const url = "http://localhost:50634/#/onBordingWelcome";
-                         // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                         const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           ///
-                         Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                          // if (await canLaunch(url)) {
-                          //  await launch(url);
-                          //  } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                          if (await canLaunch(url)) {
+                           await launch(url);
+                           } else {
+                            throw 'Could not launch $url';
+                          }
                         },
                         child: Text(
                           data.link!,
@@ -648,3 +633,86 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+
+///dont delete
+// Widget buildDropdownButton(BuildContext context) {
+//   return Column(
+//     children: [
+//       Container(
+//         height: 31,
+//         width: 130,
+//         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+//         decoration: BoxDecoration(
+//           color: Colors.white,
+//           border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+//           borderRadius: BorderRadius.circular(12.0),
+//           boxShadow: [
+//             BoxShadow(
+//               color: const Color(0xff000000).withOpacity(0.25),
+//               blurRadius: 2,
+//               offset: const Offset(0, 2),
+//             ),
+//           ],
+//         ),
+//         child: DropdownButton<String>(
+//           value: _selectedValue,
+//           onChanged: (String? newValue) {
+//             setState(() {
+//               _selectedValue = newValue!;
+//               filterData();
+//             });
+//           },
+//           style: TransparentButtonTextConst.customTextStyle(context),
+//           icon: const Icon(
+//             Icons.arrow_drop_down,
+//             color: Color(0xff50B5E5),
+//           ),
+//           iconSize: 20,
+//           focusColor: Colors.transparent,
+//           underline: const SizedBox(),
+//           dropdownColor: Colors.white,
+//           isDense: true,
+//           selectedItemBuilder: (BuildContext context) {
+//             return <String>[
+//               'Sort',
+//               'Opened',
+//               'Notopen',
+//               'Partial',
+//               'Completed',
+//             ].map<Widget>((String value) {
+//               return Row(
+//                 children: [
+//                   Text(
+//                     _selectedValue ?? 'Sort',
+//                     style: TransparentButtonTextConst.customTextStyle(context),
+//                   ),
+//                   SizedBox(width: 6,)
+//                 ],
+//               );
+//             }).toList();
+//           },
+//           items: _getDropdownItems(),
+//         ),
+//       ),
+//     ],
+//   );
+// }
+
+// List<DropdownMenuItem<String>> _getDropdownItems() {
+//   List<String> items = ['Sort', 'Opened', 'Notopen', 'Partial', 'Completed'];
+//
+//   if (_selectedValue != null && items.contains(_selectedValue)) {
+//     items.remove(_selectedValue);
+//     items.insert(0, _selectedValue!);
+//   }
+//
+//   return items.map<DropdownMenuItem<String>>((String value) {
+//     return DropdownMenuItem<String>(
+//       value: value,
+//       child: Container(
+//         alignment: Alignment.center,
+//         child: Text(value),
+//       ),
+//     );
+//   }).toList();
+// }

@@ -150,7 +150,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   );
                                 }
                               },
-                              title: 'Add Licence',
+                              title: 'Add License',
                               child: FutureBuilder<List<NewOrgDocument>>(
                                   future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                   builder: (context,snapshot) {
@@ -321,7 +321,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                               );
                                             }
                                           },
-                                          title: 'Edit Licence',
+                                          title: 'Edit License',
                                           child: FutureBuilder<List<NewOrgDocument>>(
                                               future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                               builder: (context,snapshot) {
