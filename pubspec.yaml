@@ -96,6 +96,7 @@ dependencies:
   google_geocoding_api: any
   flutter_widget_from_html: ^0.15.2
   flutter_pdfview: ^1.3.3
+  dropdown_button2: any
 
 
 #  riverpod: ^2.5.1
