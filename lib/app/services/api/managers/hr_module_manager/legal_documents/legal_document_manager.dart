@@ -40,7 +40,7 @@ Future<ApiDataRegister> htmlFormTemplateSignature({
         "htmlname": htmlName,
         "base64": documentFile,
         "employeeId": employeeId,
-        "createdAt": DateTime.now().toIso8601String(),
+        "createdAt": DateTime.now().toIso8601String()+"Z",
         "company_Id": companyId,
         "signed": signed
       },
