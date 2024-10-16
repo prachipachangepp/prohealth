@@ -42,7 +42,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
   }
 
   String? _ipAddress;
-  String? _location;
+  String? _locationData;
 
   bool _isFetchingIp = true;
   String? _city;
@@ -103,6 +103,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
           for (var component in result.addressComponents) {
             if (component.types.contains('administrative_area_level_2')) {
               print('Name : ${component.longName}');
+              _locationData = component.longName;
               return component.longName; // State name
             }
           }
@@ -454,9 +455,10 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                   ),
                   Row(
                     children: [
-                      _city != null
+                      _locationData != null
                           ? Text(
-                              '${_country} (${_city})',
+                              '${_locationData} ',
+                                  // '(${_city})',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

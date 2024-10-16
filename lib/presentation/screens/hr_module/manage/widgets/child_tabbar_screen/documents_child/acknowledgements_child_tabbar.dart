@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -18,8 +20,11 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
 
@@ -251,6 +256,50 @@ bool _isLoading = false;
                                     //   ),
                                     //   iconSize: 20,
                                     // ),
+                                    IconButton(
+                                      splashColor:
+                                      Colors.transparent,
+                                      highlightColor:
+                                      Colors.transparent,
+                                      hoverColor:
+                                      Colors.transparent,
+                                      onPressed: () async{
+                                        try{
+                                          final String token = await TokenManager.getAccessToken();
+                                          var response = await http.get(Uri.file(ackData.DocumentUrl),headers: {
+                                            'accept': 'application/json',
+                                            'Authorization': 'Bearer $token',
+                                            'Content-Type': 'application/json'
+                                          },);
+
+                                          if (response.statusCode == 200) {
+                                            final String content = response.body;
+
+                                            final pdf = pw.Document();
+
+                                            pdf.addPage(
+                                              pw.Page(
+                                                build: (pw.Context context) => pw.Center(
+                                                  child: pw.Text(content),
+                                                ),
+                                              ),
+                                            );
+
+                                            await Printing.layoutPdf(
+                                              onLayout: (PdfPageFormat format) async => pdf.save(),
+                                            );
+                                          } else {
+                                            // Handle error
+                                            print('Failed to load document');
+                                          }
+
+                                        }catch(e){
+                                          print('Error ${e}');
+
+                                        }
+                                      },
+                                      icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
+                                      iconSize: 20,),
 
                                     ///
                                     IconButton(

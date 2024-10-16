@@ -5,16 +5,60 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 
+// class DefineFormList extends StatelessWidget {
+//   final String formName;
+//   final VoidCallback? onSigned;
+//   final VoidCallback onView;
+//   final bool isSigned;
+//
+//   const DefineFormList({
+//     Key? key,
+//     required this.formName,
+//     this.onSigned,
+//     required this.onView,
+//     required this.isSigned,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Text(
+//           formName,
+//           style: const TextStyle(fontSize: 16),
+//         ),
+//         Row(
+//           children: [
+//             // Conditional rendering: If signed, show a check mark
+//             isSigned
+//                 ? const Icon(
+//               Icons.check,
+//               color: Colors.green,
+//               size: 24,
+//             )
+//                 : ElevatedButton(
+//               onPressed: onSigned, // Button only shown if not signed
+//               child: const Text('Sign'),
+//             ),
+//             const SizedBox(width: 10),
+//             isSigned ? ElevatedButton(
+//               onPressed: onView, // Always show the View button
+//               child: const Text('View')
+//             )
+//                 : SizedBox(width: 50,)
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+// }
+///
 class DefineFormList extends StatefulWidget {
   final String formName;
-
-  final Function onPressed;
-  final VoidCallback onPressedView;
-  const DefineFormList(
-      {super.key,
-      required this.formName,
-      required this.onPressed,
-      required this.onPressedView});
+  final VoidCallback onSigned;
+  final VoidCallback onView;
+  const DefineFormList({super.key, required this.formName, required this.onSigned, required this.onView});
 
   @override
   State<DefineFormList> createState() => _DefineFormListState();
@@ -41,10 +85,10 @@ class _DefineFormListState extends State<DefineFormList> {
                 width: AppSize.s90,
                 iconData1: Icons.remove_red_eye_outlined,
                 buttonText: AppStringHr.viewDoc,
-                onPressed: widget.onPressedView,
+                onPressed: widget.onView,
               ),
             ),
-            SizedBox(width: AppSize.s20),
+            SizedBox(width:AppSize.s20),
             Container(
               width: 100,
               height: 30,
@@ -52,31 +96,17 @@ class _DefineFormListState extends State<DefineFormList> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ElevatedButton(
-                onPressed: () {
-                  widget.onPressed();
-                },
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) =>
-                //             FormNineScreen(employeeID: widget.employeeID,)));
-                // Timer(Duration(seconds: 2), () {
-                //   print("Timer call");
-                //   setState(() {
-                //     isSelected = true;
-                //   });
-                // });
-
+                onPressed: widget.onSigned,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff50B5E5),
-                  // backgroundColor: isSelected == false ? Color(0xff50B5E5) : ColorManager.green,
-                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  backgroundColor:Color(0xff50B5E5) ,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: Text("Sign",
-                    style: BlueButtonTextConst.customTextStyle(context)),
+                child: Text(
+                    "Sign",
+                    style:BlueButtonTextConst.customTextStyle(context)
+                ),
               ),
             ),
           ],

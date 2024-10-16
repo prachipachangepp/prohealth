@@ -108,7 +108,6 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
 
-
            // OfferLetterWidget(employeeId: widget.employeeId),
 
             FutureBuilder<OfferLetterData>(
@@ -126,7 +125,6 @@ class _OfferLetterDescriptionScreenState
                     height: 1190,
                     child: Html(
                       data: """${snapshot.data!.template}""",
-
                       style: {
                         "p": Style(
                           fontSize: FontSize(12.0),
@@ -149,9 +147,11 @@ class _OfferLetterDescriptionScreenState
                 }
               },
             ),
+
             SizedBox(height: MediaQuery.of(context).size.height / 100),
+
             Padding(
-              padding: const EdgeInsets.only(left: 180),
+              padding: const EdgeInsets.only(left: 250),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,13 +159,9 @@ class _OfferLetterDescriptionScreenState
                   Container(
                     width: 120,
                     height: 90, // Set height to avoid zero height
-                    //color: Colors.yellow,
+                    // color: Colors.yellow,
                     child: signatureBytes != null
-                        ? Row(
-                          children: [
-                            Image.memory(signatureBytes!,),
-                          ],
-                        )
+                        ? Image.memory(signatureBytes!)
                         : Center(child: Text('')),
                   ),
 

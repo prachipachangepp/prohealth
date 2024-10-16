@@ -193,7 +193,8 @@ class NonChromeApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                "images/logo_login.png",
+                // "images/logo_login.png",
+                "images/powered_logo.png",
                 scale: 1.1,
               ),
               SizedBox(

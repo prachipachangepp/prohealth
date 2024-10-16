@@ -145,9 +145,48 @@ Future<UserModalPrefill> getUserPrefill(
 //   }
 // }
 
-/// Create user
-Future<ApiData> createUserPost(BuildContext context, String firstName,
-    String lastName, int departmentId, String email, String password) async {
+/// Create user old working
+// Future<ApiData> createUserPost(BuildContext context, String firstName,
+//     String lastName, int departmentId, String email, String password) async {
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     var response = await Api(context)
+//         .post(path: EstablishmentManagerRepository.createUserPost(), data: {
+//       'firstName': firstName,
+//       'lastName': lastName,
+//       'departmentId': departmentId,
+//       'email': email,
+//       'company_id': companyId,
+//       'password': password
+//     });
+//     print(response.data);
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("New User Added");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
+///Create user new working showing error if email Id is already used
+Future<ApiData> createUserPost(
+    BuildContext context,
+    String firstName,
+    String lastName,
+    int departmentId,
+    String email,
+    String password) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
@@ -159,13 +198,22 @@ Future<ApiData> createUserPost(BuildContext context, String firstName,
       'company_id': companyId,
       'password': password
     });
+
     print(response.data);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("New User Added");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: 'User Added Successfully');
+    } else if (response.statusCode == 409) {
+      // If the API returns 409, it's usually a conflict (like duplicate email)
+      print("Email ID already used");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: 'Email ID is already used');
     } else {
       print("Error 1");
       return ApiData(
@@ -180,9 +228,13 @@ Future<ApiData> createUserPost(BuildContext context, String firstName,
   }
 }
 
-///create user with popup
 
-//
+
+
+
+
+
+///
 // Future<ApiData> createUserPost(
 //     BuildContext context,
 //     String firstName,
