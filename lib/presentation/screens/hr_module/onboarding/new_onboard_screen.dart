@@ -167,7 +167,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
               ),
             ),
           ),
-          BottomBarRow(),
+         // BottomBarRow(),
         ],
       ),
     );

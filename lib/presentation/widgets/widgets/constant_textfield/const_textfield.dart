@@ -8,7 +8,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/value_manager.dart';
-
+import 'package:dropdown_button2/dropdown_button2.dart';
 ///textfield constant widget
 ///todo prachi
 class CustomTextField extends StatelessWidget {
@@ -355,253 +355,253 @@ class _CustomDropDownState extends State<CustomDropDown> {
 
 ///todo prachi
 ///Human Resource screen textField email only
-class HRManageTextFieldEmail extends StatefulWidget {
-  final TextEditingController controller;
-  final TextInputType keyboardType;
-  final String text;
-  final Color textColor;
-  final Icon? icon;
-  final bool? readOnly;
-  final VoidCallback? onChange;
-  final double? width;
-  final double? height;
-  final double cursorHeight;
-  final String? labelText;
-  final String? hintText;
-  final TextStyle labelStyle;
-  final double labelFontSize;
-  final Icon? suffixIcon;
-  final Widget? suffix;
-  final IconData? prefixIcon;
-  final FocusNode? focusNode;
-  final String? errorText;
-
-  final String? Function(String?)? validator;
-  // final bool Function(String)? validator;
-  final ValueChanged<String>? onChanged;
-
-  HRManageTextFieldEmail({
-    Key? key,
-    required this.controller,
-    required this.keyboardType,
-    required this.text,
-    this.textColor = const Color(0xff686464),
-    this.icon,
-    this.onChange,
-    this.readOnly,
-    this.width,
-    this.height,
-    required this.cursorHeight,
-    this.labelText,
-    required this.labelStyle,
-    required this.labelFontSize,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.focusNode,
-    this.errorText,
-    this.onChanged,
-    this.validator,
-    this.suffix, this.hintText,
-    // this.validator,
-  }) : super(key: key);
-
-  @override
-  State<HRManageTextFieldEmail> createState() => _HRManageTextFieldEmailState();
-}
-
-class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
-  late bool hasError;
-
-  @override
-  void initState() {
-    super.initState();
-    hasError = false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: widget.width ?? 320,
-      height: widget.height ?? 35,
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p5),
-        child: TextFormField(
-          focusNode: widget.focusNode,
-          controller: widget.controller,
-          textAlign: TextAlign.start,
-          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 10),
-          textAlignVertical: TextAlignVertical.center,
-          cursorColor: ColorManager.black,
-          textInputAction: TextInputAction.next,
-          // cursorHeight: widget.cursorHeight,
-          // validator: validator,
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'This field cannot be empty';
-          //   }
-          //   return null;
-          // },
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(
-                bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p5),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-            ),
-            labelText: widget.labelText,
-            hintText: widget.hintText,
-            labelStyle: widget.labelStyle.copyWith(
-                fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
-            errorText: hasError ? widget.errorText : null,
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(left: AppPadding.p14),
-              child: widget.suffixIcon,
-            ),
-            suffix: Padding(
-              padding: const EdgeInsets.only(left: AppPadding.p20),
-              child: widget.suffix,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class HRManageTextFieldEmail extends StatefulWidget {
+//   final TextEditingController controller;
+//   final TextInputType keyboardType;
+//   final String text;
+//   final Color textColor;
+//   final Icon? icon;
+//   final bool? readOnly;
+//   final VoidCallback? onChange;
+//   final double? width;
+//   final double? height;
+//   final double cursorHeight;
+//   final String? labelText;
+//   final String? hintText;
+//   final TextStyle labelStyle;
+//   final double labelFontSize;
+//   final Icon? suffixIcon;
+//   final Widget? suffix;
+//   final IconData? prefixIcon;
+//   final FocusNode? focusNode;
+//   final String? errorText;
+//
+//   final String? Function(String?)? validator;
+//   // final bool Function(String)? validator;
+//   final ValueChanged<String>? onChanged;
+//
+//   HRManageTextFieldEmail({
+//     Key? key,
+//     required this.controller,
+//     required this.keyboardType,
+//     required this.text,
+//     this.textColor = const Color(0xff686464),
+//     this.icon,
+//     this.onChange,
+//     this.readOnly,
+//     this.width,
+//     this.height,
+//     required this.cursorHeight,
+//     this.labelText,
+//     required this.labelStyle,
+//     required this.labelFontSize,
+//     this.suffixIcon,
+//     this.prefixIcon,
+//     this.focusNode,
+//     this.errorText,
+//     this.onChanged,
+//     this.validator,
+//     this.suffix, this.hintText,
+//     // this.validator,
+//   }) : super(key: key);
+//
+//   @override
+//   State<HRManageTextFieldEmail> createState() => _HRManageTextFieldEmailState();
+// }
+//
+// class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
+//   late bool hasError;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     hasError = false;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: widget.width ?? 320,
+//       height: widget.height ?? 35,
+//       child: Padding(
+//         padding: const EdgeInsets.all(AppPadding.p5),
+//         child: TextFormField(
+//           focusNode: widget.focusNode,
+//           controller: widget.controller,
+//           textAlign: TextAlign.start,
+//           style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 10),
+//           textAlignVertical: TextAlignVertical.center,
+//           cursorColor: ColorManager.black,
+//           textInputAction: TextInputAction.next,
+//           // cursorHeight: widget.cursorHeight,
+//           // validator: validator,
+//           // validator: (value) {
+//           //   if (value == null || value.isEmpty) {
+//           //     return 'This field cannot be empty';
+//           //   }
+//           //   return null;
+//           // },
+//           decoration: InputDecoration(
+//             contentPadding: EdgeInsets.only(
+//                 bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p5),
+//             border: OutlineInputBorder(
+//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+//             ),
+//             labelText: widget.labelText,
+//             hintText: widget.hintText,
+//             labelStyle: widget.labelStyle.copyWith(
+//                 fontSize: widget.labelFontSize, color: ColorManager.mediumgrey),
+//             errorText: hasError ? widget.errorText : null,
+//             suffixIcon: Padding(
+//               padding: const EdgeInsets.only(left: AppPadding.p14),
+//               child: widget.suffixIcon,
+//             ),
+//             suffix: Padding(
+//               padding: const EdgeInsets.only(left: AppPadding.p20),
+//               child: widget.suffix,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+// ///
 ///
-
-class HRManageTextField extends StatefulWidget {
-  final TextEditingController controller;
-  final TextInputType keyboardType;
-  final String text;
-  final String? hintText;
-  final Color textColor;
-  final Icon? icon;
-  final bool? readOnly;
-  final VoidCallback? onChange;
-  final double? width;
-  final double? height;
-  final double cursorHeight;
-  final String? labelText;
-  final TextStyle? labelStyle;
-  final double labelFontSize;
-  final Icon? suffixIcon;
-  final IconData? prefixIcon;
-  final FocusNode? focusNode;
-  final String? errorText;
-  final String? Function(String?)? validator;
-  final ValueChanged<String>? onChanged;
-  final bool? enabled;
-  final bool showDatePicker;
-
-  HRManageTextField({
-    Key? key,
-    this.enabled,
-    required this.controller,
-    required this.keyboardType,
-    required this.text,
-    this.textColor = const Color(0xff686464),
-    this.icon,
-    this.onChange,
-    this.readOnly,
-    this.width,
-    this.height,
-    required this.cursorHeight,
-    this.labelText,
-    this.labelStyle,
-    required this.labelFontSize,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.focusNode,
-    this.errorText,
-    this.onChanged,
-    this.validator,  this.showDatePicker = false,  this.hintText ,
-  }) : super(key: key);
-
-  @override
-  State<HRManageTextField> createState() => _HRManageTextFieldState();
-}
-
-class _HRManageTextFieldState extends State<HRManageTextField> {
-  late bool hasError;
-
-  @override
-  void initState() {
-    super.initState();
-    hasError = false;
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-    if (pickedDate != null) {
-      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: widget.width ?? 320,
-      height: widget.height ?? 35,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: TextFormField(
-          enabled: widget.enabled ?? true,
-          focusNode: widget.focusNode,
-          controller: widget.controller,
-          textAlign: TextAlign.start,
-          style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.s12),
-          textAlignVertical: TextAlignVertical.center,
-          cursorColor: Colors.black,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(
-                bottom: 3.0,
-                top: 5.0,
-                left: 5.0
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            labelText: widget.labelText,
-            hintText: widget.hintText,
-            labelStyle: widget.labelStyle?.copyWith(
-              fontSize: widget.labelFontSize,
-              color: Colors.grey,
-            ),
-            errorText: hasError ? widget.errorText : null,
-            suffixIcon: widget.showDatePicker
-                ? GestureDetector(
-              onTap: () => _selectDate(context),
-              child: Icon(Icons.calendar_month_outlined),
-            )
-                : widget.suffixIcon,
-          ),
-          inputFormatters: [
-            CapitalizeFirstLetterFormatter(),
-          ],
-          onChanged: widget.onChanged,
-          validator: widget.validator,
-        ),
-      ),
-    );
-  }
-}
+// class HRManageTextField extends StatefulWidget {
+//   final TextEditingController controller;
+//   final TextInputType keyboardType;
+//   final String text;
+//   final String? hintText;
+//   final Color textColor;
+//   final Icon? icon;
+//   final bool? readOnly;
+//   final VoidCallback? onChange;
+//   final double? width;
+//   final double? height;
+//   final double cursorHeight;
+//   final String? labelText;
+//   final TextStyle? labelStyle;
+//   final double labelFontSize;
+//   final Icon? suffixIcon;
+//   final IconData? prefixIcon;
+//   final FocusNode? focusNode;
+//   final String? errorText;
+//   final String? Function(String?)? validator;
+//   final ValueChanged<String>? onChanged;
+//   final bool? enabled;
+//   final bool showDatePicker;
+//
+//   HRManageTextField({
+//     Key? key,
+//     this.enabled,
+//     required this.controller,
+//     required this.keyboardType,
+//     required this.text,
+//     this.textColor = const Color(0xff686464),
+//     this.icon,
+//     this.onChange,
+//     this.readOnly,
+//     this.width,
+//     this.height,
+//     required this.cursorHeight,
+//     this.labelText,
+//     this.labelStyle,
+//     required this.labelFontSize,
+//     this.suffixIcon,
+//     this.prefixIcon,
+//     this.focusNode,
+//     this.errorText,
+//     this.onChanged,
+//     this.validator,  this.showDatePicker = false,  this.hintText ,
+//   }) : super(key: key);
+//
+//   @override
+//   State<HRManageTextField> createState() => _HRManageTextFieldState();
+// }
+//
+// class _HRManageTextFieldState extends State<HRManageTextField> {
+//   late bool hasError;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     hasError = false;
+//   }
+//
+//   Future<void> _selectDate(BuildContext context) async {
+//     final DateTime? pickedDate = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(1900),
+//       lastDate: DateTime.now(),
+//     );
+//     if (pickedDate != null) {
+//       widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: widget.width ?? 320,
+//       height: widget.height ?? 35,
+//       child: Padding(
+//         padding: const EdgeInsets.all(5.0),
+//         child: TextFormField(
+//           enabled: widget.enabled ?? true,
+//           focusNode: widget.focusNode,
+//           controller: widget.controller,
+//           textAlign: TextAlign.start,
+//           style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.s12),
+//           textAlignVertical: TextAlignVertical.center,
+//           cursorColor: Colors.black,
+//           textInputAction: TextInputAction.next,
+//           decoration: InputDecoration(
+//             contentPadding: EdgeInsets.only(
+//                 bottom: 3.0,
+//                 top: 5.0,
+//                 left: 5.0
+//             ),
+//             border: OutlineInputBorder(
+//               borderSide: BorderSide(color: Colors.grey),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: Colors.grey),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: Colors.grey),
+//             ),
+//             labelText: widget.labelText,
+//             hintText: widget.hintText,
+//             labelStyle: widget.labelStyle?.copyWith(
+//               fontSize: widget.labelFontSize,
+//               color: Colors.grey,
+//             ),
+//             errorText: hasError ? widget.errorText : null,
+//             suffixIcon: widget.showDatePicker
+//                 ? GestureDetector(
+//               onTap: () => _selectDate(context),
+//               child: Icon(Icons.calendar_month_outlined),
+//             )
+//                 : widget.suffixIcon,
+//           ),
+//           inputFormatters: [
+//             CapitalizeFirstLetterFormatter(),
+//           ],
+//           onChanged: widget.onChanged,
+//           validator: widget.validator,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 ///drop down User
 class HRManageDropdown extends StatefulWidget {
@@ -861,7 +861,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
 //   }
 // }
 
-///
+///clinical ropdown
 class PatientCustomDropDown extends StatefulWidget {
   final String? value;
   final List<String> items;
@@ -914,7 +914,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
       height: 31,
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
       child: DropdownButtonFormField<String>(
-          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.black),
+          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
           value: _selectedValue,
           items: widget.items.map((String value) {
             return DropdownMenuItem<String>(
@@ -946,9 +946,111 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
 
 
 
-///////////////
+/////////////
+
+///dont delete it is perfectly fine working dropdown code
+// class PatientCustomDropDown extends StatefulWidget {
+//   final String? value;
+//   final List<String> items;
+//   final String labelText;
+//   final String? hintText;
+//  // final TextStyle? labelStyle;
+//   final double? labelFontSize;
+//   final void Function(String?)? onChanged;
+//   final double? width;
+//   final double? height;
+//   final String? initialValue;
+//
+//   const PatientCustomDropDown({
+//     super.key,
+//     this.value,
+//     required this.items,
+//     required this.labelText,
+//    // this.labelStyle,
+//     this.labelFontSize,
+//     this.onChanged,
+//     this.width,
+//     this.height,
+//     this.initialValue,
+//     this.hintText,
+//   });
+//
+//   @override
+//   State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
+// }
+//
+// class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
+//   late String? _selectedValue;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _selectedValue = widget.value;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButtonHideUnderline(
+//       child: DropdownButton2<String>(
+//         value: _selectedValue,
+//         hint: Text(
+//           widget.hintText ?? '',
+//           style: SearchDropdownConst.customTextStyle(context),
+//         ),
+//         items: widget.items.map((String value) {
+//           return DropdownMenuItem<String>(
+//             value: value,
+//             child: Text(
+//               value,
+//               style: SearchDropdownConst.customTextStyle(context),
+//             ),
+//           );
+//         }).toList(),
+//         onChanged: (newValue) {
+//           setState(() {
+//             _selectedValue = newValue;
+//           });
+//           if (widget.onChanged != null) {
+//             widget.onChanged!(newValue);
+//           }
+//         },
+//         buttonStyleData: ButtonStyleData(
+//           height: widget.height ?? 30,
+//           width: widget.width ?? 170,
+//           padding: const EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             color: Colors.white,
+//             border: Border.all(
+//               color: const Color(0xff686464).withOpacity(0.5),
+//               width: 1,
+//             ),
+//             borderRadius: BorderRadius.circular(6),
+//           )
+//         ),
+//         iconStyleData: IconStyleData(
+//           icon: Icon(
+//             Icons.arrow_drop_down_sharp,
+//             color: ColorManager.mediumgrey,
+//           ),
+//           iconSize: 24,
+//         ),
+//         dropdownStyleData: DropdownStyleData(
+//           maxHeight: 200,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(6),
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
 
 
+
+
+///
 class CustomDropdownTextFieldpp<T> extends StatefulWidget {
   final T? value; // Changed to generic type
   final List<T>? items; // Changed to generic type

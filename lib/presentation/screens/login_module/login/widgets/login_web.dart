@@ -83,7 +83,7 @@ class _LoginWebState extends State<LoginWeb> {
       body: LoginBaseConstant(
           onTap: () {},
           titleText: AppString.login,
-          textAction: '',
+          textAction: 'Please refresh your browser for new version.',
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -101,7 +101,7 @@ class _LoginWebState extends State<LoginWeb> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                          // "Version 1.0.3 (33) demo",
+                           // "Version 1.0.3 (4) demo",
                           AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,

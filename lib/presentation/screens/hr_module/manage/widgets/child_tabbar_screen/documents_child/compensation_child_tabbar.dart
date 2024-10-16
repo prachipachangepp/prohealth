@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
@@ -20,17 +21,28 @@ import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboardin
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/print_pdf_files_hr.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:http/http.dart' as http;
+import 'dart:html' as html;
+import 'dart:js' as js;
+import 'dart:html' as html;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
+import 'dart:typed_data';
 
 class CompensationChildTabbar extends StatefulWidget {
   final int employeeId;
-  const CompensationChildTabbar({super.key, required this.employeeId});
+  final String? base64PdfString; // This should be your Base64 string
+  final String? fileUrl;
+  const CompensationChildTabbar(
+      {super.key, required this.employeeId, this.fileUrl,  this.base64PdfString});
 
   @override
   State<CompensationChildTabbar> createState() =>
@@ -43,13 +55,27 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
       TextEditingController();
   TextEditingController compensitionAddIdController = TextEditingController();
   TextEditingController compensitionAddNameController = TextEditingController();
-  final StreamController<List<OnboardingAckHealthData>> _controllerCompensation = StreamController<List<OnboardingAckHealthData>>();
+  final StreamController<List<OnboardingAckHealthData>>
+      _controllerCompensation =
+      StreamController<List<OnboardingAckHealthData>>();
   String compensationExpiryType = '';
   final StreamController<List<EmployeeDocumentModal>> _controller =
       StreamController<List<EmployeeDocumentModal>>();
   String expiryType = '';
   bool _isLoading = false;
-
+  // Future<void> printPdf(String base64) async {
+  //   try {
+  //     // Decode the Base64 string
+  //     Uint8List pdfBytes = base64Decode(base64);
+  //
+  //     // Print the PDF
+  //     await Printing.layoutPdf(
+  //       onLayout: (PdfPageFormat format) async => pdfBytes,
+  //     );
+  //   } catch (e) {
+  //     print('Error occurred during printing: $e');
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +83,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-
             Container(
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
@@ -69,7 +94,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                         context: context,
                         builder: (context) {
                           return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(context,AppConfig.compensationDocId),
+                              future: getEmployeeDocSetupDropDown(
+                                  context, AppConfig.compensationDocId),
                               builder: (contex, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -77,11 +103,10 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
-
-
-
                                   return CustomDocumedAddPopup(
-                                    title: 'Add Compensation', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                    title: 'Add Compensation',
+                                    employeeId: widget.employeeId,
+                                    dataList: snapshot.data!,
                                   );
                                 } else {
                                   return ErrorPopUp(
@@ -93,33 +118,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
             ),
-            // Container(
-            //   // width: 100,
-            //   margin: EdgeInsets.only(right: 60),
-            //   child: CustomIconButtonConst(
-            //     width: 100,
-            //       text: AppStringHr.addNew,
-            //       icon: Icons.add,
-            //       onPressed: () {
-            //         showDialog(
-            //             context: context,
-            //             builder: (BuildContext context) {
-            //               return AcknowledgementAddPopuppp(
-            //                 // idController: compensitionAddIdController,
-            //                 // nameController: compensitionAddNameController,
-            //                 // expiryType: compensationExpiryType,
-            //                 title: 'Add Compensation', employeeId: widget.employeeId, dataList: ,
-            //                 // AcknowledgementnameController:
-            //                 // compensitionAddNameController,
-            //                 // onSavePressed: () {  },
-            //                 // employeeId: widget.employeeId,
-            //                 // documentMetaId: 11,
-            //                 // documentSetupId: 36,
-            //               );
-            //             });
-            //         //
-            //       }),
-            // ),
           ],
         ),
         SizedBox(
@@ -128,7 +126,9 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
         StreamBuilder(
             stream: _controllerCompensation.stream,
             builder: (context, snapshot) {
-              getAckHealthRecord(context, AppConfig.compensationDocId, widget.employeeId,'no').then((data) {
+              getAckHealthRecord(context, AppConfig.compensationDocId,
+                      widget.employeeId, 'no')
+                  .then((data) {
                 _controllerCompensation.add(data);
               }).catchError((error) {
                 // Handle error
@@ -160,7 +160,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
               }
               if (snapshot.hasData) {
                 return Container(
-                  height: MediaQuery.of(context).size.height/2,
+                  height: MediaQuery.of(context).size.height / 2,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
@@ -171,8 +171,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
 
                       Widget fileWidget;
 
-                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension))
-                      {
+                      if (['jpg', 'jpeg', 'png', 'gif']
+                          .contains(fileExtension)) {
                         fileWidget = Image.network(
                           fileUrl,
                           fit: BoxFit.cover,
@@ -184,8 +184,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                             );
                           },
                         );
-                      }
-                      else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                      } else if (['pdf', 'doc', 'docx']
+                          .contains(fileExtension)) {
                         fileWidget = Icon(
                           Icons.description,
                           size: 45,
@@ -226,19 +226,23 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                     Container(
                                         width: 62,
                                         height: 45,
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 10),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                           border: Border.all(
                                               width: 2,
                                               color: ColorManager.faintGrey),
                                         ),
-                                        child: Image.asset('images/Vector.png')),
+                                        child:
+                                            Image.asset('images/Vector.png')),
                                     SizedBox(width: 10),
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                             'ID:${compaensation.idOfTheDocument}',
@@ -248,76 +252,109 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                           height: 5,
                                         ),
                                         Text(compaensation.documentFileName,
-                                        style: AknowledgementStyleNormal.customTextStyle(context)),
+                                            style: AknowledgementStyleNormal
+                                                .customTextStyle(context)),
                                       ],
                                     )
                                   ],
                                 ),
                                 //SizedBox(width: MediaQuery.of(context).size.width/2.2,),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
+                                    ///
                                     // IconButton(
-                                    //   onPressed: () {},
+                                    //   splashColor:
+                                    //   Colors.transparent,
+                                    //   highlightColor:
+                                    //   Colors.transparent,
+                                    //   hoverColor:
+                                    //   Colors.transparent,
+                                    //   onPressed: () async {
+                                    //     try{
+                                    //       final String token = await TokenManager.getAccessToken();
+                                    //       var response = await http.get(Uri.file(compaensation.DocumentUrl),headers: {
+                                    //         'accept': 'application/json',
+                                    //         'Authorization': 'Bearer $token',
+                                    //         'Content-Type': 'application/json'
+                                    //       },);
+                                    //      // final widgets = await HTMLToPdf().convert(body);
+                                    //
+                                    //       if (response.statusCode == 200) {
+                                    //         final String content = response.body;
+                                    //
+                                    //         final pdf = pw.Document();
+                                    //
+                                    //         pdf.addPage(
+                                    //           pw.Page(
+                                    //             build: (pw.Context context) => pw.Center(
+                                    //               child: pw.Text(content),
+                                    //             ),
+                                    //           ),
+                                    //         );
+                                    //
+                                    //         await Printing.layoutPdf(
+                                    //           onLayout: (PdfPageFormat format) async => pdf.save(),
+                                    //         );
+                                    //       } else {
+                                    //         // Handle error
+                                    //         print('Failed to load document');
+                                    //       }
+                                    //
+                                    //     }catch(e){
+                                    //       print('Error ${e}');
+                                    //
+                                    //     }
+                                    //   },
                                     //   icon: Icon(
-                                    //     Icons.refresh_outlined,
+                                    //     Icons.print_outlined,
                                     //     color: Color(0xff1696C8),
                                     //   ),
                                     //   iconSize: 20,
                                     // ),
-                                    IconButton(
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
-                                      onPressed: () async {
-                                        try{
-                                          final String token = await TokenManager.getAccessToken();
-                                          var response = await http.get(Uri.file(compaensation.DocumentUrl),headers: {
-                                            'accept': 'application/json',
-                                            'Authorization': 'Bearer $token',
-                                            'Content-Type': 'application/json'
-                                          },);
-                                         // final widgets = await HTMLToPdf().convert(body);
+                                    /// prinnt
+                                    // IconButton(
+                                    //   onPressed: () async {
+                                    //     try {
+                                    //       String fileUrl = compaensation.DocumentUrl; // The URL of your PDF document
+                                    //       print("File URL: $fileUrl");
+                                    //
+                                    //       // Fetch Base64 string from S3
+                                    //       String base64PdfString = await fetchBase64FromS3(fileUrl);
+                                    //
+                                    //       if (base64PdfString.isNotEmpty) {
+                                    //         // Decode the Base64 string to bytes
+                                    //         final pdfData = base64Decode(base64PdfString);
+                                    //
+                                    //         // Print the PDF
+                                    //         await Printing.layoutPdf(
+                                    //           onLayout: (PdfPageFormat format) async => pdfData,
+                                    //         );
+                                    //       } else {
+                                    //         print("Failed to convert PDF to Base64.");
+                                    //       }
+                                    //     } catch (e) {
+                                    //       print("Error: $e");
+                                    //     }
+                                    //   },
+                                    //   icon: Icon(
+                                    //     Icons.print_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    //   splashColor: Colors.transparent,
+                                    //   highlightColor: Colors.transparent,
+                                    //   hoverColor: Colors.transparent,
+                                    // ),
+                                    ///
 
-                                          if (response.statusCode == 200) {
-                                            final String content = response.body;
-
-                                            final pdf = pw.Document();
-
-                                            pdf.addPage(
-                                              pw.Page(
-                                                build: (pw.Context context) => pw.Center(
-                                                  child: pw.Text(content),
-                                                ),
-                                              ),
-                                            );
-
-                                            await Printing.layoutPdf(
-                                              onLayout: (PdfPageFormat format) async => pdf.save(),
-                                            );
-                                          } else {
-                                            // Handle error
-                                            print('Failed to load document');
-                                          }
-
-                                        }catch(e){
-                                          print('Error ${e}');
-
-                                        }
-                                      },
-                                      icon: Icon(
-                                        Icons.print_outlined,
-                                        color: Color(0xff1696C8),
-                                      ),
-                                      iconSize: 20,
-                                    ),
+                                    ///
                                     IconButton(
                                       onPressed: () {
                                         print("FileExtension:${fileExtension}");
-                                        DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation.pdf");
+                                        DowloadFile().downloadPdfFromBase64(
+                                            fileExtension, "Compensation.pdf");
                                         downloadFile(fileUrl);
                                         // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
                                       },
@@ -326,49 +363,68 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         color: Color(0xff1696C8),
                                       ),
                                       iconSize: 20,
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                     ),
+                                    ///
                                     IconButton(
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       onPressed: () {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return FutureBuilder<EmployeeDocumentPrefillData>(
-                                         future: getPrefillEmployeeDocuments( context: context, empDocumentId: compaensation.employeeDocumentId),
-                                                  builder: (contex, snapshotPreFill) {
-                                                    if (snapshotPreFill.connectionState ==
-                                                        ConnectionState.waiting) {
+                                              return FutureBuilder<
+                                                      EmployeeDocumentPrefillData>(
+                                                  future: getPrefillEmployeeDocuments(
+                                                      context: context,
+                                                      empDocumentId: compaensation
+                                                          .employeeDocumentId),
+                                                  builder: (contex,
+                                                      snapshotPreFill) {
+                                                    if (snapshotPreFill
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
                                                       return Center(
-                                                          child: CircularProgressIndicator());
+                                                          child:
+                                                              CircularProgressIndicator());
                                                     }
-                                                    if (snapshotPreFill.hasData) {
-
+                                                    if (snapshotPreFill
+                                                        .hasData) {
                                                       return CustomDocumedEditPopup(
-                                                        labelName: 'Edit Compensation',
-                                                        employeeId: widget.employeeId,
-                                                        docName: compaensation.DocumentName,
-                                                        docMetaDataId: compaensation.EmployeeDocumentTypeMetaDataId,
-                                                        docSetupId: compaensation.EmployeeDocumentTypeSetupId,
-                                                        empDocumentId: compaensation.employeeDocumentId,
-                                                        selectedExpiryType: compaensation.ReminderThreshold,
-                                                        url: compaensation.DocumentUrl,
-                                                        expiryDate: snapshotPreFill.data!.expiry, documentFileName: compaensation.documentFileName,
+                                                        labelName:
+                                                            'Edit Compensation',
+                                                        employeeId:
+                                                            widget.employeeId,
+                                                        docName: compaensation
+                                                            .DocumentName,
+                                                        docMetaDataId: compaensation
+                                                            .EmployeeDocumentTypeMetaDataId,
+                                                        docSetupId: compaensation
+                                                            .EmployeeDocumentTypeSetupId,
+                                                        empDocumentId: compaensation
+                                                            .employeeDocumentId,
+                                                        selectedExpiryType:
+                                                            compaensation
+                                                                .ReminderThreshold,
+                                                        url: compaensation
+                                                            .DocumentUrl,
+                                                        expiryDate:
+                                                            snapshotPreFill
+                                                                .data!.expiry,
+                                                        documentFileName:
+                                                            compaensation
+                                                                .documentFileName,
                                                       );
                                                     } else {
                                                       return ErrorPopUp(
-                                                          title: "Received Error",
-                                                          text: snapshot.error.toString());
+                                                          title:
+                                                              "Received Error",
+                                                          text: snapshot.error
+                                                              .toString());
                                                     }
                                                   });
                                             });
@@ -377,43 +433,53 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         Icons.edit_outlined,
                                         color: Color(0xff1696C8),
                                       ),
-
                                       iconSize: 20,
                                     ),
                                     IconButton(
-                                      splashColor:
-                                      Colors.transparent,
-                                      highlightColor:
-                                      Colors.transparent,
-                                      hoverColor:
-                                      Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
                                       onPressed: () async {
                                         await showDialog(
                                             context: context,
                                             builder: (context) =>
                                                 StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  builder: (BuildContext
+                                                          context,
+                                                      void Function(
+                                                              void Function())
+                                                          setState) {
                                                     return DeletePopup(
-                                                      loadingDuration: _isLoading,
+                                                      loadingDuration:
+                                                          _isLoading,
                                                       onCancel: () {
                                                         Navigator.pop(context);
-                                                      }, onDelete: () async{
-                                                      setState(() {
-                                                        _isLoading = true;
-                                                      });
-                                                      try{
-                                                        await deleteEmployeeDocuments(context: context, empDocumentId: compaensation.employeeDocumentId);
-                                                      }finally{
+                                                      },
+                                                      onDelete: () async {
                                                         setState(() {
-                                                          _isLoading = false;
+                                                          _isLoading = true;
                                                         });
-                                                        Navigator.pop(context);
-                                                      }
-                                                      // setState(() async{
-                                                      //
-                                                      //   Navigator.pop(context);
-                                                      // });
-                                                    }, title: 'Delete Compensation',);
+                                                        try {
+                                                          await deleteEmployeeDocuments(
+                                                              context: context,
+                                                              empDocumentId:
+                                                                  compaensation
+                                                                      .employeeDocumentId);
+                                                        } finally {
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                          Navigator.pop(
+                                                              context);
+                                                        }
+                                                        // setState(() async{
+                                                        //
+                                                        //   Navigator.pop(context);
+                                                        // });
+                                                      },
+                                                      title:
+                                                          'Delete Compensation',
+                                                    );
                                                   },
                                                 ));
                                       },
@@ -440,3 +506,37 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
     );
   }
 }
+
+/// Fetch Base64 PDF string from the given URL
+Future<String> fetchBase64FromS3(String url) async {
+  final response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    return response.body; // Assuming the response body is Base64-encoded
+  } else {
+    throw Exception("Failed to fetch Base64 data from S3");
+  }
+}
+
+
+/// /// Print PDF from Base64 string
+Future<void> printPdfFromBase64(String base64String) async {
+  // Decode the Base64 string
+  final bytes = base64Decode(base64String);
+
+  // Create a PDF document from the bytes
+  final pdf = pw.Document();
+  pdf.addPage(pw.Page(build: (pw.Context context) {
+    return pw.Center(child: pw.Text('Your PDF Content Here'));
+  }));
+
+  // Print the PDF
+  await Printing.layoutPdf(
+    onLayout: (PdfPageFormat format) async => bytes,
+  );
+}
+
+
+
+
+
+
