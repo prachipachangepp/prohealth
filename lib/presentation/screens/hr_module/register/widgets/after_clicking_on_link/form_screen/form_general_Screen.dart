@@ -49,6 +49,7 @@ class _generalFormState extends State<generalForm> {
   double textFieldHeight = 38;
 
   TextEditingController dobcontroller = TextEditingController();
+  TextEditingController dobcontrollervv = TextEditingController();
 
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
@@ -324,16 +325,16 @@ class _generalFormState extends State<generalForm> {
                             companyId,
                             'Active',
                             driverlicensenumb.text,
-                            dobcontroller.text,//'2024-01-01',
-                            dobcontroller.text,//'2024-01-01',
-                            dobcontroller.text,// '2024-01-01',
+                            "0000-00-00",//'2024-01-01',
+                            "0000-00-00",//'2024-01-01',
+                            "0000-00-00",// '2024-01-01',
                             'rehirable',
                             'position',
                             address.text,
                             _selectedClinician.toString(),
                             'reason',
                             1,
-                            dobcontroller.text,//'2024-01-01',
+                            "0000-00-00",//'2024-01-01',
                             1,
                             1,
                             'methods',
@@ -801,46 +802,42 @@ class _generalFormState extends State<generalForm> {
                         ]
                       ),
                       if (_suggestions.isNotEmpty)
-                        Positioned(
-                          // top: 53,
-                          right: 51,
-                          child: Container(
-                            height: 100,
-                            width: 320,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
+                        Container(
+                          height: 100,
+                          width: 320,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _suggestions.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(
+                                  _suggestions[index],
+                                  style: AllPopupHeadings.customTextStyle(context),
                                 ),
-                              ],
-                            ),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: _suggestions.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(
-                                    _suggestions[index],
-                                    style: AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  onTap: () {
-                                    FocusScope.of(context)
-                                        .unfocus(); // Dismiss the keyboard
-                                    String selectedSuggestion = _suggestions[index];
-                                    address.text = selectedSuggestion;
+                                onTap: () {
+                                  FocusScope.of(context)
+                                      .unfocus(); // Dismiss the keyboard
+                                  String selectedSuggestion = _suggestions[index];
+                                  address.text = selectedSuggestion;
 
-                                    setState(() {
-                                      _suggestions.clear();
-                                      //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
-                                    });
-                                  },
-                                );
-                              },
-                            ),
+                                  setState(() {
+                                    _suggestions.clear();
+                                    //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                                  });
+                                },
+                              );
+                            },
                           ),
                         ),
 

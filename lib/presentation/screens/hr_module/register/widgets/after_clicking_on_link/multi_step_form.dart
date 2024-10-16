@@ -165,26 +165,31 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
 
                               Container(
+
                                 width: 20,
                                 height: 20,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
+
+    color:Color(0xff50B5E5),
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
                                     color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                    width: 0.79,
+                                    // width: 0.79,
                                   ),
                                 ),
-                                child: IconButton(
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  padding: EdgeInsets.only(bottom: 1.5),
-                                  icon: Icon(Icons.chevron_left),
-                                  onPressed:  details.onStepCancel,
-                                  color: Colors.black,
-                                  iconSize: 20,
+                                child: Center(
+                                  child: IconButton(
+                                    splashColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    padding: EdgeInsets.only(bottom: 1.5),
+                                    icon: Icon(Icons.chevron_left),
+                                    onPressed:  details.onStepCancel,
+                                    color: Colors.black,
+                                    iconSize: 20,
+                                  ),
                                 ),
                               ),
                               // InkWell(
@@ -212,24 +217,27 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               height: 20,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
+                                color:Color(0xff50B5E5),
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(4),
                                 border: Border.all(
                                   color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                  width: 0.79,
+                                  // width: 0.79,
                                 ),
                               ),
-                              child: IconButton(
-                                splashColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                padding: EdgeInsets.only(bottom: 1.5),
-                                icon: Icon(Icons.chevron_right),
-                                onPressed:()async{
-                                  isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
-                                },
-                                color: Colors.black,
-                                iconSize: 20,
+                              child: Center(
+                                child: IconButton(
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  padding: EdgeInsets.only(bottom: 1.5),
+                                  icon: Icon(Icons.chevron_right),
+                                  onPressed:()async{
+                                    isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
+                                  },
+                                  color: Colors.black,
+                                  iconSize: 20,
+                                ),
                               ),
                             ),
 
