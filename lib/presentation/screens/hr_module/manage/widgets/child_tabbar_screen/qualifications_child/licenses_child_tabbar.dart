@@ -150,7 +150,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   );
                                 }
                               },
-                              title: 'Add Licence',
+                              title: 'Add License',
                               child: FutureBuilder<List<NewOrgDocument>>(
                                   future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                   builder: (context,snapshot) {
@@ -255,7 +255,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         'License #${index + 1}',
                                 // 'Employment #${snapshot.data![index].employmentId}',
                                 style: BoxHeadingStyle.customTextStyle(context)),
-                            BorderIconButton(iconData: Icons.edit_outlined, buttonText: "Edit", onPressed: (){
+                            if (snapshot.data![index].approved != null && snapshot.data![index].approved == true)
+                              BorderIconButton(iconData: Icons.edit_outlined, buttonText: "Edit",
+                                onPressed: (){
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -321,7 +323,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                               );
                                             }
                                           },
-                                          title: 'Edit Licence',
+                                          title: 'Edit License',
                                           child: FutureBuilder<List<NewOrgDocument>>(
                                               future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                               builder: (context,snapshot) {

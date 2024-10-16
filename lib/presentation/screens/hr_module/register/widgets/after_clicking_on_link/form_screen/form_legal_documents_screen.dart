@@ -141,59 +141,135 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   }
 
   Future<void> callHtmlData(String htmlName, int id) async{
-    // setState(() {
-    //
-    // });
+    setState(() {
+
+    });
     if(htmlName == AppStringLegalDocument.onCall){
       OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: id, employeeId: widget.employeeID);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: oncallDoc.name,
         onPressed: () {  },
         htmlFormData: oncallDoc.html,
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: oncallDoc.onCallId,)));
-    }else if(htmlName == AppStringLegalDocument.confidentialityAgreement){
+    }
+    else if(htmlName == AppStringLegalDocument.confidentialityAgreement){
       ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, employeeId: widget.employeeID, ConfidentialStatementId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: confidentialStatementDocument.name,
         onPressed: () {  },
         htmlFormData: confidentialStatementDocument.html,
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: confidentialStatementDocument.confidentialStatementId,)));
-    }else if(htmlName == AppStringLegalDocument.covidTestingPolicy){
+    }
+    else if(htmlName == AppStringLegalDocument.covidTestingPolicy){
       CovidTestPolicyDocument covidTestPolicyDocument = await getLegalCovidTestPolicyDocument(context: context, employeeId: widget.employeeID, covidTestId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: covidTestPolicyDocument.name,
         onPressed: () {  },
         htmlFormData: covidTestPolicyDocument.html,
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: covidTestPolicyDocument.covidTestPolicyId,)));
-    }else if(htmlName == AppStringLegalDocument.reportOfAbuse){
+    }
+    else if(htmlName == AppStringLegalDocument.reportOfAbuse){
       ReportingAbuseDocument reportingAbuseDocument = await getLegalReportingAbuseDocumentDocument(context: context, employeeId: widget.employeeID, reportingAbuseId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: reportingAbuseDocument.name,
         onPressed: () {  },
         htmlFormData: reportingAbuseDocument.html,
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: reportingAbuseDocument.reportingAbuseId,)));
-    }else if(htmlName == AppStringLegalDocument.policyConcerning){
+    }
+    else if(htmlName == AppStringLegalDocument.policyConcerning){
       PolicyConcerningDocument policyConcerningDocument = await getLegalpolicyConcerningDocument(context: context, employeeId: widget.employeeID, policyConcerningId: id);
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
         documentName: policyConcerningDocument.name,
         onPressed: () {  },
         htmlFormData: policyConcerningDocument.html,
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: policyConcerningDocument.policyConcerningId,)));
     }
-    // else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
-    //   PolicyConcerningDocument policyConcerningDocument = await getLegalpolicyConcerningDocument(context: context, employeeId: widget.employeeID, policyConcerningId: 10);
-    //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-    //     documentName: policyConcerningDocument.name,
-    //     onPressed: () {  },
-    //     htmlFormData: policyConcerningDocument.html,
-    //     employeeId: widget.employeeID,//widget.employeeID,
-    //     htmlFormTemplateId: policyConcerningDocument.policyConcerningId,)));
-    // }
+    else if(htmlName == AppStringLegalDocument.standardOfCodeOfConduct){
+      StandardConductDocument standardConductDocument = await getStandardConductDocument(context: context, employeeId: widget.employeeID, standardConductId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: standardConductDocument.name,
+        onPressed: () {  },
+        htmlFormData: standardConductDocument.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: standardConductDocument.standardConductId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.sexualHarassmentPolicy){
+      SexualHaressmentDocument sexualHaressmentDocument = await getSexualHaressmentDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: sexualHaressmentDocument.name,
+        onPressed: () {  },
+        htmlFormData: sexualHaressmentDocument.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: sexualHaressmentDocument.sexualHaressmentId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.sexualHarassmentPolicyACK){
+      SexualAndUnlawfulDocument sexualAndUnlawfulDocument = await getSexualAndUnlawfulDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: sexualAndUnlawfulDocument.name,
+        onPressed: () {  },
+        htmlFormData: sexualAndUnlawfulDocument.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: sexualAndUnlawfulDocument.sexualUnlawfulId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.preAuthorization){
+      PreAuthPatientVisitsDocument preAuthPatientVisitsDocument = await getPreAuthPatientVisitsDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: preAuthPatientVisitsDocument.name,
+        onPressed: () {  },
+        htmlFormData: preAuthPatientVisitsDocument.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: preAuthPatientVisitsDocument.preAuthPatientId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.prop65){
+      ProDocument proDocument = await getPro65Document(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: proDocument.name,
+        onPressed: () {  },
+        htmlFormData: proDocument.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: proDocument.proDocumentId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
+      ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: returnOfCompanyProperty.name,
+        onPressed: () {  },
+        htmlFormData: returnOfCompanyProperty.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.hepB){
+      HepBDocuemnt hepBDocuemnt = await getHepBDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: hepBDocuemnt.name,
+        onPressed: () {  },
+        htmlFormData: hepBDocuemnt.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: hepBDocuemnt.hepBDocuemntId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.tDap){
+      TDapDocuemnt tDapDocuemnt = await getTDapDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: tDapDocuemnt.name,
+        onPressed: () {  },
+        htmlFormData: tDapDocuemnt.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: tDapDocuemnt.tDapDocuemnttId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.covidVaccine){
+      CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: covidVaccineDocuemnt.name,
+        onPressed: () {  },
+        htmlFormData: covidVaccineDocuemnt.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+    }
     else{
 
     }

@@ -40,30 +40,45 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
    // String htmlContent = """${widget.htmlFormData}""";
 
   late PDFViewController pdfViewController;
+  //late String dynamicHtmlData;
 
   int currentPage = 0;
   int totalPages = 0;
   bool isReady = false;
   String errorMessage = '';
   static const String viewType = 'html-viewer';
+  String _uniqueKey = UniqueKey().toString(); // Unique key for re-rendering
+   @override void didUpdateWidget(SignatureFormScreen oldWidget) { super.didUpdateWidget(oldWidget); // If HTML content changes, update the unique key to force re-render
+  if (widget.htmlFormData != oldWidget.htmlFormData) { setState(() { _uniqueKey = UniqueKey().toString(); }); } }
   @override
   void initState() {
     super.initState();
     // Register a view factory to create an iframe with the HTML content
-    ui.platformViewRegistry.registerViewFactory(
-      viewType,
-      (int viewId) {
-        // Create an iframe and set the source to the HTML content
-         html.IFrameElement element = html.IFrameElement()
-          ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
-          ..style.border = 'none'
-           // ..style.pointerEvents = 'none'
-          ..style.width = '100%'
-          ..style.height = '700px'
-        ..style.backgroundColor = 'white'; // Set a specific height
-        return element;
-      },
-    );
+    // setState((){
+    //   dynamicHtmlData = widget.htmlFormData;
+    // });
+    // Register the view factory
+    ui.platformViewRegistry.registerViewFactory(      'html-viewer-$_uniqueKey', // Use unique key in viewType
+           (int viewId) {        final element = html.IFrameElement()
+             ..srcdoc = widget.htmlFormData
+             ..style.border = 'none'
+             ..style.width = '100%'
+             ..style.height = '600px';
+      return element;      },    );
+    // ui.platformViewRegistry.registerViewFactory(
+    //   viewType,
+    //   (int viewId) {
+    //     // Create an iframe and set the source to the HTML content
+    //      html.IFrameElement element = html.IFrameElement()
+    //       ..srcdoc = widget.htmlFormData // Use srcdoc to load HTML content
+    //       ..style.border = 'none'
+    //        // ..style.pointerEvents = 'none'
+    //       ..style.width = '100%'
+    //       ..style.height = '700px'
+    //     ..style.backgroundColor = 'white'; // Set a specific height
+    //     return element;
+    //   },
+    // );
   }
   void toggleBack(){
     Navigator.pop(context);
@@ -89,18 +104,19 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: () {
-                        showDialog(context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context){
-                          return DeletePopup(onCancel: () { Navigator.pop(context); },
-                            onDelete: () {
-                              Navigator.pop(context);
-                              toggleBack();
-                            },
-                            title: 'Cancel',
-                            btnText: 'Yes',
-                            text: 'Are you sure  you want to cancel this form?',);
-                        });
+                        Navigator.pop(context);
+                        // showDialog(context: context,
+                        //     barrierDismissible: false,
+                        //     builder: (BuildContext context){
+                        //   return DeletePopup(onCancel: () { Navigator.pop(context); },
+                        //     onDelete: () {
+                        //       Navigator.pop(context);
+                        //       toggleBack();
+                        //     },
+                        //     title: 'Cancel',
+                        //     btnText: 'Yes',
+                        //     text: 'Are you sure  you want to cancel this form?',);
+                        // });
                       },
                       icon: Icon(Icons.arrow_back)),
                   Text(
@@ -115,16 +131,17 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                         child:  CustomButtonTransparent(
                           text: 'Cancel',
                           onPressed: () {
-                            showDialog(context: context, builder: (BuildContext context){
-                              return DeletePopup(onCancel: () { Navigator.pop(context); },
-                                onDelete: () {
-                                Navigator.pop(context);
-                                toggleBack();
-                                },
-                                title: 'Cancel',
-                                btnText: 'Yes',
-                                text: ' Are you sure  you want to cancel this form?',);
-                            });
+                            Navigator.pop(context);
+                            // showDialog(context: context, builder: (BuildContext context){
+                            //   return DeletePopup(onCancel: () { Navigator.pop(context); },
+                            //     onDelete: () {
+                            //     Navigator.pop(context);
+                            //     toggleBack();
+                            //     },
+                            //     title: 'Cancel',
+                            //     btnText: 'Yes',
+                            //     text: ' Are you sure  you want to cancel this form?',);
+                            // });
 
                             // widget.onPressed();
                           },
@@ -134,44 +151,66 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       Container(
                         height: 30,
                         width: 140,
-                        child: CustomIconButton(
+                        child: isLoading ?
+                        SizedBox(
+                          height:30,
+                            width:30,
+                            child: Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),))
+                            :CustomIconButton(
                           icon: Icons.arrow_forward_rounded,
                           text: 'Confirm',
                           onPressed: () async{
                             pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
                             print("Pdf byte ${pdfFile}");
-                            showDialog(context: context, builder: (BuildContext context){
-                              return
-                                StatefulBuilder(
-                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                    return DeletePopup(
-                                      loadingDuration: isLoading,
-                                      onCancel: () { Navigator.pop(context); },
-                                      onDelete: () async{
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        try{
-                                          await htmlFormTemplateSignature(context: context,
-                                            formHtmlTempId: widget.htmlFormTemplateId,
-                                            htmlName: widget.documentName,
-                                            documentFile: pdfFile!,
-                                            employeeId: widget.employeeId,
-                                            signed: true,);
-                                        }finally{
-                                          setState(() {
-                                            isLoading = false;
-                                            Navigator.pop(context);
-                                            toggleBack();
-                                          });
-                                        }
-                                      },
-                                      title: 'Signed',
-                                      btnText: 'Yes',
-                                      text: 'Do you really want to Sign document?',);
-                                  },
-                                );
+                            setState(() {
+                              isLoading = true;
                             });
+                            try{
+                              await htmlFormTemplateSignature(context: context,
+                                formHtmlTempId: widget.htmlFormTemplateId,
+                                htmlName: widget.documentName,
+                                documentFile: pdfFile!,
+                                employeeId: widget.employeeId,
+                                signed: true,);
+                            }finally{
+                              setState(() {
+                                isLoading = false;
+                                Navigator.pop(context);
+                                // toggleBack();
+                              });
+                            }
+                            // showDialog(context: context, builder: (BuildContext context){
+                            //   return
+                            //     StatefulBuilder(
+                            //       builder: (BuildContext context, void Function(void Function()) setState) {
+                            //         return DeletePopup(
+                            //           loadingDuration: isLoading,
+                            //           onCancel: () { Navigator.pop(context); },
+                            //           onDelete: () async{
+                            //             setState(() {
+                            //               isLoading = true;
+                            //             });
+                            //             try{
+                            //               await htmlFormTemplateSignature(context: context,
+                            //                 formHtmlTempId: widget.htmlFormTemplateId,
+                            //                 htmlName: widget.documentName,
+                            //                 documentFile: pdfFile!,
+                            //                 employeeId: widget.employeeId,
+                            //                 signed: true,);
+                            //             }finally{
+                            //               setState(() {
+                            //                 isLoading = false;
+                            //                 Navigator.pop(context);
+                            //                 toggleBack();
+                            //               });
+                            //             }
+                            //           },
+                            //           title: 'Signed',
+                            //           btnText: 'Yes',
+                            //           text: 'Do you really want to Sign document?',);
+                            //       },
+                            //     );
+                            // });
 
                             // widget.onPressed();
                           },
@@ -188,7 +227,9 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
             Container(
                 color: Colors.white,
                 height: MediaQuery.of(context).size.height,
-                child: HtmlElementView(viewType: viewType)),
+                child: HtmlElementView(viewType: 'html-viewer-$_uniqueKey')
+              //HtmlElementView(viewType: viewType)
+            ),
           ],
         ),
       ),
