@@ -27,7 +27,7 @@ Future<ApiDataRegister> htmlFormTemplateSignature({
       "htmlname": htmlName,
       "base64": documentFile,
       "employeeId": employeeId,
-      "createdAt": DateTime.now().toIso8601String(),
+      "createdAt": DateTime.now().toIso8601String()+"Z",
       "company_Id": companyId,
       "signed": signed
     };
@@ -201,26 +201,29 @@ Future<PolicyConcerningDocument> getLegalpolicyConcerningDocument(
 }
 
 /// Candidates reales form
-// Future<PolicyConcerningDocument> getLegalpolicyConcerningDocument({
-//   required BuildContext context, required int policyConcerningId,required int employeeId}) async {
-// //var itemList ;
-//   var itemsData ;
-//   try {
-//     final response = await ApiOffer(context).get(
-//         path: LegalDocumentsRepo
-//             .getpolicyConcerningDocument(policyConcerningId: policyConcerningId, employeeId: employeeId));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       print('policyConcerning document Fetched');
-//       itemsData = PolicyConcerningDocument(policyConcerningId: response.data['id'], name: response.data['name'], html: response.data['html']);
-//     } else {
-//       print("policyConcerningDocument ");
-//     }
-//     return itemsData;
-//   } catch (e) {
-//     print("error${e}");
-//     return itemsData;
-//   }
-// }
+Future<CandidateRealeaseDocument> getCandidateRealeaseDocument({
+  required BuildContext context, required int candidateReleaseFormhtmlId,
+  required int employeeId, required String middleName, required String maindenSurnameAlisa,
+  required String currentAddress, required String stateIssuingLicense, required String fullName}) async {
+//var itemList ;
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo
+            .getCandidateReleaseDocument(employeeId: employeeId, candidateReleaseFormhtmlId: candidateReleaseFormhtmlId,
+            middleName: middleName, maindenSurnameAlisa: maindenSurnameAlisa, currentAddress: currentAddress, stateIssuingLicense: stateIssuingLicense, fullname: fullName));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Candidate Release Document Fetched');
+      itemsData = CandidateRealeaseDocument(candidateRealeaseId: response.data['id'], name: response.data['name'], html: response.data['html']);
+    } else {
+      print("CandidateReleaseDocument ");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
 
 /// Standard of conduct form
 Future<StandardConductDocument> getStandardConductDocument({

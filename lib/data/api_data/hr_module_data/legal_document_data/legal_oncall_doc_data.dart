@@ -34,6 +34,13 @@ class PolicyConcerningDocument{
   PolicyConcerningDocument({required this.policyConcerningId, required this.name, required this.html});
 }
 
+class CandidateRealeaseDocument{
+  final int candidateRealeaseId;
+  final String name;
+  final String html;
+  CandidateRealeaseDocument({required this.candidateRealeaseId, required this.name, required this.html});
+}
+
 class StandardConductDocument{
   final int standardConductId;
   final String name;
