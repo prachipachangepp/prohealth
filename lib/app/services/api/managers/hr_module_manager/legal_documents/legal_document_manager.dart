@@ -214,7 +214,7 @@ Future<CandidateRealeaseDocument> getCandidateRealeaseDocument({
             middleName: middleName, maindenSurnameAlisa: maindenSurnameAlisa, currentAddress: currentAddress, stateIssuingLicense: stateIssuingLicense, fullname: fullName));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('Candidate Release Document Fetched');
-      itemsData = CandidateRealeaseDocument(candidateRealeaseId: response.data['id'], name: response.data['name'], html: response.data['html']);
+      itemsData = CandidateRealeaseDocument(candidateRealeaseId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
     } else {
       print("CandidateReleaseDocument ");
     }
@@ -346,7 +346,7 @@ Future<ReturnOfCompanyProperty> getReturnOfCompanyPropertyDocument({
             .getReturnOfCompanyDocument(templateId: templateId, employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(' Return Of Company Property Fetched');
-      itemsData = ReturnOfCompanyProperty(returnOfCompanyPropertyId: response.data['id'], name: response.data['name'], html: response.data['html']);
+      itemsData = ReturnOfCompanyProperty(returnOfCompanyPropertyId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
     } else {
       print("ReturnOfCompanyPropertyDocument ");
     }
