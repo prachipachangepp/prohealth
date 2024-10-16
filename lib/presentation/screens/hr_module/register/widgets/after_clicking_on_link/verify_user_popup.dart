@@ -91,19 +91,24 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   }
 
   Timer? _timer;
-  int _remainingTime = 59;
+  // int _remainingTime = 59;
   void _startTimer() {
-    _timer?.cancel(); // Cancel any existing timer
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_remainingTime > 0) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        setState(() {
           _remainingTime--;
-        } else {
-          timer.cancel();
-        }
-      });
+        });
+      } else {
+        timer.cancel();
+        setState(() {
+          isOtpButtonEnabled = true; // Enable button when timer hits zero
+        });
+      }
     });
   }
+
+
+
 
   final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
 
@@ -129,7 +134,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   FocusNode submitButtonFocusNode = FocusNode();
 
   bool otpEnabled = false;
+  bool isOtpButtonEnabled = true;
   bool emailEntered = false;
+  int _remainingTime = 59;
   bool isLoading = false;
   bool isOtpLoading = false;
 
@@ -296,39 +303,73 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                               color: ColorManager.blueprime,
                             ),
                           )
-                        : ElevatedButton(
-                          focusNode: getOtpButtonFocusNode,
-                          autofocus: true,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF50B5E5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6.0),
-                            ),
-                          ),
-                          onPressed: emailEntered
-                              ? () async {
-                                  setState(() {
-                                    isLoading = true;
-                                    otpEnabled = true;
-                                    _remainingTime = 59; // Reset timer
-                                    _startTimer(); // Start timer
-                                  });
-                                  _formKey.currentState!.validate();
-                                  await postverifyuser(
-                                      context, emailController.text);
-                                  Future.delayed(
-                                    const Duration(seconds: 2),
-                                    () {
-                                      setState(() {
-                                        isLoading = false;
-                                      });
-                                    },
-                                  );
-                                }
-                              : null,
-                          child: Text('Get OTP',
-                              style: BlueButtonTextConst.customTextStyle(context)),
+
+                    :ElevatedButton(
+                      focusNode: getOtpButtonFocusNode,
+                      autofocus: true,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
                         ),
+                      ),
+                      onPressed: isOtpButtonEnabled && emailEntered
+                          ? () async {
+                        setState(() {
+                          isLoading = true;
+                          otpEnabled = true;
+                          _remainingTime = 59; // Reset timer
+                          isOtpButtonEnabled = false; // Disable button
+                          _startTimer(); // Start timer
+                        });
+                        _formKey.currentState!.validate();
+                        await postverifyuser(context, emailController.text);
+                        Future.delayed(
+                          const Duration(seconds: 2),
+                              () {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        );
+                      }
+                          : null,
+                      child: Text('Get OTP',
+                          style: BlueButtonTextConst.customTextStyle(context)),
+                    ),
+                        // : ElevatedButton(
+                        //   focusNode: getOtpButtonFocusNode,
+                        //   autofocus: true,
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: const Color(0xFF50B5E5),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(6.0),
+                        //     ),
+                        //   ),
+                        //   onPressed: emailEntered
+                        //       ? () async {
+                        //           setState(() {
+                        //             isLoading = true;
+                        //             otpEnabled = true;
+                        //             _remainingTime = 59; // Reset timer
+                        //             _startTimer(); // Start timer
+                        //           });
+                        //           _formKey.currentState!.validate();
+                        //           await postverifyuser(
+                        //               context, emailController.text);
+                        //           Future.delayed(
+                        //             const Duration(seconds: 2),
+                        //             () {
+                        //               setState(() {
+                        //                 isLoading = false;
+                        //               });
+                        //             },
+                        //           );
+                        //         }
+                        //       : null,
+                        //   child: Text('Get OTP',
+                        //       style: BlueButtonTextConst.customTextStyle(context)),
+                        // ),
                     const SizedBox(height: 20),
 
                     SizedBox(

@@ -513,7 +513,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               //     .toList();
                                                               return Container(
                                                                 height: 31,
-                                                                width: 240,
+                                                                width: 170,
                                                                 // margin: EdgeInsets.symmetric(horizontal: 20),
                                                                 padding: const EdgeInsets
                                                                     .symmetric(

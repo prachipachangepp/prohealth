@@ -27,6 +27,8 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
@@ -54,6 +56,23 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
   int documentMetaDataId = 0;
   int documentSetupId = 0;
   bool _isLoading = false;
+
+
+
+
+
+
+
+  String sanitizeBase64(String base64) {
+    return base64.replaceAll(RegExp(r'[^A-Za-z0-9+/=]'), '');
+  }
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -245,67 +264,108 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                   //   iconSize: 20,
                                   // ),
 
-                                  IconButton(
-                                    splashColor:
-                                    Colors.transparent,
-                                    highlightColor:
-                                    Colors.transparent,
-                                    hoverColor:
-                                    Colors.transparent,
-                                    onPressed: () async {
-                                      // final pdf = health.DocumentUrl as pw.Document;
-                                      try{
-                                        final String token = await TokenManager.getAccessToken();
-                                        var response = await http.get(Uri.file(health.DocumentUrl),headers: {
-                                          'accept': 'application/json',
-                                          'Authorization': 'Bearer $token',
-                                          'Content-Type': 'application/json'
-                                        },);
+                                  // IconButton(
+                                  //   splashColor:
+                                  //   Colors.transparent,
+                                  //   highlightColor:
+                                  //   Colors.transparent,
+                                  //   hoverColor:
+                                  //   Colors.transparent,
+                                  //   onPressed: () async {
+                                  //     // final pdf = health.DocumentUrl as pw.Document;
+                                  //     try{
+                                  //       final String token = await TokenManager.getAccessToken();
+                                  //       var response = await http.get(Uri.file(health.DocumentUrl),headers: {
+                                  //         'accept': 'application/json',
+                                  //         'Authorization': 'Bearer $token',
+                                  //         'Content-Type': 'application/json'
+                                  //       },);
+                                  //
+                                  //       if (response.statusCode == 200) {
+                                  //         final String content = response.body;
+                                  //
+                                  //         final pdf = pw.Document();
+                                  //
+                                  //         pdf.addPage(
+                                  //           pw.Page(
+                                  //             build: (pw.Context context) => pw.Center(
+                                  //               child: pw.Text(content),
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //
+                                  //         await Printing.layoutPdf(
+                                  //           onLayout: (PdfPageFormat format) async => pdf.save(),
+                                  //         );
+                                  //       } else {
+                                  //         // Handle error
+                                  //         print('Failed to load document');
+                                  //       }
+                                  //
+                                  //     }catch(e){
+                                  //       print('Error ${e}');
+                                  //
+                                  //     }
+                                  //
+                                  //
+                                  //     // pdf.addPage(
+                                  //     //   pw.Page(
+                                  //     //     build: (pw.Context context) => pw.Center(
+                                  //     //       child: pw.Text('Hello, this is a test print!'),
+                                  //     //     ),
+                                  //     //   ),
+                                  //     // );
+                                  //
+                                  //     await Printing.layoutPdf(
+                                  //       onLayout: (PdfPageFormat format) async => pdf.save(),
+                                  //     // );
+                                  //   },
+                                  //   icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
+                                  //
+                                  //   iconSize: 20,),
 
-                                        if (response.statusCode == 200) {
-                                          final String content = response.body;
+                    IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onPressed: () async {
+                    try {
+                    // if (fileUrl == null || fileUrl.isEmpty) {
+                    // print('::::::::::::::File URL is null or empty.::::::::::::');
+                    // return; // Early exit if URL is invalid
+                    // }
 
-                                          final pdf = pw.Document();
+                    String sanitizedBase64 = sanitizeBase64(health.DocumentUrl);
+                    print('Sanitized Base64: $sanitizedBase64');
 
-                                          pdf.addPage(
-                                            pw.Page(
-                                              build: (pw.Context context) => pw.Center(
-                                                child: pw.Text(content),
-                                              ),
-                                            ),
-                                          );
+                    Uint8List pdfBytes;
+                    try {
+                    pdfBytes = base64Decode(sanitizedBase64);
+                    print('PDF Bytes Length: ${pdfBytes.length}');
+                    } catch (e) {
+                    print(':::::::::::::::::Base64 decoding error: $e');
+                    return; // Early exit on decode error
+                    }
 
-                                          await Printing.layoutPdf(
-                                            onLayout: (PdfPageFormat format) async => pdf.save(),
-                                          );
-                                        } else {
-                                          // Handle error
-                                          print('Failed to load document');
-                                        }
+                    // Print the PDF
+                    await Printing.layoutPdf(
+                    onLayout: (PdfPageFormat format) async => pdfBytes,
+                    );
+                    } catch (e) {
+                    print(':::::::::::;;Error occurred during printing: $e');
+                    }
+                    },
+                    icon: Icon(
+                    Icons.print_outlined,
+                    // color: Color(0xff1696C8), // Uncomment to set Print icon color
+                    ),
+                    iconSize: 20,
+                    ),
 
-                                      }catch(e){
-                                        print('Error ${e}');
-
-                                      }
 
 
-                                      // pdf.addPage(
-                                      //   pw.Page(
-                                      //     build: (pw.Context context) => pw.Center(
-                                      //       child: pw.Text('Hello, this is a test print!'),
-                                      //     ),
-                                      //   ),
-                                      // );
-                                      //
-                                      // await Printing.layoutPdf(
-                                      //   onLayout: (PdfPageFormat format) async => pdf.save(),
-                                      // );
-                                    },
-                                    icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
 
-                                    iconSize: 20,),
-
-                                  ///
+                    ///
                                   IconButton(
                                     splashColor:
                                     Colors.transparent,
