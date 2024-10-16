@@ -12,6 +12,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 
@@ -270,6 +271,15 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
+    else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
+      CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: covidVaccineDocuemnt.name,
+        onPressed: () {  },
+        htmlFormData: covidVaccineDocuemnt.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+    }
     else{
 
     }
@@ -493,6 +503,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                                 },
                                 onView: formStatus.signed ?  () {
                                   // Logic for viewing the form
+                                  downloadFile(formStatus.url);
                                   print("Viewing ${formStatus.htmlname}");
                                 } : (){},
                                 isSigned: formStatus.signed,

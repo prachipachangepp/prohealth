@@ -8,7 +8,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/value_manager.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+
 ///textfield constant widget
 ///todo prachi
 class CustomTextField extends StatelessWidget {
