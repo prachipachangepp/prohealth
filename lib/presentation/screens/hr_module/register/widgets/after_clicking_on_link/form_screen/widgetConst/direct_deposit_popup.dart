@@ -25,8 +25,16 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
   TextEditingController addressController = TextEditingController();
   TextEditingController bankNameController = TextEditingController();
   TextEditingController rountingController = TextEditingController();
-  TextEditingController accOneController = TextEditingController();
-  TextEditingController accTwoController = TextEditingController();
+  TextEditingController accountController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+
+  TextEditingController action2Controller = TextEditingController();
+  TextEditingController type2Controller = TextEditingController();
+  TextEditingController address2Controller = TextEditingController();
+  TextEditingController bankName2Controller = TextEditingController();
+  TextEditingController rounting2Controller = TextEditingController();
+  TextEditingController account2Controller = TextEditingController();
+  TextEditingController amount2Controller = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
   String? actionError;
@@ -34,8 +42,16 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
   String? addressError;
   String? bankNameError;
   String? routingError;
-  String? accOneError;
-  String? accTwoError;
+  String? accountError;
+  String? amountError;
+
+  String? action2Error;
+  String? type2Error;
+  String? address2Error;
+  String? bankName2Error;
+  String? routing2Error;
+  String? account2Error;
+  String? amount2Error;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -52,101 +68,198 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
       addressError = _validateTextField(addressController.text, 'address');
       bankNameError = _validateTextField(bankNameController.text, 'bank name');
       routingError = _validateTextField(rountingController.text, 'routing or transit');
-      accOneError = _validateTextField(accOneController.text, 'account');
-      accTwoError = _validateTextField(accTwoController.text, 'account');
+      accountError = _validateTextField(accountController.text, 'account');
+      amountError = _validateTextField(amountController.text, 'amount');
+
+      action2Error = _validateTextField(action2Controller.text, 'action 2');
+      type2Error = _validateTextField(type2Controller.text, 'type 2');
+      address2Error = _validateTextField(address2Controller.text, 'address 2');
+      bankName2Error = _validateTextField(bankName2Controller.text, 'bank name 2');
+      routing2Error = _validateTextField(rounting2Controller.text, 'routing or transit 2');
+      account2Error = _validateTextField(account2Controller.text, 'account 2');
+      amount2Error = _validateTextField(amount2Controller.text, 'amount 2');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      width: AppSize.s400,
-      height: AppSize.s650,
+      width: AppSize.s800,
+      height: AppSize.s700,
       title: "Direct Deposite",
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FirstSMTextFConst(
-                controller: actionController,
-                keyboardType: TextInputType.text,
-                text: 'Action 1',
-              ),
-              if (actionError != null) // Display error if any
-                Text(
-                  actionError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    controller: actionController,
+                    keyboardType: TextInputType.text,
+                    text: 'Action 1',
+                  ),
+                  if (actionError != null) // Display error if any
+                    Text(
+                      actionError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
 
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: typeController,
-                keyboardType: TextInputType.text,
-                text: 'Type 1',
-              ),
-              if (typeError != null)
-                Text(
-                  typeError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: bankNameController,
-                keyboardType: TextInputType.text,
-                text: 'Bank Name',
-              ),
-              if (bankNameError != null)
-                Text(
-                  bankNameError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: addressController,
-                keyboardType: TextInputType.text,
-                text: 'Address 1',
-              ),
-              if (addressError != null)
-                Text(
-                  addressError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: rountingController,
-                keyboardType: TextInputType.text,
-                text: 'Routing or Transit 1',
-              ),
-              if (routingError != null)
-                Text(
-                  routingError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: accOneController,
-                keyboardType: TextInputType.text,
-                text: 'Account 1',
-              ),
-              if (accOneError != null)
-                Text(
-                  accOneError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: typeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Type 1',
+                  ),
+                  if (typeError != null)
+                    Text(
+                      typeError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: bankNameController,
+                    keyboardType: TextInputType.text,
+                    text: 'Bank Name',
+                  ),
+                  if (bankNameError != null)
+                    Text(
+                      bankNameError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: addressController,
+                    keyboardType: TextInputType.text,
+                    text: 'Address 1',
+                  ),
+                  if (addressError != null)
+                    Text(
+                      addressError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: rountingController,
+                    keyboardType: TextInputType.text,
+                    text: 'Routing or Transit 1',
+                  ),
+                  if (routingError != null)
+                    Text(
+                      routingError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: accountController,
+                    keyboardType: TextInputType.text,
+                    text: 'Account 1',
+                  ),
+                  if (accountError != null)
+                    Text(
+                      accountError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
 
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: accTwoController,
-                keyboardType: TextInputType.text,
-                text: 'Account 1',
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: amountController,
+                    keyboardType: TextInputType.text,
+                    text: 'Amount 1',
+                  ),
+                  if (amountError != null)
+                    Text(
+                      amountError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                ],
               ),
-              if (accTwoError != null)
-                Text(
-                  accTwoError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FirstSMTextFConst(
+                    controller: action2Controller,
+                    keyboardType: TextInputType.text,
+                    text: 'Action 2',
+                  ),
+                  if (action2Error != null) // Display error if any
+                    Text(
+                      action2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+
+                 SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: typeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Type 2',
+                  ),
+                  if (type2Error != null)
+                    Text(
+                      type2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: bankName2Controller,
+                    keyboardType: TextInputType.text,
+                    text: 'Bank Name 2',
+                  ),
+                  if (bankName2Error != null)
+                    Text(
+                      bankName2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: address2Controller,
+                    keyboardType: TextInputType.text,
+                    text: 'Address 2',
+                  ),
+                  if (address2Error != null)
+                    Text(
+                      address2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: rounting2Controller,
+                    keyboardType: TextInputType.text,
+                    text: 'Routing or Transit 2',
+                  ),
+                  if (routing2Error != null)
+                    Text(
+                      routing2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: account2Controller,
+                    keyboardType: TextInputType.text,
+                    text: 'Account 2',
+                  ),
+                  if (account2Error != null)
+                    Text(
+                      account2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: amount2Controller,
+                    keyboardType: TextInputType.text,
+                    text: 'Amount 2',
+                  ),
+                  if (amount2Error != null)
+                    Text(
+                      amount2Error!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                ],
+              ),
             ],
           ),
         )

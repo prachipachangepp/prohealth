@@ -149,14 +149,16 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     CircleAvatar(
                                                       radius: MediaQuery.of(context).size.width / 50,
                                                       backgroundColor: Colors.white,
-                                                      child: general.imgurl! == 'imgurl' || general.imgurl! == null
-                                                          // images/profilepic.png
-                                                          ? Icon(
-                                                        Icons.person,
-                                                        color: ColorManager.bluelight,
-                                                        size: AppSize.s50,
-                                                      )
-                                                          : ClipOval(
+                                                      child:
+                                                      // general.imgurl! == 'imgurl' || general.imgurl! == null
+                                                      //     // images/profilepic.png
+                                                      //     ? Icon(
+                                                      //   Icons.person,
+                                                      //   color: ColorManager.bluelight,
+                                                      //   size: AppSize.s50,
+                                                      // )
+                                                      //     :
+                                                      ClipOval(
                                                         child: CachedNetworkImage(
                                                           imageUrl: general.imgurl!,
                                                           placeholder: (context, url) => CircularProgressIndicator(),
