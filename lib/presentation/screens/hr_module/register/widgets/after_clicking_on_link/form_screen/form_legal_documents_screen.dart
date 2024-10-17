@@ -304,7 +304,8 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(children: [
+        child: Column(
+            children: [
       Container(
           child: Padding(
         padding: const EdgeInsets.only(left: 166, right: 166),
@@ -535,7 +536,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         },
                       ),
                     );
-
 
                     //   Container(
                     //   height: MediaQuery.of(context).size.height/1,
