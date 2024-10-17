@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -9,11 +11,9 @@ import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
 
 class DirectDepositeSignPopup extends StatefulWidget {
-  final String documentName;
   final int employeeId;
   final int htmlFormTemplateId;
-  final String htmlFormData;
-  const DirectDepositeSignPopup({super.key, required this.documentName, required this.employeeId, required this.htmlFormTemplateId, required this.htmlFormData});
+  const DirectDepositeSignPopup({super.key, required this.employeeId, required this.htmlFormTemplateId,});
 
   @override
   State<DirectDepositeSignPopup> createState() => _DirectDepositeSignPopupState();
@@ -282,20 +282,27 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
               setState(() {
                 loading = true;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                documentName: widget.documentName,
-                onPressed: () {
+              DirectDepositDocuemnt directDepositDocuemnt = await getDirectDepositDocument(context: context, employeeId: widget.employeeId, templateId: widget.htmlFormTemplateId, action1:actionController.text, type1: typeController.text,
+                bankNameAndAddress: bankNameController.text, routingOrtransit1: rountingController.text, account1: accountController.text, amount1: amountController.text, action2: action2Controller.text, type2: type2Controller.text, bankNameAndaddress2: bankName2Controller.text,
+                routingOrtransit2: rounting2Controller.text, account2: account2Controller.text, amount2: amount2Controller.text, );
+              if(directDepositDocuemnt.statusCode == 200 || directDepositDocuemnt.statusCode == 201){
 
-                },
-                htmlFormData: widget.htmlFormData,
-                employeeId: widget.employeeId,//widget.employeeID,
-                htmlFormTemplateId: widget.htmlFormTemplateId,)
-              ));
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                  documentName: directDepositDocuemnt.name,
+                  onPressed: () {
+
+                  },
+                  htmlFormData: directDepositDocuemnt.html,
+                  employeeId: widget.employeeId,//widget.employeeID,
+                  htmlFormTemplateId: directDepositDocuemnt.directDepositDocuemntId,)));
+              }
+
 
             };
             //finally {
             setState(() {
               loading = false;
+              Navigator.pop(context);
             });
             // }
           }
