@@ -631,29 +631,31 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    ///print
                                                     IconButton(
                                                       onPressed: () {
-                                                        print(
-                                                            "FileExtension:${fileExtension}");
-                                                        DowloadFile()
-                                                            .downloadPdfFromBase64(
-                                                                fileExtension,
-                                                                "Medical Cost Report.pdf");
+                                                        print("FileExtension:${fileExtension}");
+                                                        // DowloadFile()
+                                                        //     .downloadPdfFromBase64(
+                                                        //     fileExtension,
+                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon:  Icon(
-                                                          Icons
-                                                              .save_alt_outlined,
-                                                          size: IconSize.I18,
-                                                          color: IconColorManager
-                                                              .bluebottom),
+                                                      icon: Icon(
+                                                        Icons
+                                                            .print_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                      ),
                                                       splashColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                       highlightColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                       hoverColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                     ),
+                                                    ///download saloni
+                                                    PdfDownloadButton(apiUrl: MedicalCostReport.docurl,
+                                                        documentName: MedicalCostReport.docName!),
 
                                                     IconButton(
                                                       onPressed: () {

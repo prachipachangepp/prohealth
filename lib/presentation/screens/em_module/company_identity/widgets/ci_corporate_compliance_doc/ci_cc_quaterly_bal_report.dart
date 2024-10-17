@@ -248,22 +248,21 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
 
                                                     ),
 
+                                                    ///print
                                                     IconButton(
                                                       onPressed: () {
-                                                        print(
-                                                            "FileExtension:${fileExtension}");
-                                                        DowloadFile()
-                                                            .downloadPdfFromBase64(
-                                                            fileExtension,
-                                                            "Quarterly Balance Report.pdf");
+                                                        print("FileExtension:${fileExtension}");
+                                                        // DowloadFile()
+                                                        //     .downloadPdfFromBase64(
+                                                        //     fileExtension,
+                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
-                                                      icon:  Icon(
-                                                          Icons
-                                                              .save_alt_outlined,
-                                                          size: IconSize.I18,
-                                                          color: IconColorManager
-                                                              .bluebottom),
+                                                      icon: Icon(
+                                                        Icons
+                                                            .print_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                      ),
                                                       splashColor:
                                                       Colors.transparent,
                                                       highlightColor:
@@ -271,6 +270,9 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                       hoverColor:
                                                       Colors.transparent,
                                                     ),
+                                                    ///download saloni
+                                                    PdfDownloadButton(apiUrl: balReport.docurl,
+                                                        documentName: balReport.docName!),
 
                                                     IconButton(
                                                       onPressed: () {

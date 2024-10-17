@@ -261,29 +261,31 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    ///print
                                                     IconButton(
                                                       onPressed: () {
-                                                        print(
-                                                            "FileExtension:${fileExtension}");
-                                                        DowloadFile()
-                                                            .downloadPdfFromBase64(
-                                                                fileExtension,
-                                                                "Cap Report.pdf");
+                                                        print("FileExtension:${fileExtension}");
+                                                        // DowloadFile()
+                                                        //     .downloadPdfFromBase64(
+                                                        //     fileExtension,
+                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
-                                                          Icons
-                                                              .save_alt_outlined,
-                                                          size: IconSize.I18,
-                                                          color: IconColorManager
-                                                              .bluebottom),
+                                                        Icons
+                                                            .print_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                      ),
                                                       splashColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                       highlightColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                       hoverColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                     ),
+                                                    ///download saloni
+                                                    PdfDownloadButton(apiUrl: CapReports.docurl,
+                                                        documentName: CapReports.docName!),
 
                                                     IconButton(
                                                       onPressed: () {
