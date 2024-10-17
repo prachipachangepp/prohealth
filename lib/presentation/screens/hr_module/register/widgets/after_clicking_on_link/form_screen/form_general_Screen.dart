@@ -323,9 +323,9 @@ class _generalFormState extends State<generalForm> {
                             1,
                             ssecuritynumber.text,
                             phonenumber.text,
-                            '1234',
-                            '1234',
-                            'Robert Tech Services',
+                            '',
+                            '',
+                            '',
                             personalemail.text,
                             personalemail.text,
                             address.text,
@@ -335,7 +335,7 @@ class _generalFormState extends State<generalForm> {
                             'employment',
                             gendertype.toString(),
                             'Partial',
-                            'service',
+                            '',
                             'imgurl',
                             'resumeurl',
                             companyId,
@@ -464,7 +464,7 @@ class _generalFormState extends State<generalForm> {
                                 FilePickerResult? result =
                                 await FilePicker.platform.pickFiles(
                                     type: FileType.custom,
-                                    allowedExtensions: ['svg','jpeg']
+                                    allowedExtensions: ['svg','jpeg','jpg','png']
                                 );
 
                                 if (result != null) {
@@ -717,7 +717,7 @@ class _generalFormState extends State<generalForm> {
                             children: [
                               CustomRadioListTile(
                                 title: 'Male',
-                                value: 'male',
+                                value: 'Male',
                                 groupValue: gendertype,
                                 onChanged: (value) {
                                   setState(() {

@@ -890,7 +890,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               // width: 320,
                                               // height: 40,
                                               controller: TextEditingController(text:""),
-                                              items: ['item 1', 'item 2'],
+                                              items: [],
                                               // labelText: 'Reporting Office',
                                               labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                 color: const Color(0xff575757),
