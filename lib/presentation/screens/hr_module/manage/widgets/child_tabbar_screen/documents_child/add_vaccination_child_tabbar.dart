@@ -231,7 +231,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     },
                                     icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
-                                  //PdfDownloadButton(apiUrl: health.DocumentUrl),
+                                  PdfDownloadButton(apiUrl: health.DocumentUrl, documentName: health.documentFileName,),
                                   ///
                                   IconButton(
                                     onPressed: () {

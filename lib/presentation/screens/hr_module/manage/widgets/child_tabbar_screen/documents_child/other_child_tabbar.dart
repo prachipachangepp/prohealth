@@ -228,7 +228,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     },
                                     icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
-                                  //PdfDownloadButton(apiUrl: others.DocumentUrl),
+                                  PdfDownloadButton(apiUrl: others.DocumentUrl, documentName: others.documentFileName,),
                                   IconButton(
                                     splashColor:
                                     Colors.transparent,

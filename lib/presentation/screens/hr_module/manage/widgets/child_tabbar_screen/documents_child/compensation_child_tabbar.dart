@@ -262,7 +262,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                     ),
-                                   // PdfDownloadButton(apiUrl: compaensation.DocumentUrl),
+                                    PdfDownloadButton(apiUrl: compaensation.DocumentUrl, documentName: compaensation.documentFileName,),
                                     ///
                                     IconButton(
                                       splashColor: Colors.transparent,
