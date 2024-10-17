@@ -269,7 +269,7 @@ class _CiSnfState extends State<CiSnf> {
                                                       },
                                                       icon:Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                           size: IconSize.I18,
                                                           color: IconColorManager
                                                               .bluebottom),
@@ -280,6 +280,8 @@ class _CiSnfState extends State<CiSnf> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    PdfDownloadButton(apiUrl: snfData.docurl,
+                                                        documentName: snfData.docName!),
 
                                                     IconButton(
                                                       onPressed: () {
