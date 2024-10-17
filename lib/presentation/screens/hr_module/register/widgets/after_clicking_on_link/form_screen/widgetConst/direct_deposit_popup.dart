@@ -193,7 +193,7 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
 
                  SizedBox(height: AppSize.s6),
                   SMTextFConst(
-                    controller: typeController,
+                    controller: type2Controller,
                     keyboardType: TextInputType.text,
                     text: 'Type 2',
                   ),
@@ -286,7 +286,7 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
                 bankNameAndAddress: bankNameController.text, routingOrtransit1: rountingController.text, account1: accountController.text, amount1: amountController.text, action2: action2Controller.text, type2: type2Controller.text, bankNameAndaddress2: bankName2Controller.text,
                 routingOrtransit2: rounting2Controller.text, account2: account2Controller.text, amount2: amount2Controller.text, );
               if(directDepositDocuemnt.statusCode == 200 || directDepositDocuemnt.statusCode == 201){
-
+                Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                   documentName: directDepositDocuemnt.name,
                   onPressed: () {
@@ -302,7 +302,7 @@ class _DirectDepositeSignPopupState extends State<DirectDepositeSignPopup> {
             //finally {
             setState(() {
               loading = false;
-              Navigator.pop(context);
+             // Navigator.pop(context);
             });
             // }
           }

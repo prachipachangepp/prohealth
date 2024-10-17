@@ -8,8 +8,6 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
@@ -23,8 +21,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
@@ -226,56 +222,13 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     Colors.transparent,
                                     hoverColor:
                                     Colors.transparent,
-                                    onPressed: () async{
-                                      try{
-                                        final String token = await TokenManager.getAccessToken();
-                                        var response = await http.get(Uri.file(others.DocumentUrl),headers: {
-                                          'accept': 'application/json',
-                                          'Authorization': 'Bearer $token',
-                                          'Content-Type': 'application/json'
-                                        },);
-
-                                        if (response.statusCode == 200) {
-                                          final String content = response.body;
-
-                                          final pdf = pw.Document();
-
-                                          pdf.addPage(
-                                            pw.Page(
-                                              build: (pw.Context context) => pw.Center(
-                                                child: pw.Text(content),
-                                              ),
-                                            ),
-                                          );
-
-                                          await Printing.layoutPdf(
-                                            onLayout: (PdfPageFormat format) async => pdf.save(),
-                                          );
-                                        } else {
-                                          // Handle error
-                                          print('Failed to load document');
-                                        }
-
-                                      }catch(e){
-                                        print('Error ${e}');
-
-                                      }
-                                    },
-                                    icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                                    iconSize: 20,),
-                                  IconButton(
-                                    splashColor:
-                                    Colors.transparent,
-                                    highlightColor:
-                                    Colors.transparent,
-                                    hoverColor:
-                                    Colors.transparent,
                                     onPressed: () {
                                       DowloadFile().downloadPdfFromBase64(fileExtension,"Other");
                                       downloadFile(fileUrl);
                                     },
-                                    icon: const Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
+                                    icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
+                                  //PdfDownloadButton(apiUrl: others.DocumentUrl),
                                   IconButton(
                                     splashColor:
                                     Colors.transparent,
