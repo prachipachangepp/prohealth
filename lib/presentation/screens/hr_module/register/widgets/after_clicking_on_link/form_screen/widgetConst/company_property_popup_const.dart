@@ -114,7 +114,8 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                 setState(() {
                   loading = true;
                 });
-                ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context, employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId);
+                ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context,
+                    employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId, companyProperty: companyController.text, specifications: specificationController.text, supervisorName: supervisorController.text);
                 if(returnOfCompanyProperty.statusCode == 200 || returnOfCompanyProperty.statusCode == 201){
                   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                     documentName: returnOfCompanyProperty.name,

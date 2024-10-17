@@ -240,6 +240,15 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: proDocument.proDocumentId,)));
     }
+    else if(htmlName == AppStringLegalDocument.proHealthCellPhone){
+      ProHealthCellPhoneStatement proHealthCellPhoneStatement = await getProHealthCellPhoneStatementDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: proHealthCellPhoneStatement.name,
+        onPressed: () {  },
+        htmlFormData: proHealthCellPhoneStatement.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: proHealthCellPhoneStatement.proHealthCellPhoneStatementId,)));
+    }
     else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
       showDialog(context: context, builder: (BuildContext context){
         return CompanyPropertySignPopup(
