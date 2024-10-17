@@ -15,6 +15,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/candidate_release_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/direct_deposit_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/company_property_popup_const.dart';
 
@@ -240,6 +241,15 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: proDocument.proDocumentId,)));
     }
+    else if(htmlName == AppStringLegalDocument.proHealthCellPhone){
+      ProHealthCellPhoneStatement proHealthCellPhoneStatement = await getProHealthCellPhoneStatementDocument(context: context, employeeId: widget.employeeID,templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: proHealthCellPhoneStatement.name,
+        onPressed: () {  },
+        htmlFormData: proHealthCellPhoneStatement.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: proHealthCellPhoneStatement.proHealthCellPhoneStatementId,)));
+    }
     else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
       showDialog(context: context, builder: (BuildContext context){
         return CompanyPropertySignPopup(
@@ -295,6 +305,12 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       //   htmlFormData: covidVaccineDocuemnt.html,
       //   employeeId: widget.employeeID,//widget.employeeID,
       //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.directDeposit){
+
+      showDialog(context: context, builder: (BuildContext context){
+        return DirectDepositeSignPopup(employeeId:  widget.employeeID, htmlFormTemplateId: id,);
+      });
     }
     else{
 

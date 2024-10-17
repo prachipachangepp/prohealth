@@ -362,10 +362,10 @@ class AppStringLegalDocument {
   static const String policyConcerning = 'Policy concerning third party';
   static const String reportOfAbuse = 'reporting abuse';
   static const String personalOrientation = 'Personal orientation';
-  static const String directDeposit = 'Direct Deposit';
+  static const String directDeposit = 'Direct-Deposit';
   static const String standardOfCodeOfConduct = 'Standard of code of conduct';
   static const String sexualHarassmentPolicy = 'california-sexual-harassment';
-  static const String sexualHarassmentPolicyACK = 'Sexual Harassment policy acknowledgment';
+  static const String sexualHarassmentPolicyACK = 'Sexual harassment policy acknowledgment';
   static const String preAuthorization = 'Pre Authorization';
   static const String prop65 = 'prop-65';
   static const String returnOfcompanyProperty = 'Return of company property';
@@ -376,4 +376,5 @@ class AppStringLegalDocument {
   static const String i9 = 'i9';
   static const String w4 = 'W4';
   static const String employeeHandbook = 'Employee Handbook';
+  static const String proHealthCellPhone = "Data-Cell_Agreement";
 }

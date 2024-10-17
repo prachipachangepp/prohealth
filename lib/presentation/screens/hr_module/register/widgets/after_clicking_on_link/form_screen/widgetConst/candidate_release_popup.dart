@@ -148,6 +148,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   candidateReleaseFormhtmlId: widget.htmlFormTemplateId, middleName: middleNameController.text, maindenSurnameAlisa: maidenSurnameController.text, currentAddress: addressController.text,
                   stateIssuingLicense: stateLicenseController.text, fullName: fullNameController.text);
               if(candidateRealeaseDocument.statusCode == 200 || candidateRealeaseDocument.statusCode == 201){
+                Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                   documentName: candidateRealeaseDocument.name,
                   onPressed: () {

@@ -105,3 +105,20 @@ class CovidVaccineDocuemnt{
   final String html;
   CovidVaccineDocuemnt({required this.covidVaccineDocuemntId, required this.name, required this.html});
 }
+
+class DirectDepositDocuemnt{
+  final int directDepositDocuemntId;
+  final String name;
+  final String html;
+  final int statusCode;
+  DirectDepositDocuemnt({required this.statusCode,required this.directDepositDocuemntId, required this.name, required this.html});
+}
+
+
+class ProHealthCellPhoneStatement{
+  final int proHealthCellPhoneStatementId;
+  final String name;
+  final String html;
+  final int statusCode;
+  ProHealthCellPhoneStatement({required this.statusCode,required this.proHealthCellPhoneStatementId, required this.name, required this.html});
+}
