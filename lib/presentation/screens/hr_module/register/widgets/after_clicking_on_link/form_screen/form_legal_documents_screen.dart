@@ -305,6 +305,17 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       //   employeeId: widget.employeeID,//widget.employeeID,
       //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
+    else if(htmlName == AppStringLegalDocument.directDeposit){
+      DirectDepositDocuemnt directDepositDocuemnt = await getDirectDepositDocument(context: context, employeeId: widget.employeeID, templateId: id, action1: '', type1: '',
+        bankNameAndAddress: '', routingOrtransit1: '', account1: '', amount1: '', action2: '', type2: '', bankNameAndaddress2: '',
+        routingOrtransit2: '', account2: '', amount2: '', );
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: directDepositDocuemnt.name,
+        onPressed: () {  },
+        htmlFormData: directDepositDocuemnt.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: directDepositDocuemnt.directDepositDocuemntId,)));
+    }
     else{
 
     }
