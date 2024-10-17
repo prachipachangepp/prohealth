@@ -59,7 +59,7 @@ class McqWidget extends StatelessWidget {
         Row(
           children: [
             Obx(() => Transform.scale(
-              scale: 0.7,
+              scale: 1,
               child: Radio(
                 value: i,
                 groupValue: selectedItemIndex.value,
@@ -71,7 +71,7 @@ class McqWidget extends StatelessWidget {
                 focusColor: ColorManager.mediumgrey,
                 hoverColor: ColorManager.mediumgrey,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                splashRadius: 7.0,
+                splashRadius: 0,
               ),
             )),
             Text(

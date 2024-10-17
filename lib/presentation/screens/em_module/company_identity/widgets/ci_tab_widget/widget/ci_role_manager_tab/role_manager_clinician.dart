@@ -79,73 +79,73 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       style: AllPopupHeadings.customTextStyle(context),
                     ),
                     const SizedBox(height: 4),
-                    FutureBuilder<List<RoleManagerData>>(
-                        future: roleManagerDataGet(context),
-                        builder: (context,snapshot) {
-                          if(snapshot.connectionState == ConnectionState.waiting){
-                            return Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: AppSize.s350,
-                                  height: AppSize.s30,
-                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                )
-                            );
-                          }
-                          if (snapshot.data!.isEmpty) {
-                            return Center(
-                              child: Text(
-                               ErrorMessageString.noSDepartment,
-                               // AppString.dataNotFound,
-                                style: AllNoDataAvailable.customTextStyle(context),
-                              ),
-                            );
-                          }
-                          if(snapshot.hasData){
-                            List dropDown = [];
-                            int docType = 0;
-                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                            for(var i in snapshot.data!){
-                              dropDownMenuItems.add(
-                                DropdownMenuItem<String>(
-                                  child: Text(i.deptName),
-                                  value: i.deptName,
-                                ),
-                              );
-                            }
-                            return CICCDropdown(
-                                initialValue: selectedDept,
-                                onChange: (val){
-                                  for(var a in snapshot.data!){
-                                    if(a.deptName == val){
-                                      docType = a.deptID;
-                                      DepartmentId = docType;
-
-                                    }
-                                  }
-                                  roleManagerGetByDepartmentID(context, DepartmentId).then((data){
-                                    empTypeController.add(data);
-                                  }).catchError((error){});
-                                  setState(() {
-                                    selectedDept = val;
-                                    isDeptSelected = true;
-                                    selectedEmpType = null;
-                                  });
-
-                                  print(":::${docType}");
-                                  print(":::<>${DepartmentId}");
-                                },
-                                items:dropDownMenuItems
-                            );
-                          }else{
-                            return SizedBox();
-                          }
-                        }
-                    ),
+                    // FutureBuilder<List<RoleManagerData>>(
+                    //     future: roleManagerDataGet(context),
+                    //     builder: (context,snapshot) {
+                    //       if(snapshot.connectionState == ConnectionState.waiting){
+                    //         return Shimmer.fromColors(
+                    //             baseColor: Colors.grey[300]!,
+                    //             highlightColor: Colors.grey[100]!,
+                    //             child: Container(
+                    //               width: AppSize.s350,
+                    //               height: AppSize.s30,
+                    //               decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                    //             )
+                    //         );
+                    //       }
+                    //       if (snapshot.data!.isEmpty) {
+                    //         return Center(
+                    //           child: Text(
+                    //            ErrorMessageString.noSDepartment,
+                    //            // AppString.dataNotFound,
+                    //             style: AllNoDataAvailable.customTextStyle(context),
+                    //           ),
+                    //         );
+                    //       }
+                    //       if(snapshot.hasData){
+                    //         List dropDown = [];
+                    //         int docType = 0;
+                    //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                    //         for(var i in snapshot.data!){
+                    //           dropDownMenuItems.add(
+                    //             DropdownMenuItem<String>(
+                    //               child: Text(i.deptName),
+                    //               value: i.deptName,
+                    //             ),
+                    //           );
+                    //         }
+                    //         return CICCDropdown(
+                    //             initialValue: selectedDept,
+                    //             onChange: (val){
+                    //               for(var a in snapshot.data!){
+                    //                 if(a.deptName == val){
+                    //                   docType = a.deptID;
+                    //                   DepartmentId = docType;
+                    //
+                    //                 }
+                    //               }
+                    //               roleManagerGetByDepartmentID(context, DepartmentId).then((data){
+                    //                 empTypeController.add(data);
+                    //               }).catchError((error){});
+                    //               setState(() {
+                    //                 selectedDept = val;
+                    //                 isDeptSelected = true;
+                    //                 selectedEmpType = null;
+                    //               });
+                    //
+                    //               print(":::${docType}");
+                    //               print(":::<>${DepartmentId}");
+                    //             },
+                    //             items:dropDownMenuItems
+                    //         );
+                    //       }else{
+                    //         return SizedBox();
+                    //       }
+                    //     }
+                    // ),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                SizedBox(width: MediaQuery.of(context).size.width / 18),
                 if(isDeptSelected)
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -219,7 +219,6 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                 ),
               ],
             ),
-
             SizedBox(height: AppSize.s20),
             /// row 1
             StreamBuilder<List<ModuleMetaData>>(

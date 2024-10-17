@@ -261,127 +261,231 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 padding: const EdgeInsets.only(right: 23,top:10),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [StatefulBuilder(
+                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(right:20),
+                                              child: Row(
+                                                children: [
+                                                  // Show the picked image or the network image
+                                                  pickedFilePath
+                                                      ? Container(
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black.withOpacity(0.2),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 5,
+                                                          offset: const Offset(0, 3), // Shadow position
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: CircleAvatar(
+                                                      radius: 20, // Adjust the size of the avatar
+                                                      backgroundColor: ColorManager.faintGrey,
+                                                      child: ClipOval(
+                                                        child: Image.memory(
+                                                          finalPath!, // Display the selected image from gallery
+                                                          fit: BoxFit.cover, // Ensure the image fills the avatar
+                                                          width: double.infinity, // Ensures the image fills the avatar width
+                                                          height: double.infinity, // Ensures the image fills the avatar height
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                      : profileData.imgurl == null
+                                                      ? const Text('') // Display nothing if no image is available
+                                                      : Container(
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black.withOpacity(0.2),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 5,
+                                                          offset: const Offset(0, 3), // Shadow position
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: CircleAvatar(
+                                                      radius: 20, // Adjust the size of the avatar
+                                                      backgroundColor: ColorManager.faintGrey,
+                                                      child: ClipOval(
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: profileData.imgurl,
+                                                          fit: BoxFit.cover, // Ensures the image fills the avatar
+                                                          width: double.infinity, // Ensures the image fills the avatar width
+                                                          height: double.infinity, // Ensures the image fills the avatar height
+                                                          placeholder: (context, url) =>
+                                                          const CircularProgressIndicator(),
+                                                          errorWidget: (context, url, error) =>
+                                                          const Icon(Icons.error),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  // Custom icon button for uploading files
+                                                  CustomIconButton(
+                                                    icon: Icons.upload_outlined,
+                                                    text: AppString.photo,
+                                                    onPressed: () async {
+                                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                                        allowMultiple: true,
+                                                        type: FileType.custom, // Custom type to specify allowed extensions
+                                                        allowedExtensions: [
+                                                          'png',
+                                                          'jpg',
+                                                          'jpeg',
+                                                        ],
+                                                      );
+                                                      if (result != null) {
+                                                        print("Result::: ${result}");
 
-                                      ProfileEditCancelButton(
-                                        height: AppSize.s30,
-                                        width: AppSize.s100,
-                                        text: AppString.cancel,
-                                        onPressed: () {
-                                          print("Edit Mode Cancel :::::::::::::::::::::::############");
-                                          widget.onCancel();
-                                        },
-                                      ),
-
-
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    CustomButton(
-                                      height: AppSize.s30,
-                                      width: AppSize.s100,
-                                      onPressed: () async {
-                                        try {
-                                          var response = await patchEmployeeEdit(
-                                            context: context,
-                                            employeeId: widget.employeeId,
-                                            code: profileData.code,
-                                            userId: profileData.userId,
-                                            firstName: nameController.text,
-                                            lastName: profileData.lastName,
-                                            departmentId: profileData.departmentId,
-                                            employeeTypeId:
-                                            profileData.employeeTypeId,
-                                            expertise: 'Expert',
-                                            cityId: profileData.cityId,
-                                            countryId: profileData.countryId,
-                                            countyId: profileData.countyId,
-                                            zoneId: profileData.zoneId,
-                                            SSNNbr: ssNController.text,
-                                            primaryPhoneNbr: phoneNController.text,
-                                            secondryPhoneNbr:
-                                            profileData.secondryPhoneNbr,
-                                            workPhoneNbr: workPhoneController.text,
-                                            regOfficId: selectedOfficeId ?? profileData.regOfficId,
-                                            personalEmail: personalEmailController.text,
-                                            workEmail: workEmailController.text,
-                                            address: addressController.text,
-                                            dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
-                                            emergencyContact:
-                                            profileData.emergencyContact,
-                                            covreage: profileData.covreage,
-                                            employment: profileData.employment,
-                                            gender: selectedGenderId ?? genderController.text,
-                                            status: profileData.status,
-                                            service: selectedServiceId ?? serviceController.text,
-                                            summary: summaryController.text,
-                                            imgurl: profileData.imgurl,
-                                            resumeurl: profileData.resumeurl,
-                                            // companyId: 1,
-                                            onboardingStatus: profileData.onboardingStatus,
-                                            driverLicenceNbr: profileData.driverLicenceNbr,
-                                            dateofTermination: profileData.dateofTermination,
-                                            dateofResignation: profileData.dateofResignation,
-                                            dateofHire: profileData.dateofHire,
-                                            rehirable: profileData.rehirable,
-                                            position: profileData.position,
-                                            finalAddress: addressController.text,
-                                            type: profileData.type,
-                                            reason: profileData.reason,
-                                            finalPayCheck: profileData.finalPayCheck,
-                                            checkDate: profileData.checkDate,
-                                            grossPay: profileData.grossPay,
-                                            netPay: profileData.netPay,
-                                            methods: profileData.methods,
-                                            materials: profileData.materials,
-                                            race: profileData.race,
-                                            rating: profileData.rating,
-                                            signatureURL: profileData.signatureURL,
-                                          );
-                                          if(response.statusCode == 200 || response.statusCode == 201){
-                                        // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-                                          showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                          return const AddSuccessPopup(
-                                          message: 'Employee updated successfully',
-                                          );
+                                                        try {
+                                                          print('File picked: ${fileName}');
+                                                          setState(() {
+                                                            pickedFilePath = true;
+                                                            fileName = result.files.first.name;
+                                                            finalPath = result.files.first.bytes; // Store the picked file bytes
+                                                          });
+                                                        } catch (e) {
+                                                          print(e);
+                                                        }
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            );
                                           },
-                                          );
-                                          ///
-                                          //   if (patchCoverage.success) {
-                                          //     print("Coverage added successfully");
-                                          //   } else {
-                                          //     print("Failed To Add Coverage........");
-                                          //   }
-                                            if(pickedFilePath){
-                                              var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
-                                            }else{
-                                              print('Document Error');
-                                            }
-                                          }
-                                          widget.onCancel();
-                                          nameController.clear();
-                                          deptController.clear();
-                                          empTypeController.clear();
-                                          addressController.clear();
-                                          ageController.clear();
-                                          ssNController.clear();
-                                          phoneNController.clear();
-                                          workPhoneController.clear();
-                                          personalEmailController.clear();
-                                          workEmailController.clear();
-                                          countyController.clear();
-                                          serviceController.clear();
-                                          zoneController.clear();
-                                          summaryController.clear();
-                                        } catch (e) {
-                                          print(e);
-                                        }
-                                      },
-                                      text: 'Save',
-                                    ),
+                                                                              ),]
+                                        ),
+                                      ),
+                                     Row(
+                                       children: [
+                                         ProfileEditCancelButton(
+                                           height: AppSize.s30,
+                                           width: AppSize.s100,
+                                           text: AppString.cancel,
+                                           onPressed: () {
+                                             print("Edit Mode Cancel :::::::::::::::::::::::############");
+                                             widget.onCancel();
+                                           },
+                                         ),
+                                         SizedBox(width: 10,),
+                                         CustomButton(
+                                           height: AppSize.s30,
+                                           width: AppSize.s100,
+                                           onPressed: () async {
+                                             try {
+                                               var response = await patchEmployeeEdit(
+                                                 context: context,
+                                                 employeeId: widget.employeeId,
+                                                 code: profileData.code,
+                                                 userId: profileData.userId,
+                                                 firstName: nameController.text,
+                                                 lastName: profileData.lastName,
+                                                 departmentId: profileData.departmentId,
+                                                 employeeTypeId:
+                                                 profileData.employeeTypeId,
+                                                 expertise: 'Expert',
+                                                 cityId: profileData.cityId,
+                                                 countryId: profileData.countryId,
+                                                 countyId: profileData.countyId,
+                                                 zoneId: profileData.zoneId,
+                                                 SSNNbr: ssNController.text,
+                                                 primaryPhoneNbr: phoneNController.text,
+                                                 secondryPhoneNbr:
+                                                 profileData.secondryPhoneNbr,
+                                                 workPhoneNbr: workPhoneController.text,
+                                                 regOfficId: selectedOfficeId ?? profileData.regOfficId,
+                                                 personalEmail: personalEmailController.text,
+                                                 workEmail: workEmailController.text,
+                                                 address: addressController.text,
+                                                 dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
+                                                 emergencyContact:
+                                                 profileData.emergencyContact,
+                                                 covreage: profileData.covreage,
+                                                 employment: profileData.employment,
+                                                 gender: selectedGenderId ?? genderController.text,
+                                                 status: profileData.status,
+                                                 service: selectedServiceId ?? serviceController.text,
+                                                 summary: summaryController.text,
+                                                 imgurl: profileData.imgurl,
+                                                 resumeurl: profileData.resumeurl,
+                                                 // companyId: 1,
+                                                 onboardingStatus: profileData.onboardingStatus,
+                                                 driverLicenceNbr: profileData.driverLicenceNbr,
+                                                 dateofTermination: profileData.dateofTermination,
+                                                 dateofResignation: profileData.dateofResignation,
+                                                 dateofHire: profileData.dateofHire,
+                                                 rehirable: profileData.rehirable,
+                                                 position: profileData.position,
+                                                 finalAddress: addressController.text,
+                                                 type: profileData.type,
+                                                 reason: profileData.reason,
+                                                 finalPayCheck: profileData.finalPayCheck,
+                                                 checkDate: profileData.checkDate,
+                                                 grossPay: profileData.grossPay,
+                                                 netPay: profileData.netPay,
+                                                 methods: profileData.methods,
+                                                 materials: profileData.materials,
+                                                 race: profileData.race,
+                                                 rating: profileData.rating,
+                                                 signatureURL: profileData.signatureURL,
+                                               );
+                                               if(response.statusCode == 200 || response.statusCode == 201){
+                                                 // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+                                                 showDialog(
+                                                   context: context,
+                                                   builder: (BuildContext context) {
+                                                     return const AddSuccessPopup(
+                                                       message: 'Employee updated successfully',
+                                                     );
+                                                   },
+                                                 );
+                                                 ///
+                                                 //   if (patchCoverage.success) {
+                                                 //     print("Coverage added successfully");
+                                                 //   } else {
+                                                 //     print("Failed To Add Coverage........");
+                                                 //   }
+                                                 if(pickedFilePath){
+                                                   var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
+                                                 }else{
+                                                   print('Document Error');
+                                                 }
+                                               }
+                                               widget.onCancel();
+                                               nameController.clear();
+                                               deptController.clear();
+                                               empTypeController.clear();
+                                               addressController.clear();
+                                               ageController.clear();
+                                               ssNController.clear();
+                                               phoneNController.clear();
+                                               workPhoneController.clear();
+                                               personalEmailController.clear();
+                                               workEmailController.clear();
+                                               countyController.clear();
+                                               serviceController.clear();
+                                               zoneController.clear();
+                                               summaryController.clear();
+                                             } catch (e) {
+                                               print(e);
+                                             }
+                                           },
+                                           text: 'Save',
+                                         ),
+                                       ],
+                                     )
                                   ],
                                 ),
                               ),
@@ -399,106 +503,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         style: EditProfile.customEditTextStyle(),
                                       ),
                                     ),
-                                    StatefulBuilder(
-                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(right:20),
-                                          child: Row(
-                                            children: [
-                                              // Show the picked image or the network image
-                                              pickedFilePath
-                                                  ? Container(
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black.withOpacity(0.2),
-                                                      spreadRadius: 2,
-                                                      blurRadius: 5,
-                                                      offset: const Offset(0, 3), // Shadow position
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: CircleAvatar(
-                                                  radius: 20, // Adjust the size of the avatar
-                                                  backgroundColor: ColorManager.faintGrey,
-                                                  child: ClipOval(
-                                                    child: Image.memory(
-                                                      finalPath!, // Display the selected image from gallery
-                                                      fit: BoxFit.cover, // Ensure the image fills the avatar
-                                                      width: double.infinity, // Ensures the image fills the avatar width
-                                                      height: double.infinity, // Ensures the image fills the avatar height
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                                  : profileData.imgurl == null
-                                                  ? const Text('') // Display nothing if no image is available
-                                                  : Container(
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black.withOpacity(0.2),
-                                                      spreadRadius: 2,
-                                                      blurRadius: 5,
-                                                      offset: const Offset(0, 3), // Shadow position
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: CircleAvatar(
-                                                  radius: 20, // Adjust the size of the avatar
-                                                  backgroundColor: ColorManager.faintGrey,
-                                                  child: ClipOval(
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: profileData.imgurl,
-                                                      fit: BoxFit.cover, // Ensures the image fills the avatar
-                                                      width: double.infinity, // Ensures the image fills the avatar width
-                                                      height: double.infinity, // Ensures the image fills the avatar height
-                                                      placeholder: (context, url) =>
-                                                          const CircularProgressIndicator(),
-                                                      errorWidget: (context, url, error) =>
-                                                          const Icon(Icons.error),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 10),
-                                              // Custom icon button for uploading files
-                                              CustomIconButton(
-                                                icon: Icons.upload_outlined,
-                                                text: AppString.photo,
-                                                onPressed: () async {
-                                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                                    allowMultiple: true,
-                                                    type: FileType.custom, // Custom type to specify allowed extensions
-                                                    allowedExtensions: [
-                                                      'png',
-                                                      'jpg',
-                                                      'jpeg',
-                                                    ],
-                                                  );
-                                                  if (result != null) {
-                                                    print("Result::: ${result}");
 
-                                                    try {
-                                                      print('File picked: ${fileName}');
-                                                      setState(() {
-                                                        pickedFilePath = true;
-                                                        fileName = result.files.first.name;
-                                                        finalPath = result.files.first.bytes; // Store the picked file bytes
-                                                      });
-                                                    } catch (e) {
-                                                      print(e);
-                                                    }
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    )
                                   ],
                                 ),
                               ),

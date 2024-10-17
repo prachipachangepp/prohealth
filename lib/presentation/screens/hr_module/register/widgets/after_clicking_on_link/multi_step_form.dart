@@ -35,7 +35,6 @@ class _MultiStepFormState extends State<MultiStepForm> {
   double textFieldHeight = 38;
 
   TextEditingController firstName = TextEditingController();
-
   ///
   // TextEditingController _controller = TextEditingController();
   // TextEditingController _controllerIssueDate = TextEditingController();
@@ -162,29 +161,30 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               //   ),
                               //   icon: const Icon(Icons.arrow_back,  size: 16,),
                               // )
-
-
                               Container(
                                 width: 20,
                                 height: 20,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
+                                  color:ColorManager.blueprime,
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
                                     color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                    width: 0.79,
+                                    // width: 0.79,
                                   ),
                                 ),
-                                child: IconButton(
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  padding: EdgeInsets.only(bottom: 1.5),
-                                  icon: Icon(Icons.chevron_left),
-                                  onPressed:  details.onStepCancel,
-                                  color: Colors.black,
-                                  iconSize: 20,
+                                child: Center(
+                                  child: IconButton(
+                                    splashColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    padding: EdgeInsets.only(bottom: 1.5),
+                                    icon: Icon(Icons.chevron_left),
+                                    onPressed:  details.onStepCancel,
+                                    color: Colors.white,
+                                    iconSize: 20,
+                                  ),
                                 ),
                               ),
                               // InkWell(
@@ -203,37 +203,34 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             const SizedBox(
                               width: 60,
                             ),
-
-
-
-
                             Container(
                               width: 20,
                               height: 20,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
+                                color:ColorManager.blueprime,
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(4),
                                 border: Border.all(
                                   color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                  width: 0.79,
+                                  // width: 0.79,
                                 ),
                               ),
-                              child: IconButton(
-                                splashColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                padding: EdgeInsets.only(bottom: 1.5),
-                                icon: Icon(Icons.chevron_right),
-                                onPressed:()async{
-                                  isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
-                                },
-                                color: Colors.black,
-                                iconSize: 20,
+                              child: Center(
+                                child: IconButton(
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  padding: EdgeInsets.only(bottom: 1.5),
+                                  icon: Icon(Icons.chevron_right),
+                                  onPressed:()async{
+                                    isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
+                                  },
+                                  color: Colors.white,
+                                  iconSize: 20,
+                                ),
                               ),
                             ),
-
-
                             // InkWell(
                             //     splashColor: Colors.transparent,
                             //     highlightColor: Colors.transparent,
@@ -422,167 +419,5 @@ class _MultiStepFormState extends State<MultiStepForm> {
       content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,),
     ),
   ];
-
-// blueprime
-//   List<Step> steps() => [
-//         Step(
-//             state: _currentStep <= 0 ? StepState.editing : StepState.complete,
-//             isActive: _currentStep >= 0,
-//             title: Text(
-//               'General',
-//               style: GoogleFonts.firaSans(
-//                 fontSize: 12,
-//                 fontWeight: FontWeight.w400,
-//                 color: ColorManager.grey,
-//                 decoration: TextDecoration.none,
-//               ),
-//             ),
-//             content: generalForm(context: context)),
-//
-//         Step(
-//           state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 1,
-//           title: Text(
-//             'Employment',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: Employment_screen(context: context),
-//         ),
-//         ///
-//         Step(
-//           state: _currentStep <= 2 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 2,
-//           title: Text(
-//             'Education',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: EducationScreen(context: context),
-//         ),
-//         ///
-//         Step(
-//           state: _currentStep <= 3 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 3,
-//           title: Text(
-//             'References',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: ReferencesScreen(context: context),
-//         ),
-//         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//         Step(
-//           state: _currentStep <= 4 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 4,
-//           title: Text(
-//             'Licenses',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: LicensesScreen(context: context),
-//         ),
-//
-//         ///
-//         Step(
-//           state: _currentStep <= 5 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 5,
-//           title: Text(
-//             'Banking',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: BankingScreen(context: context),
-//         ),
-// ///
-//         Step(
-//           state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 6,
-//           title: Text(
-//             'Health \nRecords',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: HealthRecordsScreen(context: context),
-//         ),
-//         ////////////////////////////////////
-//         Step(
-//           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 7,
-//           title: Text(
-//             'Acknowledgements',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: AcknowledgementsScreen(context: context),
-//         ),
-//         ///
-//
-//         Step(
-//           state: _currentStep <= 8 ? StepState.editing : StepState.complete,
-//           isActive: _currentStep >= 8,
-//           title: Text(
-//             'Legal \nDocuments',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 12,
-//               fontWeight: FontWeight.w400,
-//               color: ColorManager.grey,
-//               decoration: TextDecoration.none,
-//             ),
-//           ),
-//           content: LegalDocumentsScreen(context: context),
-//         )
-//       ];
 }
-//
-// ElevatedButton.icon(
-//   style: ElevatedButton.styleFrom(
-//     backgroundColor: const Color(0xff1696C8),
-//     foregroundColor: Colors.white,
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.circular(8),
-//     ),
-//   ),
-//   onPressed: details.onStepContinue,
-//   //     (){
-//   //
-//   //   details.onStepContinue;
-//   // },
-//   label: Text(
-//     isLastStep ? 'Confirm' : 'Continue',
-//     style: GoogleFonts.firaSans(
-//       fontSize: 12.0,
-//       fontWeight: FontWeight.w700,
-//       color: Colors.white,
-//     ),
-//   ),
-//   icon: const Icon(Icons.arrow_forward, size: 16,),
-// ),
+

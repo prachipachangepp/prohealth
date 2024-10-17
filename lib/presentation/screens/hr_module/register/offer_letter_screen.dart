@@ -189,13 +189,19 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     //SizedBox(width: MediaQuery.of(context).size.width / 80),
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Last Date',validationLabel: 'Last Date', controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
+                        return _buildTextField(text: 'Last Date',validationLabel: 'Last Date',
+                            controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
                       },
                     ),
                     // SizedBox(width: MediaQuery.of(context).size.width / 80),
                     StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Anticipated Start Date',validationLabel: 'Anticipated Start Date', controller: startDateController,errorText: startDate ? "Please enter anticipated start date":null);
+                      builder: (BuildContext context,
+                          void Function(void Function()) setState)
+                      {
+                            return _buildTextField(text: 'Anticipated Start Date',
+                            validationLabel: 'Anticipated Start Date',
+                            controller: startDateController,
+                            errorText: startDate ? "Please enter anticipated start date":null);
                       },
                     ),
                   ],
@@ -207,7 +213,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   children: [
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Verbal Acceptance',validationLabel: 'Verbal Acceptance', controller: verbalAcceptanceController,errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
+                        return _buildTextField(
+                            text: 'Verbal Acceptance',
+                            validationLabel: 'Verbal Acceptance',
+                            controller: verbalAcceptanceController,
+                            errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
                       },
                     ),
                     Column(

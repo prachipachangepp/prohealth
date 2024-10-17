@@ -288,7 +288,12 @@ class _CustomDialogState extends State<CustomDialog> {
             print('${widget.lastNameController.text}');
             print('${widget.emailController.text}');
             print('${widget.passwordController.text}');
-
+            if (widget.passwordController.text.length < 6) {
+              setState(() {
+                _PasswordDocError = "Password must be longer than or equal to 6 characters";
+              });
+              return; // Stop further execution if password validation fails
+            }
             if (_isFormValid) {
               var response = await createUserPost(
                 context,
@@ -322,7 +327,8 @@ class _CustomDialogState extends State<CustomDialog> {
                   builder: (BuildContext context) {
                     return DialogueTemplate(
                       width: 300, // Adjust as needed
-                      height: 200, // Adjust as needed
+                      height: 200,
+                      // Adjust as needed
                       title: 'Error',
                       body: [
                         Text(

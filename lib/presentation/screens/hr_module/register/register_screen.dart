@@ -488,15 +488,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
                           // const url = "http://localhost:50634/#/onBordingWelcome";
-                         //const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                         const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           ///
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                          // if (await canLaunch(url)) {
-                          //  await launch(url);
-                          //  } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                          if (await canLaunch(url)) {
+                           await launch(url);
+                           } else {
+                            throw 'Could not launch $url';
+                          }
                         },
                         child: Text(
                           data.link!,

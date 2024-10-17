@@ -23,7 +23,7 @@ class ResponsiveScreen extends StatelessWidget {
         } else if (controller.isMobileScreen.value) {
           return mobile;
         } else if (controller.isDesktopScreen.value) {
-          print("Resolution ${MediaQuery.of(context).size.width}");
+          //print("Resolution ${MediaQuery.of(context).size.width}");
           return Padding(
             padding: MediaQuery.of(context).size.width > 1920
                 ? EdgeInsets.symmetric(
