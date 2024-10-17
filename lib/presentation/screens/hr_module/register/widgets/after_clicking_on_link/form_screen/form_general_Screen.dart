@@ -103,7 +103,7 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
-        dobcontroller.text = data.dateOfBirth ?? '';
+       dobcontroller.text = data.dateOfBirth ?? '';
         firstname.text = data.firstName ?? '';
         lastname.text = data.lastName ?? '';
         ssecuritynumber.text = data.SSNNbr ?? '';
@@ -316,9 +316,9 @@ class _generalFormState extends State<generalForm> {
                             1,
                             ssecuritynumber.text,
                             phonenumber.text,
-                            '1234',
-                            '1234',
-                            'Robert Tech Services',
+                            '',
+                            '',
+                            '',
                             personalemail.text,
                             personalemail.text,
                             address.text,
@@ -336,7 +336,7 @@ class _generalFormState extends State<generalForm> {
                             driverlicensenumb.text,
                             "0000-00-00",//'2024-01-01',
                             "0000-00-00",//'2024-01-01',
-                            "0000-00-00",// '2024-01-01',
+                           // '',// '2024-01-01',
                             'rehirable',
                             'position',
                             address.text,

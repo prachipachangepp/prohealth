@@ -13,17 +13,29 @@ import '../manage/widgets/custom_icon_button_constant.dart';
 
 class ConfirmationPopup extends StatefulWidget {
   final VoidCallback onCancel;
-  final VoidCallback onConfirm;
+  final Future<void> Function() onConfirm; // Change this to support async
   final bool? loadingDuration;
   final String title;
   final String containerText;
-  const ConfirmationPopup({super.key,required this.onCancel, required this.onConfirm, this.loadingDuration, required this.title, required this.containerText});
+  final bool loading;
+
+  const ConfirmationPopup({
+    super.key,
+    required this.onCancel,
+    required this.onConfirm,
+    this.loadingDuration,
+    required this.title,
+    required this.containerText,
+    this.loading = false,
+  });
 
   @override
   State<ConfirmationPopup> createState() => _ConfirmationPopupState();
 }
 
 class _ConfirmationPopupState extends State<ConfirmationPopup> {
+  bool _isLoading = false; // Local loading state
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -60,83 +72,86 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ],
               ),
             ),
-            // Spacer(),
-            // Container(
-            //   height: AppSize.s50,
-            //   width: AppSize.s210,
-            //   child: Text(widget.containerText,textAlign: TextAlign.start,
-            //     style:ConstTextFieldRegister.customTextStyle(context),),
-            // ),
-         ///
             Padding(
-              padding: const EdgeInsets.only(top: 40,left: 15),
+              padding: const EdgeInsets.only(top: 40, left: 15),
               child: Row(
                 children: [
                   Text(widget.containerText,
-                    textAlign: TextAlign.center,
-                    style:ConstTextFieldRegister.customTextStyle(context)),
+                      textAlign: TextAlign.center,
+                      style: ConstTextFieldRegister.customTextStyle(context)),
                 ],
               ),
             ),
             Spacer(),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.only(bottom: AppPadding.p24),
-                      child:  SizedBox(
-                        width: 100,
-                        child: ElevatedButton(
-                          onPressed: widget.onCancel,
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                color: ColorManager.bluebottom,
-                                width: 1,
-                              ),
-                            ),),
-                          child: Text('Cancel',
-                              style: TransparentButtonTextConst.customTextStyle(context)),),
-                      )
-                  ),
-                  SizedBox(width: AppPadding.p20,),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
-                    child: Center(
-                      child: widget.loadingDuration == true
-                          ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppPadding.p24),
+                child: SizedBox(
+                  width: 100,
+                  child: ElevatedButton(
+                    onPressed: widget.onCancel,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(
+                          color: ColorManager.bluebottom,
+                          width: 1,
                         ),
-                      )
-                          : CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: 'Confirm',
-                        onPressed: () {
-                          widget.onConfirm();
-                          //Navigator.pop(context);
-                        },
                       ),
                     ),
-                  ),]
-            ),
-            //
+                    child: Text('Cancel',
+                        style: TransparentButtonTextConst.customTextStyle(
+                            context)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: AppPadding.p20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: AppPadding.p24, right: AppPadding.p10),
+                child: Center(
+                  child: _isLoading // Use the local loading state
+                      ? SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  )
+                      : CustomElevatedButton(
+                    width: AppSize.s105,
+                    height: AppSize.s30,
+                    text: 'Confirm',
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true; // Set loading state to true
+                      });
+                      await widget.onConfirm(); // Await the async confirmation
+                      setState(() {
+                        _isLoading = false; // Reset loading state
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ]),
           ],
         ),
       ),
     );
   }
 }
-
 
 ///success popup
 class SuccessPopup extends StatelessWidget {
@@ -178,7 +193,10 @@ class SuccessPopup extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ],
               ),
@@ -188,8 +206,9 @@ class SuccessPopup extends StatelessWidget {
               child: Container(
                 height: AppSize.s50,
                 width: AppSize.s210,
-                child: Text('Successfully Enrolled!\nThank You.',textAlign: TextAlign.center,
-                  style:ConstTextFieldRegister.customTextStyle(context)),
+                child: Text('Successfully Enrolled!\nThank You.',
+                    textAlign: TextAlign.center,
+                    style: ConstTextFieldRegister.customTextStyle(context)),
               ),
             ),
             Spacer(),

@@ -136,7 +136,7 @@ Future<ApiDataRegister> updateOnlinkGeneralPatch(
     String driverLicenceNbr,
     String dateofTermination, // Ensure this is formatted correctly
     String dateofResignation, // Ensure this is formatted correctly
-    String dateofHire, // Ensure this is formatted correctly
+   // String dateofHire, // Ensure this is formatted correctly
     String rehirable,
     String position,
     String finalAddress,
@@ -189,7 +189,7 @@ Future<ApiDataRegister> updateOnlinkGeneralPatch(
         'driverLicenceNbr': driverLicenceNbr,
         'dateofTermination': "2024-01-01T00:00:00Z",
         'dateofResignation': "2024-01-01T00:00:00Z",
-        'dateofHire': "2024-01-01T00:00:00Z",
+       // 'dateofHire': "2024-01-01T00:00:00Z",
         'rehirable': rehirable,
         'position': position,
         'finalAddress': finalAddress,

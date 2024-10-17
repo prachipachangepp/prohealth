@@ -261,7 +261,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                           if (finalPaths[i] != null) {
                             await uploadDocuments(
                               context: context,
-                              employeeDocumentMetaId: 10,
+                              employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
                               employeeDocumentTypeSetupId: docSetupId[i],
                               employeeId: widget.employeeID,
                               documentFile: finalPaths[i]!,

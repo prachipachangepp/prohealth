@@ -630,6 +630,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   Navigator.pop(context);
                                 },
                                 onConfirm: ()  async{
+                                  //await Future.delayed(Duration(seconds: 2));
                                   // setState(() {
                                   //   _isLoading = true;
                                   // });
