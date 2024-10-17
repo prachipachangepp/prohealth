@@ -226,7 +226,6 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     Colors.transparent,
                                     onPressed: () {
                                       print("FileExtension:${fileExtension}");
-                                      //DowloadFile().downloadPdfFromBase64(fileExtension,"Health.pdf");
                                       downloadFile(fileUrl);
                                     },
                                     icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),

@@ -75,6 +75,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
     });
   }
 
+  
+
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -400,7 +402,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                     //         fileExtension!.toLowerCase().endsWith('.pdf')) {
                                     //       // Create an iframe to load the PDF file
                                     //       html.IFrameElement iframe = html.IFrameElement();
-                                    //       iframe.src = fileUrl!;
+                                    //       iframe.src = fileUrl;
                                     //       iframe.style.display = 'none';
                                     //       html.document.body?.append(iframe);
                                     //
