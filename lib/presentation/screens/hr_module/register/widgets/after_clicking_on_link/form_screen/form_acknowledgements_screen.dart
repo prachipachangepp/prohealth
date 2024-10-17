@@ -214,10 +214,18 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                   'List Of Documents',
                   style: HeadingFormStyle.customTextStyle(context),
                 ),
-                CustomButton(
+                isLoading
+                    ? SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                )
+                    : CustomButton(
                   width: 117,
                   height: 30,
-                  text: isLoading ? 'Wait..' : 'Save',
+                  text: 'Save',
                   style:BlueButtonTextConst.customTextStyle(context),
                   borderRadius: 12,
                   onPressed: () async {
@@ -243,8 +251,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       //    );
                     } else {
                       try {
-                        if (isLoading)
-                          return;
+
                         // Loop through each form and extract data to post
 
                         setState(() {
@@ -254,7 +261,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                           if (finalPaths[i] != null) {
                             await uploadDocuments(
                               context: context,
-                              employeeDocumentMetaId: 10,
+                              employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
                               employeeDocumentTypeSetupId: docSetupId[i],
                               employeeId: widget.employeeID,
                               documentFile: finalPaths[i]!,
@@ -317,15 +324,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
 
 
                   },
-                  child: isLoading
-                      ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
-                    child: CircularProgressIndicator(
-                        color: Colors.white
-                    ),
-                  )
-                      : Text(
+                  child:  Text(
                     'Save',
                     style: BlueButtonTextConst.customTextStyle(context),
                   ),

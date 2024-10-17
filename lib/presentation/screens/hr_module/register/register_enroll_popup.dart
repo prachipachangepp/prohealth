@@ -299,7 +299,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
                             ),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           CustomTextField(
                             width: textFieldWidth,
@@ -321,7 +321,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             ),
 
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///email
                           CustomTextField(
@@ -343,7 +343,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
                             ),
                           SizedBox(
-                            height: AppPadding.p10,
+                            height: AppPadding.p8,
                           ),
                           ///zone
                           FutureBuilder<List<AEClinicalZone>>(
@@ -357,13 +357,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   height: textFieldHeight,
                                   items: [],
                                 );
-                              } else if (snapshot.hasError) {
-                                return const CustomDropdownTextField(
-                                  headText: 'Zone',
-                                  //width: MediaQuery.of(context).size.width / 5,
-                                  items: ['Error'],
-                                );
-                              } else if (snapshot.hasData) {
+                              }  if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
                                 int degreeID = 0;
                                 for(var i in snapshot.data!){
@@ -372,36 +366,28 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                     value: i.zoneName!,
                                   ));
                                 }
-                                return StatefulBuilder(
-                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                    return  CustomDropdownTextField(
-                                      headText: 'Zone',
-                                      dropDownMenuList: dropDownList,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          for(var a in snapshot.data!){
-                                            if(a.zoneName == newValue){
-                                              selectedZone= a.zoneName;
-                                              zoneId = a.zoneID!;
-                                              countyId = a.countyID!;
-                                              print("Selected zoin id :: ${zoneId}");
-                                              print("Zone :: ${selectedZone}");
-                                              print("county Id :: ${countyId}");
-                                              //empTypeId = docType;
-                                            }
-                                          }
-                                        });
+                                return CustomDropdownTextField(
+                                  headText: 'Zone',
+                                  dropDownMenuList: dropDownList,
+                                  onChanged: (newValue) {
+                                  //  setState(() {
+                                      for(var a in snapshot.data!){
+                                        if(a.zoneName == newValue){
+                                          selectedZone= a.zoneName;
+                                          zoneId = a.zoneID!;
+                                          countyId = a.countyID!;
+                                          print("Selected zoin id :: ${zoneId}");
+                                          print("Zone :: ${selectedZone}");
+                                          print("county Id :: ${countyId}");
+                                          //empTypeId = docType;
+                                        }
+                                      }
+                                  //  });
 
-                                      },
-                                    );
                                   },
                                 );
                               } else {
-                                return CustomDropdownTextField(
-                                  headText: 'Zone',
-                                  // width: MediaQuery.of(context).size.width / 5,
-                                  items: ['No Data'],
-                                );
+                                return const Offstage();
                               }
                             },
                           ),
@@ -432,7 +418,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             ),
 
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///clinician
                           FutureBuilder<List<AEClinicalDiscipline>>(
@@ -473,11 +459,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             },
                           ),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           buildCityDropdownButton(context),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           CustomTextField(
                             width: textFieldWidth,
@@ -523,7 +509,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
                             ),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///reporting office
 
@@ -567,12 +553,12 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
 
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///country
                           buildDropdownButton(context),
                           SizedBox(
-                            height: AppSize.s77,
+                            height: AppSize.s60,
                           ),
                         ],
                       ),
