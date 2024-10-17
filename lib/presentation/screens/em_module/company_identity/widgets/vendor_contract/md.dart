@@ -273,7 +273,7 @@ class _CiMdState extends State<CiMd> {
                                                       },
                                                       icon:  Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                           size: IconSize.I18,
                                                           color: IconColorManager
                                                               .bluebottom),
@@ -284,6 +284,8 @@ class _CiMdState extends State<CiMd> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    PdfDownloadButton(apiUrl: mdData.docurl,
+                                                        documentName: mdData.docName!),
 
                                                     IconButton(
                                                       onPressed: () {

@@ -275,7 +275,7 @@ class _CiMiscState extends State<CiMisc> {
                                                       },
                                                       icon: Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                         size:IconSize.I18,color: IconColorManager.bluebottom,),
                                                       splashColor:
                                                           Colors.transparent,
@@ -284,6 +284,8 @@ class _CiMiscState extends State<CiMisc> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    PdfDownloadButton(apiUrl: miscData.docurl,
+                                                        documentName: miscData.docName!),
                                                     IconButton(
                                                       onPressed: () {
                                                         String?
