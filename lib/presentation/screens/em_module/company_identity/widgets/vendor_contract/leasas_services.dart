@@ -269,15 +269,15 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       onPressed: () {
                                                         print(
                                                             "FileExtension:${fileExtension}");
-                                                        DowloadFile()
-                                                            .downloadPdfFromBase64(
-                                                                fileExtension,
-                                                                "Leases.pdf");
+                                                        // DowloadFile()
+                                                        //     .downloadPdfFromBase64(
+                                                        //         fileExtension,
+                                                        //         "Leases.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                           size: IconSize.I18,
                                                           color: IconColorManager
                                                               .bluebottom),
@@ -288,6 +288,8 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    PdfDownloadButton(apiUrl: leasesData.docurl,
+                                                        documentName: leasesData.docName!),
 
                                                     IconButton(
                                                       onPressed: () {

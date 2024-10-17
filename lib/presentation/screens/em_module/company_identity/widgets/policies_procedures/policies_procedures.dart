@@ -287,24 +287,48 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         onPressed: () {
                                                           print(
                                                               "FileExtension:${fileExtension}");
-                                                          DowloadFile()
-                                                              .downloadPdfFromBase64(
-                                                                  fileExtension,
-                                                                  "DME.pdf");
+                                                          // DowloadFile()
+                                                          //     .downloadPdfFromBase64(
+                                                          //     fileExtension,
+                                                          //     "DME.pdf");
                                                           downloadFile(fileUrl);
                                                         },
                                                         icon: Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                           size:IconSize.I18,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                         highlightColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                         hoverColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                       ),
+                                                      PdfDownloadButton(apiUrl: policiesdata.docurl,
+                                                          documentName: policiesdata.docName!),
+                                                      // IconButton(
+                                                      //   onPressed: () {
+                                                      //     print(
+                                                      //         "FileExtension:${fileExtension}");
+                                                      //     DowloadFile()
+                                                      //         .downloadPdfFromBase64(
+                                                      //             fileExtension,
+                                                      //             "DME.pdf");
+                                                      //     downloadFile(fileUrl);
+                                                      //   },
+                                                      //   icon: Icon(
+                                                      //     Icons
+                                                      //         .print,
+                                                      //     size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                      //   ),
+                                                      //   splashColor:
+                                                      //       Colors.transparent,
+                                                      //   highlightColor:
+                                                      //       Colors.transparent,
+                                                      //   hoverColor:
+                                                      //       Colors.transparent,
+                                                      // ),
                                                       IconButton(
                                                         onPressed: () {
                                                           String?
