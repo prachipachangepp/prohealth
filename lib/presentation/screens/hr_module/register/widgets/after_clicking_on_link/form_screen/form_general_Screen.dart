@@ -252,14 +252,22 @@ class _generalFormState extends State<generalForm> {
                   padding: const EdgeInsets.only(right: 40),
                   child: Column(
                     children: [
-                      CustomButton(
+                      isLoading
+                          ? SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
+                          :CustomButton(
                         width: 117,
                         height: 30,
-                        text: isLoading ? 'Wait..' : 'Save',
+                        text: 'Save',
                         style: BlueButtonTextConst.customTextStyle(context),
                         borderRadius: 12,
                         onPressed: () async {
-                          if (isLoading) return;
+
 
                           // Get the company and user IDs
                           setState(() {
@@ -387,15 +395,7 @@ class _generalFormState extends State<generalForm> {
                           address.clear();
                           dobcontroller.clear();
                         },
-                        child: isLoading
-                            ? SizedBox(
-                          height: AppSize.s25,
-                          width: AppSize.s25,
-                          child: CircularProgressIndicator(
-                              color: Colors.white
-                          ),
-                        )
-                            : Text(
+                        child: Text(
                           'Save',
                           style: BlueButtonTextConst.customTextStyle(context),
                         ),
@@ -449,7 +449,7 @@ class _generalFormState extends State<generalForm> {
                                 FilePickerResult? result =
                                 await FilePicker.platform.pickFiles(
                                     type: FileType.custom,
-                                    allowedExtensions: ['svg','jpeg']
+                                    allowedExtensions: ['svg','jpeg','jpg','png']
                                 );
 
                                 if (result != null) {
@@ -702,7 +702,7 @@ class _generalFormState extends State<generalForm> {
                             children: [
                               CustomRadioListTile(
                                 title: 'Male',
-                                value: 'male',
+                                value: 'Male',
                                 groupValue: gendertype,
                                 onChanged: (value) {
                                   setState(() {

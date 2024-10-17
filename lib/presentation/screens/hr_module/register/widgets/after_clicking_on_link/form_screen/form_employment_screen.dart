@@ -163,15 +163,21 @@ class _Employment_screenState extends State<Employment_screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomButton(
+              isLoading
+                  ? SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )
+                  :CustomButton(
                 width: 117,
                 height: 30,
-                text: isLoading ? 'Wait..' : 'Save', // Show empty text when loading
+                text:'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  if (isLoading)
-                    return; // Prevent multiple presses while loading
 
                   setState(() {
                     isLoading = true; // Start loading
@@ -232,15 +238,7 @@ class _Employment_screenState extends State<Employment_screen> {
                     isLoading = false; // End loading
                   });
                 },
-                child: isLoading
-                    ? SizedBox(
-                  height: AppSize.s25,
-                  width: AppSize.s25,
-                  child: CircularProgressIndicator(
-                    color: ColorManager.white,
-                  ),
-                )
-                    : Text(
+                child:Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),

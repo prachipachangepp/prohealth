@@ -261,16 +261,23 @@ class _LicensesScreenState extends State<LicensesScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton(
+            isLoading
+                ? SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+            )
+                :CustomButton(
               width: 117,
               height: 30,
-              text: isLoading ? 'Wait..' : 'Save',
+              text:  'Save',
               style:BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
 
-                if (isLoading)
-                  return;
+
                 // Loop through each form and extract data to post
 
                 setState(() {
@@ -302,15 +309,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 });
                 //licensure.clear();
               },
-              child: isLoading
-                  ? SizedBox(
-                height: AppSize.s25,
-                width: AppSize.s25,
-                child: CircularProgressIndicator(
-                    color: Colors.white
-                ),
-              )
-                  : Text(
+              child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
