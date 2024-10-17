@@ -1,9 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
-import 'package:printing/printing.dart';
+import 'dart:html' as html;
 
 Future<void> downloadFile(String url) async {
   final Uri uri = Uri.parse(url);
@@ -15,40 +14,42 @@ Future<void> downloadFile(String url) async {
   }
 }
 
-/// pdf viewer code of ack
-// Future<void> openPdfViewer(String url) async {
-//   try {
-//     // Download the PDF data from the URL
-//     final response = await http.get(Uri.parse(url));
-//
-//     if (response.statusCode == 200) {
-//       Uint8List pdfData = response.bodyBytes;
-//
-//       // Open the PDF in the print preview or PDF viewer
-//       await Printing.layoutPdf(
-//         onLayout: (PdfPageFormat format) async => pdfData,
-//       );
-//     } else {
-//       throw 'Failed to load PDF: ${response.statusCode}';
-//     }
-//   } catch (e) {
-//     print('Error opening PDF: $e');
-//   }
-// }
+class PdfDownloadButton extends StatelessWidget {
+  final String apiUrl;
+  final String documentName;
 
-///given by sir
-// Future<String> fetchBase64FromS3(String url) async {
-//
-//   final response = await http.get(Uri.parse(url));
-//
-//   if (response.statusCode == 200) {
-//
-//     return response.body; // Assuming the response body is Base64-encoded
-//
-//   } else {
-//
-//     throw Exception("Failed to fetch Base64 data from S3");
-//
-//   }
-//
-// } //Pick base 64 from this function
+  PdfDownloadButton({required this.apiUrl, required this.documentName});
+
+  Future<void> _downloadPdf() async {
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        final Uint8List pdfBytes = response.bodyBytes;
+
+        final blob = html.Blob([pdfBytes], 'application/pdf');
+
+        final url = html.Url.createObjectUrlFromBlob(blob);
+
+        final anchor = html.AnchorElement(href: url)
+          ..setAttribute('download', documentName)
+          ..click();
+
+        html.Url.revokeObjectUrl(url);
+      } else {
+        throw Exception('Failed to load PDF');
+      }
+    } catch (e) {
+      print('Error downloading PDF: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.save_alt_outlined, size: 20, color: Color(0xff1696C8),),
+      onPressed: _downloadPdf,
+      tooltip: 'Download PDF',
+    );
+  }
+}
