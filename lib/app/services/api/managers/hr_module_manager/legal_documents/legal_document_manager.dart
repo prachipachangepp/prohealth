@@ -337,13 +337,15 @@ Future<ProDocument> getPro65Document({
 
 /// return of company property
 Future<ReturnOfCompanyProperty> getReturnOfCompanyPropertyDocument({
-  required BuildContext context, required int templateId,required int employeeId}) async {
+  required BuildContext context, required int templateId,required int employeeId,
+  required String companyProperty,
+  required String specifications, required String supervisorName}) async {
 //var itemList ;
   var itemsData ;
   try {
     final response = await ApiOffer(context).get(
         path: LegalDocumentsRepo
-            .getReturnOfCompanyDocument(templateId: templateId, employeeId: employeeId));
+            .getReturnOfCompanyDocument(templateId: templateId, employeeId: employeeId, companyProperty: companyProperty, specifications: specifications, supervisorName: supervisorName));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(' Return Of Company Property Fetched');
       itemsData = ReturnOfCompanyProperty(returnOfCompanyPropertyId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
@@ -413,6 +415,58 @@ Future<CovidVaccineDocuemnt> getCovidVaccineDocument({
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(' Covid Vaccine Docuemnt Fetched');
       itemsData = CovidVaccineDocuemnt(covidVaccineDocuemntId: response.data['id'], name: response.data['name'], html: response.data['html']);
+    } else {
+      print("CovidVaccineDocuemnt ");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+/// Direct Deposit Docuemnt
+Future<DirectDepositDocuemnt> getDirectDepositDocument({
+  required BuildContext context, required int templateId,required int employeeId,
+  required String action1,
+  required String type1, required String bankNameAndAddress,
+  required String routingOrtransit1,required String account1,required String amount1,
+  required String action2,required String type2,required String bankNameAndaddress2,required String routingOrtransit2,
+  required String account2 , required String amount2 , }) async {
+//var itemList ;
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo
+            .getDirectDepositDocument(templateId: templateId, employeeId: employeeId, action1: action1, type1: type1,
+          bankNameAndAddress1: bankNameAndAddress, routingOrtransit1: routingOrtransit1, account1: account1, amount1: amount1, action2: action2, type2: type2,
+          bankNameAndaddress2: bankNameAndaddress2, routingOrtransit2: routingOrtransit2, account2: account2, amount2: amount2, ));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Direct Deposit Docuemnt Fetched');
+      itemsData = DirectDepositDocuemnt(directDepositDocuemntId: response.data['id'],
+          name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
+    } else {
+      print("DirectDepositDocuemnt ");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+/// Pro health cell document
+Future<ProHealthCellPhoneStatement> getProHealthCellPhoneStatementDocument({
+  required BuildContext context, required int templateId,required int employeeId}) async {
+//var itemList ;
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo
+            .getProHealthCellPhoneStatement(templateId: templateId, employeeId: employeeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(' Covid Vaccine Docuemnt Fetched');
+      itemsData = ProHealthCellPhoneStatement(proHealthCellPhoneStatementId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
     } else {
       print("CovidVaccineDocuemnt ");
     }

@@ -75,6 +75,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
     });
   }
 
+  
+
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -400,7 +402,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                     //         fileExtension!.toLowerCase().endsWith('.pdf')) {
                                     //       // Create an iframe to load the PDF file
                                     //       html.IFrameElement iframe = html.IFrameElement();
-                                    //       iframe.src = fileUrl!;
+                                    //       iframe.src = fileUrl;
                                     //       iframe.style.display = 'none';
                                     //       html.document.body?.append(iframe);
                                     //
@@ -429,13 +431,13 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                         downloadFile(fileUrl);
                                       },
                                       icon: Icon(
-                                        Icons.save_alt_outlined,
+                                        Icons.print_outlined,
                                         color: Color(0xff1696C8),
                                       ),
                                       iconSize: 20,
                                     ),
-
-                                    ///
+                                    PdfDownloadButton(apiUrl: ackData.DocumentUrl, documentName: ackData.documentFileName,),
+                                    ///edit
                                     IconButton(
                                       onPressed: () {
                                         showDialog(
@@ -506,6 +508,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                       hoverColor: Colors.transparent,
                                       iconSize: 20,
                                     ),
+                                    ///delete
                                     IconButton(
                                       onPressed: () async {
                                         await showDialog(

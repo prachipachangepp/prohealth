@@ -262,27 +262,31 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    ///print
                                                     IconButton(
                                                       onPressed: () {
-                                                        DowloadFile()
-                                                            .downloadPdfFromBase64(
-                                                                fileExtension,
-                                                                "Licenses.pdf");
+                                                        print("FileExtension:${fileExtension}");
+                                                        // DowloadFile()
+                                                        //     .downloadPdfFromBase64(
+                                                        //     fileExtension,
+                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
-                                                          Icons
-                                                              .save_alt_outlined,
-                                                          size: IconSize.I18,
-                                                          color: IconColorManager
-                                                              .bluebottom),
+                                                        Icons
+                                                            .print_outlined,
+                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                      ),
                                                       splashColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                       highlightColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                       hoverColor:
-                                                          Colors.transparent,
+                                                      Colors.transparent,
                                                     ),
+                                                    ///download saloni
+                                                    PdfDownloadButton(apiUrl: manageCCLicence.docurl,
+                                                        documentName: manageCCLicence.docName!),
                                                     IconButton(
                                                       onPressed: () {
                                                         String?

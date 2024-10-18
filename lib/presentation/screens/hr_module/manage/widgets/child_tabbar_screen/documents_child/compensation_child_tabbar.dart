@@ -24,18 +24,10 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/print_pdf_files_hr.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
-import 'package:shimmer/shimmer.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:http/http.dart' as http;
-import 'dart:html' as html;
-import 'dart:js' as js;
-import 'dart:html' as html;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
-import 'dart:typed_data';
 
 class CompensationChildTabbar extends StatefulWidget {
   final int employeeId;
@@ -63,19 +55,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
       StreamController<List<EmployeeDocumentModal>>();
   String expiryType = '';
   bool _isLoading = false;
-  // Future<void> printPdf(String base64) async {
-  //   try {
-  //     // Decode the Base64 string
-  //     Uint8List pdfBytes = base64Decode(base64);
-  //
-  //     // Print the PDF
-  //     await Printing.layoutPdf(
-  //       onLayout: (PdfPageFormat format) async => pdfBytes,
-  //     );
-  //   } catch (e) {
-  //     print('Error occurred during printing: $e');
-  //   }
-  // }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -263,91 +243,6 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ///
-                                    // IconButton(
-                                    //   splashColor:
-                                    //   Colors.transparent,
-                                    //   highlightColor:
-                                    //   Colors.transparent,
-                                    //   hoverColor:
-                                    //   Colors.transparent,
-                                    //   onPressed: () async {
-                                    //     try{
-                                    //       final String token = await TokenManager.getAccessToken();
-                                    //       var response = await http.get(Uri.file(compaensation.DocumentUrl),headers: {
-                                    //         'accept': 'application/json',
-                                    //         'Authorization': 'Bearer $token',
-                                    //         'Content-Type': 'application/json'
-                                    //       },);
-                                    //      // final widgets = await HTMLToPdf().convert(body);
-                                    //
-                                    //       if (response.statusCode == 200) {
-                                    //         final String content = response.body;
-                                    //
-                                    //         final pdf = pw.Document();
-                                    //
-                                    //         pdf.addPage(
-                                    //           pw.Page(
-                                    //             build: (pw.Context context) => pw.Center(
-                                    //               child: pw.Text(content),
-                                    //             ),
-                                    //           ),
-                                    //         );
-                                    //
-                                    //         await Printing.layoutPdf(
-                                    //           onLayout: (PdfPageFormat format) async => pdf.save(),
-                                    //         );
-                                    //       } else {
-                                    //         // Handle error
-                                    //         print('Failed to load document');
-                                    //       }
-                                    //
-                                    //     }catch(e){
-                                    //       print('Error ${e}');
-                                    //
-                                    //     }
-                                    //   },
-                                    //   icon: Icon(
-                                    //     Icons.print_outlined,
-                                    //     color: Color(0xff1696C8),
-                                    //   ),
-                                    //   iconSize: 20,
-                                    // ),
-                                    /// prinnt
-                                    // IconButton(
-                                    //   onPressed: () async {
-                                    //     try {
-                                    //       String fileUrl = compaensation.DocumentUrl; // The URL of your PDF document
-                                    //       print("File URL: $fileUrl");
-                                    //
-                                    //       // Fetch Base64 string from S3
-                                    //       String base64PdfString = await fetchBase64FromS3(fileUrl);
-                                    //
-                                    //       if (base64PdfString.isNotEmpty) {
-                                    //         // Decode the Base64 string to bytes
-                                    //         final pdfData = base64Decode(base64PdfString);
-                                    //
-                                    //         // Print the PDF
-                                    //         await Printing.layoutPdf(
-                                    //           onLayout: (PdfPageFormat format) async => pdfData,
-                                    //         );
-                                    //       } else {
-                                    //         print("Failed to convert PDF to Base64.");
-                                    //       }
-                                    //     } catch (e) {
-                                    //       print("Error: $e");
-                                    //     }
-                                    //   },
-                                    //   icon: Icon(
-                                    //     Icons.print_outlined,
-                                    //     color: Color(0xff1696C8),
-                                    //   ),
-                                    //   iconSize: 20,
-                                    //   splashColor: Colors.transparent,
-                                    //   highlightColor: Colors.transparent,
-                                    //   hoverColor: Colors.transparent,
-                                    // ),
-                                    ///
 
                                     ///
                                     IconButton(
@@ -359,7 +254,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
                                       },
                                       icon: Icon(
-                                        Icons.save_alt_outlined,
+                                        Icons.print_outlined,
                                         color: Color(0xff1696C8),
                                       ),
                                       iconSize: 20,
@@ -367,6 +262,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                     ),
+                                    PdfDownloadButton(apiUrl: compaensation.DocumentUrl, documentName: compaensation.documentFileName,),
                                     ///
                                     IconButton(
                                       splashColor: Colors.transparent,

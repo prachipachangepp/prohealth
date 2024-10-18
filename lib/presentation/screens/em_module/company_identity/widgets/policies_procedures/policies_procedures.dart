@@ -199,6 +199,34 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       paginatedData[index];
                                   var fileUrl = policiesdata.docurl;
                                   final fileExtension = fileUrl.split('/').last;
+
+                                  Widget fileWidget;
+                                  if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                                    fileWidget = Image.network(
+                                      fileUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Icon(
+                                          Icons.broken_image,
+                                          size: 45,
+                                          color: ColorManager.faintGrey,
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                                    fileWidget = Icon(
+                                      Icons.description,
+                                      size: 45,
+                                      color: ColorManager.faintGrey,
+                                    );
+                                  } else {
+                                    fileWidget = Icon(
+                                      Icons.insert_drive_file,
+                                      size: 45,
+                                      color: ColorManager.faintGrey,
+                                    );
+                                  }
                                   return Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -282,29 +310,54 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         hoverColor:
                                                             Colors.transparent,
                                                       ),
-                                                      ///download
+                                                      ///print
                                                       IconButton(
                                                         onPressed: () {
-                                                          print(
-                                                              "FileExtension:${fileExtension}");
-                                                          DowloadFile()
-                                                              .downloadPdfFromBase64(
-                                                                  fileExtension,
-                                                                  "DME.pdf");
+                                                          print("FileExtension:${fileExtension}");
+                                                          // DowloadFile()
+                                                          //     .downloadPdfFromBase64(
+                                                          //     fileExtension,
+                                                          //     "DME.pdf");
                                                           downloadFile(fileUrl);
                                                         },
                                                         icon: Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                           size:IconSize.I18,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                         highlightColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                         hoverColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                       ),
+                                                      ///download saloni
+                                                      PdfDownloadButton(apiUrl: policiesdata.docurl,
+                                                          documentName: policiesdata.docName!),
+                                                      // IconButton(
+                                                      //   onPressed: () {
+                                                      //     print(
+                                                      //         "FileExtension:${fileExtension}");
+                                                      //     DowloadFile()
+                                                      //         .downloadPdfFromBase64(
+                                                      //             fileExtension,
+                                                      //             "DME.pdf");
+                                                      //     downloadFile(fileUrl);
+                                                      //   },
+                                                      //   icon: Icon(
+                                                      //     Icons
+                                                      //         .print,
+                                                      //     size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                      //   ),
+                                                      //   splashColor:
+                                                      //       Colors.transparent,
+                                                      //   highlightColor:
+                                                      //       Colors.transparent,
+                                                      //   hoverColor:
+                                                      //       Colors.transparent,
+                                                      // ),
+                                                      ///edit
                                                       IconButton(
                                                         onPressed: () {
                                                           String?
@@ -384,6 +437,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         hoverColor:
                                                             Colors.transparent,
                                                       ),
+                                                      ///delete
                                                       IconButton(
                                                           splashColor: Colors.transparent,
                                                           highlightColor: Colors.transparent,

@@ -287,7 +287,7 @@ class _CiDmeState extends State<CiDme> {
                                                       },
                                                       icon:  Icon(
                                                           Icons
-                                                              .save_alt_outlined,
+                                                              .print_outlined,
                                                           size: IconSize.I18,
                                                           color: IconColorManager
                                                               .bluebottom),
@@ -298,6 +298,8 @@ class _CiDmeState extends State<CiDme> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    PdfDownloadButton(apiUrl: dmeData.docurl,
+                                                        documentName: dmeData.docName!),
 
                                                     IconButton(
                                                       onPressed: () {
