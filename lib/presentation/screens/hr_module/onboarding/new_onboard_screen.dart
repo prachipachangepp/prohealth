@@ -5,6 +5,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/gena
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/qualification_tab.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../manage/widgets/bottom_row.dart';
@@ -20,10 +21,12 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   final PageController _onboardPageController = PageController();
   int _selectedIndex = 0;
   int employeeIdCheck = 0;
-  void _selectButton(int index,int employeeId) {
+  String employeeName = '';
+  void _selectButton(int index,int employeeId,String name) {
     setState(() {
       _selectedIndex = index;
       employeeIdCheck = employeeId;
+      employeeName = name;
     });
     _onboardPageController.animateToPage(
       index,
@@ -35,7 +38,7 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   @override
   Widget build(BuildContext context) {
     return OnboardingTabManage(managePageController: _onboardPageController, selectedIndex: _selectedIndex,
-        selectButton: _selectButton, employeeId: employeeIdCheck,);
+        selectButton: _selectButton, employeeId: employeeIdCheck,  employeeName: employeeName,);
   }
 }
 
@@ -43,8 +46,10 @@ class OnboardingTabManage extends StatefulWidget {
   final PageController managePageController;
   final int selectedIndex;
   final int employeeId;
-  final void Function(int,int) selectButton;
-  const OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton, required this.employeeId,
+  final String employeeName;
+  final void Function(int,int, String) selectButton;
+  OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton,
+    required this.employeeId, required this.employeeName,
   });
 
   @override
@@ -67,15 +72,16 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
     return Material(
       color: ColorManager.white,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           if (widget.selectedIndex != 0)
             Padding(
-              padding: const EdgeInsets.only(top: 30, ),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // InkWell(
                   //   onTap: (){
@@ -92,9 +98,21 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   //   ),
                   // ),
                  // SizedBox(width: MediaQuery.of(context).size.width/6),
+                  if (widget.selectedIndex != 0)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: AppPadding.p10),
+                      child: Container(
+                        //color: ColorManager.red,
+                        child: Text(
+                          widget.employeeName,
+                          style: CompanyIdentityManageHeadings.customTextStyle(context),
+                        ),
+                      ),
+                    ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+
                       Material(
                         elevation: 4,
                         borderRadius: BorderRadius.circular(20),
@@ -136,7 +154,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                     ),
                                   ),
                                 ),
-                                onTap: () => widget.selectButton(entry.key + 1,widget.employeeId),  //onTap: () => widget.selectButton(entry.key),
+                                onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName),  //onTap: () => widget.selectButton(entry.key),
                               ),
                             )
                                 .toList(),
@@ -145,6 +163,21 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                       ),
                     ],
                   ),
+                  if (widget.selectedIndex != 0)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: AppPadding.p10),
+                      child: Container(
+                        //color: ColorManager.red,
+                        child: Text(
+                          widget.employeeName,
+                          style: TextStyle(
+                            fontSize: FontSize.s15,
+                            color: ColorManager.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
