@@ -44,6 +44,14 @@ class _ProfileBarState extends State<ProfileBar> {
     sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     fetchData();
   }
+  String _trimAddress(String address) {
+    const int maxLength = 15;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
 
   String? sSNNBR;
   int expiredCount = 0;
@@ -358,7 +366,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                     AppString.address,
                                     style: ThemeManagerBlack.customTextStyle(context),
                                   ),
-                                  Text(widget.searchByEmployeeIdProfileData!.finalAddress,
+
+                                  Text(_trimAddress(widget.searchByEmployeeIdProfileData!.finalAddress),
                                       textAlign: TextAlign.start,
                                       style: ThemeManagerAddressPB.customTextStyle(context)),
                                 ],

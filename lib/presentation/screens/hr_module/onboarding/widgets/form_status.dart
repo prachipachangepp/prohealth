@@ -156,14 +156,29 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                                                   border: Border.all(color: const Color(0xff1696C8)),
                                                   borderRadius: BorderRadius.circular(8),
                                                 ),
-                                                child:  IconButtonWidget(
-                                                  width: AppSize.s110,
-                                                  iconData1: Icons.save_alt_outlined,
-                                                  buttonText: 'Download',
-                                                  onPressed: (){
-                                                    downloadFile(formStatus.url);
-                                                  },
+                                                padding: EdgeInsets.only(bottom: 5,left: 10),
+                                                child:
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(top: 6.0),
+                                                      child: Text('Download',style: TextStyle(
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: FontSize.s12,
+                                                        color: Color(0xff1696C8),
+                                                      ),),
+                                                    ),
+                                                    PdfDownloadButton(apiUrl: formStatus.url, documentName: formStatus.htmlname,),
+                                                  ],
                                                 ),
+                                                // IconButtonWidget(
+                                                //   width: AppSize.s110,
+                                                //   iconData1: Icons.save_alt_outlined,
+                                                //   buttonText: 'Download',
+                                                //   onPressed: (){
+                                                //     downloadFile(formStatus.url);
+                                                //   },
+                                                // ),
                                               ) : SizedBox(width: AppSize.s110,),
                                             ],
                                           ),

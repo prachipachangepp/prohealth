@@ -17,6 +17,7 @@ class ProfileEditorModal {
   final String secondryPhoneNbr;
   final String workPhoneNbr;
   final String regOfficId;
+  final String speciality;
   final String personalEmail;
   final String workEmail;
 
@@ -80,6 +81,7 @@ class ProfileEditorModal {
       required this.secondryPhoneNbr,
       required this.workPhoneNbr,
       required this.regOfficId,
+      required this.speciality,
       required this.personalEmail,
       required this.workEmail,
       required this.dateOfBirth,

@@ -13,7 +13,7 @@ import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_a
 import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
 class OnboardingGeneral extends StatefulWidget {
-  final void Function(int,int) selectButton;
+  final void Function(int,int, String) selectButton;
   const OnboardingGeneral({Key? key, required this.selectButton}) : super(key: key);
 
   @override
@@ -41,6 +41,14 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
       currentPage = pageNumber;
     });
   }
+  String _trimAddress(String address) {
+    const int maxLength = 15;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
   @override
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
@@ -81,6 +89,9 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                             SeeAllData general = paginatedData[index];
+                            String fullName =
+                                '${general.firstName?.capitalizeFirst ?? ''} ${general.lastName?.capitalizeFirst ?? ''}';
+
                             return Column(
                               children: [
                                 Material(
@@ -89,7 +100,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: containerWidth,
-                                    height: AppSize.s181,
+                                    //height: AppSize.s181,
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(20),
@@ -137,7 +148,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                               MediaQuery.of(context).size.width /
                                                   60),
                                           child: InkWell(
-                                            onTap: () => widget.selectButton(1,snapshot.data![index].empId!), // Corrected reference
+                                            onTap: () => widget.selectButton(1,snapshot.data![index].empId!,fullName), // Corrected reference
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -241,7 +252,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                         InfoData(general.driverLicenseNum ?? '--'),
                                                         InfoData(general.type ?? '--'),
                                                         InfoData(general.primaryPhoneNbr ?? '--'),
-                                                        InfoData(general.finalAddress ?? '--'),
+                                                        InfoData(_trimAddress(general.finalAddress ?? '--'),),
 
                                                       ],
                                                     ),
