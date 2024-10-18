@@ -253,7 +253,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               }
               if (errorKey == 'mobileNumber') {
                 // Validate phone number fields
-                String numericValue = value.replaceAll(RegExp(r'^\(\d{3}\) \d{3}-\d{4}$'), '');
+                String numericValue = value.replaceAll(RegExp(r'^\(\d{4}\) \d{3}-\d{4}$'), '');
                 errorStates[errorKey] = numericValue.length != 14;
               }
             });
@@ -263,7 +263,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               return 'Please Enter $labelText';
             }
             if (errorKey == 'mobileNumber') {
-              String numericValue = value.replaceAll(RegExp(r'^\(\d{3}\) \d{3}-\d{4}$'), '');
+              String numericValue = value.replaceAll(RegExp(r'^\(\d{4}\) \d{3}-\d{4}$'), '');
               if (numericValue.length != 14) {
                 return 'Please enter a valid mobile number';
               }
