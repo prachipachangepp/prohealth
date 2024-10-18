@@ -854,7 +854,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                 employeeId: widget.employeeId,
                 documentUrl: widget.url,
                 uploadDate: DateTime.now().toIso8601String() + "Z",
-                expiryDate: expiryDate);
+                expiryDate: expiryDate, documentFile: fileIsPicked ? filePath : "");
 
             if (updatedResponse.statusCode == 200 ||
                 updatedResponse.statusCode == 201) {

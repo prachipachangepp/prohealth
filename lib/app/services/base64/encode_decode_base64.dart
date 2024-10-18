@@ -33,6 +33,11 @@ class AppFilePickerBase64 {
     String base64Documents = base64Encode(bytes);
     return base64Documents;
   }
+  static Future<String> getEncodeHTML({required String html}) async {
+    final bytes = utf8.encode(html);
+    // Encode bytes to Base64
+    return base64Encode(bytes);
+  }
 
  // static Future<List<int>> mainFun({required String keyUrl}) async {
  //    String fileName =  keyUrl.split('/').last;

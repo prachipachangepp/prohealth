@@ -54,6 +54,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
   @override
   void initState() {
     super.initState();
+    // pdfFile = widget.htmlFormData;
     // Register a view factory to create an iframe with the HTML content
     // setState((){
     //   dynamicHtmlData = widget.htmlFormData;
@@ -143,12 +144,12 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                         height: 30,
                         width: 140,
                         child: isLoading ?
-                        SizedBox(
-                          height:30,
-                            width:30,
-                            child: Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),))
+                        Center(child: SizedBox(
+                          height:25,
+                            width:25,
+                            child: CircularProgressIndicator(color: ColorManager.blueprime,)),)
                             :CustomIconButton(
-                          icon: Icons.arrow_forward_rounded,
+                          //icon: Icons.arrow_forward_rounded,
                           text: 'Confirm',
                           onPressed: () async{
                             pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);

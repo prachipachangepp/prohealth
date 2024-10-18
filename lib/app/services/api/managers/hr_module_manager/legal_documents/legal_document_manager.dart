@@ -19,8 +19,8 @@ Future<ApiDataRegister> htmlFormTemplateSignature({
 }) async {
   try {
     // String documents = await
-    // AppFilePickerBase64.getEncodeBase64(
-    //     bytes: documentFile);
+    // AppFilePickerBase64.getEncodeHTML(
+    //     html: documentFile);
     final companyId = await TokenManager.getCompanyId();
     var data = {
       "formHtmlTemplatesId": formHtmlTempId,
@@ -53,6 +53,7 @@ Future<ApiDataRegister> htmlFormTemplateSignature({
           message: response.statusMessage!);
     } else {
       print("Error 1");
+      print('Error response ${response.data['message']}');
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: false,
