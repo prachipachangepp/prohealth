@@ -130,13 +130,18 @@ Future<ApiData> patchEmployeeDocuments({
   required int employeeDocumentTypeSetupId,
   required int employeeId,
   required String documentUrl,
+  required dynamic documentFile,
   required String uploadDate,
   String? expiryDate
 }) async {
   try {
-    // String documents = await
-    // AppFilePickerBase64.getEncodeBase64(
-    //     bytes: documentFile);
+    if(documentFile != ""){
+      String documents = await
+      AppFilePickerBase64.getEncodeBase64(
+          bytes: documentFile);
+    }else{
+      return documentFile;
+    }
     // print("File :::${documents}" );
     var response = await Api(context).patch(
       path: UploadDocumentRepository.PatchEmployeeDocumentGet(employeeDocumentId: empDocumentId),
@@ -145,6 +150,7 @@ Future<ApiData> patchEmployeeDocuments({
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
         "employeeId": employeeId,
         "DocumentUrl": documentUrl,
+        "base64":documentFile,
         "UploadDate": uploadDate,
         "expiry_date": expiryDate
       }
