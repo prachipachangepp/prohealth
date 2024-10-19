@@ -80,9 +80,10 @@ Future<OnCallDocument> getLegalOnCallDocument(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('OnCall Document Fetched');
       itemsData = OnCallDocument(
-          onCallId: response.data['id'],
-          html: response.data['html'],
-          name: response.data['name']);
+          // onCallId: response.data['id'],
+          html: response.data,
+          // name: response.data['name']
+      );
     } else {
       print("OnCall Document ");
     }
