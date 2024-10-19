@@ -843,7 +843,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
           });
           String? expiryDate;
           expiryDate = widget.selectedExpiryType == AppConfig.issuer
-              ? datePicked!.toIso8601String() + "Z"
+              ? datePicked!.toIso8601String()+"Z"
               : null;
           try{
             var updatedResponse = await patchEmployeeDocuments(
@@ -853,7 +853,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                 employeeDocumentTypeSetupId: widget.docSetupId,
                 employeeId: widget.employeeId,
                 documentUrl: widget.url,
-                uploadDate: DateTime.now().toIso8601String() + "Z",
+                uploadDate: DateTime.now().toIso8601String()+"Z",
                 expiryDate: expiryDate, documentFile: fileIsPicked ? filePath : "");
 
             if (updatedResponse.statusCode == 200 ||
