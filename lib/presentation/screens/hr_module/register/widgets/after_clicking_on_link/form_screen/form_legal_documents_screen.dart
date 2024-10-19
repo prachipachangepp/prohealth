@@ -153,11 +153,11 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
       Navigator.push(context, MaterialPageRoute(builder: (context)=>
           SignatureFormScreen(
-        documentName: oncallDoc.name,
+        documentName: AppStringLegalDocument.onCall,
         onPressed: () {  },
         htmlFormData: oncallDoc.html,
         employeeId: widget.employeeID,//widget.employeeID,
-        htmlFormTemplateId: oncallDoc.onCallId,)
+        htmlFormTemplateId: id,)
       ));
     }
     else if(htmlName == AppStringLegalDocument.confidentialityAgreement){
