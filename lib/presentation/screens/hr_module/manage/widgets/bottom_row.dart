@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'dart:convert';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
@@ -32,7 +33,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
   void initState() {
     super.initState();
     _fetchIPAddress();
-    _stateFuture = getCurrentLocation();
+    //_stateFuture = getCurrentLocation();
     //getCurrentLocation();
     // getLocation();
    // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
@@ -179,32 +180,63 @@ String? _city;
             ),
 
             /// IP + Geolocation
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _locationData != null ? Text(
-            '${_locationData} ',
-                // '(${_city})',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey[800],
-                decoration: TextDecoration.none,
-              ),
-            ) : Text(
-        '--',
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: Colors.grey[800],
-          decoration: TextDecoration.none,
-        ),
-      ),
-                SizedBox(
-                  width: AppSize.s20,
-                ),
-                _isFetchingIp
-                    ? Text(
+            FutureBuilder(
+                future: getCurrentLocation(),
+                builder: (context,snapshot) {
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return Center(child: SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
+                  }
+                  if(snapshot.data!.isEmpty){
+                    return Text(
+                      '--',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey[800],
+                        decoration: TextDecoration.none,
+                      ),
+                    );
+                  }
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Text(
+                  '${snapshot.data} ',
+                    // '(${_city})',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey[800],
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+
+                      // _locationData != null ? Text(
+                      //   '${_locationData} ',
+                      //   // '(${_city})',
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     fontWeight: FontWeight.w600,
+                      //     color: Colors.grey[800],
+                      //     decoration: TextDecoration.none,
+                      //   ),
+                      // ) : Text(
+                      //   '--',
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: Colors.grey[800],
+                      //     decoration: TextDecoration.none,
+                      //   ),
+                      // ),
+                      SizedBox(
+                        width: AppSize.s20,
+                      ),
+                      _isFetchingIp
+                          ? Text(
                         'Loading IP...',
                         style:TextStyle(
                           fontSize: 12,
@@ -213,7 +245,7 @@ String? _city;
                           decoration: TextDecoration.none,
                         ),
                       )
-                    : Text(
+                          : Text(
                         _ipAddress ?? '--',
                         style: TextStyle(
                           fontSize: 12,
@@ -222,8 +254,12 @@ String? _city;
                           decoration: TextDecoration.none,
                         ),
                       ),
-              ],
+                    ],
+                  );
+                }
             ),
+
+
 
             /// Logo
             Padding(

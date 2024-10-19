@@ -36,7 +36,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
   void initState() {
     super.initState();
     _fetchIPAddress();
-    _stateFuture = getCurrentLocation();
+    //_stateFuture = getCurrentLocation();
     //getLocation();
     // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
@@ -455,26 +455,58 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                   ),
                   Row(
                     children: [
-                      _locationData != null
-                          ? Text(
-                              '${_locationData} ',
-                                  // '(${_city})',
+                      FutureBuilder(
+                          future: getCurrentLocation(),
+                          builder: (context,snapshot) {
+                            if(snapshot.connectionState == ConnectionState.waiting){
+                              return SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(color: ColorManager.blueprime,));
+                            }
+                            if(snapshot.data!.isEmpty){
+                              return Text(
+                                '--',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey[800],
+                                  decoration: TextDecoration.none,
+                                ),
+                              );
+                            }
+                            return Text(
+                              '${snapshot.data} ',
+                              // '(${_city})',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.grey[800],
                                 decoration: TextDecoration.none,
                               ),
-                            )
-                          : Text(
-                              '--',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[800],
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
+                            );
+                          }
+                      ),
+                      // _locationData != null
+                      //     ? Text(
+                      //         '${_locationData} ',
+                      //             // '(${_city})',
+                      //         style: TextStyle(
+                      //           fontSize: 12,
+                      //           fontWeight: FontWeight.w600,
+                      //           color: Colors.grey[800],
+                      //           decoration: TextDecoration.none,
+                      //         ),
+                      //       )
+                      //     : Text(
+                      //         '--',
+                      //         style: TextStyle(
+                      //           fontSize: 12,
+                      //           fontWeight: FontWeight.w600,
+                      //           color: Colors.grey[800],
+                      //           decoration: TextDecoration.none,
+                      //         ),
+                      //       ),
                       SizedBox(
                         width: 50,
                       ),

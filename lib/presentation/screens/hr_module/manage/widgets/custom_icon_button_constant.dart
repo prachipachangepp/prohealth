@@ -35,7 +35,10 @@ class _CustomIconButtonState extends State<CustomIconButton> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+        ? SizedBox(
+        height:25,
+        width:25,
+        child: CircularProgressIndicator( color: ColorManager.blueprime,))
         :ElevatedButton.icon(
       onPressed: () async{
           await widget.onPressed();
