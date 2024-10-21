@@ -50,6 +50,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
     //CenteredTabBarController centeredTabBarController;
     super.initState();
   }
+  bool isSelected = false;
+
   @override
   Widget build(BuildContext context) {
     //print("Employee id in EmployeeMent screen :: ${employeeId}");
@@ -102,7 +104,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     supervisorMobileNumber.text,
                                     positionTitleController.text,
                                     startDateContoller.text,
-                                    endDateController.text,
+                                    isSelected ? null : endDateController.text ,
                                     emergencyMobileNumber.text,
                                     countryController.text);
                                 Navigator.pop(context);
@@ -118,14 +120,22 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                 }
 
                               },
-                              checkBoxTile: Container(
-                                //color: Colors.red,
-                                  width: 300,
-                                  child: CheckboxTile(
-                                    title: 'Currently work here',
-                                    initialValue: false,
-                                    onChanged: (value) {},
-                                  )),
+                              checkBoxTile: StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return Container(
+                                    //color: Colors.red,
+                                      width: 300,
+                                      child: CheckboxTile(
+                                        title: 'Currently work here',
+                                        initialValue: isSelected,
+                                        onChanged: (value) {
+                                          setState((){
+                                            isSelected = !isSelected;
+                                          });
+                                        },
+                                      ));
+                                },
+                              ),
                               tite: 'Add Employment', onpressedClose: () {Navigator.pop(context);},
                             );
                           },

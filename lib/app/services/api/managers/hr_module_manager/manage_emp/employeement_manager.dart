@@ -31,7 +31,7 @@ Future<List<EmployeementData>> getEmployeement(
       for (var item in response.data) {
         String joiningFormattedDate =
             convertIsoToDayMonthYear(item['dateOfJoining']);
-        String endFormattedDate = convertIsoToDayMonthYear(item['endDate']);
+       // String endFormattedDate = convertIsoToDayMonthYear(item['endDate']);
         itemsData.add(EmployeementData(
             employmentId: item['employmentId'],
             employeeId: item['employeeId'],
@@ -42,7 +42,7 @@ Future<List<EmployeementData>> getEmployeement(
             supMobile: item['supMobile'],
             title: item['title'],
             dateOfJoining: joiningFormattedDate,
-            endDate: endFormattedDate,
+            endDate:item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']), //endFormattedDate,
             approved: item['approved'],
             emgMobile: item['emgMobile'],
             country: item['country'],
@@ -62,7 +62,7 @@ Future<List<EmployeementData>> getEmployeement(
 /// Add employeement
 Future<ApiData> addEmployeement(BuildContext context,
     int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
-    String title,String dateOfJoining,String endDate,String emgMobile,String country
+    String title,String dateOfJoining,String? endDate,String emgMobile,String country
     ) async {
   try {
     var response = await Api(context).post(path: ManageReposotory.addEmployeement(), data: {
@@ -74,7 +74,7 @@ Future<ApiData> addEmployeement(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate":"${endDate}T00:00:00Z",
+      "endDate": endDate == null ? null :"${endDate}T00:00:00Z",
       "emgMobile": emgMobile,
       "country": country
     },);
