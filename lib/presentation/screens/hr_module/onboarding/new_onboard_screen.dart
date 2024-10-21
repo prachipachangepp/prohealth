@@ -12,7 +12,8 @@ import '../manage/widgets/bottom_row.dart';
 
 
 class NewOnboardScreen extends StatefulWidget {
-  const NewOnboardScreen({super.key});
+  final VoidCallback onBackPressed;
+  const NewOnboardScreen({super.key, required this.onBackPressed});
 
   @override
   State<NewOnboardScreen> createState() => _NewOnboardScreenState();
@@ -54,7 +55,7 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
       selectButton: _selectButton,
       employeeId: employeeIdCheck,
       employeeName: employeeName,
-      backButtonCallBack: _handleBackButton,
+      backButtonCallBack: _handleBackButton, onBackPressed: widget.onBackPressed,
     );
   }
 }
@@ -69,9 +70,10 @@ class OnboardingTabManage extends StatefulWidget {
   final int employeeId;
   final String employeeName;
   final BackButtonCallBack backButtonCallBack;
+  final VoidCallback onBackPressed;
   final void Function(int,int, String) selectButton;
   OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton,
-    required this.employeeId, required this.employeeName,required this.backButtonCallBack,
+    required this.employeeId, required this.employeeName,required this.backButtonCallBack, required this.onBackPressed,
   });
 
   @override
@@ -90,15 +92,14 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: ColorManager.white,
+   color: Colors.white  ,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.selectedIndex != 0)
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p10,
-              left: AppPadding.p10,),
+              padding: const EdgeInsets.symmetric(horizontal: 340,vertical: 2),
               child: Container(
                 //color: ColorManager.red,
                 child: Text(
@@ -116,87 +117,104 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: () {
-                     // widget.managePageController.jumpToPage(0);
-                      widget.backButtonCallBack(true);
-                    },
-                    child: Text(
-                      'Go Back',
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
+                      onTap: (){
+                        widget.backButtonCallBack(true);
+                      },
+                    child:Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_back,
+                          size: 15,
+                          color: ColorManager.mediumgrey,
+
+                        ),
+
+                        SizedBox(width: 1,),
+                        Text(
+                          'Go Back',
+                          style: DefineWorkWeekStyle.customTextStyle(context),
+                        ),
+                      ],
+                    )
                   ),
 
-                  // InkWell(
-                  //   onTap: (){
-                  //     Navigator.pop(context);
-                  //   },
-                  //   child: Text(
-                  //     'Go Back',
-                  //     style: TextStyle(
-                  //       fontSize: FontSize.s12,
-                  //       fontWeight: FontWeightManager.bold,
-                  //       color: ColorManager.mediumgrey,
-                  //       decoration: TextDecoration.underline,
-                  //     ),
-                  //   ),
-                  // ),
-                 // SizedBox(width: MediaQuery.of(context).size.width/6),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
 
-                      Material(
-                        elevation: 4,
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          height: AppSize.s28,
-                          width: MediaQuery.of(context).size.width / 1.68,
-                          decoration: BoxDecoration(
+                  Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Row(
+                      //   children: [
+                      //     if (widget.selectedIndex != 0)
+                      //       Padding(
+                      //         padding: const EdgeInsets.only(bottom: AppPadding.p10),
+                      //         child: Container(
+                      //           //color: ColorManager.red,
+                      //           child: Text(
+                      //             widget.employeeName,
+                      //             style: TextStyle(
+                      //               fontSize: FontSize.s15,
+                      //               color: ColorManager.white,
+                      //               fontWeight: FontWeight.w700,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //
+                      //   ],
+                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          Material(
+                            elevation: 4,
                             borderRadius: BorderRadius.circular(20),
-                            color: ColorManager.blueprime,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: _categories
-                                .asMap()
-                                .entries
-                                .map(
-                                  (entry) => InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                child: Container(
-                                  height: AppSize.s30,
-                                  width: MediaQuery.of(context).size.width / 8.42,
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-                                        ? Colors.white : null,
-                                  ),
-                                  child: Text(
-                                    entry.value,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s14,
-                                        fontWeight: FontWeight.w600,
-                                        color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-                                            ? ColorManager.mediumgrey
-                                            : ColorManager.white,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName),  //onTap: () => widget.selectButton(entry.key),
+                            child: Container(
+                              height: AppSize.s28,
+                              width: MediaQuery.of(context).size.width / 1.68,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: ColorManager.blueprime,
                               ),
-                            )
-                                .toList(),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: _categories
+                                    .asMap()
+                                    .entries
+                                    .map(
+                                      (entry) => InkWell(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                    child: Container(
+                                      height: AppSize.s30,
+                                      width: MediaQuery.of(context).size.width / 8.42,
+                                      padding: EdgeInsets.symmetric(vertical: 3),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                            ? Colors.white : null,
+                                      ),
+                                      child: Text(
+                                        entry.value,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: FontSize.s14,
+                                            fontWeight: FontWeight.w600,
+                                            color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                                ? ColorManager.mediumgrey
+                                                : ColorManager.white,
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName),  //onTap: () => widget.selectButton(entry.key),
+                                  ),
+                                )
+                                    .toList(),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
@@ -228,7 +246,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 controller: widget.managePageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  OnboardingGeneral(selectButton: widget.selectButton),
+                  OnboardingGeneral(selectButton: widget.selectButton, goBackButtion: widget.onBackPressed),
                   OnboardingQualification(employeeId: widget.employeeId,),
                   Banking(employeeId: widget.employeeId,),
                   HealthRecord(employeeId: widget.employeeId,),
