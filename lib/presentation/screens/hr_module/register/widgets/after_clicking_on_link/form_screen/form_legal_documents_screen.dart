@@ -292,13 +292,17 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
-    else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
-      showDialog(context: context, builder: (BuildContext context){
-        return CandidateReleaseSignPopup(
-          employeeId: widget.employeeID,
-          htmlFormTemplateId:id,
-          );
-      });
+    else if(htmlName == AppStringLegalDocument.employeeHandbook){
+      ProHealthEmployeeHandbook proHealthEmployeeHandbook = await getProHealthEmployeeHandbookDocument(context: context, employeeId: widget.employeeID, templateId: id);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        documentName: proHealthEmployeeHandbook.name,
+        onPressed: () {  },
+        htmlFormData: proHealthEmployeeHandbook.html,
+        employeeId: widget.employeeID,//widget.employeeID,
+        htmlFormTemplateId: proHealthEmployeeHandbook.proHealthEmployeeHandbookId,)));
+    }
+    else if(htmlName == AppStringLegalDocument.flu){
+      // CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID, templateId: id);
       // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
       //   documentName: covidVaccineDocuemnt.name,
       //   onPressed: () {  },
@@ -306,8 +310,15 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       //   employeeId: widget.employeeID,//widget.employeeID,
       //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
+    else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
+      showDialog(context: context, builder: (BuildContext context){
+        return CandidateReleaseSignPopup(
+          employeeId: widget.employeeID,
+          htmlFormTemplateId:id,
+          );
+      });
+    }
     else if(htmlName == AppStringLegalDocument.directDeposit){
-
       showDialog(context: context, builder: (BuildContext context){
         return DirectDepositeSignPopup(employeeId:  widget.employeeID, htmlFormTemplateId: id,);
       });

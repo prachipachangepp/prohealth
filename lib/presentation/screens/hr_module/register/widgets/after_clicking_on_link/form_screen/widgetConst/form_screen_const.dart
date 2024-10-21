@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:js' as js;
 import 'dart:ui' as ui;
@@ -6,6 +7,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -60,7 +63,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     //   dynamicHtmlData = widget.htmlFormData;
     // });
     // Register the view factory
-    ui.platformViewRegistry.registerViewFactory(      'html-viewer-$_uniqueKey', // Use unique key in viewType
+    ui.platformViewRegistry.registerViewFactory('html-viewer-$_uniqueKey', // Use unique key in viewType
            (int viewId) {        final element = html.IFrameElement()
              ..srcdoc = widget.htmlFormData
              ..style.border = 'none'
@@ -229,10 +232,32 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
   }
 }
 class PdfGenerator {
+  // Convert HTML to a Base64-encoded PDF
+  // static Future<String> htmlToBase64Pdf(String htmlContent) async {
+  //   try {
+  //     // Step 1: Generate PDF from HTML
+  //     final dynamic pdfBytes = (await Printing.convertHtml(
+  //       format: PdfPageFormat.a4,
+  //       html: htmlContent,
+  //     ));
+  //
+  //     // Step 2: Convert the generated PDF bytes to Base64
+  //     final String base64Pdf = base64Encode(pdfBytes);
+  //
+  //     // Return the Base64-encoded PDF
+  //     return base64Pdf;
+  //   } catch (e) {
+  //     print("Error generating PDF: $e");
+  //     return "";
+  //   }
+  // }
   // Convert HTML string to a Base64-encoded PDF
   static Future<String> htmlToBase64Pdf(String htmlContent) async {
     try {
+      // String strippedHtml = _removeCss(htmlContent);
+      // String scaledHtml = _scaleHtmlToFitPage(htmlContent);
       final completer = Completer<String>();
+
 
       // JavaScript function to convert HTML to PDF and return Base64
       js.context.callMethod('htmlToPdf', [
@@ -250,4 +275,11 @@ class PdfGenerator {
       return "";
     }
   }
+  // static String _scaleHtmlToFitPage(String htmlContent) {
+  //   return '''
+  //   <div style="width: 100%; height: 100vh; overflow: hidden; transform: scale(0.75); transform-origin: top left;">
+  //     $htmlContent
+  //   </div>
+  //   ''';
+  // }
 }

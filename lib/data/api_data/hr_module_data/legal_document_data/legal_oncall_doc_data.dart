@@ -125,3 +125,19 @@ class ProHealthCellPhoneStatement{
   final int statusCode;
   ProHealthCellPhoneStatement({required this.statusCode,required this.proHealthCellPhoneStatementId, required this.name, required this.html});
 }
+
+class ProHealthEmployeeHandbook{
+  final int proHealthEmployeeHandbookId;
+  final String name;
+  final String html;
+  final int statusCode;
+  ProHealthEmployeeHandbook({required this.statusCode,required this.proHealthEmployeeHandbookId, required this.name, required this.html});
+}
+
+class FluVaccineDocument{
+  final int fluVaccineDocumentId;
+  final String name;
+  final String html;
+  final int statusCode;
+  FluVaccineDocument({required this.statusCode,required this.fluVaccineDocumentId, required this.name, required this.html});
+}
