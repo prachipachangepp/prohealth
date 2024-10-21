@@ -843,7 +843,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
           });
           String? expiryDate;
           expiryDate = widget.selectedExpiryType == AppConfig.issuer
-              ? datePicked!.toIso8601String() + "Z"
+              ? datePicked!.toIso8601String()+"Z"
               : null;
           try{
             var updatedResponse = await patchEmployeeDocuments(
@@ -853,44 +853,53 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                 employeeDocumentTypeSetupId: widget.docSetupId,
                 employeeId: widget.employeeId,
                 documentUrl: widget.url,
-                uploadDate: DateTime.now().toIso8601String() + "Z",
+                uploadDate: DateTime.now().toIso8601String()+"Z",
                 expiryDate: expiryDate, documentFile: fileIsPicked ? filePath : "");
 
             if (updatedResponse.statusCode == 200 ||
                 updatedResponse.statusCode == 201) {
-              if (fileIsPicked) {
-                var response = await uploadDocuments(
-                    context: context,
-                    employeeDocumentMetaId: widget.docMetaDataId,
-                    employeeDocumentTypeSetupId: widget.docSetupId,
-                    employeeId: widget.employeeId,
-                    documentName: fileName,
-                    documentFile: filePath);
-                if (response.statusCode == 200 || response.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'Document Edited Successfully',
-                      );
-                    },
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Document Edited Successfully',
                   );
-                } else {
-                  Navigator.pop(context);
-                  print('Error');
-                }
-              } else {
-                Navigator.pop(context);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddSuccessPopup(
-                      message: 'Document Edited Successfully',
-                    );
-                  },
-                );
-              }
+                },
+              );
+              // if (fileIsPicked) {
+              //   var response = await uploadDocuments(
+              //       context: context,
+              //       employeeDocumentMetaId: widget.docMetaDataId,
+              //       employeeDocumentTypeSetupId: widget.docSetupId,
+              //       employeeId: widget.employeeId,
+              //       documentName: fileName,
+              //       documentFile: filePath);
+              //   if (response.statusCode == 200 || response.statusCode == 201) {
+              //     Navigator.pop(context);
+              //     showDialog(
+              //       context: context,
+              //       builder: (BuildContext context) {
+              //         return AddSuccessPopup(
+              //           message: 'Document Edited Successfully',
+              //         );
+              //       },
+              //     );
+              //   } else {
+              //     Navigator.pop(context);
+              //     print('Error');
+              //   }
+              // } else {
+              //   Navigator.pop(context);
+              //   showDialog(
+              //     context: context,
+              //     builder: (BuildContext context) {
+              //       return AddSuccessPopup(
+              //         message: 'Document Edited Successfully',
+              //       );
+              //     },
+              //   );
+              // }
             }
             setState(() {
               loading = false;
@@ -899,7 +908,6 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
             setState(() {
               loading = false;
             });
-
           }
 
         },

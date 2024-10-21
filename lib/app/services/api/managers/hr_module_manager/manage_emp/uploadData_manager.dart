@@ -135,12 +135,13 @@ Future<ApiData> patchEmployeeDocuments({
   String? expiryDate
 }) async {
   try {
+    String documents;
     if(documentFile != ""){
-      String documents = await
+       documents = await
       AppFilePickerBase64.getEncodeBase64(
           bytes: documentFile);
     }else{
-      return documentFile;
+      documents = documentFile;
     }
     // print("File :::${documents}" );
     var response = await Api(context).patch(
@@ -150,7 +151,7 @@ Future<ApiData> patchEmployeeDocuments({
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
         "employeeId": employeeId,
         "DocumentUrl": documentUrl,
-        "base64":documentFile,
+        "base64":documents,
         "UploadDate": uploadDate,
         "expiry_date": expiryDate
       }
