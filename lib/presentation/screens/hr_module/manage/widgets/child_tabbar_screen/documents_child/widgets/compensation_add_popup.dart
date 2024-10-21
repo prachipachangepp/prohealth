@@ -908,7 +908,6 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
             setState(() {
               loading = false;
             });
-
           }
 
         },
