@@ -37,8 +37,12 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return OnboardingTabManage(managePageController: _onboardPageController, selectedIndex: _selectedIndex,
-        selectButton: _selectButton, employeeId: employeeIdCheck,  employeeName: employeeName,);
+    return OnboardingTabManage(
+      managePageController: _onboardPageController,
+      selectedIndex: _selectedIndex,
+        selectButton: _selectButton,
+      employeeId: employeeIdCheck,
+      employeeName: employeeName,);
   }
 }
 

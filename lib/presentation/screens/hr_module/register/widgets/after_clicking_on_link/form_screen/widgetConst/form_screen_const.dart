@@ -60,7 +60,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     //   dynamicHtmlData = widget.htmlFormData;
     // });
     // Register the view factory
-    ui.platformViewRegistry.registerViewFactory(      'html-viewer-$_uniqueKey', // Use unique key in viewType
+    ui.platformViewRegistry.registerViewFactory(  'html-viewer-$_uniqueKey', // Use unique key in viewType
            (int viewId) {        final element = html.IFrameElement()
              ..srcdoc = widget.htmlFormData
              ..style.border = 'none'
