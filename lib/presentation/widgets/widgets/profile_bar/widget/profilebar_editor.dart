@@ -288,7 +288,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     ),
                                                     child: CircleAvatar(
                                                       radius: 20, // Adjust the size of the avatar
-                                                      backgroundColor: ColorManager.faintGrey,
+                                                      //backgroundColor: ColorManager.faintGrey,
                                                       child: ClipOval(
                                                         child: Image.memory(
                                                           finalPath!, // Display the selected image from gallery
@@ -325,7 +325,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           placeholder: (context, url) =>
                                                           const CircularProgressIndicator(),
                                                           errorWidget: (context, url, error) =>
-                                                          const Icon(Icons.error),
+                                                              CircleAvatar(child: Image.asset("images/profilepic.png",fit:BoxFit.cover),),
                                                         ),
                                                       ),
                                                     ),
@@ -402,8 +402,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                  zoneId: profileData.zoneId,
                                                  SSNNbr: ssNController.text,
                                                  primaryPhoneNbr: phoneNController.text,
-                                                 secondryPhoneNbr:
-                                                 profileData.secondryPhoneNbr,
+                                                 secondryPhoneNbr: profileData.secondryPhoneNbr,
                                                  workPhoneNbr: workPhoneController.text,
                                                  regOfficId: selectedOfficeId ?? profileData.regOfficId,
                                                  personalEmail: personalEmailController.text,
@@ -1183,7 +1182,7 @@ class CoverageRowWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  "County:",
+                  "County :",
                   style: AllPopupHeadings.customTextStyle(context),
                 ),
               )),
@@ -1203,7 +1202,7 @@ class CoverageRowWidget extends StatelessWidget {
           Expanded(
               flex: 2,
               child: Text(
-                "Zone:",
+                "Zone :",
                 style: AllPopupHeadings.customTextStyle(context),
               )),
           SizedBox(width: 5,),

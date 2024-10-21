@@ -235,7 +235,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  615,
+          height:  620,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -579,7 +579,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           ///country
                           buildDropdownButton(context),
                           SizedBox(
-                            height: AppSize.s60,
+                            height: AppSize.s73,
                           ),
                         ],
                       ),

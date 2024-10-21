@@ -240,7 +240,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                           : CachedNetworkImage(
                                         imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
                                         placeholder: (context, url) => CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
+                                        errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
                                         fit: BoxFit.cover, // Ensure the image fits inside the circle
                                         height: 67, // Adjust image height for proper fit
                                         width: 67, // Adjust image width for proper fit

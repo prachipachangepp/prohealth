@@ -107,7 +107,7 @@ class _generalFormState extends State<generalForm> {
         firstname.text = data.firstName ?? '';
         lastname.text = data.lastName ?? '';
         ssecuritynumber.text = data.SSNNbr ?? '';
-        phonenumber.text = data.primaryPhoneNbr ?? '';
+        phonenumber.text = data.secondryPhoneNbr ?? '';
         personalemail.text = data.personalEmail ?? '';
         driverlicensenumb.text = data.driverLicenceNbr ?? '';
         address.text = data.finalAddress ?? '';
@@ -315,8 +315,8 @@ class _generalFormState extends State<generalForm> {
                             1,
                            // 1,
                             ssecuritynumber.text,
+                          //  '',
                             phonenumber.text,
-                            '',
                             '',
                            // '',
                             personalemail.text,
