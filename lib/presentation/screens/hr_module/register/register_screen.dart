@@ -36,15 +36,17 @@ import '../../../widgets/establishment_text_const/text_widget_const.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../em_module/see_all_screen/widgets/popup_const.dart';
+import '../manage/web_manage/manage_screen.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
 import 'dart:html' as html;
 
 ///saloni
 class RegisterScreen extends StatefulWidget {
+  final VoidCallback onBackPressed;
   final Function() onRefresh;
 
-  const RegisterScreen({Key? key, required this.onRefresh, }) : super(key: key);
+  const RegisterScreen({Key? key, required this.onRefresh, required this.onBackPressed, }) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -77,6 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String _selectedValue = 'Sort';
   List<RegisterDataCompID> allData = [];
+
 
   @override
   void initState() {
@@ -112,6 +115,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? selectedDeptName;
   int? selectedDeptId;
 
+
+  //
+  // final PageController _pageController = PageController();
+  // int _currentIndex = 0;
+  //
+  // void _goBack() {
+  //   if (_currentIndex > 0) {
+  //     _pageController.previousPage(
+  //       duration: Duration(milliseconds: 300),
+  //       curve: Curves.easeIn,
+  //     );
+  //     setState(() {
+  //       _currentIndex--;
+  //     });
+  //   }
+  // }
+  //
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -119,55 +143,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
       //  mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 36.0),
-                child: Container(
-                  width: 300,
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ///Enroll Button
-                      Container(
-                        height: AppSize.s30,
-                        width: AppSize.s140,
-                        child:  CustomIconButton(
-                          icon: Icons.add,
-                          text: 'Enroll User',
-                          onPressed: () async {
-                          await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CustomDialog(
-                                  title: "Enroll User",
-                                  //userIdController: userIdController,
-                                  lastNameController: newUserLastNameController,
-                                  emailController: newUserEmailController,
-                                  firstNameController: newUserFirstNameController,
-                                  // roleController: roleController,
-                                  passwordController: newUserPasswordController,
-                                  onCancel: () {
-                                    //widget.onRefresh();
-                                    setState(() {
-                                      fetchData();
-                                    });},
-                                );
-                              },
-                            );
-                          setState((){});
-                          },
-                        ),
-                      ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 35),
+                    child: Container(
 
-                      SizedBox(width: 10,),
-                      /// Select Dropdown button
-                      buildDropdownButton(context),
-                     // const SizedBox(width: 50),
-                    ],
+                      child:  Row(
+                        children: [
+                          InkWell(
+                              onTap: widget.onBackPressed,
+
+                                // widget.backButtonCallBack(true);
+                                // Navigator.pop(context);
+                                // _pageController.animateToPage(1,
+                                //     duration: Duration(milliseconds: 500),
+                                //     curve: Curves.ease);
+
+
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back,
+                                    size: 15,
+                                    color: ColorManager.mediumgrey,
+
+                                  ),
+
+                                  SizedBox(width: 1,),
+                                  Text(
+                                    'Go Back',
+                                    style: DefineWorkWeekStyle.customTextStyle(context),
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 36.0),
+                    child: Container(
+                      width: 300,
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ///Enroll Button
+                          Container(
+                            height: AppSize.s30,
+                            width: AppSize.s140,
+                            child:  CustomIconButton(
+                              icon: Icons.add,
+                              text: 'Enroll User',
+                              onPressed: () async {
+                              await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return CustomDialog(
+                                      title: "Enroll User",
+                                      //userIdController: userIdController,
+                                      lastNameController: newUserLastNameController,
+                                      emailController: newUserEmailController,
+                                      firstNameController: newUserFirstNameController,
+                                      // roleController: roleController,
+                                      passwordController: newUserPasswordController,
+                                      onCancel: () {
+                                        //widget.onRefresh();
+                                        setState(() {
+                                          fetchData();
+                                        });},
+                                    );
+                                  },
+                                );
+                              setState((){});
+                              },
+                            ),
+                          ),
+
+                          SizedBox(width: 10,),
+                          /// Select Dropdown button
+                          buildDropdownButton(context),
+                         // const SizedBox(width: 50),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

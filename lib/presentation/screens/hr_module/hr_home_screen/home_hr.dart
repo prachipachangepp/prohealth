@@ -259,6 +259,27 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   bool isSelectedBox = false;
   //bool isDropdownLicenseStatus = false;
   final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false);
+
+
+
+
+
+  void _goBack() {
+    if (pgeControllerId > 0) {
+      _pageController.previousPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+      setState(() {
+        pgeControllerId--;
+      });
+    }
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -880,8 +901,28 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           onRefresh: () {
                             // myController.selectButton(2);
                           },
+                          onBackPressed: () {
+                            if (myController.selectedIndex.value == 2) {
+                              myController.selectButton(myController.selectedIndex.value - 1);
+                              _pageController.previousPage(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                            }
+                        },
                         ),
-                        NewOnboardScreen(),
+                        NewOnboardScreen(
+                          onBackPressed: () {
+                            if (myController.selectedIndex.value == 3) {
+                              myController.selectButton(myController.selectedIndex.value - 1);
+                              _pageController.previousPage(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                            }
+
+                          },
+                        ),
                         //SeeAllHrScreen()
                       ],
                     );
@@ -914,9 +955,30 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             // setState(() {
                             //
                             //  });
-                          },
+                          }, onBackPressed: () {
+                          if (myController.selectedIndex.value == 2) {
+                            myController.selectButton(myController.selectedIndex.value - 1);
+                            _pageController.previousPage(
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease,
+                            );
+                          }
+
+                        },
                         ),
-                        NewOnboardScreen(),
+                        NewOnboardScreen(
+                          onBackPressed: () {
+                            if (myController.selectedIndex.value == 3) {
+                              myController.selectButton(myController.selectedIndex.value - 1);
+                              _pageController.previousPage(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                            }
+
+                          },
+
+                        ),
                       ],
                     );
                   }

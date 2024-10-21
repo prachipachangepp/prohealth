@@ -9,12 +9,16 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
 import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
 class OnboardingGeneral extends StatefulWidget {
+
   final void Function(int,int, String) selectButton;
-  const OnboardingGeneral({Key? key, required this.selectButton}) : super(key: key);
+  final VoidCallback goBackButtion;
+
+  const OnboardingGeneral({Key? key, required this.selectButton,  required this.goBackButtion}) : super(key: key);
 
   @override
   State<OnboardingGeneral> createState() => _OnboardingGeneralState();
@@ -55,6 +59,36 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     double containerHeight = MediaQuery.of(context).size.height * 0.2;
     return Column(
       children: [
+        Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 23,vertical: 5),
+            child: InkWell(
+                onTap: widget.goBackButtion,
+                child:Row(
+                  children: [
+                    Icon(
+                      Icons.arrow_back,
+                      size: 15,
+                      color: ColorManager.mediumgrey,
+
+                    ),
+
+                    SizedBox(width: 1,),
+                    Text(
+                      'Go Back',
+                      style: DefineWorkWeekStyle.customTextStyle(context),
+                    ),
+                  ],
+                )
+            ),
+          ),
+        ],
+        ),
+
+
+
+
         Expanded(
           child: StreamBuilder<List<SeeAllData>>(
             stream: generalController.stream,
