@@ -57,7 +57,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     'positionTitle': false,
     'leavingReason': false,
     'startDate': false,
-    'endDate': false,
+   // 'endDate': false,
     'lastSupervisorName': false,
     'supervisorMobileNumber': false,
     'cityName': false,
@@ -154,8 +154,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         capitalIsSelect: false,
                         controller: widget.endDateController,
                         labelText: "End Date",
-                        errorKey: 'endDate',
-                        errorMessage: 'Please enter end date',
                         suffixIcon: Icon(Icons.calendar_month_outlined,
                             color: ColorManager.blueprime),
                         onTap: () => _selectDate(
@@ -275,12 +273,12 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
   Widget _buildTextField({
     required TextEditingController controller,
     // required String labelText,
-    required String errorKey,
+    String? errorKey,
     required String labelText,
     Widget? suffixIcon,
     required bool capitalIsSelect,
     VoidCallback? onTap,
-    required String errorMessage,
+    String? errorMessage,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,10 +313,10 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     // Validate phone number fields
                     String numericValue =
                         value.replaceAll(RegExp(r'[^0-9]'), '');
-                    errorStates[errorKey] = numericValue.length != 10;
+                    errorStates[errorKey!] = numericValue.length != 10;
                   } else {
                     // Validate other text fields
-                    errorStates[errorKey] = value.isEmpty;
+                    errorStates[errorKey!] = value.isEmpty;
                   }
                 });
               },
@@ -342,7 +340,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           Padding(
             padding: EdgeInsets.only(top: 1.0),
             child: Text(
-              errorMessage,
+              errorMessage!,
               style: CommonErrorMsg.customTextStyle(context),
             ),
           ),
@@ -399,8 +397,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
         return widget.leavingResonController;
       case 'startDate':
         return widget.startDateContoller;
-      case 'endDate':
-        return widget.endDateController;
       case 'lastSupervisorName':
         return widget.lastSupervisorNameController;
       case 'supervisorMobileNumber':

@@ -24,7 +24,7 @@ BuildContext context, int employeeId, String approveOnly) async{
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
         String StartDate = convertIsoToDayMonthYear(item['dateOfJoining']);
-        String EndDate = convertIsoToDayMonthYear(item['endDate']);
+       // String EndDate = convertIsoToDayMonthYear(item['endDate']);
         itemData.add(OnboardingQualificationEmploymentData(
             employmentId: item['employmentId'],
             empId: item['employeeId'],
@@ -35,7 +35,7 @@ BuildContext context, int employeeId, String approveOnly) async{
             supMobile: item['supMobile'],
             title: item['title'],
             dateOfJoin: StartDate,//item['dateOfJoining'],
-            endDate: EndDate,//item['endDate'],
+            endDate: item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']),//EndDate,//item['endDate'],
             approve: item['approved'] ?? false,
             emgMobile: item['emgMobile'] ?? '--',
             country: item['country'] ?? '--'),

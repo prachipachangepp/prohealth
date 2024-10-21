@@ -251,3 +251,48 @@ class PdfGenerator {
     }
   }
 }
+
+///
+/// class PdfGenerator {
+//   // Convert HTML string to a Base64-encoded PDF
+//   static Future<String> htmlToBase64Pdf(String htmlContent) async {
+//     try {
+//       final completer = Completer<String>();
+//
+//       // Add inline styles to body to enforce no margins
+//       final modifiedHtml = '''
+//       <html>
+//         <head>
+//           <style>
+//             html, body {
+//               margin: 0 !important;
+//               padding: 0 !important;
+//               width: 100%;
+//               height: 100%;
+//               overflow: hidden;
+//             }
+//           </style>
+//         </head>
+//         <body>
+//           $htmlContent
+//         </body>
+//       </html>
+//       ''';
+//
+//       // Call the JavaScript function with the modified HTML content
+//       js.context.callMethod('htmlToPdf', [
+//         modifiedHtml,
+//         js.allowInterop((base64Pdf) {
+//           completer.complete(base64Pdf);
+//         })
+//       ]);
+//
+//       final base64Pdf = await completer.future;
+//       print(base64Pdf);
+//       return base64Pdf;
+//     } catch (e) {
+//       print(e);
+//       return "";
+//     }
+//   }
+// }

@@ -10,6 +10,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../manage/widgets/bottom_row.dart';
 
+
 class NewOnboardScreen extends StatefulWidget {
   const NewOnboardScreen({super.key});
 
@@ -22,7 +23,8 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   int _selectedIndex = 0;
   int employeeIdCheck = 0;
   String employeeName = '';
-  void _selectButton(int index,int employeeId,String name) {
+
+  void _selectButton(int index, int employeeId, String name) {
     setState(() {
       _selectedIndex = index;
       employeeIdCheck = employeeId;
@@ -35,32 +37,46 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
     );
   }
 
+  void _handleBackButton(bool value) {
+    if (value) {
+      setState(() {
+        _selectedIndex = 0;
+      });
+      _onboardPageController.jumpToPage(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return OnboardingTabManage(
       managePageController: _onboardPageController,
       selectedIndex: _selectedIndex,
-        selectButton: _selectButton,
+      selectButton: _selectButton,
       employeeId: employeeIdCheck,
-      employeeName: employeeName,);
+      employeeName: employeeName,
+      backButtonCallBack: _handleBackButton,
+    );
   }
 }
+
+
+///
+typedef BackButtonCallBack = void Function(bool val);
 
 class OnboardingTabManage extends StatefulWidget {
   final PageController managePageController;
   final int selectedIndex;
   final int employeeId;
   final String employeeName;
+  final BackButtonCallBack backButtonCallBack;
   final void Function(int,int, String) selectButton;
   OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton,
-    required this.employeeId, required this.employeeName,
+    required this.employeeId, required this.employeeName,required this.backButtonCallBack,
   });
 
   @override
   State<OnboardingTabManage> createState() => _OnboardingTabManageState();
 }
-
-
 
 class _OnboardingTabManageState extends State<OnboardingTabManage> {
   final List<String> _categories = [
@@ -79,7 +95,19 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
+          if (widget.selectedIndex != 0)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppPadding.p10,
+              left: AppPadding.p10,),
+              child: Container(
+                //color: ColorManager.red,
+                child: Text(
+                  widget.employeeName,
+                  style: CompanyIdentityManageHeadings.customTextStyle(context),
+                ),
+              ),
+            ),
+          SizedBox(height: 20,),
           if (widget.selectedIndex != 0)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
@@ -87,13 +115,29 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  InkWell(
+                    onTap: () {
+                     // widget.managePageController.jumpToPage(0);
+                      widget.backButtonCallBack(true);
+                    },
+                    child: Text(
+                      'Go Back',
+                      style: TextStyle(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+
                   // InkWell(
                   //   onTap: (){
                   //     Navigator.pop(context);
                   //   },
                   //   child: Text(
                   //     'Go Back',
-                  //     style: GoogleFonts.firaSans(
+                  //     style: TextStyle(
                   //       fontSize: FontSize.s12,
                   //       fontWeight: FontWeightManager.bold,
                   //       color: ColorManager.mediumgrey,
@@ -102,17 +146,6 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   //   ),
                   // ),
                  // SizedBox(width: MediaQuery.of(context).size.width/6),
-                  if (widget.selectedIndex != 0)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: AppPadding.p10),
-                      child: Container(
-                        //color: ColorManager.red,
-                        child: Text(
-                          widget.employeeName,
-                          style: CompanyIdentityManageHeadings.customTextStyle(context),
-                        ),
-                      ),
-                    ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -190,7 +223,8 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
             child: Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.width / 45),
-              child: PageView(
+              child:
+              PageView(
                 controller: widget.managePageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [

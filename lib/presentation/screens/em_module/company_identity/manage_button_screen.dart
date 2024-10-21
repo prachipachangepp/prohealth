@@ -125,7 +125,6 @@ class _ManageWidgetState extends State<ManageWidget> {
                               color: ColorManager.mediumgrey,
 
                             ),
-
                             SizedBox(width: 1,),
                             Text(
                               'Go Back',
