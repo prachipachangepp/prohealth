@@ -171,7 +171,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 ),
               ),
 
-              ///visit
+              ///type ofvisit
               Padding(
                 padding: const EdgeInsets.only(left: 150),
                 child: Text(
@@ -180,7 +180,14 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   style: TableHeading.customTextStyle(context),
                 ),
               ),
-
+              Padding(
+                padding: const EdgeInsets.only(left: 150),
+                child: Text(
+                 "",
+                  textAlign: TextAlign.center,
+                  style: TableHeading.customTextStyle(context),
+                ),
+              ),
               ///EL clinician
               Padding(
                 padding: const EdgeInsets.only(right: 250),
@@ -319,6 +326,13 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           Expanded(
                                             child: Text(
                                               visitData.typeofVisit.toString(),
+                                              textAlign: TextAlign.center,
+                                              style:DocumentTypeDataStyle.customTextStyle(context),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "",
                                               textAlign: TextAlign.center,
                                               style:DocumentTypeDataStyle.customTextStyle(context),
                                             ),

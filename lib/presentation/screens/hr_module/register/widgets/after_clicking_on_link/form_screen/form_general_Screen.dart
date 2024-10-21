@@ -103,7 +103,7 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
-        dobcontroller.text = data.dateOfBirth ?? '';
+       dobcontroller.text = data.dateOfBirth ?? '';
         firstname.text = data.firstName ?? '';
         lastname.text = data.lastName ?? '';
         ssecuritynumber.text = data.SSNNbr ?? '';
@@ -252,14 +252,22 @@ class _generalFormState extends State<generalForm> {
                   padding: const EdgeInsets.only(right: 40),
                   child: Column(
                     children: [
-                      CustomButton(
+                      isLoading
+                          ? SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
+                          :CustomButton(
                         width: 117,
                         height: 30,
-                        text: isLoading ? 'Wait..' : 'Save',
+                        text: 'Save',
                         style: BlueButtonTextConst.customTextStyle(context),
                         borderRadius: 12,
                         onPressed: () async {
-                          if (isLoading) return;
+
 
                           // Get the company and user IDs
                           setState(() {
@@ -300,27 +308,27 @@ class _generalFormState extends State<generalForm> {
                             firstname.text,
                             lastname.text,
                             1,
-                            1,
+                          1,
                             spalicity.text,
+                           // 1,
                             1,
                             1,
-                            1,
-                            1,
+                           // 1,
                             ssecuritynumber.text,
                             phonenumber.text,
-                            '1234',
-                            '1234',
-                            'Robert Tech Services',
+                            '',
+                            '',
+                           // '',
                             personalemail.text,
                             personalemail.text,
                             address.text,
                             dobcontroller.text,
-                            '1234',
+                            '',
                             'covreage',
-                            'employment',
+                            //'employment',
                             gendertype.toString(),
                             'Partial',
-                            'service',
+                           // 'service',
                             'imgurl',
                             'resumeurl',
                             companyId,
@@ -328,7 +336,7 @@ class _generalFormState extends State<generalForm> {
                             driverlicensenumb.text,
                             "0000-00-00",//'2024-01-01',
                             "0000-00-00",//'2024-01-01',
-                            "0000-00-00",// '2024-01-01',
+                           // '',// '2024-01-01',
                             'rehirable',
                             'position',
                             address.text,
@@ -387,15 +395,7 @@ class _generalFormState extends State<generalForm> {
                           address.clear();
                           dobcontroller.clear();
                         },
-                        child: isLoading
-                            ? SizedBox(
-                          height: AppSize.s25,
-                          width: AppSize.s25,
-                          child: CircularProgressIndicator(
-                              color: Colors.white
-                          ),
-                        )
-                            : Text(
+                        child: Text(
                           'Save',
                           style: BlueButtonTextConst.customTextStyle(context),
                         ),
@@ -449,7 +449,7 @@ class _generalFormState extends State<generalForm> {
                                 FilePickerResult? result =
                                 await FilePicker.platform.pickFiles(
                                     type: FileType.custom,
-                                    allowedExtensions: ['svg','jpeg']
+                                    allowedExtensions: ['svg','jpeg','jpg','png']
                                 );
 
                                 if (result != null) {
@@ -702,7 +702,7 @@ class _generalFormState extends State<generalForm> {
                             children: [
                               CustomRadioListTile(
                                 title: 'Male',
-                                value: 'male',
+                                value: 'Male',
                                 groupValue: gendertype,
                                 onChanged: (value) {
                                   setState(() {

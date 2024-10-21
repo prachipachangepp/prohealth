@@ -395,7 +395,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                  departmentId: profileData.departmentId,
                                                  employeeTypeId:
                                                  profileData.employeeTypeId,
-                                                 expertise: 'Expert',
+                                                 expertise: profileData.speciality,
                                                  cityId: profileData.cityId,
                                                  countryId: profileData.countryId,
                                                  countyId: profileData.countyId,

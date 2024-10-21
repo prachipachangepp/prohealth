@@ -541,6 +541,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         secondryPhoneNbr: response.data['secondryPhoneNbr'] ?? '',
         workPhoneNbr: response.data['workPhoneNbr'] ?? '',
         regOfficId: response.data['regOfficId'] ?? '',
+        speciality: response.data['speciality'] ?? '',
         personalEmail: response.data['personalEmail'] ?? '',
         workEmail: response.data['workEmail'] ?? '',
         dateOfBirth: dateOfBirth ?? '',

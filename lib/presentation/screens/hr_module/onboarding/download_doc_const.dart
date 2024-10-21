@@ -13,7 +13,7 @@ Future<void> downloadFile(String url) async {
     throw 'Could not launch $url';
   }
 }
-
+///download file const
 class PdfDownloadButton extends StatelessWidget {
   final String apiUrl;
   final String documentName;
@@ -47,6 +47,9 @@ class PdfDownloadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       icon: Icon(Icons.save_alt_outlined, size: 20, color: Color(0xff1696C8),),
       onPressed: _downloadPdf,
       tooltip: 'Download PDF',

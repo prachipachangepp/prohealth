@@ -333,8 +333,8 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             DateTime? date = await showDatePicker(
               context: context,
               initialDate: initialDate,
-              firstDate: DateTime(1100),
-              lastDate: DateTime(2025),
+              firstDate: DateTime(1900),
+              lastDate: DateTime(2101),
             );
             if (date != null) {
               String formattedDate = DateFormat('yyyy-MM-dd').format(date);

@@ -73,11 +73,16 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   String reportingOfficeId ='';
   String specialityName = '';
   String clinicialName ='';
-  int clinicalId = 1;
+  int clinicalId =0;
   String cityName = '';
   String serviceVal ='';
   String generatedURL = '';
   bool _isLoading = false;
+
+  String? selectedService="Hospice";
+
+  String? selectedServiceName;
+
 
 
   Future<String> _generateUrlLink(String email, String Id) async {
@@ -190,6 +195,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   //   super.dispose();
   // }
   String? _PositionError;
+  String? _ZoneError;
   String? _PhoneError;
   String? _firstnameError;
   String? _lastnameError;
@@ -215,6 +221,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       _firstnameError = _validateTextField(widget.firstName.text, 'Please Enter First Name');
       _lastnameError = _validateTextField(widget.lastName.text, 'Please Enter Last Name');
       _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
+      //_ZoneError = _validateTextField(selectedZone!, 'Please Select Zone');
     });
   }
 
@@ -299,7 +306,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
                             ),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           CustomTextField(
                             width: textFieldWidth,
@@ -321,7 +328,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             ),
 
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///email
                           CustomTextField(
@@ -343,7 +350,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
                             ),
                           SizedBox(
-                            height: AppPadding.p10,
+                            height: AppPadding.p8,
                           ),
                           ///zone
                           FutureBuilder<List<AEClinicalZone>>(
@@ -357,13 +364,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   height: textFieldHeight,
                                   items: [],
                                 );
-                              } else if (snapshot.hasError) {
-                                return const CustomDropdownTextField(
-                                  headText: 'Zone',
-                                  //width: MediaQuery.of(context).size.width / 5,
-                                  items: ['Error'],
-                                );
-                              } else if (snapshot.hasData) {
+
+                              }  if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
                                 int degreeID = 0;
                                 for(var i in snapshot.data!){
@@ -372,39 +374,43 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                     value: i.zoneName!,
                                   ));
                                 }
-                                return StatefulBuilder(
-                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                    return  CustomDropdownTextField(
-                                      headText: 'Zone',
-                                      dropDownMenuList: dropDownList,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          for(var a in snapshot.data!){
-                                            if(a.zoneName == newValue){
-                                              selectedZone= a.zoneName;
-                                              zoneId = a.zoneID!;
-                                              countyId = a.countyID!;
-                                              print("Selected zoin id :: ${zoneId}");
-                                              print("Zone :: ${selectedZone}");
-                                              print("county Id :: ${countyId}");
-                                              //empTypeId = docType;
-                                            }
-                                          }
-                                        });
-
-                                      },
-                                    );
-                                  },
-                                );
-                              } else {
                                 return CustomDropdownTextField(
                                   headText: 'Zone',
-                                  // width: MediaQuery.of(context).size.width / 5,
-                                  items: ['No Data'],
+                                  dropDownMenuList: dropDownList,
+                                  onChanged: (newValue) {
+                                  //  setState(() {
+                                      for(var a in snapshot.data!){
+                                        if(a.zoneName == newValue){
+                                          selectedZone= a.zoneName;
+                                          zoneId = a.zoneID!;
+                                          countyId = a.countyID!;
+                                          print("Selected zoin id :: ${zoneId}");
+                                          print("Zone :: ${selectedZone}");
+                                          print("county Id :: ${countyId}");
+                                          //empTypeId = docType;
+                                        }
+                                      }
+                                  //  });
+
+                                  },
                                 );
+
+                              } else {
+                                return const Offstage();
                               }
                             },
                           ),
+                          // if (_ZoneError != null) // Display error if any
+                          //   Padding(
+                          //     padding: const EdgeInsets.only(right:150),
+                          //     child: Text(
+                          //       _ZoneError!,
+                          //       style: TextStyle(
+                          //         color: Colors.red,
+                          //         fontSize: FontSize.s10,
+                          //       ),
+                          //     ),
+                          //   ),
 
                         ],
                       ),
@@ -432,7 +438,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             ),
 
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///clinician
                           FutureBuilder<List<AEClinicalDiscipline>>(
@@ -442,8 +448,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   ConnectionState.waiting) {
                                 return CustomDropdownTextField(
                                   headText: 'Clinician',
-                                  width: textFieldWidth,
-                                  height: textFieldHeight,
+                                  // width: textFieldWidth,
+                                  // height: textFieldHeight,
                                   items: [],
                                  );
                               }
@@ -460,7 +466,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                       if (a.empType == newValue) {
                                         clinicialName = a.empType!;
                                         clinicalId = a.deptID!;
-                                        print("Dept ID ${clinicalId}");
+                                        print("Dept ID'''''' ${clinicalId}");
+                                        print("';';';''''''''Dept ID ${clinicialName}");
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
@@ -473,11 +480,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             },
                           ),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           buildCityDropdownButton(context),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           CustomTextField(
                             width: textFieldWidth,
@@ -523,7 +530,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
                             ),
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///reporting office
 
@@ -553,7 +560,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                         for (var a in snapshot.data!) {
                                           if (a.name == newValue) {
                                             reportingOfficeId = a.name;
-                                            print('Office Name : ${reportingOfficeId}');
+                                            print('Office Name ::::>>>> ${reportingOfficeId}');
                                             // int docType = a.employeeTypesId;
                                             // Do something with docType
                                           }
@@ -567,12 +574,12 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               ),
 
                           SizedBox(
-                            height: AppSize.s10,
+                            height: AppSize.s8,
                           ),
                           ///country
                           buildDropdownButton(context),
                           SizedBox(
-                            height: AppSize.s77,
+                            height: AppSize.s60,
                           ),
                         ],
                       ),
@@ -613,6 +620,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         Row(
 
                           children: [
+
                             CustomRadioListTile(
                               title: 'Full Time',
                               value: 'Full Time',
@@ -653,10 +661,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 });
                               },
                             ),
+
                           ],
                         ),
+
                       ],
                     ),
+
                     //                 child: Padding(
                     //                   padding: EdgeInsets.only(left: 20),
                     //                   child: McqWidget(
@@ -682,41 +693,111 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               ),
               Container(
                 height: 100,
-                child:   FutureBuilder<List<EnrollServices>>(
-                  future: EmpServiceRadioButtonApi(context,),
+                child: FutureBuilder<List<EnrollServices>>(
+                  future: EmpServiceRadioButtonApi(context),
                   builder: (context, snap) {
                     if (snap.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: SizedBox(
                           height: 20,
                           width: 20,
-                          child: CircularProgressIndicator(
-                            color: ColorManager.blueprime,
-                          ),
+                          child: CircularProgressIndicator(),
                         ),
                       );
                     }
                     if (snap.hasData) {
-                      List<String> serviceName = [];
-                      for (var i in snap.data!) {
-                        serviceName.add(i.servicename!);
-                      }
                       return Padding(
                         padding: EdgeInsets.only(left: 20.0),
-                        child: McqWidget(
-                          title: 'Service',
-                          items: serviceName,
-                          onChanged: (val) {
-                            serviceVal = serviceName[val].toString();
-                            print('Service data:::::>> $serviceVal');
-                          },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Service',
+                              style: AllPopupHeadings.customTextStyle(context),
+                            ),
+                            StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) {return Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: snap.data!.map((service) {
+                                    return Row(
+                                      children: [
+                                        Radio<String>(
+                                          splashRadius: 0,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,// Change to String if servicename is a String
+                                          value: service.servicename,  // Use servicename as the value
+                                          groupValue: selectedServiceName, // Group value to determine the selected button
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              selectedServiceName = value; // Update the selected value
+                                            });
+                                            print('Selected Service: >>>>>$value'); // Print selected value
+                                          },
+                                        ),
+                                        Text(
+                                          service.servicename,
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
+                              );  },
+
+                            ),
+                          ],
                         ),
                       );
                     }
-                    return SizedBox();
+                    return Center(child: Text('No data available')); // Handle no data case
                   },
                 ),
               ),
+
+
+
+
+
+              // Container(
+              //   height: 100,
+              //   child:   FutureBuilder<List<EnrollServices>>(
+              //     future: EmpServiceRadioButtonApi(context,),
+              //     builder: (context, snap) {
+              //       if (snap.connectionState == ConnectionState.waiting) {
+              //         return Center(
+              //           child: SizedBox(
+              //             height: 20,
+              //             width: 20,
+              //             child: CircularProgressIndicator(
+              //               color: ColorManager.blueprime,
+              //             ),
+              //           ),
+              //         );
+              //       }
+              //       if (snap.hasData) {
+              //         List<String> serviceName = [];
+              //         for (var i in snap.data!) {
+              //           serviceName.add(i.servicename!);
+              //         }
+              //         return Padding(
+              //           padding: EdgeInsets.only(left: 20.0),
+              //           child: McqWidget(
+              //             title: 'Service',
+              //             items: serviceName,
+              //             onChanged: (val) {
+              //
+              //               serviceVal = serviceName[val].toString();
+              //               print('Service data:::::>> $serviceVal');
+              //               print('Service data:::::>> $serviceName');
+              //             },
+              //           ),
+              //         );
+              //       }
+              //       return SizedBox();
+              //     },
+              //   ),
+              // ),
               SizedBox(
                 height: AppSize.s6,
               ),
@@ -763,7 +844,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   .text,
                               speciality: speciality
                                   .text,
-                              clinicianTypeId: 1,
+                              clinicianTypeId:clinicalId,
                               reportingOfficeId: reportingOfficeId,
                               cityId: cityId,
                               countryId: countryId,
@@ -771,8 +852,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               zoneId: zoneId,
                              // employment: "Full Time",
                               employment: emptype.toString(),
-                              //service: "Home Health",
-                              service: serviceVal,
+                             // service: "Hospice",
+                            service: selectedServiceName.toString(),
                             );
 
                             setState(() {
@@ -811,7 +892,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                             phone: phone
                                                 .text,
                                             reportingOffice: reportingOfficeId,
-                                            services: serviceVal,
+                                            services: selectedService!,
                                             employement: 'Full Time',
                                             clinicalName: clinicialName,
                                             soecalityName: specialityName,
