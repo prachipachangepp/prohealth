@@ -202,6 +202,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               }
               return Wrap(
                 spacing: 10,
+                alignment: snapshot.data!.length == 1
+                    ? WrapAlignment.start
+                    : WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.start,
                 children: List.generate(snapshot.data!.length, (index) {
                   return Padding(
                     padding: const EdgeInsets.only(
