@@ -515,7 +515,7 @@ Future<FluVaccineDocument> getFluVaccineDocument({
   try {
     final response = await ApiOffer(context).get(
         path: LegalDocumentsRepo
-            .getFluVaccineDocument(templateId: templateId, employeeId: employeeId, dateOfVaccine: dateOfVaccine,
+            .getFluVaccineDocument(templateId: templateId, employeeId: employeeId,
             siteOfAdministration: siteOfAdministration, vaccineType: vaccineType, dose: dose, reactions: reactions,
             manufacturer: manufacturer, dateofVaccination: dateofVaccination, nameOfAdministering: nameOfAdministering,
             title: title, providerAddress: providerAddress, acknowledgeFacts: acknowledgeFacts, Allergis: Allergis));

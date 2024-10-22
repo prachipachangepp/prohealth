@@ -87,9 +87,10 @@ class LegalDocumentsRepo{
   static String getProHealthEmployeeHandbook({required int handBookId,required int employeeId}){
     return "$proHealthEmployeeHandbookDocument/$handBookId/$employeeId";
   }
-  static String getFluVaccineDocument({required int templateId,required int employeeId,required String dateOfVaccine,required String siteOfAdministration, required String vaccineType, required String dose,
-   required String reactions, required String manufacturer, required String dateofVaccination, required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts, required String Allergis}){
-    return "$fluVaccineDocument/$templateId/generate-html/$employeeId/$vaccineType/$reactions/$dateOfVaccine/$siteOfAdministration/$dose/$manufacturer/$dateofVaccination/$dateofVaccination/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis";
+
+  static String getFluVaccineDocument({required int templateId,required int employeeId,required String dateofVaccination,required String siteOfAdministration, required String vaccineType, required String dose,
+   required String reactions, required String manufacturer, required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts, required String Allergis}){
+    return "$fluVaccineDocument/$templateId/generate-html/$employeeId/$vaccineType/$reactions/$dateofVaccination/$siteOfAdministration/$dose/$manufacturer/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis";
   }
   static String getW4Documents({required int templateId,required int employeeId, required String middleName,
     required String marriedstatus, required int step3a,required int step3b,required int step3c,required int step4a,

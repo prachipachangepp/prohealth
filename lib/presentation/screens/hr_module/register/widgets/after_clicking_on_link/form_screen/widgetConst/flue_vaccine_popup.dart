@@ -247,26 +247,30 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
           width: AppSize.s105,
           height: AppSize.s30,
           text: AppStringEM.submit,
-          onPressed: () {_validateForm(); // Validate the form on button press
+          onPressed: () async {_validateForm(); // Validate the form on button press
           if (_isFormValid) {
             setState(() {
               loading = true;
             });
-            // DirectDepositDocuemnt directDepositDocuemnt = await getDirectDepositDocument(context: context, employeeId: widget.employeeId, templateId: widget.htmlFormTemplateId, action1:actionController.text, type1: typeController.text,
-            //   bankNameAndAddress: bankNameController.text, routingOrtransit1: rountingController.text, account1: accountController.text, amount1: amountController.text, action2: action2Controller.text, type2: type2Controller.text, bankNameAndaddress2: bankName2Controller.text,
-            //   routingOrtransit2: rounting2Controller.text, account2: account2Controller.text, amount2: amount2Controller.text, );
-            // if(directDepositDocuemnt.statusCode == 200 || directDepositDocuemnt.statusCode == 201){
-            //   Navigator.pop(context);
-            //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-            //     documentName: directDepositDocuemnt.name,
-            //     onPressed: () {
-            //
-            //     },
-            //     htmlFormData: directDepositDocuemnt.html,
-            //     employeeId: widget.employeeId,//widget.employeeID,
-            //     htmlFormTemplateId: directDepositDocuemnt.directDepositDocuemntId,)));
-            // }
-            //
+
+            FluVaccineDocument fluVaccineDocument = await getFluVaccineDocument(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
+                dateOfVaccine: dateOfvaccinationController.text, siteOfAdministration: siteOfAdministrationController.text,
+                vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text,
+                manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
+                nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
+                providerAddress: address2Controller.text, acknowledgeFacts: acknowledgeFactsController.text, Allergis: AllergisController.text);
+            if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                documentName: fluVaccineDocument.name,
+                onPressed: () {
+
+                },
+                htmlFormData: fluVaccineDocument.html,
+                employeeId: widget.employeeId,//widget.employeeID,
+                htmlFormTemplateId: fluVaccineDocument.fluVaccineDocumentId,)));
+            }
+
 
           };
           //finally {
