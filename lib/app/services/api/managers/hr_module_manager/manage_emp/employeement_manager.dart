@@ -31,7 +31,7 @@ Future<List<EmployeementData>> getEmployeement(
       for (var item in response.data) {
         String joiningFormattedDate =
             convertIsoToDayMonthYear(item['dateOfJoining']);
-        String endFormattedDate = convertIsoToDayMonthYear(item['endDate']);
+       // String endFormattedDate = convertIsoToDayMonthYear(item['endDate']);
         itemsData.add(EmployeementData(
             employmentId: item['employmentId'],
             employeeId: item['employeeId'],
@@ -42,7 +42,7 @@ Future<List<EmployeementData>> getEmployeement(
             supMobile: item['supMobile'],
             title: item['title'],
             dateOfJoining: joiningFormattedDate,
-            endDate:item['endDate'] == null ? "" : endFormattedDate,
+            endDate:item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']), //endFormattedDate,
             approved: item['approved'],
             emgMobile: item['emgMobile'],
             country: item['country'],
