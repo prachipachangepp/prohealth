@@ -58,6 +58,56 @@ Future<ApiData> uploadDocuments({
   }
 }
 
+/// patch upload emp document
+Future<ApiData> patchEmployeeBase64Documents({
+  required BuildContext context,
+  required int employeeDocumentId,
+  required int employeeDocumentMetaId,
+  required int employeeDocumentTypeSetupId,
+  required int employeeId,
+  required dynamic documentFile,
+  required String documentName,
+  String? expiryDate
+}) async {
+  try {
+    String documents = await
+    AppFilePickerBase64.getEncodeBase64(
+        bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: UploadDocumentRepository.PatchUploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId,
+          employeeId: employeeId, employeeDocumentId: employeeDocumentId),
+      data: {
+        "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
+        "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
+        "employeeId": employeeId,
+        'base64':documents,
+        "expiry_date": expiryDate,
+        "documentName":documentName
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Documents updated");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 
 Future<void> uploadHttpDocuments({
   required BuildContext context,
@@ -130,19 +180,11 @@ Future<ApiData> patchEmployeeDocuments({
   required int employeeDocumentTypeSetupId,
   required int employeeId,
   required String documentUrl,
-  required dynamic documentFile,
   required String uploadDate,
   String? expiryDate
 }) async {
   try {
-    String documents;
-    if(documentFile != ""){
-       documents = await
-      AppFilePickerBase64.getEncodeBase64(
-          bytes: documentFile);
-    }else{
-      documents = documentFile;
-    }
+
     // print("File :::${documents}" );
     var response = await Api(context).patch(
       path: UploadDocumentRepository.PatchEmployeeDocumentGet(employeeDocumentId: empDocumentId),
@@ -151,10 +193,8 @@ Future<ApiData> patchEmployeeDocuments({
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
         "employeeId": employeeId,
         "DocumentUrl": documentUrl,
-        "base64":documents,
         "UploadDate": uploadDate,
         "expiry_date": expiryDate,
-
       }
     );
     print("Response ${response.toString()}");
