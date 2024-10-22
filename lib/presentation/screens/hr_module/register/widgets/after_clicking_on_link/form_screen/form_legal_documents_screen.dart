@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/flue_vaccine_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/company_property_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/w4_popup.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -304,10 +305,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     }
     else if(htmlName == AppStringLegalDocument.flu){
       showDialog(context: context, builder: (BuildContext context){
-        return FlueVaccineSignPopup(
-          employeeId: widget.employeeID,
-          htmlFormTemplateId:id,
-        );
+        return WFourSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
       });
     }
     else if(htmlName == AppStringLegalDocument.w4){
