@@ -75,8 +75,7 @@ Future<ApiData> patchEmployeeBase64Documents({
         bytes: documentFile);
     print("File :::${documents}" );
     var response = await Api(context).post(
-      path: UploadDocumentRepository.PatchUploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId,
-          employeeId: employeeId, employeeDocumentId: employeeDocumentId),
+      path: UploadDocumentRepository.PatchUploadEmployeeDocumentGet(employeeDocumentId: employeeDocumentId),
       data: {
         "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,

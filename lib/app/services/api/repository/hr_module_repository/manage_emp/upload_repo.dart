@@ -9,7 +9,7 @@ class UploadDocumentRepository{
   static String PatchEmployeeDocumentGet({required int employeeDocumentId,}){
     return "$patchEmployeeDocument/$employeeDocumentId";
   }
-  static String PatchUploadEmployeeDocumentGet({required int employeeDocumentId,required int employeeDocumentTypeMetaDataId,required int employeeDocumentTypeSetupId, required int employeeId}){
-    return "$patchUploadEmployeeDocument/$employeeDocumentId/$employeeDocumentTypeMetaDataId/$employeeDocumentTypeSetupId/$employeeId";
+  static String PatchUploadEmployeeDocumentGet({required int employeeDocumentId,}){
+    return "$patchUploadEmployeeDocument/$employeeDocumentId";
   }
 }
