@@ -465,7 +465,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                     for (var a in snapshot.data!) {
                                       if (a.empType == newValue) {
                                         clinicialName = a.empType!;
-                                        clinicalId = a.deptID!;
+                                        clinicalId = a.employeeTypesId!;
                                         print("Dept ID'''''' ${clinicalId}");
                                         print("';';';''''''''Dept ID ${clinicialName}");
                                         // int docType = a.employeeTypesId;

@@ -308,7 +308,7 @@ class _generalFormState extends State<generalForm> {
                             firstname.text,
                             lastname.text,
                             1,
-                          1,
+                         // 1,
                             spalicity.text,
                            // 1,
                             1,
@@ -433,6 +433,7 @@ class _generalFormState extends State<generalForm> {
                       StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
                         return  Container(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
