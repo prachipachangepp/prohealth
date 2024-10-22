@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/candidate_release_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/direct_deposit_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/flue_vaccine_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/company_property_popup_const.dart';
 
@@ -302,13 +303,12 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         htmlFormTemplateId: proHealthEmployeeHandbook.proHealthEmployeeHandbookId,)));
     }
     else if(htmlName == AppStringLegalDocument.flu){
-      // CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID, templateId: id);
-      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-      //   documentName: covidVaccineDocuemnt.name,
-      //   onPressed: () {  },
-      //   htmlFormData: covidVaccineDocuemnt.html,
-      //   employeeId: widget.employeeID,//widget.employeeID,
-      //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+      showDialog(context: context, builder: (BuildContext context){
+        return FlueVaccineSignPopup(
+          employeeId: widget.employeeID,
+          htmlFormTemplateId:id,
+        );
+      });
     }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
       showDialog(context: context, builder: (BuildContext context){

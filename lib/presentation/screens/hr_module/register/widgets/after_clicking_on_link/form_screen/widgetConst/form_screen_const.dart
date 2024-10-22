@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:js' as js;
 import 'dart:ui' as ui;
@@ -7,8 +6,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/hr_resources/hr_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -63,7 +60,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     //   dynamicHtmlData = widget.htmlFormData;
     // });
     // Register the view factory
-    ui.platformViewRegistry.registerViewFactory(      'html-viewer-$_uniqueKey', // Use unique key in viewType
+    ui.platformViewRegistry.registerViewFactory(  'html-viewer-$_uniqueKey', // Use unique key in viewType
            (int viewId) {        final element = html.IFrameElement()
              ..srcdoc = widget.htmlFormData
              ..style.border = 'none'
@@ -231,6 +228,38 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     );
   }
 }
+///flutter html to pdf package
+// class PdfGenerator {
+//   // Convert HTML to PDF and return a Base64 string
+//   static Future<String> htmlToBase64Pdf(String htmlContent) async {
+//     try {
+//       // Get the directory to store the PDF temporarily
+//       final Directory tempDir = await getTemporaryDirectory();
+//       final String tempPath = tempDir.path;
+//       final String pdfFileName = "generated_pdf";
+//
+//       // Generate the PDF from HTML
+//       final File pdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
+//         htmlContent,
+//         tempPath,
+//         pdfFileName,
+//       );
+//
+//       // Convert the PDF file to bytes
+//       final pdfBytes = await pdfFile.readAsBytes();
+//
+//       // Convert bytes to Base64 string
+//       final base64Pdf = base64Encode(pdfBytes);
+//
+//       print('Base64 PDF: $base64Pdf'); // Debug output
+//       return base64Pdf;
+//     } catch (e) {
+//       print('Error generating PDF: $e');
+//       return "";
+//     }
+//   }
+// }
+///code by sir
 class PdfGenerator {
   // Convert HTML to a Base64-encoded PDF
   // static Future<String> htmlToBase64Pdf(String htmlContent) async {
