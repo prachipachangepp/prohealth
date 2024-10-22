@@ -17,6 +17,8 @@ class LegalDocumentsRepo{
   static String covidVaccineDocument = "/february-covid-vaccination-policy-mandatory";
   static String htmlFormTemplateSignatureAdd = "/form-html-templates-status/add/employee/form/Signatures";
   static String directDepositDocument = "/direct-deposit/generate-template";
+  static String proHealthEmployeeHandbookDocument = "/pro-health-employee-handbook";
+  static String fluVaccineDocument = "  /flu-vaccine-form/{dateOfvaccination}/{siteOfAdministration}/{dose}/{manufacturer}/{dateofVaccination}/{nameOfAdministering}/{title}/{providerAddress}/{acknowledgeFacts}/{Allergis}";
 
 
 
@@ -80,5 +82,12 @@ class LegalDocumentsRepo{
   }
   static String postHemlTemplateFormSignature(){
     return "$htmlFormTemplateSignatureAdd";
+  }
+  static String getProHealthEmployeeHandbook({required int handBookId,required int employeeId}){
+    return "$proHealthEmployeeHandbookDocument/$handBookId/$employeeId";
+  }
+  static String getFluVaccineDocument({required int templateId,required int employeeId,required String dateOfVaccine,required String siteOfAdministration, required String vaccineType, required String dose,
+   required String reactions, required String manufacturer, required String dateofVaccination, required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts, required String Allergis}){
+    return "$fluVaccineDocument/$templateId/generate-html/$employeeId/$dateOfVaccine/$siteOfAdministration/$dose/$manufacturer/$dateofVaccination/$dateofVaccination/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis";
   }
 }

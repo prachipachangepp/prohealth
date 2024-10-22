@@ -478,3 +478,56 @@ Future<ProHealthCellPhoneStatement> getProHealthCellPhoneStatementDocument({
     return itemsData;
   }
 }
+
+
+/// Pro health employee handBook
+Future<ProHealthEmployeeHandbook> getProHealthEmployeeHandbookDocument({
+  required BuildContext context, required int templateId,required int employeeId}) async {
+//var itemList ;
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo
+            .getProHealthEmployeeHandbook(handBookId: templateId, employeeId: employeeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(' Pro Health Employee Handbook Docuemnt Fetched');
+      itemsData = ProHealthEmployeeHandbook(proHealthEmployeeHandbookId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
+    } else {
+      print("ProHealthEmployeeHandbook ");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+
+/// Flu Vaccine Document
+Future<FluVaccineDocument> getFluVaccineDocument({
+  required BuildContext context, required int templateId,required int employeeId,
+  required String dateOfVaccine,required String siteOfAdministration, required String vaccineType,
+  required String dose,required String reactions, required String manufacturer, required String dateofVaccination,
+  required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts,
+  required String Allergis}) async {
+//var itemList ;
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo
+            .getFluVaccineDocument(templateId: templateId, employeeId: employeeId, dateOfVaccine: dateOfVaccine,
+            siteOfAdministration: siteOfAdministration, vaccineType: vaccineType, dose: dose, reactions: reactions,
+            manufacturer: manufacturer, dateofVaccination: dateofVaccination, nameOfAdministering: nameOfAdministering,
+            title: title, providerAddress: providerAddress, acknowledgeFacts: acknowledgeFacts, Allergis: Allergis));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(' Flu Vaccine Docuemnt Fetched');
+      itemsData = FluVaccineDocument(fluVaccineDocumentId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
+    } else {
+      print("FluVaccineDocument");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
