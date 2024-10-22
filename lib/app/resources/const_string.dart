@@ -371,7 +371,7 @@ class AppStringLegalDocument {
   static const String returnOfcompanyProperty = 'Return of company property';
   static const String hepB = 'Hep B';
   static const String tDap = 'T dap';
-  static const String flu = 'Flu';
+  static const String flu = 'Flu-vaccine-form';
   static const String covidVaccine = 'February-covid-vaccination-policy-mandatory';
   static const String i9 = 'i9';
   static const String w4 = 'W4';

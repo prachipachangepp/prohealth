@@ -202,6 +202,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               }
               return Wrap(
                 spacing: 10,
+                alignment: snapshot.data!.length == 1
+                    ? WrapAlignment.start
+                    : WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.start,
                 children: List.generate(snapshot.data!.length, (index) {
                   return Padding(
                     padding: const EdgeInsets.only(
@@ -487,11 +491,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          // const url = "http://localhost:61635/#/onBordingWelcome";
-                            const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                            //  const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                           ///
-                           // Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                          const url = "http://localhost:51230/#/onBordingWelcome";
+                         // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          ///
+                          //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                           if (await canLaunch(url)) {
                            await launch(url);
                            } else {

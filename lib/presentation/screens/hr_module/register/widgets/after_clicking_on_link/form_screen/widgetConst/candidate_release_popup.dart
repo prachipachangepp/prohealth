@@ -152,15 +152,12 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                   documentName: candidateRealeaseDocument.name,
                   onPressed: () {
-
                   },
                   htmlFormData: candidateRealeaseDocument.html,
                   employeeId: widget.employeeId,//widget.employeeID,
                   htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,)
                 ));
               }
-
-
             };
             //finally {
             setState(() {
