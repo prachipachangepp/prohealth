@@ -1167,7 +1167,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       ),
       isLoading
           ? SizedBox(
-              height: 20,
+              height: 25,
               width: 25,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
